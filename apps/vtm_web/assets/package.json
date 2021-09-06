@@ -1,0 +1,81 @@
+{
+  "name": "vtm-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@absinthe/socket-relay": "^0.2.1",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "flow-bin": "^0.159.0",
+    "formik": "^2.2.9",
+    "phoenix": "^1.6.0-rc.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
+    "react-relay": "^12.0.0",
+    "react-router-dom": "^5.2.1",
+    "react-scripts": "^4.0.3",
+    "reactide-config": "^1.0.2",
+    "relay-runtime": "^12.0.0",
+    "suneditor": "^2.41.3",
+    "suneditor-react": "^3.3.0",
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
+  },
+  "scripts": {
+    "refresh-graphql": "get-graphql-schema http://localhost:4000/api > schema.graphql",
+    "start": "yarn run relay && react-scripts start",
+    "build": "yarn run relay && react-scripts build",
+    "relay": "yarn run relay-compiler --schema schema.graphql --src ./src/ --watchman false $@",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "flow": "flow",
+    "reactide-server": "webpack-dev-server --config reactide.config.js --mode development --hot"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:4000",
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-flow": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "8.1.0",
+    "babel-plugin-relay": "^12.0.0",
+    "css-loader": "^2.1.1",
+    "file-loader": "^4.0.0",
+    "graphql": "^15.5.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^6.0.1",
+    "relay-compiler": "^12.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^2.0.0",
+    "webpack": "4.44.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "3.11.1"
+  }
+}

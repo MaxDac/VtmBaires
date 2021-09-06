@@ -1,0 +1,93 @@
+// @flow
+
+import React, { useState } from 'react';
+import MenuItem from '@material-ui/core/MenuItem';
+import PeopleIcon from '@material-ui/icons/People';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import Tooltip from "@material-ui/core/Tooltip";
+
+import sessionQuery from "../../services/queries/session-query";
+import userCharactersQuery from '../../services/queries/user-characters-query';
+import { useHistory } from 'react-router';
+import { handleAuthorizedRejection } from '../../services/utils';
+import IconActivatedMenu from '../../_base/components/IconActivatedMenu';
+
+import type { Session } from "../../services/queries/session-query";
+import type { Character } from "../../services/queries/user-characters-query";
+import {Routes} from "../../AppRouter";
+
+export default function TopRightMenu(): any {
+    const history = useHistory();
+
+    const [waiting, setWaiting] = useState<bool>(false);
+    const [online, setOnline] = useState<Session[]>([]);
+    const [characters, setCharacters] = useState<Character[]>([]);
+
+    const handleOnlineToggle = (open, setOpen) => 
+        _ => {
+            if (open) {
+                setOpen(_ => false);
+            }
+
+            if (!waiting) {
+                setWaiting(true);
+                sessionQuery()
+                    .then(sessions => {
+                        setOnline(sessions.list);
+                        setOpen(_ => true);
+                        setWaiting(false);
+                    })
+                    .catch(handleAuthorizedRejection(history));
+            }
+        };
+
+    const handleCharactersToggle = (open, setOpen) =>
+        _ => {
+            if (open) {
+                setOpen(_ => false);
+            }
+
+            if (!waiting) {
+                setWaiting(true);
+                userCharactersQuery()
+                    .then(sessions => {
+                        setCharacters(sessions.me.userCharacters);
+                        setOpen(_ => true);
+                        setWaiting(false);
+                    })
+                    .catch(handleAuthorizedRejection(history));
+            }
+        };
+
+    const currentOnline = () => online?.length ?? 0;
+
+    const showOnline = handleClose => 
+        online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
+
+    const showCharacters = handleClose => {
+        if (characters && characters.length && characters.length > 0) {
+            return characters.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
+        }
+
+        return <MenuItem onClick={_ => history.push(Routes.get("creation1"))}>Create new</MenuItem>
+    }
+
+    return (
+        <>
+            <Tooltip title="Characters">
+                <div>
+                    <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />} badgeContent={0} handleToggle={handleCharactersToggle}>
+                        {h => showCharacters(h)}
+                    </IconActivatedMenu>
+                </div>
+            </Tooltip>
+            <Tooltip title="Users Online">
+                <div>
+                    <IconActivatedMenu icon={() => <PeopleIcon />} badgeContent={currentOnline()} handleToggle={handleOnlineToggle}>
+                        {h => showOnline(h)}
+                    </IconActivatedMenu>
+                </div>
+            </Tooltip>
+        </>
+    );
+}

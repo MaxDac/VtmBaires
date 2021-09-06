@@ -1,0 +1,77 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+}
+
+type Character {
+  avatar: String
+  biography: String
+  clan: Clan
+  description: String
+  experience: Int
+  id: ID
+  isComplete: Boolean
+  isNpc: Boolean
+  name: String
+}
+
+input CharacterCreationRequest {
+  biography: String!
+  clanId: Int!
+  description: String!
+  isNpc: Int
+  name: String!
+}
+
+type Clan {
+  id: ID
+  name: String
+}
+
+type CreationResult {
+  id: ID
+}
+
+type Master implements User {
+  email: String
+  id: ID
+  name: String
+  userCharacters: [Character]
+}
+
+type Player implements User {
+  email: String
+  id: ID
+  name: String
+  userCharacters: [Character]
+}
+
+enum Role {
+  MASTER
+  PLAYER
+}
+
+type RootMutationType {
+  createCharacter(request: CharacterCreationRequest): Character
+  createUser(email: String!, name: String!, password: String!): CreationResult
+  login(email: String!, password: String!, role: Role!): Session
+}
+
+type RootQueryType {
+  clans: [Clan]
+  list: [Player]
+  me: User
+}
+
+type Session {
+  token: String
+  user: User
+}
+
+interface User {
+  email: String
+  id: ID
+  name: String
+  userCharacters: [Character]
+}
+
