@@ -10,9 +10,10 @@ defmodule VtmWeb.Application do
       # Start the Telemetry supervisor
       VtmWeb.Telemetry,
       # Start the Endpoint (http/https)
-      VtmWeb.Endpoint
+      VtmWeb.Endpoint,
       # Start a worker by calling: VtmWeb.Worker.start_link(arg)
       # {VtmWeb.Worker, arg}
+      {Absinthe.Subscription, VtmWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

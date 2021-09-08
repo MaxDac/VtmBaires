@@ -50,7 +50,7 @@ var v0 = {
 v1 = {
   "alias": null,
   "args": null,
-  "concreteType": "Character",
+  "concreteType": "CharacterInfo",
   "kind": "LinkedField",
   "name": "userCharacters",
   "plural": true,

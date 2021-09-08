@@ -12,7 +12,7 @@ defmodule VtmWeb.Schema.AccountTypes do
 
     resolve_type &AccountsResolvers.parse_role/2
 
-    field :user_characters, list_of(:character) do
+    field :user_characters, list_of(:character_info) do
       resolve &CharacterResolvers.get_user_characters/3
     end
   end
@@ -34,7 +34,7 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :email, :string
     field :name, :string
 
-    field :user_characters, list_of(:character) do
+    field :user_characters, list_of(:character_info) do
       resolve &CharacterResolvers.get_user_characters/3
     end
   end
@@ -46,7 +46,7 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :email, :string
     field :name, :string
 
-    field :user_characters, list_of(:character) do
+    field :user_characters, list_of(:character_info) do
       resolve &CharacterResolvers.get_user_characters/3
     end
   end

@@ -2,6 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import { wrapQueryAuthorized } from "../relay-utils";
+import type {CharacterInfo} from "./character/character-types";
 
 const query = graphql`
     query userCharactersQuery {
@@ -15,15 +16,9 @@ const query = graphql`
     }
 `;
 
-export type Character = {
-    id: string;
-    name: string;
-    avatar: string;
-};
-
 export type CharacterListResponse = {
     me: {
-        userCharacters: Character[]
+        userCharacters: CharacterInfo[]
     }
 };
 

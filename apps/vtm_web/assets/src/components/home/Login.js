@@ -4,7 +4,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
 
-import { login, storeLoginInformation } from "../../services/login-service";
+import { login } from "../../services/login-service";
 import HomeLayout from "./Home.Layout";
 
 import type { Node } from "react";
@@ -14,6 +14,7 @@ import { object, string } from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
+import {storeLoginInformation} from "../../services/session-service";
 
 type LoginComponentProps = {
     setError: (string, string) => void;
@@ -47,7 +48,7 @@ const LoginComponent = ({
         login(email, password, "MASTER")
             .then(res => {
                 storeLoginInformation(res.data.user);
-                history.push(Routes.get("main"));
+                history.push(Routes.main);
             })
             .catch(errors => {
                 setError(errors, "Username or password invalid.");

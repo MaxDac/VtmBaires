@@ -4,24 +4,28 @@ import React, { useState } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import PeopleIcon from '@material-ui/icons/People';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import Tooltip from "@material-ui/core/Tooltip";
 
 import sessionQuery from "../../services/queries/session-query";
 import userCharactersQuery from '../../services/queries/user-characters-query';
 import { useHistory } from 'react-router';
 import { handleAuthorizedRejection } from '../../services/utils';
 import IconActivatedMenu from '../../_base/components/IconActivatedMenu';
+import {Routes} from "../../AppRouter";
 
 import type { Session } from "../../services/queries/session-query";
-import type { Character } from "../../services/queries/user-characters-query";
-import {Routes} from "../../AppRouter";
+import type {CharacterInfo} from "../../services/queries/character/character-types";
+import {useSession} from "../../services/hooks/useSession";
 
 export default function TopRightMenu(): any {
     const history = useHistory();
 
+    const {
+        setCurrentCharacter
+    } = useSession(history);
+
     const [waiting, setWaiting] = useState<bool>(false);
     const [online, setOnline] = useState<Session[]>([]);
-    const [characters, setCharacters] = useState<Character[]>([]);
+    const [characters, setCharacters] = useState<CharacterInfo[]>([]);
 
     const handleOnlineToggle = (open, setOpen) => 
         _ => {
@@ -41,7 +45,7 @@ export default function TopRightMenu(): any {
             }
         };
 
-    const handleCharactersToggle = (open, setOpen) =>
+    const handleCharactersToggle = (open: boolean, setOpen: ((boolean => boolean) => void)) =>
         _ => {
             if (open) {
                 setOpen(_ => false);
@@ -64,30 +68,36 @@ export default function TopRightMenu(): any {
     const showOnline = handleClose => 
         online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
 
-    const showCharacters = handleClose => {
-        if (characters && characters.length && characters.length > 0) {
-            return characters.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
+    const handleCharacterSelection = (info: CharacterInfo, handleClose: Event => void) =>
+        (e: Event) => {
+            console.log("info", info);
+            setCurrentCharacter(info);
+            history.push(Routes.creation2);
         }
 
-        return <MenuItem onClick={_ => history.push(Routes.get("creation1"))}>Create new</MenuItem>
+    const showCharacters = handleClose => {
+        if (characters && characters.length && characters.length > 0) {
+            return characters.map(o =>
+                <MenuItem key={Number(o.id)} onClick={handleCharacterSelection(o, handleClose)}>{o.name}</MenuItem>);
+        }
+
+        return <MenuItem onClick={_ => history.push(Routes.creation1)}>Create new</MenuItem>
     }
 
     return (
         <>
-            <Tooltip title="Characters">
-                <div>
-                    <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />} badgeContent={0} handleToggle={handleCharactersToggle}>
-                        {h => showCharacters(h)}
-                    </IconActivatedMenu>
-                </div>
-            </Tooltip>
-            <Tooltip title="Users Online">
-                <div>
-                    <IconActivatedMenu icon={() => <PeopleIcon />} badgeContent={currentOnline()} handleToggle={handleOnlineToggle}>
-                        {h => showOnline(h)}
-                    </IconActivatedMenu>
-                </div>
-            </Tooltip>
+            <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />}
+                               badgeContent={0}
+                               handleToggle={handleCharactersToggle}
+                               title="Characters">
+                {h => showCharacters(h)}
+            </IconActivatedMenu>
+            <IconActivatedMenu icon={() => <PeopleIcon />}
+                               badgeContent={currentOnline()}
+                               handleToggle={handleOnlineToggle}
+                               title="Online">
+                {h => showOnline(h)}
+            </IconActivatedMenu>
         </>
     );
 }

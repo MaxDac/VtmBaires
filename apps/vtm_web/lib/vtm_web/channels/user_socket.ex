@@ -1,5 +1,6 @@
 defmodule VtmWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: VtmWeb.Schema
 
   ## Channels
   # channel "room:*", VtmWeb.RoomChannel

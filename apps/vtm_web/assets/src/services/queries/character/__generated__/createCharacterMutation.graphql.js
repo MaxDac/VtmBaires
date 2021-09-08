@@ -9,6 +9,7 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CharacterCreationRequest = {|
+  avatar?: ?string,
   biography: string,
   clanId: number,
   description: string,
@@ -20,12 +21,14 @@ export type createCharacterMutationVariables = {|
 |};
 export type createCharacterMutationResponse = {|
   +createCharacter: ?{|
-    +id: ?string,
+    +info: ?{|
+      +id: ?string,
+      +name: ?string,
+    |},
     +clan: ?{|
       +id: ?string,
       +name: ?string,
     |},
-    +name: ?string,
   |}
 |};
 export type createCharacterMutation = {|
@@ -40,12 +43,14 @@ mutation createCharacterMutation(
   $request: CharacterCreationRequest!
 ) {
   createCharacter(request: $request) {
-    id
+    info {
+      id
+      name
+    }
     clan {
       id
       name
     }
-    name
   }
 }
 */
@@ -58,21 +63,23 @@ var v0 = [
     "name": "request"
   }
 ],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v3 = [
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "name",
+    "storageKey": null
+  }
+],
+v2 = [
   {
     "alias": null,
     "args": [
@@ -87,7 +94,16 @@ v3 = [
     "name": "createCharacter",
     "plural": false,
     "selections": [
-      (v1/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "CharacterInfo",
+        "kind": "LinkedField",
+        "name": "info",
+        "plural": false,
+        "selections": (v1/*: any*/),
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -95,13 +111,9 @@ v3 = [
         "kind": "LinkedField",
         "name": "clan",
         "plural": false,
-        "selections": [
-          (v1/*: any*/),
-          (v2/*: any*/)
-        ],
+        "selections": (v1/*: any*/),
         "storageKey": null
-      },
-      (v2/*: any*/)
+      }
     ],
     "storageKey": null
   }
@@ -112,7 +124,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "createCharacterMutation",
-    "selections": (v3/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
   },
@@ -121,19 +133,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "createCharacterMutation",
-    "selections": (v3/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "f7b0986a2aec541e3480562c12812c66",
+    "cacheID": "80a00be936bcd6c95495831032cf714b",
     "id": null,
     "metadata": {},
     "name": "createCharacterMutation",
     "operationKind": "mutation",
-    "text": "mutation createCharacterMutation(\n  $request: CharacterCreationRequest!\n) {\n  createCharacter(request: $request) {\n    id\n    clan {\n      id\n      name\n    }\n    name\n  }\n}\n"
+    "text": "mutation createCharacterMutation(\n  $request: CharacterCreationRequest!\n) {\n  createCharacter(request: $request) {\n    info {\n      id\n      name\n    }\n    clan {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0d6a1d9395b1597a178a8bd2d325fe24';
+(node/*: any*/).hash = '5575f521777d6bf2d4886623f1c4b4d7';
 
 module.exports = node;

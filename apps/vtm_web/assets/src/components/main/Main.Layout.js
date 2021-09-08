@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,8 +16,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from './Menu';
 import TopRightMenu from './TopRightMenu';
 import {useHistory} from "react-router-dom";
-import {check, isMaster} from "../../services/login-service";
+import {check} from "../../services/login-service";
 import {Routes} from "../../AppRouter";
+import useCheckMaster from "../../services/hooks/useCheckMaster";
 
 const drawerWidth = 240;
 
@@ -117,7 +118,8 @@ export type MainLayoutProps = {
 export default function MainLayout(props: MainLayoutProps): any {
     const history = useHistory();
     const classes = useStyles();
-    const [showAdmin, setShowAdmin] =  useState(false)
+    const isMaster = useCheckMaster();
+
     const [open, setOpen] = React.useState(true);
 
     const handleDrawerOpen = () => {
@@ -129,15 +131,11 @@ export default function MainLayout(props: MainLayoutProps): any {
     };
 
     useEffect(() => {
-        isMaster()
-            .then(result => setShowAdmin(_ => result))
-            .catch(_ => setShowAdmin(false));
-
-        check().catch(_ => history.push(Routes.get("login")));
+        check().catch(_ => history.push(Routes.login));
     }, [history]);
 
     const masterMenu = () => {
-        if (showAdmin) {
+        if (isMaster) {
             return (
                 <>
                     <Divider/>

@@ -2,11 +2,11 @@
 
 import { commitMutation, fetchQuery } from "react-relay";
 import environment from "../_base/relay-environment";
-import { getLoginInformation } from "./login-service";
 
 import type {
     PayloadError
 } from "relay-runtime";
+import {getLoginInformation} from "./session-service";
 
 export type BackEndError = {
     errors: Array<string>;

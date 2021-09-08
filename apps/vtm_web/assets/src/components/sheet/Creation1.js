@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React, {useState} from "react";
 import MainLayout from "../main/Main.Layout";
 import Typography from "@material-ui/core/Typography";
 import {object, string} from "yup";
@@ -8,20 +8,28 @@ import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@material-ui/core/Button";
-import {useClans} from "../../_base/hooks/useClans";
+import {useClans} from "../../services/hooks/useClans";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Grid from "@material-ui/core/Grid";
 import createCharacter from "../../services/queries/character/create-character-mutation";
 
+import type {DefaultComponentProps} from "../../_base/types";
+import {updateUserSessionInfo} from "../../services/session-service";
+import {Routes} from "../../AppRouter";
+import FormFileDropField from "../../_base/components/FormFileDropField";
+import type {Base64Result} from "../../_base/file-utils";
+
 const Creation1ValidationSchema = object().shape({
-    name: string("Enter your name").required("Required"),
-    description: string("Enter your description").required("Required"),
-    background: string("Enter your background").required("Required")
+    name: string("Enter your character name").required("Required"),
+    description: string("Enter your character description").required("Required"),
+    biography: string("Enter your character biography").required("Required")
 });
 
-const Creation1 = (setError: (string, string) => void) => {
+const Creation1 = ({ setError }: DefaultComponentProps): any => {
     const history = useHistory();
     const clans = useClans();
+
+    const [avatar, setAvatar] = useState<?Base64Result>(null);
 
     const formik = useFormik({
         initialValues: {
@@ -36,24 +44,32 @@ const Creation1 = (setError: (string, string) => void) => {
 
     const clanSelect = () => {
         if (clans && clans.length > 0) {
-            const values = clans.map(({id, name}) => [id, name]);
+            const values = clans.map(({id, name}) => [id.toString(), name]);
             return <FormSelectField formik={formik} fieldName="clanId" label="Clan" values={values}/>
         }
 
         return <></>
     }
 
+    const avatarChanged = (event: Base64Result) => setAvatar(event);
+
     const onSubmit = data => {
-        createCharacter(data)
+        createCharacter({
+            ...data,
+            avatar: avatar
+        })
             .then(response => {
-                console.log("response", response);
+                updateUserSessionInfo({
+                    selectedCharacter: response
+                });
+                history.push(Routes.main);
             })
-            .catch(error => console.error("Error!", error));
+            .catch(error => setError(error, "An error happened while creating the user."));
     }
 
     return (
         <MainLayout>
-            { classes =>
+            { (classes: any) =>
                 <div className={classes.centeredContainer}>
                     <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
                         <Grid container spacing={3}>
@@ -67,6 +83,9 @@ const Creation1 = (setError: (string, string) => void) => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 {clanSelect()}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
                             </Grid>
                             <Grid item xs={12}>
                                 <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />

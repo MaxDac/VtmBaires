@@ -1,5 +1,6 @@
 // @flow
 
+import React from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
@@ -11,13 +12,13 @@ export type SelectInputProps = {
     formik: Formik;
     fieldName: string;
     label: string;
-    values: [number, string][];
+    values: [string, string][];
 };
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles: any = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 150,
     },
     selectEmpty: {
         marginTop: theme.spacing(2),

@@ -33,7 +33,8 @@ defmodule VtmWeb.Router do
       # socket: VtmWeb.UserSocket
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: VtmWeb.Schema
+      schema: VtmWeb.Schema,
+      socket: VtmWeb.UserSocket
       # interface: :simple,
       # socket: VtmWeb.UserSocket
   end

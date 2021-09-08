@@ -23,6 +23,7 @@ export type IconActivatedMenuProps = {
     badgeContent: any;
     icon: () => any;
     handleToggle: (bool, (bool => bool) => void) => Event => void;
+    title?: ?string;
     children: (Event => void) => any;
 }
 
@@ -40,7 +41,7 @@ export default function IconActivatedMenu(props: IconActivatedMenuProps): any {
 
     return (
         <>
-            <IconButton color="inherit" onClick={props.handleToggle(open, setOpen)} ref={anchorRef}>
+            <IconButton color="inherit" onClick={props.handleToggle(open, setOpen)} ref={anchorRef} title={props.title}>
                 <Badge badgeContent={props.badgeContent} color="secondary">
                     {props.icon()}
                 </Badge>

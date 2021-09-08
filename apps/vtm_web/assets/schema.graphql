@@ -3,24 +3,53 @@ schema {
   mutation: RootMutationType
 }
 
+type Attribute {
+  attributeType: AttributeType
+  description: String
+  id: ID
+  name: String
+}
+
+type AttributeType {
+  id: ID
+  name: String
+  section: String
+}
+
 type Character {
-  avatar: String
+  approved: Boolean
   biography: String
   clan: Clan
   description: String
   experience: Int
-  id: ID
+  generation: Int
+  humanity: Int
+  info: CharacterInfo
   isComplete: Boolean
   isNpc: Boolean
-  name: String
+  predatorType: PredatorType
+  stage: Int
+}
+
+input CharacterAttributeRequest {
+  attributeId: ID!
+  characterId: ID!
+  value: Int!
 }
 
 input CharacterCreationRequest {
+  avatar: String
   biography: String!
   clanId: Int!
   description: String!
   isNpc: Int
   name: String!
+}
+
+type CharacterInfo {
+  avatar: String
+  id: ID
+  name: String
 }
 
 type Clan {
@@ -36,14 +65,20 @@ type Master implements User {
   email: String
   id: ID
   name: String
-  userCharacters: [Character]
+  userCharacters: [CharacterInfo]
 }
 
 type Player implements User {
   email: String
   id: ID
   name: String
-  userCharacters: [Character]
+  userCharacters: [CharacterInfo]
+}
+
+type PredatorType {
+  description: String
+  id: ID
+  name: String
 }
 
 enum Role {
@@ -52,15 +87,19 @@ enum Role {
 }
 
 type RootMutationType {
+  appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   createCharacter(request: CharacterCreationRequest): Character
   createUser(email: String!, name: String!, password: String!): CreationResult
   login(email: String!, password: String!, role: Role!): Session
 }
 
 type RootQueryType {
+  attributes: [Attribute]
   clans: [Clan]
+  getCharacter(id: ID): Character
   list: [Player]
   me: User
+  predatorTypes: [PredatorType]
 }
 
 type Session {
@@ -72,6 +111,6 @@ interface User {
   email: String
   id: ID
   name: String
-  userCharacters: [Character]
+  userCharacters: [CharacterInfo]
 }
 
