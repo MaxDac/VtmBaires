@@ -114,3 +114,11 @@ Vtm.Repo.insert!(%Vtm.Characters.PredatorType{name: "Osiris", description: "Osir
 Vtm.Repo.insert!(%Vtm.Characters.PredatorType{name: "Sandman", description: "Sandman"})
 Vtm.Repo.insert!(%Vtm.Characters.PredatorType{name: "SceneQueen", description: "SceneQueen"})
 Vtm.Repo.insert!(%Vtm.Characters.PredatorType{name: "Siren", description: "Siren"})
+
+%{id: palermo_id} = Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Palermo", is_chat: false})
+Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Recoleta", is_chat: false})
+Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Puerto Madero", is_chat: false})
+Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Retiro", is_chat: false})
+Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: false})
+
+Vtm.Repo.insert!(%Vtm.Chats.ChatMap{name: "Plaza Garibaldi", is_chat: true, chat_map_id: palermo_id})

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useState} from "react";
-import MainLayout from "../main/Main.Layout";
+import MainLayout from "../Main.Layout";
 import Typography from "@material-ui/core/Typography";
 import {object, string} from "yup";
 import {useFormik} from "formik";

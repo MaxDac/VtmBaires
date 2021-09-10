@@ -9,18 +9,12 @@ import CreationBase from "./strategies/CreationBase";
 import MainLayout from "../Main.Layout";
 
 type FormAttributes = {
-    attribute4: string;
-    attribute31: string;
-    attribute32: string;
-    attribute33: string;
-    attribute21: string;
-    attribute22: string;
-    attribute23: string;
-    attribute24: string;
-    attribute1: string;
+    discipline1: ?string;
+    discipline2: ?string;
+    predatorType: ?string;
 };
 
-const Creation2 = ({ setError }: DefaultComponentProps): any => {
+const Creation3 = ({ setError }: DefaultComponentProps): any => {
     const emptyAttributes = {
         attribute4: "",
         attribute31: "",
@@ -49,7 +43,7 @@ const Creation2 = ({ setError }: DefaultComponentProps): any => {
         <>
             <Grid item xs={12}>
                 <Typography>
-                    You can choose one attribute at 4 levels:
+                    Select the Disciplines of your character type:
                 </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -114,4 +108,4 @@ const Creation2 = ({ setError }: DefaultComponentProps): any => {
     )
 }
 
-export default Creation2;
+export default Creation3;

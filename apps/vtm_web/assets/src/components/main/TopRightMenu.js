@@ -69,8 +69,7 @@ export default function TopRightMenu(): any {
         online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
 
     const handleCharacterSelection = (info: CharacterInfo, handleClose: Event => void) =>
-        (e: Event) => {
-            console.log("info", info);
+        _ => {
             setCurrentCharacter(info);
             history.push(Routes.creation2);
         }

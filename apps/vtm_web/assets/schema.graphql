@@ -1,6 +1,7 @@
 schema {
   query: RootQueryType
   mutation: RootMutationType
+  subscription: RootSubscriptionType
 }
 
 type Attribute {
@@ -52,6 +53,22 @@ type CharacterInfo {
   name: String
 }
 
+input ChatEntryRequest {
+  characterId: ID!
+  chatMapId: ID!
+  result: String
+  text: String
+}
+
+type ChatLocation {
+  childs: [ChatLocation]
+  description: String
+  id: ID
+  image: String
+  isChat: Boolean
+  name: String
+}
+
 type Clan {
   id: ID
   name: String
@@ -59,6 +76,15 @@ type Clan {
 
 type CreationResult {
   id: ID
+}
+
+type MapChatEntry {
+  characterId: ID
+  characterName: String
+  chatMapId: ID
+  id: ID
+  result: String
+  text: String
 }
 
 type Master implements User {
@@ -89,6 +115,7 @@ enum Role {
 type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   createCharacter(request: CharacterCreationRequest): Character
+  createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
   login(email: String!, password: String!, role: Role!): Session
 }
@@ -98,8 +125,16 @@ type RootQueryType {
   clans: [Clan]
   getCharacter(id: ID): Character
   list: [Player]
+  mainMaps: [ChatLocation]
+  map(id: ID): ChatLocation
+  mapChatEntries(mapId: ID): [MapChatEntry]
   me: User
   predatorTypes: [PredatorType]
+  sectionMaps(parentId: ID): [ChatLocation]
+}
+
+type RootSubscriptionType {
+  newChatEntry(mapId: ID!): MapChatEntry
 }
 
 type Session {

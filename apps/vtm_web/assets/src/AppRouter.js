@@ -12,6 +12,8 @@ import Creation1 from "./components/sheet/Creation1";
 import 'suneditor/dist/css/suneditor.min.css';
 import Creation2 from "./components/sheet/Creation2";
 import Creation3 from "./components/sheet/Creation3";
+import Map from "./components/chat/Map";
+import Chat from "./components/chat/Chat";
 
 export const Routes = {
     login: "/login",
@@ -20,7 +22,9 @@ export const Routes = {
     admin: "/admin",
     creation1: "/creation/1",
     creation2: "/creation/2",
-    creation3: "/creation/3"
+    creation3: "/creation/3",
+    subMap: (id: string): string => `/map/${id}`,
+    chat: (id: string): string => `/chat/${id}`
 };
 
 export const AdminRoutes = {
@@ -48,6 +52,9 @@ const AppRouter = ({
         <Route exact path="/creation/1" component={() => <Creation1 setError={setError} />} />
         <Route exact path="/creation/2" component={() => <Creation2 setError={setError} />} />
         <Route exact path="/creation/3" component={() => <Creation3 setError={setError} />} />
+
+        <Route exact path="/map/:id" component={({match: {params: {id}}}) => <Map setError={setError} id={id} />} />
+        <Route exact path="/chat/:id" component={({match: {params: {id}}}) => <Chat setError={setError} id={id} />} />
 
         <Route exact path="/admin/guides" component={AdminGuides} />
         <Route exact path="/admin" component={() => <AdminDashboard setError={setError} />} />

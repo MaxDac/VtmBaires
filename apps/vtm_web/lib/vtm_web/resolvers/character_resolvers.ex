@@ -1,11 +1,6 @@
 defmodule VtmWeb.Resolvers.CharacterResolvers do
   alias Vtm.Characters
 
-  alias Vtm.Characters.Character
-  # alias Vtm.Characters.Clan
-
-  # alias VtmWeb.Resolvers.Helpers
-
   def get_clans(_, _, _) do
     {:ok, Characters.get_clans()}
   end
@@ -54,18 +49,10 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def append_attributes(x, %{ request: request, new_stage: new_stage }, context = %{context: %{current_user: %{ id: user_id }}}) do
-    IO.puts "request: #{inspect request}"
-
-    [%{character_id: character_id} | _] = request
-
-    with true     <- Characters.character_of_user?(user_id, character_id),
-         {:ok, _} <- Characters.append_attributes(request),
-         {:ok, _} <- Characters.update(character_id, %{ stage: new_stage }) do
+    with {:ok, character_id} <- Characters.update_character_stage(user_id, new_stage, request) do
       get_character(x, %{ id: character_id }, context)
     else
-      false ->
-        {:error, :unauthorized}
-      e -> e
+      _ -> {:error, :unauthorized}
     end
   end
 end

@@ -4,7 +4,6 @@ import React, {useState} from "react";
 
 import {useSession} from "../../../services/hooks/useSession";
 import {useHistory} from "react-router-dom";
-import MainLayout from "../../main/Main.Layout";
 import Typography from "@material-ui/core/Typography";
 import {usePreloadedQuery} from "react-relay";
 import {attributesQuery, preloadedQuery} from "../../../services/queries/info/attributes-query";
@@ -19,10 +18,13 @@ import {Routes} from "../../../AppRouter";
 import useCharacterStage from "../../../services/hooks/useCharacterStage";
 
 import type {Attributes} from "./attribute-helpers";
+import type { AttributeTypeNames } from "../../../services/queries/info/attributes-query";
 
 export type CreationBaseProps<TFormAttributes> = {
+    classes: any;
     setError: (string, string) => void;
     currentStage: number;
+    attributeTypeName: AttributeTypeNames;
     emptyAttributes: TFormAttributes;
     getAttributesToSave: (TFormAttributes, (string, number) => CharacterAttributeRequest) => Array<CharacterAttributeRequest>;
     children: ((string, string) => any) => any;
@@ -45,7 +47,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     const selectFields = () => {
         const attrs = data
-            .filter(({ attributeType: { name } }) => name === "Attribute")
+            .filter(({ attributeType: { name } }) => name === props.attributeTypeName)
             .map(({ id, name}) => [String(id), name]);
 
         return [["", " "]].concat(attrs);
@@ -90,12 +92,10 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     const onSubmit = setError => _ => {
         if (errors && Object.keys(errors).length > 0) {
-            console.log("error1", errors);
             return;
         }
 
         if (Object.values(values).some(v => v === "")) {
-            console.log("error2", values);
             return;
         }
 
@@ -107,35 +107,28 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         const request: Array<CharacterAttributeRequest> = props.getAttributesToSave(values, generateRequest);
 
-        appendAttributesMutation(request, props.currentStage + 1)
-            .then(c => {
-                console.log("passing", c);
-                history.push(Routes.creation3);
-            })
+        appendAttributesMutation(request, props.currentStage)
+            .then(_ => history.push(Routes.creation3))
             .catch(e => setError(e, "There was an error while updating the character."));
     }
 
     return (
-        <MainLayout>
-            { (classes: any) =>
-                <div className={classes.centeredContainer}>
-                    <Typography>
-                        Now you will have to select the attributes and abilities of your character.
-                    </Typography>
-                    <Grid container>
-                        {props.children(getAttributeSelector)}
-                    </Grid>
-                    <Button type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={onSubmit(props.setError)}>
-                        Continue!
-                    </Button>
-                </div>
-            }
-        </MainLayout>
+        <>
+            <Typography>
+                Now you will have to select the attributes and abilities of your character.
+            </Typography>
+            <Grid container>
+                {props.children(getAttributeSelector)}
+            </Grid>
+            <Button type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={props.classes.submit}
+                    onClick={onSubmit(props.setError)}>
+                Continue!
+            </Button>
+        </>
     )
 }
 

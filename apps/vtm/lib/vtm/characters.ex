@@ -42,6 +42,14 @@ defmodule Vtm.Characters do
     not is_nil(Repo.one(query))
   end
 
+  def character_at_stage?(character_id, stage) do
+    query = from c in Character,
+      where: c.id == ^character_id,
+      where: c.stage == ^stage
+
+    not is_nil(Repo.one(query))
+  end
+
   def get_specific_character(%{ role: :master }, id) do
     Character
     |> preload(:clan)
@@ -71,7 +79,7 @@ defmodule Vtm.Characters do
     |> Repo.insert()
   end
 
-  def update(id, attrs) do
+  def update_character(id, attrs) do
     with character <- Character |> Repo.get(id) do
       character
       |> Character.update_changeset(attrs)
@@ -79,44 +87,51 @@ defmodule Vtm.Characters do
     end
   end
 
+  defp invalid_changeset(%Ecto.Changeset{valid?: false}), do: true
+  defp invalid_changeset(_), do: false
+
+  defp insertion_error({:error, _}), do: true
+  defp insertion_error(_), do: false
+
   def append_attributes(attrs) do
-    invalid_changeset = fn
-      %Ecto.Changeset{valid?: false} -> true
-      _ -> false
-    end
-
-    insertion_error = fn
-      {:error, _} -> true
-      _           -> false
-    end
-
     values = attrs |> Enum.map(&CharacterAttribute.changeset(%CharacterAttribute{}, &1))
 
-    with false    <- values |> Enum.any?(invalid_changeset) do
-      IO.puts "css: #{inspect values}"
-
+    with false <- values |> Enum.any?(&invalid_changeset/1) do
       Repo.transaction(fn ->
         results = values |> Enum.map(&Repo.insert_or_update/1)
 
-        with false <- results |> Enum.any?(insertion_error) do
+        with false <- results |> Enum.any?(&insertion_error/1) do
           {:ok, %{}}
         else
           _ ->
             [error] =
               results
-              |> Enum.filter(insertion_error)
+              |> Enum.filter(&insertion_error/1)
               |> Enum.take(1)
 
             Repo.rollback(error)
         end
       end)
-
-
     else
       true ->
         values
-        |> Enum.filter(invalid_changeset)
+        |> Enum.filter(&invalid_changeset/1)
         |> Enum.take(1)
+    end
+  end
+
+  def update_character_stage(user_id, new_stage, attrs) do
+    [%{character_id: character_id} | _] = attrs
+
+    with true     <- character_of_user?(user_id, character_id),
+         true     <- character_at_stage?(character_id, new_stage - 1),
+         {:ok, _} <- append_attributes(attrs),
+         {:ok, _} <- update_character(character_id, %{ stage: new_stage }) do
+      {:ok, character_id}
+    else
+      false ->
+        {:error, :unauthorized}
+      e -> e
     end
   end
 end

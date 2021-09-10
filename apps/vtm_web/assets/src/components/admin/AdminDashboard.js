@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-import MainLayout from "../main/Main.Layout";
+import MainLayout from "../Main.Layout";
 import {useHistory} from "react-router-dom";
 import {pushAdmin} from "../../AppRouter";
 import List from '@material-ui/core/List';

@@ -11,20 +11,24 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
 import type {MapLocationSlim} from "../../services/queries/chat/chat-queries";
 import {useHistory} from "react-router-dom";
-import {usePreloadedQuery} from "react-relay";
-import {mainMapsQuery, preloadedMainMapsQuery} from "../../services/queries/chat/chat-queries";
 import {Routes} from "../../AppRouter";
+import {useMaps} from "../../services/hooks/useMaps";
 
-export default function Main(): any {
+type MapProps = {
+    setError: (string, string) => void;
+    id: string;
+}
+
+const Map: any = ({ setError, id }: MapProps) => {
     const history = useHistory();
-    const { mainMaps: data } = usePreloadedQuery(mainMapsQuery, preloadedMainMapsQuery);
+    const maps = useMaps(id);
 
     const subHeader = () =>
         <ListSubheader component="div" id="nested-list-subheader">
             Locations
         </ListSubheader>
 
-    const openMap = (id: string) => _ => history.push(Routes.subMap(id));
+    const openMap = (id: string) => _ => history.push(Routes.chat(id));
 
     const mapLinks = () => {
         const mapLink = ({ id, name }: MapLocationSlim) =>
@@ -35,7 +39,7 @@ export default function Main(): any {
                 <ListItemText primary={name} />
             </ListItem>;
 
-        return data?.map(mapLink) ?? [];
+        return maps?.map(mapLink) ?? [];
     }
 
     return (
@@ -52,4 +56,6 @@ export default function Main(): any {
             }
         </MainLayout>
     );
-}
+};
+
+export default Map;

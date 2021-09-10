@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import MainLayout from "../../main/Main.Layout";
+import MainLayout from "../../Main.Layout";
 
 const AdminGuides = (): any => (
     <MainLayout>
