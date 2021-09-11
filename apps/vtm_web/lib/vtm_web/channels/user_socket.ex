@@ -17,7 +17,10 @@ defmodule VtmWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
+  def connect(params, socket, connect_info) do
+    IO.puts "params: #{inspect params}"
+    IO.puts "socket: #{inspect socket.assigns}"
+    IO.puts "connect_info: #{inspect connect_info}"
     {:ok, socket}
   end
 

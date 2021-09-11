@@ -4,7 +4,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {useMap} from "../../services/hooks/useMaps";
 import MainLayout from "../Main.Layout";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import subscriptionPromise from "../../services/queries/chat/chat-subscription";
 import type { Element, AbstractComponent } from "react";
 import type {MainLayoutProps} from "../Main.Layout";
@@ -12,17 +11,18 @@ import ChatInput from "./ChatInput";
 import {subscribe} from "../../services/relay-utils";
 import type {ChatEntry} from "../../services/queries/chat/ChatQueries";
 import {chatEntriesQueryPromise} from "../../services/queries/chat/ChatQueries";
-import chatEntryMutationPromise from "../../services/queries/chat/chat-mutation";
 import {useHistory} from "react-router-dom";
 import {useSession} from "../../services/hooks/useSession";
+import List from "@material-ui/core/List";
 import ChatEntryComponent from "./ChatEntryComponent";
+import chatEntryMutationPromise from "../../services/queries/chat/chat-mutation";
+import type {DefaultComponentProps} from "../../_base/types";
 
-type ChatProps = {
-    setError: (string, ?string) => void;
+type ChatProps = DefaultComponentProps & {
     id: string;
 }
 
-const Chat = ({ setError, id }: ChatProps): Element<AbstractComponent<MainLayoutProps>> => {
+const Chat = ({ setError, openDialog, id }: ChatProps): Element<AbstractComponent<MainLayoutProps>> => {
     const history = useHistory();
     const map = useMap(id);
     const session = useSession(history);
@@ -40,7 +40,6 @@ const Chat = ({ setError, id }: ChatProps): Element<AbstractComponent<MainLayout
     useEffect(() => {
         chatEntriesQueryPromise(id)
             .then(c => {
-                console.log("c", c);
                 setEntries(c);
                 scrollToBottom();
             })
@@ -57,16 +56,19 @@ const Chat = ({ setError, id }: ChatProps): Element<AbstractComponent<MainLayout
 
     const showEntries = classes => {
         if (entries && entries.map) {
-            return entries?.map(e => ChatEntryComponent(classes, e));
+            return entries?.map((e, index) =>
+                <ChatEntryComponent classes={classes}
+                                    entry={e}
+                                    key={e.id}
+                                    isLast={index === entries.length - 1} />);
         }
 
         return [];
     }
 
     const onNewEntry = (entry: string) => {
-        console.log("new entry", entry);
         if (!session.character?.id) {
-            setError("You must select a character to play.");
+            setError("You must select a character to play.", "");
         }
         else {
             chatEntryMutationPromise({
@@ -75,17 +77,17 @@ const Chat = ({ setError, id }: ChatProps): Element<AbstractComponent<MainLayout
                 text: entry,
             })
                 .then(result => console.log("result", result))
-                .catch(error => setError(error));
+                .catch(error => setError(error, "An error happened while sending the chat"));
         }
     }
 
     return (
-        <MainLayout>
+        <MainLayout openDialog={openDialog}>
             { (classes: any) =>
                 <Container className={classes.chatRootContainer}>
-                    <div className={classes.chatEntriesContainer} ref={chatContainer}>
+                    <List className={classes.chatEntriesContainer} ref={chatContainer}>
                         {showEntries(classes)}
-                    </div>
+                    </List>
                     <div className={classes.chatInputControl}>
                         <ChatInput setError={setError} classes={classes} newChatEntry={onNewEntry} />
                     </div>

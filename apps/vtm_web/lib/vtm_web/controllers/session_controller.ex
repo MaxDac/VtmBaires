@@ -42,4 +42,10 @@ defmodule VtmWeb.SessionController do
     end
   end
 
+  def logout(conn, _) do
+    conn
+    |> Authentication.put_token("")
+    |> render("logout-ok.json")
+  end
+
 end

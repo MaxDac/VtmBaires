@@ -107,7 +107,6 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
             subscription: operation,
             variables,
             onCompleted: () => {
-                console.log("subscription completed");
                 sink.complete();
             },
             onError: error => {
@@ -115,7 +114,6 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
                 sink.error(error, true);
             },
             onNext: object => {
-                console.log("new object arrived.", object);
                 parseResponse(
                     sink.next,
                     sink.error,

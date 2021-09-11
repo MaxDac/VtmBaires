@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    link: {
+        color: theme.palette.grey[50]
+    }
 }));
 
 export type HomeLayoutProps = {
@@ -51,7 +54,7 @@ export type HomeLayoutProps = {
     children: (any) => Node;
 }
 
-const HomeLayout = (props: HomeLayoutProps): Node => {
+const LoginLayout = (props: HomeLayoutProps): Node => {
     const classes = useStyles();
 
     return (
@@ -76,4 +79,4 @@ const HomeLayout = (props: HomeLayoutProps): Node => {
     );
 }
 
-export default HomeLayout;
+export default LoginLayout;

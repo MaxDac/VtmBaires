@@ -8,19 +8,19 @@ import Grid from "@material-ui/core/Grid";
 import CreationBase from "./strategies/CreationBase";
 import MainLayout from "../Main.Layout";
 
-type FormAttributes = {
-    attribute4: string;
-    attribute31: string;
-    attribute32: string;
-    attribute33: string;
-    attribute21: string;
-    attribute22: string;
-    attribute23: string;
-    attribute24: string;
-    attribute1: string;
-};
+// type FormAttributes = {
+//     attribute4: string;
+//     attribute31: string;
+//     attribute32: string;
+//     attribute33: string;
+//     attribute21: string;
+//     attribute22: string;
+//     attribute23: string;
+//     attribute24: string;
+//     attribute1: string;
+// };
 
-const Creation2 = ({ setError }: DefaultComponentProps): any => {
+const Creation2 = ({ setError, openDialog }: DefaultComponentProps): any => {
     const emptyAttributes = {
         attribute4: "",
         attribute31: "",
@@ -97,7 +97,7 @@ const Creation2 = ({ setError }: DefaultComponentProps): any => {
         </>;
 
     return (
-        <MainLayout>
+        <MainLayout openDialog={openDialog}>
             { (classes: any) =>
                 <div className={classes.centeredContainer}>
                     <CreationBase classes={classes}

@@ -3,39 +3,37 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
-
 import { login } from "../../services/login-service";
-import HomeLayout from "./Home.Layout";
-
+import LoginLayout from "./LoginLayout";
 import type { Node } from "react";
 import { Link, useHistory } from "react-router-dom";
-
-import { object, string } from 'yup';
+import {bool, object, string} from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
 import {storeLoginInformation} from "../../services/session-service";
-
-type LoginComponentProps = {
-    setError: (string, string) => void;
-}
+import type {DefaultComponentProps} from "../../_base/types";
+import FormGroup from "@material-ui/core/FormGroup";
+import {FormControlLabel, Switch} from "@material-ui/core";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
         .email("Invalid name")
         .required("Required"),
-    password: string("Enter your password").required("Required")
+    password: string("Enter your password").required("Required"),
+    isMaster: bool("Master login")
 });
 
 const LoginComponent = ({
     setError
-}: LoginComponentProps): Node => {
+}: DefaultComponentProps): Node => {
     const history = useHistory();
     
     const formik = useFormik({
         initialValues: {
             email: "",
-            password: ""
+            password: "",
+            isMaster: false
         },
         validationSchema: SignInSchema,
         onSubmit: v => onSubmit(v)
@@ -43,9 +41,10 @@ const LoginComponent = ({
 
     const onSubmit = ({
         email,
-        password
+        password,
+        isMaster
     }) =>
-        login(email, password, "MASTER")
+        login(email, password, isMaster ? "MASTER" : "PLAYER")
             .then(res => {
                 storeLoginInformation(res.data.user);
                 history.push(Routes.main);
@@ -55,12 +54,22 @@ const LoginComponent = ({
             });
 
     return (
-        <HomeLayout title="Sign in">
+        <LoginLayout title="Sign in">
             { classes => 
                 <>
                     <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
                         <FormTextField formik={formik} fieldName="email" label="Email" />
                         <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
+                        <FormGroup row>
+                            <FormControlLabel
+                                control={
+                                    <Switch onChange={formik.handleChange}
+                                            name="isMaster"
+                                            id="isMaster"
+                                            color="primary" />
+                                    }
+                                label="Master login" />
+                        </FormGroup>
                         <Button
                             type="submit"
                             fullWidth
@@ -72,19 +81,19 @@ const LoginComponent = ({
                     </form>
                     <Grid container>
                         <Grid item xs>
-                            <Link to="#" variant="body2">
+                            <Link to="#" variant="body2" className={classes.link}>
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to="/register" variant="body2">
+                            <Link to="/register" variant="body2" className={classes.link}>
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
                     </Grid>
                 </>
             }
-        </HomeLayout>);
+        </LoginLayout>);
 };
 
 export default LoginComponent;

@@ -38,8 +38,8 @@ function App(): Node {
             <RelayEnvironmentProvider environment={environment}>
                 <Suspense fallback={"Loading... "}>
                     <AlertLayout>
-                        { setError => 
-                            <AppRouter setError={setError} />
+                        { ({ setError, openDialog }) =>
+                            <AppRouter setError={setError} openDialog={openDialog} />
                         }
                     </AlertLayout>
                 </Suspense>

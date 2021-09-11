@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import "../../fonts/gabriele-l.ttf";
 import ChatThrowDiceInput from "./ChatThrowDiceInput";
 
-type ChatInputProps = DefaultComponentProps & {
+type ChatInputProps = {
     classes: any;
     newChatEntry: string => void;
 }
@@ -23,7 +23,6 @@ const ChatInput = ({ classes, newChatEntry }: ChatInputProps): any => {
     }
 
     const openPopup = _ => {
-        console.log("opening?")
         setIsModalOpen(_ => true);
     }
 

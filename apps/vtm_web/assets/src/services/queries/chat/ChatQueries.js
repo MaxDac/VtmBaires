@@ -9,22 +9,11 @@ export type MapLocationSlim = {
     id: string;
     name: string;
     description: string;
-    isChat: string;
+    isChat: boolean;
 }
 
-export type MainMapLocation = {
-    id: string;
-    name: string;
-    description: string;
-    childs: Array<MapLocationSlim>;
-}
-
-export type MapLocation = {
-    id: string;
-    name: string;
-    description: string;
+export type MapLocation = MapLocationSlim & {
     image: string;
-    isChat: string;
 }
 
 export type ChatEntry = {
@@ -90,18 +79,23 @@ const chatEntriesQuery = graphql`
 
 export const preloadedMainMapsQuery: any = loadQuery(environment, mainMapsQuery, {});
 
+const extractMapId = <T: MapLocationSlim>(map: T): T => ({
+    ...map,
+    id: map.id.replace("map-", "")
+});
+
 export const mapsQueryPromise = (parentId: string): Promise<Array<MapLocationSlim>> => {
     return wrapQueryAuthorized<{ sectionMaps: Array<MapLocationSlim> }>(mapsQuery, {
         parentId: parentId
     })
-        .then(x => x.sectionMaps);
+        .then(x => x.sectionMaps.map(extractMapId));
 };
 
 export const mapQueryPromise = (id: string): Promise<MapLocation> => {
     return wrapQueryAuthorized<{ map: MapLocation }>(mapQuery, {
         id: id
     })
-        .then(x => x.map);
+        .then(x => extractMapId(x.map));
 };
 
 export const chatEntriesQueryPromise = (mapId: string): Promise<Array<ChatEntry>> => {

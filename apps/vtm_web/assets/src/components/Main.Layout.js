@@ -12,21 +12,23 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from './main/Menu';
-import TopRightMenu from './main/TopRightMenu';
+import { mainListItems, secondaryListItems } from './home/Menu';
+import TopRightMenu from './home/TopRightMenu';
 import {useHistory} from "react-router-dom";
 import {check} from "../services/login-service";
 import {Routes} from "../AppRouter";
+import type { OpenDialogDelegate } from "../AppRouter";
 import useCheckMaster from "../services/hooks/useCheckMaster";
 import useStyles from "./Main.Layout.Style";
 
 export opaque type MainLayoutClasses = any;
 
 export type MainLayoutProps = {
-    children: MainLayoutClasses => any
+    children: MainLayoutClasses => any;
+    openDialog: OpenDialogDelegate;
 }
 
-export default function MainLayout(props: MainLayoutProps): any {
+export default function MainLayout({ children, openDialog }: MainLayoutProps): any {
     const history = useHistory();
     const classes = useStyles();
     const isMaster = useCheckMaster();
@@ -74,7 +76,7 @@ export default function MainLayout(props: MainLayoutProps): any {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
-                    <TopRightMenu />
+                    <TopRightMenu openDialog={openDialog} />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -94,7 +96,7 @@ export default function MainLayout(props: MainLayoutProps): any {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                {props.children(classes)}
+                {children(classes)}
             </main>
         </div>
     );

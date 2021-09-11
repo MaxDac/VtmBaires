@@ -11,7 +11,7 @@ defmodule VtmWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug VtmWeb.Context
+    plug VtmWeb.ContextPlug
     plug VtmWeb.HttpContextPlug
   end
 
@@ -27,10 +27,11 @@ defmodule VtmWeb.Router do
     post "/login", VtmWeb.SessionController, :create
     post "/check", VtmWeb.SessionController, :check
     post "/checkmaster", VtmWeb.SessionController, :check_master
+    post "/logout", VtmWeb.SessionController, :logout
 
     forward "/api", Absinthe.Plug,
-      schema: VtmWeb.Schema
-      # socket: VtmWeb.UserSocket
+      schema: VtmWeb.Schema,
+      socket: VtmWeb.UserSocket
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: VtmWeb.Schema,

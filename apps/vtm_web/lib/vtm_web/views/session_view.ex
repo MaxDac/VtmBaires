@@ -21,6 +21,10 @@ defmodule VtmWeb.SessionView do
     }
   end
 
+  def render("logout-ok.json", _) do
+    %{}
+  end
+
   def render("not-ok.json", _) do
     %{
       errors: [

@@ -77,7 +77,10 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :new_chat_entry, :map_chat_entry do
       arg :map_id, non_null(:id)
 
-      config fn %{map_id: map_id}, _context -> {:ok, topic: map_id} end
+      config fn rest = %{map_id: map_id}, context ->
+        IO.puts "rest: #{inspect rest}"
+        IO.puts "context: #{inspect context}"
+        {:ok, topic: map_id} end
 
       trigger :create_chat_entry, topic: fn
         %{ chat_map_id: id }  -> id

@@ -11,35 +11,40 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
 import type {MapLocationSlim} from "../../services/queries/chat/ChatQueries";
 import {useHistory} from "react-router-dom";
-import {usePreloadedQuery} from "react-relay";
-import {mainMapsQuery, preloadedMainMapsQuery} from "../../services/queries/chat/ChatQueries";
 import {Routes} from "../../AppRouter";
+import type { Element, AbstractComponent } from "react";
+import type {MainLayoutProps} from "../Main.Layout";
+import type {DefaultComponentProps} from "../../_base/types";
 
-export default function Main(): any {
+type SubMapProps = DefaultComponentProps & {
+    maps: Array<MapLocationSlim>;
+}
+
+const SubMap = ({ setError, openDialog, maps }: SubMapProps): Element<AbstractComponent<MainLayoutProps>> => {
     const history = useHistory();
-    const { mainMaps: data } = usePreloadedQuery(mainMapsQuery, preloadedMainMapsQuery);
 
     const subHeader = () =>
         <ListSubheader component="div" id="nested-list-subheader">
             Locations
         </ListSubheader>
 
-    const openMap = (id: string) => _ => history.push(Routes.subMap(id));
+    const openMap = (id: string, isChat: boolean) => _ =>
+        history.push(isChat ? Routes.chat(id) : Routes.subMap(id));
 
     const mapLinks = () => {
-        const mapLink = ({ id, name }: MapLocationSlim) =>
-            <ListItem key={id} button onClick={openMap(id)}>
+        const mapLink = ({ id, name, isChat }: MapLocationSlim) =>
+            <ListItem key={id} button onClick={openMap(id, isChat)}>
                 <ListItemIcon>
                     <SendIcon />
                 </ListItemIcon>
                 <ListItemText primary={name} />
             </ListItem>;
 
-        return data?.map(mapLink) ?? [];
+        return maps?.map(mapLink) ?? [];
     }
 
     return (
-        <MainLayout>
+        <MainLayout openDialog={openDialog}>
             { (classes: any) =>
                 <Container maxWidth="lg" className={classes.container}>
                     <List component="nav"
@@ -52,4 +57,6 @@ export default function Main(): any {
             }
         </MainLayout>
     );
-}
+};
+
+export default SubMap;

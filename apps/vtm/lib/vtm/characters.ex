@@ -31,7 +31,7 @@ defmodule Vtm.Characters do
   end
 
   def get_user_characters(%{id: id}) do
-    Character |> Repo.get_by(:user_id, id)
+    Repo.all(from c in Character, where: c.user_id == ^id)
   end
 
   def character_of_user?(user_id, character_id) do
@@ -58,15 +58,17 @@ defmodule Vtm.Characters do
   end
 
   def get_specific_character(%{ id: user_id }, id) do
+    IO.puts "user_id: #{user_id}"
+    IO.puts "id: #{id}"
+
     query =
       from c in Character,
         where: c.id == ^id,
         where: c.user_id == ^user_id
 
-    Character
-    |> preload(:clan)
-    |> preload(:predator_type)
-    |> Repo.get(query)
+    Repo.one(query)
+    |> Repo.preload(:clan)
+    |> Repo.preload(:predator_type)
   end
 
   def get_specific_character(_, _) do

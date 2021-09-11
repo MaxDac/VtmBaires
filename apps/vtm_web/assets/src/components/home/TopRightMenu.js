@@ -3,25 +3,24 @@
 import React, { useState } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import PeopleIcon from '@material-ui/icons/People';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-
 import sessionQuery from "../../services/queries/session-query";
 import userCharactersQuery from '../../services/queries/user-characters-query';
 import { useHistory } from 'react-router';
 import { handleAuthorizedRejection } from '../../services/utils';
 import IconActivatedMenu from '../../_base/components/IconActivatedMenu';
 import {Routes} from "../../AppRouter";
-
 import type { Session } from "../../services/queries/session-query";
 import type {CharacterInfo} from "../../services/queries/character/character-types";
 import {useSession} from "../../services/hooks/useSession";
+import IconButton from "@material-ui/core/IconButton";
+import {logout} from "../../services/login-service";
+import type {DefaultComponentProps} from "../../_base/types";
 
-export default function TopRightMenu(): any {
+export default function TopRightMenu({ openDialog }: DefaultComponentProps): any {
     const history = useHistory();
-
-    const {
-        setCurrentCharacter
-    } = useSession(history);
+    const { setCurrentCharacter } = useSession(history);
 
     const [waiting, setWaiting] = useState<bool>(false);
     const [online, setOnline] = useState<Session[]>([]);
@@ -63,8 +62,6 @@ export default function TopRightMenu(): any {
             }
         };
 
-    const currentOnline = () => online?.length ?? 0;
-
     const showOnline = handleClose => 
         online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
 
@@ -83,6 +80,17 @@ export default function TopRightMenu(): any {
         return <MenuItem onClick={_ => history.push(Routes.creation1)}>Create new</MenuItem>
     }
 
+    const logoutClick = _ => {
+        openDialog("Logout", "Do you want to log out?", () => {
+            logout()
+                .then(_ => history.push(Routes.login))
+                .catch(e => {
+                    console.error("Error while performing logout", e);
+                    history.push(Routes.login);
+                });
+        });
+    }
+
     return (
         <>
             <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />}
@@ -92,11 +100,14 @@ export default function TopRightMenu(): any {
                 {h => showCharacters(h)}
             </IconActivatedMenu>
             <IconActivatedMenu icon={() => <PeopleIcon />}
-                               badgeContent={currentOnline()}
+                               badgeContent={0}
                                handleToggle={handleOnlineToggle}
                                title="Online">
                 {h => showOnline(h)}
             </IconActivatedMenu>
+            <IconButton aria-label="logout" onClick={logoutClick}>
+                <ExitToAppIcon />
+            </IconButton>
         </>
     );
 }

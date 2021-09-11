@@ -32,14 +32,12 @@ export type CharacterCreationRequest = {
     biography: string;
 }
 
-const mutationPromise = (request: CharacterCreationRequest): Promise<CreationResult> => {
-    console.log("create character request", request);
-    return wrapMutationAuthorized<{ info: CreationResult }>(mutation, {
+const mutationPromise = (request: CharacterCreationRequest): Promise<CreationResult> =>
+    wrapMutationAuthorized<{ info: CreationResult }>(mutation, {
         request: {
             ...request,
             clanId: Number(request.clanId)
         }
     }).then(({info}) => info);
-};
 
 export default mutationPromise;

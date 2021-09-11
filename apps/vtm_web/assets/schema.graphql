@@ -88,9 +88,9 @@ type CreationResult {
 
 type MapChatEntry {
   characterChatAvatar: String
-  characterId: ID
+  characterId: String
   characterName: String
-  chatMapId: ID
+  chatMapId: String
   id: ID
   result: String
   text: String

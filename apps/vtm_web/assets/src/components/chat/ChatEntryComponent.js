@@ -1,27 +1,44 @@
 // @flow
 
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 
 import type { ChatEntry } from "../../services/queries/chat/ChatQueries";
 import Avatar from "@material-ui/core/Avatar";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
 
-const ChatEntryComponent = (classes: any, entry: ChatEntry): any => {
+type ChatEntryComponentProps = {
+    classes: any;
+    entry: ChatEntry;
+    isLast?: ?boolean;
+}
+
+const ChatEntryComponent = ({classes, entry, isLast}: ChatEntryComponentProps): any => {
+    const divider = () => <Divider variant="inset" component="li" />
+
+    const primaryText = () =>
+        <div className={classes.chatShowName}>
+            {entry.characterName}
+        </div>;
+
+    const secondaryText = () =>
+        <Typography className={classes.chatShowText}>
+            {entry.text || entry.result}
+        </Typography>;
+
     return (
-        <table width="100%" style={{padding: "10px"}}>
-            <tr>
-                <td width="50px">
+        <>
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={entry.characterChatAvatar} />
-                </td>
-                <td width="100px" className={classes.chatShowName}>
-                    {entry.characterName}
-                </td>
-                <td className={classes.chatShowText}>
-                    {entry.text || entry.result}
-                </td>
-            </tr>
-        </table>
-    );
+                </ListItemAvatar>
+                <ListItemText primary={primaryText()} secondary={secondaryText()} />
+            </ListItem>
+            {isLast ? <></> : divider()}
+        </>);
 }
 
 export default ChatEntryComponent;

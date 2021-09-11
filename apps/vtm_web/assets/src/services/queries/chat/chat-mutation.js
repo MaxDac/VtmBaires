@@ -18,9 +18,7 @@ const mutation = graphql`
     }
 `;
 
-const chatEntryMutationPromise = (request: ChatEntryRequest): Promise<ChatEntry> => {
-    console.log("request", request);
-    return wrapMutationAuthorized<ChatEntry>(mutation, { entry: request });
-};
+const chatEntryMutationPromise = (request: ChatEntryRequest): Promise<ChatEntry> =>
+    wrapMutationAuthorized<ChatEntry>(mutation, { entry: request });
 
 export default chatEntryMutationPromise;

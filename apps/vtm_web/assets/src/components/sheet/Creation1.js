@@ -12,7 +12,6 @@ import {useClans} from "../../services/hooks/useClans";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Grid from "@material-ui/core/Grid";
 import createCharacter from "../../services/queries/character/create-character-mutation";
-
 import type {DefaultComponentProps} from "../../_base/types";
 import {updateUserSessionInfo} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
@@ -24,7 +23,7 @@ const Creation1ValidationSchema = object().shape({
     biography: string("Enter your character biography").required("Required")
 });
 
-const Creation1 = ({ setError }: DefaultComponentProps): any => {
+const Creation1 = ({ setError, openDialog }: DefaultComponentProps): any => {
     const history = useHistory();
     const clans = useClans();
 
@@ -72,7 +71,7 @@ const Creation1 = ({ setError }: DefaultComponentProps): any => {
     }
 
     return (
-        <MainLayout>
+        <MainLayout openDialog={openDialog}>
             { (classes: any) =>
                 <div className={classes.centeredContainer}>
                     <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>

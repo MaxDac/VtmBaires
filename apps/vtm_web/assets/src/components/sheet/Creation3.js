@@ -12,7 +12,7 @@ import JackOfAllTradesSkillForm from "./strategies/JackOfAllTradesSkillForm";
 import BalancedSkillForm from "./strategies/BalancedSkillForm";
 import SpecialistSkillForm from "./strategies/SpecialistSkillForm";
 
-const Creation3 = ({ setError }: DefaultComponentProps): any => {
+const Creation3 = ({ setError, openDialog }: DefaultComponentProps): any => {
     const [characterType, setCharacterType] = useState(1);
 
     const changeCharacterType = ({ target: { value } }) => setCharacterType(value);
@@ -35,7 +35,7 @@ const Creation3 = ({ setError }: DefaultComponentProps): any => {
     }
 
     return (
-        <MainLayout>
+        <MainLayout openDialog={openDialog}>
             { (classes: any) =>
                 <div className={classes.centeredContainer}>
                     <Typography>

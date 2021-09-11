@@ -22,3 +22,6 @@ export const check = (): Promise<LoginResponse> =>
 
 export const checkMaster = (): Promise<any> =>
     post<any>("/checkmaster", {});
+
+export const logout = (): Promise<any> =>
+    post<any>("/logout", {});

@@ -55,7 +55,7 @@ defmodule VtmAuth.Accounts do
   end
 
   def update_session(%User{ id: id }) do
-    case Session |> Repo.get(id) do
+    case Session |> Repo.get_by(user_id: id) do
       nil ->
         %Session{
           user_id: id,
@@ -87,7 +87,9 @@ defmodule VtmAuth.Accounts do
       update_session(user)
       {:ok, user}
     else
-      _ -> {:error, :unauthorized}
+      e ->
+        IO.puts "error while logging in #{inspect e}"
+        {:error, :unauthorized}
     end
   end
 end
