@@ -18,18 +18,24 @@ type AttributeType {
 }
 
 type Character {
+  aggravatedDamage: Int
   approved: Boolean
   biography: String
   clan: Clan
+  damange: Int
   description: String
   experience: Int
   generation: Int
+  health: Int
   humanity: Int
+  hunger: Int
   info: CharacterInfo
   isComplete: Boolean
   isNpc: Boolean
   predatorType: PredatorType
   stage: Int
+  willpower: Int
+  willpowerDamage: Int
 }
 
 input CharacterAttributeRequest {
@@ -41,6 +47,7 @@ input CharacterAttributeRequest {
 input CharacterCreationRequest {
   avatar: String
   biography: String!
+  chatAvatar: String
   clanId: Int!
   description: String!
   isNpc: Int
@@ -49,6 +56,7 @@ input CharacterCreationRequest {
 
 type CharacterInfo {
   avatar: String
+  chatAvatar: String
   id: ID
   name: String
 }
@@ -79,6 +87,7 @@ type CreationResult {
 }
 
 type MapChatEntry {
+  characterChatAvatar: String
   characterId: ID
   characterName: String
   chatMapId: ID

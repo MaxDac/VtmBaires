@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type characterFragments_characterInfo$ref: FragmentReference;
@@ -25,10 +24,9 @@ export type characterFragments_characterInfo$key = {
   +$fragmentRefs: characterFragments_characterInfo$ref,
   ...
 };
-*/
 
 
-const node/*: ReaderFragment*/ = {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -71,6 +69,5 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'af496f71652f9879f89e539611e11da0';
-
+(node: any).hash = 'af496f71652f9879f89e539611e11da0';
 module.exports = node;

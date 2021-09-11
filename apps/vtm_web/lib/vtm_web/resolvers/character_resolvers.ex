@@ -44,7 +44,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     |> Map.put(:info, %{
       id: character.id,
       name: character.name,
-      avatar: character.avatar
+      avatar: character.avatar,
+      chat_avatar: character.chat_avatar
     })
   end
 

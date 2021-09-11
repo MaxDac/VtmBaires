@@ -30,6 +30,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   object :character_info do
     field :id, :id
     field :avatar, :string
+    field :chat_avatar, :string
     field :name, :string
   end
 
@@ -44,6 +45,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :generation, :integer
     field :stage, :integer
     field :approved, :boolean
+    field :hunger, :integer
+    field :health, :integer
+    field :damange, :integer
+    field :aggravated_damage, :integer
+    field :willpower, :integer
+    field :willpower_damage, :integer
     field :clan, :clan
     field :predator_type, :predator_type
   end
@@ -52,6 +59,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :name, non_null(:string)
     field :clan_id, non_null(:integer)
     field :avatar, :string
+    field :chat_avatar, :string
     field :biography, non_null(:string)
     field :description, non_null(:string)
     field :is_npc, :integer

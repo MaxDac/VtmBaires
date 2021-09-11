@@ -6,12 +6,11 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type chatQueriesSectionMapsQueryVariables = {|
+export type ChatQueriesSectionMapsQueryVariables = {|
   parentId: string
 |};
-export type chatQueriesSectionMapsQueryResponse = {|
+export type ChatQueriesSectionMapsQueryResponse = {|
   +sectionMaps: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -19,15 +18,14 @@ export type chatQueriesSectionMapsQueryResponse = {|
     +isChat: ?boolean,
   |}>
 |};
-export type chatQueriesSectionMapsQuery = {|
-  variables: chatQueriesSectionMapsQueryVariables,
-  response: chatQueriesSectionMapsQueryResponse,
+export type ChatQueriesSectionMapsQuery = {|
+  variables: ChatQueriesSectionMapsQueryVariables,
+  response: ChatQueriesSectionMapsQueryResponse,
 |};
-*/
 
 
 /*
-query chatQueriesSectionMapsQuery(
+query ChatQueriesSectionMapsQuery(
   $parentId: ID!
 ) {
   sectionMaps(parentId: $parentId) {
@@ -39,7 +37,7 @@ query chatQueriesSectionMapsQuery(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -99,7 +97,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "chatQueriesSectionMapsQuery",
+    "name": "ChatQueriesSectionMapsQuery",
     "selections": (v1/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -108,20 +106,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "chatQueriesSectionMapsQuery",
+    "name": "ChatQueriesSectionMapsQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "3fc0903605c740382136543f517c0ae1",
+    "cacheID": "3252674a8caa115cb578071d24ebe2bb",
     "id": null,
     "metadata": {},
-    "name": "chatQueriesSectionMapsQuery",
+    "name": "ChatQueriesSectionMapsQuery",
     "operationKind": "query",
-    "text": "query chatQueriesSectionMapsQuery(\n  $parentId: ID!\n) {\n  sectionMaps(parentId: $parentId) {\n    id\n    name\n    description\n    isChat\n  }\n}\n"
+    "text": "query ChatQueriesSectionMapsQuery(\n  $parentId: ID!\n) {\n  sectionMaps(parentId: $parentId) {\n    id\n    name\n    description\n    isChat\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5d6011d5e20d915fa7c8d00b0ea2103a';
-
+(node: any).hash = '3fa6aa6fa148070cad21d5910125ae91';
 module.exports = node;

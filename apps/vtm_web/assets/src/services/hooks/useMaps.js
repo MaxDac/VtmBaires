@@ -1,8 +1,8 @@
 // @flow
 
 import {useMemo, useState} from "react";
-import {mapQueryPromise, mapsQueryPromise} from "../queries/chat/chat-queries";
-import type {MapLocation, MapLocationSlim} from "../queries/chat/chat-queries";
+import {mapQueryPromise, mapsQueryPromise} from "../queries/chat/ChatQueries";
+import type {MapLocation, MapLocationSlim} from "../queries/chat/ChatQueries";
 
 export function useMaps(id: string): Array<MapLocationSlim> {
     const [maps, setMaps] = useState<Array<MapLocationSlim>>([]);

@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type createUserMutationVariables = {|
   email: string,
@@ -22,7 +21,6 @@ export type createUserMutation = {|
   variables: createUserMutationVariables,
   response: createUserMutationResponse,
 |};
-*/
 
 
 /*
@@ -37,7 +35,7 @@ mutation createUserMutation(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
@@ -125,6 +123,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7789229b0fa1c67541935996c560aa69';
-
+(node: any).hash = '7789229b0fa1c67541935996c560aa69';
 module.exports = node;

@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CharacterAttributeRequest = {|
   attributeId: string,
@@ -29,7 +28,6 @@ export type appendAttributesMutation = {|
   variables: appendAttributesMutationVariables,
   response: appendAttributesMutationResponse,
 |};
-*/
 
 
 /*
@@ -46,7 +44,7 @@ mutation appendAttributesMutation(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
@@ -140,6 +138,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f2c156fe2061243f7ea6ab0d0d7e2b46';
-
+(node: any).hash = 'f2c156fe2061243f7ea6ab0d0d7e2b46';
 module.exports = node;

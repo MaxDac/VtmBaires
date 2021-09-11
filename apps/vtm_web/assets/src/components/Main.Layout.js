@@ -2,7 +2,6 @@
 
 import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,7 +20,6 @@ import {Routes} from "../AppRouter";
 import useCheckMaster from "../services/hooks/useCheckMaster";
 import useStyles from "./Main.Layout.Style";
 
-
 export opaque type MainLayoutClasses = any;
 
 export type MainLayoutProps = {
@@ -33,7 +31,7 @@ export default function MainLayout(props: MainLayoutProps): any {
     const classes = useStyles();
     const isMaster = useCheckMaster();
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);

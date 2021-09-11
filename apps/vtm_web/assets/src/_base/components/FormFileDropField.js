@@ -4,12 +4,10 @@ import React, {useMemo, useState} from 'react';
 import {useDropzone} from "react-dropzone";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
-import {toBase64} from "../file-utils";
-
-import type {Base64Result} from "../file-utils";
+import {compressImage} from "../file-utils";
 
 export type FormFileDropFieldProps = {
-    changed: Base64Result => void;
+    changed: (?string, ?string) => void;
     fieldName: string;
     acceptedFiles?: ?string[];
     showPreview?: ?boolean;
@@ -62,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
 
 const FormFileDropField = (props: FormFileDropFieldProps): any => {
     const classes = useStyles();
-    const [preview, setPreview] = useState<Base64Result>("");
+    const [largePreview, setLargePreview] = useState<string>("");
+    const [preview, setPreview] = useState<string>("");
 
     const {
         getRootProps,
@@ -72,16 +71,15 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
         isDragReject
     } = useDropzone({
         accept: props.acceptedFiles?.join(', ') ?? 'image/png',
-        onDrop: acceptedFiles => {
+        onDrop: async acceptedFiles => {
             if (acceptedFiles && acceptedFiles.length && acceptedFiles.length > 0) {
-                toBase64(acceptedFiles[0])
-                    .then(result => {
-                        setPreview(result);
-                        props.changed(result);
-                    })
-                    .catch(error => {
-                        console.log("Error while uploading the file: ", error);
-                    });
+                const large = await compressImage(acceptedFiles[0], 200, 200);
+                const small = await compressImage(acceptedFiles[0], 50, 50);
+
+                setLargePreview(large);
+                setPreview(small);
+
+                props.changed(large, small);
             }
         }
     });
@@ -106,6 +104,10 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
                         margin: '0 auto',
                         width: '40px'
                     }}>
+                        <img src={largePreview} alt="original size" />
+
+                        <img src={preview} alt="original size" />
+
                         <Avatar alt="preview" src={preview} className={classes.large} />
                     </div>
                 </>);

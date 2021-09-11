@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type chatSubscriptionVariables = {|
   mapId: string
@@ -17,6 +16,7 @@ export type chatSubscriptionResponse = {|
     +text: ?string,
     +result: ?string,
     +characterId: ?string,
+    +characterChatAvatar: ?string,
     +chatMapId: ?string,
     +characterName: ?string,
   |}
@@ -25,7 +25,6 @@ export type chatSubscription = {|
   variables: chatSubscriptionVariables,
   response: chatSubscriptionResponse,
 |};
-*/
 
 
 /*
@@ -37,13 +36,14 @@ subscription chatSubscription(
     text
     result
     characterId
+    characterChatAvatar
     chatMapId
     characterName
   }
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -98,6 +98,13 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "characterChatAvatar",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "chatMapId",
         "storageKey": null
       },
@@ -130,16 +137,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "80928e7763534211755e4878e016d860",
+    "cacheID": "036111dd29fb1f053b424d59a647f3ee",
     "id": null,
     "metadata": {},
     "name": "chatSubscription",
     "operationKind": "subscription",
-    "text": "subscription chatSubscription(\n  $mapId: ID!\n) {\n  newChatEntry(mapId: $mapId) {\n    id\n    text\n    result\n    characterId\n    chatMapId\n    characterName\n  }\n}\n"
+    "text": "subscription chatSubscription(\n  $mapId: ID!\n) {\n  newChatEntry(mapId: $mapId) {\n    id\n    text\n    result\n    characterId\n    characterChatAvatar\n    chatMapId\n    characterName\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'eec2ab413b3ef57920f38a400dd9a432';
-
+(node: any).hash = 'ecbd13afe619d35cb329d40fde0fed42';
 module.exports = node;

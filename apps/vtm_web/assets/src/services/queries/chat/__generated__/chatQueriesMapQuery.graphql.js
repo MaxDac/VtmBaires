@@ -6,12 +6,11 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type chatQueriesMapQueryVariables = {|
+export type ChatQueriesMapQueryVariables = {|
   id: string
 |};
-export type chatQueriesMapQueryResponse = {|
+export type ChatQueriesMapQueryResponse = {|
   +map: ?{|
     +id: ?string,
     +name: ?string,
@@ -20,15 +19,14 @@ export type chatQueriesMapQueryResponse = {|
     +isChat: ?boolean,
   |}
 |};
-export type chatQueriesMapQuery = {|
-  variables: chatQueriesMapQueryVariables,
-  response: chatQueriesMapQueryResponse,
+export type ChatQueriesMapQuery = {|
+  variables: ChatQueriesMapQueryVariables,
+  response: ChatQueriesMapQueryResponse,
 |};
-*/
 
 
 /*
-query chatQueriesMapQuery(
+query ChatQueriesMapQuery(
   $id: ID!
 ) {
   map(id: $id) {
@@ -41,7 +39,7 @@ query chatQueriesMapQuery(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -108,7 +106,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "chatQueriesMapQuery",
+    "name": "ChatQueriesMapQuery",
     "selections": (v1/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -117,20 +115,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "chatQueriesMapQuery",
+    "name": "ChatQueriesMapQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "6d51fb3b8d831a9038727d5f83edfdeb",
+    "cacheID": "99e3448a2af6bb7cfb040f0d8641a839",
     "id": null,
     "metadata": {},
-    "name": "chatQueriesMapQuery",
+    "name": "ChatQueriesMapQuery",
     "operationKind": "query",
-    "text": "query chatQueriesMapQuery(\n  $id: ID!\n) {\n  map(id: $id) {\n    id\n    name\n    description\n    image\n    isChat\n  }\n}\n"
+    "text": "query ChatQueriesMapQuery(\n  $id: ID!\n) {\n  map(id: $id) {\n    id\n    name\n    description\n    image\n    isChat\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a8189b71b60efc4375424e3baa3a5426';
-
+(node: any).hash = 'cfe076dae1a46d816d114243e50a58a4';
 module.exports = node;

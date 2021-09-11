@@ -19,10 +19,9 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def create_chat_entry(_, %{ entry: entry }, _) do
-    IO.puts "entry: #{inspect entry}"
-    {:ok, inserted_entry = %{ chat_map_id: id }} = Chats.create_chat_entry(entry)
-    IO.puts "res: #{inspect inserted_entry}"
-    # Absinthe.Subscription.publish(VtmWeb.Endpoint, inserted_entry, new_chat_entry: ["1"])
-    {:ok, inserted_entry }
+    with {:ok, %{ id: id }}           <- Chats.create_chat_entry(entry),
+         entry when not is_nil(entry) <- Chats.get_chat_entry(id) do
+      {:ok, entry}
+    end
   end
 end

@@ -4,7 +4,6 @@ import graphql from 'babel-plugin-relay/macro';
 import {wrapQueryAuthorized} from "../../relay-utils";
 import {loadQuery} from "react-relay";
 import environment from "../../../_base/relay-environment";
-import type {Id} from "../character/character-types";
 
 export type MapLocationSlim = {
     id: string;
@@ -33,12 +32,13 @@ export type ChatEntry = {
     chatMapId: string;
     characterId: string;
     characterName: string;
+    characterChatAvatar: string;
     result: string;
     text: string;
 }
 
 export const mainMapsQuery: any = graphql`
-    query chatQueriesMainMapsQuery {
+    query ChatQueriesMainMapsQuery {
         mainMaps {
             id
             name
@@ -52,7 +52,7 @@ export const mainMapsQuery: any = graphql`
 `;
 
 const mapsQuery = graphql`
-    query chatQueriesSectionMapsQuery($parentId: ID!) {
+    query ChatQueriesSectionMapsQuery($parentId: ID!) {
         sectionMaps(parentId: $parentId) {
             id
             name
@@ -63,7 +63,7 @@ const mapsQuery = graphql`
 `;
 
 const mapQuery = graphql`
-    query chatQueriesMapQuery($id: ID!) {
+    query ChatQueriesMapQuery($id: ID!) {
         map(id: $id) {
             id
             name
@@ -75,12 +75,13 @@ const mapQuery = graphql`
 `;
 
 const chatEntriesQuery = graphql`
-    query chatQueriesChatEntriesQuery($mapId: ID!) {
+    query ChatQueriesChatEntriesQuery($mapId: ID!) {
         mapChatEntries(mapId: $mapId) {
             id
             chatMapId
             characterId
             characterName
+            characterChatAvatar
             result
             text
         }

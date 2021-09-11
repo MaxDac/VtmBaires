@@ -10799,6 +10799,11 @@ relateurl@0.2.x, relateurl@^0.2.7:
   resolved "https://registry.npmjs.org/relateurl/-/relateurl-0.2.7.tgz"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
+relay-compiler-language-js-flow-uncommented@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/relay-compiler-language-js-flow-uncommented/-/relay-compiler-language-js-flow-uncommented-2.0.0.tgz#e31522fff3f070d6465cfdd0b1a85c910b8655d9"
+  integrity sha512-yyTB0ZaHwUahGukYNH7wR/nQccoBHZ3vCmVpIGDAbt+8H7y3wyJbRW4R6a8/85a8ycV2CLEo+gK8UVWNpFck9g==
+
 relay-compiler@^12.0.0:
   version "12.0.0"
   resolved "https://registry.npmjs.org/relay-compiler/-/relay-compiler-12.0.0.tgz"

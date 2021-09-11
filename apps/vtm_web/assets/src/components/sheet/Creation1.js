@@ -17,7 +17,6 @@ import type {DefaultComponentProps} from "../../_base/types";
 import {updateUserSessionInfo} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
 import FormFileDropField from "../../_base/components/FormFileDropField";
-import type {Base64Result} from "../../_base/file-utils";
 
 const Creation1ValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
@@ -29,7 +28,8 @@ const Creation1 = ({ setError }: DefaultComponentProps): any => {
     const history = useHistory();
     const clans = useClans();
 
-    const [avatar, setAvatar] = useState<?Base64Result>(null);
+    const [avatar, setAvatar] = useState<?string>(null);
+    const [chatAvatar, setChatAvatar] = useState<?string>(null);
 
     const formik = useFormik({
         initialValues: {
@@ -51,12 +51,16 @@ const Creation1 = ({ setError }: DefaultComponentProps): any => {
         return <></>
     }
 
-    const avatarChanged = (event: Base64Result) => setAvatar(event);
+    const avatarChanged = (a, ca) => {
+        setAvatar(a);
+        setChatAvatar(ca);
+    }
 
     const onSubmit = data => {
         createCharacter({
             ...data,
-            avatar: avatar
+            avatar,
+            chatAvatar,
         })
             .then(response => {
                 updateUserSessionInfo({

@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChatEntryRequest = {|
   characterId: string,
@@ -31,7 +30,6 @@ export type chatMutation = {|
   variables: chatMutationVariables,
   response: chatMutationResponse,
 |};
-*/
 
 
 /*
@@ -49,7 +47,7 @@ mutation chatMutation(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -146,6 +144,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4115bae0f01e71c4c815bcfaf291f15d';
-
+(node: any).hash = '4115bae0f01e71c4c815bcfaf291f15d';
 module.exports = node;

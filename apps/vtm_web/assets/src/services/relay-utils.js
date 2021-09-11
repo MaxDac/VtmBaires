@@ -8,6 +8,7 @@ import {Observable} from "relay-runtime";
 
 import type {Sink} from "relay-runtime/network/RelayObservable";
 import type { PayloadError } from "relay-runtime";
+import type {Subscription} from "relay-runtime/network/RelayObservable";
 
 export type BackEndError = {
     errors: Array<string>;
@@ -135,3 +136,23 @@ export function wrapSubscriptionAuthorized<T>(operation: any, variables: any, ex
             .then(_ => request(sink, operation, variables, extractor));
     })
 }
+
+/**
+ * Subscribes to the given observable.
+ * @param observable The Observable.
+ * @param onNext The next value handler.
+ * @param onError The error handler.
+ * @returns {Subscription} The subscription info.
+ */
+export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onError?: ((any, ?boolean) => void)): Subscription => {
+    const handleError = onError ?? ((e, _) => console.error("Error in subscription!", e));
+
+    const subscription = observable.subscribe({
+        next: onNext,
+        error: handleError,
+        complete: () => subscription.unsubscribe(),
+        closed: false
+    });
+
+    return subscription;
+};

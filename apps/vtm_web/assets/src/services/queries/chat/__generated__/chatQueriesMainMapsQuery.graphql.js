@@ -6,10 +6,9 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type chatQueriesMainMapsQueryVariables = {||};
-export type chatQueriesMainMapsQueryResponse = {|
+export type ChatQueriesMainMapsQueryVariables = {||};
+export type ChatQueriesMainMapsQueryResponse = {|
   +mainMaps: ?$ReadOnlyArray<?{|
     +id: ?string,
     +name: ?string,
@@ -20,15 +19,14 @@ export type chatQueriesMainMapsQueryResponse = {|
     |}>,
   |}>
 |};
-export type chatQueriesMainMapsQuery = {|
-  variables: chatQueriesMainMapsQueryVariables,
-  response: chatQueriesMainMapsQueryResponse,
+export type ChatQueriesMainMapsQuery = {|
+  variables: ChatQueriesMainMapsQueryVariables,
+  response: ChatQueriesMainMapsQueryResponse,
 |};
-*/
 
 
 /*
-query chatQueriesMainMapsQuery {
+query ChatQueriesMainMapsQuery {
   mainMaps {
     id
     name
@@ -41,7 +39,7 @@ query chatQueriesMainMapsQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = {
   "alias": null,
   "args": null,
@@ -96,7 +94,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "chatQueriesMainMapsQuery",
+    "name": "ChatQueriesMainMapsQuery",
     "selections": (v2/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -105,20 +103,19 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "chatQueriesMainMapsQuery",
+    "name": "ChatQueriesMainMapsQuery",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "d0e1e7d6a09e1bd1c99cd35340574368",
+    "cacheID": "14c4b2f6f82a26b4d4e4f3d3bbbba753",
     "id": null,
     "metadata": {},
-    "name": "chatQueriesMainMapsQuery",
+    "name": "ChatQueriesMainMapsQuery",
     "operationKind": "query",
-    "text": "query chatQueriesMainMapsQuery {\n  mainMaps {\n    id\n    name\n    description\n    childs {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query ChatQueriesMainMapsQuery {\n  mainMaps {\n    id\n    name\n    description\n    childs {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '986e4ad80cba02e0651495aff4e9ef02';
-
+(node: any).hash = '10e81a25fdcfde6828e48f093e8efc49';
 module.exports = node;

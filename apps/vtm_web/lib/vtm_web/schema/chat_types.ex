@@ -17,6 +17,7 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :id, :id
     field :character_id, :id
     field :character_name, :string
+    field :character_chat_avatar, :string
     field :result, :string
     field :text, :string
     field :chat_map_id, :id
@@ -84,7 +85,6 @@ defmodule VtmWeb.Schema.ChatTypes do
       end
 
       resolve fn root, _args, _res ->
-        IO.puts "root: #{inspect root}"
         {:ok, root}
       end
     end

@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type sessionQueryVariables = {||};
 export type sessionQueryResponse = {|
@@ -19,7 +18,6 @@ export type sessionQuery = {|
   variables: sessionQueryVariables,
   response: sessionQueryResponse,
 |};
-*/
 
 
 /*
@@ -31,7 +29,7 @@ query sessionQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "alias": null,
@@ -87,6 +85,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'b1435a2c04686d739f00a970a8801b1b';
-
+(node: any).hash = 'b1435a2c04686d739f00a970a8801b1b';
 module.exports = node;

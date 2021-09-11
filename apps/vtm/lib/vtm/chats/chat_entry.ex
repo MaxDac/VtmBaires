@@ -20,6 +20,6 @@ defmodule Vtm.Chats.ChatEntry do
   def changeset(chat_entry, attrs) do
     chat_entry
     |> cast(attrs, [:text, :result, :character_name, :character_id, :chat_map_id])
-    |> validate_required([:text, :result, :character_id, :chat_map_id])
+    |> validate_required([:character_id, :chat_map_id])
   end
 end

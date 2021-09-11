@@ -9,10 +9,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
-import type {MapLocationSlim} from "../../services/queries/chat/chat-queries";
+import type {MapLocationSlim} from "../../services/queries/chat/ChatQueries";
 import {useHistory} from "react-router-dom";
 import {usePreloadedQuery} from "react-relay";
-import {mainMapsQuery, preloadedMainMapsQuery} from "../../services/queries/chat/chat-queries";
+import {mainMapsQuery, preloadedMainMapsQuery} from "../../services/queries/chat/ChatQueries";
 import {Routes} from "../../AppRouter";
 
 export default function Main(): any {

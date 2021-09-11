@@ -2,14 +2,8 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {wrapMutationAuthorized} from "../../relay-utils";
-import type { ChatEntry } from "./chat-queries";
-
-export type ChatEntryRequest = {
-    characterId: string;
-    chatMapId: string;
-    result: string;
-    text: string;
-}
+import type { ChatEntry } from "./ChatQueries";
+import type {ChatEntryRequest} from "./__generated__/chatMutation.graphql";
 
 const mutation = graphql`
     mutation chatMutation($entry: ChatEntryRequest) {
@@ -24,7 +18,9 @@ const mutation = graphql`
     }
 `;
 
-const mutationPromise = (request: ChatEntryRequest): Promise<ChatEntry> =>
-    wrapMutationAuthorized<ChatEntry>(mutation, request);
+const chatEntryMutationPromise = (request: ChatEntryRequest): Promise<ChatEntry> => {
+    console.log("request", request);
+    return wrapMutationAuthorized<ChatEntry>(mutation, { entry: request });
+};
 
-export default mutationPromise;
+export default chatEntryMutationPromise;

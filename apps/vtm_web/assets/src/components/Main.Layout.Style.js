@@ -1,7 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
-const chatInputHeihgt = "150px";
+const chatInputHeight = 100;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -98,15 +98,36 @@ const useStyles = makeStyles((theme) => ({
     },
     chatRootContainer: {
         flexGrow: 1,
-        flexDirection: "column"
+        flexDirection: "column",
+        overflow: "auto"
     },
     chatEntriesContainer: {
         flexGrow: 1,
-        height: `calc(100% - ${chatInputHeihgt})`
+        height: `calc(100% - ${chatInputHeight + 10}px)`,
+        overflow: "scroll"
     },
     chatInputControl: {
-        height: chatInputHeihgt,
+        height: `${chatInputHeight}px`,
         width: "100%"
+    },
+    chatInput: {
+        fontFamily: 'GabrieleLightRibbon'
+    },
+    chatButton: {
+
+    },
+    chatEntryContainer: {
+        padding: "5px"
+    },
+    chatShowAvatar: {
+        
+    },
+    chatShowName: {
+        fontFamily: 'GabrieleLightRibbon',
+        color: "red"
+    },
+    chatShowText: {
+        fontFamily: 'GabrieleLightRibbon'
     }
 }));
 

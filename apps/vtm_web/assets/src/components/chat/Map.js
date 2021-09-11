@@ -9,17 +9,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
-import type {MapLocationSlim} from "../../services/queries/chat/chat-queries";
+import type {MapLocationSlim} from "../../services/queries/chat/ChatQueries";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import {useMaps} from "../../services/hooks/useMaps";
+
+import type { Element, AbstractComponent } from "react";
+import type {MainLayoutProps} from "../Main.Layout";
 
 type MapProps = {
     setError: (string, string) => void;
     id: string;
 }
 
-const Map: any = ({ setError, id }: MapProps) => {
+const Map = ({ setError, id }: MapProps): Element<AbstractComponent<MainLayoutProps>> => {
     const history = useHistory();
     const maps = useMaps(id);
 

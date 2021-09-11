@@ -6,7 +6,6 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type predatorTypesQueryVariables = {||};
 export type predatorTypesQueryResponse = {|
@@ -19,7 +18,6 @@ export type predatorTypesQuery = {|
   variables: predatorTypesQueryVariables,
   response: predatorTypesQueryResponse,
 |};
-*/
 
 
 /*
@@ -31,7 +29,7 @@ query predatorTypesQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "alias": null,
@@ -87,6 +85,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'db4025bb28fdaedb7c32f820f98d0c3b';
-
+(node: any).hash = 'db4025bb28fdaedb7c32f820f98d0c3b';
 module.exports = node;

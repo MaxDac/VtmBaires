@@ -2,7 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {wrapSubscriptionAuthorized} from "../../relay-utils";
-import type { ChatEntry } from "./chat-queries";
+import type { ChatEntry } from "./ChatQueries";
 import {Observable} from "relay-runtime";
 
 const subscription = graphql`
@@ -12,6 +12,7 @@ const subscription = graphql`
             text
             result
             characterId
+            characterChatAvatar
             chatMapId
             characterName
         }
@@ -19,6 +20,6 @@ const subscription = graphql`
 `;
 
 const subscriptionPromise = (mapId: string): Observable<ChatEntry> =>
-    wrapSubscriptionAuthorized<ChatEntry>(subscription, { mapId });
+    wrapSubscriptionAuthorized<ChatEntry>(subscription, { mapId }, ({ newChatEntry }) => newChatEntry);
 
 export default subscriptionPromise;

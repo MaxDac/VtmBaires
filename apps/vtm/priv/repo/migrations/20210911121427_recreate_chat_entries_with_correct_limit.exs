@@ -1,7 +1,9 @@
-defmodule Vtm.Repo.Migrations.CreateChatEntries do
+defmodule Vtm.Repo.Migrations.RecreateChatEntriesWithCorrectLimit do
   use Ecto.Migration
 
   def change do
+    drop table("chat_entries")
+
     create table(:chat_entries) do
       add :text, :text
       add :result, :string

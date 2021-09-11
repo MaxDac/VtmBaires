@@ -33,6 +33,7 @@ export type CharacterCreationRequest = {
 }
 
 const mutationPromise = (request: CharacterCreationRequest): Promise<CreationResult> => {
+    console.log("create character request", request);
     return wrapMutationAuthorized<{ info: CreationResult }>(mutation, {
         request: {
             ...request,

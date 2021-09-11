@@ -6,11 +6,11 @@
 
 'use strict';
 
-/*::
 import type { ConcreteRequest } from 'relay-runtime';
 export type CharacterCreationRequest = {|
   avatar?: ?string,
   biography: string,
+  chatAvatar?: ?string,
   clanId: number,
   description: string,
   isNpc?: ?number,
@@ -35,7 +35,6 @@ export type createCharacterMutation = {|
   variables: createCharacterMutationVariables,
   response: createCharacterMutationResponse,
 |};
-*/
 
 
 /*
@@ -55,7 +54,7 @@ mutation createCharacterMutation(
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "defaultValue": null,
@@ -146,6 +145,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5575f521777d6bf2d4886623f1c4b4d7';
-
+(node: any).hash = '5575f521777d6bf2d4886623f1c4b4d7';
 module.exports = node;
