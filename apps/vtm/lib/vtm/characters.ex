@@ -12,6 +12,14 @@ defmodule Vtm.Characters do
     Clan |> Repo.all()
   end
 
+  def get_clan_disciplines(clan_id) do
+    %{attributes: attributes} = Clan
+    |> preload(:attributes)
+    |> Repo.get(clan_id)
+
+    attributes
+  end
+
   def get_attributes() do
     Attribute
     |> preload(:attribute_type)
@@ -22,16 +30,35 @@ defmodule Vtm.Characters do
     PredatorType |> Repo.all()
   end
 
+  defp select_user_characters_info(query) do
+    from character in query,
+      select: %Character{
+        id: character.id,
+        name: character.name,
+        chat_avatar: character.chat_avatar,
+        is_npc: character.is_npc,
+        is_complete: character.is_complete,
+        stage: character.stage,
+        approved: character.approved,
+      }
+  end
+
   def get_user_characters(%{role: :master, id: id}) do
     query = from c in Character,
       where: c.is_npc,
       or_where: c.user_id == ^id
 
-    query |> Repo.all()
+    query
+    |> select_user_characters_info()
+    |> Repo.all()
   end
 
   def get_user_characters(%{id: id}) do
-    Repo.all(from c in Character, where: c.user_id == ^id)
+    query = from c in Character, where: c.user_id == ^id
+
+    query
+    |> select_user_characters_info()
+    |> Repo.all()
   end
 
   def character_of_user?(user_id, character_id) do
@@ -58,9 +85,6 @@ defmodule Vtm.Characters do
   end
 
   def get_specific_character(%{ id: user_id }, id) do
-    IO.puts "user_id: #{user_id}"
-    IO.puts "id: #{id}"
-
     query =
       from c in Character,
         where: c.id == ^id,
@@ -75,10 +99,24 @@ defmodule Vtm.Characters do
     nil
   end
 
-  def create(attrs) do
+  def create(attrs, %{role: :master}) do
     %Character{}
     |> Character.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def create(attrs, user = %{id: _}) do
+    IO.puts "passing #{inspect user}"
+
+    # Checking whether the user already has a character
+    case get_user_characters(user) |> Enum.count() do
+      0 ->
+        %Character{}
+        |> Character.changeset(attrs)
+        |> Repo.insert()
+      _ ->
+        {:error, "The user has already a character."}
+    end
   end
 
   def update_character(id, attrs) do
@@ -135,5 +173,27 @@ defmodule Vtm.Characters do
         {:error, :unauthorized}
       e -> e
     end
+  end
+
+  def finalize_creation(user_id, attrs = %{id: id}) do
+    query =
+      from c in Character,
+        where: c.id == ^id,
+        where: c.user_id == ^user_id
+
+    Repo.one(query)
+    |> Character.finalize_character_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def complete_character(user_id, %{id: id}) do
+    query =
+      from c in Character,
+        where: c.id == ^id,
+        where: c.user_id == ^user_id
+
+    Repo.one(query)
+    |> Character.finalize_character_changeset(%{})
+    |> Repo.update()
   end
 end

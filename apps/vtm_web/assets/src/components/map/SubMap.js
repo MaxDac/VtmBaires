@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, {useContext} from 'react';
 import Container from '@material-ui/core/Container';
 import MainLayout from '../Main.Layout';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -9,19 +9,23 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
-import type {MapLocationSlim} from "../../services/queries/chat/ChatQueries";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import type { Element, AbstractComponent } from "react";
 import type {MainLayoutProps} from "../Main.Layout";
-import type {DefaultComponentProps} from "../../_base/types";
+import {UtilityContext} from "../../App";
+import type {Map} from "../../services/base-types";
 
-type SubMapProps = DefaultComponentProps & {
-    maps: Array<MapLocationSlim>;
-}
+type SubMapProps = {
+    maps: Array<Map>
+};
 
-const SubMap = ({ setError, openDialog, maps }: SubMapProps): Element<AbstractComponent<MainLayoutProps>> => {
+const SubMap = ({ maps }: SubMapProps): Element<AbstractComponent<MainLayoutProps>> => {
     const history = useHistory();
+
+    const {
+        openDialog
+    } = useContext(UtilityContext);
 
     const subHeader = () =>
         <ListSubheader component="div" id="nested-list-subheader">
@@ -32,7 +36,7 @@ const SubMap = ({ setError, openDialog, maps }: SubMapProps): Element<AbstractCo
         history.push(isChat ? Routes.chat(id) : Routes.subMap(id));
 
     const mapLinks = () => {
-        const mapLink = ({ id, name, isChat }: MapLocationSlim) =>
+        const mapLink = ({ id, name, isChat }: any) =>
             <ListItem key={id} button onClick={openMap(id, isChat)}>
                 <ListItemIcon>
                     <SendIcon />
@@ -40,7 +44,11 @@ const SubMap = ({ setError, openDialog, maps }: SubMapProps): Element<AbstractCo
                 <ListItemText primary={name} />
             </ListItem>;
 
-        return maps?.map(mapLink) ?? [];
+        if (maps && maps.map) {
+            return maps.map(mapLink);
+        }
+
+        return [];
     }
 
     return (

@@ -5,7 +5,6 @@ defmodule VtmWeb.ContextPlug do
 
   def call(conn, _) do
     context = build_context(conn)
-    IO.puts "context context: #{inspect context}"
     Absinthe.Plug.put_options(conn, context: context)
   end
 

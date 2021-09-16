@@ -1,7 +1,6 @@
 // @flow
 
 import React, {useState} from "react";
-import type {DefaultComponentProps} from "../../_base/types";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
@@ -37,7 +36,7 @@ const ChatInput = ({ classes, newChatEntry }: ChatInputProps): any => {
                                 onDialogClosing={() => setIsModalOpen(false)}
                                 onDialogFormSubmit={e => console.log("received", e)} />
             <Grid item xs={9} sm={10} md={11}>
-                <InputBase placeholder="Naked input"
+                <InputBase placeholder="Write your action here"
                            multiline
                            rows={4}
                            fullWidth

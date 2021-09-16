@@ -2,11 +2,10 @@
 
 import React from 'react';
 import MainLayout from "../Main.Layout";
-import type {DefaultComponentProps} from "../../_base/types";
 
-export default function Main({openDialog}: DefaultComponentProps): any {
+export default function Main(): any {
     return (
-        <MainLayout openDialog={openDialog}>
+        <MainLayout>
             { classes =>
                 <div>
                     Test

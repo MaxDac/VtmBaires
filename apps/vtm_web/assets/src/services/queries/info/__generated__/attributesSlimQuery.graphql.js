@@ -7,10 +7,10 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type attributesSlimQueryVariables = {||};
-export type attributesSlimQueryResponse = {|
+export type AttributesSlimQueryVariables = {||};
+export type AttributesSlimQueryResponse = {|
   +attributes: ?$ReadOnlyArray<?{|
-    +id: ?string,
+    +id: string,
     +name: ?string,
     +attributeType: ?{|
       +name: ?string,
@@ -18,14 +18,14 @@ export type attributesSlimQueryResponse = {|
     |},
   |}>
 |};
-export type attributesSlimQuery = {|
-  variables: attributesSlimQueryVariables,
-  response: attributesSlimQueryResponse,
+export type AttributesSlimQuery = {|
+  variables: AttributesSlimQueryVariables,
+  response: AttributesSlimQueryResponse,
 |};
 
 
 /*
-query attributesSlimQuery {
+query AttributesSlimQuery {
   attributes {
     id
     name
@@ -65,7 +65,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "attributesSlimQuery",
+    "name": "AttributesSlimQuery",
     "selections": [
       {
         "alias": null,
@@ -101,7 +101,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "attributesSlimQuery",
+    "name": "AttributesSlimQuery",
     "selections": [
       {
         "alias": null,
@@ -133,15 +133,15 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8719290af8b17694fdc9164ab881b713",
+    "cacheID": "ff15369ba3e8f55ec13e96b614d121e9",
     "id": null,
     "metadata": {},
-    "name": "attributesSlimQuery",
+    "name": "AttributesSlimQuery",
     "operationKind": "query",
-    "text": "query attributesSlimQuery {\n  attributes {\n    id\n    name\n    attributeType {\n      name\n      section\n      id\n    }\n  }\n}\n"
+    "text": "query AttributesSlimQuery {\n  attributes {\n    id\n    name\n    attributeType {\n      name\n      section\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'ca5bcbd47b0c38ee30fe212f21cc805c';
+(node: any).hash = '145fa031dddca00b697e3fdc739f8609';
 module.exports = node;

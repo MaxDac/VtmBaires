@@ -1,14 +1,13 @@
 // @flow
 
 import React from "react";
-
-import type { ChatEntry } from "../../services/queries/chat/ChatQueries";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
+import type {ChatEntry} from "../../services/base-types";
 
 type ChatEntryComponentProps = {
     classes: any;

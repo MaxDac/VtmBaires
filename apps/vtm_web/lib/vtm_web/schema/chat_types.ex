@@ -1,20 +1,19 @@
 defmodule VtmWeb.Schema.ChatTypes do
   use Absinthe.Schema.Notation
+  use Absinthe.Relay.Schema.Notation, :modern
 
   alias VtmWeb.Resolvers.ChatResolvers
 
-  object :chat_location do
-    field :id, :id
+  node object :chat_location do
     field :name, :string
     field :description, :string
     field :image, :string
     field :is_chat, :boolean
-    field :childs, list_of(:chat_location)
+    field :children, list_of(:chat_location)
   end
 
   # if left chat_entry, Relay got mad
-  object :map_chat_entry do
-    field :id, :id
+  node object :map_chat_entry do
     field :character_id, :id
     field :character_name, :string
     field :character_chat_avatar, :string
@@ -41,7 +40,7 @@ defmodule VtmWeb.Schema.ChatTypes do
       arg :parent_id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &ChatResolvers.get_chat_maps/3
+      resolve parsing_node_ids(&ChatResolvers.get_chat_maps/2, parent_id: :chat_location)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
@@ -49,7 +48,7 @@ defmodule VtmWeb.Schema.ChatTypes do
       arg :id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &ChatResolvers.get_chat/3
+      resolve parsing_node_ids(&ChatResolvers.get_chat/2, id: :chat_location)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
@@ -58,7 +57,7 @@ defmodule VtmWeb.Schema.ChatTypes do
       arg :map_id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &ChatResolvers.get_chat_entries/3
+      resolve parsing_node_ids(&ChatResolvers.get_chat_entries/2, map_id: :chat_location)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end
@@ -67,7 +66,7 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :create_chat_entry, :map_chat_entry do
       arg :entry, :chat_entry_request
 
-      # middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &ChatResolvers.create_chat_entry/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
@@ -77,10 +76,7 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :new_chat_entry, :map_chat_entry do
       arg :map_id, non_null(:id)
 
-      config fn rest = %{map_id: map_id}, context ->
-        IO.puts "rest: #{inspect rest}"
-        IO.puts "context: #{inspect context}"
-        {:ok, topic: map_id} end
+      config &ChatResolvers.config_chat_subscription/2
 
       trigger :create_chat_entry, topic: fn
         %{ chat_map_id: id }  -> id

@@ -7,57 +7,81 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type getCharacterQueryVariables = {|
+type CharacterFragments_characterAvatar$ref = any;
+type CharacterFragments_characterInfo$ref = any;
+type CharacterFragments_characterSheet$ref = any;
+type CharacterFragments_characterState$ref = any;
+type CharacterFragments_characterStats$ref = any;
+export type GetCharacterQueryVariables = {|
   id: string
 |};
-export type getCharacterQueryResponse = {|
+export type GetCharacterQueryResponse = {|
   +getCharacter: ?{|
-    +info: ?{|
-      +id: ?string,
-      +name: ?string,
-      +avatar: ?string,
-    |},
-    +biography: ?string,
-    +description: ?string,
-    +clan: ?{|
-      +id: ?string,
-      +name: ?string,
-    |},
-    +humanity: ?number,
-    +stage: ?number,
-    +approved: ?boolean,
-    +isComplete: ?boolean,
-    +isNpc: ?boolean,
+    +id: string,
+    +$fragmentRefs: CharacterFragments_characterAvatar$ref & CharacterFragments_characterInfo$ref & CharacterFragments_characterSheet$ref & CharacterFragments_characterStats$ref & CharacterFragments_characterState$ref,
   |}
 |};
-export type getCharacterQuery = {|
-  variables: getCharacterQueryVariables,
-  response: getCharacterQueryResponse,
+export type GetCharacterQuery = {|
+  variables: GetCharacterQueryVariables,
+  response: GetCharacterQueryResponse,
 |};
 
 
 /*
-query getCharacterQuery(
+query GetCharacterQuery(
   $id: ID!
 ) {
   getCharacter(id: $id) {
-    info {
-      id
-      name
-      avatar
-    }
-    biography
-    description
-    clan {
-      id
-      name
-    }
-    humanity
-    stage
-    approved
-    isComplete
-    isNpc
+    id
+    ...CharacterFragments_characterAvatar
+    ...CharacterFragments_characterInfo
+    ...CharacterFragments_characterSheet
+    ...CharacterFragments_characterStats
+    ...CharacterFragments_characterState
   }
+}
+
+fragment CharacterFragments_characterAvatar on Character {
+  avatar
+}
+
+fragment CharacterFragments_characterInfo on Character {
+  id
+  name
+  chatAvatar
+  clan {
+    id
+    name
+  }
+}
+
+fragment CharacterFragments_characterSheet on Character {
+  id
+  biography
+  description
+}
+
+fragment CharacterFragments_characterState on Character {
+  id
+  stage
+  approved
+  isComplete
+  isNpc
+  advantages
+  notes
+}
+
+fragment CharacterFragments_characterStats on Character {
+  id
+  humanity
+  experience
+  generation
+  hunger
+  health
+  damage
+  aggravatedDamage
+  willpower
+  willpowerDamage
 }
 */
 
@@ -69,128 +93,72 @@ var v0 = [
     "name": "id"
   }
 ],
-v1 = {
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-},
-v3 = [
-  {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "id",
-        "variableName": "id"
-      }
-    ],
-    "concreteType": "Character",
-    "kind": "LinkedField",
-    "name": "getCharacter",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CharacterInfo",
-        "kind": "LinkedField",
-        "name": "info",
-        "plural": false,
-        "selections": [
-          (v1/*: any*/),
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "avatar",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "biography",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "description",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Clan",
-        "kind": "LinkedField",
-        "name": "clan",
-        "plural": false,
-        "selections": [
-          (v1/*: any*/),
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "humanity",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "stage",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "approved",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "isComplete",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "isNpc",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "getCharacterQuery",
-    "selections": (v3/*: any*/),
+    "name": "GetCharacterQuery",
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Character",
+        "kind": "LinkedField",
+        "name": "getCharacter",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CharacterFragments_characterAvatar"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CharacterFragments_characterInfo"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CharacterFragments_characterSheet"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CharacterFragments_characterStats"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CharacterFragments_characterState"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "RootQueryType",
     "abstractKey": null
   },
@@ -198,19 +166,179 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "getCharacterQuery",
-    "selections": (v3/*: any*/)
+    "name": "GetCharacterQuery",
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Character",
+        "kind": "LinkedField",
+        "name": "getCharacter",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "avatar",
+            "storageKey": null
+          },
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "chatAvatar",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Clan",
+            "kind": "LinkedField",
+            "name": "clan",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "biography",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "description",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "humanity",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "experience",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "generation",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "hunger",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "health",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "damage",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "aggravatedDamage",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "willpower",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "willpowerDamage",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "stage",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "approved",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isComplete",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isNpc",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "advantages",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "notes",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "f2093304faceb878806a9326187de331",
+    "cacheID": "8e74e3773c572bb5f070abe3dc057324",
     "id": null,
     "metadata": {},
-    "name": "getCharacterQuery",
+    "name": "GetCharacterQuery",
     "operationKind": "query",
-    "text": "query getCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    info {\n      id\n      name\n      avatar\n    }\n    biography\n    description\n    clan {\n      id\n      name\n    }\n    humanity\n    stage\n    approved\n    isComplete\n    isNpc\n  }\n}\n"
+    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  advantages\n  notes\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'fbba50f7c2d9fa98b0c6ff34a1dcc668';
+(node: any).hash = 'ec01a33d95fbda441a8d163b09e6468b';
 module.exports = node;

@@ -1,5 +1,6 @@
 defmodule VtmWeb.Schema.BaseTypes do
   use Absinthe.Schema.Notation
+  use Absinthe.Relay.Schema.Notation, :modern
 
   alias VtmWeb.Resolvers.AccountsResolvers
   alias VtmWeb.Schema.Middlewares

@@ -19,19 +19,37 @@ defmodule Vtm.Characters.Character do
     field :generation, :integer
     field :hunger, :integer
     field :health, :integer
-    field :damange, :integer
+    field :damage, :integer
     field :aggravated_damage, :integer
     field :willpower, :integer
     field :willpower_damage, :integer
 
     field :stage, :integer
     field :approved, :boolean
+    field :advantages, :string
+    field :notes, :string
 
     belongs_to :user, User
     belongs_to :clan, Clan
     belongs_to :predator_type, PredatorType
 
     timestamps()
+  end
+
+  def complete_changeset(character, attrs) do
+    character
+    |> cast(attrs, [:advantages, :notes, :predator_type_id, :is_complete])
+    |> foreign_key_constraint(:clan_id)
+    |> foreign_key_constraint(:predator_type_id)
+    |> validate_required([:advantages, :notes, :predator_type_id])
+  end
+
+  def finalize_character_changeset(character, attrs) do
+    character
+    |> cast(attrs, [:advantages, :notes, :predator_type_id, :is_complete])
+    |> foreign_key_constraint(:clan_id)
+    |> foreign_key_constraint(:predator_type_id)
+    |> validate_required([:advantages, :notes, :predator_type_id])
   end
 
   def update_changeset(character, attrs) do
@@ -68,7 +86,7 @@ defmodule Vtm.Characters.Character do
       :generation,
       :hunger,
       :health,
-      :damange,
+      :damage,
       :aggravated_damage,
       :willpower,
       :willpower_damage,
@@ -76,7 +94,9 @@ defmodule Vtm.Characters.Character do
       :approved,
       :user_id,
       :clan_id,
-      :predator_type_id
+      :predator_type_id,
+      :advantages,
+      :notes
     ])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:clan_id)

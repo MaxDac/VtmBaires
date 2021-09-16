@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import {useStyles} from "../../_base/components/FormSelectField";
 import MenuItem from "@material-ui/core/MenuItem";
 import {setValue} from "relay-runtime/lib/store/RelayModernRecord";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 export type SetControlValue = string => void;
 
@@ -16,7 +17,7 @@ type AttributeSelectionFieldProps = {
     label: string;
     fieldName: string;
     value: string;
-    values: () => Array<[string, string]>;
+    values: () => Array<[string, string, string]>;
     onChange: (string, string, SetControlValue, SetControlError) => void;
 }
 
@@ -28,9 +29,24 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
     const items = () => {
         const values = props.values();
 
-        if (values && values.map) {
-            return values
-                .map(([value, label]) => <MenuItem key={value} value={value}>{label}</MenuItem>);
+        if (values && values.reduce) {
+            return values.reduce(([prevGroup, acc], [group, value, label]) => {
+                const selectItem = <MenuItem key={value} value={value}>{label}</MenuItem>;
+
+                if (group !== prevGroup) {
+                    return [group, [
+                        ...acc,
+                        <ListSubheader>{group}</ListSubheader>,
+                        selectItem
+                    ]];
+                }
+
+                return [group, [
+                    ...acc,
+                    selectItem
+                ]]
+            }, ["", []]);
+                // .map(([grouping, value, label]) => <MenuItem key={value} value={value}>{label}</MenuItem>);
         }
 
         return [];
@@ -52,20 +68,21 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
     }
 
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="select-label">{props.label}</InputLabel>
-            <Select
-                labelId="select-label"
-                id={props.fieldName}
-                name={props.fieldName}
-                fullWidth
-                value={innerValue}
-                onChange={onChange}
-                error={hasError()}
-                aria-errormessage={error}>
-                {items()}
-            </Select>
-        </FormControl>
+        <div style={{padding: "10px", textAlign: "center"}}>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="select-label">{props.label}</InputLabel>
+                <Select labelId="select-label"
+                        id={props.fieldName}
+                        name={props.fieldName}
+                        fullWidth
+                        value={innerValue}
+                        onChange={onChange}
+                        error={hasError()}
+                        aria-errormessage={error}>
+                    {items()}
+                </Select>
+            </FormControl>
+        </div>
     );
 }
 

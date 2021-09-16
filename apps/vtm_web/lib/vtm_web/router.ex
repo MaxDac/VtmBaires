@@ -13,6 +13,7 @@ defmodule VtmWeb.Router do
     plug :accepts, ["json"]
     plug VtmWeb.ContextPlug
     plug VtmWeb.HttpContextPlug
+    plug VtmWeb.ErrorStatusPlug
   end
 
   scope "/", VtmWeb do

@@ -1,12 +1,15 @@
 // @flow
 
-import {check, checkMaster} from "./login-service";
-
-import type {User} from "./login-service";
-import type {Id} from "./queries/character/character-types";
+import {checkMaster} from "./login-service";
+import type {User} from "./base-types";
+import {userCharactersQuery} from "./queries/accounts/UserCharactersQuery";
+import type {UserCharactersQuery} from "./queries/accounts/__generated__/UserCharactersQuery.graphql";
+import type {UserCharacter} from "./queries/accounts/UserCharactersQuery";
+import {useCustomLazyLoadQuery} from "../_base/relay-utils";
+import {emptyArray} from "../_base/utils";
 
 export type SessionCharacter = {
-    id: Id;
+    id: string;
     name: string;
 }
 
@@ -24,25 +27,17 @@ export const storeLoginInformation = (user: User) => {
 
 /**
  * Gets the current login information.
- * @returns {Promise<?SessionCharacter>} The user.
+ * @returns {?SessionCharacter} The user.
  */
-export const getLoginInformation = (): Promise<?User> =>
-    new Promise<?User>((res, rej) => {
-        const inStorage = sessionStorage.getItem("x-session-info");
+export const getLoginInformation = (): ?User => {
+    const inStorage = sessionStorage.getItem(storageUserInfoKey);
 
-        if (inStorage && inStorage !== "") {
-            res(JSON.parse(inStorage));
-        }
-        else {
-            check()
-                .then(response => {
-                    res(response.data.user);
-                })
-                .catch(e => {
-                    rej(e);
-                });
-        }
-    });
+    if (inStorage && inStorage !== "") {
+        return JSON.parse(inStorage);
+    }
+
+    return null;
+};
 
 /**
  * Determines whether the user is a master or not.
@@ -89,3 +84,28 @@ export const updateCurrentCharacter = (character: SessionCharacter): UserSession
         ...getUserSessionInfo(),
         selectedCharacter: character
     });
+
+export type UserCharacters = "OnlyOne" | "MoreThanOne" | "NoOne";
+
+export const useFetchCharacterIfOne = (): [UserCharacters, ?UserCharacter] => {
+    const characters: Array<UserCharacter> = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
+        fetchPolicy: "store-and-network"
+    })?.me?.userCharacters
+        ?.filter(c => c != null)
+        ?.map((m: any) => {
+            return {
+                id: m.id,
+                name: (m.name : string),
+                stage: m.stage,
+                approved: m.approved,
+                isComplete: m.isComplete,
+                chatAvatar: m.chatAvatar
+            };
+        }) ?? emptyArray();
+
+    if (characters == null) {
+        return ["NoOne", null];
+    }
+
+    return [characters.length === 1 ? "OnlyOne" : "MoreThanOne", characters[0]];
+}

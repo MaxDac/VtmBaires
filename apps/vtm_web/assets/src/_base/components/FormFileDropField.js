@@ -5,6 +5,7 @@ import {useDropzone} from "react-dropzone";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
 import {compressImage} from "../file-utils";
+import Grid from "@material-ui/core/Grid";
 
 export type FormFileDropFieldProps = {
     changed: (?string, ?string) => void;
@@ -98,19 +99,24 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
     const showPreview = () => {
         if (props.showPreview && preview && preview !== "") {
             return (
-                <>
-                    <br />
-                    <div style={{
-                        margin: '0 auto',
-                        width: '40px'
+                <Grid container>
+                    <Grid item xs={12} style={{
+                        textAlign: "center",
+                        fontSize: "24px",
+                        padding: "15px"
                     }}>
+                        Preview
+                    </Grid>
+                    <Grid item xs={12} sm={4} style={{textAlign: "right"}}>
                         <img src={largePreview} alt="original size" />
-
+                    </Grid>
+                    <Grid item xs={12} sm={4} style={{textAlign: "center"}}>
                         <img src={preview} alt="original size" />
-
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
                         <Avatar alt="preview" src={preview} className={classes.large} />
-                    </div>
-                </>);
+                    </Grid>
+                </Grid>);
         }
         else {
             return <></>

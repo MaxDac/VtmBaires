@@ -1,56 +1,39 @@
 defmodule VtmWeb.Resolvers.ChatResolvers do
   alias Vtm.Chats
+  import VtmWeb.Resolvers.Helpers
 
-  @map_object_identifier "map-"
-
-  @doc """
-  This function is necessary due to limitations in Relay for elements with the same id of different types.
-  """
-  defp map_chat_map(map) do
-    %{ map | id: "#{@map_object_identifier}#{map.id}" }
-  end
-
-  defp put_in_ok_tuple(el) do
-    {:ok, el}
-  end
-
-  defp sanitize_map_id(id) do
-    id |> String.replace(@map_object_identifier, "")
-  end
+  alias VtmAuth.Accounts
 
   def get_main_chat_maps(_, _, _) do
-    Chats.get_main_chat_maps()
-    |> Enum.map(&map_chat_map/1)
-    |> put_in_ok_tuple()
+    {:ok, Chats.get_main_chat_maps()}
   end
 
-  def get_chat_maps(_, %{ parent_id: id }, _) do
-    id
-    |> sanitize_map_id()
-    |> Chats.get_chat_maps()
-    |> Enum.map(&map_chat_map/1)
-    |> put_in_ok_tuple()
+  def get_chat_maps(%{ parent_id: id }, _) do
+    {:ok, Chats.get_chat_maps(id)}
   end
 
-  def get_chat(_, %{ id: id }, _) do
-    id
-    |> sanitize_map_id()
-    |> Chats.get_map()
-    |> map_chat_map()
-    |> put_in_ok_tuple()
+  def get_chat(%{ id: id }, _) do
+    {:ok, Chats.get_map(id)}
   end
 
-  def get_chat_entries(_, %{ map_id: map_id }, _) do
-    map_id
-    |> sanitize_map_id()
-    |> Chats.get_chat_entries()
-    |> put_in_ok_tuple()
+  def get_chat_entries(%{ map_id: map_id }, _) do
+    {:ok, Chats.get_chat_entries(map_id)}
   end
 
-  def create_chat_entry(_, %{ entry: entry }, _) do
-    with {:ok, %{ id: id }}           <- Chats.create_chat_entry(entry),
-         entry when not is_nil(entry) <- Chats.get_chat_entry(id) do
+  def create_chat_entry(_, %{ entry: entry }, %{context: %{current_user: user}}) do
+    new_entry =
+      entry
+      |> Map.put(:character_id, from_global_id?(entry.character_id))
+      |> Map.put(:chat_map_id, from_global_id?(entry.chat_map_id))
+
+    with {:ok, %{ id: id }}           <- Chats.create_chat_entry(new_entry),
+         entry when not is_nil(entry) <- Chats.get_chat_entry(id),
+         {:ok, _}                     <- Accounts.update_session(user) do
       {:ok, entry}
     end
+  end
+
+  def config_chat_subscription(%{map_id: map_id}, _context) do
+    {:ok, topic: from_global_id?(map_id)}
   end
 end

@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    defaultParagraph: {
+        padding: theme.spacing(1)
+    },
     menuButton: {
         marginRight: 36,
     },
@@ -104,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
     chatEntriesContainer: {
         flexGrow: 1,
         height: `calc(100% - ${chatInputHeight + 10}px)`,
-        overflow: "scroll"
+        overflowY: "scroll"
     },
     chatInputControl: {
         height: `${chatInputHeight}px`,
@@ -128,7 +131,37 @@ const useStyles = makeStyles((theme) => ({
     },
     chatShowText: {
         fontFamily: 'GabrieleLightRibbon'
-    }
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(16),
+        right: theme.spacing(2)
+    },
+    smallAvatar: {
+        width: theme.spacing(3),
+        height: theme.spacing(3)
+    },
+    largeAvatar: {
+        width: theme.spacing(7),
+        height: theme.spacing(7)
+    },
+    responseInnerContainer: {
+        paddingLeft: theme.spacing(20),
+        paddingRight: theme.spacing(20),
+        paddingTop: theme.spacing(3)
+    },
+    sheetAvatar: {
+        width: "200px",
+        height: "200px"
+    },
+    sheetTitle: {
+        fontFamily: 'GabrieleLightRibbon',
+        color: "red",
+        fontSize: "24px"
+    },
+    sheetText: {
+        fontFamily: 'GabrieleLightRibbon'
+    },
 }));
 
 export default useStyles;

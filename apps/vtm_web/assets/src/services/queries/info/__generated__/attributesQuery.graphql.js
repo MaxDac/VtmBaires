@@ -7,27 +7,27 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type attributesQueryVariables = {||};
-export type attributesQueryResponse = {|
+export type AttributesQueryVariables = {||};
+export type AttributesQueryResponse = {|
   +attributes: ?$ReadOnlyArray<?{|
-    +id: ?string,
+    +id: string,
     +name: ?string,
     +description: ?string,
     +attributeType: ?{|
-      +id: ?string,
+      +id: string,
       +name: ?string,
       +section: ?string,
     |},
   |}>
 |};
-export type attributesQuery = {|
-  variables: attributesQueryVariables,
-  response: attributesQueryResponse,
+export type AttributesQuery = {|
+  variables: AttributesQueryVariables,
+  response: AttributesQueryResponse,
 |};
 
 
 /*
-query attributesQuery {
+query AttributesQuery {
   attributes {
     id
     name
@@ -103,7 +103,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "attributesQuery",
+    "name": "AttributesQuery",
     "selections": (v2/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -112,19 +112,19 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "attributesQuery",
+    "name": "AttributesQuery",
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "01f708ed4e02eb372d3c93c0ff6360d5",
+    "cacheID": "ab46d33b824ccc4e4c43ea10a43f3542",
     "id": null,
     "metadata": {},
-    "name": "attributesQuery",
+    "name": "AttributesQuery",
     "operationKind": "query",
-    "text": "query attributesQuery {\n  attributes {\n    id\n    name\n    description\n    attributeType {\n      id\n      name\n      section\n    }\n  }\n}\n"
+    "text": "query AttributesQuery {\n  attributes {\n    id\n    name\n    description\n    attributeType {\n      id\n      name\n      section\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '498415be44f48d24f826141ca0fa44d8';
+(node: any).hash = 'b01b5b6e4f0d1975fbf34049fe288d53';
 module.exports = node;

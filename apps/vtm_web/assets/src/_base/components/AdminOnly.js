@@ -1,17 +1,20 @@
 // @flow
 
-import React from "react";
-import useCheckMaster from "../../services/hooks/useCheckMaster";
+import React, {useContext} from "react";
+import {SessionContext} from "../../App";
+import {isUserMaster} from "../../services/base-types";
 
 export type AdminOnlyProps = {
     children: any;
 }
 
 const AdminOnly = ({children}: AdminOnlyProps): any => {
-    const isMaster = useCheckMaster();
+    const {
+        getUser
+    } = useContext(SessionContext);
 
     const body = (): any => {
-        if (isMaster) {
+        if (isUserMaster(getUser?.())) {
             return (<>{children}</>);
         }
         else {

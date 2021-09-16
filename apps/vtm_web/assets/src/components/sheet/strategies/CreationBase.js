@@ -1,43 +1,45 @@
 // @flow
 
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
-import {useSession} from "../../../services/hooks/useSession";
 import {useHistory} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import {usePreloadedQuery} from "react-relay";
-import {attributesQuery, preloadedQuery} from "../../../services/queries/info/attributes-query";
 import Grid from "@material-ui/core/Grid";
-
 import AttributeSelectionField from "../AttributeSelectionField";
 import Button from "@material-ui/core/Button";
-import appendAttributesMutation from "../../../services/queries/character/append-attributes-mutation";
-
-import type { CharacterAttributeRequest } from "../../../services/queries/character/append-attributes-mutation";
+import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
 import {Routes} from "../../../AppRouter";
-import useCharacterStage from "../../../services/hooks/useCharacterStage";
+import type { AttributeTypeNames } from "../../../services/queries/info/AttributesQuery";
+import {UtilityContext} from "../../../App";
+import type {CharacterAttributeRequest} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
+import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
+import useAttributesQuery from "../../../services/queries/info/AttributesQuery";
+import type {GetCharacterStageQuery} from "../../../services/queries/character/__generated__/GetCharacterStageQuery.graphql";
+import type {SessionCharacter as Character} from "../../../services/session-service";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
-import type {Attributes} from "./attribute-helpers";
-import type { AttributeTypeNames } from "../../../services/queries/info/attributes-query";
-
-export type CreationBaseProps<TFormAttributes> = {
+export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
-    setError: (string, string) => void;
+    character: Character;
     currentStage: number;
     attributeTypeName: AttributeTypeNames;
     emptyAttributes: TFormAttributes;
     getAttributesToSave: (TFormAttributes, (string, number) => CharacterAttributeRequest) => Array<CharacterAttributeRequest>;
     children: ((string, string) => any) => any;
-}
+|}
 
 const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): any => {
     const history = useHistory();
-    const { character: ch } = useSession(history);
-    const character = useCharacterStage(ch?.id);
-    const { attributes: data }: Attributes = usePreloadedQuery(attributesQuery, preloadedQuery);
 
-    if (character?.stage) {
-        if (character?.stage > props.currentStage) {
+    const { setError } = useContext(UtilityContext);
+
+    const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
+        id: props.character.id
+    })?.getCharacter;
+    const data = useAttributesQuery();
+
+    if (character?.stage != null) {
+        if (character.stage > props.currentStage) {
             history.push(Routes[`creation${props.currentStage + 1}`]);
         }
     }
@@ -47,10 +49,11 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     const selectFields = () => {
         const attrs = data
-            .filter(({ attributeType: { name } }) => name === props.attributeTypeName)
-            .map(({ id, name}) => [String(id), name]);
+            ?.filter(({ attributeType: { name } }) => name === props.attributeTypeName)
+            ?.map(({ id, name, attributeType: { section: group } }) => [group, String(id), name])
+            ?? [];
 
-        return [["", " "]].concat(attrs);
+        return [["", "", "None"]].concat(attrs);
     };
 
     const checkAttributes = (propertyName, propertyValue, setControlValue, setControlError) => {
@@ -90,7 +93,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
                                  values={selectFields}
                                  onChange={checkAttributes} />;
 
-    const onSubmit = setError => _ => {
+    const onSubmit = _ => {
         if (errors && Object.keys(errors).length > 0) {
             return;
         }
@@ -101,15 +104,15 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         const generateRequest = (attributeId: string, value: number): CharacterAttributeRequest => ({
             attributeId,
-            characterId: String(ch?.id),
+            characterId: String(props.character.id),
             value
         });
 
         const request: Array<CharacterAttributeRequest> = props.getAttributesToSave(values, generateRequest);
 
         appendAttributesMutation(request, props.currentStage)
-            .then(_ => history.push(Routes.creation3))
-            .catch(e => setError(e, "There was an error while updating the character."));
+            .then(_ => history.push(`${Routes.creationBase}${props.currentStage + 1}`))
+            .catch(e => setError({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }
 
     return (
@@ -125,7 +128,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
                     variant="contained"
                     color="primary"
                     className={props.classes.submit}
-                    onClick={onSubmit(props.setError)}>
+                    onClick={onSubmit}>
                 Continue!
             </Button>
         </>

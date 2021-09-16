@@ -8,17 +8,18 @@
 
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type characterFragments_characterSheet$ref: FragmentReference;
-declare export opaque type characterFragments_characterSheet$fragmentType: characterFragments_characterSheet$ref;
-export type characterFragments_characterSheet = {|
+declare export opaque type CharacterFragments_characterSheet$ref: FragmentReference;
+declare export opaque type CharacterFragments_characterSheet$fragmentType: CharacterFragments_characterSheet$ref;
+export type CharacterFragments_characterSheet = {|
+  +id: string,
   +biography: ?string,
   +description: ?string,
-  +$refType: characterFragments_characterSheet$ref,
+  +$refType: CharacterFragments_characterSheet$ref,
 |};
-export type characterFragments_characterSheet$data = characterFragments_characterSheet;
-export type characterFragments_characterSheet$key = {
-  +$data?: characterFragments_characterSheet$data,
-  +$fragmentRefs: characterFragments_characterSheet$ref,
+export type CharacterFragments_characterSheet$data = CharacterFragments_characterSheet;
+export type CharacterFragments_characterSheet$key = {
+  +$data?: CharacterFragments_characterSheet$data,
+  +$fragmentRefs: CharacterFragments_characterSheet$ref,
   ...
 };
 
@@ -27,8 +28,15 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "characterFragments_characterSheet",
+  "name": "CharacterFragments_characterSheet",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -48,5 +56,5 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 // prettier-ignore
-(node: any).hash = 'a23a5646a68d1ab08f0250ba18cccdef';
+(node: any).hash = 'b2e9a29b8d8baa699f8f79e782b25056';
 module.exports = node;

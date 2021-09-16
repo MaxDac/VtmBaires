@@ -1,41 +1,42 @@
 defmodule VtmWeb.Schema.CharacterTypes do
   use Absinthe.Schema.Notation
+  use Absinthe.Relay.Schema.Notation, :modern
 
   alias VtmWeb.Resolvers.CharacterResolvers
 
-  object :clan do
-    field :id, :id
+  node object :clan do
     field :name, :string
   end
 
-  object :predator_type do
-    field :id, :id
+  node object :predator_type do
     field :name, :string
     field :description, :string
   end
 
-  object :attribute_type do
-    field :id, :id
+  node object :attribute_type do
     field :name, :string
     field :section, :string
   end
 
-  object :attribute do
-    field :id, :id
+  node object :attribute do
     field :name, :string
     field :description, :string
     field :attribute_type, :attribute_type
   end
 
-  object :character_info do
-    field :id, :id
-    field :avatar, :string
-    field :chat_avatar, :string
+  node object :discipline do
+    field :name, :string
+    field :description, :string
+  end
+
+  node object :character_info do
     field :name, :string
   end
 
-  object :character do
-    field :info, :character_info
+  node object :character do
+    field :avatar, :string
+    field :chat_avatar, :string
+    field :name, :string
     field :biography, :string
     field :description, :string
     field :is_npc, :boolean
@@ -47,17 +48,19 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :approved, :boolean
     field :hunger, :integer
     field :health, :integer
-    field :damange, :integer
+    field :damage, :integer
     field :aggravated_damage, :integer
     field :willpower, :integer
     field :willpower_damage, :integer
+    field :advantages, :string
+    field :notes, :string
     field :clan, :clan
     field :predator_type, :predator_type
   end
 
   input_object :character_creation_request do
     field :name, non_null(:string)
-    field :clan_id, non_null(:integer)
+    field :clan_id, non_null(:string)
     field :avatar, :string
     field :chat_avatar, :string
     field :biography, non_null(:string)
@@ -69,6 +72,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :character_id, non_null(:id)
     field :attribute_id, non_null(:id)
     field :value, non_null(:integer)
+  end
+
+  input_object :character_finalization_request do
+    field :predator_type_id, non_null(:id)
+    field :advantages, non_null(:string)
+    field :notes, :string
   end
 
   object :character_queries do
@@ -84,17 +93,23 @@ defmodule VtmWeb.Schema.CharacterTypes do
       resolve &CharacterResolvers.get_attributes/3
     end
 
+    field :clan_disciplines, list_of(:discipline) do
+      arg :clan_id, non_null(:id)
+
+      resolve parsing_node_ids(&CharacterResolvers.get_clan_disciplines/2, clan_id: :clan)
+    end
+
     field :get_character, :character do
       arg :id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &CharacterResolvers.get_character/3
+      resolve parsing_node_ids(&CharacterResolvers.get_character/2, id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end
 
   object :character_mutations do
-    field :create_character, :character do
+    field :create_character, :character_info do
       arg :request, :character_creation_request
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
@@ -108,6 +123,21 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.append_attributes/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :finalize_character_creation do
+      input do
+        field :request, non_null(:character_finalization_request)
+        field :attributes, list_of(:character_attribute_request)
+        field :new_stage, non_null(:integer)
+      end
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.finalize_creation/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

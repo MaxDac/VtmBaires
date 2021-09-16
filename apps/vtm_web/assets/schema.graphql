@@ -4,34 +4,44 @@ schema {
   subscription: RootSubscriptionType
 }
 
-type Attribute {
+type Attribute implements Node {
   attributeType: AttributeType
   description: String
-  id: ID
+
+  """The ID of an object"""
+  id: ID!
   name: String
 }
 
-type AttributeType {
-  id: ID
+type AttributeType implements Node {
+  """The ID of an object"""
+  id: ID!
   name: String
   section: String
 }
 
-type Character {
+type Character implements Node {
+  advantages: String
   aggravatedDamage: Int
   approved: Boolean
+  avatar: String
   biography: String
+  chatAvatar: String
   clan: Clan
-  damange: Int
+  damage: Int
   description: String
   experience: Int
   generation: Int
   health: Int
   humanity: Int
   hunger: Int
-  info: CharacterInfo
+
+  """The ID of an object"""
+  id: ID!
   isComplete: Boolean
   isNpc: Boolean
+  name: String
+  notes: String
   predatorType: PredatorType
   stage: Int
   willpower: Int
@@ -48,16 +58,21 @@ input CharacterCreationRequest {
   avatar: String
   biography: String!
   chatAvatar: String
-  clanId: Int!
+  clanId: String!
   description: String!
   isNpc: Int
   name: String!
 }
 
-type CharacterInfo {
-  avatar: String
-  chatAvatar: String
-  id: ID
+input CharacterFinalizationRequest {
+  advantages: String!
+  notes: String
+  predatorTypeId: ID!
+}
+
+type CharacterInfo implements Node {
+  """The ID of an object"""
+  id: ID!
   name: String
 }
 
@@ -68,17 +83,20 @@ input ChatEntryRequest {
   text: String
 }
 
-type ChatLocation {
-  childs: [ChatLocation]
+type ChatLocation implements Node {
+  children: [ChatLocation]
   description: String
-  id: ID
+
+  """The ID of an object"""
+  id: ID!
   image: String
   isChat: Boolean
   name: String
 }
 
-type Clan {
-  id: ID
+type Clan implements Node {
+  """The ID of an object"""
+  id: ID!
   name: String
 }
 
@@ -86,54 +104,69 @@ type CreationResult {
   id: ID
 }
 
-type MapChatEntry {
+type Discipline implements Node {
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
+}
+
+input FinalizeCharacterCreationInput {
+  attributes: [CharacterAttributeRequest]
+  newStage: Int!
+  request: CharacterFinalizationRequest!
+}
+
+type FinalizeCharacterCreationPayload {
+  result: Character
+}
+
+type MapChatEntry implements Node {
   characterChatAvatar: String
-  characterId: String
+  characterId: ID
   characterName: String
-  chatMapId: String
-  id: ID
+  chatMapId: ID
+
+  """The ID of an object"""
+  id: ID!
   result: String
   text: String
 }
 
-type Master implements User {
-  email: String
-  id: ID
-  name: String
-  userCharacters: [CharacterInfo]
+interface Node {
+  """The ID of the object."""
+  id: ID!
 }
 
-type Player implements User {
-  email: String
-  id: ID
-  name: String
-  userCharacters: [CharacterInfo]
-}
-
-type PredatorType {
+type PredatorType implements Node {
   description: String
-  id: ID
+
+  """The ID of an object"""
+  id: ID!
   name: String
 }
 
 enum Role {
   MASTER
-  PLAYER
+  USER
 }
 
 type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
-  createCharacter(request: CharacterCreationRequest): Character
+  createCharacter(request: CharacterCreationRequest): CharacterInfo
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
-  login(email: String!, password: String!, role: Role!): Session
+  finalizeCharacterCreation(input: FinalizeCharacterCreationInput!): FinalizeCharacterCreationPayload
+  login(email: String!, password: String!, remember: Boolean!): Session
 }
 
 type RootQueryType {
   attributes: [Attribute]
+  clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
-  list: [Player]
+  list: [User]
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
   mapChatEntries(mapId: ID): [MapChatEntry]
@@ -151,10 +184,11 @@ type Session {
   user: User
 }
 
-interface User {
+type User {
   email: String
   id: ID
   name: String
-  userCharacters: [CharacterInfo]
+  role: Role
+  userCharacters: [Character]
 }
 

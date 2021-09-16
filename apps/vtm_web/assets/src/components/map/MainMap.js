@@ -2,14 +2,15 @@
 
 import React from 'react';
 import SubMap from "./SubMap";
-import {usePreloadedQuery} from "react-relay";
-import {mainMapsQuery, preloadedMainMapsQuery} from "../../services/queries/chat/ChatQueries";
-import type {OpenDialogDelegate} from "../../AppRouter";
-import type {DefaultComponentProps} from "../../_base/types";
+import useMainMaps, {convert, mainMapsQuery} from "../../services/queries/map/MainMapsQuery";
+import {log} from "../../_base/utils";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
-const MainMap = ({ setError, openDialog }: DefaultComponentProps): any => {
-    const { mainMaps: data } = usePreloadedQuery(mainMapsQuery, preloadedMainMapsQuery);
-    return (<SubMap setError={setError} openDialog={openDialog} maps={data} />);
+export default function MainMap(): any {
+    // const maps = useMainMaps();
+    const ret = useCustomLazyLoadQuery(mainMapsQuery, {});
+    log("ret", ret);
+    const maps = convert(ret);
+
+    return (<SubMap maps={maps} />);
 };
-
-export default MainMap;

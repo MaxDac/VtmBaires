@@ -1,17 +1,17 @@
 // @flow
 
 import React from 'react';
-import {useMaps} from "../../services/hooks/useMaps";
 import SubMap from "./SubMap";
-import type {DefaultComponentProps} from "../../_base/types";
+import useSectionMaps from "../../services/queries/map/SectionMapsQuery";
+import {log} from "../../_base/utils";
 
-type MapProps = DefaultComponentProps & {
+type MapProps = {
     id: string;
 }
 
-const Map = ({ setError, openDialog, id }: MapProps): any => {
-    const maps = useMaps(id);
-    return (<SubMap setError={setError} openDialog={openDialog} maps={maps} />);
+const Map = ({ id }: MapProps): any => {
+    const maps = useSectionMaps(id);
+    return (<SubMap maps={maps} />);
 };
 
 export default Map;

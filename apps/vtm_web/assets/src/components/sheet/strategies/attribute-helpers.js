@@ -1,6 +1,6 @@
 // @flow
 
-import type {Attribute} from "../../../services/queries/info/attributes-query";
+import type {Attribute} from "../../../services/queries/info/AttributesQuery";
 
 export type Attributes = {
     attributes: Attribute[];

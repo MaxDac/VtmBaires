@@ -1,12 +1,7 @@
 // @flow
 
-import { post } from "./rest-utils";
-
-export type User = {
-    email: string;
-    id: string;
-    name: string;
-}
+import { post } from "../_base/rest-utils";
+import type {User} from "./base-types";
 
 export type LoginResponse = {
     data: {
@@ -14,8 +9,8 @@ export type LoginResponse = {
     }
 }
 
-export const login = (email: string, password: string, role: 'MASTER' | 'PLAYER'): Promise<LoginResponse> => 
-    post<LoginResponse>("/login", {email, password, role});
+export const login = (email: string, password: string, remember: boolean): Promise<LoginResponse> =>
+    post<LoginResponse>("/login", {email, password, remember});
 
 export const check = (): Promise<LoginResponse> => 
     post<LoginResponse>("/check", {});

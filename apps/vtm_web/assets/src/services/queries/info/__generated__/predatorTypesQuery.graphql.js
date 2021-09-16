@@ -7,24 +7,26 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type predatorTypesQueryVariables = {||};
-export type predatorTypesQueryResponse = {|
+export type PredatorTypesQueryVariables = {||};
+export type PredatorTypesQueryResponse = {|
   +predatorTypes: ?$ReadOnlyArray<?{|
-    +id: ?string,
+    +id: string,
     +name: ?string,
+    +description: ?string,
   |}>
 |};
-export type predatorTypesQuery = {|
-  variables: predatorTypesQueryVariables,
-  response: predatorTypesQueryResponse,
+export type PredatorTypesQuery = {|
+  variables: PredatorTypesQueryVariables,
+  response: PredatorTypesQueryResponse,
 |};
 
 
 /*
-query predatorTypesQuery {
+query PredatorTypesQuery {
   predatorTypes {
     id
     name
+    description
   }
 }
 */
@@ -52,6 +54,13 @@ var v0 = [
         "kind": "ScalarField",
         "name": "name",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "description",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -62,7 +71,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "predatorTypesQuery",
+    "name": "PredatorTypesQuery",
     "selections": (v0/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -71,19 +80,19 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "predatorTypesQuery",
+    "name": "PredatorTypesQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "65b38cb08a1a41f1c375293c0d509331",
+    "cacheID": "e8d8c3d2e4eed9dfe39036d7689a3156",
     "id": null,
     "metadata": {},
-    "name": "predatorTypesQuery",
+    "name": "PredatorTypesQuery",
     "operationKind": "query",
-    "text": "query predatorTypesQuery {\n  predatorTypes {\n    id\n    name\n  }\n}\n"
+    "text": "query PredatorTypesQuery {\n  predatorTypes {\n    id\n    name\n    description\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'db4025bb28fdaedb7c32f820f98d0c3b';
+(node: any).hash = 'ca69305c79f2dd15e4e12ae7239d8425';
 module.exports = node;

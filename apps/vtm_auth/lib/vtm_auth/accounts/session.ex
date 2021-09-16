@@ -6,6 +6,7 @@ defmodule VtmAuth.Accounts.Session do
 
   schema "sessions" do
     field :last_checked, :naive_datetime
+    field :remember, :boolean
     # field :user_id, :id
 
     belongs_to :user, User
@@ -16,7 +17,7 @@ defmodule VtmAuth.Accounts.Session do
   @doc false
   def changeset(session, attrs) do
     session
-    |> cast(attrs, [:last_checked])
+    |> cast(attrs, [:last_checked, :remember])
     |> unique_constraint([:user_id], name: "session_user_unique_idx")
     |> validate_required([:last_checked])
   end

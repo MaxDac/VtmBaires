@@ -7,32 +7,32 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type getCharacterStageQueryVariables = {|
+export type GetCharacterStageQueryVariables = {|
   id: string
 |};
-export type getCharacterStageQueryResponse = {|
+export type GetCharacterStageQueryResponse = {|
   +getCharacter: ?{|
-    +info: ?{|
-      +id: ?string
-    |},
+    +id: string,
     +stage: ?number,
+    +isComplete: ?boolean,
+    +approved: ?boolean,
   |}
 |};
-export type getCharacterStageQuery = {|
-  variables: getCharacterStageQueryVariables,
-  response: getCharacterStageQueryResponse,
+export type GetCharacterStageQuery = {|
+  variables: GetCharacterStageQueryVariables,
+  response: GetCharacterStageQueryResponse,
 |};
 
 
 /*
-query getCharacterStageQuery(
+query GetCharacterStageQuery(
   $id: ID!
 ) {
   getCharacter(id: $id) {
-    info {
-      id
-    }
+    id
     stage
+    isComplete
+    approved
   }
 }
 */
@@ -63,19 +63,8 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "CharacterInfo",
-        "kind": "LinkedField",
-        "name": "info",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
       },
       {
@@ -83,6 +72,20 @@ v1 = [
         "args": null,
         "kind": "ScalarField",
         "name": "stage",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "isComplete",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "approved",
         "storageKey": null
       }
     ],
@@ -94,7 +97,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "getCharacterStageQuery",
+    "name": "GetCharacterStageQuery",
     "selections": (v1/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -103,19 +106,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "getCharacterStageQuery",
+    "name": "GetCharacterStageQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "9d2ab93dc82b6604ed25b5f06f6ae5a6",
+    "cacheID": "873f743f4eb14c9163555c31b484a961",
     "id": null,
     "metadata": {},
-    "name": "getCharacterStageQuery",
+    "name": "GetCharacterStageQuery",
     "operationKind": "query",
-    "text": "query getCharacterStageQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    info {\n      id\n    }\n    stage\n  }\n}\n"
+    "text": "query GetCharacterStageQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    stage\n    isComplete\n    approved\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '3623a811d2bc41311742660f67fedbea';
+(node: any).hash = '00fef2fcf5658b4b289166f38ebf7d07';
 module.exports = node;

@@ -1,17 +1,17 @@
 // @flow
 
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
-import createUser from "../../services/queries/create-user-mutation";
+import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import LoginLayout from "./LoginLayout";
 import { object, string, ref } from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Link, useHistory} from "react-router-dom";
 import type { Node } from "react";
-import type {DefaultComponentProps} from "../../_base/types";
 import {Routes} from "../../AppRouter";
+import {UtilityContext} from "../../App";
 
 const SignUpSchema = object().shape({
     email: string("Enter your email")
@@ -29,10 +29,10 @@ const SignUpSchema = object().shape({
         .required("Required")
 });
 
-const CreateUserComponent = ({
-    setError
-}: DefaultComponentProps): Node => {
+const CreateUserComponent = (): Node => {
     const history = useHistory();
+
+    const { setError } = useContext(UtilityContext);
 
     const formik = useFormik({
         initialValues: {
@@ -53,10 +53,11 @@ const CreateUserComponent = ({
     }) => {
         createUser(email, password, name)
             .then(_ => {
-                history.push(Routes.login);
+                setError({ type: "success", message: "User created successfully."});
+                setTimeout(() => history.push(Routes.login), 2000);
             })
             .catch(errors => {
-                setError(errors, "Username or password invalid.");
+                setError({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
             });
     }
 

@@ -8,19 +8,22 @@
 
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type characterFragments_characterState$ref: FragmentReference;
-declare export opaque type characterFragments_characterState$fragmentType: characterFragments_characterState$ref;
-export type characterFragments_characterState = {|
+declare export opaque type CharacterFragments_characterState$ref: FragmentReference;
+declare export opaque type CharacterFragments_characterState$fragmentType: CharacterFragments_characterState$ref;
+export type CharacterFragments_characterState = {|
+  +id: string,
   +stage: ?number,
   +approved: ?boolean,
   +isComplete: ?boolean,
   +isNpc: ?boolean,
-  +$refType: characterFragments_characterState$ref,
+  +advantages: ?string,
+  +notes: ?string,
+  +$refType: CharacterFragments_characterState$ref,
 |};
-export type characterFragments_characterState$data = characterFragments_characterState;
-export type characterFragments_characterState$key = {
-  +$data?: characterFragments_characterState$data,
-  +$fragmentRefs: characterFragments_characterState$ref,
+export type CharacterFragments_characterState$data = CharacterFragments_characterState;
+export type CharacterFragments_characterState$key = {
+  +$data?: CharacterFragments_characterState$data,
+  +$fragmentRefs: CharacterFragments_characterState$ref,
   ...
 };
 
@@ -29,8 +32,15 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "characterFragments_characterState",
+  "name": "CharacterFragments_characterState",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -58,11 +68,25 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "isNpc",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "advantages",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "notes",
+      "storageKey": null
     }
   ],
   "type": "Character",
   "abstractKey": null
 };
 // prettier-ignore
-(node: any).hash = 'a5a51828d6fdb0c0c271dffc94770088';
+(node: any).hash = 'e1f8e1654ac9921446cc70ebc9100848';
 module.exports = node;

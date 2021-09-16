@@ -15,8 +15,8 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, nil}
   end
 
-  def login(_, %{email: email, password: password, role: role}, _) do
-    case Accounts.authenticate(role, email, password) do
+  def login(_, %{email: email, password: password, remember: remember}, _) do
+    case Accounts.authenticate(email, password, remember) do
       {:ok, %{id: id, role: role} = user} ->
         token = VtmWeb.Authentication.sign_token(%{id: id, role: parse_role(role, nil)})
         {:ok, %{token: token, user: user}}

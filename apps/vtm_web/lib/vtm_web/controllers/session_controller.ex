@@ -7,13 +7,14 @@ defmodule VtmWeb.SessionController do
   action_fallback VtmWeb.FallbackController
 
   @graphql """
-  mutation ($email: String!, $password: String!, $role: Role!) {
-    login(role: $role, email: $email, password: $password) {
+  mutation ($email: String!, $password: String!, $remember: Boolean!) {
+    login(email: $email, password: $password, remember: $remember) {
       token
       user {
         id
         email
         name
+        role
         __typename
       }
     }

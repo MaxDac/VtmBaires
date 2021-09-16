@@ -1,30 +1,48 @@
-import React, { useState } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "../../_base/components/Alert";
-import { parseGraphqlMessage } from "../../services/relay-utils";
+// @flow
+
+import React, {useState} from "react";
+import { parseGraphqlMessage } from "../relay-utils";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "@material-ui/core/Button";
+import Backdrop from "@material-ui/core/Backdrop";
+import {makeStyles} from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {useSnackbar} from "notistack";
+import type {AlertContext} from "../types";
 
-const AlertLayout = (params) => {
-    const [alertOpen, setAlertOpen] = useState(false);
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: "#fff"
+    }
+}));
+
+type Props = {
+    children: AlertContext => any
+}
+
+const AlertLayout = (props: Props): any => {
+    const classes = useStyles();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const [backdropOpen, setBackdropOpen] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
     const [dialogTitle, setDialogTitle] = useState("");
     const [dialogText, setDialogText] = useState("");
     const [dialogOkAction, setDialogOkAction] = useState(() => {});
     const [dialogCancelAction, setDialogCancelAction] = useState(() => {});
 
-    const handleAlertClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    const handleBackdropClose = () => setBackdropOpen(false);
 
-        setAlertOpen(false);
-    }
+    const handleBackdropOpen = () => setBackdropOpen(true);
+
+    const wait = (mustWait: boolean) =>
+        mustWait
+            ? handleBackdropOpen()
+            : handleBackdropClose();
 
     const handleDialogOpen = (
         title: string,
@@ -59,19 +77,28 @@ const AlertLayout = (params) => {
         setDialogOpen(false);
     }
 
-    const setError = (error, defaultError) => {
-        const e = parseGraphqlMessage(error, defaultError);
-        setErrorMessage(e);
-        setAlertOpen(true);
+    const defaultSnackbarVariant = {
+        autoHideDuration: 3000,
+        // snackbarActions
+    }
+
+    const setError = (errorProps) => {
+        const { type, graphqlError, message } = errorProps;
+
+        if (graphqlError && graphqlError?.errors?.length > 0) {
+            const e = parseGraphqlMessage(graphqlError, message);
+            enqueueSnackbar(e, { ...defaultSnackbarVariant, variant: type });
+        }
+        else {
+            enqueueSnackbar(message, { ...defaultSnackbarVariant, variant: type });
+        }
     }
 
     return (
         <div>
-            <Snackbar open={alertOpen} autoHideDuration={6000} onClose={handleAlertClose}>
-                <Alert type="error" onClose={handleAlertClose}>
-                    {errorMessage}
-                </Alert>
-            </Snackbar>
+            <Backdrop className={classes.backdrop} open={backdropOpen}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Dialog
                 open={dialogOpen}
                 onClose={handleDialogClose}
@@ -92,9 +119,10 @@ const AlertLayout = (params) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            { params.children({
+            { props.children({
                 openDialog: handleDialogOpen,
-                setError
+                setError,
+                setWait: wait
             }) }
         </div>);
 };

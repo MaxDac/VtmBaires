@@ -7,32 +7,28 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type getCharacterAvatarQueryVariables = {|
+export type GetCharacterAvatarQueryVariables = {|
   id: string
 |};
-export type getCharacterAvatarQueryResponse = {|
+export type GetCharacterAvatarQueryResponse = {|
   +getCharacter: ?{|
-    +info: ?{|
-      +id: ?string,
-      +avatar: ?string,
-    |}
+    +id: string,
+    +avatar: ?string,
   |}
 |};
-export type getCharacterAvatarQuery = {|
-  variables: getCharacterAvatarQueryVariables,
-  response: getCharacterAvatarQueryResponse,
+export type GetCharacterAvatarQuery = {|
+  variables: GetCharacterAvatarQueryVariables,
+  response: GetCharacterAvatarQueryResponse,
 |};
 
 
 /*
-query getCharacterAvatarQuery(
+query GetCharacterAvatarQuery(
   $id: ID!
 ) {
   getCharacter(id: $id) {
-    info {
-      id
-      avatar
-    }
+    id
+    avatar
   }
 }
 */
@@ -63,26 +59,15 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "CharacterInfo",
-        "kind": "LinkedField",
-        "name": "info",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "avatar",
-            "storageKey": null
-          }
-        ],
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "avatar",
         "storageKey": null
       }
     ],
@@ -94,7 +79,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "getCharacterAvatarQuery",
+    "name": "GetCharacterAvatarQuery",
     "selections": (v1/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
@@ -103,19 +88,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "getCharacterAvatarQuery",
+    "name": "GetCharacterAvatarQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "11f368acfb3b5f74c35fefe750c0657a",
+    "cacheID": "27be9176cfd6cd21110b5c5d7f6e57ef",
     "id": null,
     "metadata": {},
-    "name": "getCharacterAvatarQuery",
+    "name": "GetCharacterAvatarQuery",
     "operationKind": "query",
-    "text": "query getCharacterAvatarQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    info {\n      id\n      avatar\n    }\n  }\n}\n"
+    "text": "query GetCharacterAvatarQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    avatar\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '7dcf7b2d6514993d952ed36f81f7fab3';
+(node: any).hash = '6cd48e7bb79b7e7d741b2b4f9436b68d';
 module.exports = node;

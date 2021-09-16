@@ -1,32 +1,44 @@
 // @flow
 
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import sessionQuery from "../../services/queries/session-query";
-import userCharactersQuery from '../../services/queries/user-characters-query';
-import { useHistory } from 'react-router';
-import { handleAuthorizedRejection } from '../../services/utils';
+import { useHistory } from 'react-router-dom';
 import IconActivatedMenu from '../../_base/components/IconActivatedMenu';
 import {Routes} from "../../AppRouter";
-import type { Session } from "../../services/queries/session-query";
-import type {CharacterInfo} from "../../services/queries/character/character-types";
-import {useSession} from "../../services/hooks/useSession";
 import IconButton from "@material-ui/core/IconButton";
 import {logout} from "../../services/login-service";
-import type {DefaultComponentProps} from "../../_base/types";
+import Avatar from "@material-ui/core/Avatar";
+import {SessionContext, UtilityContext} from "../../App";
+import type {BaseInfo} from "../../services/base-types";
+import {getSessions} from "../../services/queries/accounts/SessionQuery";
+import {
+    userCharactersQuery
+} from "../../services/queries/accounts/UserCharactersQuery";
+import type {UserCharactersQuery} from "../../services/queries/accounts/__generated__/UserCharactersQuery.graphql";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {handleAuthorizedRejection, log} from "../../_base/utils";
 
-export default function TopRightMenu({ openDialog }: DefaultComponentProps): any {
+type Props = {
+    classes: any;
+}
+
+export default function TopRightMenu({ classes }: Props): any {
     const history = useHistory();
-    const { setCurrentCharacter } = useSession(history);
+    const { setCurrentCharacter } = useContext(SessionContext);
+    const { openDialog } = useContext(UtilityContext);
 
     const [waiting, setWaiting] = useState<bool>(false);
-    const [online, setOnline] = useState<Session[]>([]);
-    const [characters, setCharacters] = useState<CharacterInfo[]>([]);
+    const [online, setOnline] = useState<Array<BaseInfo>>([]);
+    const character = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
+        fetchPolicy: "store-and-network"
+    })?.me?.userCharacters;
 
-    const handleOnlineToggle = (open, setOpen) => 
+    log("character", character);
+
+    const handleOnlineToggle = (open, setOpen) =>
         _ => {
             if (open) {
                 setOpen(_ => false);
@@ -34,9 +46,9 @@ export default function TopRightMenu({ openDialog }: DefaultComponentProps): any
 
             if (!waiting) {
                 setWaiting(true);
-                sessionQuery()
+                getSessions()
                     .then(sessions => {
-                        setOnline(sessions.list);
+                        setOnline(sessions);
                         setOpen(_ => true);
                         setWaiting(false);
                     })
@@ -45,45 +57,56 @@ export default function TopRightMenu({ openDialog }: DefaultComponentProps): any
         };
 
     const handleCharactersToggle = (open: boolean, setOpen: ((boolean => boolean) => void)) =>
-        _ => {
-            if (open) {
-                setOpen(_ => false);
-            }
+        _ => setOpen(_ => !open);
 
-            if (!waiting) {
-                setWaiting(true);
-                userCharactersQuery()
-                    .then(sessions => {
-                        setCharacters(sessions.me.userCharacters);
-                        setOpen(_ => true);
-                        setWaiting(false);
-                    })
-                    .catch(handleAuthorizedRejection(history));
-            }
-        };
-
-    const showOnline = handleClose => 
+    const showOnline = handleClose =>
         online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
 
-    const handleCharacterSelection = (info: CharacterInfo, handleClose: Event => void) =>
+    const handleCharacterSelection = (info: any, _handleClose: Event => void) =>
         _ => {
             setCurrentCharacter(info);
-            history.push(Routes.creation2);
+
+            if (!info.approved || !info.isComplete) {
+                history.push(`${Routes.creationBase}${info.stage + 1}`);
+            }
         }
 
     const showCharacters = handleClose => {
-        if (characters && characters.length && characters.length > 0) {
-            return characters.map(o =>
-                <MenuItem key={Number(o.id)} onClick={handleCharacterSelection(o, handleClose)}>{o.name}</MenuItem>);
+        const chs = character;
+        if (chs != null && chs.length > 0) {
+            return chs
+                .filter(o => o !== null)
+                .map(o => (
+                    <MenuItem key={Number(o?.id)} onClick={handleCharacterSelection(o, handleClose)} style={{
+                        width: "200px"
+                    }}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style={{width: "30px"}}>
+                                        <Avatar src={o?.chatAvatar} className={classes.smallAvatar} />
+                                    </td>
+                                    <td style={{textAlign: "center"}}>
+                                        {o?.name}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </MenuItem>
+                ));
         }
 
-        return <MenuItem onClick={_ => history.push(Routes.creation1)}>Create new</MenuItem>
+        return <MenuItem onClick={_ => history.push(Routes.creation1)}>Create new</MenuItem>;
     }
 
     const logoutClick = _ => {
         openDialog("Logout", "Do you want to log out?", () => {
             logout()
-                .then(_ => history.push(Routes.login))
+                .then(_ => {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    history.push(Routes.login);
+                })
                 .catch(e => {
                     console.error("Error while performing logout", e);
                     history.push(Routes.login);

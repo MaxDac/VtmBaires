@@ -11,7 +11,7 @@ defmodule VtmWeb.Authentication do
 
   def verify(token) do
     Phoenix.Token.verify(VtmWeb.Endpoint, @user_salt, token, [
-      max_age: 1800
+      max_age: 5
     ])
   end
 

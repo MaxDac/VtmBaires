@@ -12,7 +12,7 @@ export type SelectInputProps = {
     formik: Formik;
     fieldName: string;
     label: string;
-    values: [string, string][];
+    values: Array<[string, string]>;
 };
 
 export const useStyles: any = makeStyles((theme) => ({

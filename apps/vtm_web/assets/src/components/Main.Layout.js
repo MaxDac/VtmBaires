@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useEffect} from 'react';
+import React, {useContext} from 'react';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,23 +15,26 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from './home/Menu';
 import TopRightMenu from './home/TopRightMenu';
 import {useHistory} from "react-router-dom";
-import {check} from "../services/login-service";
-import {Routes} from "../AppRouter";
-import type { OpenDialogDelegate } from "../AppRouter";
-import useCheckMaster from "../services/hooks/useCheckMaster";
 import useStyles from "./Main.Layout.Style";
+import {SessionContext, UtilityContext} from "../App";
+import {isUserMaster} from "../services/base-types";
 
 export opaque type MainLayoutClasses = any;
 
 export type MainLayoutProps = {
     children: MainLayoutClasses => any;
-    openDialog: OpenDialogDelegate;
 }
 
-export default function MainLayout({ children, openDialog }: MainLayoutProps): any {
+export default function MainLayout({ children }: MainLayoutProps): any {
     const history = useHistory();
     const classes = useStyles();
-    const isMaster = useCheckMaster();
+    const { getUser } = useContext(SessionContext)
+
+    const {
+        openDialog,
+        setError,
+        setWait
+    } = useContext(UtilityContext);
 
     const [open, setOpen] = React.useState(false);
 
@@ -43,22 +46,20 @@ export default function MainLayout({ children, openDialog }: MainLayoutProps): a
         setOpen(false);
     };
 
-    useEffect(() => {
-        check().catch(_ => history.push(Routes.login));
-    }, [history]);
-
     const masterMenu = () => {
-        if (isMaster) {
+        if (isUserMaster(getUser())) {
             return (
                 <>
                     <Divider/>
-                    <List>{secondaryListItems(history)}</List>
+                    <List>{secondaryListItems(history, drawerDone)}</List>
                 </>
             );
         }
 
         return (<></>);
-    }
+    };
+
+    const drawerDone = handleDrawerClose;
 
     return (
         <div className={classes.root}>
@@ -76,22 +77,24 @@ export default function MainLayout({ children, openDialog }: MainLayoutProps): a
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
-                    <TopRightMenu openDialog={openDialog} />
+                    <TopRightMenu setError={setError}
+                                  openDialog={openDialog}
+                                  setWait={setWait}
+                                  classes={classes} />
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                }}
-                open={open}>
+            <Drawer variant="permanent"
+                    classes={{
+                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    }}
+                    open={open}>
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems(history)}</List>
+                <List>{mainListItems(history, drawerDone)}</List>
                 {masterMenu()}
             </Drawer>
             <main className={classes.content}>

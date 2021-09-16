@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import MainLayout from "../Main.Layout";
 import Typography from "@material-ui/core/Typography";
 import {object, string} from "yup";
@@ -8,14 +8,16 @@ import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@material-ui/core/Button";
-import {useClans} from "../../services/hooks/useClans";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Grid from "@material-ui/core/Grid";
-import createCharacter from "../../services/queries/character/create-character-mutation";
-import type {DefaultComponentProps} from "../../_base/types";
+import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
 import {updateUserSessionInfo} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
 import FormFileDropField from "../../_base/components/FormFileDropField";
+import {UtilityContext} from "../../App";
+import {clansQuery} from "../../services/queries/info/ClansQuery";
+import type {ClansQuery} from "../../services/queries/info/__generated__/ClansQuery.graphql";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 const Creation1ValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
@@ -23,9 +25,11 @@ const Creation1ValidationSchema = object().shape({
     biography: string("Enter your character biography").required("Required")
 });
 
-const Creation1 = ({ setError, openDialog }: DefaultComponentProps): any => {
+const Creation1 = (): any => {
     const history = useHistory();
-    const clans = useClans();
+    const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans;
+
+    const { setError } = useContext(UtilityContext);
 
     const [avatar, setAvatar] = useState<?string>(null);
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
@@ -42,8 +46,8 @@ const Creation1 = ({ setError, openDialog }: DefaultComponentProps): any => {
     });
 
     const clanSelect = () => {
-        if (clans && clans.length > 0) {
-            const values = clans.map(({id, name}) => [id.toString(), name]);
+        if (clans != null && clans.length > 0) {
+            const values = clans.map(clan => [clan?.id ?? "", clan?.name ?? ""]);
             return <FormSelectField formik={formik} fieldName="clanId" label="Clan" values={values}/>
         }
 
@@ -62,16 +66,22 @@ const Creation1 = ({ setError, openDialog }: DefaultComponentProps): any => {
             chatAvatar,
         })
             .then(response => {
-                updateUserSessionInfo({
-                    selectedCharacter: response
-                });
-                history.push(Routes.main);
+                if (response?.createCharacter != null) {
+                    updateUserSessionInfo({
+                        selectedCharacter: {
+                            id: response.createCharacter.id,
+                            name: response.createCharacter.name ?? "No name available"
+                        }
+                    });
+                }
+
+                history.push(Routes.creation2);
             })
-            .catch(error => setError(error, "An error happened while creating the user."));
+            .catch(e => setError({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
     }
 
     return (
-        <MainLayout openDialog={openDialog}>
+        <MainLayout>
             { (classes: any) =>
                 <div className={classes.centeredContainer}>
                     <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>

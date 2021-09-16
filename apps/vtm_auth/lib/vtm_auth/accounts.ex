@@ -27,10 +27,10 @@ defmodule VtmAuth.Accounts do
     |> Repo.get(id)
     |> nil_to_result()
 
-  @spec get_user_by_email(String.t(), String.t()) :: {:error, :not_found} | {:ok, %User{}}
-  def get_user_by_email(email, role) do
+  @spec get_user_by_email(String.t()) :: {:error, :not_found} | {:ok, %User{}}
+  def get_user_by_email(email) do
     User
-    |> Repo.get_by([email: email, role: to_string(role)])
+    |> Repo.get_by(email: email)
     |> nil_to_result()
   end
 
@@ -54,17 +54,19 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
-  def update_session(%User{ id: id }) do
+  def update_session(%{ id: id }, remember \\ true) do
     case Session |> Repo.get_by(user_id: id) do
       nil ->
         %Session{
           user_id: id,
-          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+          remember: remember
         } |> Repo.insert()
       session ->
         session
         |> Session.changeset(%{
-          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+          remember: remember
         })
         |> Repo.update()
     end
@@ -81,14 +83,13 @@ defmodule VtmAuth.Accounts do
     Repo.all(query)
   end
 
-  def authenticate(role, email, password) do
-    with {:ok, user = %User{password: digest}}  <- get_user_by_email(email, role),
+  def authenticate(email, password, remember) do
+    with {:ok, user = %User{password: digest}}  <- get_user_by_email(email),
          true                                   <- Password.valid?(password, digest) do
-      update_session(user)
+      update_session(user, remember)
       {:ok, user}
     else
-      e ->
-        IO.puts "error while logging in #{inspect e}"
+      _ ->
         {:error, :unauthorized}
     end
   end

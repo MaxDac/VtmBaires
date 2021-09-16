@@ -1,18 +1,18 @@
 defmodule VtmWeb.Schema.AccountTypes do
   use Absinthe.Schema.Notation
+  use Absinthe.Relay.Schema.Notation, :modern
 
   alias VtmWeb.Schema.Middlewares
   alias VtmWeb.Resolvers.AccountsResolvers
   alias VtmWeb.Resolvers.CharacterResolvers
 
-  interface :user do
+  object :user do
     field :id, :id
     field :email, :string
     field :name, :string
+    field :role, :role
 
-    resolve_type &AccountsResolvers.parse_role/2
-
-    field :user_characters, list_of(:character_info) do
+    field :user_characters, list_of(:character) do
       resolve &CharacterResolvers.get_user_characters/3
     end
   end
@@ -23,32 +23,8 @@ defmodule VtmWeb.Schema.AccountTypes do
   end
 
   enum :role do
-    value :player
-    value :master
-  end
-
-  object :player do
-    interface :user
-
-    field :id, :id
-    field :email, :string
-    field :name, :string
-
-    field :user_characters, list_of(:character_info) do
-      resolve &CharacterResolvers.get_user_characters/3
-    end
-  end
-
-  object :master do
-    interface :user
-
-    field :id, :id
-    field :email, :string
-    field :name, :string
-
-    field :user_characters, list_of(:character_info) do
-      resolve &CharacterResolvers.get_user_characters/3
-    end
+    value :user, as: "player"
+    value :master, as: "master"
   end
 
   object :creation_result do
@@ -56,7 +32,7 @@ defmodule VtmWeb.Schema.AccountTypes do
   end
 
   object :user_queries do
-    field :list, list_of(:player) do
+    field :list, list_of(:user) do
       middleware VtmWeb.Schema.Middlewares.Authorize, "player"
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
     end
@@ -74,7 +50,7 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :login, :session do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
-      arg :role, non_null(:role)
+      arg :remember, non_null(:boolean)
 
       resolve &AccountsResolvers.login/3
 

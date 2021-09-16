@@ -1,12 +1,12 @@
 // @flow
 
-import React from "react";
+import React, {useContext} from "react";
 
-import type {DefaultComponentProps} from "../../_base/types";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CreationBase from "./strategies/CreationBase";
 import MainLayout from "../Main.Layout";
+import {SessionContext} from "../../App";
 
 // type FormAttributes = {
 //     attribute4: string;
@@ -20,7 +20,11 @@ import MainLayout from "../Main.Layout";
 //     attribute1: string;
 // };
 
-const Creation2 = ({ setError, openDialog }: DefaultComponentProps): any => {
+const Creation2 = (): any => {
+    const {
+        getCharacter
+    } = useContext(SessionContext);
+
     const emptyAttributes = {
         attribute4: "",
         attribute31: "",
@@ -96,22 +100,32 @@ const Creation2 = ({ setError, openDialog }: DefaultComponentProps): any => {
             </Grid>
         </>;
 
-    return (
-        <MainLayout openDialog={openDialog}>
-            { (classes: any) =>
-                <div className={classes.centeredContainer}>
-                    <CreationBase classes={classes}
-                                  setError={setError}
-                                  currentStage={2}
-                                  attributeTypeName="Attribute"
-                                  emptyAttributes={emptyAttributes}
-                                  getAttributesToSave={getAttributesToSave}>
-                        {form}
-                    </CreationBase>
-                </div>
-            }
-        </MainLayout>
-    )
+    const getForm = () => {
+        const c = getCharacter != null ? getCharacter() : null;
+
+        if (c != null) {
+            return (
+                <MainLayout>
+                    { (classes: any) =>
+                        <div className={classes.centeredContainer}>
+                            <CreationBase classes={classes}
+                                          character={c}
+                                          currentStage={2}
+                                          attributeTypeName="Attribute"
+                                          emptyAttributes={emptyAttributes}
+                                          getAttributesToSave={getAttributesToSave}>
+                                {form}
+                            </CreationBase>
+                        </div>
+                    }
+                </MainLayout>
+            );
+        }
+        
+        return <></>;
+    }
+
+    return getForm();
 }
 
 export default Creation2;

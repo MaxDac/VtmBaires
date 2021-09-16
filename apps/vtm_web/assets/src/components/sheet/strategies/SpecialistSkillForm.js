@@ -1,30 +1,21 @@
 // @flow
 
-import React from "react";
-
+import React, {useContext} from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CreationBase from "../strategies/CreationBase";
-
-export type SpecialistFormAttributes = {
-    skill4: string;
-    skill31: string;
-    skill32: string;
-    skill33: string;
-    skill21: string;
-    skill22: string;
-    skill23: string;
-    skill11: string;
-    skill12: string;
-    skill13: string;
-};
+import {SessionContext} from "../../../App";
+import {propNotNullRendering} from "../../../_base/render-utils";
 
 export type CreationBaseProps = {
     classes: any;
-    setError: (string, string) => void;
 }
 
-const SpecialistSkillForm = ({ setError, classes }: CreationBaseProps): any => {
+const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
+    const {
+        getCharacter
+    } = useContext(SessionContext);
+
     const emptyAttributes = {
         skill4: "",
         skill31: "",
@@ -105,16 +96,16 @@ const SpecialistSkillForm = ({ setError, classes }: CreationBaseProps): any => {
             </Grid>
         </>;
 
-    return (
+    return propNotNullRendering(getCharacter, character => (
         <CreationBase classes={classes}
-                      setError={setError}
+                      character={character}
                       currentStage={3}
                       attributeTypeName="Ability"
                       emptyAttributes={emptyAttributes}
                       getAttributesToSave={getAttributesToSave}>
             { form }
         </CreationBase>
-    )
+    ));
 }
 
 export default SpecialistSkillForm;
