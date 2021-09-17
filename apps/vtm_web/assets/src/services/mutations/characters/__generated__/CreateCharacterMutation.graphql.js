@@ -60,7 +60,7 @@ v1 = [
         "variableName": "request"
       }
     ],
-    "concreteType": "CharacterInfo",
+    "concreteType": "Character",
     "kind": "LinkedField",
     "name": "createCharacter",
     "plural": false,

@@ -9,16 +9,16 @@ import Grid from "@material-ui/core/Grid";
 import {PredatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
 import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {characterIsVampire} from "../Creation4";
-import type {GetCharacterQueryResponse} from "../../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 
 type Props = {
-    character: ?GetCharacterQueryResponse;
+    characterInfo: CharacterFragments_characterInfo;
     classes: any;
     onChange?: ?(string => void);
 }
 
-const PredatorTypeControl = ({ character, classes, onChange }: Props): any => {
+const PredatorTypeControl = ({ characterInfo, classes, onChange }: Props): any => {
     const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(PredatorTypesQuery, {});
 
     const [predatorType, setPredatorType] = useState("")
@@ -34,7 +34,7 @@ const PredatorTypeControl = ({ character, classes, onChange }: Props): any => {
     }
 
     const predatorTypeSelector = () => {
-        if (characterIsVampire(character)) {
+        if (characterIsVampire(characterInfo)) {
             return (
                 <>
                     <Grid item xs={12} className={classes.defaultParagraph}>

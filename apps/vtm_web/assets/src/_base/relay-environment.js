@@ -13,6 +13,8 @@ import type {
 } from "relay-runtime";
 import {post} from "axios";
 import {useHistory} from "react-router-dom";
+import {log} from "./utils";
+import {Routes} from "../AppRouter";
 
 const fetchGraphQL = history => {
     return async ({text}: RequestParameters, variables: Variables) => {
@@ -24,6 +26,11 @@ const fetchGraphQL = history => {
 
             return response.data;
         } catch (e) {
+            if (e.response.status === 401) {
+                log("Unauthorized", e.response.data, "error");
+                history.push(Routes.login);
+            }
+
             return e.response.data;
         }
     };

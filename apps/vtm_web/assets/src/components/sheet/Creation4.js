@@ -35,7 +35,6 @@ type InternalElementProps = {
 };
 
 const InternalElement = ({character, children}: InternalElementProps): any => {
-    log("character xxx", character);
     const infoFragment = useFragment<CharacterFragments_characterInfo$key>(
         characterInfoFragment,
         character);
@@ -116,9 +115,7 @@ const Creation4 = (): any => {
         }).catch(e => setError({ type: "error", graphqlError: e, message: "There was an error while saving the character"}))
     }
 
-    const InnerComponent = ({classes, character}) => {
-        log("character inner component", character);
-
+    const InnerComponent = ({classes, characterInfo}) => {
         return (
             <div className={classes.centeredContainer}>
                 <Grid container>
@@ -127,10 +124,10 @@ const Creation4 = (): any => {
                             Now you can select the last attribute of your character.
                         </Typography>
                     </Grid>
-                    <DisciplinesControl character={character}
+                    <DisciplinesControl characterInfo={characterInfo}
                                         classes={classes}
                                         onChange={onDisciplineControlChanged}/>
-                    <PredatorTypeControl character={character}
+                    <PredatorTypeControl characterInfo={characterInfo}
                                          classes={classes}
                                          onChange={onPredatorTypeControlChanged}/>
                     <Grid item xs={12}>
@@ -184,7 +181,7 @@ const Creation4 = (): any => {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={submit(character)}>
+                            onClick={submit(characterInfo)}>
                             Finish creation
                         </Button>
                     </Grid>
@@ -200,7 +197,7 @@ const Creation4 = (): any => {
                     {characterQuery =>
                         <InternalElement character={characterQuery}>
                             { character =>
-                                <InnerComponent character={character} classes={classes} />
+                                <InnerComponent characterInfo={character} classes={classes} />
                             }
                         </InternalElement>
                     }

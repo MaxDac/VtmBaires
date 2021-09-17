@@ -6,6 +6,7 @@ import type {
     CharacterAttributeRequest,
     AppendAttributesMutationResponse
 } from "./__generated__/AppendAttributesMutation.graphql";
+import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
     mutation AppendAttributesMutation($request: [CharacterAttributeRequest]!, $newStage: Int!) {
@@ -16,7 +17,7 @@ const mutation = graphql`
     }
 `;
 
-const mutationPromise = (request: Array<CharacterAttributeRequest>, newStage: number): Promise<AppendAttributesMutationResponse> =>
-    wrapMutation<AppendAttributesMutationResponse>(mutation, { request, newStage });
+const mutationPromise = (environment: IEnvironment, request: Array<CharacterAttributeRequest>, newStage: number): Promise<AppendAttributesMutationResponse> =>
+    wrapMutation<AppendAttributesMutationResponse>(environment, mutation, { request, newStage });
 
 export default mutationPromise;

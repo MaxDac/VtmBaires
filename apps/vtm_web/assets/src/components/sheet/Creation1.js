@@ -18,6 +18,7 @@ import {UtilityContext} from "../../App";
 import {clansQuery} from "../../services/queries/info/ClansQuery";
 import type {ClansQuery} from "../../services/queries/info/__generated__/ClansQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {useRelayEnvironment} from "react-relay";
 
 const Creation1ValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
@@ -27,6 +28,7 @@ const Creation1ValidationSchema = object().shape({
 
 const Creation1 = (): any => {
     const history = useHistory();
+    const environment = useRelayEnvironment();
     const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans;
 
     const { setError } = useContext(UtilityContext);
@@ -60,7 +62,7 @@ const Creation1 = (): any => {
     }
 
     const onSubmit = data => {
-        createCharacter({
+        createCharacter(environment, {
             ...data,
             avatar,
             chatAvatar,

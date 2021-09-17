@@ -17,6 +17,7 @@ import useAttributesQuery from "../../../services/queries/info/AttributesQuery";
 import type {GetCharacterStageQuery} from "../../../services/queries/character/__generated__/GetCharacterStageQuery.graphql";
 import type {SessionCharacter as Character} from "../../../services/session-service";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import {useRelayEnvironment} from "react-relay";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -30,7 +31,7 @@ export type CreationBaseProps<TFormAttributes> = {|
 
 const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): any => {
     const history = useHistory();
-
+    const environment = useRelayEnvironment();
     const { setError } = useContext(UtilityContext);
 
     const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
@@ -110,7 +111,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         const request: Array<CharacterAttributeRequest> = props.getAttributesToSave(values, generateRequest);
 
-        appendAttributesMutation(request, props.currentStage)
+        appendAttributesMutation(environment, request, props.currentStage)
             .then(_ => history.push(`${Routes.creationBase}${props.currentStage + 1}`))
             .catch(e => setError({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }

@@ -18,10 +18,6 @@ export const getCharacterQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-export function useCharacterQuery(characterId: string): GetCharacterQueryResponse {
-    return useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, { id: characterId });
-}
-
 // const queryPromise = (characterId: Id): Promise<Character> => {
 //     return wrapQueryAuthorized<{ getCharacter: Character }>(query, {
 //         id: characterId

@@ -126,11 +126,6 @@ export function wrapMutation<T>(environment: IEnvironment, operation: any, varia
     });
 }
 
-// export function wrapMutationAuthorized<T>(operation: any, variables: any, extractor?: any => T): Promise<T> {
-//     return getLoginInformation()
-//         .then(_ => wrapMutation(operation, variables, extractor));
-// }
-
 const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: any => T) => {
     requestSubscription(
         subscriptionEnvironment,
@@ -158,13 +153,6 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
 export function wrapSubscription<T>(operation: any, variables: any, extractor?: any => T): Observable<T> {
     return Observable.create((sink: Sink<T>) => request(sink, operation, variables, extractor));
 }
-
-// export function wrapSubscriptionAuthorized<T>(operation: any, variables: any, extractor?: any => T): Observable<T> {
-//     return Observable.create(sink => {
-//         getLoginInformation()
-//             .then(_ => request(sink, operation, variables, extractor));
-//     })
-// }
 
 /**
  * Subscribes to the given observable.

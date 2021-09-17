@@ -29,10 +29,6 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :description, :string
   end
 
-  node object :character_info do
-    field :name, :string
-  end
-
   node object :character do
     field :avatar, :string
     field :chat_avatar, :string
@@ -109,7 +105,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   end
 
   object :character_mutations do
-    field :create_character, :character_info do
+    field :create_character, :character do
       arg :request, :character_creation_request
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any

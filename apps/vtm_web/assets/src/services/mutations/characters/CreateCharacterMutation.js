@@ -6,6 +6,7 @@ import type {
     CharacterCreationRequest,
     CreateCharacterMutationResponse
 } from "./__generated__/CreateCharacterMutation.graphql";
+import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
     mutation CreateCharacterMutation($request: CharacterCreationRequest!) {
@@ -29,12 +30,13 @@ const mutation = graphql`
 //     biography: string;
 // }
 
-const mutationPromise = (request: CharacterCreationRequest): Promise<CreateCharacterMutationResponse> =>
-    wrapMutation<CreateCharacterMutationResponse>(mutation, {
+const mutationPromise = (environment: IEnvironment, request: CharacterCreationRequest): Promise<CreateCharacterMutationResponse> => {
+    return wrapMutation<CreateCharacterMutationResponse>(environment, mutation, {
         request: {
             ...request,
             clanId: request.clanId
         }
     });
+}
 
 export default mutationPromise;

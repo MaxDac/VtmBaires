@@ -36,8 +36,6 @@ export default function TopRightMenu({ classes }: Props): any {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
 
-    log("character", character);
-
     const handleOnlineToggle = (open, setOpen) =>
         _ => {
             if (open) {

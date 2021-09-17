@@ -70,12 +70,6 @@ input CharacterFinalizationRequest {
   predatorTypeId: ID!
 }
 
-type CharacterInfo implements Node {
-  """The ID of an object"""
-  id: ID!
-  name: String
-}
-
 input ChatEntryRequest {
   characterId: ID!
   chatMapId: ID!
@@ -154,7 +148,7 @@ enum Role {
 
 type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
-  createCharacter(request: CharacterCreationRequest): CharacterInfo
+  createCharacter(request: CharacterCreationRequest): Character
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
   finalizeCharacterCreation(input: FinalizeCharacterCreationInput!): FinalizeCharacterCreationPayload

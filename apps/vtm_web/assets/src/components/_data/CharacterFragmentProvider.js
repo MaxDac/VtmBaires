@@ -4,18 +4,23 @@ import React from "react";
 import type {CharacterProviderBaseProps} from "./character-providers-types";
 import {useCharacterProviderId} from "./character-providers-types";
 import RemoteCharacterProvider from "./RemoteCharacterProvider";
-import {useCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
-import type {GetCharacterQueryResponse} from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
+import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
+import type {
+    GetCharacterQuery
+} from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import Typography from "@material-ui/core/Typography";
+import {log} from "../../_base/utils";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 type Props = CharacterProviderBaseProps & {
-    children: GetCharacterQueryResponse => any,
+    children: any => any,
 }
 
 const CharacterFragmentProviderQuery = ({characterId, children}) => {
-    const character = useCharacterQuery(characterId);
+    const character =
+        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, { id: characterId })?.getCharacter;
 
-    if (character?.getCharacter?.id != null) {
+    if (character?.id != null) {
         return children(character);
     }
 

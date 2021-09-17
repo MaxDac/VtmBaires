@@ -10,18 +10,18 @@ import Typography from "@material-ui/core/Typography";
 import type {ClanDisciplinesQueryResponse} from "../../../services/queries/info/__generated__/ClanDisciplinesQuery.graphql";
 import {characterHasDisciplines} from "../Creation4";
 import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplinesQuery";
-import type {GetCharacterQueryResponse} from "../../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 
 type Props = {
-    character: GetCharacterQueryResponse;
+    characterInfo: CharacterFragments_characterInfo;
     classes: any;
     onChange?: ?(string, string) => void;
 }
 
-const DisciplinesControl = ({ character, classes, onChange }: Props): any => {
+const DisciplinesControl = ({ characterInfo, classes, onChange }: Props): any => {
     const { clanDisciplines }: ClanDisciplinesQueryResponse =
-        useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: character.clan?.id });
+        useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: characterInfo.clan?.id });
 
     const [firstDiscipline, setFirstDiscipline] = useState("");
     const [secondDiscipline, setSecondDiscipline] = useState("");
@@ -53,7 +53,7 @@ const DisciplinesControl = ({ character, classes, onChange }: Props): any => {
     }
 
     const disciplineSelector = () => {
-        if (characterHasDisciplines(character)) {
+        if (characterHasDisciplines(characterInfo)) {
             return (
                 <>
                     <Grid item xs={12}>
