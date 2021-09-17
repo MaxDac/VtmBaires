@@ -15,13 +15,12 @@ import type {CharacterFragments_characterInfo} from "../../../services/queries/c
 type Props = {
     characterInfo: CharacterFragments_characterInfo;
     classes: any;
-    onChange?: ?(string => void);
+    value: string;
+    onChange?: ?(Event => void);
 }
 
-const PredatorTypeControl = ({ characterInfo, classes, onChange }: Props): any => {
+const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props): any => {
     const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(PredatorTypesQuery, {});
-
-    const [predatorType, setPredatorType] = useState("")
 
     const showPredatorTypes = () => {
         const options = [<MenuItem key="None" value=" ">None</MenuItem>];
@@ -44,16 +43,10 @@ const PredatorTypeControl = ({ characterInfo, classes, onChange }: Props): any =
                         <FormControl className={classes.formControl}>
                             <InputLabel id="predator-type-label">Predator Type</InputLabel>
                             <Select labelId="predator-type-label"
-                                    id="predator-type"
-                                    name="predator-type"
-                                    value={predatorType}
-                                    onChange={({target: {value}}) => {
-                                        setPredatorType(value);
-
-                                        if (onChange) {
-                                            onChange(value);
-                                        }
-                                    }}
+                                    id="predatorType"
+                                    name="predatorType"
+                                    value={value}
+                                    onChange={onChange}
                                     style={{width: "200px"}}>
                                 {showPredatorTypes()}
                             </Select>

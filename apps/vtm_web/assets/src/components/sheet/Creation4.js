@@ -12,14 +12,16 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FinalizeCharacterCreationMutation from "../../services/mutations/characters/FinalizeCharacterCreationMutation";
 import {Routes} from "../../AppRouter";
-import {useFragment} from "react-relay";
+import {useFragment, useRelayEnvironment} from "react-relay";
 import type {
     CharacterFragments_characterInfo$key
 } from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import {characterInfoFragment} from "../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterInfo} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import {log} from "../../_base/utils";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
+import {log} from "../../_base/utils";
+import {object, string} from "yup";
+import {useFormik} from "formik";
 
 export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
     character?.clan?.name !== "Human";
@@ -46,78 +48,117 @@ const InternalElement = ({character, children}: InternalElementProps): any => {
     );
 };
 
+const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) => {
+    let shape = {
+        advantages: string("Please, write your character advantages").required("Required"),
+        notes: string("Add the notes you want to communicate to the masters").required("Required")
+    };
+
+    if (isVampire) {
+        shape = {
+            ...shape,
+            predatorType: string("Please select your character predator type").required("Required")
+        };
+    }
+
+    if (hasDiscplines) {
+        shape = {
+            ...shape,
+            discipline1: string("Select your character first discipline").required("Required"),
+            discipline2: string("Select your character second discipline").required("Required")
+        }
+    }
+
+    return object().shape(shape);
+}
+
+const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
+    let initialValue = {
+        advantages: "",
+        notes: "",
+    };
+
+    if (isVampire) {
+        initialValue = {
+            ...initialValue,
+            predatorType: ""
+        };
+    }
+
+    if (hasDisciplines) {
+        initialValue = {
+            ...initialValue,
+            discipline1: "",
+            discipline2: ""
+        }
+    }
+
+    return initialValue;
+}
+
 const Creation4 = (): any => {
     const {setError} = useContext(UtilityContext);
     const history = useHistory();
+    const environment = useRelayEnvironment();
 
-    const [firstDiscipline, setFirstDiscipline] = useState("");
-    const [secondDiscipline, setSecondDiscipline] = useState("");
-    const [predatorType, setPredatorType] = useState("");
-    const [advantages, setAdvantages] = useState("");
-    const [notes, setNotes] = useState("");
-
-    const onDisciplineControlChanged = (discipline1, discipline2) => {
-        setFirstDiscipline(discipline1);
-        setSecondDiscipline(discipline2);
-    }
-
-    const onPredatorTypeControlChanged = (pt: string) => {
-        setPredatorType(pt);
-    };
-
-    const isIdNull = id => !id || id.trim() === "";
-
-    const submit = (character: CharacterFragments_characterInfo) => _ => {
-        let error = false;
-        if (characterHasDisciplines(character) && (isIdNull(firstDiscipline) || isIdNull(secondDiscipline))) {
-            error = true;
-            setError({ type: 'error', message: "You must select the two character Disciplines." });
+    const submit = (character: CharacterFragments_characterInfo) => ({
+        discipline1,
+        discipline2,
+        predatorType,
+        advantages,
+        notes
+                                                                     }) => {
+        if (discipline1 &&
+            discipline2 &&
+            predatorType &&
+            advantages &&
+            notes) {
+            FinalizeCharacterCreationMutation(environment, {
+                attributes: [{
+                    attributeId: discipline1,
+                    characterId: String(character?.id),
+                    value: 2
+                }, {
+                    attributeId: discipline2,
+                    characterId: String(character?.id),
+                    value: 1
+                }],
+                newStage: 4,
+                request: {
+                    predatorTypeId: predatorType,
+                    advantages: advantages,
+                    notes: notes
+                }
+            }).then(_ => {
+                setError({type: "success", message: "Character saved."});
+                setTimeout(() => history.push(Routes.main));
+            }).catch(e => {
+                console.error("error!", e);
+                setError({
+                    type: "error",
+                    graphqlError: e,
+                    message: "There was an error while saving the character"
+                })
+            });
         }
-
-        if (firstDiscipline === secondDiscipline) {
-            error = true;
-            setError({ type: 'error', message: "The two disciplines must be different."});
-        }
-
-        if (characterIsVampire(character) && isIdNull(predatorType)) {
-            error = true;
-            setError({ type: 'error', message: "You must select a predator type." });
-        }
-
-        if (isIdNull(advantages)) {
-            error = true;
-            setError({ type: 'error', message: "You must fill the advantages." });
-        }
-
-        if (error) {
-            return;
-        }
-
-        FinalizeCharacterCreationMutation({
-            attributes: [{
-                attributeId: firstDiscipline,
-                characterId: String(character?.id),
-                value: 2
-            }, {
-                attributeId: secondDiscipline,
-                characterId: String(character?.id),
-                value: 1
-            }],
-            newStage: 4,
-            request: {
-                predatorTypeId: predatorType,
-                advantages: advantages,
-                notes: notes
-            }
-        }).then(_ => {
-            setError({ type: "success", message: "Character saved."});
-            setTimeout(() => history.push(Routes.main));
-        }).catch(e => setError({ type: "error", graphqlError: e, message: "There was an error while saving the character"}))
     }
 
     const InnerComponent = ({classes, characterInfo}) => {
+        const [isVampire, hasDisciplines] = [characterIsVampire(characterInfo), characterHasDisciplines(characterInfo)];
+
+        const formik = useFormik({
+            initialValues: Creation4EmptyObject(
+                isVampire,
+                hasDisciplines
+            ),
+            validationSchema: Creation4ValidationSchema(
+                isVampire,
+                hasDisciplines),
+            onSubmit: submit(characterInfo)
+        });
+
         return (
-            <div className={classes.centeredContainer}>
+            <form className={classes.centeredContainer} noValidate onSubmit={formik.handleSubmit}>
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
@@ -126,10 +167,17 @@ const Creation4 = (): any => {
                     </Grid>
                     <DisciplinesControl characterInfo={characterInfo}
                                         classes={classes}
-                                        onChange={onDisciplineControlChanged}/>
+                                        firstDiscipline={formik.values["discipline1"]}
+                                        secondDiscipline={formik.values["discipline2"]}
+                                        firstError={formik.touched["discipline1"] && Boolean(formik.errors["discipline1"])}
+                                        secondError={formik.touched["discipline2"] && Boolean(formik.errors["discipline2"])}
+                                        onFirstDisciplineChange={formik.handleChange}
+                                        onSecondDisciplineChange={formik.handleChange} />
                     <PredatorTypeControl characterInfo={characterInfo}
                                          classes={classes}
-                                         onChange={onPredatorTypeControlChanged}/>
+                                         value={formik.values["predatorType"]}
+                                         onChange={formik.handleChange}
+                                         error={formik.touched["predatorType"] && Boolean(formik.errors["predatorType"])} />
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
                             Write all the advantages that you would like to assign to your
@@ -149,9 +197,10 @@ const Creation4 = (): any => {
                             name="advantages"
                             multiline={true}
                             rows={5}
-                            value={advantages}
-                            onChange={({target: {value}}) => setAdvantages(value)}
-                            helperText="Write down the advantages you want to assign to your character"/>
+                            value={formik.values["advantages"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["advantages"] && Boolean(formik.errors["advantages"])}
+                            helperText={formik.touched["advantages"] && formik.errors["advantages"]} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
@@ -170,9 +219,10 @@ const Creation4 = (): any => {
                             name="notes"
                             multiline={true}
                             rows={5}
-                            value={notes}
-                            onChange={({target: {value}}) => setNotes(value)}
-                            helperText="Notes for the master"/>
+                            value={formik.values["notes"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["notes"] && Boolean(formik.errors["notes"])}
+                            helperText={formik.touched["notes"] && formik.errors["notes"]} />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
@@ -186,7 +236,7 @@ const Creation4 = (): any => {
                         </Button>
                     </Grid>
                 </Grid>
-            </div>
+            </form>
         );
     }
 

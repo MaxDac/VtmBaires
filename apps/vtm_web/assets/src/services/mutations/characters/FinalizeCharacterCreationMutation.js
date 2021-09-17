@@ -6,6 +6,7 @@ import type {
     FinalizeCharacterCreationInput,
     FinalizeCharacterCreationMutationResponse
 } from "./__generated__/FinalizeCharacterCreationMutation.graphql.js";
+import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
     mutation FinalizeCharacterCreationMutation($input: FinalizeCharacterCreationInput!) {
@@ -17,8 +18,8 @@ const mutation = graphql`
     }
 `;
 
-const mutationPromise = (request: FinalizeCharacterCreationInput): Promise<FinalizeCharacterCreationMutationResponse> =>
-    wrapMutation<FinalizeCharacterCreationMutationResponse>(mutation, {
+const mutationPromise = (environment: IEnvironment, request: FinalizeCharacterCreationInput): Promise<FinalizeCharacterCreationMutationResponse> =>
+    wrapMutation<FinalizeCharacterCreationMutationResponse>(environment, mutation, {
         input: request
     });
 

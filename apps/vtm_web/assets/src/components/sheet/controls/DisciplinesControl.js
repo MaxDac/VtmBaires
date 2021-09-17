@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState} from "react";
+import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -12,19 +12,31 @@ import {characterHasDisciplines} from "../Creation4";
 import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplinesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import {log} from "../../../_base/utils";
 
 type Props = {
     characterInfo: CharacterFragments_characterInfo;
     classes: any;
-    onChange?: ?(string, string) => void;
+    onFirstDisciplineChange?: ?(Event) => void;
+    onSecondDisciplineChange?: ?(Event) => void;
+    firstDiscipline: string;
+    secondDiscipline: string;
+    firstError?: boolean;
+    secondError?: boolean;
 }
 
-const DisciplinesControl = ({ characterInfo, classes, onChange }: Props): any => {
+const DisciplinesControl = ({
+                                characterInfo,
+                                classes,
+                                onFirstDisciplineChange,
+                                onSecondDisciplineChange,
+                                firstDiscipline,
+                                secondDiscipline,
+                                firstError,
+                                secondError
+}: Props): any => {
     const { clanDisciplines }: ClanDisciplinesQueryResponse =
         useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: characterInfo.clan?.id });
-
-    const [firstDiscipline, setFirstDiscipline] = useState("");
-    const [secondDiscipline, setSecondDiscipline] = useState("");
 
     const showDisciplines = () => {
         const options = [<MenuItem key="None" value=" ">None</MenuItem>];
@@ -34,22 +46,6 @@ const DisciplinesControl = ({ characterInfo, classes, onChange }: Props): any =>
         }
 
         return options;
-    }
-
-    const firstControlChanged = ({target: {value}}) => {
-        setFirstDiscipline(value);
-
-        if (onChange) {
-            onChange(value, secondDiscipline);
-        }
-    }
-
-    const secondControlChanged = ({target: {value}}) => {
-        setSecondDiscipline(value);
-
-        if (onChange) {
-            onChange(firstDiscipline, value);
-        }
     }
 
     const disciplineSelector = () => {
@@ -66,10 +62,11 @@ const DisciplinesControl = ({ characterInfo, classes, onChange }: Props): any =>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="first-discipline-label">First Discipline</InputLabel>
                             <Select labelId="first-discipline-label"
-                                    id="first-discipline"
-                                    name="first-discipline"
+                                    id="discipline1"
+                                    name="discipline1"
                                     value={firstDiscipline}
-                                    onChange={firstControlChanged}
+                                    onChange={onFirstDisciplineChange}
+                                    error={firstError}
                                     style={{width: "200px"}}>
                                 {showDisciplines()}
                             </Select>
@@ -79,10 +76,11 @@ const DisciplinesControl = ({ characterInfo, classes, onChange }: Props): any =>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="second-discipline-label">Second Discipline</InputLabel>
                             <Select labelId="second-discipline-label"
-                                    id="second-discipline"
-                                    name="second-discipline"
+                                    id="discipline2"
+                                    name="discipline2"
                                     value={secondDiscipline}
-                                    onChange={secondControlChanged}
+                                    onChange={onSecondDisciplineChange}
+                                    error={secondError}
                                     style={{width: "200px"}}>
                                 {showDisciplines()}
                             </Select>
