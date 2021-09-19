@@ -1,23 +1,13 @@
 // @flow
 
 import React from 'react';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuList from '@material-ui/core/MenuList';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-// import { makeStyles } from '@material-ui/core/styles';
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//       display: 'flex',
-//     },
-//     paper: {
-//       marginRight: theme.spacing(2),
-//     },
-//   }));
+import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuList from '@mui/material/MenuList';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 export type IconActivatedMenuProps = {
     badgeContent: any;

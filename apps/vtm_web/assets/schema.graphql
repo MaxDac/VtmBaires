@@ -48,6 +48,14 @@ type Character implements Node {
   willpowerDamage: Int
 }
 
+type CharacterAttribute implements Node {
+  attribute: Attribute
+
+  """The ID of an object"""
+  id: ID!
+  value: Int
+}
+
 input CharacterAttributeRequest {
   attributeId: ID!
   characterId: ID!
@@ -70,10 +78,26 @@ input CharacterFinalizationRequest {
   predatorTypeId: ID!
 }
 
+type CharacterStats {
+  attributes: [CharacterAttribute]
+  disciplines: [CharacterAttribute]
+  id: ID
+  predatorType: PredatorType
+}
+
+input ChatDiceEntryRequest {
+  abilityId: ID
+  attributeId: ID
+  characterId: ID!
+  chatMapId: ID!
+  difficulty: Int
+  freeThrow: Int
+  master: Boolean
+}
+
 input ChatEntryRequest {
   characterId: ID!
   chatMapId: ID!
-  result: String
   text: String
 }
 
@@ -124,6 +148,7 @@ type MapChatEntry implements Node {
 
   """The ID of an object"""
   id: ID!
+  master: Boolean
   result: String
   text: String
 }
@@ -149,6 +174,7 @@ enum Role {
 type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   createCharacter(request: CharacterCreationRequest): Character
+  createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
   finalizeCharacterCreation(input: FinalizeCharacterCreationInput!): FinalizeCharacterCreationPayload
@@ -160,6 +186,7 @@ type RootQueryType {
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
+  getCharacterStats(characterId: ID): CharacterStats
   list: [User]
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation

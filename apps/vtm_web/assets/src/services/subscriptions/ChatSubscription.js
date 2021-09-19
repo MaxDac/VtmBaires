@@ -11,6 +11,7 @@ const subscription = graphql`
             id
             text
             result
+            master
             characterId
             characterChatAvatar
             chatMapId

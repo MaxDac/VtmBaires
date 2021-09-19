@@ -1,8 +1,8 @@
 // @flow
 
 import React, {useContext} from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import CreationBase from "../strategies/CreationBase";
 import {SessionContext} from "../../../App";
 import {conditionalRendering, propNotNullRendering} from "../../../_base/render-utils";

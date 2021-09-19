@@ -9,6 +9,7 @@ defmodule Vtm.Chats.ChatEntry do
     field :character_name, :string
     field :result, :string
     field :text, :string
+    field :master, :boolean
 
     belongs_to :character, Character
     belongs_to :chat_map, ChatMap
@@ -19,7 +20,7 @@ defmodule Vtm.Chats.ChatEntry do
   @doc false
   def changeset(chat_entry, attrs) do
     chat_entry
-    |> cast(attrs, [:text, :result, :character_name, :character_id, :chat_map_id])
+    |> cast(attrs, [:text, :result, :character_name, :master, :character_id, :chat_map_id])
     |> validate_required([:character_id, :chat_map_id])
   end
 end

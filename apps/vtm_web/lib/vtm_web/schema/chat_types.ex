@@ -19,13 +19,23 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :character_chat_avatar, :string
     field :result, :string
     field :text, :string
+    field :master, :boolean
     field :chat_map_id, :id
   end
 
   input_object :chat_entry_request do
     field :character_id, non_null(:id)
-    field :result, :string
     field :text, :string
+    field :chat_map_id, non_null(:id)
+  end
+
+  input_object :chat_dice_entry_request do
+    field :character_id, non_null(:id)
+    field :attribute_id, :id
+    field :ability_id, :id
+    field :master, :boolean
+    field :free_throw, :integer
+    field :difficulty, :integer
     field :chat_map_id, non_null(:id)
   end
 
@@ -67,7 +77,17 @@ defmodule VtmWeb.Schema.ChatTypes do
       arg :entry, :chat_entry_request
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.AuthorizeCharacter, :any
       resolve &ChatResolvers.create_chat_entry/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :create_chat_dice_entry, :map_chat_entry do
+      arg :entry, :chat_dice_entry_request
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.AuthorizeCharacter, :any
+      resolve &ChatResolvers.create_chat_dice_entry/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end
@@ -78,10 +98,9 @@ defmodule VtmWeb.Schema.ChatTypes do
 
       config &ChatResolvers.config_chat_subscription/2
 
-      trigger :create_chat_entry, topic: fn
-        %{ chat_map_id: id }  -> id
-        _                     -> "0"
-      end
+      trigger :create_chat_entry, topic: &ChatResolvers.handle_chat_trigger/1
+
+      trigger :create_chat_dice_entry, topic: &ChatResolvers.handle_chat_trigger/1
 
       resolve fn root, _args, _res ->
         {:ok, root}

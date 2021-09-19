@@ -1,8 +1,8 @@
 // @flow
 
 import React, {useContext} from "react";
-import Button from "@material-ui/core/Button";
-import Grid from '@material-ui/core/Grid';
+import Button from "@mui/material/Button";
+import Grid from '@mui/material/Grid';
 import { login } from "../../services/login-service";
 import LoginLayout from "./LoginLayout";
 import type { Node } from "react";
@@ -12,10 +12,11 @@ import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
 import {storeLoginInformation} from "../../services/session-service";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox"
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox"
 import {UtilityContext} from "../../App";
+import {useTheme} from "@mui/material/styles";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -27,6 +28,7 @@ const SignInSchema = object().shape({
 
 const LoginComponent = (): Node => {
     const history = useHistory();
+    const theme = useTheme();
 
     const {
         setError,
@@ -70,45 +72,52 @@ const LoginComponent = (): Node => {
 
     return (
         <LoginLayout title="Sign in">
-            { classes => 
-                <>
-                    <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
-                        <FormTextField formik={formik} fieldName="email" label="Email" />
-                        <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
-                        <FormGroup row>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox onChange={formik.handleChange}
-                                              checked={formik.values["remember"]}
-                                              name="remember"
-                                              id="remember"
-                                              color="primary" />
-                                    }
-                                label="Remember me" />
-                        </FormGroup>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}>
-                            Sign In
-                        </Button>
-                    </form>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link to="#" variant="body2" className={classes.link}>
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to="/register" variant="body2" className={classes.link}>
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
+            <>
+                <form style={{
+                    width: '100%', // Fix IE 11 issue.
+                    marginTop: "10px",
+                }} noValidate onSubmit={formik.handleSubmit}>
+                    <FormTextField formik={formik} fieldName="email" label="Email" />
+                    <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
+                    <FormGroup row>
+                        <FormControlLabel
+                            control={
+                                <Checkbox onChange={formik.handleChange}
+                                          checked={formik.values["remember"]}
+                                          name="remember"
+                                          id="remember"
+                                          color="primary" />
+                                }
+                            label="Remember me" />
+                    </FormGroup>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            margin: theme.spacing(3, 0, 2),
+                        }}>
+                        Sign In
+                    </Button>
+                </form>
+                <Grid container>
+                    <Grid item xs>
+                        <Link to="#" variant="body2" sx={{
+                            color: theme.palette.grey[50]
+                        }}>
+                            Forgot password?
+                        </Link>
                     </Grid>
-                </>
-            }
+                    <Grid item>
+                        <Link to="/register" variant="body2" sx={{
+                            color: theme.palette.grey[50]
+                        }}>
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
+                </Grid>
+            </>
         </LoginLayout>);
 };
 

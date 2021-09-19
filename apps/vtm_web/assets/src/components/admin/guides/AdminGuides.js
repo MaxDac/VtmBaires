@@ -5,9 +5,7 @@ import MainLayout from "../../Main.Layout";
 
 const AdminGuides = (): any => (
     <MainLayout>
-        { _ =>
-            <div>Test</div>
-        }
+        <div>Test</div>
     </MainLayout>
 
 );

@@ -21,6 +21,7 @@ export type ChatEntry = {
     id: string;
     text: string;
     result: string;
+    master: boolean;
     characterId: string;
     characterChatAvatar: string;
     chatMapId: string;

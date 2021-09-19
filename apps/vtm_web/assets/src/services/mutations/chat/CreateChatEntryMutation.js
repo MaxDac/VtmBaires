@@ -6,6 +6,7 @@ import type {
     ChatEntryRequest,
     CreateChatEntryMutationResponse
 } from "./__generated__/CreateChatEntryMutation.graphql";
+import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
     mutation CreateChatEntryMutation($entry: ChatEntryRequest) {
@@ -20,7 +21,7 @@ const mutation = graphql`
     }
 `;
 
-const chatEntryMutationPromise = (request: ChatEntryRequest): Promise<CreateChatEntryMutationResponse> =>
-    wrapMutation<CreateChatEntryMutationResponse>(mutation, { entry: request });
+const chatEntryMutationPromise = (environment: IEnvironment, request: ChatEntryRequest): Promise<CreateChatEntryMutationResponse> =>
+    wrapMutation<CreateChatEntryMutationResponse>(environment, mutation, { entry: request });
 
 export default chatEntryMutationPromise;

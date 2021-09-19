@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import MuiAlert from "@material-ui/lab/Alert";
+import MuiAlert from "@mui/lab/Alert";
 
 import type { Node } from "react";
 

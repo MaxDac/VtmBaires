@@ -1,16 +1,16 @@
 // @flow
 
 import React, {useContext, useState} from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import PeopleIcon from '@material-ui/icons/People';
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import MenuItem from '@mui/material/MenuItem';
+import PeopleIcon from "@mui/icons-material/People";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useHistory } from 'react-router-dom';
 import IconActivatedMenu from '../../_base/components/IconActivatedMenu';
 import {Routes} from "../../AppRouter";
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 import {logout} from "../../services/login-service";
-import Avatar from "@material-ui/core/Avatar";
+import Avatar from "@mui/material/Avatar";
 import {SessionContext, UtilityContext} from "../../App";
 import type {BaseInfo} from "../../services/base-types";
 import {getSessions} from "../../services/queries/accounts/SessionQuery";
@@ -19,14 +19,12 @@ import {
 } from "../../services/queries/accounts/UserCharactersQuery";
 import type {UserCharactersQuery} from "../../services/queries/accounts/__generated__/UserCharactersQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import {handleAuthorizedRejection, log} from "../../_base/utils";
+import {handleAuthorizedRejection} from "../../_base/utils";
+import useStyles from "../Main.Layout.Style";
 
-type Props = {
-    classes: any;
-}
-
-export default function TopRightMenu({ classes }: Props): any {
+export default function TopRightMenu(): any {
     const history = useHistory();
+    const classes = useStyles();
     const { setCurrentCharacter } = useContext(SessionContext);
     const { openDialog } = useContext(UtilityContext);
 

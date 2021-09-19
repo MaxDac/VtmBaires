@@ -29,3 +29,23 @@ export function handleAuthorizedRejection({ push }: History): any => void {
 export function emptyArray<T>(): Array<T> {
     return [];
 }
+
+/**
+ * Returns a range between the two specified number (included).
+ * @param from The lower boundary.
+ * @param to The highest boundary.
+ * @returns {Generator<number, void, number>} The generator.
+ */
+export function* range(from: number, to: number): Generator<number, void, number> {
+    for (let i = from; i <= to; i++) {
+        yield i;
+    }
+}
+
+export function materialize<T>(generator: Generator<T, void, T>): T[] {
+    const ret = [];
+    for (const val of generator) {
+        ret.push(val);
+    }
+    return ret;
+}

@@ -1,27 +1,27 @@
 // @flow
 
 import React, {useContext} from 'react';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import MainLayout from '../Main.Layout';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import SendIcon from '@material-ui/icons/Send';
+import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import SendIcon from "@mui/icons-material/Send";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
-import type { Element, AbstractComponent } from "react";
-import type {MainLayoutProps} from "../Main.Layout";
 import {UtilityContext} from "../../App";
 import type {Map} from "../../services/base-types";
+import useStyles from "../Main.Layout.Style";
 
 type SubMapProps = {
     maps: Array<Map>
 };
 
-const SubMap = ({ maps }: SubMapProps): Element<AbstractComponent<MainLayoutProps>> => {
+const SubMap = ({ maps }: SubMapProps): any => {
     const history = useHistory();
+    const classes = useStyles();
 
     const {
         openDialog
@@ -53,16 +53,14 @@ const SubMap = ({ maps }: SubMapProps): Element<AbstractComponent<MainLayoutProp
 
     return (
         <MainLayout openDialog={openDialog}>
-            { (classes: any) =>
-                <Container maxWidth="lg" className={classes.container}>
-                    <List component="nav"
-                          aria-labelledby="nested-list-subheader"
-                          subheader={subHeader()}
-                          className={classes.listRoot}>
-                        {mapLinks()}
-                    </List>
-                </Container>
-            }
+            <Container maxWidth="lg" className={classes.container}>
+                <List component="nav"
+                      aria-labelledby="nested-list-subheader"
+                      subheader={subHeader()}
+                      className={classes.listRoot}>
+                    {mapLinks()}
+                </List>
+            </Container>
         </MainLayout>
     );
 };

@@ -2,11 +2,13 @@ defmodule Vtm.Characters do
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
+  alias Vtm.InfoRegistry
   alias Vtm.Characters.Character
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.CharacterAttribute
+  alias Vtm.Characters.AttributeType
 
   def get_clans() do
     Clan |> Repo.all()
@@ -20,10 +22,18 @@ defmodule Vtm.Characters do
     attributes
   end
 
+  defp fetch_attributes() do
+    query =
+      from a in Attribute,
+        join: at in AttributeType,
+        on: a.attribute_type_id == at.id,
+        select: %{a | attribute_type: at}
+
+    Repo.all(query)
+  end
+
   def get_attributes() do
-    Attribute
-    |> preload(:attribute_type)
-    |> Repo.all()
+    InfoRegistry.get_or_refetch(:attributes, &fetch_attributes/0)
   end
 
   def get_predator_types() do
@@ -99,6 +109,104 @@ defmodule Vtm.Characters do
     nil
   end
 
+  def get_character_status(user_id, character_id) do
+    query =
+      from c in Character,
+        where: c.id == ^character_id,
+        where: c.user_id == ^user_id,
+        select: %{
+          id: c.id,
+          experience: c.experience,
+          humanity: c.humanity,
+          generation: c.generation,
+          hunger: c.hunger,
+          health: c.health,
+          damage: c.damage,
+          aggravated_damage: c.aggravated_damage,
+          willpower: c.willpower,
+          willpower_damage: c.willpower_damage
+        }
+
+    Repo.one(query)
+  end
+
+  defp associate_attribute_to_value(attribute = %Attribute{id: attribute_id}, map) do
+    %{
+      id: attribute_id,
+      value: map |> Map.get(attribute_id, 0),
+      attribute: attribute
+    }
+  end
+
+  defp filter_attributes(%Attribute{attribute_type: %{ name: "Attribute" }}, _), do: true
+  defp filter_attributes(%Attribute{attribute_type: %{ name: "Ability" }}, _), do: true
+  defp filter_attributes(%Attribute{id: id}, map), do: map |> Map.has_key?(id)
+  defp filter_attributes(_, _), do: false
+
+  @spec get_character_attrs_with_value(String.t()) :: %{String.t() => Integer.t()}
+  def get_character_attrs_with_value(id) do
+    query =
+      from ca in CharacterAttribute,
+        where: ca.character_id == ^id,
+        select: {ca.attribute_id, ca.value}
+
+    query
+    |> Repo.all()
+    |> Map.new(&(&1))
+  end
+
+  def get_character_attributes(id) do
+    character_attributes = get_character_attrs_with_value(id)
+
+    get_attributes()
+    |> Enum.filter(&filter_attributes(&1, character_attributes))
+    |> Enum.map(&associate_attribute_to_value(&1, character_attributes))
+  end
+
+  def get_character_predator_type(id) do
+    query =
+      from c in Character,
+        join: p in PredatorType,
+        on: c.predator_type_id == p.id,
+        where: c.id == ^id,
+        select: p
+
+    Repo.one(query)
+  end
+
+  defp is_attribute(%{attribute: %{attribute_type: %{name: "Discipline"}}}), do: false
+  defp is_attribute(_), do: true
+
+  defp unzip(arr, condition, first \\ [], second \\ [])
+  defp unzip([], _, first, second), do: {first, second}
+  defp unzip([a | rest], condition, first, second) do
+    case condition.(a) do
+      true -> unzip(rest, condition, [a | first], second)
+      _    -> unzip(rest, condition, first, [a | second])
+    end
+  end
+
+  def get_character_stats(id) do
+    with attributes                                   <- get_character_attributes(id),
+         predator_type when not is_nil(predator_type) <- get_character_predator_type(id),
+         {attrs, disciplines}                         <- attributes |> unzip(&is_attribute/1) do
+      %{
+        id: id,
+        predator_type: predator_type,
+        attributes: attrs |> Enum.reverse(),
+        disciplines: disciplines |> Enum.reverse()
+      }
+    else
+      _ ->
+        %{
+          id: id,
+          predator_type: %{},
+          attributes: [],
+          disciplines: []
+        }
+    end
+  end
+
   def create(attrs, %{role: :master}) do
     %Character{}
     |> Character.changeset(attrs)
@@ -106,8 +214,6 @@ defmodule Vtm.Characters do
   end
 
   def create(attrs, user = %{id: _}) do
-    IO.puts "passing #{inspect user}"
-
     # Checking whether the user already has a character
     case get_user_characters(user) |> Enum.count() do
       0 ->

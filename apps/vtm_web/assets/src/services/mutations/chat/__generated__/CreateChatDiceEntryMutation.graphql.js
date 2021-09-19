@@ -7,16 +7,20 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type ChatEntryRequest = {|
+export type ChatDiceEntryRequest = {|
+  abilityId?: ?string,
+  attributeId?: ?string,
   characterId: string,
   chatMapId: string,
-  text?: ?string,
+  difficulty?: ?number,
+  freeThrow?: ?number,
+  master?: ?boolean,
 |};
-export type CreateChatEntryMutationVariables = {|
-  entry?: ?ChatEntryRequest
+export type CreateChatDiceEntryMutationVariables = {|
+  entry?: ?ChatDiceEntryRequest
 |};
-export type CreateChatEntryMutationResponse = {|
-  +createChatEntry: ?{|
+export type CreateChatDiceEntryMutationResponse = {|
+  +createChatDiceEntry: ?{|
     +id: string,
     +chatMapId: ?string,
     +characterId: ?string,
@@ -25,17 +29,17 @@ export type CreateChatEntryMutationResponse = {|
     +text: ?string,
   |}
 |};
-export type CreateChatEntryMutation = {|
-  variables: CreateChatEntryMutationVariables,
-  response: CreateChatEntryMutationResponse,
+export type CreateChatDiceEntryMutation = {|
+  variables: CreateChatDiceEntryMutationVariables,
+  response: CreateChatDiceEntryMutationResponse,
 |};
 
 
 /*
-mutation CreateChatEntryMutation(
-  $entry: ChatEntryRequest
+mutation CreateChatDiceEntryMutation(
+  $entry: ChatDiceEntryRequest
 ) {
-  createChatEntry(entry: $entry) {
+  createChatDiceEntry(entry: $entry) {
     id
     chatMapId
     characterId
@@ -66,7 +70,7 @@ v1 = [
     ],
     "concreteType": "MapChatEntry",
     "kind": "LinkedField",
-    "name": "createChatEntry",
+    "name": "createChatDiceEntry",
     "plural": false,
     "selections": [
       {
@@ -120,7 +124,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateChatEntryMutation",
+    "name": "CreateChatDiceEntryMutation",
     "selections": (v1/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
@@ -129,19 +133,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateChatEntryMutation",
+    "name": "CreateChatDiceEntryMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "ee8662208b99efe47283dc65b6f9c25a",
+    "cacheID": "ee05b0b138e8eaa9cacb091d4ec8a1b1",
     "id": null,
     "metadata": {},
-    "name": "CreateChatEntryMutation",
+    "name": "CreateChatDiceEntryMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateChatEntryMutation(\n  $entry: ChatEntryRequest\n) {\n  createChatEntry(entry: $entry) {\n    id\n    chatMapId\n    characterId\n    characterName\n    result\n    text\n  }\n}\n"
+    "text": "mutation CreateChatDiceEntryMutation(\n  $entry: ChatDiceEntryRequest\n) {\n  createChatDiceEntry(entry: $entry) {\n    id\n    chatMapId\n    characterId\n    characterName\n    result\n    text\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '601b98e644240e90e0b6be88b0d9a20a';
+(node: any).hash = '85a16b3b2b516eaa7e836ee98b0d4862';
 module.exports = node;

@@ -2,14 +2,14 @@
 
 import React, {useContext, useState} from "react";
 import MainLayout from "../Main.Layout";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import {object, string} from "yup";
 import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
 import FormTextField from "../../_base/components/FormTextField";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import FormSelectField from "../../_base/components/FormSelectField";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
 import {updateUserSessionInfo} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
@@ -19,6 +19,7 @@ import {clansQuery} from "../../services/queries/info/ClansQuery";
 import type {ClansQuery} from "../../services/queries/info/__generated__/ClansQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
+import useStyles from "../Main.Layout.Style";
 
 const Creation1ValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
@@ -28,6 +29,7 @@ const Creation1ValidationSchema = object().shape({
 
 const Creation1 = (): any => {
     const history = useHistory();
+    const classes = useStyles();
     const environment = useRelayEnvironment();
     const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans;
 
@@ -84,44 +86,42 @@ const Creation1 = (): any => {
 
     return (
         <MainLayout>
-            { (classes: any) =>
-                <div className={classes.centeredContainer}>
-                    <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <Typography>
-                                    In the first step of the creation of your character, you will have to determine the general information of it. You can be brief in this part, you will have the possibility to change it at a later time.
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField formik={formik} fieldName="name" label="Name" autoComplete="Name" fullWidth={false} className="form-control" />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                {clanSelect()}
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}>
-                                    Continue
-                                </Button>
-                            </Grid>
+            <div className={classes.centeredContainer}>
+                <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Typography>
+                                In the first step of the creation of your character, you will have to determine the general information of it. You can be brief in this part, you will have the possibility to change it at a later time.
+                            </Typography>
                         </Grid>
-                    </form>
-                </div>
-            }
+                        <Grid item xs={12} sm={6}>
+                            <FormTextField formik={formik} fieldName="name" label="Name" autoComplete="Name" fullWidth={false} className="form-control" />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            {clanSelect()}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}>
+                                Continue
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
         </MainLayout>
     )
 }

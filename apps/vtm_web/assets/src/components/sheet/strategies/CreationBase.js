@@ -3,10 +3,10 @@
 import React, {useContext, useState} from "react";
 
 import {useHistory} from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import AttributeSelectionField from "../AttributeSelectionField";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
 import {Routes} from "../../../AppRouter";
 import type { AttributeTypeNames } from "../../../services/queries/info/AttributesQuery";

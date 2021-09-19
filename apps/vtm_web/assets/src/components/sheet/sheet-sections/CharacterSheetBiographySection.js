@@ -5,24 +5,29 @@ import type {GetCharacterQueryResponse} from "../../../services/queries/characte
 import {useFragment} from "react-relay";
 import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 
 type Props = {
-    classes: any,
-    characterQuery: GetCharacterQueryResponse
+    characterQuery: any
 }
 
-const CharacterSheetBiographySection = ({classes, characterQuery}: Props): any => {
+const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
-        characterQuery.getCharacter);
+        characterQuery);
 
     return (
         <>
-            <Typography className={classes.sheetTitle}>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon',
+                color: "red",
+                fontSize: "24px"
+            }}>
                 Biography
             </Typography>
-            <Typography className={classes.sheetText}>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon'
+            }}>
                 {sheet?.biography}
             </Typography>
         </>

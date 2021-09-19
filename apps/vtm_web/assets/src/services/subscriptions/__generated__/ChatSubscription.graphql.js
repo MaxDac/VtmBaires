@@ -15,6 +15,7 @@ export type ChatSubscriptionResponse = {|
     +id: string,
     +text: ?string,
     +result: ?string,
+    +master: ?boolean,
     +characterId: ?string,
     +characterChatAvatar: ?string,
     +chatMapId: ?string,
@@ -35,6 +36,7 @@ subscription ChatSubscription(
     id
     text
     result
+    master
     characterId
     characterChatAvatar
     chatMapId
@@ -91,6 +93,13 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "master",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "characterId",
         "storageKey": null
       },
@@ -137,15 +146,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "a0599ef0e9fb9f0dfb48fa2b16358bdb",
+    "cacheID": "368b228ec74e6a538f083db59f81454c",
     "id": null,
     "metadata": {},
     "name": "ChatSubscription",
     "operationKind": "subscription",
-    "text": "subscription ChatSubscription(\n  $mapId: ID!\n) {\n  newChatEntry(mapId: $mapId) {\n    id\n    text\n    result\n    characterId\n    characterChatAvatar\n    chatMapId\n    characterName\n  }\n}\n"
+    "text": "subscription ChatSubscription(\n  $mapId: ID!\n) {\n  newChatEntry(mapId: $mapId) {\n    id\n    text\n    result\n    master\n    characterId\n    characterChatAvatar\n    chatMapId\n    characterName\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '3d043162d494a26db08872833c954707';
+(node: any).hash = '8ca5aac154e9788de5322724c1aaaca0';
 module.exports = node;

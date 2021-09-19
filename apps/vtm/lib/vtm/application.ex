@@ -10,9 +10,10 @@ defmodule Vtm.Application do
       # Start the Ecto repository
       Vtm.Repo,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Vtm.PubSub}
+      {Phoenix.PubSub, name: Vtm.PubSub},
       # Start a worker by calling: Vtm.Worker.start_link(arg)
       # {Vtm.Worker, arg}
+      Vtm.InfoRegistry
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Vtm.Supervisor)

@@ -2,7 +2,7 @@
 
 import React, {createContext, useState, Suspense, useContext, createRef} from "react";
 import { RelayEnvironmentProvider } from 'react-relay';
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AlertLayout from './_base/components/AlertLayout';
 import AppRouter, {Routes} from "./AppRouter";
 import {SnackbarProvider} from "notistack";
@@ -15,11 +15,13 @@ import {
 } from "./services/session-service";
 import type {SessionCharacter, UserSessionInfo} from "./services/session-service";
 import FallbackComponent from "./components/FallbackComponent";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import type {User} from "./services/base-types";
 import {useHistory} from "react-router-dom";
 import type {AlertContext} from "./_base/types";
 import {useEnv} from "./_base/relay-environment";
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 
 export type SessionInfo = {
     getUser: () => ?User;
@@ -59,9 +61,17 @@ const Internal = () => {
         );
     };
 
+    const suspenseFallback = () => (
+        <Box sx={{ width: "100%" }}>
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+        </Box>
+    )
+
     return (
         <ErrorBoundaryWithRetry fallback={fallback} onUnauthorized={() => history.push(Routes.login)}>
-            <Suspense fallback={"loading ..."}>
+            <Suspense fallback={suspenseFallback()}>
                 <RelayEnvironmentProvider environment={environment}>
                     <AppRouter />
                 </RelayEnvironmentProvider>
@@ -71,18 +81,20 @@ const Internal = () => {
 
 function App(): Node {
     const darkState = useState(true);
-    const palletType = darkState ? "dark" : "light";
+    const paletteType = darkState ? "dark" : "light";
 
     const darkTheme = createTheme({
         palette: {
-            type: palletType,
-        },
-        primary: {
-            main: "#1a237e",
-        },
-        secondary: {
-            main: "#aa0b0e",
-        },
+            mode: paletteType,
+            primary: {
+                main: "#81d4fa"
+            },
+            secondary: {
+                main: "#aa0b0e",
+                dark: "#760709",
+                light: "#bb3b3e"
+            }
+        }
     });
 
     const snackbarsRef = createRef();

@@ -10,6 +10,8 @@ import {
 
 import * as AbsintheSocket from "@absinthe/socket";
 import { createFetcher, createSubscriber } from "@absinthe/socket-relay";
+
+// $FlowFixMe
 import { Socket as PhoenixSocket } from "phoenix";
 
 import type {

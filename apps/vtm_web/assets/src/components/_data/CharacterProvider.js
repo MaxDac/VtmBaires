@@ -14,7 +14,7 @@ type Props = CharacterProviderBaseProps & {
 const CharacterProviderQuery = ({characterId, children}) => {
     const character = useCharacterCompleteQuery(characterId);
 
-    if (character?.getCharacter?.id != null) {
+    if (character?.id != null) {
         return children(character);
     }
 

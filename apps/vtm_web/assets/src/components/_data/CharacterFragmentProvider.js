@@ -8,7 +8,7 @@ import {getCharacterQuery} from "../../services/queries/character/GetCharacterQu
 import type {
     GetCharacterQuery
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import {log} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 

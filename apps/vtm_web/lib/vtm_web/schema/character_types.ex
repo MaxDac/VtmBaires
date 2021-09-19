@@ -54,6 +54,18 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :predator_type, :predator_type
   end
 
+  node object :character_attribute do
+    field :attribute, :attribute
+    field :value, :integer
+  end
+
+  object :character_stats do
+    field :id, :id
+    field :predator_type, :predator_type
+    field :attributes, list_of(:character_attribute)
+    field :disciplines, list_of(:character_attribute)
+  end
+
   input_object :character_creation_request do
     field :name, non_null(:string)
     field :clan_id, non_null(:string)
@@ -100,6 +112,14 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&CharacterResolvers.get_character/2, id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :get_character_stats, :character_stats do
+      arg :character_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.get_character_stats/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

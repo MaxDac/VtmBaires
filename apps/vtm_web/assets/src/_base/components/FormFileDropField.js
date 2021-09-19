@@ -2,10 +2,10 @@
 
 import React, {useMemo, useState} from 'react';
 import {useDropzone} from "react-dropzone";
-import Avatar from "@material-ui/core/Avatar";
-import {makeStyles} from "@material-ui/core/styles";
+import Avatar from "@mui/material/Avatar";
+import {makeStyles} from "@mui/styles";
 import {compressImage} from "../file-utils";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 export type FormFileDropFieldProps = {
     changed: (?string, ?string) => void;
@@ -88,6 +88,7 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
     const style = useMemo(() => ({
         ...baseStyle,
         ...(isDragActive ? activeStyle : {}),
+        // $FlowFixMe
         ...(isDragAccept ? acceptStyle : {}),
         ...(isDragReject ? rejectStyle : {})
     }), [

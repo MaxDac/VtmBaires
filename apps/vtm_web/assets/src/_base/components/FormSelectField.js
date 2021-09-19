@@ -1,12 +1,12 @@
 // @flow
 
 import React from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
 import type { Formik } from "./FormTypes";
-import {makeStyles} from "@material-ui/core/styles";
+import useStyles from "../../components/Main.Layout.Style";
 
 export type SelectInputProps = {
     formik: Formik;
@@ -14,16 +14,6 @@ export type SelectInputProps = {
     label: string;
     values: Array<[string, string]>;
 };
-
-export const useStyles: any = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 150,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-}));
 
 const FormSelectField = (props: SelectInputProps): any => {
     const classes = useStyles();

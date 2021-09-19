@@ -19,5 +19,5 @@ const mapQuery = graphql`
 
 export default function useMap(id: string): ?Map {
     const ret = useCustomLazyLoadQuery(mapQuery, { id });
-    return convertToMap(ret);
+    return convertToMap(ret?.map);
 }

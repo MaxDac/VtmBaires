@@ -1,13 +1,13 @@
 // @flow
 
 import React, {useState} from "react";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import {useStyles} from "../../_base/components/FormSelectField";
-import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import {setValue} from "relay-runtime/lib/store/RelayModernRecord";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import ListSubheader from "@mui/material/ListSubheader";
+import useStyles from "../Main.Layout.Style";
 
 export type SetControlValue = string => void;
 

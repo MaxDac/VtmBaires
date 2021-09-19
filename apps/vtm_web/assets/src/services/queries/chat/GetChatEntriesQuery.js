@@ -1,10 +1,10 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import {useCustomLazyLoadQuery, wrapQuery} from "../../../_base/relay-utils";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GraphQLTaggedNode} from "relay-runtime";
-import type {GetChatEntriesQueryResponse} from "./__generated__/GetChatEntriesQuery.graphql";
 import type {ChatEntry} from "../../base-types";
+import {emptyArray} from "../../../_base/utils";
 
 const chatEntriesQuery: GraphQLTaggedNode = graphql`
     query GetChatEntriesQuery($mapId: ID!) {
@@ -14,16 +14,23 @@ const chatEntriesQuery: GraphQLTaggedNode = graphql`
             characterId
             characterName
             characterChatAvatar
+            master
             result
             text
         }
     }
 `;
 
-export function useChatEntriesQuery(mapId: string): ?GetChatEntriesQueryResponse {
-    return useCustomLazyLoadQuery(chatEntriesQuery, { mapId });
-}
-
-export function getChatEntries(mapId: string): Promise<?Array<ChatEntry>> {
-    return wrapQuery(chatEntriesQuery, { mapId }, x => x.mapChatEntries);
+export function useChatEntriesQuery(mapId: string): Array<ChatEntry> {
+    return useCustomLazyLoadQuery(chatEntriesQuery, { mapId })?.mapChatEntries
+        ?.map(e => ({
+            id: e.id,
+            chatMapId: e.chatMapId,
+            characterId: e.characterId,
+            characterName: e.characterName,
+            characterChatAvatar: e.characterChatAvatar,
+            result: e.result,
+            text: e.text,
+            master: e.master
+        })) ?? emptyArray<ChatEntry>();
 }

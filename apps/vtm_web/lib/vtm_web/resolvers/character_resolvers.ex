@@ -30,10 +30,18 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_character(%{ id: id }, %{context: %{current_user: user}}) do
-    IO.inspect user
-    IO.inspect id
     with character when not is_nil(character) <- Characters.get_specific_character(user, id) do
       {:ok, character |> map_character()}
+    else
+      _ ->
+        {:error, "The user does not exist, or you have no permission to see it."}
+    end
+  end
+
+  def get_character_stats(%{ character_id: id }, %{context: %{current_user: user}}) do
+    with %{id: character_id}  <- Characters.get_specific_character(user, id),
+         stats                <- Characters.get_character_stats(character_id) do
+      {:ok, stats}
     else
       _ ->
         {:error, "The user does not exist, or you have no permission to see it."}

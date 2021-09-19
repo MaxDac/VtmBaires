@@ -2,11 +2,12 @@
 
 import React, {useContext} from "react";
 
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import CreationBase from "./strategies/CreationBase";
 import MainLayout from "../Main.Layout";
 import {SessionContext} from "../../App";
+import useStyles from "../Main.Layout.Style";
 
 // type FormAttributes = {
 //     attribute4: string;
@@ -21,6 +22,8 @@ import {SessionContext} from "../../App";
 // };
 
 const Creation2 = (): any => {
+    const classes = useStyles();
+
     const {
         getCharacter
     } = useContext(SessionContext);
@@ -106,18 +109,16 @@ const Creation2 = (): any => {
         if (c != null) {
             return (
                 <MainLayout>
-                    { (classes: any) =>
-                        <div className={classes.centeredContainer}>
-                            <CreationBase classes={classes}
-                                          character={c}
-                                          currentStage={2}
-                                          attributeTypeName="Attribute"
-                                          emptyAttributes={emptyAttributes}
-                                          getAttributesToSave={getAttributesToSave}>
-                                {form}
-                            </CreationBase>
-                        </div>
-                    }
+                    <div className={classes.centeredContainer}>
+                        <CreationBase classes={classes}
+                                      character={c}
+                                      currentStage={2}
+                                      attributeTypeName="Attribute"
+                                      emptyAttributes={emptyAttributes}
+                                      getAttributesToSave={getAttributesToSave}>
+                            {form}
+                        </CreationBase>
+                    </div>
                 </MainLayout>
             );
         }

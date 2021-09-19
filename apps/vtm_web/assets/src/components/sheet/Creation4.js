@@ -1,15 +1,15 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import MainLayout from "../Main.Layout";
 import {UtilityContext} from "../../App";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import DisciplinesControl from "./controls/DisciplinesControl";
 import PredatorTypeControl from "./controls/PredatorTypeControl";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import FinalizeCharacterCreationMutation from "../../services/mutations/characters/FinalizeCharacterCreationMutation";
 import {Routes} from "../../AppRouter";
 import {useFragment, useRelayEnvironment} from "react-relay";
@@ -19,9 +19,9 @@ import type {
 import {characterInfoFragment} from "../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterInfo} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
-import {log} from "../../_base/utils";
 import {object, string} from "yup";
 import {useFormik} from "formik";
+import useStyles from "../Main.Layout.Style";
 
 export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
     character?.clan?.name !== "Human";
@@ -98,6 +98,7 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
 
 const Creation4 = (): any => {
     const {setError} = useContext(UtilityContext);
+    const classes = useStyles();
     const history = useHistory();
     const environment = useRelayEnvironment();
 
@@ -242,17 +243,15 @@ const Creation4 = (): any => {
 
     return (
         <MainLayout>
-            {(classes: any) =>
-                <CharacterFragmentProvider>
-                    {characterQuery =>
-                        <InternalElement character={characterQuery}>
-                            { character =>
-                                <InnerComponent characterInfo={character} classes={classes} />
-                            }
-                        </InternalElement>
-                    }
-                </CharacterFragmentProvider>
-            }
+            <CharacterFragmentProvider>
+                {characterQuery =>
+                    <InternalElement character={characterQuery}>
+                        { character =>
+                            <InnerComponent characterInfo={character} classes={classes} />
+                        }
+                    </InternalElement>
+                }
+            </CharacterFragmentProvider>
         </MainLayout>
     );
 }

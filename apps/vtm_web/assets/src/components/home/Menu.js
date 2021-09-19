@@ -1,15 +1,15 @@
 // @flow
 
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import MapIcon from '@material-ui/icons/Map';
-import HomeIcon from '@material-ui/icons/Home';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import MapIcon from "@mui/icons-material/Map";
+import HomeIcon from "@mui/icons-material/Home";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import type { History } from "../../_base/types";
 import {Routes} from "../../AppRouter";
 
@@ -20,7 +20,7 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
     };
 
     return (
-        <div>
+        <>
             <ListItem button onClick={pushHistory(Routes.main)}>
                 <ListItemIcon>
                     <HomeIcon />
@@ -45,7 +45,7 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
             </ListItem>
-        </div>
+        </>
     );
 };
 

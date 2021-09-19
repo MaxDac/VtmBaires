@@ -2,7 +2,7 @@
 
 import React from "react";
 import {useFetchCharacterIfOne} from "../../services/session-service";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 
 type Props = {
     children: string => any,
