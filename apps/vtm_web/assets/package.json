@@ -37,7 +37,6 @@
     "start": "yarn run relay && craco start",
     "build": "yarn run relay && craco build",
     "deploy": "yarn run relay && craco build && cd .. && mix assets.deploy && rm -f _build/esbuild",
-    "dock": "npm run relay && craco build",
     "relay": "yarn run relay-compiler --language js-flow-uncommented --schema schema.graphql --src ./src/ --watchman false $@",
     "test": "craco test",
     "eject": "react-scripts eject",
