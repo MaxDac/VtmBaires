@@ -36,6 +36,7 @@
     "refresh-graphql": "get-graphql-schema http://localhost:4000/api > schema.graphql",
     "start": "yarn run relay && craco start",
     "build": "yarn run relay && craco build",
+    "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild",
     "relay": "yarn run relay-compiler --language js-flow-uncommented --schema schema.graphql --src ./src/ --watchman false $@",
     "test": "craco test",
     "eject": "react-scripts eject",
