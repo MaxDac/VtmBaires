@@ -1,39 +1,51 @@
-FROM elixir:1.11-alpine AS build
-
-USER root
+FROM elixir:1.12.3-alpine AS build
 
 # install build dependencies
-RUN apk update && \
-    apk add --no-cache build-base python3 && \
-    ln -sf python3 /usr/bin/python
+RUN apk add --no-cache build-base npm git
+
+RUN npm install -g yarn
+
+# prepare build dir
+WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
 
+ARG db_url
+
+ARG secret_key
+
 # set build ENV
-ARG app_name=vtm_baires
-ARG phoenix_subdir=.
-ARG build_env=prod
+ENV MIX_ENV=prod
 
-ENV MIX_ENV=${build_env} TERM=xterm
+ENV DATABASE_URL=$db_url
 
-# prepare build dir
-RUN mkdir /app
-COPY . /app
-WORKDIR /app
+ENV SECRET_KEY_BASE=$secret_key
 
 # install mix dependencies
-RUN mix do deps.get, deps.compile
+COPY apps apps
+COPY mix.exs mix.lock ./
+COPY config config
+RUN HEX_HTTP_CONCURRENCY=1 HEX_HTTP_TIMEOUT=180 mix do deps.get, deps.compile
+RUN mix do compile
 
+# build assets
+RUN npm --prefix ./apps/vtm_web/assets ci --progress=false --no-audit --loglevel=error
+
+RUN npm run --prefix ./apps/vtm_web/assets dock
+RUN cd apps/vtm_web
 RUN mix phx.digest
 
-# compile and build release
+# uncomment COPY if rel/ exists
+# COPY rel rel
 RUN mix do compile, release
 
 # prepare release image
-FROM alpine:3.13.5 AS app
-RUN apk add --no-cache openssl ncurses-libs
+FROM alpine:3.13.6 AS app
+
+RUN apk upgrade --no-cache && \
+    apk add --no-cache postgresql-client bash openssl libgcc libstdc++ ncurses-libs
 
 WORKDIR /app
 
@@ -41,10 +53,8 @@ RUN chown nobody:nobody /app
 
 USER nobody:nobody
 
-COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/pitu_blog ./
-
-COPY utils/migrate_and_start.sh /app
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/vtm ./
 
 ENV HOME=/app
 
-CMD ["bin/pitu_blog", "start"]
+CMD ["bin/vtm", "start"]

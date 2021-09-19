@@ -7,7 +7,13 @@ defmodule Vtm.Umbrella.MixProject do
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      releases: [
+        vtm: [
+          version: "0.0.1",
+          applications: [vtm_auth: :permanent, vtm: :permanent, vtm_web: :permanent]
+        ]
+      ]
     ]
   end
 

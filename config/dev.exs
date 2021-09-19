@@ -4,8 +4,9 @@ use Mix.Config
 config :vtm_auth, VtmAuth.Repo,
   username: "postgres",
   password: "mysecretpassword",
-  database: "vtm_dev",
+  database: "vtm",
   hostname: "localhost",
+  port: 2345,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -13,8 +14,9 @@ config :vtm_auth, VtmAuth.Repo,
 config :vtm, Vtm.Repo,
   username: "postgres",
   password: "mysecretpassword",
-  database: "vtm_dev",
+  database: "vtm",
   hostname: "localhost",
+  port: 2345,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
