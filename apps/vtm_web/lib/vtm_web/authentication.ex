@@ -4,7 +4,6 @@ defmodule VtmWeb.Authentication do
 
   import Plug.Conn
 
-  @spec sign_token(any) :: nonempty_binary
   def sign_token(data) do
     Phoenix.Token.sign(VtmWeb.Endpoint, @user_salt, data)
   end
