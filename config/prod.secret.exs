@@ -16,13 +16,6 @@ config :vtm_auth, VtmAuth.Repo,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
-
 config :vtm, Vtm.Repo,
   # ssl: true,
   url: database_url,
@@ -47,7 +40,7 @@ config :vtm_web, VtmWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :vtm_web, VtmWeb.Endpoint, server: true
+config :vtm_web, VtmWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.

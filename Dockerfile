@@ -11,8 +11,6 @@ ENV DATABASE_URL=$db_url
 
 ENV SECRET_KEY_BASE=$secret_key
 
-ENV MIX_ENV=prod
-
 WORKDIR /build
 
 RUN apk add --no-cache build-base nodejs yarn && \
@@ -33,10 +31,18 @@ RUN yarn --cwd apps/vtm_web/assets install --pure-lockfile && \
     yarn --cwd apps/vtm_web/assets build && \
     cd apps/vtm_web && mix phx.digest
 
-RUN mix release
+WORKDIR /build/apps/vtm_web
+
+RUN mix phx.digest
+
+WORKDIR /build
+
+RUN mix compile && mix release
 
 # prepare release image
 FROM alpine:3.13.6 AS app
+
+RUN apk add --no-cache libgcc libstdc++ ncurses ncurses-libs
 
 RUN addgroup -S release && \
     adduser -S -G release release && \
@@ -48,6 +54,7 @@ WORKDIR /release
 COPY --from=build --chown=release:release /build/_build/prod/rel/vtm .
 
 USER release
+
 EXPOSE 4000
 
 CMD ["bin/vtm", "start"]

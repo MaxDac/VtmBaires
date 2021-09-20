@@ -11,7 +11,11 @@ defmodule Vtm.Umbrella.MixProject do
       releases: [
         vtm: [
           version: "0.0.1",
-          applications: [vtm_auth: :permanent, vtm: :permanent, vtm_web: :permanent]
+          applications: [
+            vtm_auth: :permanent,
+            vtm: :permanent,
+            vtm_web: :permanent
+          ]
         ]
       ]
     ]
