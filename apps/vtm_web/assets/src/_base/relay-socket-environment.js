@@ -20,8 +20,13 @@ import type {
     CacheConfig
 } from "relay-runtime";
 
+const buildWebSocketUrl = () => {
+    const prefix = process.env.NODE_ENV === "development" ? "ws" : "wss";
+    return `${prefix}://${window.document.location.host}/socket`;
+};
+
 const absintheSocket = AbsintheSocket.create(
-    new PhoenixSocket("ws://localhost:4000/socket")
+    new PhoenixSocket(buildWebSocketUrl())
 );
 
 const legacySubscriber = createSubscriber(absintheSocket);

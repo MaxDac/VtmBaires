@@ -2,7 +2,7 @@
 
 import React, {useContext, useEffect, useRef, useState} from "react";
 import MainLayout from "../Main.Layout";
-import subscriptionPromise from "../../services/subscriptions/ChatSubscription";
+import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./ChatInput";
 import {subscribe} from "../../_base/relay-utils";
 import List from "@mui/material/List";
@@ -19,7 +19,7 @@ import useMap from "../../services/queries/map/MapQuery";
 import {useChatEntriesQuery} from "../../services/queries/chat/GetChatEntriesQuery";
 import Box from "@mui/material/Box";
 import {useRelayEnvironment} from "react-relay";
-import {ChatDiceRequest} from "./ChatThrowDiceInput";
+import type {ChatDiceRequest} from "./ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./ChatControls";
 
@@ -53,7 +53,7 @@ const Chat = ({ id }: ChatProps): any => {
 
     useEffect(() => {
         const showNewChatEntry = entry => setEntries(es => [...es, entry]);
-        const subscription = subscribe(subscriptionPromise(id), showNewChatEntry);
+        const subscription = subscribe(subscriptionObservable(id), showNewChatEntry);
         return () => subscription.unsubscribe();
     }, [id]);
 
@@ -80,7 +80,7 @@ const Chat = ({ id }: ChatProps): any => {
         return [];
     }
 
-    const createEntry = (action: (string, string) => Proise<any>) => {
+    const createEntry = (action: (string, string) => Promise<any>) => {
         if (character?.id != null && map?.id != null) {
             action(character.id, map.id)
                 .then(result => console.log("result", result))

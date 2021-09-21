@@ -20,7 +20,7 @@ const subscription = graphql`
     }
 `;
 
-const subscriptionPromise = (mapId: string): Observable<ChatEntry> =>
+const subscriptionObservable = (mapId: string): Observable<ChatEntry> =>
     wrapSubscription<ChatEntry>(subscription, { mapId }, ({ newChatEntry }) => newChatEntry);
 
-export default subscriptionPromise;
+export default subscriptionObservable;

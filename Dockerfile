@@ -13,7 +13,7 @@ ENV SECRET_KEY_BASE=$secret_key
 
 WORKDIR /build
 
-RUN apk add --no-cache build-base nodejs yarn && \
+RUN apk add --no-cache build-base nodejs yarn python3 git && \
     mix local.hex --force && \
     mix local.rebar --force
 
