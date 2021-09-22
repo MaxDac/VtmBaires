@@ -22,6 +22,7 @@ import {useRelayEnvironment} from "react-relay";
 import type {ChatDiceRequest} from "./ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./ChatControls";
+import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 
 type ChatProps = {
     id: string;
@@ -42,6 +43,7 @@ const Chat = ({ id }: ChatProps): any => {
     const [mapModalOpen, setMapModalOpen] = useState(false);
     const initialEntries = useChatEntriesQuery(id);
     const [entries, setEntries] = useState(initialEntries);
+    const chatToken = useSubscriptionTokenQuery();
 
     const chatContainer = useRef();
 
@@ -53,12 +55,11 @@ const Chat = ({ id }: ChatProps): any => {
 
     useEffect(() => {
         const showNewChatEntry = entry => setEntries(es => [...es, entry]);
-        const subscription = subscribe(subscriptionObservable(id), showNewChatEntry);
+        const subscription = subscribe(subscriptionObservable(id, chatToken), showNewChatEntry);
         return () => subscription.unsubscribe();
-    }, [id]);
+    }, [id, chatToken]);
 
     useEffect(() => {
-        console.log("passing");
         scrollToBottom();
     });
 
@@ -107,7 +108,11 @@ const Chat = ({ id }: ChatProps): any => {
     const onNewDiceEntry = (request: ChatDiceRequest) =>
         createEntry((characterId, mapId) =>
             chatDiceEntryMutationPromise(environment, {
-                ...request,
+                abilityId: request.abilityId,
+                attributeId: request.attributeId,
+                difficulty: request.difficulty,
+                freeThrow: request.freeThrow,
+                master: request.master,
                 characterId: characterId,
                 chatMapId: mapId
             }));

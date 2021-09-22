@@ -106,7 +106,7 @@ export default function MiniDrawer({ children }) {
             return (
                 <>
                     <Divider/>
-                    <List>{secondaryListItems(history, handleDrawerClose)}</List>
+                    <List>{secondaryListItems(history, handleDrawerClose, !open)}</List>
                 </>
             );
         }
@@ -127,8 +127,7 @@ export default function MiniDrawer({ children }) {
                         sx={{
                             marginRight: '36px',
                             ...(open && { display: 'none' }),
-                        }}
-                    >
+                        }}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6"

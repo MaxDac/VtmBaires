@@ -1,7 +1,10 @@
 defmodule VtmWeb.SessionView do
   use VtmWeb, :view
 
-  def render("ok.json", %{user: user}) do
+  def render("ok.json", %{user: user, session: %{session_info: %{
+    character_id: character_id,
+    character_name: character_name
+  }}}) do
     %{
       data: %{
         user: %{
@@ -9,6 +12,10 @@ defmodule VtmWeb.SessionView do
           name: user["name"],
           email: user["email"],
           role: user["role"]
+        },
+        session: %{
+          "characterId" => character_id,
+          "characterName" => character_name
         }
       }
     }

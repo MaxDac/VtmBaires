@@ -18,6 +18,10 @@ export type SessionCharacter = {
     name: string;
 }
 
-export const useSessionQuery = (): Array<SessionCharacter>  => {
-    return useCustomLazyLoadQuery(listSessionQuery, {});
-}
+export const useSessionQuery = (): Array<SessionCharacter> =>
+    useCustomLazyLoadQuery(listSessionQuery, {})
+        ?.list
+        ?.map(u => ({
+            id: u.id,
+            name: u.name
+        }));

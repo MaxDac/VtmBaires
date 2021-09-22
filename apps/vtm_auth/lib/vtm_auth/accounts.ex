@@ -54,20 +54,22 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
-  def update_session(%{ id: id }, remember \\ true) do
+  def get_session_by_user_id(user_id) do
+    Session
+    |> Repo.get_by(:user_id, user_id)
+  end
+
+  def update_session(%{ id: id }, attrs \\ %{}) do
     case Session |> Repo.get_by(user_id: id) do
       nil ->
-        %Session{
-          user_id: id,
-          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-          remember: remember
-        } |> Repo.insert()
+        %Session{}
+        |> Session.changeset(attrs)
+        |> Repo.insert()
       session ->
         session
-        |> Session.changeset(%{
-          last_checked: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-          remember: remember
-        })
+        |> Session.changeset(
+          attrs
+          |> Map.put(:last_checked, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)))
         |> Repo.update()
     end
   end
@@ -83,10 +85,10 @@ defmodule VtmAuth.Accounts do
     Repo.all(query)
   end
 
-  def authenticate(email, password, remember) do
+  def authenticate(email, password, remember, _context) do
     with {:ok, user = %User{password: digest}}  <- get_user_by_email(email),
          true                                   <- Password.valid?(password, digest) do
-      update_session(user, remember)
+      update_session(user, %{ remember: remember })
       {:ok, user}
     else
       _ ->

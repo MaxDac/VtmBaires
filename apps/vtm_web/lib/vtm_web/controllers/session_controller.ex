@@ -3,6 +3,8 @@ defmodule VtmWeb.SessionController do
   use Absinthe.Phoenix.Controller, schema: VtmWeb.Schema
 
   alias VtmWeb.Authentication
+  alias VtmAuth.Accounts
+  alias Vtm.Characters
 
   action_fallback VtmWeb.FallbackController
 
@@ -17,16 +19,52 @@ defmodule VtmWeb.SessionController do
         role
         __typename
       }
+      session {
+        characterId
+        characterName
+      }
     }
   }
   """
   def create(conn, graphql_response) do
-    with %{data: %{"login" => result}} when not is_nil(result) <- graphql_response,
-         %{"token" => token, "user" => user} <- result do
+    with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
+         %{"token" => token, "user" => user}                    <- result,
+         {:ok, s}                                               <- update_session(conn, user) do
       conn
       |> Authentication.put_token(token)
-      |> render("ok.json", user: user)
+      |> render("ok.json", %{user: user, session: s})
     end
+  end
+
+  defp update_session(%{host: host, remote_ip: remote_ip}, user) do
+    # Checking whether the user has only one character.
+    # In this case, the character will be automatically selected.
+    parsed_user =
+      user
+      |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
+
+    attrs =
+      case Characters.get_user_characters(parsed_user) do
+        [%{id: id, name: name}] ->
+          %{
+            session_info: %{
+              character_id: id,
+              character_name: name
+            }
+          }
+        [] ->
+          %{}
+      end
+      |> Map.put(:host, host)
+      |> Map.put(:ip, remote_ip |> ip_to_string())
+
+    Accounts.update_session(parsed_user, attrs)
+  end
+
+  defp ip_to_string(ip) do
+    ip
+    |> Tuple.to_list()
+    |> Enum.join(".")
   end
 
   def check(conn, _) do

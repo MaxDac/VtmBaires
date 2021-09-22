@@ -8,7 +8,8 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChatSubscriptionVariables = {|
-  mapId: string
+  mapId: string,
+  token: string,
 |};
 export type ChatSubscriptionResponse = {|
   +newChatEntry: ?{|
@@ -31,8 +32,9 @@ export type ChatSubscription = {|
 /*
 subscription ChatSubscription(
   $mapId: ID!
+  $token: String!
 ) {
-  newChatEntry(mapId: $mapId) {
+  newChatEntry(mapId: $mapId, token: $token) {
     id
     text
     result
@@ -51,6 +53,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "mapId"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "token"
   }
 ],
 v1 = [
@@ -61,6 +68,11 @@ v1 = [
         "kind": "Variable",
         "name": "mapId",
         "variableName": "mapId"
+      },
+      {
+        "kind": "Variable",
+        "name": "token",
+        "variableName": "token"
       }
     ],
     "concreteType": "MapChatEntry",
@@ -146,15 +158,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "368b228ec74e6a538f083db59f81454c",
+    "cacheID": "30f0e3705c8ac5d0b0ef75e678e31269",
     "id": null,
     "metadata": {},
     "name": "ChatSubscription",
     "operationKind": "subscription",
-    "text": "subscription ChatSubscription(\n  $mapId: ID!\n) {\n  newChatEntry(mapId: $mapId) {\n    id\n    text\n    result\n    master\n    characterId\n    characterChatAvatar\n    chatMapId\n    characterName\n  }\n}\n"
+    "text": "subscription ChatSubscription(\n  $mapId: ID!\n  $token: String!\n) {\n  newChatEntry(mapId: $mapId, token: $token) {\n    id\n    text\n    result\n    master\n    characterId\n    characterChatAvatar\n    chatMapId\n    characterName\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '8ca5aac154e9788de5322724c1aaaca0';
+(node: any).hash = '7ef3ff6cbce36ec90fdab0cc627ebef3';
 module.exports = node;

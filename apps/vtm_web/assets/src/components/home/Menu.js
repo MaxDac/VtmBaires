@@ -49,11 +49,23 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
     );
 };
 
-export const secondaryListItems = (history: History, drawerDone: () => void): any => {
+export const secondaryListItems = (history: History, drawerDone: () => void, isClosed: boolean): any => {
     const pushHistory = (route: string) => () => {
         drawerDone();
         history.push(route);
     };
+
+    const DOLogo = () => {
+        if (!isClosed) {
+            return (
+                <ListItem>
+                    <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+                </ListItem>
+            );
+        }
+
+        return (<></>);
+    }
 
     return (
         <div>
@@ -64,9 +76,7 @@ export const secondaryListItems = (history: History, drawerDone: () => void): an
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem>
-                <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
-            </ListItem>
+            {DOLogo()}
         </div>
     );
 }

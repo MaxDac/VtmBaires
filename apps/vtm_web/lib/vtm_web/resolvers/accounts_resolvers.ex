@@ -15,8 +15,8 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, nil}
   end
 
-  def login(_, %{email: email, password: password, remember: remember}, _) do
-    case Accounts.authenticate(email, password, remember) do
+  def login(_, %{email: email, password: password, remember: remember}, context) do
+    case Accounts.authenticate(email, password, remember, context) do
       {:ok, %{id: id, role: role} = user} ->
         token = VtmWeb.Authentication.sign_token(%{id: id, role: parse_role(role, nil)})
         {:ok, %{token: token, user: user}}
@@ -40,6 +40,6 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   def token(_, _, %{context: %{current_user: current_user}}) do
-    VtmWeb.Authentication.sign_subscription_key_token(current_user)
+    {:ok, VtmWeb.Authentication.sign_subscription_key_token(current_user)}
   end
 end
