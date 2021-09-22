@@ -3,7 +3,6 @@
 import React from 'react';
 import SubMap from "./SubMap";
 import useSectionMaps from "../../services/queries/map/SectionMapsQuery";
-import {log} from "../../_base/utils";
 
 type MapProps = {
     id: string;

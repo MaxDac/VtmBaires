@@ -90,7 +90,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer({ children }) {
     const history = useHistory();
     const theme = useTheme();
-    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const { getUser } = useContext(SessionContext);
 

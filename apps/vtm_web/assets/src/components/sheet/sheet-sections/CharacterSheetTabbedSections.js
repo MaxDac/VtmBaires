@@ -6,7 +6,6 @@ import Tab from '@mui/material/Tab';
 import Box from "@mui/material/Box";
 import CharacterSheetBiographySection from "./CharacterSheetBiographySection";
 import TabPanel from "../../../_base/components/TabPanel";
-import {useTheme} from "@mui/material/styles";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import CharacterSheetStatsSection from "./CharacterSheetStatsSection";
 import {CharacterSheetSuspenseFallback} from "../CharacterSheet";
@@ -23,7 +22,6 @@ function a11yProps(index) {
 }
 
 const CharacterSheetTabbedSections = ({characterQuery}: Props): any => {
-    const theme = useTheme();
     const [value, setValue] = useState(0);
 
     const handleChange = (_, newValue) => {

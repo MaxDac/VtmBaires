@@ -6,8 +6,8 @@ import {Observable} from "relay-runtime";
 import type {ChatEntry} from "../base-types";
 
 const subscription = graphql`
-    subscription ChatSubscription($mapId: ID!) {
-        newChatEntry(mapId: $mapId) {
+    subscription ChatSubscription($mapId: ID!, $token: String!) {
+        newChatEntry(mapId: $mapId, token: $token) {
             id
             text
             result
@@ -20,7 +20,7 @@ const subscription = graphql`
     }
 `;
 
-const subscriptionObservable = (mapId: string): Observable<ChatEntry> =>
-    wrapSubscription<ChatEntry>(subscription, { mapId }, ({ newChatEntry }) => newChatEntry);
+const subscriptionObservable = (mapId: string, token: string): Observable<ChatEntry> =>
+    wrapSubscription<ChatEntry>(subscription, { mapId, token }, ({ newChatEntry }) => newChatEntry);
 
 export default subscriptionObservable;

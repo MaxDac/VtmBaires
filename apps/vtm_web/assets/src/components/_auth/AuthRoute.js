@@ -4,7 +4,6 @@ import React, {useContext} from "react";
 import {SessionContext} from "../../App";
 import {Redirect, Route} from "react-router-dom";
 import {Routes} from "../../AppRouter";
-import {log} from "../../_base/utils";
 
 type Props = {
     component?: (...any) => any;

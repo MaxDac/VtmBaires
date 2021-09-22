@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "../strategies/CreationBase";
 import {SessionContext} from "../../../App";
-import {conditionalRendering, propNotNullRendering} from "../../../_base/render-utils";
+import {propNotNullRendering} from "../../../_base/render-utils";
 
 export type CreationBaseProps = {
     classes: any;

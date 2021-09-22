@@ -20,11 +20,11 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
 
     const isText = () => Boolean(entry.text);
 
-    const isResult = () => Boolean(entry.result);
-
     const isMaster = () => entry.master;
 
     const parseResult = () => entry.result
+        // Until Flow includes replaceAll
+        // $FlowFixMe
         .replaceAll("[red]", `<span style="color: red;">`)
         .replaceAll("[/red]", `</span>`);
 

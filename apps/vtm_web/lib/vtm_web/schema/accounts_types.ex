@@ -36,6 +36,11 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware VtmWeb.Schema.Middlewares.Authorize, "player"
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
     end
+
+    field :subscription_token, :string do
+      middleware VtmWeb.Schema.Middlewares.Authorize, "player"
+      resolve &VtmWeb.Resolvers.AccountsResolvers.token/3
+    end
   end
 
   object :user_mutations do

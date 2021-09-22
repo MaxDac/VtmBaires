@@ -20,7 +20,7 @@ type Props = {
 
 const AlertLayout = (props: Props): any => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const [backdropOpen, setBackdropOpen] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogTitle, setDialogTitle] = useState("");

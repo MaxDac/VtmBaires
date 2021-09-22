@@ -12,7 +12,6 @@ import {characterHasDisciplines} from "../Creation4";
 import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplinesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import {log} from "../../../_base/utils";
 
 type Props = {
     characterInfo: CharacterFragments_characterInfo;

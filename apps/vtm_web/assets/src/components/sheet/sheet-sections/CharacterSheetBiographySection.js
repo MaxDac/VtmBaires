@@ -1,7 +1,6 @@
 // @flow
 
 import React from "react";
-import type {GetCharacterQueryResponse} from "../../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useFragment} from "react-relay";
 import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";

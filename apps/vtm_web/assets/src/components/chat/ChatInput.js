@@ -1,10 +1,7 @@
 // @flow
 
 import React, {useState} from "react";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
-import Grid from "@mui/material/Grid";
 import "../../fonts/gabriele-l.ttf";
 import ChatThrowDiceInput from "./ChatThrowDiceInput";
 import type {ChatDiceRequest} from "./ChatThrowDiceInput";

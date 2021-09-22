@@ -72,8 +72,10 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     end
   end
 
-  def config_chat_subscription(%{map_id: map_id}, _context) do
-    {:ok, topic: from_global_id?(map_id)}
+  def config_chat_subscription(%{map_id: map_id, token: token}, _context) do
+    with {:ok, _} <- VtmWeb.Authentication.verify_subscription_key_token(token) do
+      {:ok, topic: from_global_id?(map_id)}
+    end
   end
 
   def handle_chat_trigger(%{ chat_map_id: id }), do: id

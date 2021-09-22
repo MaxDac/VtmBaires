@@ -38,4 +38,8 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     sessions = Accounts.get_current_sessions()
     {:ok, sessions}
   end
+
+  def token(_, _, %{context: %{current_user: current_user}}) do
+    VtmWeb.Authentication.sign_subscription_key_token(current_user)
+  end
 end

@@ -2,7 +2,6 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import type {GraphQLTaggedNode} from "relay-runtime";
-import type {AttributeSections, AttributeTypeNames} from "./AttributesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {AttributesSlimQueryResponse} from "./__generated__/AttributesSlimQuery.graphql";
 

@@ -1,16 +1,33 @@
 defmodule VtmWeb.Authentication do
-  @user_salt "user salt"
   @cookie_name "x-xcrf-cookie"
 
   import Plug.Conn
 
+  defp get_user_salt() do
+    System.get_env("USER_SALT") || "USER SALT"
+  end
+
+  defp get_subscription_token_salt() do
+    System.get_env("SUBSCRIPTION_TOKEN_SALT") || "TOKEN SALT"
+  end
+
   def sign_token(data) do
-    Phoenix.Token.sign(VtmWeb.Endpoint, @user_salt, data)
+    Phoenix.Token.sign(VtmWeb.Endpoint, get_user_salt(), data)
   end
 
   def verify(token) do
-    Phoenix.Token.verify(VtmWeb.Endpoint, @user_salt, token, [
+    Phoenix.Token.verify(VtmWeb.Endpoint, get_user_salt(), token, [
       max_age: 1800
+    ])
+  end
+
+  def sign_subscription_key_token(user) do
+    Phoenix.Token.sign(VtmWeb.Endpoint, get_subscription_token_salt(), user)
+  end
+
+  def verify_subscription_key_token(token) do
+    Phoenix.Token.verify(VtmWeb.Endpoint, get_subscription_token_salt(), token, [
+      max_age: 60
     ])
   end
 

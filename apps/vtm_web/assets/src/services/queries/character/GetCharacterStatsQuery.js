@@ -60,12 +60,6 @@ export type CharacterStats = {|
     predatorType: PredatorType
 |};
 
-function* generate<T>(arr: ?$ReadOnlyArray<T>): any {
-    for (const item of arr ?? []) {
-        yield item;
-    }
-}
-
 export const useCharacterStatsQuery = (characterId: string): ?CharacterStats => {
     const s =
         useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId})?.getCharacterStats;

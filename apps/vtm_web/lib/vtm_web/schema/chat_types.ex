@@ -95,6 +95,7 @@ defmodule VtmWeb.Schema.ChatTypes do
   object :chat_subscriptions do
     field :new_chat_entry, :map_chat_entry do
       arg :map_id, non_null(:id)
+      arg :token, non_null(:string)
 
       config &ChatResolvers.config_chat_subscription/2
 
