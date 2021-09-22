@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Grid from "@mui/material/Grid";
 import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
-import {updateUserSessionInfo} from "../../services/session-service";
+import {updateSession} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
 import FormFileDropField from "../../_base/components/FormFileDropField";
 import {UtilityContext} from "../../App";
@@ -71,7 +71,7 @@ const Creation1 = (): any => {
         })
             .then(response => {
                 if (response?.createCharacter != null) {
-                    updateUserSessionInfo({
+                    updateSession({
                         selectedCharacter: {
                             id: response.createCharacter.id,
                             name: response.createCharacter.name ?? "No name available"

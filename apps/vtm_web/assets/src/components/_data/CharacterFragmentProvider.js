@@ -9,7 +9,6 @@ import type {
     GetCharacterQuery
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import Typography from "@mui/material/Typography";
-import {log} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 type Props = CharacterProviderBaseProps & {

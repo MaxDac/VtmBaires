@@ -69,7 +69,7 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
 
     return (
         <div style={{padding: "10px", textAlign: "center"}}>
-            <FormControl className={classes.formControl}>
+            <FormControl>
                 <InputLabel id="select-label">{props.label}</InputLabel>
                 <Select labelId="select-label"
                         id={props.fieldName}
@@ -78,6 +78,9 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
                         value={innerValue}
                         onChange={onChange}
                         error={hasError()}
+                        sx={{
+                            minWidth: "150px"
+                        }}
                         aria-errormessage={error}>
                     {items()}
                 </Select>

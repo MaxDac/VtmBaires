@@ -1,8 +1,7 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import {useCustomLazyLoadQuery, wrapQuery} from "../../../_base/relay-utils";
-import type {BaseInfo} from "../../base-types";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
 const listSessionQuery = graphql`
     query SessionQuery {
@@ -19,9 +18,10 @@ export type SessionCharacter = {
     name: string;
 }
 
-export const useSessionQuery = (): Array<SessionCharacter>  => {
-    return useCustomLazyLoadQuery(listSessionQuery, {});
-}
-
-export const getSessions = (): Promise<Array<BaseInfo>> =>
-    wrapQuery(listSessionQuery, {}, x => x.list);
+export const useSessionQuery = (): Array<SessionCharacter> =>
+    useCustomLazyLoadQuery(listSessionQuery, {})
+        ?.list
+        ?.map(u => ({
+            id: u.id,
+            name: u.name
+        }));

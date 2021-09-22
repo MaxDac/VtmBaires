@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {Route, Switch} from "react-router-dom";
 import Login from './components/login/Login';
 import CreateUser from "./components/login/CreateUser";
@@ -18,8 +18,6 @@ import MainMap from "./components/map/MainMap";
 import Creation4 from "./components/sheet/Creation4";
 import CharacterSheet from "./components/sheet/CharacterSheet";
 import AuthRoute from "./components/_auth/AuthRoute";
-import {SessionContext} from "./App";
-import MiniDrawer from "./components/Main.Layout";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 

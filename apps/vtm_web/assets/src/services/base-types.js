@@ -49,3 +49,13 @@ export const convertToMap: any => Map = ({
     image,
     isChat
 }: Map);
+
+export type SessionCharacter = {|
+    characterId?: ?string;
+    characterName?: ?string;
+|};
+
+export type Session = {|
+    user: User,
+    session?: ?SessionCharacter
+|};

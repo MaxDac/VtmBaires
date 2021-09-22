@@ -3,7 +3,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import type { GraphQLTaggedNode } from "relay-runtime/query/GraphQLTag";
 import {useWrappedQuery} from "../../../_base/relay-utils";
-import {useEnv} from "../../../_base/relay-environment";
 import {useRelayEnvironment} from "react-relay";
 
 export const userCharactersQuery: GraphQLTaggedNode = graphql`

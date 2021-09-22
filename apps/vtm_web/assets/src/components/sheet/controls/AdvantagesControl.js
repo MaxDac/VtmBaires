@@ -14,7 +14,7 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 const AdvantagesControl = (): any => {
     const {attributes}: { attributes: Array<Attribute> } = useCustomLazyLoadQuery(attributesSlimQuery, {});
 
-    const [error, _] = useState(false);
+    const error = useState(false);
 
     const getAdvantages: () => Array<[string, string, string]> = () =>
         attributes

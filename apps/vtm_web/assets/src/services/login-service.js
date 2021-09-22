@@ -1,13 +1,11 @@
 // @flow
 
 import { post } from "../_base/rest-utils";
-import type {User} from "./base-types";
+import type {Session} from "./base-types";
 
-export type LoginResponse = {
-    data: {
-        user: User
-    }
-}
+export type LoginResponse = {|
+    data: Session;
+|};
 
 export const login = (email: string, password: string, remember: boolean): Promise<LoginResponse> =>
     post<LoginResponse>("/login", {email, password, remember});

@@ -18,8 +18,14 @@ defmodule VtmWeb.Schema.AccountTypes do
   end
 
   object :session do
+    field :character_id, :id
+    field :character_name, :string
+  end
+
+  object :login_response do
     field :token, :string
     field :user, :user
+    field :session, :session
   end
 
   enum :role do
@@ -36,6 +42,11 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware VtmWeb.Schema.Middlewares.Authorize, "player"
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
     end
+
+    field :subscription_token, :string do
+      middleware VtmWeb.Schema.Middlewares.Authorize, "player"
+      resolve &VtmWeb.Resolvers.AccountsResolvers.token/3
+    end
   end
 
   object :user_mutations do
@@ -47,7 +58,7 @@ defmodule VtmWeb.Schema.AccountTypes do
       resolve &AccountsResolvers.create/3
     end
 
-    field :login, :session do
+    field :login, :login_response do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
       arg :remember, non_null(:boolean)

@@ -26,6 +26,7 @@ export type ChatDiceRequest = {
     abilityId: string;
     freeThrow: number;
     difficulty: number;
+    master: boolean;
 };
 
 type ChatThrowDiceInputProps = {

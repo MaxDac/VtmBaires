@@ -13,50 +13,32 @@ import {logout} from "../../services/login-service";
 import Avatar from "@mui/material/Avatar";
 import {SessionContext, UtilityContext} from "../../App";
 import type {BaseInfo} from "../../services/base-types";
-import {getSessions} from "../../services/queries/accounts/SessionQuery";
 import {
     userCharactersQuery
 } from "../../services/queries/accounts/UserCharactersQuery";
 import type {UserCharactersQuery} from "../../services/queries/accounts/__generated__/UserCharactersQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import {handleAuthorizedRejection} from "../../_base/utils";
 import useStyles from "../Main.Layout.Style";
+import {useSessionQuery} from "../../services/queries/accounts/SessionQuery";
 
 export default function TopRightMenu(): any {
     const history = useHistory();
     const classes = useStyles();
     const { setCurrentCharacter } = useContext(SessionContext);
     const { openDialog } = useContext(UtilityContext);
-
-    const [waiting, setWaiting] = useState<bool>(false);
-    const [online, setOnline] = useState<Array<BaseInfo>>([]);
+    const online = useSessionQuery();
     const character = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
 
     const handleOnlineToggle = (open, setOpen) =>
-        _ => {
-            if (open) {
-                setOpen(_ => false);
-            }
-
-            if (!waiting) {
-                setWaiting(true);
-                getSessions()
-                    .then(sessions => {
-                        setOnline(sessions);
-                        setOpen(_ => true);
-                        setWaiting(false);
-                    })
-                    .catch(handleAuthorizedRejection(history));
-            }
-        };
+        _ => setOpen(_ => !open);
 
     const handleCharactersToggle = (open: boolean, setOpen: ((boolean => boolean) => void)) =>
         _ => setOpen(_ => !open);
 
     const showOnline = handleClose =>
-        online.map(o => <MenuItem onClick={handleClose}>{o.name}</MenuItem>);
+        online.map(o => <MenuItem key={o.id} onClick={handleClose}>{o.name}</MenuItem>);
 
     const handleCharacterSelection = (info: any, _handleClose: Event => void) =>
         _ => {
@@ -101,6 +83,7 @@ export default function TopRightMenu(): any {
                 .then(_ => {
                     localStorage.clear();
                     sessionStorage.clear();
+                    console.log("performing logout");
                     history.push(Routes.login);
                 })
                 .catch(e => {

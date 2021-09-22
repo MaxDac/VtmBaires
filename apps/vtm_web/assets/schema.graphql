@@ -194,10 +194,11 @@ type RootQueryType {
   me: User
   predatorTypes: [PredatorType]
   sectionMaps(parentId: ID): [ChatLocation]
+  subscriptionToken: String
 }
 
 type RootSubscriptionType {
-  newChatEntry(mapId: ID!): MapChatEntry
+  newChatEntry(mapId: ID!, token: String!): MapChatEntry
 }
 
 type Session {

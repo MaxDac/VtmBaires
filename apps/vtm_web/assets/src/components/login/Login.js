@@ -11,7 +11,7 @@ import {bool, object, string} from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
-import {storeLoginInformation} from "../../services/session-service";
+import {storeSession} from "../../services/session-service";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox"
@@ -61,7 +61,7 @@ const LoginComponent = (): Node => {
         login(email, password, remember)
             .then(res => {
                 setWait(false);
-                storeLoginInformation(res.data.user);
+                storeSession(res.data);
                 setTimeout(() => history.push(Routes.main), 200);
             })
             .catch(errors => {

@@ -30,8 +30,8 @@ export const compressImage = (file: File, maxWidth: number, maxHeight: number): 
             const [newWidth, newHeight] = getResizedImageDimensions(maxWidth, maxHeight)(img.width, img.height);
             const canvas = document.createElement("canvas");
 
-            canvas.width = newWidth;
-            canvas.height = newHeight;
+            (canvas: any).width = newWidth;
+            (canvas: any).height = newHeight;
 
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, newWidth, newHeight);

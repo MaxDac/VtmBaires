@@ -1,7 +1,6 @@
 // @flow
 
-import type {OpenDialogDelegate} from "../AppRouter";
-import type {GraphqlError, GraphqlErrorMessage} from "./relay-utils";
+import type {GraphqlErrorMessage} from "./relay-utils";
 
 export type History = {
     push: string => void;

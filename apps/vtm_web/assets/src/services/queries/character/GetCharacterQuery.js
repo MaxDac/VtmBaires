@@ -2,8 +2,6 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import type {GraphQLTaggedNode} from "relay-runtime";
-import type {GetCharacterQuery, GetCharacterQueryResponse} from "./__generated__/GetCharacterQuery.graphql";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
 export const getCharacterQuery: GraphQLTaggedNode = graphql`
     query GetCharacterQuery($id: ID!) {

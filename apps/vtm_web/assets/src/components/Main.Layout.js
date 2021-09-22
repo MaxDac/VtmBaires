@@ -90,7 +90,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer({ children }) {
     const history = useHistory();
     const theme = useTheme();
-    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const { getUser } = useContext(SessionContext);
 
@@ -107,7 +106,7 @@ export default function MiniDrawer({ children }) {
             return (
                 <>
                     <Divider/>
-                    <List>{secondaryListItems(history, handleDrawerClose)}</List>
+                    <List>{secondaryListItems(history, handleDrawerClose, !open)}</List>
                 </>
             );
         }
@@ -128,8 +127,7 @@ export default function MiniDrawer({ children }) {
                         sx={{
                             marginRight: '36px',
                             ...(open && { display: 'none' }),
-                        }}
-                    >
+                        }}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6"

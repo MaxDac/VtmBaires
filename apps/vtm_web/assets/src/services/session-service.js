@@ -1,35 +1,25 @@
 // @flow
 
 import {checkMaster} from "./login-service";
-import type {User} from "./base-types";
 import {userCharactersQuery} from "./queries/accounts/UserCharactersQuery";
 import type {UserCharactersQuery} from "./queries/accounts/__generated__/UserCharactersQuery.graphql";
 import type {UserCharacter} from "./queries/accounts/UserCharactersQuery";
 import {useCustomLazyLoadQuery} from "../_base/relay-utils";
 import {emptyArray} from "../_base/utils";
-
-export type SessionCharacter = {
-    id: string;
-    name: string;
-}
-
-export type UserSessionInfo = {
-    selectedCharacter?: ?SessionCharacter;
-};
+import type {Session, SessionCharacter} from "./base-types";
 
 const storageUserInfoKey ="vtm-baires-session-info";
-const storageSessionInfoKey = "vtm-baires-user-session";
 
-export const storeLoginInformation = (user: User) => {
+export const storeSession = (response: Session) => {
     sessionStorage.removeItem(storageUserInfoKey);
-    sessionStorage.setItem(storageUserInfoKey, JSON.stringify(user));
+    sessionStorage.setItem(storageUserInfoKey, JSON.stringify(response));
 }
 
 /**
  * Gets the current login information.
  * @returns {?SessionCharacter} The user.
  */
-export const getLoginInformation = (): ?User => {
+export const getSession = (): ?Session => {
     const inStorage = sessionStorage.getItem(storageUserInfoKey);
 
     if (inStorage && inStorage !== "") {
@@ -46,44 +36,35 @@ export const getLoginInformation = (): ?User => {
 export const isMaster = (): Promise<bool> =>
     checkMaster()
         .then(_ => true)
-        .catch(_ => false)
-
-/**
- * Gets the session info for the current user.
- * @returns {{UserSessionInfo}|*} The user session info.
- */
-export const getUserSessionInfo = (): UserSessionInfo => {
-    const serializedSession = localStorage.getItem(storageSessionInfoKey);
-
-    if (serializedSession && serializedSession.length > 0) {
-        return JSON.parse(serializedSession);
-    }
-
-    return {};
-}
+        .catch(_ => false);
 
 /**
  * Merges the current session info with the ones that are already stored.
  * @param info The session info.
- * @returns {UserSessionInfo} The new session info.
+ * @returns {Session} The new session info.
  */
-export const updateUserSessionInfo = (info: UserSessionInfo): UserSessionInfo => {
-    const olderSession = getUserSessionInfo();
+export const updateSession = (info: Session): ?Session => {
+    const olderSession = getSession();
     const newSession = {
         ...olderSession,
         ...info
     };
 
-    localStorage.setItem(storageSessionInfoKey, JSON.stringify(newSession));
+    localStorage.setItem(storageUserInfoKey, JSON.stringify(newSession));
 
-    return getUserSessionInfo();
+    return getSession();
 }
 
-export const updateCurrentCharacter = (character: SessionCharacter): UserSessionInfo =>
-    updateUserSessionInfo({
-        ...getUserSessionInfo(),
-        selectedCharacter: character
-    });
+export const updateCurrentCharacter = (character: SessionCharacter): ?Session => {
+    const currentSession = getSession();
+
+    if (currentSession) {
+        updateSession({
+            user: currentSession.user,
+            session: character
+        });
+    }
+}
 
 export type UserCharacters = "OnlyOne" | "MoreThanOne" | "NoOne";
 
