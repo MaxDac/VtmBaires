@@ -1,22 +1,20 @@
 // @flow
 
-import {useContext} from "react";
-import {SessionContext} from "../../App";
+import {useSession} from "../../services/session-service";
 
 export type CharacterProviderBaseProps = {
     characterId?: ?string;
 }
 
 export const useCharacterProviderId = (characterId: ?string): ?string => {
-    const {getCharacter} = useContext(SessionContext);
-    const c = getCharacter();
+    const [,character] = useSession();
 
     if (characterId != null) {
         return characterId;
     }
 
-    if (c?.id != null) {
-        return c.id;
+    if (character?.id != null) {
+        return character.id;
     }
 
     return null;

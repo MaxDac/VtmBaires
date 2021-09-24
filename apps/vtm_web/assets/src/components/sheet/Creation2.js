@@ -1,13 +1,13 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "./strategies/CreationBase";
 import MainLayout from "../Main.Layout";
-import {SessionContext} from "../../App";
 import useStyles from "../Main.Layout.Style";
+import {useSession} from "../../services/session-service";
 
 // type FormAttributes = {
 //     attribute4: string;
@@ -23,10 +23,7 @@ import useStyles from "../Main.Layout.Style";
 
 const Creation2 = (): any => {
     const classes = useStyles();
-
-    const {
-        getCharacter
-    } = useContext(SessionContext);
+    const [, character] = useSession();
 
     const emptyAttributes = {
         attribute4: "",
@@ -104,14 +101,12 @@ const Creation2 = (): any => {
         </>;
 
     const getForm = () => {
-        const c = getCharacter != null ? getCharacter() : null;
-
-        if (c != null) {
+        if (character?.id != null) {
             return (
                 <MainLayout>
                     <div className={classes.centeredContainer}>
                         <CreationBase classes={classes}
-                                      character={c}
+                                      characterId={character.id}
                                       currentStage={2}
                                       attributeTypeName="Attribute"
                                       emptyAttributes={emptyAttributes}

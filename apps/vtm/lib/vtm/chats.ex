@@ -38,6 +38,7 @@ defmodule Vtm.Chats do
         master: c.master,
         text: c.text,
         chat_map_id: c.chat_map_id,
+        inserted_at: c.inserted_at
       }
   end
 

@@ -1,9 +1,9 @@
 // @flow
 
-import React, {useContext} from "react";
-import {SessionContext} from "../../App";
+import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {Routes} from "../../AppRouter";
+import {getSessionSync} from "../../services/session-service";
 
 type Props = {
     component?: (...any) => any;
@@ -11,7 +11,7 @@ type Props = {
 }
 
 const AuthRoute = ({ children, component, ...rest }: Props): any => {
-    const user = useContext(SessionContext)?.getUser();
+    const user = getSessionSync()?.user;
 
     const loginRedirection = location => ({
         pathname: Routes.login,

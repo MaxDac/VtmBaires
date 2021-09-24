@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a3dafdec-db7f-477f-904e-58b8346f52c4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/contexts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/SessionCharacterQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/absinthe.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/absinthe.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/absinthe_phoenix.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/absinthe_phoenix.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/absinthe_plug.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/absinthe_plug.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/absinthe_relay.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/absinthe_relay.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/comeonin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/comeonin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/comeonin_ecto_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/comeonin_ecto_password.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/connection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/cowboy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/cowboy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/cowlib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/cowlib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/dataloader.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/dataloader.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/db_connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/db_connection.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/decimal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/decimal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ecto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ecto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ecto_sql.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ecto_sql.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/file_system.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/file_system.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/gettext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/gettext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jason.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/jason.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mime.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/nimble_parsec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/nimble_parsec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/pbkdf2_elixir.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/pbkdf2_elixir.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_ecto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_ecto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_html.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_html.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_live_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_live_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_live_reload.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_live_reload.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_live_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_live_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/phoenix_pubsub.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/phoenix_pubsub.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/plug.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/plug.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/plug_cowboy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/plug_cowboy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/plug_crypto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/plug_crypto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/postgrex.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/postgrex.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ranch.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ranch.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/telemetry.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/telemetry.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/telemetry_metrics.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/telemetry_metrics.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/telemetry_poller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/telemetry_poller.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_auth/lib/vtm_auth/accounts.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_auth/lib/vtm_auth/accounts.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/_base/components/AdminOnly.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/_base/components/AdminOnly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/_base/relay-utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/_base/relay-utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/Main.Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/Main.Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_auth/AuthRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_auth/AuthRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/ConcealedCharacterInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/ConcealedCharacterInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/RemoteCharacterProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/RemoteCharacterProvider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/character-providers-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/_data/character-providers-types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/admin/AdminDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/admin/AdminDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/chat/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/chat/ChatThrowDiceInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/chat/ChatThrowDiceInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/home/TopRightMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/home/TopRightMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/login/CreateUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/login/CreateUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/map/MainMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/map/MainMap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/map/SubMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/map/SubMap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/AttributeSelectionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/AttributeSelectionField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation1.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation2.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation4.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/Creation4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/BalancedSkillForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/BalancedSkillForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/CreationBase.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/CreationBase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/JackOfAllTradesSkillForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/JackOfAllTradesSkillForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/SpecialistSkillForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/components/sheet/strategies/SpecialistSkillForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/base-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/base-types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/SessionQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/SessionQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/UserCharactersQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/UserCharactersQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/__generated__/SessionQuery.graphql.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/queries/accounts/__generated__/SessionQuery.graphql.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/session-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/assets/src/services/session-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/controllers/session_controller.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/controllers/session_controller.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/resolvers/accounts_resolvers.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/resolvers/accounts_resolvers.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/resolvers/character_resolvers.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/resolvers/character_resolvers.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/schema/accounts_types.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/schema/accounts_types.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/schema/character_types.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/schema/character_types.ex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/views/session_view.ex" beforeDir="false" afterPath="$PROJECT_DIR$/apps/vtm_web/lib/vtm_web/views/session_view.ex" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1yYbwZvJPrMfsG7BQfFpVPopxU2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3dafdec-db7f-477f-904e-58b8346f52c4" name="Changes" comment="" />
+      <created>1632431710875</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632431710875</updated>
+      <workItem from="1632431715163" duration="2573000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

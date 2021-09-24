@@ -17,6 +17,7 @@ const chatEntriesQuery: GraphQLTaggedNode = graphql`
             master
             result
             text
+            insertedAt
         }
     }
 `;
@@ -31,6 +32,7 @@ export function useChatEntriesQuery(mapId: string): Array<ChatEntry> {
             characterChatAvatar: e.characterChatAvatar,
             result: e.result,
             text: e.text,
+            insertedAt: e.insertedAt,
             master: e.master
         })) ?? emptyArray<ChatEntry>();
 }

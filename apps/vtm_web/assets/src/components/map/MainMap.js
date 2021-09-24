@@ -3,7 +3,6 @@
 import React from 'react';
 import SubMap from "./SubMap";
 import {convert, mainMapsQuery} from "../../services/queries/map/MainMapsQuery";
-import {log} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 export default function MainMap(): any {

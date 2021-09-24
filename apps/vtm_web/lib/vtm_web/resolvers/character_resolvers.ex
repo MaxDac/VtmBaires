@@ -3,6 +3,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Characters.Character
+  alias VtmAuth.Accounts
 
   def get_clans(_, _, _) do
     {:ok, Characters.get_clans()}
@@ -46,6 +47,19 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       _ ->
         {:error, "The user does not exist, or you have no permission to see it."}
     end
+  end
+
+  defp get_session_character_p(user) do
+    with session when not is_nil(session) <- Accounts.get_character_session_by_user_id(user.id) do
+      {:ok, session}
+    else
+      _ ->
+        {:ok, %{}}
+    end
+  end
+
+  def get_session_character(_, _, %{context: %{current_user: user}}) do
+    get_session_character_p(user)
   end
 
   def create_character(_, %{ request: request }, %{context: %{current_user: current_user}}) do

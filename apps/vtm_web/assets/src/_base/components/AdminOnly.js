@@ -1,20 +1,18 @@
 // @flow
 
-import React, {useContext} from "react";
-import {SessionContext} from "../../App";
+import React from "react";
 import {isUserMaster} from "../../services/base-types";
+import {useSession} from "../../services/session-service";
 
 export type AdminOnlyProps = {
     children: any;
 }
 
 const AdminOnly = ({children}: AdminOnlyProps): any => {
-    const {
-        getUser
-    } = useContext(SessionContext);
+    const [user,] = useSession();
 
     const body = (): any => {
-        if (isUserMaster(getUser?.())) {
+        if (isUserMaster(user)) {
             return (<>{children}</>);
         }
         else {

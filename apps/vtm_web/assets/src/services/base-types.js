@@ -26,6 +26,7 @@ export type ChatEntry = {
     characterChatAvatar: string;
     chatMapId: string;
     characterName: string;
+    insertedAt: string;
 }
 
 export type Map = {
@@ -51,11 +52,11 @@ export const convertToMap: any => Map = ({
 }: Map);
 
 export type SessionCharacter = {|
-    characterId?: ?string;
-    characterName?: ?string;
+    id?: ?string;
+    name?: ?string;
 |};
 
 export type Session = {|
     user: User,
-    session?: ?SessionCharacter
+    character?: ?SessionCharacter
 |};

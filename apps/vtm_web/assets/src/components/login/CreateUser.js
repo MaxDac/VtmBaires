@@ -11,8 +11,8 @@ import FormTextField from "../../_base/components/FormTextField";
 import {Link, useHistory} from "react-router-dom";
 import type { Node } from "react";
 import {Routes} from "../../AppRouter";
-import {UtilityContext} from "../../App";
 import {useTheme} from "@mui/material/styles";
+import {UtilityContext} from "../../contexts";
 
 const SignUpSchema = object().shape({
     email: string("Enter your email")

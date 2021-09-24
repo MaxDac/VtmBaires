@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -19,7 +19,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {isUserMaster} from "../../services/base-types";
-import {SessionContext} from "../../App";
+import {useSession} from "../../services/session-service";
 
 export type ChatDiceRequest = {
     attributeId: string;
@@ -37,7 +37,7 @@ type ChatThrowDiceInputProps = {
 
 const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const attributes = useAttributesSlimQuery()?.attributes ?? [];
-    const {getUser} = useContext(SessionContext);
+    const [user,] = useSession();
     const [open, setOpen] = useState(props.isOpen);
     const [masterThrow, setMasterThrow] = useState(false);
     const [attribute, setAttribute] = useState("");
@@ -109,7 +109,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     }
 
     const masterChecker = () => {
-        if (isUserMaster(getUser())) {
+        if (isUserMaster(user)) {
             return (
                 <Grid item xs={12}>
                     <FormGroup>

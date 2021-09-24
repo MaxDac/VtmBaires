@@ -10,18 +10,17 @@ import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
 import {Routes} from "../../../AppRouter";
 import type { AttributeTypeNames } from "../../../services/queries/info/AttributesQuery";
-import {UtilityContext} from "../../../App";
 import type {CharacterAttributeRequest} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
 import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
 import useAttributesQuery from "../../../services/queries/info/AttributesQuery";
 import type {GetCharacterStageQuery} from "../../../services/queries/character/__generated__/GetCharacterStageQuery.graphql";
-import type {SessionCharacter as Character} from "../../../services/session-service";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
+import {UtilityContext} from "../../../contexts";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
-    character: Character;
+    characterId: string;
     currentStage: number;
     attributeTypeName: AttributeTypeNames;
     emptyAttributes: TFormAttributes;
@@ -35,7 +34,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
     const { setError } = useContext(UtilityContext);
 
     const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
-        id: props.character.id
+        id: props.characterId
     })?.getCharacter;
     const data = useAttributesQuery();
 
@@ -105,7 +104,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         const generateRequest = (attributeId: string, value: number): CharacterAttributeRequest => ({
             attributeId,
-            characterId: String(props.character.id),
+            characterId: String(props.characterId),
             value
         });
 

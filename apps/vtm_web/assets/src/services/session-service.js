@@ -1,12 +1,11 @@
 // @flow
 
 import {checkMaster} from "./login-service";
-import {userCharactersQuery} from "./queries/accounts/UserCharactersQuery";
-import type {UserCharactersQuery} from "./queries/accounts/__generated__/UserCharactersQuery.graphql";
-import type {UserCharacter} from "./queries/accounts/UserCharactersQuery";
-import {useCustomLazyLoadQuery} from "../_base/relay-utils";
-import {emptyArray} from "../_base/utils";
-import type {Session, SessionCharacter} from "./base-types";
+import {getSessionCharacter} from "./queries/accounts/SessionCharacterQuery";
+import type {Session, SessionCharacter, User} from "./base-types";
+import type {IEnvironment} from "relay-runtime";
+import {useContext, useEffect, useState} from "react";
+import {SessionContext} from "../contexts";
 
 const storageUserInfoKey ="vtm-baires-session-info";
 
@@ -15,11 +14,31 @@ export const storeSession = (response: Session) => {
     sessionStorage.setItem(storageUserInfoKey, JSON.stringify(response));
 }
 
+const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
+    new Promise((resolve, reject) => {
+        if (session?.character != null) {
+            resolve(session);
+        }
+
+        getSessionCharacter(environment)
+            .then(response => {
+                resolve({
+                    user: session?.user,
+                    character: {
+                        id: response?.getSessionCharacter?.id,
+                        name: response?.getSessionCharacter?.name
+                    }
+                });
+            })
+            .catch(e => reject(e));
+    });
+
 /**
- * Gets the current login information.
- * @returns {?SessionCharacter} The user.
+ * Retrieve the session from the browser storage.
+ * This method doesn't try to retrieve the character from the remote session.
+ * @returns {Session} The session saved in the browser.
  */
-export const getSession = (): ?Session => {
+export const getSessionSync = (): ?Session => {
     const inStorage = sessionStorage.getItem(storageUserInfoKey);
 
     if (inStorage && inStorage !== "") {
@@ -27,7 +46,23 @@ export const getSession = (): ?Session => {
     }
 
     return null;
-};
+}
+
+/**
+ * Gets the current login information. It tries to retrieve the character from the remote session
+ * if it doesn't find it in the browser session.
+ * @param environment: the Relay Environment, used for the query.
+ * @returns {?SessionCharacter} The user.
+ */
+export const getSession = (environment: IEnvironment): Promise<?Session> => {
+    const inStorage = sessionStorage.getItem(storageUserInfoKey);
+
+    if (inStorage && inStorage !== "") {
+        return checkCharacter(environment, JSON.parse(inStorage));
+    }
+
+    return new Promise((resolve, _) => resolve(null));
+}
 
 /**
  * Determines whether the user is a master or not.
@@ -44,7 +79,7 @@ export const isMaster = (): Promise<bool> =>
  * @returns {Session} The new session info.
  */
 export const updateSession = (info: Session): ?Session => {
-    const olderSession = getSession();
+    const olderSession = getSessionSync();
     const newSession = {
         ...olderSession,
         ...info
@@ -52,41 +87,65 @@ export const updateSession = (info: Session): ?Session => {
 
     localStorage.setItem(storageUserInfoKey, JSON.stringify(newSession));
 
-    return getSession();
+    return getSessionSync();
 }
 
 export const updateCurrentCharacter = (character: SessionCharacter): ?Session => {
-    const currentSession = getSession();
+    const currentSession = getSessionSync();
 
     if (currentSession) {
         updateSession({
             user: currentSession.user,
-            session: character
+            character
         });
     }
 }
 
-export type UserCharacters = "OnlyOne" | "MoreThanOne" | "NoOne";
+export type SessionInfo = {
+    getUser: () => Promise<?User>;
+    getCurrentCharacter: () => Promise<?SessionCharacter>;
+    setCurrentCharacter: SessionCharacter => ?Session;
+};
 
-export const useFetchCharacterIfOne = (): [UserCharacters, ?UserCharacter] => {
-    const characters: Array<UserCharacter> = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
-        fetchPolicy: "store-and-network"
-    })?.me?.userCharacters
-        ?.filter(c => c != null)
-        ?.map((m: any) => {
-            return {
-                id: m.id,
-                name: (m.name : string),
-                stage: m.stage,
-                approved: m.approved,
-                isComplete: m.isComplete,
-                chatAvatar: m.chatAvatar
-            };
-        }) ?? emptyArray();
-
-    if (characters == null) {
-        return ["NoOne", null];
-    }
-
-    return [characters.length === 1 ? "OnlyOne" : "MoreThanOne", characters[0]];
+/**
+ * This custom hook retrieves the session information.
+ * @returns {SessionInfo} The session info.
+ */
+export function getSessionHookValue(environment: IEnvironment): SessionInfo {
+    return {
+        getUser: () => getSession(environment).then(x => x?.user),
+        getCurrentCharacter: () => getSession(environment).then(x => x?.character),
+        setCurrentCharacter: updateCurrentCharacter
+    };
 }
+
+/**
+ * This method gets the session (user and character)
+ * @param sync If True, the method will return what is currently saved in the browser storage,
+ * if false, and if the browser does not retain any information about the character, the method
+ * will fetch the back-end information.
+ * @returns {[User, SessionCharacter]} The user and the character in the session.
+ */
+export const useSession = (sync?: boolean): [?User, ?SessionCharacter] => {
+    const sessionContext = useContext(SessionContext);
+    const [sessionCharacter, setSessionCharacter] = useState<?SessionCharacter>(null);
+    const [sessionUser, setSessionUser] = useState<?User>(null);
+
+    useEffect(() => {
+        const existent = getSessionSync();
+
+        if (sync === true) {
+            setSessionUser(existent?.user);
+            setSessionCharacter(existent?.character)
+        }
+        else {
+            sessionContext.getCurrentCharacter()
+                .then(x => setSessionCharacter(_ => x));
+
+            sessionContext.getUser()
+                .then(x => setSessionUser(_ => x))
+        }
+    }, [sessionContext, sync]);
+
+    return [sessionUser, sessionCharacter];
+};

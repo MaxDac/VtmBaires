@@ -3,7 +3,7 @@
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import MainLayout from "../Main.Layout";
-import {UtilityContext} from "../../App";
+import {UtilityContext} from "../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import DisciplinesControl from "./controls/DisciplinesControl";
