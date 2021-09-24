@@ -15,10 +15,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {mainListItems, secondaryListItems} from "./home/Menu";
 import {useHistory} from "react-router-dom";
 import {isUserMaster} from "../services/base-types";
-import {useContext} from "react";
-import {SessionContext} from "../App";
 import TopRightMenu from "./home/TopRightMenu";
-import useStyles from "./Main.Layout.Style";
+import {useSession} from "../services/session-service";
 
 const drawerWidth = 240;
 
@@ -91,7 +89,7 @@ export default function MiniDrawer({ children }) {
     const history = useHistory();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const { getUser } = useContext(SessionContext);
+    const [user,] = useSession();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -102,7 +100,7 @@ export default function MiniDrawer({ children }) {
     };
 
     const masterMenu = () => {
-        if (isUserMaster(getUser())) {
+        if (isUserMaster(user)) {
             return (
                 <>
                     <Divider/>

@@ -21,8 +21,6 @@ import {
     fetchQuery,
     requestSubscription, useLazyLoadQuery
 } from "react-relay";
-import {useContext, useEffect, useState} from "react";
-import {UtilityContext} from "../App";
 
 export type GraphqlErrorLocation = {
     column: number;
@@ -84,27 +82,27 @@ export function wrapQuery<T>(environment: IEnvironment, operation: GraphQLTagged
         })
     });
 }
-
-export const useWrappedQuery = <T>(environment: IEnvironment, query: GraphQLTaggedNode, variables: any, config?: {
-    extractor?: any => T,
-    effectDependencies?: Array<any>
-} ): ?T => {
-    const [result, setResult] = useState<?T>(null);
-    const { setError } = useContext(UtilityContext);
-    const dependencies = config?.effectDependencies ?? [];
-
-    useEffect(() => {
-        wrapQuery(environment, query, variables, config?.extractor)
-            .then(ls => setResult(ls))
-            .catch(e => setError({
-                type: "error",
-                graphqlError: e,
-                message: "An error happened while trying to contact the back end."
-            }));
-    }, [...dependencies]);
-
-    return result;
-}
+//
+// export const useWrappedQuery = <T>(environment: IEnvironment, query: GraphQLTaggedNode, variables: any, config?: {
+//     extractor?: any => T,
+//     effectDependencies?: Array<any>
+// } ): ?T => {
+//     const [result, setResult] = useState<?T>(null);
+//     const { setError } = useContext(UtilityContext);
+//     const dependencies = config?.effectDependencies ?? [];
+//
+//     useEffect(() => {
+//         wrapQuery(environment, query, variables, config?.extractor)
+//             .then(ls => setResult(ls))
+//             .catch(e => setError({
+//                 type: "error",
+//                 graphqlError: e,
+//                 message: "An error happened while trying to contact the back end."
+//             }));
+//     }, [...dependencies, config?.extractor, environment, query, setError, variables]);
+//
+//     return result;
+// }
 
 // export function wrapQueryAuthorized<T>(operation: any, variables: any, extractor?: any => T): Promise<T> {
 //     return getLoginInformation()

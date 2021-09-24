@@ -7,7 +7,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {setValue} from "relay-runtime/lib/store/RelayModernRecord";
 import ListSubheader from "@mui/material/ListSubheader";
-import useStyles from "../Main.Layout.Style";
 
 export type SetControlValue = string => void;
 
@@ -24,7 +23,6 @@ type AttributeSelectionFieldProps = {
 const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
     const [innerValue, setInnerValue] = useState(props.value);
     const [error, setError] = useState("");
-    const classes = useStyles();
 
     const items = () => {
         const values = props.values();

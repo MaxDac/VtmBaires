@@ -8,7 +8,6 @@ import {subscribe} from "../../_base/relay-utils";
 import List from "@mui/material/List";
 import ChatEntryComponent from "./ChatEntryComponent";
 import chatEntryMutationPromise from "../../services/mutations/chat/CreateChatEntryMutation";
-import {SessionContext, UtilityContext} from "../../App";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -23,6 +22,8 @@ import type {ChatDiceRequest} from "./ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./ChatControls";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
+import {UtilityContext} from "../../contexts";
+import {useSession} from "../../services/session-service";
 
 type ChatProps = {
     id: string;
@@ -31,9 +32,7 @@ type ChatProps = {
 const Chat = ({ id }: ChatProps): any => {
     const environment = useRelayEnvironment();
     const map = useMap(id);
-    const { getCharacter: ch } = useContext(SessionContext);
-
-    const character = ch();
+    const [, character] = useSession();
 
     const {
         setError,
@@ -84,7 +83,7 @@ const Chat = ({ id }: ChatProps): any => {
     const createEntry = (action: (string, string) => Promise<any>) => {
         if (character?.id != null && map?.id != null) {
             action(character.id, map.id)
-                .then(result => console.log("result", result))
+                // .then(result => console.log("result", result))
                 .catch(error => setError({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
         }
 

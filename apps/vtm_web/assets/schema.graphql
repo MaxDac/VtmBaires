@@ -140,6 +140,14 @@ type FinalizeCharacterCreationPayload {
   result: Character
 }
 
+scalar Hour
+
+type LoginResponse {
+  character: Character
+  token: String
+  user: User
+}
+
 type MapChatEntry implements Node {
   characterChatAvatar: String
   characterId: ID
@@ -148,6 +156,7 @@ type MapChatEntry implements Node {
 
   """The ID of an object"""
   id: ID!
+  insertedAt: Hour
   master: Boolean
   result: String
   text: String
@@ -178,7 +187,7 @@ type RootMutationType {
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
   finalizeCharacterCreation(input: FinalizeCharacterCreationInput!): FinalizeCharacterCreationPayload
-  login(email: String!, password: String!, remember: Boolean!): Session
+  login(email: String!, password: String!, remember: Boolean!): LoginResponse
 }
 
 type RootQueryType {
@@ -187,6 +196,7 @@ type RootQueryType {
   clans: [Clan]
   getCharacter(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
+  getSessionCharacter: Character
   list: [User]
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
@@ -201,16 +211,15 @@ type RootSubscriptionType {
   newChatEntry(mapId: ID!, token: String!): MapChatEntry
 }
 
-type Session {
-  token: String
-  user: User
-}
-
-type User {
+type User implements Node {
   email: String
-  id: ID
+
+  """The ID of an object"""
+  id: ID!
   name: String
+  originalId: ID
   role: Role
+  sessionCharacter: Character
   userCharacters: [Character]
 }
 

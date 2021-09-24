@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import AdminOnly from "../../_base/components/AdminOnly";
 import {useContext} from "react";
-import {UtilityContext} from "../../App";
+import {UtilityContext} from "../../contexts";
 import useStyles from "../Main.Layout.Style";
 
 const ListItemLink = (props) => <ListItem button component="a" {...props} />;

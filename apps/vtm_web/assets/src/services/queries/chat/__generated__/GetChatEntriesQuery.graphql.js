@@ -20,6 +20,7 @@ export type GetChatEntriesQueryResponse = {|
     +master: ?boolean,
     +result: ?string,
     +text: ?string,
+    +insertedAt: ?any,
   |}>
 |};
 export type GetChatEntriesQuery = {|
@@ -41,6 +42,7 @@ query GetChatEntriesQuery(
     master
     result
     text
+    insertedAt
   }
 }
 */
@@ -123,6 +125,13 @@ v1 = [
         "kind": "ScalarField",
         "name": "text",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "insertedAt",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -146,15 +155,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "f655dc541aecb454e5e9cab37413ebde",
+    "cacheID": "f2381db28ac3de9c66875ec95566bfdb",
     "id": null,
     "metadata": {},
     "name": "GetChatEntriesQuery",
     "operationKind": "query",
-    "text": "query GetChatEntriesQuery(\n  $mapId: ID!\n) {\n  mapChatEntries(mapId: $mapId) {\n    id\n    chatMapId\n    characterId\n    characterName\n    characterChatAvatar\n    master\n    result\n    text\n  }\n}\n"
+    "text": "query GetChatEntriesQuery(\n  $mapId: ID!\n) {\n  mapChatEntries(mapId: $mapId) {\n    id\n    chatMapId\n    characterId\n    characterName\n    characterChatAvatar\n    master\n    result\n    text\n    insertedAt\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '56a72f4fe318a232bb1a2f7edeaee7c4';
+(node: any).hash = 'f37d8549e7fda423a9d4574da2e2c0f4';
 module.exports = node;

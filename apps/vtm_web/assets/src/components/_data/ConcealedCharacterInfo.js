@@ -1,9 +1,9 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
-import {SessionContext} from "../../App";
 import {isUserMaster} from "../../services/base-types";
+import {useSession} from "../../services/session-service";
 
 type Props = {
     characterId: ?string;
@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ConcealedCharacterInfo = ({characterId, children}: Props): any => {
-    const user = useContext(SessionContext)?.getUser();
+    const [user,] = useSession();
     const userCharacters = useUserCharactersQuery();
 
     if (isUserMaster(user) || userCharacters.some(({id}) => id === characterId)) {

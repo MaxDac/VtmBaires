@@ -115,6 +115,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :get_session_character, :character do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.get_session_character/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :get_character_stats, :character_stats do
       arg :character_id, :id
 

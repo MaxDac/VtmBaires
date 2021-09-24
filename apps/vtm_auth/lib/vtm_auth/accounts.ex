@@ -55,10 +55,23 @@ defmodule VtmAuth.Accounts do
   end
 
   def get_session_by_user_id(user_id) do
-    Session
-    |> Repo.get_by(:user_id, user_id)
+    query = from s in Session, where: s.user_id == ^user_id
+    Repo.one(query)
   end
 
+  def get_character_session_by_user_id(user_id) do
+    with %{session_info: %{
+      "character_id" => id,
+      "character_name" => name
+    }} <- get_session_by_user_id(user_id) do
+      %{
+        id: id,
+        name: name
+      }
+    end
+  end
+
+  @spec update_session(%{:id => any, optional(any) => any}, :invalid | map) :: any
   def update_session(%{ id: id }, attrs \\ %{}) do
     case Session |> Repo.get_by(user_id: id) do
       nil ->

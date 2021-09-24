@@ -15,8 +15,8 @@ import {storeSession} from "../../services/session-service";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox"
-import {UtilityContext} from "../../App";
 import {useTheme} from "@mui/material/styles";
+import {UtilityContext} from "../../contexts";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")

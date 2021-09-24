@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import SendIcon from "@mui/icons-material/Send";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
-import {UtilityContext} from "../../App";
+import {UtilityContext} from "../../contexts";
 import type {Map} from "../../services/base-types";
 import useStyles from "../Main.Layout.Style";
 

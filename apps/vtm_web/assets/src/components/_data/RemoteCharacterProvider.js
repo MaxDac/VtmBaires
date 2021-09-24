@@ -1,18 +1,18 @@
 // @flow
 
 import React from "react";
-import {useFetchCharacterIfOne} from "../../services/session-service";
 import Typography from "@mui/material/Typography";
+import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
     children: string => any,
 }
 
 const RemoteCharacterProvider = (props: Props): any => {
-    const [response, character] = useFetchCharacterIfOne();
+    const characters = useUserCharactersQuery();
 
-    if ((response === "OnlyOne" || response === "MoreThanOne") && character?.id != null) {
-        return props.children(character.id);
+    if (characters != null && characters.length > 0) {
+        return props.children(characters[0].id);
     }
 
     return (

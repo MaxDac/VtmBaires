@@ -6,26 +6,26 @@ defmodule VtmWeb.Schema.AccountTypes do
   alias VtmWeb.Resolvers.AccountsResolvers
   alias VtmWeb.Resolvers.CharacterResolvers
 
-  object :user do
-    field :id, :id
+  node object :user do
+    field :original_id, :id
     field :email, :string
     field :name, :string
     field :role, :role
+    field :session_character, :character
 
     field :user_characters, list_of(:character) do
       resolve &CharacterResolvers.get_user_characters/3
     end
-  end
 
-  object :session do
-    field :character_id, :id
-    field :character_name, :string
+    field :session_character, :character do
+      resolve &CharacterResolvers.get_session_character/3
+    end
   end
 
   object :login_response do
     field :token, :string
     field :user, :user
-    field :session, :session
+    field :character, :character
   end
 
   enum :role do

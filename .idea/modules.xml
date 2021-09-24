@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/apps/vtm/vtm.iml" filepath="$PROJECT_DIR$/apps/vtm/vtm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/vtm_auth/vtm_auth.iml" filepath="$PROJECT_DIR$/apps/vtm_auth/vtm_auth.iml" />
-      <module fileurl="file://$PROJECT_DIR$/vtm_umbrella.iml" filepath="$PROJECT_DIR$/vtm_umbrella.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apps/vtm_web/vtm_web.iml" filepath="$PROJECT_DIR$/apps/vtm_web/vtm_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/vtm_umbrella.iml" filepath="$PROJECT_DIR$/.idea/vtm_umbrella.iml" />
     </modules>
   </component>
 </project>

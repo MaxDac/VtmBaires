@@ -1,6 +1,6 @@
 // @flow
 
-import React, {createContext, useState, Suspense, useContext, createRef} from "react";
+import React, {useState, Suspense, useContext, createRef} from "react";
 import { RelayEnvironmentProvider } from 'react-relay';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AlertLayout from './_base/components/AlertLayout';
@@ -8,42 +8,19 @@ import AppRouter, {Routes} from "./AppRouter";
 import {SnackbarProvider} from "notistack";
 import type { Node } from 'react';
 import {ErrorBoundaryWithRetry} from "./_base/components/ErrorBoundaryWithRetry";
-import {getSession, updateCurrentCharacter} from "./services/session-service";
 import FallbackComponent from "./components/FallbackComponent";
 import Button from "@mui/material/Button";
-import type {Session, SessionCharacter} from "./services/base-types";
 import {useHistory} from "react-router-dom";
-import type {AlertContext} from "./_base/types";
 import {useEnv} from "./_base/relay-environment";
 import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
-import type {User} from "./services/base-types";
+import type {IEnvironment} from "relay-runtime";
+import {SessionContext, UtilityContext} from "./contexts";
+import {getSessionHookValue} from "./services/session-service";
 
-export type SessionInfo = {
-    getUser: () => ?User;
-    getCharacter: () => ?SessionCharacter;
-    setCurrentCharacter: SessionCharacter => ?Session;
-};
-
-/**
- * This custom hook retrieves the session information.
- * @returns {SessionInfo} The session info.
- */
-export function getSessionHookValue(): SessionInfo {
-    return {
-        getUser: () => getSession()?.user,
-        getCharacter: () => getSession()?.session,
-        setCurrentCharacter: updateCurrentCharacter
-    };
-}
-
-export const SessionContext: React$Context<SessionInfo> = createContext<SessionInfo>({});
-export const UtilityContext: React$Context<AlertContext> = createContext<AlertContext>({});
-
-const Internal = () => {
+const Internal = ({env}: { env: IEnvironment}) => {
     const { setError } = useContext(UtilityContext);
     const history = useHistory();
-    const environment = useEnv();
 
     const fallback = (error, _retry): any => {
         console.error("An unhandled error happened in the app", error)
@@ -68,7 +45,7 @@ const Internal = () => {
     return (
         <ErrorBoundaryWithRetry fallback={fallback} onUnauthorized={() => history.push(Routes.login)}>
             <Suspense fallback={suspenseFallback()}>
-                <RelayEnvironmentProvider environment={environment}>
+                <RelayEnvironmentProvider environment={env}>
                     <AppRouter />
                 </RelayEnvironmentProvider>
             </Suspense>
@@ -78,6 +55,7 @@ const Internal = () => {
 function App(): Node {
     const darkState = useState(true);
     const paletteType = darkState ? "dark" : "light";
+    const environment = useEnv();
 
     const darkTheme = createTheme({
         palette: {
@@ -115,8 +93,8 @@ function App(): Node {
                 <AlertLayout>
                     { props =>
                         <UtilityContext.Provider value={props}>
-                            <SessionContext.Provider value={getSessionHookValue()}>
-                                <Internal />
+                            <SessionContext.Provider value={getSessionHookValue(environment)}>
+                                <Internal env={environment} />
                             </SessionContext.Provider>
                         </UtilityContext.Provider>
                     }

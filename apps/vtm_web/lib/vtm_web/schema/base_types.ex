@@ -18,6 +18,25 @@ defmodule VtmWeb.Schema.BaseTypes do
     end
   end
 
+  defp pad_number(number) do
+    number
+    |> Integer.to_string()
+    |> String.pad_leading(2, "0")
+  end
+
+  scalar :hour do
+    #TODO
+    parse fn _ -> NaiveDateTime.utc_now() end
+
+    serialize fn %{hour: hour, minute: minute} ->
+      {pad_hour, pad_minute} = {
+        hour |> pad_number(),
+        minute |> pad_number()
+      }
+      "#{pad_hour}:#{pad_minute}"
+    end
+  end
+
   scalar :decimal do
     parse fn
       %{ value: value } when is_binary(value) ->

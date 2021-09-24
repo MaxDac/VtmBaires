@@ -4,8 +4,8 @@ import React, {useContext} from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "../strategies/CreationBase";
-import {SessionContext} from "../../../App";
 import {propNotNullRendering} from "../../../_base/render-utils";
+import {SessionContext} from "../../../contexts";
 
 export type CreationBaseProps = {
     classes: any;
@@ -13,7 +13,7 @@ export type CreationBaseProps = {
 
 const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
     const {
-        getCharacter
+        getCurrentCharacter
     } = useContext(SessionContext);
 
     const emptyAttributes = {
@@ -116,7 +116,7 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
         </>;
 
-    return propNotNullRendering(getCharacter, character => (
+    return propNotNullRendering(getCurrentCharacter, character => (
         <CreationBase classes={classes}
                       character={character}
                       currentStage={3}

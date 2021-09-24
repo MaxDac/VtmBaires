@@ -16,6 +16,7 @@ const subscription = graphql`
             characterChatAvatar
             chatMapId
             characterName
+            insertedAt
         }
     }
 `;

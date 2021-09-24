@@ -11,10 +11,10 @@ import Button from "@mui/material/Button";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Grid from "@mui/material/Grid";
 import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
-import {updateSession} from "../../services/session-service";
+import {updateCurrentCharacter} from "../../services/session-service";
 import {Routes} from "../../AppRouter";
 import FormFileDropField from "../../_base/components/FormFileDropField";
-import {UtilityContext} from "../../App";
+import {UtilityContext} from "../../contexts";
 import {clansQuery} from "../../services/queries/info/ClansQuery";
 import type {ClansQuery} from "../../services/queries/info/__generated__/ClansQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
@@ -71,11 +71,9 @@ const Creation1 = (): any => {
         })
             .then(response => {
                 if (response?.createCharacter != null) {
-                    updateSession({
-                        selectedCharacter: {
-                            id: response.createCharacter.id,
-                            name: response.createCharacter.name ?? "No name available"
-                        }
+                    updateCurrentCharacter({
+                        id: response.createCharacter.id,
+                        name: response.createCharacter.name ?? "No name available"
                     });
                 }
 

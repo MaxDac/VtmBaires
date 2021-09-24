@@ -21,6 +21,7 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :text, :string
     field :master, :boolean
     field :chat_map_id, :id
+    field :inserted_at, :hour
   end
 
   input_object :chat_entry_request do

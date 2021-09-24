@@ -45,7 +45,7 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
                 fontFamily: 'GabrieleLightRibbon',
                 color: "red"
             }}>
-                {text}
+                {`${text} ${entry.insertedAt}`}
             </Box>
         );
     }
