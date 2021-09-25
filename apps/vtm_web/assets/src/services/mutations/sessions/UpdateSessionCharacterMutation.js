@@ -5,16 +5,15 @@ import { wrapMutation } from '../../../_base/relay-utils';
 import type { IEnvironment } from "relay-runtime/store/RelayStoreTypes";
 
 const updateSessionCharacterMutation = graphql`
-    mutation UpdateSessionCharacterMutation($characterId: ID!, $characterName: String!) {
-        updateSessionCharacter(characterId: $characterId, characterName: $characterName) {
+    mutation UpdateSessionCharacterMutation($characterId: ID!) {
+        updateSessionCharacter(characterId: $characterId) {
             id
             name
         }
     }
 `;
 
-export const updateSessionCharacter = (environment: IEnvironment, id: string, name: string): Promise<any> => 
+export const updateSessionCharacter = (environment: IEnvironment, id: string): Promise<any> =>
     wrapMutation(environment, updateSessionCharacterMutation, {
-        characterId: id,
-        characterName: name
+        characterId: id
     });

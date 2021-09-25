@@ -8,15 +8,11 @@ defmodule VtmWeb.Schema.Middlewares.ChangesetErrors do
   end
 
   defp transform_errors(changeset) do
-    res = changeset
+    changeset
     |> Ecto.Changeset.traverse_errors(&format_error/1)
     |> Enum.map(fn
       {key, value} -> "#{key}: #{value}"
     end)
-
-    IO.inspect res
-
-    res
   end
 
   defp format_error({msg, opts}) do

@@ -2,7 +2,7 @@ defmodule VtmWeb.SessionView do
   use VtmWeb, :view
 
   def render("ok.json", %{user: user}) do
-    IO.inspect user
+    user
     %{
       data: %{
         user: %{

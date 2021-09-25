@@ -8,8 +8,7 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type UpdateSessionCharacterMutationVariables = {|
-  characterId: string,
-  characterName: string,
+  characterId: string
 |};
 export type UpdateSessionCharacterMutationResponse = {|
   +updateSessionCharacter: ?{|
@@ -26,9 +25,8 @@ export type UpdateSessionCharacterMutation = {|
 /*
 mutation UpdateSessionCharacterMutation(
   $characterId: ID!
-  $characterName: String!
 ) {
-  updateSessionCharacter(characterId: $characterId, characterName: $characterName) {
+  updateSessionCharacter(characterId: $characterId) {
     id
     name
   }
@@ -41,11 +39,6 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "characterId"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "characterName"
   }
 ],
 v1 = [
@@ -56,11 +49,6 @@ v1 = [
         "kind": "Variable",
         "name": "characterId",
         "variableName": "characterId"
-      },
-      {
-        "kind": "Variable",
-        "name": "characterName",
-        "variableName": "characterName"
       }
     ],
     "concreteType": "Character",
@@ -104,15 +92,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "8f89a19ae0344f212b05639c7c078589",
+    "cacheID": "f931fdf0662e641cce717ae0a6348010",
     "id": null,
     "metadata": {},
     "name": "UpdateSessionCharacterMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateSessionCharacterMutation(\n  $characterId: ID!\n  $characterName: String!\n) {\n  updateSessionCharacter(characterId: $characterId, characterName: $characterName) {\n    id\n    name\n  }\n}\n"
+    "text": "mutation UpdateSessionCharacterMutation(\n  $characterId: ID!\n) {\n  updateSessionCharacter(characterId: $characterId) {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'a1569738873dc232c3714d0211eff53d';
+(node: any).hash = 'f7ed2998d3009d29e2486fb2e83ab544';
 module.exports = node;

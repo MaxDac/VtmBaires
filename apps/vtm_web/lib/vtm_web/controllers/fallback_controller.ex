@@ -16,8 +16,8 @@ defmodule VtmWeb.FallbackController do
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> put_view(VtmWeb.ChangesetView)
-    |> render("error.json", changeset: changeset)
+    |> put_view(VtmWeb.ErrorView)
+    |> render("changeset-error.json", changeset: changeset)
   end
 
   # This clause is an example of how to handle resources that cannot be found.

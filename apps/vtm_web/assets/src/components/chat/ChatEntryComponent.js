@@ -25,8 +25,8 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
     const parseResult = () => entry.result
         // Until Flow includes replaceAll
         // $FlowFixMe
-        .replaceAll("[red]", `<span style="color: red;">`)
-        .replaceAll("[/red]", `</span>`);
+        ?.replaceAll("[red]", `<span style="color: red;">`)
+        ?.replaceAll("[/red]", `</span>`);
 
     const masterPhraseStyle = {
         fontFamily: 'GabrieleLightRibbon',

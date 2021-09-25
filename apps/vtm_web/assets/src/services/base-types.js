@@ -54,6 +54,7 @@ export const convertToMap: any => Map = ({
 export type SessionCharacter = {|
     id?: ?string;
     name?: ?string;
+    approved?: ?boolean;
 |};
 
 export type Session = {|

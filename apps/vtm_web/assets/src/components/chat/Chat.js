@@ -25,6 +25,7 @@ import useSubscriptionTokenQuery from "../../services/queries/accounts/Subscript
 import {UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
+import {Typography} from "@mui/material";
 
 type ChatProps = {
     id: string;
@@ -121,6 +122,20 @@ const Chat = ({ id }: ChatProps): any => {
                 chatMapId: mapId
             }));
 
+    const showChatInput = () => {
+        if (character?.approved) {
+            return (
+                <ChatInput setError={setError} newChatEntry={onNewEntry} newDiceEntry={onNewDiceEntry} />
+            );
+        }
+
+        return (
+            <Typography>
+                Il tuo personaggio non &egrave; ancora stato accetato.
+            </Typography>
+        )
+    }
+
     return (
         <MainLayout openDialog={openDialog}>
             <>
@@ -157,10 +172,10 @@ const Chat = ({ id }: ChatProps): any => {
                         flex: "0 1 100px",
                         width: "100%"
                     }}>
-                        <ChatInput setError={setError} newChatEntry={onNewEntry} newDiceEntry={onNewDiceEntry} />
+                        {showChatInput()}
                     </Box>
                 </Box>
-                <ChatControls openMapModal={() => setMapModalOpen(true)} />
+                <ChatControls openMapModal={() => setMapModalOpen(true)}/>
             </>
         </MainLayout>
     );

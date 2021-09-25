@@ -5,6 +5,14 @@ defmodule VtmWeb.ErrorView do
     errors
   end
 
+  def render("changeset-error.json", %{changeset: %{errors: errors}}) do
+    %{
+      "errors" => errors |> Map.new(fn
+        {message, {key, _}} -> {message, key}
+      end)
+    }
+  end
+
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
   # def render("500.json", _assigns) do

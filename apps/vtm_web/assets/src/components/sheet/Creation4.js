@@ -232,7 +232,7 @@ const Creation4 = (): any => {
                             color="primary"
                             className={classes.submit}
                             onClick={submit(characterInfo)}>
-                            Finish creation
+                            Conferma
                         </Button>
                     </Grid>
                 </Grid>

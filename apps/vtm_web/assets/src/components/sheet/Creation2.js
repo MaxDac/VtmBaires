@@ -103,25 +103,27 @@ const Creation2 = (): any => {
     const getForm = () => {
         if (character?.id != null) {
             return (
-                <MainLayout>
-                    <div className={classes.centeredContainer}>
-                        <CreationBase classes={classes}
-                                      characterId={character.id}
-                                      currentStage={2}
-                                      attributeTypeName="Attribute"
-                                      emptyAttributes={emptyAttributes}
-                                      getAttributesToSave={getAttributesToSave}>
-                            {form}
-                        </CreationBase>
-                    </div>
-                </MainLayout>
+                <div className={classes.centeredContainer}>
+                    <CreationBase classes={classes}
+                                  characterId={character.id}
+                                  currentStage={2}
+                                  attributeTypeName="Attribute"
+                                  emptyAttributes={emptyAttributes}
+                                  getAttributesToSave={getAttributesToSave}>
+                        {form}
+                    </CreationBase>
+                </div>
             );
         }
         
         return <></>;
     }
 
-    return getForm();
+    return (
+        <MainLayout>
+            {getForm()}
+        </MainLayout>
+    );
 }
 
 export default Creation2;

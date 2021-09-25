@@ -39,12 +39,12 @@ defmodule VtmWeb.Schema.AccountTypes do
 
   object :user_queries do
     field :list, list_of(:user) do
-      middleware VtmWeb.Schema.Middlewares.Authorize, "player"
+      middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
     end
 
     field :subscription_token, :string do
-      middleware VtmWeb.Schema.Middlewares.Authorize, "player"
+      middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.token/3
     end
   end
@@ -71,7 +71,6 @@ defmodule VtmWeb.Schema.AccountTypes do
 
     field :update_session_character, :character do
       arg :character_id, :id
-      arg :character_name, :string
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&AccountsResolvers.update_session_character/2, character_id: :character)
@@ -83,6 +82,18 @@ defmodule VtmWeb.Schema.AccountTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&AccountsResolvers.update_session_map/2, map_id: :chat_location)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :reset_session, :boolean do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &AccountsResolvers.clear_session/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :logout, :boolean do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &AccountsResolvers.logout/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

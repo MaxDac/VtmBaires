@@ -4,6 +4,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts
+  alias VtmAuth.Accounts.SessionInfo
 
   def get_clans(_, _, _) do
     {:ok, Characters.get_clans()}
@@ -49,17 +50,19 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  defp get_session_character_p(user) do
-    with session when not is_nil(session) <- Accounts.get_character_session_by_user_id(user.id) do
-      {:ok, session}
-    else
-      _ ->
-        {:ok, %{}}
-    end
-  end
-
   def get_session_character(_, _, %{context: %{current_user: user}}) do
-    get_session_character_p(user)
+    IO.inspect user
+    with {:ok, %SessionInfo{
+      character_id: id,
+      character_name: name,
+      approved: approved
+    }} <- Accounts.get_character_session_by_user_id(user.id) do
+      {:ok, %{
+        id: id,
+        name: name,
+        approved: approved
+      }}
+    end
   end
 
   def create_character(_, %{ request: request }, %{context: %{current_user: current_user}}) do
@@ -68,7 +71,12 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       |> Map.put(:clan_id, from_global_id?(request.clan_id))
       |> Map.put(:user_id, current_user.id)
 
-    with {:ok, %Character{id: id, name: name}} <- Characters.create(new_request, current_user) do
+    with {:ok, %Character{id: id, name: name}}  <- Characters.create(new_request, current_user),
+         {:ok, _}                               <- VtmAuth.Accounts.update_session_dynamic_field(current_user, %SessionInfo{
+           character_id: id,
+           character_name: name,
+           approved: false
+         }) do
       {:ok, %{
         id: id,
         name: name
@@ -107,7 +115,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
          true         <- Characters.character_of_user?(user_id, parsed_id),
          new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id?(v)} end),
          {:ok, _}     <- Characters.switch_attributes(new_request) do
-      get_character(%{id: id}, context)
+      get_character(%{id: parsed_id}, context)
     else
       false ->
         {:error, :unauthorized}
@@ -140,8 +148,9 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def delete_character(character_id, context = %{context: %{current_user: user}}) do
-    with {:ok, _} <- Characters.delete_character(character_id, user) do
+  def delete_character(%{character_id: character_id}, %{context: %{current_user: user}}) do
+    with {:ok, _} <- Characters.delete_character(character_id, user),
+         {:ok, _} <- Accounts.update_session_dynamic_field(user) do
       {:ok, true}
     end
   end

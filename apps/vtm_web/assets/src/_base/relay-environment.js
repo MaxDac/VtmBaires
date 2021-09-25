@@ -7,6 +7,8 @@ import {
     Store
 } from "relay-runtime";
 
+import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache';
+
 import type { 
     RequestParameters,
     Variables
@@ -15,6 +17,11 @@ import {post} from "axios";
 import {useHistory} from "react-router-dom";
 import {log} from "./utils";
 import {Routes} from "../AppRouter";
+
+export const cache: any = new RelayQueryResponseCache({
+    size: 250,
+    ttl: 60 * 5 * 1000
+});
 
 const fetchGraphQL = history => {
     return async ({text}: RequestParameters, variables: Variables) => {

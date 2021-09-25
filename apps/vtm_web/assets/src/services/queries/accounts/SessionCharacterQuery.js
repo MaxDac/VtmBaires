@@ -11,6 +11,7 @@ const sessionCharacterQuery = graphql`
         getSessionCharacter {
             id
             name
+            approved
         }
     }
 `;

@@ -23,8 +23,6 @@ defmodule VtmWeb.SessionController do
   }
   """
   def create(conn, graphql_response) do
-    IO.inspect graphql_response
-
     with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
          %{"token" => token, "user" => user}                    <- result,
          {:ok, _}                                               <- update_session(conn, %{user | "id" => user["originalId"]}) do
@@ -67,6 +65,11 @@ defmodule VtmWeb.SessionController do
     end
   end
 
+  @graphql """
+  mutation {
+    logout
+  }
+  """
   def logout(conn, _) do
     conn
     |> Authentication.put_token("")

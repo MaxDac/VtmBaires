@@ -13,6 +13,7 @@ import type { Node } from "react";
 import {Routes} from "../../AppRouter";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
+import {useRelayEnvironment} from "react-relay";
 
 const SignUpSchema = object().shape({
     email: string("Enter your email")
@@ -33,6 +34,7 @@ const SignUpSchema = object().shape({
 const CreateUserComponent = (): Node => {
     const history = useHistory();
     const theme = useTheme();
+    const environment = useRelayEnvironment();
 
     const { setError } = useContext(UtilityContext);
 
@@ -53,7 +55,11 @@ const CreateUserComponent = (): Node => {
         password,
         _repeatpassword
     }) => {
-        createUser(email, password, name)
+        createUser(environment, {
+            email,
+            password,
+            name
+        })
             .then(_ => {
                 setError({ type: "success", message: "User created successfully."});
                 setTimeout(() => history.push(Routes.login), 2000);
@@ -78,7 +84,6 @@ const CreateUserComponent = (): Node => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        color="primary.dark"
                         sx={{
                             margin: theme.spacing(3, 0, 2),
                         }}>
@@ -102,7 +107,8 @@ const CreateUserComponent = (): Node => {
                     </Grid>
                 </Grid>
             </>
-        </LoginLayout>);
+        </LoginLayout>
+    );
 };
 
 export default CreateUserComponent;

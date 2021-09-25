@@ -12,6 +12,7 @@ export type SessionCharacterQueryResponse = {|
   +getSessionCharacter: ?{|
     +id: string,
     +name: ?string,
+    +approved: ?boolean,
   |}
 |};
 export type SessionCharacterQuery = {|
@@ -25,6 +26,7 @@ query SessionCharacterQuery {
   getSessionCharacter {
     id
     name
+    approved
   }
 }
 */
@@ -52,6 +54,13 @@ var v0 = [
         "kind": "ScalarField",
         "name": "name",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "approved",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -75,15 +84,15 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "0164eb1677025597512206d543e0feaf",
+    "cacheID": "bcfa2809da35003c69a564328dc3eca6",
     "id": null,
     "metadata": {},
     "name": "SessionCharacterQuery",
     "operationKind": "query",
-    "text": "query SessionCharacterQuery {\n  getSessionCharacter {\n    id\n    name\n  }\n}\n"
+    "text": "query SessionCharacterQuery {\n  getSessionCharacter {\n    id\n    name\n    approved\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'fb2dbea65a0bede97cc0eadbe6fb5fde';
+(node: any).hash = 'f29f63ab9d9f0f93fcfe23aef702b88a';
 module.exports = node;

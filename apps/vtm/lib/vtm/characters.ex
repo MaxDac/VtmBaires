@@ -233,6 +233,22 @@ defmodule Vtm.Characters do
     end
   end
 
+  @doc """
+  This function is in this context, because this context has knowledge of the auth,
+  but not vice versa.
+  """
+  def update_character_in_session(user, %Character{id: id, name: name, approved: approved}) do
+    VtmAuth.Accounts.update_session_dynamic_field(user, %VtmAuth.Accounts.SessionInfo{
+      character_id: id,
+      character_name: name,
+      approved: approved
+    })
+  end
+
+  def update_character_in_session(_, _) do
+    {:ok, nil}
+  end
+
   defp invalid_changeset(%Ecto.Changeset{valid?: false}), do: true
   defp invalid_changeset(_), do: false
 
@@ -333,7 +349,7 @@ defmodule Vtm.Characters do
         where: ca.character_id == ^id,
         where: ca.attribute_id in [^id_1, ^id_2]
 
-    case IO.inspect Repo.all(query) do
+    case Repo.all(query) do
       [c = %{attribute_id: ^id_1}]  -> change_character_attribute(c, id_2)
       [c = %{attribute_id: ^id_2}]  -> change_character_attribute(c, id_1)
       attributes                    -> switch_attribute_value(id_1, id_2, attributes)
@@ -370,10 +386,10 @@ defmodule Vtm.Characters do
     |> Repo.update()
   end
 
-  def complete_character(user_id, %{id: id}) do
+  def complete_character(user_id, character_id) do
     query =
       from c in Character,
-        where: c.id == ^id,
+        where: c.id == ^character_id,
         where: c.user_id == ^user_id
 
     Repo.one(query)
@@ -381,13 +397,21 @@ defmodule Vtm.Characters do
     |> Repo.update()
   end
 
+  defp delete_character_p(character_id) do
+    with c when not is_nil(c) <- Character |> Repo.get(character_id) do
+      c |> Repo.delete()
+    else
+      _ -> {:error, :not_found}
+    end
+  end
+
   @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, %{}} | {:error, :unauthorized}
   def delete_character(character_id, user) do
     case user do
-      %{role: :master} -> Character |> Repo.delete(character_id)
+      %{role: :master} -> delete_character_p(character_id)
       %{id: user_id}   ->
         if character_of_user?(user_id, character_id) do
-          Characte |> Repo.delete(character_id)
+          delete_character_p(character_id)
         else
           {:error, :unauthorized}
         end

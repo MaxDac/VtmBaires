@@ -23,7 +23,9 @@ const chatEntriesQuery: GraphQLTaggedNode = graphql`
 `;
 
 export function useChatEntriesQuery(mapId: string): Array<ChatEntry> {
-    return useCustomLazyLoadQuery(chatEntriesQuery, { mapId })?.mapChatEntries
+    return useCustomLazyLoadQuery(chatEntriesQuery, { mapId }, {
+        fetchPolicy: "store-and-network"
+    })?.mapChatEntries
         ?.map(e => ({
             id: e.id,
             chatMapId: e.chatMapId,

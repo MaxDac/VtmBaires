@@ -18,6 +18,7 @@ import FinalizeCharacterMutation from "../../services/mutations/characters/Final
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import {destroySession} from "../../services/session-service";
+import DeleteCharacterMutation from "../../services/mutations/characters/DeleteCharacterMutation";
 
 type Props = {
 
@@ -25,7 +26,7 @@ type Props = {
 
 const Internal = ({character}) => {
     const theme = useTheme();
-    const {setWait, setError} = useContext(UtilityContext);
+    const {setWait, setError, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const attributes = useAttributesSlimQuery()?.attributes;
     const history = useHistory();
@@ -76,28 +77,39 @@ const Internal = ({character}) => {
     }
 
     const completeCharacter = (characterId: string) => {
-        FinalizeCharacterMutation(environment, characterId)
-            .then(r => {
-                console.log("character creation successful", r);
-                setError({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
-                setTimeout(() => history.push(Routes.main), 1000);
-            })
-            .catch(e => {
-                setError({type: "error", graphqlError: e, message: "C'è stato un errore durante la finalizzazione del personaggio."})
-            });
+        openDialog("Conferma personaggio", "Sei sicuro di voler cancellare il personaggio?", () => {
+            FinalizeCharacterMutation(environment, characterId)
+                .then(r => {
+                    console.log("character creation successful", r);
+                    setError({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
+                    setTimeout(() => history.push(Routes.main), 1000);
+                })
+                .catch(e => {
+                    setError({
+                        type: "error",
+                        graphqlError: e,
+                        message: "C'è stato un errore durante la finalizzazione del personaggio."
+                    })
+                });
+        });
     }
 
     const deleteCharacter = (characterId: string) => {
-        FinalizeCharacterMutation(environment, characterId)
-            .then(r => {
-                console.log("character creation successful", r);
-                setError({type: "success", message: "Il tuo personaggio è stato cancellato, sarai reindirizzato nuovamente al login!"});
-                destroySession();
-                setTimeout(() => history.push(Routes.main), 1000);
-            })
-            .catch(e => {
-                setError({type: "error", graphqlError: e, message: "C'è stato un errore durante la finalizzazione del personaggio."})
-            });
+        openDialog("Conferma cancellazione", "Sei sicuro di voler cancellare il personaggio?", () => {
+            DeleteCharacterMutation(environment, characterId)
+                .then(r => {
+                    console.log("character deletion successful", r);
+                    setError({type: "success", message: "Il tuo personaggio è stato cancellato!"});
+                    destroySession().finally(() => history.push(Routes.main));
+                })
+                .catch(e => {
+                    setError({
+                        type: "error",
+                        graphqlError: e,
+                        message: "C'è stato un errore durante la finalizzazione del personaggio."
+                    })
+                })
+        });
     }
 
     if (character?.id != null) {
@@ -135,7 +147,7 @@ const Internal = ({character}) => {
                         </Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography xs={{padding: theme.spacing(2)}}>
+                        <Typography sx={{padding: theme.spacing(2)}}>
                             Se non sei soddisfatto, e vuoi cominciare da capo, sentiti libero di cancellare il personaggio.
                             Avrai la possibilit&agrave; di farne un altro cliccando sull'icona personaggio in alto a destra.
                         </Typography>

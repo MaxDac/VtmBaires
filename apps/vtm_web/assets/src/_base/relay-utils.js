@@ -197,6 +197,5 @@ export function useCustomLazyLoadQuery<TQuery: OperationType>(
         UNSTABLE_renderPolicy?: RenderPolicy,
     |},
 ): $ElementType<TQuery, 'response'> {
-    console.log("options", options);
     return useLazyLoadQuery(gqlQuery, variables, options);
 }

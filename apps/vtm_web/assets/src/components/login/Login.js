@@ -110,7 +110,7 @@ const LoginComponent = (): Node => {
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link to="/register" variant="body2" sx={{
+                        <Link to="#" onClick={_ => history.push(Routes.register)} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             {"Don't have an account? Sign Up"}

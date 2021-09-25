@@ -190,8 +190,10 @@ type RootMutationType {
   deleteCharacter(characterId: ID): Boolean
   finalizeCharacter(characterId: ID): Character
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
+  logout: Boolean
+  resetSession: Boolean
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
-  updateSessionCharacter(characterId: ID, characterName: String): Character
+  updateSessionCharacter(characterId: ID): Character
   updateSessionMap(mapId: ID): ID
 }
 

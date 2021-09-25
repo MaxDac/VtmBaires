@@ -27,8 +27,6 @@ const sectionStyle = {
 };
 
 const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => {
-    console.log("options", queryOptions);
-
     const stats = useCharacterStatsQuery(characterId, queryOptions);
 
     const filterAttributes = (type, section) => stats?.attributes

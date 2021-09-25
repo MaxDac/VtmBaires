@@ -6,6 +6,7 @@ defmodule VtmAuth.Accounts do
   alias VtmAuth.Repo
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.Session
+  alias VtmAuth.Accounts.SessionInfo
 
   @session_offset 60 * 30
 
@@ -54,29 +55,40 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
-  def get_session_by_user_id(user_id) do
-    query = from s in Session, where: s.user_id == ^user_id
-    Repo.one(query)
+  defp get_last_session_by_user_query(user_id) do
+    from s in Session,
+      where: s.user_id == ^user_id,
+      where: not(s.completed)
   end
+
+  def get_session_by_user_id(user_id) do
+    user_id
+    |> get_last_session_by_user_query()
+    |> Repo.one()
+  end
+
+  # %{session_info: %{
+  #   "character_id" => id,
+  #   "character_name" => name,
+  #   "approved" => approved
+  # }}
 
   def get_character_session_by_user_id(user_id) do
-    with %{session_info: %{
-      "character_id" => id,
-      "character_name" => name
-    }} <- get_session_by_user_id(user_id) do
-      %{
-        id: id,
-        name: name
-      }
-    end
+    user_id
+    |> get_session_by_user_id()
+    |> SessionInfo.extract_from_session()
   end
 
-  @spec update_session(%{:id => any, optional(any) => any}, :invalid | map) :: {:ok, %{}} | {:error, %{}}
   def update_session(%{ id: id }, attrs \\ %{}) do
-    case Session |> Repo.get_by(user_id: id) do
+    new_attrs =
+      attrs
+      |> Map.put_new(:last_checked, NaiveDateTime.utc_now())
+      |> Map.put_new(:user_id, id)
+
+    case get_last_session_by_user_query(id) |> Repo.one() do
       nil ->
         %Session{}
-        |> Session.changeset(attrs)
+        |> Session.changeset(new_attrs)
         |> Repo.insert()
       session ->
         session
@@ -87,15 +99,15 @@ defmodule VtmAuth.Accounts do
     end
   end
 
-  defp remap_attrs(v = {key, _}) when is_binary(key), do: v
-  defp remap_attrs({key, v}), do: {Atom.to_string(key), v}
+  def update_session_dynamic_field(%{id: id}, attrs \\ %SessionInfo{}) do
+    query = get_last_session_by_user_query(id)
 
-  def update_session_dynamic_field(%{id: id}, attrs \\ %{}) do
-    query = from s in Session, where: s.user_id == ^id
+    with session = %{session_info: info}  <- Repo.one(query) do
+      new_values =
+        IO.inspect (info || %{})
+        |> Map.merge(attrs)
+        |> Map.from_struct()
 
-    with session = %{session_info: info} when not is_nil(session) <- Repo.one(query),
-         converted_attrs <- attrs |> Map.new(&remap_attrs/1),
-         new_values = info |> Map.merge(converted_attrs) do
       session
       |> Session.changeset(%{session_info: new_values})
       |> Repo.update()
@@ -105,12 +117,34 @@ defmodule VtmAuth.Accounts do
     end
   end
 
+  def has_session_dynamic_fields?(%{id: id}) do
+    with %{session_info: session_info} <- Session |> Repo.get_by(user_id: id, completed: false) do
+      not is_nil(session_info)
+    end
+  end
+
+  def clear_session_dynamic_field(%{id: id}) do
+    Session
+    |> Repo.get_by(user_id: id, completed: false)
+    |> Session.changeset(%{session_info: %{}})
+    |> Repo.update()
+  end
+
+  def complete_session(user) do
+    with {:ok, s} <- clear_session_dynamic_field(user) do
+      s
+      |> Session.changeset(%{completed: true})
+      |> Repo.update()
+    end
+  end
+
   def get_current_sessions() do
     query =
       from s in Session,
       join: u in User,
       on: s.user_id == u.id,
       where: s.last_checked > ago(^@session_offset, "minute"),
+      where: not(s.completed),
       select: u
 
     Repo.all(query)

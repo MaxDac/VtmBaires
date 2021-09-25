@@ -6,31 +6,40 @@ import type {Session, SessionCharacter, User} from "./base-types";
 import type {IEnvironment} from "relay-runtime";
 import {useContext, useEffect, useState} from "react";
 import {SessionContext} from "../contexts";
+import ClearSessionMutation from "./mutations/sessions/ClearSessionMutation";
+import {cache} from "../_base/relay-environment";
 
 const storageUserInfoKey ="vtm-baires-session-info";
+const getStorage = (): Storage => localStorage;
 
 export const storeSession = (response: Session) => {
-    sessionStorage.removeItem(storageUserInfoKey);
-    sessionStorage.setItem(storageUserInfoKey, JSON.stringify(response));
+    getStorage().removeItem(storageUserInfoKey);
+    getStorage().setItem(storageUserInfoKey, JSON.stringify(response));
 }
 
 const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
-    new Promise((resolve, reject) => {
+    new Promise((resolve, _) => {
         if (session?.character != null) {
             resolve(session);
+            return;
         }
 
         getSessionCharacter(environment)
             .then(response => {
-                resolve({
-                    user: session?.user,
+                const newSession = {
+                    ...session,
                     character: {
-                        id: response?.getSessionCharacter?.id,
-                        name: response?.getSessionCharacter?.name
+                        ...response?.getSessionCharacter
                     }
-                });
+                }
+
+                updateSession(newSession);
+                resolve(newSession);
             })
-            .catch(e => reject(e));
+            .catch(e => {
+                console.error("Error while trying to fetch the session character", e);
+                resolve(null);
+            });
     });
 
 /**
@@ -39,7 +48,7 @@ const checkCharacter = (environment: IEnvironment, session: Session): Promise<?S
  * @returns {Session} The session saved in the browser.
  */
 export const getSessionSync = (): ?Session => {
-    const inStorage = sessionStorage.getItem(storageUserInfoKey);
+    const inStorage = getStorage().getItem(storageUserInfoKey);
 
     if (inStorage && inStorage !== "") {
         return JSON.parse(inStorage);
@@ -55,7 +64,7 @@ export const getSessionSync = (): ?Session => {
  * @returns {?SessionCharacter} The user.
  */
 export const getSession = (environment: IEnvironment): Promise<?Session> => {
-    const inStorage = sessionStorage.getItem(storageUserInfoKey);
+    const inStorage = getStorage().getItem(storageUserInfoKey);
 
     if (inStorage && inStorage !== "") {
         return checkCharacter(environment, JSON.parse(inStorage));
@@ -85,7 +94,7 @@ export const updateSession = (info: Session): ?Session => {
         ...info
     };
 
-    localStorage.setItem(storageUserInfoKey, JSON.stringify(newSession));
+    getStorage().setItem(storageUserInfoKey, JSON.stringify(newSession));
 
     return getSessionSync();
 }
@@ -101,8 +110,15 @@ export const updateCurrentCharacter = (character: SessionCharacter): ?Session =>
     }
 }
 
-export const destroySession = () => {
-    localStorage.clear();
+export const clearRelaySession = () => {
+    console.log("Clearing relay cache");
+    cache.clear();
+}
+
+export const destroySession = (): Promise<boolean> => {
+    getStorage().clear();
+    clearRelaySession();
+    return ClearSessionMutation();
 }
 
 export type SessionInfo = {
