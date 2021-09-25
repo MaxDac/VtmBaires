@@ -68,5 +68,22 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware Middlewares.Login, :any
       middleware Middlewares.ChangesetErrors
     end
+
+    field :update_session_character, :character do
+      arg :character_id, :id
+      arg :character_name, :string
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&AccountsResolvers.update_session_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :update_session_map, :id do
+      arg :map_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&AccountsResolvers.update_session_map/2, map_id: :chat_location)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
   end
 end

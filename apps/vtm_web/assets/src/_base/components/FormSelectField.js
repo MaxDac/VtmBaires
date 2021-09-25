@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import type { Formik } from "./FormTypes";
-import useStyles from "../../components/Main.Layout.Style";
+import {useTheme} from "@mui/styles";
 
 export type SelectInputProps = {
     formik: Formik;
@@ -16,7 +16,7 @@ export type SelectInputProps = {
 };
 
 const FormSelectField = (props: SelectInputProps): any => {
-    const classes = useStyles();
+    const theme = useTheme();
 
     const items = () => {
         const values = props.values;
@@ -29,13 +29,19 @@ const FormSelectField = (props: SelectInputProps): any => {
     }
 
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" sx={{
+            margin: theme.spacing(1),
+            minWidth: 150,
+        }}>
             <InputLabel id="select-label">{props.label}</InputLabel>
             <Select
                 labelId="select-label"
                 id={props.fieldName}
                 name={props.fieldName}
                 fullWidth
+                sx={{
+                    minWidth: theme.spacing(10)
+                }}
                 value={props.formik.values[props.fieldName]}
                 onChange={props.formik.handleChange}
                 error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>

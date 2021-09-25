@@ -24,6 +24,7 @@ import ChatControls from "./ChatControls";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import {UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
+import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 
 type ChatProps = {
     id: string;
@@ -46,11 +47,13 @@ const Chat = ({ id }: ChatProps): any => {
 
     const chatContainer = useRef();
 
-    const scrollToBottom = () => {
-        const obj: any = chatContainer.current;
-        // obj.scrollIntoView();
-        obj.scrollTop = obj.scrollHeight;
-    }
+    const chatContainerScrollHeight: number = (chatContainer.current: any)?.scrollHeight;
+
+    useEffect(() => {
+        updateSessionMap(environment, id)
+            .then(r => console.log("Received response while attempting updating the session", r))
+            .catch(e => console.error("Error while updating session map", e))
+    }, [environment, id])
 
     useEffect(() => {
         const showNewChatEntry = entry => setEntries(es => [...es, entry]);
@@ -59,8 +62,10 @@ const Chat = ({ id }: ChatProps): any => {
     }, [id, chatToken]);
 
     useEffect(() => {
-        scrollToBottom();
-    });
+        const obj: any = chatContainer.current;
+        // obj.scrollIntoView();
+        obj.scrollTop = obj.scrollHeight;
+    }, [chatContainerScrollHeight]);
 
     const showEntries = () => {
         if (entries && entries.map) {

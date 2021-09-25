@@ -4,6 +4,16 @@ schema {
   subscription: RootSubscriptionType
 }
 
+input AddAdvantagesInput {
+  attributes: [CharacterAttributeRequest]
+  newStage: Int!
+  request: CharacterFinalizationRequest!
+}
+
+type AddAdvantagesPayload {
+  result: Character
+}
+
 type Attribute implements Node {
   attributeType: AttributeType
   description: String
@@ -130,16 +140,6 @@ type Discipline implements Node {
   name: String
 }
 
-input FinalizeCharacterCreationInput {
-  attributes: [CharacterAttributeRequest]
-  newStage: Int!
-  request: CharacterFinalizationRequest!
-}
-
-type FinalizeCharacterCreationPayload {
-  result: Character
-}
-
 scalar Hour
 
 type LoginResponse {
@@ -181,13 +181,18 @@ enum Role {
 }
 
 type RootMutationType {
+  addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
-  finalizeCharacterCreation(input: FinalizeCharacterCreationInput!): FinalizeCharacterCreationPayload
+  deleteCharacter(characterId: ID): Boolean
+  finalizeCharacter(characterId: ID): Character
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
+  switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
+  updateSessionCharacter(characterId: ID, characterName: String): Character
+  updateSessionMap(mapId: ID): ID
 }
 
 type RootQueryType {

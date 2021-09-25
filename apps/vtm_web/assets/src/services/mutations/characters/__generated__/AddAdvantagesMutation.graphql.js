@@ -7,7 +7,7 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type FinalizeCharacterCreationInput = {|
+export type AddAdvantagesInput = {|
   attributes?: ?$ReadOnlyArray<?CharacterAttributeRequest>,
   newStage: number,
   request: CharacterFinalizationRequest,
@@ -22,27 +22,27 @@ export type CharacterFinalizationRequest = {|
   notes?: ?string,
   predatorTypeId: string,
 |};
-export type FinalizeCharacterCreationMutationVariables = {|
-  input: FinalizeCharacterCreationInput
+export type AddAdvantagesMutationVariables = {|
+  input: AddAdvantagesInput
 |};
-export type FinalizeCharacterCreationMutationResponse = {|
-  +finalizeCharacterCreation: ?{|
+export type AddAdvantagesMutationResponse = {|
+  +addAdvantages: ?{|
     +result: ?{|
       +id: string
     |}
   |}
 |};
-export type FinalizeCharacterCreationMutation = {|
-  variables: FinalizeCharacterCreationMutationVariables,
-  response: FinalizeCharacterCreationMutationResponse,
+export type AddAdvantagesMutation = {|
+  variables: AddAdvantagesMutationVariables,
+  response: AddAdvantagesMutationResponse,
 |};
 
 
 /*
-mutation FinalizeCharacterCreationMutation(
-  $input: FinalizeCharacterCreationInput!
+mutation AddAdvantagesMutation(
+  $input: AddAdvantagesInput!
 ) {
-  finalizeCharacterCreation(input: $input) {
+  addAdvantages(input: $input) {
     result {
       id
     }
@@ -68,9 +68,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "FinalizeCharacterCreationPayload",
+    "concreteType": "AddAdvantagesPayload",
     "kind": "LinkedField",
-    "name": "finalizeCharacterCreation",
+    "name": "addAdvantages",
     "plural": false,
     "selections": [
       {
@@ -100,7 +100,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "FinalizeCharacterCreationMutation",
+    "name": "AddAdvantagesMutation",
     "selections": (v1/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
@@ -109,19 +109,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "FinalizeCharacterCreationMutation",
+    "name": "AddAdvantagesMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "ca69950890ec8f766b7c77f01a844d20",
+    "cacheID": "08a75161ee656f869e53b9289efa84f8",
     "id": null,
     "metadata": {},
-    "name": "FinalizeCharacterCreationMutation",
+    "name": "AddAdvantagesMutation",
     "operationKind": "mutation",
-    "text": "mutation FinalizeCharacterCreationMutation(\n  $input: FinalizeCharacterCreationInput!\n) {\n  finalizeCharacterCreation(input: $input) {\n    result {\n      id\n    }\n  }\n}\n"
+    "text": "mutation AddAdvantagesMutation(\n  $input: AddAdvantagesInput!\n) {\n  addAdvantages(input: $input) {\n    result {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'f6118bcc3f84b0f1df21d9504d466fe4';
+(node: any).hash = '91a98d4426e67957ae251f1d19d6142f';
 module.exports = node;

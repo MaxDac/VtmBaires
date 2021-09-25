@@ -60,9 +60,10 @@ export type CharacterStats = {|
     predatorType: PredatorType
 |};
 
-export const useCharacterStatsQuery = (characterId: string): ?CharacterStats => {
+export const useCharacterStatsQuery = (characterId: string, queryOptions?: any): ?CharacterStats => {
     const s =
-        useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId})?.getCharacterStats;
+        useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId}, queryOptions)
+            ?.getCharacterStats;
 
     if (s?.id != null) {
         return ({

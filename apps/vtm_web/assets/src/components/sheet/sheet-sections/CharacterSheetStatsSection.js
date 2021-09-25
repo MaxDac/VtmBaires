@@ -7,8 +7,14 @@ import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import AttributeStat from "../controls/AttributeStat";
 
+export type RefreshedQueryOption = {
+    fetchKey: number;
+    fetchPolicy: "network-only" | "network-or-store"
+};
+
 type Props = {
-    characterId: string
+    characterId: string;
+    queryOptions?: ?RefreshedQueryOption;
 }
 
 const sectionStyle = {
@@ -20,8 +26,10 @@ const sectionStyle = {
     paddingBottom: "5px"
 };
 
-const CharacterSheetStatsSection = ({characterId}: Props): any => {
-    const stats = useCharacterStatsQuery(characterId);
+const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => {
+    console.log("options", queryOptions);
+
+    const stats = useCharacterStatsQuery(characterId, queryOptions);
 
     const filterAttributes = (type, section) => stats?.attributes
         ?.filter(({type: t, section: s}) => t === type && s === section)

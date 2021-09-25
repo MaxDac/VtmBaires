@@ -148,18 +148,45 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
-    payload field :finalize_character_creation do
+    payload field :add_advantages do
       input do
         field :request, non_null(:character_finalization_request)
         field :attributes, list_of(:character_attribute_request)
         field :new_stage, non_null(:integer)
       end
+
       output do
         field :result, :character
       end
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &CharacterResolvers.finalize_creation/3
+      resolve &CharacterResolvers.add_advantages/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :switch_character_attributes, :character do
+      arg :character_id, :id
+      arg :first_attribute, :string
+      arg :second_attribute, :string
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.switch_attributes/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :finalize_character, :character do
+      arg :character_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.finalize_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :delete_character, :boolean do
+      arg :character_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.delete_character/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

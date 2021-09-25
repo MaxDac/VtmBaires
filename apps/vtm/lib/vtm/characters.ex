@@ -239,7 +239,27 @@ defmodule Vtm.Characters do
   defp insertion_error({:error, _}), do: true
   defp insertion_error(_), do: false
 
-  def append_attributes(attrs) do
+  defp delete_attributes(character_id, type) do
+    query =
+      from ca in CharacterAttribute,
+        join: a in Attribute,
+        on: ca.attribute_id == a.id,
+        join: t in AttributeType,
+        on: a.attribute_type_id == t.id,
+        where: ca.character_id == ^character_id,
+        where: t.name == ^type
+
+    Repo.delete_all(query)
+  end
+
+  def append_attributes(character_id, attrs, new_stage) do
+    # Cleaning
+    case new_stage do
+      2 -> delete_attributes(character_id, "Attribute")
+      3 -> delete_attributes(character_id, "Ability")
+      _ -> %{}
+    end
+
     values = attrs |> Enum.map(&CharacterAttribute.changeset(%CharacterAttribute{}, &1))
 
     with false <- values |> Enum.any?(&invalid_changeset/1) do
@@ -266,12 +286,70 @@ defmodule Vtm.Characters do
     end
   end
 
+  defp param_to_id(id) when is_binary(id), do: String.to_integer(id)
+  defp param_to_id(id), do: id
+
+  defp switch_attribute_value(id_1, id_2, character_attributes) do
+    {first = %{value: value_1}, second = %{value: value_2}} = {
+      character_attributes |> Enum.find(fn
+        %{attribute_id: ^id_1}  -> true
+        _                       -> false
+      end),
+      character_attributes |> Enum.find(fn
+        %{attribute_id: ^id_2}  -> true
+        _                       -> false
+      end)
+    }
+
+    [
+      {first,  %{value: value_2}},
+      {second, %{value: value_1}}
+    ]
+    |> Enum.map(fn {c, attrs} ->
+      c
+      |> CharacterAttribute.changeset(attrs)
+      |> Repo.update()
+    end)
+    |> Enum.reduce({:ok, %{}}, fn
+      _, acc = {:error, } -> acc
+      a, _                -> a
+    end)
+  end
+
+  defp change_character_attribute(character_attribute, to_id) do
+    character_attribute
+    |> CharacterAttribute.changeset(%{attribute_id: to_id})
+    |> Repo.update()
+  end
+
+  def switch_attributes(%{character_id: id, first_attribute: first_id, second_attribute: second_id}) do
+    {id_1, id_2} = {
+      first_id |> param_to_id(),
+      second_id |> param_to_id()
+    }
+
+    query =
+      from ca in CharacterAttribute,
+        where: ca.character_id == ^id,
+        where: ca.attribute_id in [^id_1, ^id_2]
+
+    case IO.inspect Repo.all(query) do
+      [c = %{attribute_id: ^id_1}]  -> change_character_attribute(c, id_2)
+      [c = %{attribute_id: ^id_2}]  -> change_character_attribute(c, id_1)
+      attributes                    -> switch_attribute_value(id_1, id_2, attributes)
+    end
+  end
+
+  # def switch_attributes(request) do
+  #   IO.inspect {:error, request}
+  # end
+
   def update_character_stage(user_id, new_stage, attrs) do
     [%{character_id: character_id} | _] = attrs
 
     with true     <- character_of_user?(user_id, character_id),
          true     <- character_at_stage?(character_id, new_stage - 1),
-         {:ok, _} <- append_attributes(attrs),
+         {:ok, _} <- append_attributes(character_id, attrs, new_stage),
          {:ok, _} <- update_character(character_id, %{ stage: new_stage }) do
       {:ok, character_id}
     else
@@ -281,14 +359,14 @@ defmodule Vtm.Characters do
     end
   end
 
-  def finalize_creation(user_id, attrs = %{id: id}) do
+  def add_advantages(user_id, attrs = %{id: id}) do
     query =
       from c in Character,
         where: c.id == ^id,
         where: c.user_id == ^user_id
 
     Repo.one(query)
-    |> Character.finalize_character_changeset(attrs)
+    |> Character.add_advantages_character_changeset(attrs)
     |> Repo.update()
   end
 
@@ -299,7 +377,20 @@ defmodule Vtm.Characters do
         where: c.user_id == ^user_id
 
     Repo.one(query)
-    |> Character.finalize_character_changeset(%{})
+    |> Character.finalize_character_changeset(%{is_complete: true})
     |> Repo.update()
+  end
+
+  @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, %{}} | {:error, :unauthorized}
+  def delete_character(character_id, user) do
+    case user do
+      %{role: :master} -> Character |> Repo.delete(character_id)
+      %{id: user_id}   ->
+        if character_of_user?(user_id, character_id) do
+          Characte |> Repo.delete(character_id)
+        else
+          {:error, :unauthorized}
+        end
+    end
   end
 end

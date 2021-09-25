@@ -10,7 +10,6 @@ import DisciplinesControl from "./controls/DisciplinesControl";
 import PredatorTypeControl from "./controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FinalizeCharacterCreationMutation from "../../services/mutations/characters/FinalizeCharacterCreationMutation";
 import {Routes} from "../../AppRouter";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {
@@ -22,6 +21,7 @@ import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import {object, string} from "yup";
 import {useFormik} from "formik";
 import useStyles from "../Main.Layout.Style";
+import AddAdvantagesMutation from "../../services/mutations/characters/AddAdvantagesMutation";
 
 export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
     character?.clan?.name !== "Human";
@@ -114,7 +114,7 @@ const Creation4 = (): any => {
             predatorType &&
             advantages &&
             notes) {
-            FinalizeCharacterCreationMutation(environment, {
+            AddAdvantagesMutation(environment, {
                 attributes: [{
                     attributeId: discipline1,
                     characterId: String(character?.id),
@@ -130,10 +130,9 @@ const Creation4 = (): any => {
                     advantages: advantages,
                     notes: notes
                 }
-            }).then(_ => {
-                setError({type: "success", message: "Character saved."});
-                setTimeout(() => history.push(Routes.main));
-            }).catch(e => {
+            })
+            .then(_ => history.push(Routes.creation5))
+            .catch(e => {
                 console.error("error!", e);
                 setError({
                     type: "error",

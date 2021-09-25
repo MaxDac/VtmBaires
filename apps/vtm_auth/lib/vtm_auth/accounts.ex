@@ -71,7 +71,7 @@ defmodule VtmAuth.Accounts do
     end
   end
 
-  @spec update_session(%{:id => any, optional(any) => any}, :invalid | map) :: any
+  @spec update_session(%{:id => any, optional(any) => any}, :invalid | map) :: {:ok, %{}} | {:error, %{}}
   def update_session(%{ id: id }, attrs \\ %{}) do
     case Session |> Repo.get_by(user_id: id) do
       nil ->
@@ -84,6 +84,24 @@ defmodule VtmAuth.Accounts do
           attrs
           |> Map.put(:last_checked, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)))
         |> Repo.update()
+    end
+  end
+
+  defp remap_attrs(v = {key, _}) when is_binary(key), do: v
+  defp remap_attrs({key, v}), do: {Atom.to_string(key), v}
+
+  def update_session_dynamic_field(%{id: id}, attrs \\ %{}) do
+    query = from s in Session, where: s.user_id == ^id
+
+    with session = %{session_info: info} when not is_nil(session) <- Repo.one(query),
+         converted_attrs <- attrs |> Map.new(&remap_attrs/1),
+         new_values = info |> Map.merge(converted_attrs) do
+      session
+      |> Session.changeset(%{session_info: new_values})
+      |> Repo.update()
+    else
+      _ ->
+        {:error, :not_found}
     end
   end
 

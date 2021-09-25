@@ -35,7 +35,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
         id: props.characterId
-    })?.getCharacter;
+    }, {fetchPolicy: "network-only"})?.getCharacter;
     const data = useAttributesQuery();
 
     if (character?.stage != null) {

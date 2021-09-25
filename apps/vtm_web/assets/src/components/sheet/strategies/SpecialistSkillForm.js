@@ -1,20 +1,18 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "../strategies/CreationBase";
 import {propNotNullRendering} from "../../../_base/render-utils";
-import {SessionContext} from "../../../contexts";
+import { useSession } from "../../../services/session-service";
 
 export type CreationBaseProps = {
     classes: any;
 }
 
 const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
-    const {
-        getCurrentCharacter
-    } = useContext(SessionContext);
+    const [, currentCharacter] = useSession();
 
     const emptyAttributes = {
         skill4: "",
@@ -96,9 +94,9 @@ const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
         </>;
 
-    return propNotNullRendering(getCurrentCharacter, character => (
+    return propNotNullRendering(() => currentCharacter?.id, characterId => (
         <CreationBase classes={classes}
-                      character={character}
+                      characterId={characterId}
                       currentStage={3}
                       attributeTypeName="Ability"
                       emptyAttributes={emptyAttributes}

@@ -68,4 +68,23 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   def token(_, _, %{context: %{current_user: current_user}}) do
     {:ok, VtmWeb.Authentication.sign_subscription_key_token(current_user)}
   end
+
+  def update_session_character(request, %{context: %{current_user: user}}) do
+    with {:ok, %{session_info: %{
+      character_id: id,
+      character_name: name
+    }}} <- VtmAuth.Accounts.update_session_dynamic_field(user, request) do
+      {:ok, %{
+        id: id,
+        name: name
+      }}
+    end
+  end
+
+  def update_session_map(request, %{context: %{current_user: user}}) do
+    with {:ok, session}                     <- VtmAuth.Accounts.update_session_dynamic_field(user, request),
+         %{session_info: %{"map_id" => id}} <- session do
+      {:ok, id}
+    end
+  end
 end

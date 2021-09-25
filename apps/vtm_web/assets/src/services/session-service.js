@@ -101,6 +101,10 @@ export const updateCurrentCharacter = (character: SessionCharacter): ?Session =>
     }
 }
 
+export const destroySession = () => {
+    localStorage.clear();
+}
+
 export type SessionInfo = {
     getUser: () => Promise<?User>;
     getCurrentCharacter: () => Promise<?SessionCharacter>;

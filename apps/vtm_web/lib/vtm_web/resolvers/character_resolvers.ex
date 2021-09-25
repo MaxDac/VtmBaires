@@ -102,12 +102,24 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def finalize_creation(_, %{ request: request, attributes: attributes, new_stage: new_stage }, context = %{context: %{current_user: %{ id: user_id }}}) do
+  def switch_attributes(_, request = %{character_id: id}, context = %{context: %{current_user: %{ id: user_id }}}) do
+    with parsed_id    <- from_global_id?(id),
+         true         <- Characters.character_of_user?(user_id, parsed_id),
+         new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id?(v)} end),
+         {:ok, _}     <- Characters.switch_attributes(new_request) do
+      get_character(%{id: id}, context)
+    else
+      false ->
+        {:error, :unauthorized}
+      e ->
+        e
+    end
+  end
+
+  def add_advantages(_, %{request: request, attributes: attributes, new_stage: new_stage}, context = %{context: %{current_user: %{ id: user_id }}}) do
     new_attributes =
       attributes
       |> Enum.map(&parse_attribute_query/1)
-
-    IO.puts "new_attributes: #{inspect new_attributes}"
 
     [first_attribute | _] = new_attributes
 
@@ -116,11 +128,21 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
       |> Map.put(:id, first_attribute.character_id)
 
-    IO.puts "new_request: #{inspect new_request}"
-
-    with {:ok, _}             <- Characters.finalize_creation(user_id, new_request),
+    with {:ok, _}             <- Characters.add_advantages(user_id, new_request),
          {:ok, character_id}  <- Characters.update_character_stage(user_id, new_stage, new_attributes) do
       get_character(%{ id: character_id }, context)
+    end
+  end
+
+  def finalize_character(%{character_id: character_id}, context = %{context: %{current_user: %{ id: user_id }}}) do
+    with {:ok, _} <- Characters.complete_character(user_id, character_id) do
+      get_character(%{ id: character_id }, context)
+    end
+  end
+
+  def delete_character(character_id, context = %{context: %{current_user: user}}) do
+    with {:ok, _} <- Characters.delete_character(character_id, user) do
+      {:ok, true}
     end
   end
 end

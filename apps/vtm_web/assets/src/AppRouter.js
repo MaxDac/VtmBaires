@@ -18,6 +18,7 @@ import MainMap from "./components/map/MainMap";
 import Creation4 from "./components/sheet/Creation4";
 import CharacterSheet from "./components/sheet/CharacterSheet";
 import AuthRoute from "./components/_auth/AuthRoute";
+import Creation5 from "./components/sheet/creation5";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
@@ -30,6 +31,7 @@ export const Routes = {
     creation2: "/creation/2",
     creation3: "/creation/3",
     creation4: "/creation/4",
+    creation5: "/creation/5",
     creationBase: "/creation/",
     mainMap: "/map",
     sheet: (id?: ?string): string => id != null ? `/sheet/${id}` : "/sheet",
@@ -59,6 +61,7 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/creation/2" component={() => <Creation2 />} />
             <AuthRoute exact path="/creation/3" component={() => <Creation3 />} />
             <AuthRoute exact path="/creation/4" component={() => <Creation4 />} />
+            <AuthRoute exact path="/creation/5" component={() => <Creation5 />} />
 
             <AuthRoute exact path="/sheet" component={() => <CharacterSheet />} />
             <AuthRoute exact path="/sheet/:id" component={({match: {params: {id}}}) => <CharacterSheet id={id} />} />

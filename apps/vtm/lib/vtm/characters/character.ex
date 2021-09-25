@@ -44,12 +44,17 @@ defmodule Vtm.Characters.Character do
     |> validate_required([:advantages, :notes, :predator_type_id])
   end
 
-  def finalize_character_changeset(character, attrs) do
+  def add_advantages_character_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :notes, :predator_type_id, :is_complete])
-    |> foreign_key_constraint(:clan_id)
+    |> cast(attrs, [:advantages, :notes, :predator_type_id])
     |> foreign_key_constraint(:predator_type_id)
     |> validate_required([:advantages, :notes, :predator_type_id])
+  end
+
+  def finalize_character_changeset(character, attrs) do
+    character
+    |> cast(attrs, [:is_complete])
+    |> validate_required([:is_complete])
   end
 
   def update_changeset(character, attrs) do
