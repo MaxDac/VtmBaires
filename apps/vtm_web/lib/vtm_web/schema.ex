@@ -18,18 +18,21 @@ defmodule VtmWeb.Schema do
   import_types __MODULE__.AccountTypes
   import_types __MODULE__.CharacterTypes
   import_types __MODULE__.ChatTypes
+  import_types __MODULE__.MessageTypes
 
   query do
     import_fields :base_queries
     import_fields :user_queries
     import_fields :character_queries
     import_fields :chat_queries
+    import_fields :messages_queries
   end
 
   mutation do
     import_fields :user_mutations
     import_fields :character_mutations
     import_fields :chat_mutations
+    import_fields :messages_mutations
   end
 
   subscription do

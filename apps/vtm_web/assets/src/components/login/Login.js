@@ -12,11 +12,9 @@ import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
 import {storeSession} from "../../services/session-service";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox"
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
+import FormCheckboxField from "../../_base/components/FormCheckboxField";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -79,17 +77,7 @@ const LoginComponent = (): Node => {
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" />
                     <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
-                    <FormGroup row>
-                        <FormControlLabel
-                            control={
-                                <Checkbox onChange={formik.handleChange}
-                                          checked={formik.values["remember"]}
-                                          name="remember"
-                                          id="remember"
-                                          color="primary" />
-                                }
-                            label="Remember me" />
-                    </FormGroup>
+                    <FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />
                     <Button
                         type="submit"
                         fullWidth

@@ -89,6 +89,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
   end
 
   object :character_queries do
+    field :characters_list, list_of(:character) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.all/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :clans, list_of(:clan) do
       resolve &CharacterResolvers.get_clans/3
     end

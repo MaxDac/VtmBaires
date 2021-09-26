@@ -22,6 +22,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useSession} from "../../services/session-service";
 import {SessionContext, UtilityContext} from "../../contexts";
+import ForumIcon from '@mui/icons-material/Forum';
 
 export default function TopRightMenu(): any {
     const history = useHistory();
@@ -110,6 +111,9 @@ export default function TopRightMenu(): any {
 
     return (
         <>
+            <IconButton aria-label="messages" onClick={_ => history.push(Routes.messages)}>
+                <ForumIcon />
+            </IconButton>
             <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />}
                                badgeContent={0}
                                handleToggle={handleCharactersToggle}

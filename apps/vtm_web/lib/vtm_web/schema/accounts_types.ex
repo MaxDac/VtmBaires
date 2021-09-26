@@ -5,6 +5,7 @@ defmodule VtmWeb.Schema.AccountTypes do
   alias VtmWeb.Schema.Middlewares
   alias VtmWeb.Resolvers.AccountsResolvers
   alias VtmWeb.Resolvers.CharacterResolvers
+  alias VtmWeb.Resolvers.MessageResolvers
 
   node object :user do
     field :original_id, :id
@@ -14,11 +15,27 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :session_character, :character
 
     field :user_characters, list_of(:character) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.get_user_characters/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
     field :session_character, :character do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.get_session_character/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :received_messages, list_of(:message) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &MessageResolvers.received_messages/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :sent_messages, list_of(:message) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &MessageResolvers.sent_messages/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end
 
@@ -38,14 +55,16 @@ defmodule VtmWeb.Schema.AccountTypes do
   end
 
   object :user_queries do
-    field :list, list_of(:user) do
+    field :users_list, list_of(:user) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
+      middleware Middlewares.ChangesetErrors
     end
 
     field :subscription_token, :string do
       middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.token/3
+      middleware Middlewares.ChangesetErrors
     end
   end
 

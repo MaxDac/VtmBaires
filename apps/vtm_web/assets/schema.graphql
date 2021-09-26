@@ -132,6 +132,8 @@ type CreationResult {
   id: ID
 }
 
+scalar DateTime
+
 type Discipline implements Node {
   description: String
 
@@ -162,6 +164,25 @@ type MapChatEntry implements Node {
   text: String
 }
 
+type Message implements Node {
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  modifiedAt: DateTime
+  onGame: Boolean
+  read: Boolean
+  receiverCharacter: Character
+  receiverCharacterId: ID
+  receiverUser: User!
+  receiverUserId: ID!
+  senderCharacter: Character
+  senderCharacterId: ID
+  senderUser: User!
+  senderUserId: ID!
+  subject: String!
+  text: String!
+}
+
 interface Node {
   """The ID of the object."""
   id: ID!
@@ -188,10 +209,13 @@ type RootMutationType {
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
   createUser(email: String!, name: String!, password: String!): CreationResult
   deleteCharacter(characterId: ID): Boolean
+  deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
   resetSession: Boolean
+  sendMessage(message: SendMessageRequest!): Message
+  setMessageRead(messageId: ID): Message
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
   updateSessionMap(mapId: ID): ID
@@ -199,12 +223,13 @@ type RootMutationType {
 
 type RootQueryType {
   attributes: [Attribute]
+  charactersList: [Character]
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
+  getMessage(messageId: ID): Message
   getSessionCharacter: Character
-  list: [User]
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
   mapChatEntries(mapId: ID): [MapChatEntry]
@@ -212,10 +237,21 @@ type RootQueryType {
   predatorTypes: [PredatorType]
   sectionMaps(parentId: ID): [ChatLocation]
   subscriptionToken: String
+  usersList: [User]
 }
 
 type RootSubscriptionType {
   newChatEntry(mapId: ID!, token: String!): MapChatEntry
+}
+
+input SendMessageRequest {
+  onGame: Boolean
+  receiverCharacterId: ID
+  receiverUserId: ID!
+  replyToId: ID
+  senderCharacterId: ID
+  subject: String!
+  text: String!
 }
 
 type User implements Node {
@@ -225,7 +261,9 @@ type User implements Node {
   id: ID!
   name: String
   originalId: ID
+  receivedMessages: [Message]
   role: Role
+  sentMessages: [Message]
   sessionCharacter: Character
   userCharacters: [Character]
 }

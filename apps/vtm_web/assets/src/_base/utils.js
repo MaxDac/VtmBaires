@@ -49,3 +49,18 @@ export function materialize<T>(generator: Generator<T, void, T>): T[] {
     }
     return ret;
 }
+
+export function getInitials(name: string): string {
+    if (!name) {
+        return "NF";
+    }
+
+    const splitted = name.split(" ");
+
+    if (splitted.length === 1) return splitted[0][0].toUpperCase();
+    else {
+        return [splitted[0], splitted.pop()]
+            .map(([f, ..._]) => f.toUpperCase())
+            .join("");
+    }
+}

@@ -10,6 +10,16 @@ defmodule Vtm.Characters do
   alias Vtm.Characters.CharacterAttribute
   alias Vtm.Characters.AttributeType
 
+  @spec all() :: [%Character{}]
+  def all() do
+    query =
+      from c in Character,
+        select: {c.id, c.name}
+
+    Repo.all(query)
+    |> Enum.map(fn {id, name} -> %Character{id: id, name: name} end)
+  end
+
   def get_clans() do
     Clan |> Repo.all()
   end

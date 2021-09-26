@@ -104,7 +104,7 @@ defmodule VtmAuth.Accounts do
 
     with session = %{session_info: info}  <- Repo.one(query) do
       new_values =
-        IO.inspect (info || %{})
+        (info || %{})
         |> Map.merge(attrs)
         |> Map.from_struct()
 

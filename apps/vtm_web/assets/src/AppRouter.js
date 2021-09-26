@@ -19,6 +19,10 @@ import Creation4 from "./components/sheet/Creation4";
 import CharacterSheet from "./components/sheet/CharacterSheet";
 import AuthRoute from "./components/_auth/AuthRoute";
 import Creation5 from "./components/sheet/creation5";
+import ReceivedMessages from "./components/messages/ReceivedMessages";
+import SentMessages from "./components/messages/SentMessages";
+import ReadMessage from "./components/messages/ReadMessage";
+import NewMessage from "./components/messages/NewMessage";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
@@ -33,6 +37,10 @@ export const Routes = {
     creation4: "/creation/4",
     creation5: "/creation/5",
     creationBase: "/creation/",
+    messages: "/messages",
+    sentMessages: "/messages/sent",
+    readMessage: (id: string): string => `/message/${id}`,
+    newMessage: (id?: string): string => id ? `/message/new/${id}` : "/message/new",
     mainMap: "/map",
     sheet: (id?: ?string): string => id != null ? `/sheet/${id}` : "/sheet",
     subMap: (id: string): string => `/map/${id}`,
@@ -69,6 +77,12 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/map" component={() => <MainMap />} />
             <AuthRoute exact path="/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
             <AuthRoute exact path="/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
+
+            <AuthRoute exact path="/messages" component={() => <ReceivedMessages />} />
+            <AuthRoute exact path="/messages/sent" component={() => <SentMessages />} />
+            <AuthRoute exact path="/message/new" component={() => <NewMessage />} />
+            <AuthRoute exact path="/message/new/:id" component={({match: {params: {id}}}) => <NewMessage replyMessageId={id} />} />
+            <AuthRoute exact path="/message/:id" component={({match: {params: {id}}}) => <ReadMessage messageId={id} />} />
 
             <AuthRoute exact path="/admin/guides" component={() => <AdminGuides />} />
             <AuthRoute exact path="/admin" component={() => <AdminDashboard />} />
