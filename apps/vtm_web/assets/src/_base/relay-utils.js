@@ -49,6 +49,9 @@ export function parseGraphqlMessage(error: GraphqlErrorMessage, defaultError?: ?
 
 function parseResponse<T>(res: T => void, rej: any => void, extractor?: any => T) {
     return (response: any, errors: ?Array<PayloadError>) => {
+        console.log("remote response", response);
+        console.log("remote error", errors);
+
         if (errors) { 
             rej({
                 errors: errors

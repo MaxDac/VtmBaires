@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
 import {bool, object, string} from "yup";
@@ -20,6 +20,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import type {GetMessageQuery} from "../../services/queries/messages/__generated__/GetMessageQuery.graphql";
+import SendMessageMutation from "../../services/mutations/messages/SendMessageMutation";
+import {useSession} from "../../services/session-service";
+import {UtilityContext} from "../../contexts";
+import {useHistory} from "react-router-dom";
+import {Routes} from "../../AppRouter";
+import {useRelayEnvironment} from "react-relay";
 
 type Props = {
     replyMessageId?: string;
@@ -46,7 +52,7 @@ type SubmitProperties = {
     text: string;
     onGame: boolean;
     characterId?: ?string;
-    userId?: ?string;
+    userId: string;
 };
 
 type MessageTemplateProps = {
@@ -197,7 +203,32 @@ const BrandNewMessage = onSubmit => {
 }
 
 const NewMessage = (props: Props): any => {
-    const onSubmit = (e: SubmitProperties) => console.log("submitting", e);
+    const environment = useRelayEnvironment();
+    const history = useHistory();
+    const {setError} = useContext(UtilityContext);
+    const [,character] = useSession();
+
+    const onSubmit = (e: SubmitProperties) => {
+        SendMessageMutation(environment, {
+            onGame: e.onGame,
+            receiverCharacterId: e.characterId,
+            receiverUserId: e.userId,
+            replyToId: props.replyMessageId,
+            senderCharacterId: character?.id,
+            subject: e.subject,
+            text: e.text
+        })
+            .then(_ => setError({
+                type: "success",
+                message: "Messaggio inviato correttamente"
+            }))
+            .catch(e => setError({
+                type: "error",
+                graphqlError: e,
+                message: "Errore inviando il messaggio!"
+            }))
+            .finally(() => history.push(Routes.messages));
+    }
 
     const editor = () =>
         props.replyMessageId != null

@@ -136,7 +136,7 @@ defmodule Vtm.Chats do
     visual =
       dices
       |> Enum.map(fn
-        {true, n} -> "[red]#{n}[/red]"
+        {true, n} -> "*#{n}*"
         {_, n}    -> "#{n}"
       end)
       |> Enum.join(", ")
@@ -146,11 +146,11 @@ defmodule Vtm.Chats do
 
   defp parse_result(result, dices_as_string) do
     case result do
-      :bestial_failure    -> "[red]The character suffers a bestial failure![/red] #{dices_as_string}."
+      :bestial_failure    -> "*The character suffers a bestial failure!* #{dices_as_string}."
       :total_failure      -> "The character suffers a total failure! #{dices_as_string}."
       :critical_success   -> "The character obtains a critical success! #{dices_as_string}."
       :failure            -> "The character fails. #{dices_as_string}."
-      :messy_critical     -> "[red]The character Beast awakens with a messy critical![/red] #{dices_as_string}."
+      :messy_critical     -> "*The character Beast awakens with a messy critical!* #{dices_as_string}."
       :success            -> "The character succeeds #{dices_as_string}."
     end
   end

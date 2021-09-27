@@ -20,6 +20,7 @@ import {Routes} from "../../AppRouter";
 import DeleteMessageMutation from "../../services/mutations/messages/DeleteMessageMutation";
 import {UtilityContext} from "../../contexts";
 import SetMessageReadMutation from "../../services/mutations/messages/SetMessageReadMutation";
+import ParsedText from "../../_base/components/ParsedText";
 
 type Props = {
     messageId: string;
@@ -94,7 +95,7 @@ const ReadMessage = ({messageId}: Props): any => {
                                     padding: "10px",
                                     margin: "10px"
                                 }}>
-                                    {message?.text}
+                                    <ParsedText text={message?.text} />
                                 </Paper>
                             </Grid>
                         </Grid>

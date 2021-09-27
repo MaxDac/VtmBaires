@@ -8,7 +8,7 @@ defmodule Vtm.Messages do
 
   import Vtm.Helpers
 
-  def send_message(%{id: user_id}, attrs) do
+  defp send_message_p(%{id: user_id}, attrs) do
     new_attrs =
       attrs
       |> map_to_atom_map()
@@ -22,6 +22,17 @@ defmodule Vtm.Messages do
         |> Message.changeset(as)
         |> Repo.insert()
     end
+  end
+
+  def send_message(user, attrs = %{ text: text, reply_to_id: reply_to_id }) when not is_nil(reply_to_id) do
+    with {:ok, %{text: replied_text}} <- get_message(user, reply_to_id),
+         new_text                     <- "#{text}\n\n-------------\n\n[i]#{replied_text}[/i]" do
+      send_message_p(user, attrs |> Map.put(:text, new_text))
+    end
+  end
+
+  def send_message(user, attrs) do
+    send_message_p(user, attrs)
   end
 
   defp remap_message(message = %Message{

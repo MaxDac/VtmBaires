@@ -43,7 +43,8 @@ defmodule Vtm.MixProject do
       {:comeonin_ecto_password, "~> 3.0"},
       {:pbkdf2_elixir, "~> 1.4"},
       {:dataloader, "~> 1.0"},
-      {:vtm_auth, in_umbrella: true}
+      {:vtm_auth, in_umbrella: true},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end
 
