@@ -20,7 +20,7 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
-    field :session_character, :character do
+    field :user_session_character, :character do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.get_session_character/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors

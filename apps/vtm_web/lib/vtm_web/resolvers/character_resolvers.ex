@@ -27,24 +27,24 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_user_characters(user, _, _) do
-    with characters when not is_nil(characters) <- Characters.get_user_characters(user) do
-      {:ok, characters}
-    else
+    case Characters.get_user_characters(user) do
+      characters when not is_nil(characters) ->
+        {:ok, characters}
       _ ->
         {:ok, []}
     end
   end
 
-  def get_character(%{ id: id }, %{context: %{current_user: user}}) do
-    with character when not is_nil(character) <- Characters.get_specific_character(user, id) do
-      {:ok, character |> map_character()}
-    else
+  def get_character(%{id: id }, %{context: %{current_user: user}}) do
+    case Characters.get_specific_character(user, id) do
+      character when not is_nil(character) ->
+        {:ok, character |> map_character()}
       _ ->
         {:error, "The user does not exist, or you have no permission to see it."}
     end
   end
 
-  def get_character_stats(%{ character_id: id }, %{context: %{current_user: user}}) do
+  def get_character_stats(%{character_id: id }, %{context: %{current_user: user}}) do
     with %{id: character_id}  <- Characters.get_specific_character(user, id),
          stats                <- Characters.get_character_stats(character_id) do
       {:ok, stats}
@@ -55,7 +55,6 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_session_character(_, _, %{context: %{current_user: user}}) do
-    IO.inspect user
     with {:ok, %SessionInfo{
       character_id: id,
       character_name: name,
@@ -69,7 +68,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def create_character(_, %{ request: request }, %{context: %{current_user: current_user}}) do
+  def create_character(_, %{request: request }, %{context: %{current_user: current_user}}) do
     new_request =
       request
       |> Map.put(:clan_id, from_global_id?(request.clan_id))
@@ -104,17 +103,17 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     |> Map.put(:character_id, from_global_id?(char_id))
   end
 
-  def append_attributes(_, %{ request: request, new_stage: new_stage }, context = %{context: %{current_user: %{ id: user_id }}}) do
+  def append_attributes(_, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
     new_request =
       request
       |> Enum.map(&parse_attribute_query/1)
 
     with {:ok, character_id} <- Characters.update_character_stage(user_id, new_stage, new_request) do
-      get_character(%{ id: character_id }, context)
+      get_character(%{id: character_id}, context)
     end
   end
 
-  def switch_attributes(_, request = %{character_id: id}, context = %{context: %{current_user: %{ id: user_id }}}) do
+  def switch_attributes(_, request = %{character_id: id}, context = %{context: %{current_user: %{id: user_id}}}) do
     with parsed_id    <- from_global_id?(id),
          true         <- Characters.character_of_user?(user_id, parsed_id),
          new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id?(v)} end),
@@ -128,7 +127,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def add_advantages(_, %{request: request, attributes: attributes, new_stage: new_stage}, context = %{context: %{current_user: %{ id: user_id }}}) do
+  def add_advantages(_, %{request: request, attributes: attributes, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
     new_attributes =
       attributes
       |> Enum.map(&parse_attribute_query/1)
@@ -142,13 +141,13 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
     with {:ok, _}             <- Characters.add_advantages(user_id, new_request),
          {:ok, character_id}  <- Characters.update_character_stage(user_id, new_stage, new_attributes) do
-      get_character(%{ id: character_id }, context)
+      get_character(%{id: character_id}, context)
     end
   end
 
-  def finalize_character(%{character_id: character_id}, context = %{context: %{current_user: %{ id: user_id }}}) do
+  def finalize_character(%{character_id: character_id}, context = %{context: %{current_user: %{id: user_id}}}) do
     with {:ok, _} <- Characters.complete_character(user_id, character_id) do
-      get_character(%{ id: character_id }, context)
+      get_character(%{id: character_id}, context)
     end
   end
 

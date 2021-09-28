@@ -24,7 +24,7 @@ defmodule VtmWeb.SessionController do
   }
   """
   def create(conn, graphql_response) do
-    Logger.info("Logging in user");
+    Logger.info("Logging in user")
 
     with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
          %{"token" => token, "user" => user}                    <- result,
@@ -66,7 +66,7 @@ defmodule VtmWeb.SessionController do
   end
 
   def check_master(conn, _) do
-    with { :ok, user = %{role: :master} } <- Authentication.check_request_cookie(conn) do
+    with {:ok, user = %{role: :master} } <- Authentication.check_request_cookie(conn) do
       conn
       |> render("ok-keys.json", user: user)
     end

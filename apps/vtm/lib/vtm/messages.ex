@@ -6,13 +6,31 @@ defmodule Vtm.Messages do
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts.User
 
+  alias Vtm.Characters
+
   import Vtm.Helpers
+
+  defp aggregate_user_if_inexistent(attrs = %{
+    receiver_user_id: nil,
+    receiver_character_id: c_id
+  }) when not is_nil(c_id) do
+    case Characters.get_character_user(%{id: c_id}) do
+      %{id: id} when not is_nil(id) -> attrs |> Map.put(:receiver_user_id, id)
+      _                             -> attrs
+    end
+  end
+
+  defp aggregate_user_if_inexistent(attrs) do
+    IO.inspect attrs
+    attrs
+  end
 
   defp send_message_p(%{id: user_id}, attrs) do
     new_attrs =
       attrs
       |> map_to_atom_map()
       |> Map.put(:sender_user_id, user_id)
+      |> aggregate_user_if_inexistent()
 
     case new_attrs do
       %{sender_user_id: id, receiver_user_id: id} ->
@@ -24,7 +42,7 @@ defmodule Vtm.Messages do
     end
   end
 
-  def send_message(user, attrs = %{ text: text, reply_to_id: reply_to_id }) when not is_nil(reply_to_id) do
+  def send_message(user, attrs = %{text: text, reply_to_id: reply_to_id}) when not is_nil(reply_to_id) do
     with {:ok, %{text: replied_text}} <- get_message(user, reply_to_id),
          new_text                     <- "#{text}\n\n-------------\n\n[i]#{replied_text}[/i]" do
       send_message_p(user, attrs |> Map.put(:text, new_text))
@@ -61,13 +79,13 @@ defmodule Vtm.Messages do
         left_join: cr in Character,
         on: m.receiver_character_id == cr.id,
         where: m.receiver_user_id == ^user_id,
-        select: %{ %{ %{ m | sender_user: u } | sender_character: {
+        select: %{%{%{m | sender_user: u} | sender_character: {
           cs.id,
           cs.name
-        } } | receiver_character: {
+        }} | receiver_character: {
           cr.id,
           cr.name
-        } }
+        }}
 
     Repo.all(query) |> Enum.map(&remap_message/1)
   end
@@ -83,13 +101,13 @@ defmodule Vtm.Messages do
         left_join: cr in Character,
         on: m.receiver_character_id == cr.id,
         where: m.sender_user_id == ^user_id,
-        select: %{ %{ %{ m | receiver_user: u } | sender_character: {
+        select: %{%{%{m | receiver_user: u} | sender_character: {
           cs.id,
           cs.name
-        } } | receiver_character: {
+        }} | receiver_character: {
           cr.id,
           cr.name
-        } }
+        }}
 
     Repo.all(query) |> Enum.map(&remap_message/1)
   end

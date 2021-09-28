@@ -14,18 +14,16 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     Messages.get_message(user, id)
   end
 
-  def send_message(_, %{ message: %{
-    receiver_user_id: receiver_user_id,
-    sender_character_id: sender_character_id,
-    receiver_character_id: receiver_character_id,
-    reply_to_id: reply_to_id
-  } = message}, %{context: %{current_user: user}}) do
+  def send_message(_, %{message: message}, %{context: %{current_user: user}}) do
     message =
-      IO.inspect message
-      |> Map.put(:receiver_user_id, from_global_id?(receiver_user_id))
-      |> Map.put(:sender_character_id, from_global_id?(sender_character_id))
-      |> Map.put(:receiver_character_id, from_global_id?(receiver_character_id))
-      |> Map.put(:reply_to_id, from_global_id?(reply_to_id))
+      message
+      |> Map.new(fn
+        {:receiver_user_id, v}      -> {:receiver_user_id, from_global_id?(v)}
+        {:sender_character_id, v}   -> {:sender_character_id, from_global_id?(v)}
+        {:receiver_character_id, v} -> {:receiver_character_id, from_global_id?(v)}
+        {:reply_to_id, v}           -> {:reply_to_id, from_global_id?(v)}
+        {key, value}                -> {key, value}
+      end)
 
     Messages.send_message(user, message)
   end

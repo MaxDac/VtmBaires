@@ -81,6 +81,18 @@ defmodule Vtm.Characters do
     |> Repo.all()
   end
 
+  def get_character_user(%{id: id}) do
+    character =
+      Character
+      |> preload(:user)
+      |> Repo.get(id)
+
+    case character do
+      %{user: user} -> user
+      _             -> nil
+    end
+  end
+
   def character_of_user?(user_id, character_id) do
     query = from c in Character,
       where: c.id == ^character_id,
@@ -97,14 +109,14 @@ defmodule Vtm.Characters do
     not is_nil(Repo.one(query))
   end
 
-  def get_specific_character(%{ role: :master }, id) do
+  def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
     |> preload(:predator_type)
     |> Repo.get(id)
   end
 
-  def get_specific_character(%{ id: user_id }, id) do
+  def get_specific_character(%{id: user_id}, id) do
     query =
       from c in Character,
         where: c.id == ^id,
@@ -148,8 +160,8 @@ defmodule Vtm.Characters do
     }
   end
 
-  defp filter_attributes(%Attribute{attribute_type: %{ name: "Attribute" }}, _), do: true
-  defp filter_attributes(%Attribute{attribute_type: %{ name: "Ability" }}, _), do: true
+  defp filter_attributes(%Attribute{attribute_type: %{name: "Attribute"}}, _), do: true
+  defp filter_attributes(%Attribute{attribute_type: %{name: "Ability"}}, _), do: true
   defp filter_attributes(%Attribute{id: id}, map), do: map |> Map.has_key?(id)
   defp filter_attributes(_, _), do: false
 
@@ -376,7 +388,7 @@ defmodule Vtm.Characters do
     with true     <- character_of_user?(user_id, character_id),
          true     <- character_at_stage?(character_id, new_stage - 1),
          {:ok, _} <- append_attributes(character_id, attrs, new_stage),
-         {:ok, _} <- update_character(character_id, %{ stage: new_stage }) do
+         {:ok, _} <- update_character(character_id, %{stage: new_stage}) do
       {:ok, character_id}
     else
       false ->

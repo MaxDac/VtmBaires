@@ -266,5 +266,6 @@ type User implements Node {
   sentMessages: [Message]
   sessionCharacter: Character
   userCharacters: [Character]
+  userSessionCharacter: Character
 }
 
