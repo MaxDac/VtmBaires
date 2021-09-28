@@ -6,9 +6,6 @@ defmodule VtmWeb.Application do
   use Application
 
   def start(_type, _args) do
-    # Performs the needed migrations
-    startup_tasks()
-
     children = [
       # Start the Telemetry supervisor
       VtmWeb.Telemetry,
@@ -18,6 +15,9 @@ defmodule VtmWeb.Application do
       # {VtmWeb.Worker, arg}
       {Absinthe.Subscription, VtmWeb.Endpoint}
     ]
+
+    # Performs the needed migrations
+    startup_tasks()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -33,11 +33,12 @@ defmodule VtmWeb.Application do
   end
 
   defp startup_tasks do
-    VtmAuth.Releases.migrate()
-    Vtm.Releases.migrate()
+    # Migration should run only in production
+    if Mix.env() == :prod do
+      VtmWeb.Releases.migrate()
+      VtmWeb.Releases.seed()
+    end
 
-    # To run only once at the beginning
-    # VtmAuth.Releases.seed()
-    # Vtm.Releases.seed()
+    :ok
   end
 end

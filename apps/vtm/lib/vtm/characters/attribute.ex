@@ -17,6 +17,7 @@ defmodule Vtm.Characters.Attribute do
   def changeset(attribute, attrs) do
     attribute
     |> cast(attrs, [:name, :description, :attribute_type_id])
+    |> unique_constraint(:name, name: :attributes_unique_key)
     |> validate_required([:name, :attribute_type_id])
   end
 end

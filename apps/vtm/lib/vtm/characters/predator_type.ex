@@ -13,6 +13,7 @@ defmodule Vtm.Characters.PredatorType do
   def changeset(predator_type, attrs) do
     predator_type
     |> cast(attrs, [:name, :description])
+    |> unique_constraint(:name, name: :predator_types_unique_key)
     |> validate_required([:name, :description])
   end
 end

@@ -17,6 +17,7 @@ defmodule Vtm.Chats.ChatMap do
   def changeset(chat_map, attrs) do
     chat_map
     |> cast(attrs, [:name, :description, :image, :is_chat, :chat_map_id])
+    |> unique_constraint(:name, name: :chat_maps_unique_key)
     |> validate_required([:name, :is_chat])
   end
 end

@@ -17,6 +17,7 @@ defmodule Vtm.Characters.Clan do
     character
     |> cast(attrs, [:name])
     |> cast_assoc(:attributes)
+    |> unique_constraint(:name, name: :clans_unique_key)
     |> validate_required([:name])
     |> put_assoc(:attributes, attributes)
   end
@@ -25,6 +26,7 @@ defmodule Vtm.Characters.Clan do
   def changeset(character, attrs) do
     character
     |> cast(attrs, [:name])
+    |> unique_constraint(:name, name: :clans_unique_key)
     |> validate_required([:name])
   end
 end
