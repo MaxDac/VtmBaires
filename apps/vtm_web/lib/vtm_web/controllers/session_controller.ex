@@ -1,5 +1,6 @@
 defmodule VtmWeb.SessionController do
   use VtmWeb, :controller
+  require Logger
   use Absinthe.Phoenix.Controller, schema: VtmWeb.Schema
 
   alias VtmWeb.Authentication
@@ -23,12 +24,18 @@ defmodule VtmWeb.SessionController do
   }
   """
   def create(conn, graphql_response) do
+    Logger.info("Logging in user");
+
     with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
          %{"token" => token, "user" => user}                    <- result,
          {:ok, _}                                               <- update_session(conn, %{user | "id" => user["originalId"]}) do
       conn
       |> Authentication.put_token(token)
       |> render("ok.json", %{user: user})
+    else
+      e ->
+        Logger.error("An error happend while the user log in #{inspect e}")
+        e
     end
   end
 

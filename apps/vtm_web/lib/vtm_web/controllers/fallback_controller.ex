@@ -32,7 +32,7 @@ defmodule VtmWeb.FallbackController do
   end
 
   # GraphQL
-  def call(conn, errors = %{ errors: _ }) do
+  def call(conn, errors = %{errors: _}) do
     conn
     |> put_status(:unauthorized)
     |> put_view(VtmWeb.ErrorView)
