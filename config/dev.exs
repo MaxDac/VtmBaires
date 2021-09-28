@@ -41,6 +41,8 @@ config :vtm_web, VtmWeb.Endpoint,
   #   ]
   # ]
 
+config :vtm_web, :environment, :dev
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

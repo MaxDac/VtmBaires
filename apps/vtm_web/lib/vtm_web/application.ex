@@ -34,7 +34,7 @@ defmodule VtmWeb.Application do
 
   defp startup_tasks do
     # Migration should run only in production
-    if Mix.env() == :prod do
+    if Application.get_env(:vtm_web, :environment) == :prod do
       VtmWeb.Releases.migrate()
       VtmWeb.Releases.seed()
     end

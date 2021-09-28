@@ -13,6 +13,8 @@ config :vtm_web, VtmWeb.Endpoint,
   url: [host: "vtmbaires.eu", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :vtm_web, :environment, :prod
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

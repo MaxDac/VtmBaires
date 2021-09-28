@@ -17,9 +17,6 @@ config :vtm_auth,
 config :vtm,
   ecto_repos: [Vtm.Repo]
 
-config :vtm_auth,
-  ecto_repos: [VtmAuth.Repo]
-
 config :vtm_web,
   ecto_repos: [Vtm.Repo],
   generators: [context_app: :vtm]
