@@ -6,6 +6,9 @@ defmodule VtmWeb.Application do
   use Application
 
   def start(_type, _args) do
+    # Performs the needed migrations
+    startup_tasks()
+
     children = [
       # Start the Telemetry supervisor
       VtmWeb.Telemetry,
@@ -27,5 +30,14 @@ defmodule VtmWeb.Application do
   def config_change(changed, _new, removed) do
     VtmWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp startup_tasks do
+    VtmAuth.Releases.migrate()
+    Vtm.Releases.migrate()
+
+    # To run only once at the beginning
+    # VtmAuth.Releases.seed()
+    # Vtm.Releases.seed()
   end
 end

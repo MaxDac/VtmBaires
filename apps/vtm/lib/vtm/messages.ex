@@ -21,7 +21,6 @@ defmodule Vtm.Messages do
   end
 
   defp aggregate_user_if_inexistent(attrs) do
-    IO.inspect attrs
     attrs
   end
 
