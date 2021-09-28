@@ -4,6 +4,7 @@ defmodule VtmWeb.FallbackController do
   See `Phoenix.Controller.action_fallback/1` for more details.
   """
   use VtmWeb, :controller
+  require Logger
 
   def call(conn, {:error, :unauthorized}) do
     conn
@@ -14,6 +15,8 @@ defmodule VtmWeb.FallbackController do
 
   # This clause handles errors returned by Ecto's insert/update/delete.
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
+    Logger.error("An error happened with a changeset: #{inspect changeset}")
+
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(VtmWeb.ErrorView)
