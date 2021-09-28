@@ -20,4 +20,4 @@ erl_crash.dump
 *.ez
 apps/vtm_web/assets/package-lock.json
 apps/vtm_web/assets/yarn.lock
-.elixir_ls
+**/.elixir_ls
