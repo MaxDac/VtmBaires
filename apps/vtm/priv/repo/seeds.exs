@@ -11,6 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 defmodule Vtm.SeedsHelpers do
   import Ecto.Query
+  require Logger
 
   def get_or_insert_attr_type(name, section) do
     query =
@@ -24,7 +25,7 @@ defmodule Vtm.SeedsHelpers do
     end
   end
 
-  def insert_attribute(attr = %Vtm.Characters.Attribute{name: name, description: description, attribute_type_id: attribute_type_id}) do
+  def insert_attribute(%Vtm.Characters.Attribute{name: name, description: description, attribute_type_id: attribute_type_id}) do
     %Vtm.Characters.Attribute{}
     |> Vtm.Characters.Attribute.changeset(%{name: name, description: description, attribute_type_id: attribute_type_id})
     |> Vtm.Repo.insert()
@@ -42,25 +43,31 @@ defmodule Vtm.SeedsHelpers do
     end
   end
 
-  def insert_clan(attr = %Vtm.Characters.Clan{name: name, attributes: attributes}) do
-    %Vtm.Characters.Clan{}
-    |> Vtm.Characters.Clan.changeset_disciplines(%{name: name}, %{attributes: attributes})
-    |> Vtm.Repo.insert()
+  def insert_clan(attrs) do
+    try do
+      Vtm.Repo.insert(attrs)
+    rescue
+      e ->
+        Logger.error "An error happened while inserting the clan #{inspect e}"
+    catch
+      e ->
+        Logger.error "An error happened while inserting the clan #{inspect e}"
+    end
   end
 
-  def insert_predator_type(attr = %Vtm.Characters.PredatorType{name: name, description: description}) do
+  def insert_predator_type(%Vtm.Characters.PredatorType{name: name, description: description}) do
     %Vtm.Characters.PredatorType{}
     |> Vtm.Characters.PredatorType.changeset(%{name: name, description: description})
     |> Vtm.Repo.insert()
   end
 
-  def insert_map(attr = %Vtm.Chats.ChatMap{name: name, is_chat: is_chat, chat_map_id: chat_map_id}) do
+  def insert_map(%Vtm.Chats.ChatMap{name: name, is_chat: is_chat, chat_map_id: chat_map_id}) do
     %Vtm.Chats.ChatMap{}
     |> Vtm.Chats.ChatMap.changeset(%{name: name, is_chat: is_chat, chat_map_id: chat_map_id})
     |> Vtm.Repo.insert()
   end
 
-  def insert_map(attr = %Vtm.Chats.ChatMap{name: name, is_chat: is_chat}) do
+  def insert_map(%Vtm.Chats.ChatMap{name: name, is_chat: is_chat}) do
     %Vtm.Chats.ChatMap{}
     |> Vtm.Chats.ChatMap.changeset(%{name: name, is_chat: is_chat})
     |> Vtm.Repo.insert()
