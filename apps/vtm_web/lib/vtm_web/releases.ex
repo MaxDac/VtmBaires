@@ -1,5 +1,5 @@
 defmodule VtmWeb.Releases do
-  @apps [:vtm, :vtm_auth]
+  @apps [:vtm_auth, :vtm]
 
   def migrate do
     for app <- @apps do

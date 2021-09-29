@@ -19,7 +19,7 @@ defmodule Vtm.SeedsHelpers do
         where: at.section == ^section
 
     case Vtm.Repo.one(query) do
-      nil -> Vtm.Repo.insert(%Vtm.Characters.AttributeType{name: "Attribute", section: "Physical"})
+      nil -> Vtm.Repo.insert(%Vtm.Characters.AttributeType{name: name, section: section})
       at  -> {:ok, at}
     end
   end
