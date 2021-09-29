@@ -55,9 +55,15 @@ defmodule VtmWeb.Schema.AccountTypes do
   end
 
   object :user_queries do
-    field :users_list, list_of(:user) do
+    field :all_users, list_of(:user) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.all/3
+      middleware Middlewares.ChangesetErrors
+    end
+
+    field :sessions_list, list_of(:user) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :player
+      resolve &VtmWeb.Resolvers.AccountsResolvers.all_sessions/3
       middleware Middlewares.ChangesetErrors
     end
 

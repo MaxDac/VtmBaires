@@ -30,7 +30,7 @@ export default function TopRightMenu(): any {
     const { setCurrentCharacter } = useContext(SessionContext);
     const [, currentCharacter] = useSession();
     const { openDialog } = useContext(UtilityContext);
-    const online = useSessionQuery()?.list ?? [];
+    const online = useSessionQuery()?.usersList ?? [];
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;

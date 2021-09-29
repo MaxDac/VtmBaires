@@ -6,7 +6,7 @@ import type {SessionQueryResponse} from "./__generated__/SessionQuery.graphql";
 
 const listSessionQuery = graphql`
     query SessionQuery {
-        usersList {
+        sessionsList {
             id
             name
             sessionCharacter {

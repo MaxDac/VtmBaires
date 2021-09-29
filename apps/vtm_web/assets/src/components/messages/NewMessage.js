@@ -11,7 +11,6 @@ import FormTextField from "../../_base/components/FormTextField";
 import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
 import type {AllCharactersQuery} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
-import {useSessionQuery} from "../../services/queries/accounts/SessionQuery";
 import Button from "@mui/material/Button";
 import FormSelectField from "../../_base/components/FormSelectField";
 import {useTheme} from "@mui/styles";
@@ -26,6 +25,8 @@ import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import {useRelayEnvironment} from "react-relay";
+import {allUsersQuery} from "../../services/queries/accounts/AllUsersQuery";
+import type {AllUsersQuery} from "../../services/queries/accounts/__generated__/AllUsersQuery.graphql";
 
 type Props = {
     replyMessageId?: string;
@@ -65,7 +66,7 @@ type MessageTemplateProps = {
 
 const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", onGame = false}: MessageTemplateProps) => {
     const theme = useTheme();
-    const allUsers = useSessionQuery()?.usersList;
+    const allUsers = useCustomLazyLoadQuery<AllUsersQuery>(allUsersQuery, {})?.allUsers;
     const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
 
     const formik = useFormik({

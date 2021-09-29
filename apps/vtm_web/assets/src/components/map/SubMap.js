@@ -14,12 +14,15 @@ import {Routes} from "../../AppRouter";
 import {UtilityContext} from "../../contexts";
 import type {Map} from "../../services/base-types";
 import useStyles from "../Main.Layout.Style";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 type SubMapProps = {
-    maps: Array<Map>
+    maps: Array<Map>,
+    imageUrl: string
 };
 
-const SubMap = ({ maps }: SubMapProps): any => {
+const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
     const history = useHistory();
     const classes = useStyles();
 
@@ -54,12 +57,23 @@ const SubMap = ({ maps }: SubMapProps): any => {
     return (
         <MainLayout openDialog={openDialog}>
             <Container maxWidth="lg" className={classes.container}>
-                <List component="nav"
-                      aria-labelledby="nested-list-subheader"
-                      subheader={subHeader()}
-                      className={classes.listRoot}>
-                    {mapLinks()}
-                </List>
+                <Grid container>
+                    <Grid item xs={12} sm={8} md={9}>
+                        <img alt="map-image" src={imageUrl} style={{
+                            maxWidth: "70vw"
+                        }} />
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <Paper elevation={4} variant="outlined">
+                            <List component="nav"
+                                  aria-labelledby="nested-list-subheader"
+                                  subheader={subHeader()}
+                                  className={classes.listRoot}>
+                                {mapLinks()}
+                            </List>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </Container>
         </MainLayout>
     );

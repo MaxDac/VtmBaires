@@ -9,7 +9,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type SessionQueryVariables = {||};
 export type SessionQueryResponse = {|
-  +usersList: ?$ReadOnlyArray<?{|
+  +sessionsList: ?$ReadOnlyArray<?{|
     +id: string,
     +name: ?string,
     +sessionCharacter: ?{|
@@ -26,7 +26,7 @@ export type SessionQuery = {|
 
 /*
 query SessionQuery {
-  usersList {
+  sessionsList {
     id
     name
     sessionCharacter {
@@ -58,7 +58,7 @@ v2 = [
     "args": null,
     "concreteType": "User",
     "kind": "LinkedField",
-    "name": "usersList",
+    "name": "sessionsList",
     "plural": true,
     "selections": [
       (v0/*: any*/),
@@ -98,15 +98,15 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "db27d2bb0fb8df1719db1cebc607fa94",
+    "cacheID": "bb870e5c8ef59693169f81216f4b2faf",
     "id": null,
     "metadata": {},
     "name": "SessionQuery",
     "operationKind": "query",
-    "text": "query SessionQuery {\n  usersList {\n    id\n    name\n    sessionCharacter {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query SessionQuery {\n  sessionsList {\n    id\n    name\n    sessionCharacter {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '450472903221a4916da1cc9b1015d1cd';
+(node: any).hash = 'b070f4b29bffc5c6a5b9a492f456735f';
 module.exports = node;

@@ -22,6 +22,15 @@ defmodule VtmAuth.Accounts do
     end
   end
 
+  def get_all_users() do
+    query =
+      from u in User,
+        select: {u.id, u.name}
+
+    Repo.all(query)
+    |> Enum.map(fn {id, name} -> %{id: id, name: name} end)
+  end
+
   @spec get_user(Number.t()) :: {:error, :not_found} | {:ok, %User{}}
   def get_user(id), do:
     User

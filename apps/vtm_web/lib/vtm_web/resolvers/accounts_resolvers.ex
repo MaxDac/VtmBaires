@@ -65,6 +65,10 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   def all(_, _, _) do
+    {:ok, Accounts.get_all_users()}
+  end
+
+  def all_sessions(_, _, _) do
     case Accounts.get_current_sessions() do
       sessions = %{session_info: %{
         "character_id"    => id,

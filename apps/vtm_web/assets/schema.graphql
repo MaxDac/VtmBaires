@@ -222,6 +222,7 @@ type RootMutationType {
 }
 
 type RootQueryType {
+  allUsers: [User]
   attributes: [Attribute]
   charactersList: [Character]
   clanDisciplines(clanId: ID!): [Discipline]
@@ -236,8 +237,8 @@ type RootQueryType {
   me: User
   predatorTypes: [PredatorType]
   sectionMaps(parentId: ID): [ChatLocation]
+  sessionsList: [User]
   subscriptionToken: String
-  usersList: [User]
 }
 
 type RootSubscriptionType {

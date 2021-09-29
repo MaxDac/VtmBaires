@@ -9,5 +9,7 @@ export default function MainMap(): any {
     const ret = useCustomLazyLoadQuery(mainMapsQuery, {});
     const maps = convert(ret);
 
-    return (<SubMap maps={maps} />);
+    return (
+        <SubMap maps={maps} imageUrl="main-map.png" />
+    );
 };
