@@ -29,6 +29,16 @@ config :vtm_web, VtmWeb.Endpoint,
   pubsub_server: Vtm.PubSub,
   live_view: [signing_salt: "AWg1Oe3w"]
 
+config :swoosh, :api_client, false
+
+config :vtm_web, VtmWeb.Mailer,
+  adapter: Swoosh.Adapters.SMTP,
+  relay: "smtps.aruba.it",
+  port: 465,
+  username: System.get_env("MAIL_USER")
+  password: System.get_env("MAIL_PASS"),
+  ssl: true
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
