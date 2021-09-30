@@ -1,5 +1,9 @@
 FROM elixir:1.12.3-alpine AS build
 
+RUN apk add --no-cache build-base nodejs yarn python3 git && \
+    mix local.hex --force && \
+    mix local.rebar --force
+
 ARG db_url
 
 ARG secret_key
@@ -12,10 +16,6 @@ ENV DATABASE_URL=$db_url
 ENV SECRET_KEY_BASE=$secret_key
 
 WORKDIR /build
-
-RUN apk add --no-cache build-base nodejs yarn python3 git && \
-    mix local.hex --force && \
-    mix local.rebar --force
 
 COPY mix.exs mix.lock config/ ./
 COPY apps/vtm_web/mix.exs ./apps/vtm_web/
