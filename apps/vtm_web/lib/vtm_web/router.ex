@@ -29,6 +29,7 @@ defmodule VtmWeb.Router do
     post "/check", VtmWeb.SessionController, :check
     post "/checkmaster", VtmWeb.SessionController, :check_master
     post "/logout", VtmWeb.SessionController, :logout
+    post "/password/new", VtmWeb.SessionController, :request_new_password
 
     forward "/api", Absinthe.Plug,
       schema: VtmWeb.Schema,

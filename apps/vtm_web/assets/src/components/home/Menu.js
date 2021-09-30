@@ -10,6 +10,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import SettingsIcon from '@mui/icons-material/Settings';
 import type { History } from "../../_base/types";
 import {Routes} from "../../AppRouter";
 
@@ -44,6 +45,12 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
                     <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
+            </ListItem>
+            <ListItem button onClick={pushHistory(Routes.settings)}>
+                <ListItemIcon>
+                    <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Impostazioni" />
             </ListItem>
         </>
     );

@@ -24,8 +24,6 @@ defmodule VtmWeb.SessionController do
   }
   """
   def create(conn, graphql_response) do
-    Logger.info("Logging in user")
-
     with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
          %{"token" => token, "user" => user}                    <- result,
          {:ok, _}                                               <- update_session(conn, %{user | "id" => user["originalId"]}) do
@@ -81,6 +79,39 @@ defmodule VtmWeb.SessionController do
     conn
     |> Authentication.put_token("")
     |> render("logout-ok.json")
+  end
+
+  defp ip_to_string(ip) when is_tuple(ip) do
+    ip
+    |> Tuple.to_list()
+    |> Enum.join(".")
+  end
+
+  defp ip_to_string(ip), do: IO.inspect ip
+
+  @graphql """
+  mutation ($userEmail: String!) {
+    requestNewPassword(userEmail: $userEmail)
+  }
+  """
+  def request_new_password(conn = %{
+    host: host,
+    remote_ip: remote_ip,
+    body_params: %{"userEmail" => user_email}
+  }, graphql_response) do
+    with %{data: %{"requestNewPassword" => true}} <- graphql_response,
+         ip_as_string                             <- remote_ip |> ip_to_string(),
+         {:ok, _}                                 <- Accounts.create_new_password_request(%{ip: ip_as_string, host: host, user_email: user_email}) do # TODO
+      conn
+      |> render("password-request-ok.json")
+    else
+      e ->
+        Logger.error("An error happened while requesting password change: #{inspect e}")
+
+        conn
+        |> put_status(400)
+        |> render("not-ok.json")
+    end
   end
 
 end

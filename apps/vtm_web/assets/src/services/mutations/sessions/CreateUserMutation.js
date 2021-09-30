@@ -6,8 +6,8 @@ import type {CreateUserMutationResponse, CreateUserMutationVariables} from "./__
 import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
-    mutation CreateUserMutation($email: String!, $password: String!, $name: String!) {
-        createUser(email: $email, password: $password, name: $name) {
+    mutation CreateUserMutation($email: String!, $name: String!) {
+        createUser(email: $email, name: $name) {
             id
         }
     }

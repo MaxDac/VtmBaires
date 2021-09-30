@@ -34,7 +34,7 @@ const SentMessages = (): any => {
     return (
         <MainLayout>
             <Suspense fallback={"Loading..."}>
-                <List sx={{width: "100%", maxWidth: 360, bgcolor: "background.paper"}}>
+                <List sx={{width: "100%", bgcolor: "background.paper"}}>
                     {messageList()}
                 </List>
             </Suspense>

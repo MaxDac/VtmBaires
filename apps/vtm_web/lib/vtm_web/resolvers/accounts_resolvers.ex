@@ -3,8 +3,12 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.SessionInfo
 
-  alias VtmWeb.Resolvers.Helpers
+  import VtmAuth.Helpers
+
   alias Vtm.Characters
+
+  alias VtmWeb.UserEmail
+  alias VtmWeb.Mailer
 
   def parse_role("master", _), do: :master
   def parse_role(_, _), do: :player
@@ -55,12 +59,26 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
-  def create(_, request = %{email: _, name: _, password: _}, _) do
-    case Accounts.create_user(request |> Map.put_new(:role, "PLAYER")) do
-      {:ok, %User{id: id}} ->
-        {:ok, %{id: id}}
-      {:error, errors} ->
-        {:error, errors |> Helpers.parse_changeset_errors("Couldn't create the user")}
+  def user_name_exists?(_, %{name: name}, _) do
+    {:ok, Accounts.user_name_exists?(name)}
+  end
+
+  def user_email_exists?(_, %{email: email}, _) do
+    {:ok, Accounts.user_email_exists?(email)}
+  end
+
+  def create(_, request = %{email: email, name: user_name}, _) do
+    new_password = generate_password(10)
+
+    request =
+      request
+      |> Map.put_new(:role, "PLAYER")
+      |> Map.put(:password, new_password)
+
+    with {:ok, %User{id: id}} <- Accounts.create_user(request),
+         mail                 <- UserEmail.welcome(user_name, email, new_password),
+         {:ok, _}             <- Mailer.deliver(mail) do
+      {:ok, %{id: id}}
     end
   end
 
@@ -97,7 +115,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
         character_id: id,
         character_name: name,
         approved: approved
-      }}} <- VtmAuth.Accounts.update_session_dynamic_field(user, mapped_request) do
+      }}} <- Accounts.update_session_dynamic_field(user, mapped_request) do
       {:ok, %{
         id: id,
         name: name,
@@ -107,10 +125,10 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   def update_session_map(request, %{context: %{current_user: user}}) do
-    case VtmAuth.Accounts.has_session_dynamic_fields?(user) do
+    case Accounts.has_session_dynamic_fields?(user) do
       true ->
-        with parsed_request                     <- VtmAuth.Accounts.SessionInfo.extract_from_request(request),
-             {:ok, session}                     <- VtmAuth.Accounts.update_session_dynamic_field(user, parsed_request),
+        with parsed_request                     <- Accounts.SessionInfo.extract_from_request(request),
+             {:ok, session}                     <- Accounts.update_session_dynamic_field(user, parsed_request),
              %{session_info: %{"map_id" => id}} <- session do
           {:ok, id}
         end
@@ -120,13 +138,35 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   def clear_session(_, _, %{context: %{current_user: user}}) do
-    with {:ok, _} <- VtmAuth.Accounts.clear_session_dynamic_field(user) do
+    with {:ok, _} <- Accounts.clear_session_dynamic_field(user) do
       {:ok, true}
     end
   end
 
   def logout(_, _, %{context: %{current_user: user}}) do
-    with {:ok, _} <- VtmAuth.Accounts.complete_session(user) do
+    with {:ok, _} <- Accounts.complete_session(user) do
+      {:ok, true}
+    end
+  end
+
+  def update_user_password(x, %{
+    old_password: old,
+    new_password: new,
+    repeat_password: new
+  }, context = %{context: %{current_user: %{id: id}}}) do
+    with {:ok, user}  <- Accounts.get_user(id),
+         {:ok, _}     <- login(x, %{email: user.email, password: old, remember: false}, context),
+         {:ok, _}     <- user |> Accounts.update_user(%{password: new}) do
+      {:ok, true}
+    end
+  end
+
+  def request_new_password(_, %{user_email: user_email}, _) do
+    with {:ok, user}  <- Accounts.get_user_by_email(user_email),
+         new_password <- generate_password(10),
+         mail         <- VtmWeb.UserEmail.recover_password(user.name, user.email, new_password),
+         {:ok, _}     <- VtmWeb.Mailer.deliver(mail),
+         {:ok, _}     <- user |> Accounts.update_user(%{password: new_password}) do
       {:ok, true}
     end
   end

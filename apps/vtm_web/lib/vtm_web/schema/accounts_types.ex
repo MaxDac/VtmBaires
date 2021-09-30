@@ -61,6 +61,16 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware Middlewares.ChangesetErrors
     end
 
+    field :user_name_exists, :boolean do
+      arg :name, non_null(:string)
+      resolve &VtmWeb.Resolvers.AccountsResolvers.user_name_exists?/3
+    end
+
+    field :user_email_exists, :boolean do
+      arg :email, non_null(:string)
+      resolve &VtmWeb.Resolvers.AccountsResolvers.user_email_exists?/3
+    end
+
     field :sessions_list, list_of(:user) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :player
       resolve &VtmWeb.Resolvers.AccountsResolvers.all_sessions/3
@@ -78,9 +88,24 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :create_user, :creation_result do
       arg :email, non_null(:string)
       arg :name, non_null(:string)
-      arg :password, non_null(:string)
 
       resolve &AccountsResolvers.create/3
+    end
+
+    field :update_user_password, :boolean do
+      arg :old_password, non_null(:string)
+      arg :new_password, non_null(:string)
+      arg :repeat_password, non_null(:string)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &AccountsResolvers.update_user_password/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :request_new_password, :boolean do
+      arg :user_email, non_null(:string)
+
+      resolve &AccountsResolvers.request_new_password/3
     end
 
     field :login, :login_response do

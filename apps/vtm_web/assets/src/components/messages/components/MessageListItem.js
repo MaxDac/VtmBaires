@@ -60,7 +60,7 @@ const MessageListItem = ({message}: Props): any => {
     const getSubject = () => message?.subject;
 
     return (
-        <ListItem key={message.id} alignItems="flex-start" onClick={_ => history.push(Routes.readMessage(message.id))}>
+        <ListItem button key={message.id} alignItems="flex-start" onClick={_ => history.push(Routes.readMessage(message.id))}>
             <ListItemAvatar>
                 {readIcon()}
             </ListItemAvatar>

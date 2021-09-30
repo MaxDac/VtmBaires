@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import LoginLayout from "./LoginLayout";
-import { object, string, ref } from 'yup';
+import { object, string } from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Link, useHistory} from "react-router-dom";
@@ -14,22 +14,21 @@ import {Routes} from "../../AppRouter";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
+import {userNameExists} from "../../services/queries/accounts/UserNameExistsQuery";
+import {userEmailExists} from "../../services/queries/accounts/UserEmailExistsQuery";
 
-const SignUpSchema = object().shape({
-    email: string("Enter your email")
-        .email("Invalid name")
-        .required("Required"),
-    name: string("Enter your name").required("Required"),
-    password: string("Enter your password")
-        .min(8, "The password should be at least 8 characters long")
-        .max(20, "The password should be no more than 20 characters long")
-        .required("Required"),
-    repeatpassword: string("Enter your password")
-        .min(8, "The password should be at least 8 characters long")
-        .max(20, "The password should be no more than 20 characters long")
-        .oneOf([ref("password"), null], "The two password don't match.")
-        .required("Required")
-});
+type CheckerFunction = string => Promise<boolean>;
+
+const SignUpSchema = (nameChecker: CheckerFunction, emailChecker: CheckerFunction) =>
+    object().shape({
+        email: string("Enter your email")
+            .email("Invalid name")
+            .required("Required")
+            .test("checkEmailUnique", "Questo indirizzo email è già stato usato.", emailChecker),
+        name: string("Enter your name")
+            .required("Required")
+            .test("checkUsernameUnique", "Questo nome è già stato usato.", nameChecker)
+    });
 
 const CreateUserComponent = (): Node => {
     const history = useHistory();
@@ -38,26 +37,28 @@ const CreateUserComponent = (): Node => {
 
     const { setError } = useContext(UtilityContext);
 
+    const checkUsername = (name: string) => userNameExists(environment, name).then(r => r === false);
+
+    const checkEmail = (email: string) => userEmailExists(environment, email).then(r => r === false);
+
     const formik = useFormik({
         initialValues: {
             email: "",
-            name: "",
-            password: "",
-            repeatpassword: ""
+            name: ""
         },
-        validationSchema: SignUpSchema,
+        validationSchema: SignUpSchema(checkUsername, checkEmail),
+        // Validating on change would mean calling the back end every time the name changes.
+        validateOnChange: false,
+        validateOnBlur: true,
         onSubmit: v => onSubmit(v)
     });
 
     const onSubmit = ({
         email,
-        name,
-        password,
-        _repeatpassword
+        name
     }) => {
         createUser(environment, {
             email,
-            password,
             name
         })
             .then(_ => {
@@ -78,8 +79,6 @@ const CreateUserComponent = (): Node => {
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" />
                     <FormTextField formik={formik} fieldName="name" label="Name" />
-                    <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
-                    <FormTextField formik={formik} fieldName="repeatpassword" label="Repeat Password" type="password" />
                     <Button
                         type="submit"
                         fullWidth

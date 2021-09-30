@@ -26,6 +26,10 @@ defmodule VtmWeb.SessionView do
     %{}
   end
 
+  def render("password-request-ok.json", _) do
+    %{}
+  end
+
   def render("not-ok.json", _) do
     %{
       errors: [

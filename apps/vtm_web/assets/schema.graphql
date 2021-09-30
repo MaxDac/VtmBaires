@@ -207,18 +207,20 @@ type RootMutationType {
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
-  createUser(email: String!, name: String!, password: String!): CreationResult
+  createUser(email: String!, name: String!): CreationResult
   deleteCharacter(characterId: ID): Boolean
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
+  requestNewPassword(userEmail: String!): Boolean
   resetSession: Boolean
   sendMessage(message: SendMessageRequest!): Message
   setMessageRead(messageId: ID): Message
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
   updateSessionMap(mapId: ID): ID
+  updateUserPassword(newPassword: String!, oldPassword: String!, repeatPassword: String!): Boolean
 }
 
 type RootQueryType {
@@ -239,6 +241,8 @@ type RootQueryType {
   sectionMaps(parentId: ID): [ChatLocation]
   sessionsList: [User]
   subscriptionToken: String
+  userEmailExists(email: String!): Boolean
+  userNameExists(name: String!): Boolean
 }
 
 type RootSubscriptionType {

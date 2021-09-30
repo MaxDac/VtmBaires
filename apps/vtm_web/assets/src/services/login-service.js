@@ -18,3 +18,6 @@ export const checkMaster = (): Promise<any> =>
 
 export const logout = (): Promise<any> =>
     post<any>("/logout", {});
+
+export const requestNewPassword = (userEmail: string): Promise<any> =>
+    post<any>("/password/new", {userEmail});

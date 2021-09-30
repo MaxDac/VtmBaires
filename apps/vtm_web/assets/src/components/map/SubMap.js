@@ -59,9 +59,9 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
             <Container maxWidth="lg" className={classes.container}>
                 <Grid container>
                     <Grid item xs={12} sm={8} md={9}>
-                        <img alt="map-image" src={imageUrl} style={{
+                        <img src={imageUrl} style={{
                             maxWidth: "70vw"
-                        }} />
+                        }} alt="map" />
                     </Grid>
                     <Grid item xs={12} sm={4} md={3}>
                         <Paper elevation={4} variant="outlined">

@@ -13,6 +13,7 @@ type FormTextFieldProps = {
     rows?: ?number;
     fullWidth?: ?boolean;
     className?: ?string;
+    validate?: ?(string => string);
 }
 
 const FormTextField = (props: FormTextFieldProps): any => {
@@ -38,7 +39,8 @@ const FormTextField = (props: FormTextFieldProps): any => {
             value={props.formik.values[props.fieldName]}
             onChange={props.formik.handleChange}
             error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}
-            helperText={props.formik.touched[props.fieldName] && props.formik.errors[props.fieldName]} />
+            helperText={props.formik.touched[props.fieldName] && props.formik.errors[props.fieldName]}
+            validate={props.validate}/>
     );
 };
 

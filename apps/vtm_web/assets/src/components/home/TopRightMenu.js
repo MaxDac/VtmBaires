@@ -30,7 +30,7 @@ export default function TopRightMenu(): any {
     const { setCurrentCharacter } = useContext(SessionContext);
     const [, currentCharacter] = useSession();
     const { openDialog } = useContext(UtilityContext);
-    const online = useSessionQuery()?.usersList ?? [];
+    const online = useSessionQuery()?.sessionsList ?? [];
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
@@ -95,17 +95,31 @@ export default function TopRightMenu(): any {
 
     const logoutClick = _ => {
         openDialog("Logout", "Do you want to log out?", () => {
-            logout()
-                .then(_ => {
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    console.log("performing logout");
-                    history.push(Routes.login);
-                })
-                .catch(e => {
-                    console.error("Error while performing logout", e);
-                    history.push(Routes.login);
-                });
+            const clearClientSession = () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                console.log("performing logout");
+                history.push(Routes.login);
+            }
+
+            window.addEventListener("unhandledrejection", e => {
+                console.error("Unhandled error", e);
+                clearClientSession();
+            })
+
+            try {
+                logout()
+                    .catch(e => {
+                        console.error("Error while performing logout", e);
+                    })
+                    .finally(() => {
+                        clearClientSession();
+                    });
+            }
+            catch (e) {
+                console.error("Catastrophic error", e);
+                clearClientSession();
+            }
         });
     }
 

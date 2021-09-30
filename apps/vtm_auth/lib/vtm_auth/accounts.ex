@@ -7,6 +7,9 @@ defmodule VtmAuth.Accounts do
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.Session
   alias VtmAuth.Accounts.SessionInfo
+  alias VtmAuth.Accounts.ResetPasswordRequest
+
+  import VtmAuth.Helpers
 
   @session_offset 60 * 30
 
@@ -44,13 +47,36 @@ defmodule VtmAuth.Accounts do
     |> nil_to_result()
   end
 
+  @spec user_name_exists?(String.t()) :: boolean()
+  def user_name_exists?(name) do
+    query = from u in User, where: u.name == ^name
+
+    case Repo.one(query) do
+      nil -> false
+      _   -> true
+    end
+  end
+
+  @spec user_email_exists?(String.t()) :: boolean()
+  def user_email_exists?(email) do
+    query = from u in User, where: u.email == ^email
+
+    case Repo.one(query) do
+      nil -> false
+      _   -> true
+    end
+  end
+
+  @doc """
+  Creates a new user. The user will not be able to set its password at the creation step,
+  the password will be automatically generated and sent by email.
+  """
   @spec create_user(%{}) :: {:ok, %User{}} | {:error, any()}
   def create_user(attrs \\ %{}) do
     new_attrs =
-      case attrs do
-        %{ "role" => role } -> %{ attrs | "role" => String.downcase(role) }
-        %{ role: role }     -> %{ attrs | role: String.downcase(role) }
-        _                   -> attrs
+      case attrs |> map_to_atom_map() do
+        %{role: role} -> %{attrs | role: String.downcase(role)}
+        _             -> attrs
       end
 
     %User{}
@@ -168,5 +194,11 @@ defmodule VtmAuth.Accounts do
       _ ->
         {:error, :unauthorized}
     end
+  end
+
+  def create_new_password_request(attrs) do
+    %ResetPasswordRequest{}
+    |> ResetPasswordRequest.changeset(attrs)
+    |> Repo.insert()
   end
 end

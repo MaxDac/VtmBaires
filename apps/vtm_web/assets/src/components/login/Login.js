@@ -54,7 +54,7 @@ const LoginComponent = (): Node => {
             setWait(false);
             console.error("Unhandled error", e);
             setError({type: 'error', message: "Username or password invalid."});
-        })
+        });
 
         login(email, password, remember)
             .then(res => {
@@ -91,7 +91,7 @@ const LoginComponent = (): Node => {
                 </form>
                 <Grid container>
                     <Grid item xs>
-                        <Link to="#" variant="body2" sx={{
+                        <Link to={Routes.recoverPassword} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             Forgot password?

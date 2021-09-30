@@ -23,12 +23,15 @@ import ReceivedMessages from "./components/messages/ReceivedMessages";
 import SentMessages from "./components/messages/SentMessages";
 import ReadMessage from "./components/messages/ReadMessage";
 import NewMessage from "./components/messages/NewMessage";
+import RecoverPassword from "./components/login/RecoverPassword";
+import Settings from "./components/settings/Settings";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
 export const Routes = {
     login: "/login",
     register: "/register",
+    recoverPassword: "/recover-password",
     main: "/",
     admin: "/admin",
     creation1: "/creation/1",
@@ -37,6 +40,7 @@ export const Routes = {
     creation4: "/creation/4",
     creation5: "/creation/5",
     creationBase: "/creation/",
+    settings: "/settings",
     messages: "/messages",
     sentMessages: "/messages/sent",
     readMessage: (id: string): string => `/message/${id}`,
@@ -62,6 +66,7 @@ const AppRouter = (): any => {
         <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={CreateUser} />
+            <Route exact path="/recover-password" component={RecoverPassword} />
 
             <AuthRoute exact path="/" component={() => <Main />} />
 
@@ -77,6 +82,8 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/map" component={() => <MainMap />} />
             <AuthRoute exact path="/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
             <AuthRoute exact path="/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
+
+            <AuthRoute exact path="/settings" component={() => <Settings />} />
 
             <AuthRoute exact path="/messages" component={() => <ReceivedMessages />} />
             <AuthRoute exact path="/messages/sent" component={() => <SentMessages />} />

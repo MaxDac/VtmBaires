@@ -9,7 +9,6 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type CreateUserMutationVariables = {|
   email: string,
-  password: string,
   name: string,
 |};
 export type CreateUserMutationResponse = {|
@@ -26,32 +25,28 @@ export type CreateUserMutation = {|
 /*
 mutation CreateUserMutation(
   $email: String!
-  $password: String!
   $name: String!
 ) {
-  createUser(email: $email, password: $password, name: $name) {
+  createUser(email: $email, name: $name) {
     id
   }
 }
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "email"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "name"
-},
-v2 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "password"
-},
-v3 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "email"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "name"
+  }
+],
+v1 = [
   {
     "alias": null,
     "args": [
@@ -64,11 +59,6 @@ v3 = [
         "kind": "Variable",
         "name": "name",
         "variableName": "name"
-      },
-      {
-        "kind": "Variable",
-        "name": "password",
-        "variableName": "password"
       }
     ],
     "concreteType": "CreationResult",
@@ -89,39 +79,31 @@ v3 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/),
-      (v2/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateUserMutation",
-    "selections": (v3/*: any*/),
+    "selections": (v1/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v2/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateUserMutation",
-    "selections": (v3/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "719b01e9f27afff2e6567c3aa9dfce25",
+    "cacheID": "a372647386a1c8492c5e500c923b85af",
     "id": null,
     "metadata": {},
     "name": "CreateUserMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateUserMutation(\n  $email: String!\n  $password: String!\n  $name: String!\n) {\n  createUser(email: $email, password: $password, name: $name) {\n    id\n  }\n}\n"
+    "text": "mutation CreateUserMutation(\n  $email: String!\n  $name: String!\n) {\n  createUser(email: $email, name: $name) {\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '3ec93124fa0866289d07c75393e1a4c1';
+(node: any).hash = 'e464f5528ac086c79e04daa286ef0bd9';
 module.exports = node;
