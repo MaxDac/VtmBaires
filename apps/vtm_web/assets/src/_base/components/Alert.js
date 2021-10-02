@@ -12,7 +12,7 @@ export type AlertProps = {
 };
 
 const Alert = (props: AlertProps): Node => 
-    <MuiAlert elevation={6} variant="filled" severity={props.type} onClose={props.onClose}>
+    <MuiAlert elevation={6} severity={props.type} onClose={props.onClose}>
         {props.children}
     </MuiAlert>;
 

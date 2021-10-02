@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Suspense} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import CharacterSheetInfoSection from "./sheet-sections/CharacterSheetInfoSection";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";

@@ -19,6 +19,7 @@ defmodule VtmWeb.Schema do
   import_types __MODULE__.CharacterTypes
   import_types __MODULE__.ChatTypes
   import_types __MODULE__.MessageTypes
+  import_types __MODULE__.ForumTypes
 
   query do
     import_fields :base_queries
@@ -26,6 +27,7 @@ defmodule VtmWeb.Schema do
     import_fields :character_queries
     import_fields :chat_queries
     import_fields :messages_queries
+    import_fields :forum_queries
   end
 
   mutation do
@@ -33,9 +35,11 @@ defmodule VtmWeb.Schema do
     import_fields :character_mutations
     import_fields :chat_mutations
     import_fields :messages_mutations
+    import_fields :forum_mutations
   end
 
   subscription do
     import_fields :chat_subscriptions
+    import_fields :messages_subscriptions
   end
 end

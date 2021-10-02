@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext, useEffect, useRef, useState} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./ChatInput";
 import {subscribe} from "../../_base/relay-utils";
@@ -37,7 +37,7 @@ const Chat = ({ id }: ChatProps): any => {
     const [, character] = useSession();
 
     const {
-        setError,
+        showUserNotification,
         openDialog
     } = useContext(UtilityContext);
 
@@ -90,15 +90,15 @@ const Chat = ({ id }: ChatProps): any => {
         if (character?.id != null && map?.id != null) {
             action(character.id, map.id)
                 // .then(result => console.log("result", result))
-                .catch(error => setError({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
+                .catch(error => showUserNotification({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
         }
 
         if (!character?.id) {
-            setError({ type: 'error', message: "You must select a character to play."});
+            showUserNotification({ type: 'error', message: "You must select a character to play."});
         }
 
         if (!map?.id) {
-            setError({ type: 'error', message: "You're not on a map."});
+            showUserNotification({ type: 'error', message: "You're not on a map."});
         }
     }
 
@@ -125,7 +125,7 @@ const Chat = ({ id }: ChatProps): any => {
     const showChatInput = () => {
         if (character?.approved) {
             return (
-                <ChatInput setError={setError} newChatEntry={onNewEntry} newDiceEntry={onNewDiceEntry} />
+                <ChatInput newChatEntry={onNewEntry} newDiceEntry={onNewDiceEntry} />
             );
         }
 

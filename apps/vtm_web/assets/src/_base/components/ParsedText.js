@@ -42,7 +42,7 @@ const ParsedText = ({text, sx}: Props): any => {
             }, <></>);
 
     return (
-        <Typography sx={sx}>
+        <Typography component="div" sx={sx}>
             {applyNewLine(text ?? "")}
         </Typography>
     );

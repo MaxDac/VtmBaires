@@ -17,8 +17,19 @@ defmodule VtmWeb.Schema.MessageTypes do
     field :receiver_user, non_null(:user)
     field :sender_character, :character
     field :receiver_character, :character
+    field :sender_name, :string
     field :inserted_at, :date_time
     field :modified_at, :date_time
+  end
+
+  object :message_notification do
+    field :message, :message
+    field :number_unread, :integer
+  end
+
+  object :message_digest do
+    field :total_messages, :integer
+    field :unread_messages, :integer
   end
 
   input_object :send_message_request do
@@ -37,6 +48,12 @@ defmodule VtmWeb.Schema.MessageTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&MessageResolvers.get_message/2, message_id: :message)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :messages_digest, :message_digest do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &MessageResolvers.message_digest/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end
@@ -64,6 +81,18 @@ defmodule VtmWeb.Schema.MessageTypes do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&MessageResolvers.delete_message/2, message_id: :message)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+  end
+
+  object :messages_subscriptions do
+    field :new_message_notification, :message_notification do
+      arg :token, non_null(:string)
+
+      config &MessageResolvers.config_message_subscription/2
+
+      trigger :send_message, topic: &MessageResolvers.handle_new_message_trigger/1
+
+      resolve &MessageResolvers.message_subscription_resolver/3
     end
   end
 end

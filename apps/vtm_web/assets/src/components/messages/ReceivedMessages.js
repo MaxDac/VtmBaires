@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Suspense} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userReceivedMessagesQuery} from "../../services/queries/messages/UserReceivedMessagesQuery";
 import List from "@mui/material/List";

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useCallback, useContext, useState, Suspense} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import CharacterProvider from "../_data/CharacterProvider";
 import CharacterSheetStatsSection from "./sheet-sections/CharacterSheetStatsSection";
 import Typography from "@mui/material/Typography";
@@ -26,7 +26,7 @@ type Props = {
 
 const Internal = ({character}) => {
     const theme = useTheme();
-    const {setWait, setError, openDialog} = useContext(UtilityContext);
+    const {setWait, showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const attributes = useAttributesSlimQuery()?.attributes;
     const history = useHistory();
@@ -64,7 +64,7 @@ const Internal = ({character}) => {
                 console.log("response", r);
             })
             .catch(e => {
-                setError({
+                showUserNotification({
                     type: "error",
                     graphqlError: e,
                     message: "C'e' stato un errore nella gestione della richiesta."
@@ -81,11 +81,11 @@ const Internal = ({character}) => {
             FinalizeCharacterMutation(environment, characterId)
                 .then(r => {
                     console.log("character creation successful", r);
-                    setError({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
+                    showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
                     setTimeout(() => history.push(Routes.main), 1000);
                 })
                 .catch(e => {
-                    setError({
+                    showUserNotification({
                         type: "error",
                         graphqlError: e,
                         message: "C'è stato un errore durante la finalizzazione del personaggio."
@@ -99,11 +99,11 @@ const Internal = ({character}) => {
             DeleteCharacterMutation(environment, characterId)
                 .then(r => {
                     console.log("character deletion successful", r);
-                    setError({type: "success", message: "Il tuo personaggio è stato cancellato!"});
+                    showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
                     destroySession().finally(() => history.push(Routes.main));
                 })
                 .catch(e => {
-                    setError({
+                    showUserNotification({
                         type: "error",
                         graphqlError: e,
                         message: "C'è stato un errore durante la finalizzazione del personaggio."

@@ -3,7 +3,9 @@ defmodule Vtm.Messages do
 
   alias Vtm.Repo
   alias Vtm.Messages.Message
+  alias Vtm.Messages.MessageDigest
   alias Vtm.Characters.Character
+  alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
 
   alias Vtm.Characters
@@ -24,6 +26,27 @@ defmodule Vtm.Messages do
     attrs
   end
 
+  @doc """
+  The messare instance returned from the message creation does not contain neither the sender user nor the character.
+  This method populates only the name of the sender for notification purpouses.
+  """
+  @spec parse_sender_name({:ok, Message.t()} | {:error, any()}) :: {:ok, Message.t()} | {:error, any()}
+  def parse_sender_name({:ok, message = %Message{sender_character_id: character_id}}) do
+    case Characters.get_character_name_by_id(character_id) do
+      nil   -> parse_sender_name({:ok, message |> Map.drop([:receiver_character_id])})
+      name  -> {:ok, message |> Map.put(:sender_name, name)}
+    end
+  end
+
+  def parse_sender_name({:ok, message = %Message{sender_user_id: user_id}}) do
+    case Accounts.get_user_name_by_id(user_id) do
+      nil   -> {:ok, message}
+      name  -> {:ok, message |> Map.put(:sender_name, name)}
+    end
+  end
+
+  def parse_sender_name(e), do: e
+
   defp send_message_p(%{id: user_id}, attrs) do
     new_attrs =
       attrs
@@ -38,6 +61,7 @@ defmodule Vtm.Messages do
         %Message{}
         |> Message.changeset(as)
         |> Repo.insert()
+        |> parse_sender_name()
     end
   end
 
@@ -78,6 +102,7 @@ defmodule Vtm.Messages do
         left_join: cr in Character,
         on: m.receiver_character_id == cr.id,
         where: m.receiver_user_id == ^user_id,
+        where: m.hide_for_receiver == false,
         select: %{%{%{m | sender_user: u} | sender_character: {
           cs.id,
           cs.name
@@ -100,6 +125,7 @@ defmodule Vtm.Messages do
         left_join: cr in Character,
         on: m.receiver_character_id == cr.id,
         where: m.sender_user_id == ^user_id,
+        where: m.hide_for_sender == false,
         select: %{%{%{m | receiver_user: u} | sender_character: {
           cs.id,
           cs.name
@@ -109,6 +135,24 @@ defmodule Vtm.Messages do
         }}
 
     Repo.all(query) |> Enum.map(&remap_message/1)
+  end
+
+  @spec message_digest(Integer.t()) :: MessageDigest.t()
+  def message_digest(user_id) do
+    query = from m in Message, where: m.receiver_user_id == ^user_id
+
+    case Repo.all(query) do
+      []        ->
+        %MessageDigest{total_messages: 0, unread_messages: 0}
+      messages  ->
+        %MessageDigest{
+          total_messages: messages |> Enum.count(),
+          unread_messages: messages |> Enum.count(fn
+            %Message{read: false} -> true
+            _                     -> false
+          end)
+        }
+    end
   end
 
   @spec get_message(%User{}, String.t()) :: {:ok, %Message{}} | {:error, :not_found}

@@ -73,6 +73,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def config_chat_subscription(%{map_id: map_id, token: token}, _context) do
+    IO.puts "received token for subscription: #{token}"
     with {:ok, _} <- VtmWeb.Authentication.verify_subscription_key_token(token) do
       {:ok, topic: from_global_id?(map_id)}
     end

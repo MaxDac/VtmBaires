@@ -2,7 +2,7 @@
 
 import React, {useContext} from 'react';
 import Container from '@mui/material/Container';
-import MainLayout from '../Main.Layout';
+import MainLayout from '../MainLayout';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -64,7 +64,7 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
                         }} alt="map" />
                     </Grid>
                     <Grid item xs={12} sm={4} md={3}>
-                        <Paper elevation={4} variant="outlined">
+                        <Paper elevation={0} variant="outlined">
                             <List component="nav"
                                   aria-labelledby="nested-list-subheader"
                                   subheader={subHeader()}

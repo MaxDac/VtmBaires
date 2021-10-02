@@ -128,6 +128,21 @@ type Clan implements Node {
   name: String
 }
 
+input CreateNewPostRequest {
+  creatorCharacterId: ID
+  creatorUserId: ID!
+  forumThreadId: ID!
+  text: String
+}
+
+input CreateNewThreadRequest {
+  creatorCharacterId: ID
+  creatorUserId: ID!
+  description: String
+  sectionId: ID!
+  title: String!
+}
+
 type CreationResult {
   id: ID
 }
@@ -140,6 +155,49 @@ type Discipline implements Node {
   """The ID of an object"""
   id: ID!
   name: String
+}
+
+type ForumPost implements Node {
+  creatorAvatar: String
+  creatorName: String
+  forumSection: ForumSection
+  forumThread: ForumThread
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  text: String
+  updatedAt: DateTime
+}
+
+type ForumSection implements Node {
+  canEdit: Boolean
+  canView: Boolean
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  onGame: Boolean
+  title: String
+  updatedAt: DateTime
+}
+
+type ForumThread implements Node {
+  creatorName: String
+  description: String
+  forumSection: ForumSection
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  title: String
+  updatedAt: DateTime
+}
+
+type ForumThreadPage {
+  posts: [ForumPost]
+  thread: ForumThread
 }
 
 scalar Hour
@@ -177,10 +235,37 @@ type Message implements Node {
   receiverUserId: ID!
   senderCharacter: Character
   senderCharacterId: ID
+  senderName: String
   senderUser: User!
   senderUserId: ID!
   subject: String!
   text: String!
+}
+
+type MessageDigest {
+  totalMessages: Int
+  unreadMessages: Int
+}
+
+type MessageNotification {
+  message: Message
+  numberUnread: Int
+}
+
+input NewForumPostInput {
+  request: CreateNewPostRequest!
+}
+
+type NewForumPostPayload {
+  result: ForumPost
+}
+
+input NewForumThreadInput {
+  request: CreateNewThreadRequest!
+}
+
+type NewForumThreadPayload {
+  result: ForumThread
 }
 
 interface Node {
@@ -213,6 +298,8 @@ type RootMutationType {
   finalizeCharacter(characterId: ID): Character
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
+  newForumPost(input: NewForumPostInput!): NewForumPostPayload
+  newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
   requestNewPassword(userEmail: String!): Boolean
   resetSession: Boolean
   sendMessage(message: SendMessageRequest!): Message
@@ -231,12 +318,16 @@ type RootQueryType {
   clans: [Clan]
   getCharacter(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
+  getForumSections: [ForumSection]
+  getForumThread(id: ID): ForumThreadPage
+  getForumThreads(forumSectionId: ID): [ForumThread]
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
   mapChatEntries(mapId: ID): [MapChatEntry]
   me: User
+  messagesDigest: MessageDigest
   predatorTypes: [PredatorType]
   sectionMaps(parentId: ID): [ChatLocation]
   sessionsList: [User]
@@ -247,6 +338,7 @@ type RootQueryType {
 
 type RootSubscriptionType {
   newChatEntry(mapId: ID!, token: String!): MapChatEntry
+  newMessageNotification(token: String!): MessageNotification
 }
 
 input SendMessageRequest {

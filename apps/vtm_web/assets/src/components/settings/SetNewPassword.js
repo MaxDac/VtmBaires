@@ -27,7 +27,7 @@ const SetNewPassword = (): any => {
     const theme = useTheme();
     const environment = useRelayEnvironment();
 
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
 
     const formik = useFormik({
         initialValues: {
@@ -50,14 +50,14 @@ const SetNewPassword = (): any => {
             repeatPassword)
             .then(response => {
                 if (response === true) {
-                    setError({type: "success", message: "La tua password è stata correttamente resettata."});
+                    showUserNotification({type: "success", message: "La tua password è stata correttamente resettata."});
                 }
                 else {
-                    setError({type: "warning", message: "Il cambio di password non è andato a buon fine, contatta un master per aiuto."});
+                    showUserNotification({type: "warning", message: "Il cambio di password non è andato a buon fine, contatta un master per aiuto."});
                 }
             })
             .catch(errors => {
-                setError({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
+                showUserNotification({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
             });
     };
 

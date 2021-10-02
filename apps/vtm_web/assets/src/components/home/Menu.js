@@ -11,6 +11,7 @@ import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import SettingsIcon from '@mui/icons-material/Settings';
+import ChatIcon from '@mui/icons-material/Chat';
 import type { History } from "../../_base/types";
 import {Routes} from "../../AppRouter";
 
@@ -45,6 +46,12 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
                     <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
+            </ListItem>
+            <ListItem button onClick={_ => history.push(Routes.forumSections)}>
+                <ListItemIcon>
+                    <ChatIcon />
+                </ListItemIcon>
+                <ListItemText primary="Forum" />
             </ListItem>
             <ListItem button onClick={pushHistory(Routes.settings)}>
                 <ListItemIcon>

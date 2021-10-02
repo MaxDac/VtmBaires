@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useState} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";

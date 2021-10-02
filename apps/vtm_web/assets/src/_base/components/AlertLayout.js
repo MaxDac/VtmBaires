@@ -75,8 +75,8 @@ const AlertLayout = (props: Props): any => {
         // snackbarActions
     }
 
-    const setError = (errorProps) => {
-        const { type, graphqlError, message } = errorProps;
+    const showUserNotification = notificationProps => {
+        const { type, graphqlError, message } = notificationProps;
 
         if (graphqlError && graphqlError?.errors?.length > 0) {
             const e = parseGraphqlMessage(graphqlError, message);
@@ -85,7 +85,7 @@ const AlertLayout = (props: Props): any => {
         else {
             enqueueSnackbar(message, { ...defaultSnackbarVariant, variant: type });
         }
-    }
+    };
 
     return (
         <div>
@@ -114,7 +114,7 @@ const AlertLayout = (props: Props): any => {
             </Dialog>
             { props.children({
                 openDialog: handleDialogOpen,
-                setError,
+                showUserNotification,
                 setWait: wait
             }) }
         </div>);

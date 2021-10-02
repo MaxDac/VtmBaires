@@ -6,7 +6,7 @@ import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
 import {bool, object, string} from "yup";
 import {useFormik} from "formik";
 import Grid from "@mui/material/Grid";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import FormTextField from "../../_base/components/FormTextField";
 import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
@@ -206,7 +206,7 @@ const BrandNewMessage = onSubmit => {
 const NewMessage = (props: Props): any => {
     const environment = useRelayEnvironment();
     const history = useHistory();
-    const {setError} = useContext(UtilityContext);
+    const {showUserNotification} = useContext(UtilityContext);
     const [,character] = useSession();
 
     const onSubmit = (e: SubmitProperties) => {
@@ -219,11 +219,11 @@ const NewMessage = (props: Props): any => {
             subject: e.subject,
             text: e.text
         })
-            .then(_ => setError({
+            .then(_ => showUserNotification({
                 type: "success",
                 message: "Messaggio inviato correttamente"
             }))
-            .catch(e => setError({
+            .catch(e => showUserNotification({
                 type: "error",
                 graphqlError: e,
                 message: "Errore inviando il messaggio!"

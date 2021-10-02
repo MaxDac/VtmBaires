@@ -50,12 +50,6 @@ defmodule VtmWeb.SessionController do
     Accounts.update_session(parsed_user, attrs)
   end
 
-  defp ip_to_string(ip) do
-    ip
-    |> Tuple.to_list()
-    |> Enum.join(".")
-  end
-
   def check(conn, _) do
     with {:ok, user} <- Authentication.check_request_cookie(conn) do
       conn
@@ -87,7 +81,7 @@ defmodule VtmWeb.SessionController do
     |> Enum.join(".")
   end
 
-  defp ip_to_string(ip), do: IO.inspect ip
+  defp ip_to_string(ip), do: IO.inspect(ip)
 
   @graphql """
   mutation ($userEmail: String!) {

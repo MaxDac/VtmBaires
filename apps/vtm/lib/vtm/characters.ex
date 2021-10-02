@@ -229,6 +229,12 @@ defmodule Vtm.Characters do
     end
   end
 
+  def get_character_name_by_id(character_id) do
+    with %{name: name} when not is_nil(name)  <- Character |> Repo.get(character_id) do
+      name
+    end
+  end
+
   def create(attrs, %{role: :master}) do
     %Character{}
     |> Character.changeset(attrs)

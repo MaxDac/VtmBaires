@@ -47,7 +47,7 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
     }
 
     const parseChatEntryText = () =>
-        <Typography sx={{
+        <Typography component="div" sx={{
             fontFamily: 'GabrieleLightRibbon'
         }}>
             <ReactMarkdown components={markdownComponents}>
@@ -56,7 +56,7 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
         </Typography>;
 
     const parseChatEntryResult = () =>
-        <Typography sx={{
+        <Typography component="div" sx={{
             fontFamily: 'GabrieleLightRibbon'
         }}>
             <ReactMarkdown components={markdownComponents}>
@@ -65,14 +65,14 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
         </Typography>;
 
     const parseChatEntryMasterText = () =>
-        <Typography sx={masterPhraseStyle}>
+        <Typography component="div" sx={masterPhraseStyle}>
             <ReactMarkdown components={markdownComponents}>
                 {entry.text}
             </ReactMarkdown>
         </Typography>;
 
     const parseChatEntryMasterResult = () =>
-        <Typography sx={masterPhraseStyle}>
+        <Typography component="div" sx={masterPhraseStyle}>
             <ReactMarkdown components={markdownComponents}>
                 {entry.result}
             </ReactMarkdown>

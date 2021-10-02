@@ -21,8 +21,11 @@ import type {
 } from "relay-runtime";
 
 const buildWebSocketUrl = () => {
-    const prefix = process.env.NODE_ENV === "development" ? "ws" : "wss";
-    return `${prefix}://${window.document.location.host}/socket`;
+    if (process.env.NODE_ENV === "development") {
+        return `ws://localhost:4000/socket`;
+    }
+
+    return `wss://${window.document.location.host}/socket`;
 };
 
 const absintheSocket = AbsintheSocket.create(

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import Typography from "@mui/material/Typography";
 import {object, string} from "yup";
 import {useFormik} from "formik";
@@ -33,7 +33,7 @@ const Creation1 = (): any => {
     const environment = useRelayEnvironment();
     const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans;
 
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
 
     const [avatar, setAvatar] = useState<?string>(null);
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
@@ -79,7 +79,7 @@ const Creation1 = (): any => {
 
                 history.push(Routes.creation2);
             })
-            .catch(e => setError({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
+            .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
     }
 
     return (

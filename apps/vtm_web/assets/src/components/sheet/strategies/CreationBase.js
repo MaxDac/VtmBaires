@@ -31,7 +31,7 @@ export type CreationBaseProps<TFormAttributes> = {|
 const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
 
     const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
         id: props.characterId
@@ -112,7 +112,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         appendAttributesMutation(environment, request, props.currentStage)
             .then(_ => history.push(`${Routes.creationBase}${props.currentStage + 1}`))
-            .catch(e => setError({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
+            .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }
 
     return (

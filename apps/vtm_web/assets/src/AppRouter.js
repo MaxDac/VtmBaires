@@ -25,6 +25,11 @@ import ReadMessage from "./components/messages/ReadMessage";
 import NewMessage from "./components/messages/NewMessage";
 import RecoverPassword from "./components/login/RecoverPassword";
 import Settings from "./components/settings/Settings";
+import ForumSections from "./components/forum/ForumSections";
+import ForumSection from "./components/forum/ForumSection";
+import CreateNewThread from "./components/forum/forms/CreateNewThread";
+import ForumThread from "./components/forum/ForumThread";
+import CreateNewPost from "./components/forum/forms/CreateNewPost";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
@@ -45,6 +50,11 @@ export const Routes = {
     sentMessages: "/messages/sent",
     readMessage: (id: string): string => `/message/${id}`,
     newMessage: (id?: string): string => id ? `/message/new/${id}` : "/message/new",
+    forumSections: "/forum",
+    forumSection: (sectionId: string): string => `/forum/${sectionId}`,
+    forumThread: (threadId: string): string => `/forum/thread/${threadId}`,
+    createNewForumThread: (sectionId: string): string => `/forum/${sectionId}/thread/new`,
+    createNewForumPost: (threadId: string): string => `/forum/thread/${threadId}/post/new`,
     mainMap: "/map",
     sheet: (id?: ?string): string => id != null ? `/sheet/${id}` : "/sheet",
     subMap: (id: string): string => `/map/${id}`,
@@ -90,6 +100,12 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/message/new" component={() => <NewMessage />} />
             <AuthRoute exact path="/message/new/:id" component={({match: {params: {id}}}) => <NewMessage replyMessageId={id} />} />
             <AuthRoute exact path="/message/:id" component={({match: {params: {id}}}) => <ReadMessage messageId={id} />} />
+
+            <AuthRoute exact path="/forum" component={() => <ForumSections />} />
+            <AuthRoute exact path="/forum/:id/thread/new" component={({match: {params: {id}}}) => <CreateNewThread sectionId={id} />} />
+            <AuthRoute exact path="/forum/thread/:id/post/new" component={({match: {params: {id}}}) => <CreateNewPost threadId={id} />} />
+            <AuthRoute exact path="/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
+            <AuthRoute exact path="/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
 
             <AuthRoute exact path="/admin/guides" component={() => <AdminGuides />} />
             <AuthRoute exact path="/admin" component={() => <AdminDashboard />} />

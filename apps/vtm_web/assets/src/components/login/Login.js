@@ -29,7 +29,7 @@ const LoginComponent = (): Node => {
     const theme = useTheme();
 
     const {
-        setError,
+        showUserNotification,
         setWait
     } = useContext(UtilityContext);
     
@@ -53,7 +53,7 @@ const LoginComponent = (): Node => {
         window.addEventListener("unhandledrejection", e => {
             setWait(false);
             console.error("Unhandled error", e);
-            setError({type: 'error', message: "Username or password invalid."});
+            showUserNotification({type: 'error', message: "Username or password invalid."});
         });
 
         login(email, password, remember)
@@ -64,7 +64,7 @@ const LoginComponent = (): Node => {
             })
             .catch(errors => {
                 setWait(false);
-                setError({type: 'error', graphqlErrors: errors, message: "Username or password invalid."});
+                showUserNotification({type: 'error', graphqlErrors: errors, message: "Username or password invalid."});
             });
     }
 

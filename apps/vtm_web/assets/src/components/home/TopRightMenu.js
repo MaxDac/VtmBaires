@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import PeopleIcon from "@mui/icons-material/People";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -15,7 +15,7 @@ import {
     userCharactersQuery
 } from "../../services/queries/accounts/UserCharactersQuery";
 import type {UserCharactersQuery} from "../../services/queries/accounts/__generated__/UserCharactersQuery.graphql";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {subscribe, useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import useStyles from "../Main.Layout.Style";
 import {useSessionQuery} from "../../services/queries/accounts/SessionQuery";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
@@ -23,17 +23,58 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useSession} from "../../services/session-service";
 import {SessionContext, UtilityContext} from "../../contexts";
 import ForumIcon from '@mui/icons-material/Forum';
+import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
+import MessageNotificationSubscription from "../../services/subscriptions/MessageNotificationSubscription";
+import type {MessageNotificationSubscriptionResponse} from "../../services/subscriptions/__generated__/MessageNotificationSubscription.graphql";
+import Badge from "@mui/material/Badge";
+import {getMessageDigestQuery} from "../../services/queries/messages/GetMessageDigestQuery";
+import type {GetMessageDigestQuery} from "../../services/queries/messages/__generated__/GetMessageDigestQuery.graphql";
 
 export default function TopRightMenu(): any {
     const history = useHistory();
     const classes = useStyles();
     const { setCurrentCharacter } = useContext(SessionContext);
     const [, currentCharacter] = useSession();
-    const { openDialog } = useContext(UtilityContext);
+    const { showUserNotification, openDialog } = useContext(UtilityContext);
     const online = useSessionQuery()?.sessionsList ?? [];
+
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
+
+    const messagesDigest = useCustomLazyLoadQuery<GetMessageDigestQuery>(getMessageDigestQuery, {}, {
+        fetchPolicy: "store-and-network"
+    });
+
+    const [numberOfMessages, setNumberOfMessages] = useState(messagesDigest?.messagesDigest?.unreadMessages ?? 0);
+    
+    // Message notification subscription
+    const chatToken = useSubscriptionTokenQuery();
+
+    useEffect(() => {
+        const handleNotification = (notification: MessageNotificationSubscriptionResponse) => {
+            if (notification?.newMessageNotification?.message != null) {
+                const message = notification.newMessageNotification.message
+                showUserNotification({
+                    type: "info",
+                    message: message.senderName != null
+                        ?`${message.senderName}: ${message.subject}`
+                        : message.subject
+                });
+            }
+        }
+
+        const handleMessageBadgeUpdate = (notification: MessageNotificationSubscriptionResponse) => {
+            if (notification?.newMessageNotification?.numberUnread != null) {
+                setNumberOfMessages(notification.newMessageNotification.numberUnread);
+            }
+        }
+
+        subscribe(MessageNotificationSubscription(chatToken), notification => {
+            handleNotification(notification);
+            handleMessageBadgeUpdate(notification);
+        });
+    }, [showUserNotification, chatToken]);
 
     const handleOnlineToggle = (open, setOpen) =>
         _ => setOpen(_ => !open);
@@ -126,7 +167,9 @@ export default function TopRightMenu(): any {
     return (
         <>
             <IconButton aria-label="messages" onClick={_ => history.push(Routes.messages)}>
-                <ForumIcon />
+                <Badge badgeContent={numberOfMessages} color="secondary">
+                    <ForumIcon />
+                </Badge>
             </IconButton>
             <IconActivatedMenu icon={() => <AccountCircleOutlinedIcon />}
                                badgeContent={0}

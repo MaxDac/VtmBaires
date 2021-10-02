@@ -71,7 +71,6 @@ defmodule VtmAuth.Accounts do
   Creates a new user. The user will not be able to set its password at the creation step,
   the password will be automatically generated and sent by email.
   """
-  @spec create_user(%{}) :: {:ok, %User{}} | {:error, any()}
   def create_user(attrs \\ %{}) do
     new_attrs =
       case attrs |> map_to_atom_map() do
@@ -100,6 +99,13 @@ defmodule VtmAuth.Accounts do
     user_id
     |> get_last_session_by_user_query()
     |> Repo.one()
+  end
+
+  @spec get_user_name_by_id(Integer.t()) :: Integer.t()
+  def get_user_name_by_id(user_id) do
+    with %{name: name} when not is_nil(name)  <- User |> Repo.get(user_id) do
+      name
+    end
   end
 
   # %{session_info: %{

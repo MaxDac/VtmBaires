@@ -3,7 +3,7 @@
 import React, {useContext, useEffect} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import type {GetMessageQuery} from "../../services/queries/messages/__generated__/GetMessageQuery.graphql";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -21,6 +21,7 @@ import DeleteMessageMutation from "../../services/mutations/messages/DeleteMessa
 import {UtilityContext} from "../../contexts";
 import SetMessageReadMutation from "../../services/mutations/messages/SetMessageReadMutation";
 import ParsedText from "../../_base/components/ParsedText";
+import {useRelayEnvironment} from "react-relay";
 
 type Props = {
     messageId: string;
@@ -28,7 +29,8 @@ type Props = {
 
 const ReadMessage = ({messageId}: Props): any => {
     const history = useHistory();
-    const {openDialog, setError} = useContext(UtilityContext);
+    const environment = useRelayEnvironment();
+    const {openDialog, showUserNotification} = useContext(UtilityContext);
     const message = useCustomLazyLoadQuery<GetMessageQuery>(getMessageQuery, {messageId})?.getMessage;
 
     useEffect(() => {
@@ -61,8 +63,8 @@ const ReadMessage = ({messageId}: Props): any => {
 
     const deleteMessage = _ =>
         openDialog("Cancella messaggio", "Sei sicuro di voler cancellare il messaggio?", () => {
-            DeleteMessageMutation(messageId)
-                .catch(e => setError({
+            DeleteMessageMutation(environment, messageId)
+                .catch(e => showUserNotification({
                     type: "error",
                     graphqlError: e,
                     message: "Si è verificato un errore cancellando il messaggio."
@@ -91,7 +93,7 @@ const ReadMessage = ({messageId}: Props): any => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Paper variant="outlined" sx={{
+                                <Paper variant="outlined" component="div" sx={{
                                     padding: "10px",
                                     margin: "10px"
                                 }}>

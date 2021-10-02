@@ -13,6 +13,9 @@ defmodule Vtm.Messages.Message do
     field :hide_for_receiver, :boolean
     field :hide_for_sender, :boolean
 
+    # Utility field
+    field :sender_name, :string, virtual: true
+
     belongs_to :sender_user, User
     belongs_to :receiver_user, User
     belongs_to :sender_character, Character

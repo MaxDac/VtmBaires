@@ -8,6 +8,9 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
+// import IconButton from "@mui/material/IconButton";
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 type Props = {
     message: {|
@@ -59,8 +62,13 @@ const MessageListItem = ({message}: Props): any => {
 
     const getSubject = () => message?.subject;
 
+
+
     return (
-        <ListItem button key={message.id} alignItems="flex-start" onClick={_ => history.push(Routes.readMessage(message.id))}>
+        <ListItem button
+                  key={message.id}
+                  alignItems="flex-start"
+                  onClick={_ => history.push(Routes.readMessage(message.id))}>
             <ListItemAvatar>
                 {readIcon()}
             </ListItemAvatar>

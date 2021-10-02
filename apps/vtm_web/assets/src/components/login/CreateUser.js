@@ -35,7 +35,7 @@ const CreateUserComponent = (): Node => {
     const theme = useTheme();
     const environment = useRelayEnvironment();
 
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
 
     const checkUsername = (name: string) => userNameExists(environment, name).then(r => r === false);
 
@@ -62,11 +62,11 @@ const CreateUserComponent = (): Node => {
             name
         })
             .then(_ => {
-                setError({ type: "success", message: "User created successfully."});
+                showUserNotification({ type: "success", message: "User created successfully."});
                 setTimeout(() => history.push(Routes.login), 2000);
             })
             .catch(errors => {
-                setError({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
+                showUserNotification({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
             });
     }
 

@@ -2,7 +2,7 @@
 
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import MainLayout from "../Main.Layout";
+import MainLayout from "../MainLayout";
 import {UtilityContext} from "../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -97,7 +97,7 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
 }
 
 const Creation4 = (): any => {
-    const {setError} = useContext(UtilityContext);
+    const {showUserNotification} = useContext(UtilityContext);
     const classes = useStyles();
     const history = useHistory();
     const environment = useRelayEnvironment();
@@ -134,7 +134,7 @@ const Creation4 = (): any => {
             .then(_ => history.push(Routes.creation5))
             .catch(e => {
                 console.error("error!", e);
-                setError({
+                showUserNotification({
                     type: "error",
                     graphqlError: e,
                     message: "There was an error while saving the character"

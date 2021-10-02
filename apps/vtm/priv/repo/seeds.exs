@@ -83,6 +83,13 @@ defmodule Vtm.SeedsHelpers do
       a   -> {:ok, a}
     end
   end
+
+  def insert_forum_section(attrs) do
+    %Vtm.Forum.ForumSection{}
+    |> Vtm.Forum.ForumSection.changeset(attrs)
+    |> Vtm.Repo.insert()
+  end
+
 end
 
 {:ok, %{id: phisical_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Physical")
@@ -215,3 +222,8 @@ Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Siren"
 {:ok, %{id: barracas_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: false})
 
 Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Plaza Garibaldi", is_chat: true, chat_map_id: palermo_id})
+
+Vtm.SeedsHelpers.insert_forum_section(%{title: "In Game", description: "Sezione dedicata a giocate via forum", on_game: true, can_view: true, can_edit: true})
+Vtm.SeedsHelpers.insert_forum_section(%{title: "Off Game", description: "Sezione dedicata a dubbi o discussioni sul gioco", on_game: false, can_view: true, can_edit: true})
+Vtm.SeedsHelpers.insert_forum_section(%{title: "Annunci", description: "Sezione dedicata agli annunci da parte dei master", on_game: false, can_view: true, can_edit: false})
+Vtm.SeedsHelpers.insert_forum_section(%{title: "Sezione Master", description: "Sezione riservata ai master", on_game: false, can_view: false, can_edit: false})

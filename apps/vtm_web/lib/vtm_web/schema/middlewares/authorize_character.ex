@@ -5,7 +5,6 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacter do
   import VtmWeb.Resolvers.Helpers
 
   def call(resolution = %{arguments: %{entry: request}}, _) do
-    IO.puts "resolution context #{inspect resolution.context}"
     with %{current_user: current_user}  <- resolution.context,
          true                           <- correct_user_for_character?(current_user, request) do
       resolution

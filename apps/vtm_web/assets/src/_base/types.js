@@ -7,7 +7,7 @@ export type History = {
 };
 
 export type AlertInfo = {
-    type: 'success' | 'warning' | 'error';
+    type: 'success' | 'warning' | 'error' | 'info';
     graphqlError?: ?GraphqlErrorMessage;
     message?: ?string;
 }
@@ -16,6 +16,6 @@ export type OpenDialogProps = (string, string, ?() => void, ?() => void) => void
 
 export type AlertContext = {
     openDialog: OpenDialogProps,
-    setError: AlertInfo => void,
+    showUserNotification: AlertInfo => void,
     setWait: boolean => void;
 }

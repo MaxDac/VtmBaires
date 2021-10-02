@@ -19,12 +19,12 @@ import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
 
 const Internal = ({env}: { env: IEnvironment}) => {
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
     const history = useHistory();
 
     const fallback = (error, _retry): any => {
         console.error("An unhandled error happened in the app", error)
-        setError({
+        showUserNotification({
             type: "error",
             message: "There was an error in the application"
         });
@@ -85,6 +85,7 @@ function App(): Node {
             <SnackbarProvider maxSnack={3}
                               ref={snackbarsRef}
                               preventDuplicate
+                              variant="outlined"
                               action={key =>
                                   <Button onClick={onSnackbarDismissClick(key)}>
                                       Dismiss

@@ -26,7 +26,7 @@ const RecoverPasswordSchema = object().shape({
 const RecoverPassword = (props: Props): any => {
     const history = useHistory();
     const theme = useTheme();
-    const { setError } = useContext(UtilityContext);
+    const { showUserNotification } = useContext(UtilityContext);
 
     const formik = useFormik({
         initialValues: {
@@ -39,7 +39,7 @@ const RecoverPassword = (props: Props): any => {
     const onSubmit = ({email}) => {
         requestNewPassword(email)
             .then(r => {
-                setError({
+                showUserNotification({
                     type: "success",
                     message: "Password ristabilita, controlla la tua mail!"
                 });
@@ -47,7 +47,7 @@ const RecoverPassword = (props: Props): any => {
             })
             .catch(e => {
                 console.error("error while retrieving the password", e);
-                setError({
+                showUserNotification({
                     type: "error",
                     message: "Non è stato possibile resettare la password."
                 })

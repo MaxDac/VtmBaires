@@ -1,5 +1,7 @@
 defmodule VtmWeb.Resolvers.MessageResolvers do
   alias Vtm.Messages
+  alias Vtm.Messages.Message
+  alias Vtm.Messages.MessageDigest
   import VtmWeb.Resolvers.Helpers
 
   def received_messages(user, _, _) do
@@ -35,6 +37,31 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
   def delete_message(%{message_id: id}, %{context: %{current_user: user}}) do
     with {:ok, message} <- Messages.get_message(user, id) do
       Messages.delete_message(user, message)
+    end
+  end
+
+  def message_digest(_, _, %{context: %{current_user: %{id: user_id}}}) do
+    with digest <- Messages.message_digest(user_id) do
+      {:ok, digest}
+    end
+  end
+
+  def config_message_subscription(%{token: token}, _context) do
+    IO.puts "received token for subscription: #{token}"
+    with {:ok, %{id: id}} <- VtmWeb.Authentication.verify_subscription_key_token(token) do
+      {:ok, topic: id}
+    end
+  end
+
+  def handle_new_message_trigger(%{ receiver_user_id: id }), do: id
+  def handle_new_message_trigger(_), do: "0"
+
+  def message_subscription_resolver(message = %Message{receiver_user_id: user_id}, _args, _res) do
+    with %MessageDigest{unread_messages: count} <- Messages.message_digest(user_id) do
+      {:ok, %{
+        message: message,
+        number_unread: count
+      }}
     end
   end
 end

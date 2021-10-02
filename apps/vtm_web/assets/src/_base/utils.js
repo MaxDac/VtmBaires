@@ -30,6 +30,14 @@ export function emptyArray<T>(): Array<T> {
     return [];
 }
 
+export function firstOrDefault<T>(a: ?Array<T>): ?T {
+    if (a != null && a.length > 0) {
+        return a[0];
+    }
+    
+    return null;
+}
+
 /**
  * Returns a range between the two specified number (included).
  * @param from The lower boundary.
@@ -55,12 +63,12 @@ export function getInitials(name: string): string {
         return "NF";
     }
 
-    const splitted = name.split(" ");
+    const split = name.split(" ");
 
-    if (splitted.length === 1) return splitted[0][0].toUpperCase();
+    if (split.length === 1) return split[0][0].toUpperCase();
     else {
-        return [splitted[0], splitted.pop()]
-            .map(([f, ..._]) => f.toUpperCase())
+        return [split[0], split.pop()]
+            .map(([f,]) => f.toUpperCase())
             .join("");
     }
 }
