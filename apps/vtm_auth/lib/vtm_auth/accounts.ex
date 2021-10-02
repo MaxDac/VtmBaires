@@ -73,9 +73,9 @@ defmodule VtmAuth.Accounts do
   """
   def create_user(attrs \\ %{}) do
     new_attrs =
-      case attrs |> map_to_atom_map() do
-        %{role: role} -> %{attrs | role: String.downcase(role)}
-        _             -> attrs
+      case attrs |> map_to_atom_map() |> IO.inspect() do
+        a = %{role: role} -> %{a | role: String.downcase(role)}
+        _                 -> attrs
       end
 
     %User{}

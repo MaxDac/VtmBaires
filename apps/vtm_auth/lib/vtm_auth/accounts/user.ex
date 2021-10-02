@@ -16,7 +16,8 @@ defmodule VtmAuth.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email, :password, :role])
-    |> unique_constraint([:email, :name], name: "users_email_role_index")
+    |> unique_constraint([:email, :role], name: "users_email_role_index")
+    |> unique_constraint(:name, name: "users_name_index")
     |> validate_required([:name, :email, :role])
   end
 
