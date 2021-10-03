@@ -50,7 +50,7 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
         <Typography component="div" sx={{
             fontFamily: 'GabrieleLightRibbon'
         }}>
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown  components={markdownComponents}>
                 {entry.text}
             </ReactMarkdown>
         </Typography>;
