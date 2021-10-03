@@ -218,10 +218,33 @@ Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Siren"
 {:ok, %{id: palermo_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Palermo", is_chat: false})
 {:ok, %{id: recoleta_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Recoleta", is_chat: false})
 {:ok, %{id: puerto_madero_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Puerto Madero", is_chat: false})
-{:ok, %{id: retiro_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Retiro", is_chat: false})
-{:ok, %{id: barracas_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: false})
+{:ok, %{id: boca_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "La Boca", is_chat: false})
+{:ok, %{id: provincia_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Provincia", is_chat: false})
 
 Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Plaza Garibaldi", is_chat: true, chat_map_id: palermo_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Belgrano", is_chat: true, chat_map_id: palermo_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Colegiales", is_chat: true, chat_map_id: palermo_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chacarita", is_chat: true, chat_map_id: palermo_id})
+
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Cementerio Monumental", is_chat: true, chat_map_id: recoleta_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Recoleta", is_chat: true, chat_map_id: recoleta_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Retiro", is_chat: true, chat_map_id: recoleta_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Palacio Almas", is_chat: true, chat_map_id: recoleta_id})
+
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Puerto Madero", is_chat: true, chat_map_id: puerto_madero_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "San Telmo", is_chat: true, chat_map_id: puerto_madero_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Constitución", is_chat: true, chat_map_id: puerto_madero_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Monserrat", is_chat: true, chat_map_id: puerto_madero_id})
+
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Quilmes", is_chat: true, chat_map_id: provincia_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Avellaneda", is_chat: true, chat_map_id: provincia_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Ezeiza", is_chat: true, chat_map_id: provincia_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Tigre", is_chat: true, chat_map_id: provincia_id})
+
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "La Boca", is_chat: true, chat_map_id: boca_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Caminito", is_chat: true, chat_map_id: boca_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: true, chat_map_id: boca_id})
+Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "El Castillo", is_chat: true, chat_map_id: boca_id})
 
 Vtm.SeedsHelpers.insert_forum_section(%{title: "In Game", description: "Sezione dedicata a giocate via forum", on_game: true, can_view: true, can_edit: true})
 Vtm.SeedsHelpers.insert_forum_section(%{title: "Off Game", description: "Sezione dedicata a dubbi o discussioni sul gioco", on_game: false, can_view: true, can_edit: true})
