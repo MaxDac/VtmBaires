@@ -2,26 +2,26 @@
 
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import MainLayout from "../MainLayout";
-import {UtilityContext} from "../../contexts";
+import MainLayout from "../../MainLayout";
+import {UtilityContext} from "../../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import DisciplinesControl from "./controls/DisciplinesControl";
-import PredatorTypeControl from "./controls/PredatorTypeControl";
+import DisciplinesControl from "../controls/DisciplinesControl";
+import PredatorTypeControl from "../controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import {Routes} from "../../AppRouter";
+import {Routes} from "../../../AppRouter";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {
     CharacterFragments_characterInfo$key
-} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import {characterInfoFragment} from "../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterInfo} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
+} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import {characterInfoFragment} from "../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
 import {object, string} from "yup";
 import {useFormik} from "formik";
-import useStyles from "../Main.Layout.Style";
-import AddAdvantagesMutation from "../../services/mutations/characters/AddAdvantagesMutation";
+import useStyles from "../../Main.Layout.Style";
+import AddAdvantagesMutation from "../../../services/mutations/characters/AddAdvantagesMutation";
 
 export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
     character?.clan?.name !== "Human";

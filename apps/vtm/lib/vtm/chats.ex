@@ -25,6 +25,23 @@ defmodule Vtm.Chats do
     ChatMap |> Repo.get(chat_id)
   end
 
+  @doc """
+  Enriches the map id passed in input with the name, returning a session info struct.
+  """
+  @spec enrich_map_id_for_session(Integer.t()) :: {:ok, Map.t()} | {:error, :not_found}
+  def enrich_map_id_for_session(map_id) do
+    case get_map(map_id) do
+      nil -> {:error, :not_found}
+      %{id: id, name: name} ->
+        {:ok,
+          %{
+            map_id: id,
+            map_name: name
+          }
+        }
+    end
+  end
+
   defp chat_and_character_joined_query() do
     from c in ChatEntry,
       join: ch in Character,

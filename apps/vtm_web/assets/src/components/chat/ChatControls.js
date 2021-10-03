@@ -1,15 +1,13 @@
 // @flow
 
-import React, {useState} from "react";
-import Box from "@mui/material/Box";
-import Zoom from "@mui/material/Zoom";
-import Fab from "@mui/material/Fab";
-import RoomIcon from "@mui/icons-material/Room";
+import React from "react";
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import RoomIcon from '@mui/icons-material/Room';
+import BloodtypeIcon from '@mui/icons-material/Bloodtype';
+import FlashOnOutlinedIcon from '@mui/icons-material/FlashOnOutlined';
 import {useTheme} from "@mui/material/styles";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
-import Bloodtype from "@mui/icons-material/Bloodtype";
-import Bolt from "@mui/icons-material/Bolt";
 
 type Props = {
     openMapModal: () => void;
@@ -17,71 +15,45 @@ type Props = {
 
 const ChatControls = ({openMapModal}: Props): any => {
     const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-    const [expand, setExpand] = useState(false);
-
-    const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
-    };
-
-    const FloatButton = ({top, right, isIn, children, label, handler}) =>
-        <Box sx={{
-            position: 'absolute',
-            top: theme.spacing(top),
-            right: theme.spacing(right)
-        }}>
-            <Zoom timeout={transitionDuration}
-                  in={isIn}
-                  sx={{ transitionDelay: transitionDuration.exit }}
-                  unmountOnExit>
-                <Fab color="secondary"
-                     aria-label={label}
-                     onClick={handler}>
-                    {children}
-                </Fab>
-            </Zoom>
-        </Box>
+    const onMapClicked = _ => {
+        openMapModal();
+        handleClose();
+    }
 
     return (
-        <>
-            <FloatButton top={10}
-                         right={2}
-                         isIn={!expand}
-                         label="expand"
-                         handler={() => setExpand(true)}>
-                <KeyboardArrowDown />
-            </FloatButton>
-            <FloatButton top={10}
-                         right={2}
-                         isIn={expand}
-                         label="expand"
-                         handler={() => setExpand(false)}>
-                <KeyboardArrowUp />
-            </FloatButton>
-            <FloatButton top={20}
-                         right={2}
-                         isIn={expand}
-                         label="map"
-                         handler={openMapModal}>
-                <RoomIcon />
-            </FloatButton>
-            <FloatButton top={30}
-                         right={2}
-                         isIn={expand}
-                         label="map"
-                         handler={openMapModal}>
-                <Bloodtype />
-            </FloatButton>
-            <FloatButton top={40}
-                         right={2}
-                         isIn={expand}
-                         label="map"
-                         handler={openMapModal}>
-                <Bolt />
-            </FloatButton>
-        </>
-    );
+        <SpeedDial
+            ariaLabel="Azioni chat"
+            sx={{
+                position: 'absolute',
+                top: theme.spacing(10),
+                right: theme.spacing(3)
+            }}
+            icon={<SpeedDialIcon />}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            direction="down"
+            open={open}>
+            <SpeedDialAction
+                icon={<RoomIcon />}
+                tooltipTitle="Location"
+                tooltipOpen
+                onClick={onMapClicked} />
+            <SpeedDialAction
+                icon={<BloodtypeIcon />}
+                tooltipTitle="Spendi vitae"
+                tooltipOpen
+                onClick={handleClose} />
+            <SpeedDialAction
+                icon={<FlashOnOutlinedIcon />}
+                tooltipTitle="Spendi WP"
+                tooltipOpen
+                onClick={handleClose} />
+        </SpeedDial>
+    )
 }
 
 export default ChatControls;

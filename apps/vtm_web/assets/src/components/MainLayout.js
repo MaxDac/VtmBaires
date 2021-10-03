@@ -14,12 +14,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {mainListItems, secondaryListItems} from "./home/Menu";
-import {useHistory} from "react-router-dom";
+import {MainListItems, SecondaryListItems} from "./home/Menu";
 import {isUserMaster} from "../services/base-types";
-import TopRightMenu from "./home/TopRightMenu";
 import {useSession} from "../services/session-service";
 import ContainedSuspenseFallback from "./ContainedSuspenseFallback";
+import {useMediaQuery} from "@mui/material";
+import {useEffect} from "react";
+import MessageControl from "./home/top-right-menu-handlers/MessageControl";
+import OnlineControl from "./home/top-right-menu-handlers/OnlineControl";
+import LogoutControl from "./home/top-right-menu-handlers/LogoutControl";
 
 const drawerWidth = 240;
 
@@ -89,10 +92,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer({children}: {children: any}): any {
-    const history = useHistory();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
+
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const isEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));
+    const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
+    const showPartialTitle = useMediaQuery(theme.breakpoints.down('lg'));
+
+    useEffect(() => {
+        setOpen(_ => isEnoughSpace);
+    }, [isEnoughSpace]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -102,18 +113,38 @@ export default function MiniDrawer({children}: {children: any}): any {
         setOpen(false);
     };
 
+    const closeOnSelected = () => {
+        if (fullScreen) {
+            handleDrawerClose();
+        }
+    }
+
     const masterMenu = () => {
         if (isUserMaster(user)) {
             return (
                 <>
                     <Divider/>
-                    <List>{secondaryListItems(history, handleDrawerClose, !open)}</List>
+                    <List>
+                        <SecondaryListItems drawerDone={closeOnSelected} isClosed={!open} />
+                    </List>
                 </>
             );
         }
 
         return (<></>);
     };
+
+    const title = () => {
+        if (showCompressedTitle) {
+            return "VTM Baires";
+        }
+
+        if (showPartialTitle) {
+            return "Vampire TM: Buenos Aires by Night";
+        }
+
+        return "Vampire the Masquerade: Buenos Aires by Night";
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -139,9 +170,11 @@ export default function MiniDrawer({children}: {children: any}): any {
                                     flexGrow: "1",
                                     fontFamily: 'GabrieleLightRibbon'
                                 }}>
-                        VTM
+                        {title()}
                     </Typography>
-                    <TopRightMenu />
+                    <MessageControl />
+                    <OnlineControl />
+                    <LogoutControl />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -151,7 +184,9 @@ export default function MiniDrawer({children}: {children: any}): any {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>{mainListItems(history, handleDrawerClose)}</List>
+                <List>
+                    <MainListItems drawerDone={closeOnSelected} isClosed={!open} />
+                </List>
                 <Divider />
                 {masterMenu()}
             </Drawer>

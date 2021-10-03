@@ -169,7 +169,7 @@ defmodule Vtm.Forum do
   end
 
   def new_post(user, thread_id, attrs) do
-    with %{id: section_id, on_game: on_game}  <- get_section_by_thread(thread_id) |> IO.inspect(),
+    with %{id: section_id, on_game: on_game}  <- get_section_by_thread(thread_id),
          :ok                                  <- check_section_write(user, section_id),
          :ok                                  <- can_write_on_game?(section_id, attrs) do
 

@@ -1,5 +1,5 @@
 defmodule VtmAuth.Accounts.SessionInfo do
-  defstruct map_id: 0, character_id: 0, approved: false, character_name: ""
+  defstruct map_id: 0, map_name: "", character_id: 0, approved: false, character_name: ""
 
   alias VtmAuth.Accounts.Session
   alias VtmAuth.Accounts.SessionInfo
@@ -12,9 +12,10 @@ defmodule VtmAuth.Accounts.SessionInfo do
     |> Map.new(&to_atom/1)
   end
 
-  def extract_from_request(%{map_id: map_id}) do
+  def extract_from_request(%{map_id: map_id, map_name: map_name}) do
     %SessionInfo{
-      map_id: map_id
+      map_id: map_id,
+      map_name: map_name
     }
   end
 

@@ -6,6 +6,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   import VtmAuth.Helpers
 
   alias Vtm.Characters
+  alias Vtm.Chats
 
   alias VtmWeb.UserEmail
   alias VtmWeb.Mailer
@@ -86,18 +87,52 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, Accounts.get_all_users()}
   end
 
+  defp parse_session(%{
+    user: user,
+    session_info: {:ok, %SessionInfo{
+      approved: approved,
+      character_id: c_id,
+      character_name: c_name,
+      map_id: location_id,
+      map_name: location_name
+    }}
+  }) when not is_nil(location_id) and location_id != 0, do: %{
+    user: user,
+    character: %{
+      id: c_id,
+      name: c_name,
+      approved: approved
+    },
+    location: %{
+      id: location_id,
+      name: location_name
+    }
+  }
+
+  defp parse_session(%{
+    user: user,
+    session_info: {:ok, %SessionInfo{
+      approved: approved,
+      character_id: c_id,
+      character_name: c_name
+    }}
+  }), do: %{
+    user: user,
+    character: %{
+      id: c_id,
+      name: c_name,
+      approved: approved
+    }
+  }
+
+  defp parse_session(s), do: s
+
   def all_sessions(_, _, _) do
-    case Accounts.get_current_sessions() do
-      sessions = %{session_info: %{
-        "character_id"    => id,
-        "character_name"  => name
-      }} -> {:ok, sessions |> Map.put(:session_character, %{
-        id: id,
-        name: name
-      })}
-      session ->
-        {:ok, session}
-    end
+    sessions =
+      Accounts.get_current_sessions()
+      |> Enum.map(&parse_session(&1))
+
+    {:ok, sessions}
   end
 
   def token(_, _, %{context: %{current_user: current_user}}) do
@@ -106,7 +141,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
 
   def update_session_character(%{character_id: id}, %{context: %{current_user: user}}) do
     with character      <- Characters.get_specific_character(user, id),
-         mapped_request <- %SessionInfo{
+         mapped_request <- %{
            character_id: character.id,
            character_name: character.name,
            approved: character.approved
@@ -124,10 +159,10 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
-  def update_session_map(request, %{context: %{current_user: user}}) do
+  def update_session_map(%{map_id: id}, %{context: %{current_user: user}}) do
     case Accounts.has_session_dynamic_fields?(user) do
       true ->
-        with parsed_request                     <- Accounts.SessionInfo.extract_from_request(request),
+        with {:ok, parsed_request}              <- Chats.enrich_map_id_for_session(id),
              {:ok, session}                     <- Accounts.update_session_dynamic_field(user, parsed_request),
              %{session_info: %{"map_id" => id}} <- session do
           {:ok, id}

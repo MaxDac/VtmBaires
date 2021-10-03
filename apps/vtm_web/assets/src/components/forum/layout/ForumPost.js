@@ -13,7 +13,6 @@ type Props = {
 }
 
 const ForumPost = ({post, onGame}: Props): any => {
-    console.log("on game", onGame);
     const style = () => onGame
         ? mainFontFamily
         : {};

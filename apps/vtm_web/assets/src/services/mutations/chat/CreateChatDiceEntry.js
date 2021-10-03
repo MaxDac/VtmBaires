@@ -22,7 +22,6 @@ const mutation = graphql`
 `;
 
 const chatDiceEntryMutationPromise = (environment: IEnvironment, request: ChatDiceEntryRequest): Promise<CreateChatDiceEntryMutationResponse> => {
-    console.log("request", request);
     return wrapMutation<CreateChatDiceEntryMutationResponse>(environment, mutation, {entry: request});
 }
 

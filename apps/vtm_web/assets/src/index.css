@@ -25,3 +25,7 @@ code {
   font-family: "GabrieleLightRibbon";
   src: local("GabrieleLightRibbon"), url("./fonts/gabriele-l.ttf");
 }
+
+.MuiSpeedDialAction-fab {
+  background-color: red;
+}

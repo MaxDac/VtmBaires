@@ -9,13 +9,20 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
-import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ChatIcon from '@mui/icons-material/Chat';
-import type { History } from "../../_base/types";
 import {Routes} from "../../AppRouter";
+import MenuCharacterSection from "./MenuCharacterSection";
+import {useHistory} from "react-router-dom";
 
-export const mainListItems = (history: History, drawerDone: () => void): any => {
+type Props = {
+    drawerDone: () => void;
+    isClosed: boolean;
+}
+
+export const MainListItems = ({drawerDone}: Props): any => {
+    const history = useHistory();
+
     const pushHistory = (route: string) => () => {
         drawerDone();
         history.push(route);
@@ -29,18 +36,13 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.sheet())}>
-                <ListItemIcon>
-                    <RecentActorsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Sheet" />
-            </ListItem>
             <ListItem button onClick={pushHistory(Routes.mainMap)}>
                 <ListItemIcon>
                     <MapIcon />
                 </ListItemIcon>
                 <ListItemText primary="Map" />
             </ListItem>
+            <MenuCharacterSection pushHistory={pushHistory} />
             <ListItem button>
                 <ListItemIcon>
                     <AssignmentIcon />
@@ -63,7 +65,9 @@ export const mainListItems = (history: History, drawerDone: () => void): any => 
     );
 };
 
-export const secondaryListItems = (history: History, drawerDone: () => void, isClosed: boolean): any => {
+export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
+    const history = useHistory();
+
     const pushHistory = (route: string) => () => {
         drawerDone();
         history.push(route);

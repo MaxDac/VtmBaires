@@ -11,6 +11,21 @@ defmodule VtmAuth.Helpers do
     end)
   end
 
+  @spec atom_map_to_map(Map.t()) :: Map.t()
+  def atom_map_to_map(struct) when is_struct(struct) do
+    struct
+    |> Map.from_struct()
+    |> atom_map_to_map()
+  end
+
+  def atom_map_to_map(map) do
+    map
+    |> Map.new(fn
+      {key, value} when is_atom(key)    -> {Atom.to_string(key), value}
+      kv                                -> kv
+    end)
+  end
+
   @doc """
   Generates a random string of specified length.
   """

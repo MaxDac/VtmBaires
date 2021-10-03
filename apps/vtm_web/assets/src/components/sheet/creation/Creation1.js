@@ -1,25 +1,25 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import MainLayout from "../MainLayout";
+import MainLayout from "../../MainLayout";
 import Typography from "@mui/material/Typography";
 import {object, string} from "yup";
 import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
-import FormTextField from "../../_base/components/FormTextField";
+import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
-import FormSelectField from "../../_base/components/FormSelectField";
+import FormSelectField from "../../../_base/components/FormSelectField";
 import Grid from "@mui/material/Grid";
-import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
-import {updateCurrentCharacter} from "../../services/session-service";
-import {Routes} from "../../AppRouter";
-import FormFileDropField from "../../_base/components/FormFileDropField";
-import {UtilityContext} from "../../contexts";
-import {clansQuery} from "../../services/queries/info/ClansQuery";
-import type {ClansQuery} from "../../services/queries/info/__generated__/ClansQuery.graphql";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import createCharacter from "../../../services/mutations/characters/CreateCharacterMutation";
+import {updateCurrentCharacter} from "../../../services/session-service";
+import {Routes} from "../../../AppRouter";
+import FormFileDropField from "../../../_base/components/FormFileDropField";
+import {UtilityContext} from "../../../contexts";
+import {clansQuery} from "../../../services/queries/info/ClansQuery";
+import type {ClansQuery} from "../../../services/queries/info/__generated__/ClansQuery.graphql";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
-import useStyles from "../Main.Layout.Style";
+import useStyles from "../../Main.Layout.Style";
 
 const Creation1ValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),

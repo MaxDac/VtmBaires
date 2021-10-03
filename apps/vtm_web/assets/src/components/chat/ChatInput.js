@@ -74,7 +74,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                       in={inDices}
                       sx={{ transitionDelay: transitionDuration.exit }}
                       unmountOnExit>
-                    <Fab color="secondary"
+                    <Fab color="primary"
                          aria-label="dices"
                          onClick={openPopup}>
                         <CasinoIcon />
@@ -86,7 +86,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                       in={!inDices}
                       sx={{ transitionDelay: transitionDuration.exit }}
                       unmountOnExit>
-                    <Fab color="secondary"
+                    <Fab color="primary"
                          aria-label="send"
                          onClick={sendInputEntry}>
                         <SendIcon />

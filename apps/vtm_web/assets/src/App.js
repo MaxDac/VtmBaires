@@ -61,12 +61,26 @@ function App(): Node {
         palette: {
             mode: paletteType,
             primary: {
-                main: "#81d4fa"
-            },
-            secondary: {
                 main: "#aa0b0e",
                 dark: "#760709",
                 light: "#bb3b3e"
+            },
+            secondary: {
+                main: "#81d4fa"
+            }
+        },
+        components: {
+            MuiSpeedDial: {
+                styleOverrides: {
+                    fab: {
+                        backgroundColor: "#aa0b0e",
+                        color: "white"
+                    },
+                    "fab:hover": {
+                        backgroundColor: "#aa0b0e",
+                        color: "white"
+                    }
+                }
             }
         }
     });

@@ -1,16 +1,16 @@
 // @flow
 
 import React, {useState} from "react";
-import MainLayout from "../MainLayout";
+import MainLayout from "../../MainLayout";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import JackOfAllTradesSkillForm from "./strategies/JackOfAllTradesSkillForm";
-import BalancedSkillForm from "./strategies/BalancedSkillForm";
-import SpecialistSkillForm from "./strategies/SpecialistSkillForm";
-import useStyles from "../Main.Layout.Style";
+import JackOfAllTradesSkillForm from "../strategies/JackOfAllTradesSkillForm";
+import BalancedSkillForm from "../strategies/BalancedSkillForm";
+import SpecialistSkillForm from "../strategies/SpecialistSkillForm";
+import useStyles from "../../Main.Layout.Style";
 
 const Creation3 = (): any => {
     const classes = useStyles();

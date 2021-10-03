@@ -73,7 +73,7 @@ defmodule VtmAuth.Accounts do
   """
   def create_user(attrs \\ %{}) do
     new_attrs =
-      case attrs |> map_to_atom_map() |> IO.inspect() do
+      case attrs |> map_to_atom_map() do
         a = %{role: role} -> %{a | role: String.downcase(role)}
         _                 -> attrs
       end
@@ -140,14 +140,16 @@ defmodule VtmAuth.Accounts do
     end
   end
 
-  def update_session_dynamic_field(%{id: id}, attrs \\ %SessionInfo{}) do
+  def update_session_dynamic_field(%{id: id}, attrs \\ %{}) do
     query = get_last_session_by_user_query(id)
 
     with session = %{session_info: info}  <- Repo.one(query) do
+      IO.puts "Info: #{inspect info}"
+      IO.puts "Attrs: #{inspect attrs}"
       new_values =
         (info || %{})
-        |> Map.merge(attrs)
-        |> Map.from_struct()
+        |> Map.merge(attrs |> VtmAuth.Helpers.atom_map_to_map())
+        |> IO.inspect()
 
       session
       |> Session.changeset(%{session_info: new_values})
@@ -186,9 +188,16 @@ defmodule VtmAuth.Accounts do
       on: s.user_id == u.id,
       where: s.last_checked > ago(^@session_offset, "minute"),
       where: not(s.completed),
-      select: u
+      select: {u, s}
 
     Repo.all(query)
+    |> Enum.map(fn
+      {user, s} ->
+        %{
+          user: user,
+          session_info: SessionInfo.extract_from_session(s)
+        }
+    end)
   end
 
   def authenticate(email, password, remember, _context) do

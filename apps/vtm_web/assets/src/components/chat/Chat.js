@@ -162,6 +162,7 @@ const Chat = ({ id }: ChatProps): any => {
                     height: "calc(100% - 67px)",
                     overflow: "hidden"
                 }} id="chat-entries">
+                    <ChatControls openMapModal={() => setMapModalOpen(true)}/>
                     <List sx={{
                         flex: "4 0",
                         overflowY: "scroll"
@@ -175,7 +176,6 @@ const Chat = ({ id }: ChatProps): any => {
                         {showChatInput()}
                     </Box>
                 </Box>
-                <ChatControls openMapModal={() => setMapModalOpen(true)}/>
             </>
         </MainLayout>
     );

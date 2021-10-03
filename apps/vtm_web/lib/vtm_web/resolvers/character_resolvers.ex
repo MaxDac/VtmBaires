@@ -75,7 +75,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       |> Map.put(:user_id, current_user.id)
 
     with {:ok, %Character{id: id, name: name}}  <- Characters.create(new_request, current_user),
-         {:ok, _}                               <- VtmAuth.Accounts.update_session_dynamic_field(current_user, %SessionInfo{
+         {:ok, _}                               <- VtmAuth.Accounts.update_session_dynamic_field(current_user, %{
            character_id: id,
            character_name: name,
            approved: false

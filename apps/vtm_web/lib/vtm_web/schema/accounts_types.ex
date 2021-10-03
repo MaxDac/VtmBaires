@@ -45,6 +45,12 @@ defmodule VtmWeb.Schema.AccountTypes do
     field :character, :character
   end
 
+  object :session do
+    field :user, :user
+    field :character, :character
+    field :location, :chat_location
+  end
+
   enum :role do
     value :user, as: "player"
     value :master, as: "master"
@@ -71,7 +77,7 @@ defmodule VtmWeb.Schema.AccountTypes do
       resolve &AccountsResolvers.user_email_exists?/3
     end
 
-    field :sessions_list, list_of(:user) do
+    field :sessions_list, list_of(:session) do
       middleware Middlewares.Authorize, :player
       resolve &AccountsResolvers.all_sessions/3
       middleware Middlewares.ChangesetErrors

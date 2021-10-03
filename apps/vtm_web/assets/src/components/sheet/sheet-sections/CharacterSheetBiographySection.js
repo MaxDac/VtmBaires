@@ -22,7 +22,7 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
                 color: "red",
                 fontSize: "24px"
             }}>
-                Biography
+                Biografia
             </Typography>
             <Typography sx={{
                 fontFamily: 'GabrieleLightRibbon'

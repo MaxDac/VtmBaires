@@ -3,7 +3,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
-import ForumPost from "./ForumPost";
 import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";

@@ -266,7 +266,7 @@ defmodule Vtm.Characters do
   but not vice versa.
   """
   def update_character_in_session(user, %Character{id: id, name: name, approved: approved}) do
-    VtmAuth.Accounts.update_session_dynamic_field(user, %VtmAuth.Accounts.SessionInfo{
+    VtmAuth.Accounts.update_session_dynamic_field(user, %{
       character_id: id,
       character_name: name,
       approved: approved

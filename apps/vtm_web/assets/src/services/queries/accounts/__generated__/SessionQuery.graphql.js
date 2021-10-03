@@ -10,9 +10,15 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type SessionQueryVariables = {||};
 export type SessionQueryResponse = {|
   +sessionsList: ?$ReadOnlyArray<?{|
-    +id: string,
-    +name: ?string,
-    +sessionCharacter: ?{|
+    +user: ?{|
+      +id: string,
+      +name: ?string,
+    |},
+    +character: ?{|
+      +id: string,
+      +name: ?string,
+    |},
+    +location: ?{|
       +id: string,
       +name: ?string,
     |},
@@ -27,9 +33,15 @@ export type SessionQuery = {|
 /*
 query SessionQuery {
   sessionsList {
-    id
-    name
-    sessionCharacter {
+    user {
+      id
+      name
+    }
+    character {
+      id
+      name
+    }
+    location {
       id
       name
     }
@@ -38,42 +50,59 @@ query SessionQuery {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v2 = [
+var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "User",
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "name",
+    "storageKey": null
+  }
+],
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "Session",
     "kind": "LinkedField",
     "name": "sessionsList",
     "plural": true,
     "selections": [
-      (v0/*: any*/),
-      (v1/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "user",
+        "plural": false,
+        "selections": (v0/*: any*/),
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
         "concreteType": "Character",
         "kind": "LinkedField",
-        "name": "sessionCharacter",
+        "name": "character",
         "plural": false,
-        "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/)
-        ],
+        "selections": (v0/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ChatLocation",
+        "kind": "LinkedField",
+        "name": "location",
+        "plural": false,
+        "selections": (v0/*: any*/),
         "storageKey": null
       }
     ],
@@ -86,7 +115,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "SessionQuery",
-    "selections": (v2/*: any*/),
+    "selections": (v1/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
   },
@@ -95,18 +124,18 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "SessionQuery",
-    "selections": (v2/*: any*/)
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "bb870e5c8ef59693169f81216f4b2faf",
+    "cacheID": "97475d07b040a59fe043a62136c2e3eb",
     "id": null,
     "metadata": {},
     "name": "SessionQuery",
     "operationKind": "query",
-    "text": "query SessionQuery {\n  sessionsList {\n    id\n    name\n    sessionCharacter {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "query SessionQuery {\n  sessionsList {\n    user {\n      id\n      name\n    }\n    character {\n      id\n      name\n    }\n    location {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'b070f4b29bffc5c6a5b9a492f456735f';
+(node: any).hash = 'bdbd4ad47392f10a9f3f8f52e51c98a6';
 module.exports = node;

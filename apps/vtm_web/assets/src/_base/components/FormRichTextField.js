@@ -12,7 +12,6 @@ export type FormRichTextFieldProps = {
 
 const FormRichTextField = ({formik, fieldName, label}: FormRichTextFieldProps): any => {
     const onComponentChange = e => {
-        console.log("handling change", e);
         formik.handleChange(e);
     }
     

@@ -5,7 +5,7 @@ import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import AttributeSelectionField from "../AttributeSelectionField";
+import AttributeSelectionField from "../creation/AttributeSelectionField";
 import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
 import {Routes} from "../../../AppRouter";

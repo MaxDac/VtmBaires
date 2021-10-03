@@ -330,7 +330,7 @@ type RootQueryType {
   messagesDigest: MessageDigest
   predatorTypes: [PredatorType]
   sectionMaps(parentId: ID): [ChatLocation]
-  sessionsList: [User]
+  sessionsList: [Session]
   subscriptionToken: String
   userEmailExists(email: String!): Boolean
   userNameExists(name: String!): Boolean
@@ -349,6 +349,12 @@ input SendMessageRequest {
   senderCharacterId: ID
   subject: String!
   text: String!
+}
+
+type Session {
+  character: Character
+  location: ChatLocation
+  user: User
 }
 
 type User implements Node {
