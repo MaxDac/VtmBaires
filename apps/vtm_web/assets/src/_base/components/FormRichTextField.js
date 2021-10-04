@@ -3,6 +3,7 @@
 import React from "react";
 import SunEditor from "suneditor-react";
 import type {Formik} from "./FormTypes";
+import 'suneditor/dist/css/suneditor.min.css';
 
 export type FormRichTextFieldProps = {
     formik: Formik;

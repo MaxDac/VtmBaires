@@ -2,34 +2,34 @@
 
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-import Login from './components/login/Login';
-import CreateUser from "./components/login/CreateUser";
-import Main from "./components/home/Main";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import AdminGuides from "./components/admin/guides/AdminGuides";
+// import Login from './components/login/Login';
+// import CreateUser from "./components/login/CreateUser";
+// import Main from "./components/home/Main";
+// import AdminDashboard from "./components/admin/AdminDashboard";
+// import AdminGuides from "./components/admin/guides/AdminGuides";
 import type {History} from "./_base/types";
-import Creation1 from "./components/sheet/creation/Creation1";
+// import Creation1 from "./components/sheet/creation/Creation1";
 import 'suneditor/dist/css/suneditor.min.css';
-import Creation2 from "./components/sheet/creation/Creation2";
-import Creation3 from "./components/sheet/creation/Creation3";
-import Map from "./components/map/Map";
-import Chat from "./components/chat/Chat";
-import MainMap from "./components/map/MainMap";
-import Creation4 from "./components/sheet/creation/Creation4";
-import CharacterSheet from "./components/sheet/CharacterSheet";
+// import Creation2 from "./components/sheet/creation/Creation2";
+// import Creation3 from "./components/sheet/creation/Creation3";
+// import Map from "./components/map/Map";
+// import Chat from "./components/chat/Chat";
+// import MainMap from "./components/map/MainMap";
+// import Creation4 from "./components/sheet/creation/Creation4";
+// import CharacterSheet from "./components/sheet/CharacterSheet";
+// import Creation5 from "./components/sheet/creation/creation5";
+// import ReceivedMessages from "./components/messages/ReceivedMessages";
+// import SentMessages from "./components/messages/SentMessages";
+// import ReadMessage from "./components/messages/ReadMessage";
+// import NewMessage from "./components/messages/NewMessage";
+// import RecoverPassword from "./components/login/RecoverPassword";
+// import Settings from "./components/settings/Settings";
+// import ForumSections from "./components/forum/ForumSections";
+// import ForumSection from "./components/forum/ForumSection";
+// import CreateNewThread from "./components/forum/forms/CreateNewThread";
+// import ForumThread from "./components/forum/ForumThread";
+// import CreateNewPost from "./components/forum/forms/CreateNewPost";
 import AuthRoute from "./components/_auth/AuthRoute";
-import Creation5 from "./components/sheet/creation/creation5";
-import ReceivedMessages from "./components/messages/ReceivedMessages";
-import SentMessages from "./components/messages/SentMessages";
-import ReadMessage from "./components/messages/ReadMessage";
-import NewMessage from "./components/messages/NewMessage";
-import RecoverPassword from "./components/login/RecoverPassword";
-import Settings from "./components/settings/Settings";
-import ForumSections from "./components/forum/ForumSections";
-import ForumSection from "./components/forum/ForumSection";
-import CreateNewThread from "./components/forum/forms/CreateNewThread";
-import ForumThread from "./components/forum/ForumThread";
-import CreateNewPost from "./components/forum/forms/CreateNewPost";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
@@ -70,6 +70,37 @@ export const push = (history: History, routeKey: string): (Event => void) =>
 
 export const pushAdmin = (history: History, routeKey: string): (Event => void) =>
     _ => history.push(AdminRoutes[routeKey]);
+
+const Login = React.lazy(() => import('./components/login/Login'));
+const CreateUser = React.lazy(() => import('./components/login/CreateUser'));
+const RecoverPassword = React.lazy(() => import('./components/login/RecoverPassword'));
+
+const Main = React.lazy(() => import('./components/home/Main'));
+const Creation1 = React.lazy(() => import('./components/sheet/creation/Creation1'));
+const Creation2 = React.lazy(() => import('./components/sheet/creation/Creation2'));
+const Creation3 = React.lazy(() => import('./components/sheet/creation/Creation3'));
+const Creation4 = React.lazy(() => import('./components/sheet/creation/Creation4'));
+const Creation5 = React.lazy(() => import('./components/sheet/creation/Creation5'));
+const CharacterSheet = React.lazy(() => import('./components/sheet/CharacterSheet'));
+
+const MainMap = React.lazy(() => import('./components/map/MainMap'));
+const Map: any = React.lazy(() => import('./components/map/Map'));
+const Chat = React.lazy(() => import('./components/chat/Chat'));
+
+const Settings = React.lazy(() => import('./components/settings/Settings'));
+const ReceivedMessages = React.lazy(() => import('./components/messages/ReceivedMessages'));
+const SentMessages = React.lazy(() => import('./components/messages/SentMessages'));
+const NewMessage: any = React.lazy(() => import('./components/messages/NewMessage'));
+const ReadMessage: any = React.lazy(() => import('./components/messages/ReadMessage'));
+
+const ForumSections = React.lazy(() => import('./components/forum/ForumSections'));
+const CreateNewThread = React.lazy(() => import('./components/forum/forms/CreateNewThread'));
+const CreateNewPost = React.lazy(() => import('./components/forum/forms/CreateNewPost'));
+const ForumThread = React.lazy(() => import('./components/forum/ForumThread'));
+const ForumSection = React.lazy(() => import('./components/forum/ForumSection'));
+
+const AdminGuides = React.lazy(() => import('./components/admin/guides/AdminGuides'));
+const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
 
 const AppRouter = (): any => {
     return (
