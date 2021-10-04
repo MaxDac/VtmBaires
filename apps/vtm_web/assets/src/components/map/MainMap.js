@@ -10,6 +10,6 @@ export default function MainMap(): any {
     const maps = convert(ret);
 
     return (
-        <SubMap maps={maps} imageUrl="main-map.png" />
+        <SubMap maps={maps} imageUrl="main-map.webp" />
     );
 };

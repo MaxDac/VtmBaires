@@ -12,11 +12,10 @@ import FallbackComponent from "./components/FallbackComponent";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import {useEnv} from "./_base/relay-environment";
-import Skeleton from '@mui/material/Skeleton';
-import Box from '@mui/material/Box';
 import type {IEnvironment} from "relay-runtime";
 import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
+import MainSuspenseFallback from "./MainSuspenseFallback";
 
 const Internal = ({env}: { env: IEnvironment}) => {
     const { showUserNotification } = useContext(UtilityContext);
@@ -34,21 +33,11 @@ const Internal = ({env}: { env: IEnvironment}) => {
         );
     };
 
-    const suspenseFallback = () => (
-        <Box sx={{ width: "100%" }}>
-            <Skeleton />
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-        </Box>
-    )
-
     return (
         <ErrorBoundaryWithRetry fallback={fallback} onUnauthorized={() => history.push(Routes.login)}>
-            <Suspense fallback={suspenseFallback()}>
-                <RelayEnvironmentProvider environment={env}>
-                    <AppRouter />
-                </RelayEnvironmentProvider>
-            </Suspense>
+            <RelayEnvironmentProvider environment={env}>
+                <AppRouter />
+            </RelayEnvironmentProvider>
         </ErrorBoundaryWithRetry>);
 }
 
@@ -96,25 +85,27 @@ function App(): Node {
 
     return (
         <ThemeProvider theme={darkTheme}>
-            <SnackbarProvider maxSnack={3}
-                              ref={snackbarsRef}
-                              preventDuplicate
-                              variant="outlined"
-                              action={key =>
-                                  <Button onClick={onSnackbarDismissClick(key)}>
-                                      Dismiss
-                                  </Button>
-                              }>
-                <AlertLayout>
-                    { props =>
-                        <UtilityContext.Provider value={props}>
-                            <SessionContext.Provider value={getSessionHookValue(environment)}>
-                                <Internal env={environment} />
-                            </SessionContext.Provider>
-                        </UtilityContext.Provider>
-                    }
-                </AlertLayout>
-            </SnackbarProvider>
+            <Suspense fallback={<MainSuspenseFallback />}>
+                <SnackbarProvider maxSnack={3}
+                                  ref={snackbarsRef}
+                                  preventDuplicate
+                                  variant="outlined"
+                                  action={key =>
+                                      <Button onClick={onSnackbarDismissClick(key)}>
+                                          Dismiss
+                                      </Button>
+                                  }>
+                    <AlertLayout>
+                        { props =>
+                            <UtilityContext.Provider value={props}>
+                                <SessionContext.Provider value={getSessionHookValue(environment)}>
+                                    <Internal env={environment} />
+                                </SessionContext.Provider>
+                            </UtilityContext.Provider>
+                        }
+                    </AlertLayout>
+                </SnackbarProvider>
+            </Suspense>
         </ThemeProvider>
     );
 }

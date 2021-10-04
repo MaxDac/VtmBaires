@@ -26,7 +26,7 @@ defmodule VtmWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :vtm_web,
-    gzip: false
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

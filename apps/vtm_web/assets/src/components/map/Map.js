@@ -20,7 +20,7 @@ const Map = ({ id }: MapProps): any => {
 
     const getImageUrlName = name => {
         const fileName = name.toLowerCase().replace(" ", "-");
-        return `/${fileName}.png`;
+        return `/${fileName}.webp`;
     };
 
     const imageUrlName = () =>
