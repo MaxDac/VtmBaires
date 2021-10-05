@@ -2,7 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import { wrapMutation } from "../../../_base/relay-utils";
-import {IEnvironment} from "relay-runtime";
+import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`
     mutation DeleteMessageMutation($id: ID!) {

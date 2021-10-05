@@ -9,18 +9,6 @@ import MainLayout from "../../MainLayout";
 import useStyles from "../../Main.Layout.Style";
 import {useSession} from "../../../services/session-service";
 
-// type FormAttributes = {
-//     attribute4: string;
-//     attribute31: string;
-//     attribute32: string;
-//     attribute33: string;
-//     attribute21: string;
-//     attribute22: string;
-//     attribute23: string;
-//     attribute24: string;
-//     attribute1: string;
-// };
-
 const Creation2 = (): any => {
     const classes = useStyles();
     const [, character] = useSession();

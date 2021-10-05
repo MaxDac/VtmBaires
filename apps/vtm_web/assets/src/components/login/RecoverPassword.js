@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import {requestNewPassword} from "../../services/login-service";
 import {Routes} from "../../AppRouter";
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 type Props = {
 
@@ -55,7 +56,7 @@ const RecoverPassword = (props: Props): any => {
     }
 
     return (
-        <LoginLayout title="Recupera la tua password">
+        <LoginLayout title="Recupera la tua password" icon={<ContactMailIcon />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -77,7 +78,7 @@ const RecoverPassword = (props: Props): any => {
                         <Link to="/" variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
-                            Return to Login
+                            Login
                         </Link>
                     </Grid>
                 </Grid>

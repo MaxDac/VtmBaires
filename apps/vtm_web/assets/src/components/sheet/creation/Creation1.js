@@ -89,11 +89,14 @@ const Creation1 = (): any => {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Typography>
-                                In the first step of the creation of your character, you will have to determine the general information of it. You can be brief in this part, you will have the possibility to change it at a later time.
+                                In questa prima parte della registrazione di un nuovo personaggio, è necessario già avere ben chiara la sua storia, il suo aspetto e la sua interpretazione.
+                            </Typography>
+                            <Typography>
+                                Vampiri: la Masquerade è principalmente un gioco di inerpretazione, quindi questa prima schermata di creazione è la più importante di tutte. Dacci una idea chiara del personaggio che vuoi interpretare.
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormTextField formik={formik} fieldName="name" label="Name" autoComplete="Name" fullWidth={false} className="form-control" />
+                            <FormTextField formik={formik} fieldName="name" label="Nome" autoComplete="Nome" fullWidth={false} className="form-control" />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             {clanSelect()}
@@ -102,10 +105,10 @@ const Creation1 = (): any => {
                             <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
+                            <FormTextField formik={formik} fieldName="description" label="Descrizione" autoComplete="Descrizione" rows={5} />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
+                            <FormTextField formik={formik} fieldName="biography" label="Biografia" autoComplete="Biografia" rows={5} />
                         </Grid>
                         <Grid item xs={12}>
                             <Button

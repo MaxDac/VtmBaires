@@ -97,13 +97,13 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.admin)}>
+            <ListItem button onClick={pushHistory(Routes.unapprovedCharacters)}>
                 <ListItemIcon>
                     <GroupAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Accettazione" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.admin)}>
+            <ListItem button onClick={pushHistory(Routes.charactersList)}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon />
                 </ListItemIcon>

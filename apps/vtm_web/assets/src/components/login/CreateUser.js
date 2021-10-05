@@ -16,6 +16,7 @@ import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import {userNameExists} from "../../services/queries/accounts/UserNameExistsQuery";
 import {userEmailExists} from "../../services/queries/accounts/UserEmailExistsQuery";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -71,7 +72,7 @@ const CreateUserComponent = (): Node => {
     }
 
     return (
-        <LoginLayout title="Register">
+        <LoginLayout title="Registrazione" icon={<AddCircleOutlineIcon />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -91,14 +92,14 @@ const CreateUserComponent = (): Node => {
                 </form>
                 <Grid container>
                     <Grid item xs>
-                        <Link to="#" variant="body2" sx={{
+                        <Link to={Routes.recoverPassword} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
-                            Forgot password?
+                            Recupera password
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link to="/" variant="body2" sx={{
+                        <Link to={Routes.login} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             Return to Login

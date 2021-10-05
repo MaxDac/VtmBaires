@@ -187,6 +187,13 @@ export function convertToJavascriptArray<T>(arr: ?$ReadOnlyArray<T>): T[] {
     return result;
 }
 
+/**
+ * Custom implementation of the Relay lazy load query.
+ * @param gqlQuery The GraphQL query.
+ * @param variables The query variables.
+ * @param options The call options.
+ * @returns {*} The query response.
+ */
 export function useCustomLazyLoadQuery<TQuery: OperationType>(
     gqlQuery: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
@@ -198,4 +205,22 @@ export function useCustomLazyLoadQuery<TQuery: OperationType>(
     |},
 ): $ElementType<TQuery, 'response'> {
     return useLazyLoadQuery(gqlQuery, variables, options);
+}
+
+export function useStoreFirstQuery<TQuery: OperationType>(
+    gqlQuery: GraphQLTaggedNode,
+    variables: VariablesOf<TQuery>
+): $ElementType<TQuery, 'response'> {
+    return useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
+        fetchPolicy: "store-or-network"
+    })
+}
+
+export function useForceReloadFirstQuery<TQuery: OperationType>(
+    gqlQuery: GraphQLTaggedNode,
+    variables: VariablesOf<TQuery>
+): $ElementType<TQuery, 'response'> {
+    return useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
+        fetchPolicy: "store-and-network"
+    })
 }

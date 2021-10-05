@@ -7,7 +7,7 @@ defmodule Vtm.Repo.Migrations.CreateChatMaps do
       add :description, :string
       add :image, :string
       add :is_chat, :boolean, default: false, null: false
-      add :chat_map_id, references(:chat_maps, on_delete: :nothing)
+      add :chat_map_id, references(:chat_maps, on_delete: :delete_all)
 
       timestamps()
     end

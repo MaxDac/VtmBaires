@@ -6,8 +6,12 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.SessionInfo
 
-  def all(_, _, %{context: %{current_user: _user}}) do
+  def all(_, _, _) do
     {:ok, Characters.all()}
+  end
+
+  def all_unapproved(_, _, _) do
+    {:ok, Characters.all_unapproved()}
   end
 
   def get_clans(_, _, _) do

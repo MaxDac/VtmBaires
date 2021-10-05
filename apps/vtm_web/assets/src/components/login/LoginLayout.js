@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export type HomeLayoutProps = {
     title: string;
+    icon: any;
     children: Node;
 }
 
@@ -61,7 +62,7 @@ const LoginLayout = (props: HomeLayoutProps): Node => {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
+                        {props.icon}
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         {props.title}

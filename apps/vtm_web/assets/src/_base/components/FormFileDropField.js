@@ -129,8 +129,8 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
             <section className="container">
                 <div {...getRootProps({style})}>
                     <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                    <em>(Only *.png images will be accepted)</em>
+                    <p>Trascina un file su questa area, o clicca per aggiungere un'immagine.</p>
+                    <em>(Saranno accettati solo file png)</em>
                 </div>
             </section>
             {showPreview()}

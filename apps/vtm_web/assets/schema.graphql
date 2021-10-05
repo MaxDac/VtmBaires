@@ -347,6 +347,7 @@ type RootQueryType {
   sectionMaps(parentId: ID): [ChatLocation]
   sessionsList: [Session]
   subscriptionToken: String
+  unapprovedCharactersList: [Character]
   userEmailExists(email: String!): Boolean
   userNameExists(name: String!): Boolean
 }

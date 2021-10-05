@@ -9,10 +9,10 @@ defmodule Vtm.Repo.Migrations.CreateMessages do
       add :read, :boolean, default: false
       add :hide_for_receiver, :boolean, default: false
       add :hide_for_sender, :boolean, default: false
-      add :sender_user_id, references(:users, on_delete: :nothing)
-      add :receiver_user_id, references(:users, on_delete: :nothing)
-      add :sender_character_id, references(:characters, on_delete: :nothing)
-      add :receiver_character_id, references(:characters, on_delete: :nothing)
+      add :sender_user_id, references(:users, on_delete: :delete_all)
+      add :receiver_user_id, references(:users, on_delete: :delete_all)
+      add :sender_character_id, references(:characters, on_delete: :delete_all)
+      add :receiver_character_id, references(:characters, on_delete: :delete_all)
 
       timestamps()
     end

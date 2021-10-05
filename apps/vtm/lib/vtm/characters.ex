@@ -20,6 +20,17 @@ defmodule Vtm.Characters do
     |> Enum.map(fn {id, name} -> %Character{id: id, name: name} end)
   end
 
+  def all_unapproved() do
+    query =
+      from c in Character,
+        where: c.is_complete == true,
+        where: c.approved == false,
+        select: {c.id, c.name}
+
+    Repo.all(query)
+    |> Enum.map(fn {id, name} -> %Character{id: id, name: name} end)
+  end
+
   def get_clans() do
     Clan |> Repo.all()
   end

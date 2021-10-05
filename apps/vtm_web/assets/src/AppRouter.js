@@ -2,33 +2,8 @@
 
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-// import Login from './components/login/Login';
-// import CreateUser from "./components/login/CreateUser";
-// import Main from "./components/home/Main";
-// import AdminDashboard from "./components/admin/AdminDashboard";
-// import AdminGuides from "./components/admin/guides/AdminGuides";
 import type {History} from "./_base/types";
-// import Creation1 from "./components/sheet/creation/Creation1";
 import 'suneditor/dist/css/suneditor.min.css';
-// import Creation2 from "./components/sheet/creation/Creation2";
-// import Creation3 from "./components/sheet/creation/Creation3";
-// import Map from "./components/map/Map";
-// import Chat from "./components/chat/Chat";
-// import MainMap from "./components/map/MainMap";
-// import Creation4 from "./components/sheet/creation/Creation4";
-// import CharacterSheet from "./components/sheet/CharacterSheet";
-// import Creation5 from "./components/sheet/creation/creation5";
-// import ReceivedMessages from "./components/messages/ReceivedMessages";
-// import SentMessages from "./components/messages/SentMessages";
-// import ReadMessage from "./components/messages/ReadMessage";
-// import NewMessage from "./components/messages/NewMessage";
-// import RecoverPassword from "./components/login/RecoverPassword";
-// import Settings from "./components/settings/Settings";
-// import ForumSections from "./components/forum/ForumSections";
-// import ForumSection from "./components/forum/ForumSection";
-// import CreateNewThread from "./components/forum/forms/CreateNewThread";
-// import ForumThread from "./components/forum/ForumThread";
-// import CreateNewPost from "./components/forum/forms/CreateNewPost";
 import AuthRoute from "./components/_auth/AuthRoute";
 import AuthMasterRoute from "./components/_auth/AuthMasterRoute";
 
@@ -39,7 +14,6 @@ export const Routes = {
     register: "/register",
     recoverPassword: "/recover-password",
     main: "/",
-    admin: "/admin",
     creation1: "/creation/1",
     creation2: "/creation/2",
     creation3: "/creation/3",
@@ -63,7 +37,12 @@ export const Routes = {
             : "/sheet",
     modifySheet: (id: string): string => `/sheet/modify/${id}`,
     subMap: (id: string): string => `/map/${id}`,
-    chat: (id: string): string => `/chat/${id}`
+    chat: (id: string): string => `/chat/${id}`,
+
+    admin: "/admin",
+    charactersList: "/admin/characters",
+    unapprovedCharacters: "/admin/unapproved",
+    approveCharacter: (id: string) => `/admin/approve/${id}`
 };
 
 export const AdminRoutes = {
@@ -108,6 +87,9 @@ const ForumSection = React.lazy(() => import('./components/forum/ForumSection'))
 
 const AdminGuides = React.lazy(() => import('./components/admin/guides/AdminGuides'));
 const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
+const CharactersList = React.lazy(() => import('./components/admin/characters/CharactersList'));
+const UnapprovedCharacters = React.lazy(() => import('./components/admin/approvation/UnapprovedCharacters'));
+const ApproveCharacter = React.lazy(() => import('./components/admin/approvation/ApproveCharacter'));
 
 const AppRouter = (): any => {
     return (
@@ -149,6 +131,9 @@ const AppRouter = (): any => {
 
             <AuthMasterRoute exact path="/admin/guides" component={() => <AdminGuides />} />
             <AuthMasterRoute exact path="/admin" component={() => <AdminDashboard />} />
+            <AuthMasterRoute exact path="/admin/characters" component={() => <CharactersList />} />
+            <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
+            <AuthMasterRoute exact path="/admin/approve/:id" component={({match: {params: {id}}}) => <ApproveCharacter id={id} />} />
         </Switch>
     );
 };

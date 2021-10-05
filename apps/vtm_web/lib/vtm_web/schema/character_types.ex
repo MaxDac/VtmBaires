@@ -97,8 +97,14 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
   object :character_queries do
     field :characters_list, list_of(:character) do
-      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve &CharacterResolvers.all/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :unapproved_characters_list, list_of(:character) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve &CharacterResolvers.all_unapproved/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

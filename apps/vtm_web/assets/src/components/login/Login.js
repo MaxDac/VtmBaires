@@ -15,6 +15,7 @@ import {storeSession} from "../../services/session-service";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import FormCheckboxField from "../../_base/components/FormCheckboxField";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -69,7 +70,7 @@ const LoginComponent = (): Node => {
     }
 
     return (
-        <LoginLayout title="Sign in">
+        <LoginLayout title="Login" icon={<LockOutlinedIcon />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -86,7 +87,7 @@ const LoginComponent = (): Node => {
                         sx={{
                             margin: theme.spacing(3, 0, 2),
                         }}>
-                        Sign In
+                        Accedi
                     </Button>
                 </form>
                 <Grid container>
@@ -94,14 +95,14 @@ const LoginComponent = (): Node => {
                         <Link to={Routes.recoverPassword} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
-                            Forgot password?
+                            Recupera Password
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link to="#" onClick={_ => history.push(Routes.register)} variant="body2" sx={{
+                        <Link to={Routes.register} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
-                            {"Don't have an account? Sign Up"}
+                            Registrati
                         </Link>
                     </Grid>
                 </Grid>
