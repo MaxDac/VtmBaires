@@ -12,12 +12,18 @@ import Typography from "@mui/material/Typography";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 type Props = CharacterProviderBaseProps & {
-    children: any => any,
+    children: any => any;
+    reload?: ?boolean;
 }
 
-const CharacterFragmentProviderQuery = ({characterId, children}) => {
+const CharacterFragmentProviderQuery = ({characterId, children, reload}) => {
+    const policy = {
+        fetchPolicy: reload ? "store-and-network" : "store-or-network",
+    };
+
     const character =
-        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, { id: characterId })?.getCharacter;
+        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, { id: characterId }, policy)
+            ?.getCharacter;
 
     if (character?.id != null) {
         return children(character);
@@ -35,7 +41,7 @@ const CharacterFragmentProvider = (props: Props): any => {
 
     if (characterId != null) {
         return (
-            <CharacterFragmentProviderQuery characterId={characterId}>
+            <CharacterFragmentProviderQuery characterId={characterId} reload={props.reload}>
                 {props.children}
             </CharacterFragmentProviderQuery>
         );
@@ -44,7 +50,7 @@ const CharacterFragmentProvider = (props: Props): any => {
     return (
         <RemoteCharacterProvider>
             { characterId =>
-                <CharacterFragmentProviderQuery characterId={characterId} children={props.children} />
+                <CharacterFragmentProviderQuery characterId={characterId} children={props.children} reload={props.reload} />
             }
         </RemoteCharacterProvider>
     );

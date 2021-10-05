@@ -14,15 +14,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {MainListItems, SecondaryListItems} from "./home/Menu";
+import {MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import ContainedSuspenseFallback from "./ContainedSuspenseFallback";
 import {useMediaQuery} from "@mui/material";
 import {useEffect} from "react";
-import MessageControl from "./home/top-right-menu-handlers/MessageControl";
-import OnlineControl from "./home/top-right-menu-handlers/OnlineControl";
-import LogoutControl from "./home/top-right-menu-handlers/LogoutControl";
+import MessageControl from "./_layout/MessageControl";
+import OnlineControl from "./_layout/OnlineControl";
+import LogoutControl from "./_layout/LogoutControl";
 
 const drawerWidth = 240;
 
@@ -146,6 +146,38 @@ export default function MiniDrawer({children}: {children: any}): any {
         return "Vampire the Masquerade: Buenos Aires by Night";
     }
 
+    const drawerContent = () => (
+        <>
+            <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+                <MainListItems drawerDone={closeOnSelected} isClosed={!open} />
+            </List>
+            <Divider />
+            {masterMenu()}
+        </>
+    );
+
+    const drawer = () => {
+        if (isEnoughSpace) {
+            return (
+                <Drawer variant="permanent" open={open}>
+                    {drawerContent()}
+                </Drawer>
+            );
+        }
+        
+        return (
+            <MuiDrawer variant="persistent" open={open}>
+                {drawerContent()}
+            </MuiDrawer>
+        );
+    }
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -177,19 +209,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                     <LogoutControl />
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <MainListItems drawerDone={closeOnSelected} isClosed={!open} />
-                </List>
-                <Divider />
-                {masterMenu()}
-            </Drawer>
+            {drawer()}
             <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{height: "100vh"}}>
                 <DrawerHeader />
                 <React.Suspense fallback={<ContainedSuspenseFallback />}>

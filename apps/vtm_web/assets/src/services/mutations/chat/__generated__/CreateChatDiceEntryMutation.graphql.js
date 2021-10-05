@@ -22,9 +22,13 @@ export type CreateChatDiceEntryMutationVariables = {|
 export type CreateChatDiceEntryMutationResponse = {|
   +createChatDiceEntry: ?{|
     +id: string,
-    +chatMapId: ?string,
-    +characterId: ?string,
-    +characterName: ?string,
+    +character: ?{|
+      +id: string,
+      +name: ?string,
+    |},
+    +chatMap: ?{|
+      +id: string
+    |},
     +result: ?string,
     +text: ?string,
   |}
@@ -41,9 +45,13 @@ mutation CreateChatDiceEntryMutation(
 ) {
   createChatDiceEntry(entry: $entry) {
     id
-    chatMapId
-    characterId
-    characterName
+    character {
+      id
+      name
+    }
+    chatMap {
+      id
+    }
     result
     text
   }
@@ -58,7 +66,14 @@ var v0 = [
     "name": "entry"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": [
@@ -73,32 +88,36 @@ v1 = [
     "name": "createChatDiceEntry",
     "plural": false,
     "selections": [
+      (v1/*: any*/),
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "id",
+        "concreteType": "Character",
+        "kind": "LinkedField",
+        "name": "character",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       },
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "chatMapId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterName",
+        "concreteType": "ChatLocation",
+        "kind": "LinkedField",
+        "name": "chatMap",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/)
+        ],
         "storageKey": null
       },
       {
@@ -125,7 +144,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateChatDiceEntryMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
   },
@@ -134,18 +153,18 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateChatDiceEntryMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "ee05b0b138e8eaa9cacb091d4ec8a1b1",
+    "cacheID": "7601a1f32203b77a3cd400fde96babf7",
     "id": null,
     "metadata": {},
     "name": "CreateChatDiceEntryMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateChatDiceEntryMutation(\n  $entry: ChatDiceEntryRequest\n) {\n  createChatDiceEntry(entry: $entry) {\n    id\n    chatMapId\n    characterId\n    characterName\n    result\n    text\n  }\n}\n"
+    "text": "mutation CreateChatDiceEntryMutation(\n  $entry: ChatDiceEntryRequest\n) {\n  createChatDiceEntry(entry: $entry) {\n    id\n    character {\n      id\n      name\n    }\n    chatMap {\n      id\n    }\n    result\n    text\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '85a16b3b2b516eaa7e836ee98b0d4862';
+(node: any).hash = 'ce56ea339785f3bd1f0bce8ed7beaebf';
 module.exports = node;

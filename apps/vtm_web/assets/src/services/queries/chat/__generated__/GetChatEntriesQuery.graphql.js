@@ -13,10 +13,14 @@ export type GetChatEntriesQueryVariables = {|
 export type GetChatEntriesQueryResponse = {|
   +mapChatEntries: ?$ReadOnlyArray<?{|
     +id: string,
-    +chatMapId: ?string,
-    +characterId: ?string,
-    +characterName: ?string,
-    +characterChatAvatar: ?string,
+    +character: ?{|
+      +id: string,
+      +name: ?string,
+      +chatAvatar: ?string,
+    |},
+    +chatMap: ?{|
+      +id: string
+    |},
     +master: ?boolean,
     +result: ?string,
     +text: ?string,
@@ -35,10 +39,14 @@ query GetChatEntriesQuery(
 ) {
   mapChatEntries(mapId: $mapId) {
     id
-    chatMapId
-    characterId
-    characterName
-    characterChatAvatar
+    character {
+      id
+      name
+      chatAvatar
+    }
+    chatMap {
+      id
+    }
     master
     result
     text
@@ -55,7 +63,14 @@ var v0 = [
     "name": "mapId"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": [
@@ -70,39 +85,43 @@ v1 = [
     "name": "mapChatEntries",
     "plural": true,
     "selections": [
+      (v1/*: any*/),
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "id",
+        "concreteType": "Character",
+        "kind": "LinkedField",
+        "name": "character",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "chatAvatar",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       },
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "chatMapId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterName",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterChatAvatar",
+        "concreteType": "ChatLocation",
+        "kind": "LinkedField",
+        "name": "chatMap",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/)
+        ],
         "storageKey": null
       },
       {
@@ -143,7 +162,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "GetChatEntriesQuery",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
   },
@@ -152,18 +171,18 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "GetChatEntriesQuery",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "f2381db28ac3de9c66875ec95566bfdb",
+    "cacheID": "eebf24294bde7a50cc95e90ff8cfbd77",
     "id": null,
     "metadata": {},
     "name": "GetChatEntriesQuery",
     "operationKind": "query",
-    "text": "query GetChatEntriesQuery(\n  $mapId: ID!\n) {\n  mapChatEntries(mapId: $mapId) {\n    id\n    chatMapId\n    characterId\n    characterName\n    characterChatAvatar\n    master\n    result\n    text\n    insertedAt\n  }\n}\n"
+    "text": "query GetChatEntriesQuery(\n  $mapId: ID!\n) {\n  mapChatEntries(mapId: $mapId) {\n    id\n    character {\n      id\n      name\n      chatAvatar\n    }\n    chatMap {\n      id\n    }\n    master\n    result\n    text\n    insertedAt\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'f37d8549e7fda423a9d4574da2e2c0f4';
+(node: any).hash = 'd5407372de03f6121747b185f6ae0d3d';
 module.exports = node;

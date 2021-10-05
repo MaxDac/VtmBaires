@@ -12,10 +12,14 @@ const subscription = graphql`
             text
             result
             master
-            characterId
-            characterChatAvatar
-            chatMapId
-            characterName
+            character {
+                id
+                name
+                chatAvatar
+            }
+            chatMap {
+                id
+            }
             insertedAt
         }
     }

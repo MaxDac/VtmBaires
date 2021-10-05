@@ -445,4 +445,22 @@ defmodule Vtm.Characters do
         end
     end
   end
+
+  def change_sheet_info(character_id, attrs = %{avatar: avatar}) when not is_nil(avatar) do
+    Character
+    |> Repo.get(character_id)
+    |> Character.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def change_sheet_info(character_id, attrs) do
+    attrs =
+      attrs
+      |> Map.drop([:avatar, :chat_avatar])
+
+    Character
+    |> Repo.get(character_id)
+    |> Character.update_changeset(attrs)
+    |> Repo.update()
+  end
 end

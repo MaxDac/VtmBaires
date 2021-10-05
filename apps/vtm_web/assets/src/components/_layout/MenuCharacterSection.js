@@ -41,7 +41,7 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
         _ => {
             setCurrentCharacter(info);
 
-            if (!info.approved || !info.isComplete) {
+            if (!info.approved && !info.isComplete) {
                 pushHistory(`${Routes.creationBase}${info.stage + 1}`)();
             }
             else {

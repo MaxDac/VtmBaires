@@ -22,10 +22,14 @@ export type ChatEntry = {
     text: string;
     result: string;
     master: boolean;
-    characterId: string;
-    characterChatAvatar: string;
-    chatMapId: string;
-    characterName: string;
+    character: {
+        id: string;
+        name: string;
+        chatAvatar: string;
+    },
+    chatMap: {
+        id: string;
+    },
     insertedAt: string;
 }
 

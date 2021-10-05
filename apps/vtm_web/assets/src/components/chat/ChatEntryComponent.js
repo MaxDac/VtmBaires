@@ -15,9 +15,10 @@ import {markdownComponents} from "../../_base/components/ParsedText";
 type ChatEntryComponentProps = {
     entry: ChatEntry;
     isLast?: ?boolean;
+    showCharacterDescription: string => void;
 }
 
-const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
+const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntryComponentProps): any => {
     const divider = () => <Divider variant="inset" component="li" />
 
     const isText = () => Boolean(entry.text);
@@ -33,8 +34,8 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
 
     const primaryText = () => {
         const text = isText()
-            ? entry.characterName
-            : `${entry.characterName} (dices)`;
+            ? entry.character.name
+            : `${entry.character.name} (dices)`;
 
         return (
             <Box component="div" sx={{
@@ -50,7 +51,7 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
         <Typography component="div" sx={{
             fontFamily: 'GabrieleLightRibbon'
         }}>
-            <ReactMarkdown  components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.text}
             </ReactMarkdown>
         </Typography>;
@@ -59,21 +60,21 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
         <Typography component="div" sx={{
             fontFamily: 'GabrieleLightRibbon'
         }}>
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.result}
             </ReactMarkdown>
         </Typography>;
 
     const parseChatEntryMasterText = () =>
         <Typography component="div" sx={masterPhraseStyle}>
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.text}
             </ReactMarkdown>
         </Typography>;
 
     const parseChatEntryMasterResult = () =>
         <Typography component="div" sx={masterPhraseStyle}>
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.result}
             </ReactMarkdown>
         </Typography>;
@@ -91,15 +92,21 @@ const ChatEntryComponent = ({entry, isLast}: ChatEntryComponentProps): any => {
             : (
                 <>
                     <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src={entry.characterChatAvatar} />
+                        <Avatar alt="Remy Sharp" src={entry.character.chatAvatar} />
                     </ListItemAvatar>
                     <ListItemText primary={primaryText()} secondary={secondaryText()} />
                 </>
             );
 
+    const showDescription = _ => {
+        if (!isMaster()) {
+            showCharacterDescription(entry?.character?.id);
+        }
+    };
+
     return (
         <>
-            <ListItem alignItems="flex-start">
+            <ListItem alignItems="flex-start" button onClick={showDescription}>
                 {itemText()}
             </ListItem>
             {isLast ? <></> : divider()}

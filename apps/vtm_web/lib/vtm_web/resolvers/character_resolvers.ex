@@ -157,4 +157,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       {:ok, true}
     end
   end
+
+  def change_sheet_info(%{character_id: character_id, request: request}, _) do
+    Characters.change_sheet_info(character_id, request)
+  end
 end

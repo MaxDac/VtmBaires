@@ -14,13 +14,11 @@ defmodule VtmWeb.Schema.ChatTypes do
 
   # if left chat_entry, Relay got mad
   node object :map_chat_entry do
-    field :character_id, :id
-    field :character_name, :string
-    field :character_chat_avatar, :string
     field :result, :string
     field :text, :string
     field :master, :boolean
-    field :chat_map_id, :id
+    field :character, :character
+    field :chat_map, :chat_location
     field :inserted_at, :hour
   end
 

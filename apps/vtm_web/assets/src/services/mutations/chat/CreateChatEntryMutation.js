@@ -12,9 +12,13 @@ const mutation = graphql`
     mutation CreateChatEntryMutation($entry: ChatEntryRequest) {
         createChatEntry(entry: $entry) {
             id
-            chatMapId
-            characterId
-            characterName
+            chatMap {
+                id
+            }
+            character {
+                id
+                name
+            }
             result
             text
         }

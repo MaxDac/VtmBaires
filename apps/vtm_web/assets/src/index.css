@@ -30,3 +30,8 @@ code {
 .MuiSpeedDialAction-fab {
   background-color: red;
 }
+
+/* This style is needed by the react markdown. Apply this class to the react markdown to avoid p margin */
+div.no-padding-paragraph p {
+  margin: 0;
+}

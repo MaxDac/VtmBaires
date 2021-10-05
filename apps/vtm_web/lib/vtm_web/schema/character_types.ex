@@ -88,6 +88,13 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :notes, :string
   end
 
+  input_object :change_sheet_info_request do
+    field :avatar, :string
+    field :chat_avatar, :string
+    field :description, :string
+    field :biography, :string
+  end
+
   object :character_queries do
     field :characters_list, list_of(:character) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
@@ -193,6 +200,22 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&CharacterResolvers.delete_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_sheet_info do
+      input do
+        field :character_id, :id
+        field :request, :change_sheet_info_request
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
+      resolve parsing_node_ids(&CharacterResolvers.change_sheet_info/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

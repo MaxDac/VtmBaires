@@ -5,15 +5,20 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GraphQLTaggedNode} from "relay-runtime";
 import type {ChatEntry} from "../../base-types";
 import {emptyArray} from "../../../_base/utils";
+import type {GetChatEntriesQuery} from "./__generated__/GetChatEntriesQuery.graphql";
 
 const chatEntriesQuery: GraphQLTaggedNode = graphql`
     query GetChatEntriesQuery($mapId: ID!) {
         mapChatEntries(mapId: $mapId) {
             id
-            chatMapId
-            characterId
-            characterName
-            characterChatAvatar
+            character {
+                id
+                name
+                chatAvatar
+            }
+            chatMap {
+                id
+            }
             master
             result
             text
@@ -23,18 +28,22 @@ const chatEntriesQuery: GraphQLTaggedNode = graphql`
 `;
 
 export function useChatEntriesQuery(mapId: string): Array<ChatEntry> {
-    return useCustomLazyLoadQuery(chatEntriesQuery, { mapId }, {
+    return useCustomLazyLoadQuery<GetChatEntriesQuery>(chatEntriesQuery, { mapId }, {
         fetchPolicy: "store-and-network"
     })?.mapChatEntries
         ?.map(e => ({
-            id: e.id,
-            chatMapId: e.chatMapId,
-            characterId: e.characterId,
-            characterName: e.characterName,
-            characterChatAvatar: e.characterChatAvatar,
-            result: e.result,
-            text: e.text,
-            insertedAt: e.insertedAt,
-            master: e.master
+            id: e?.id ?? "",
+            character: {
+                id: e?.character?.id ?? "",
+                name: e?.character?.name ?? "",
+                chatAvatar: e?.character?.chatAvatar ?? ""
+            },
+            chatMap: {
+                id: e?.chatMap?.id ?? ""
+            },
+            result: e?.result ?? "",
+            text: e?.text ?? "",
+            insertedAt: e?.insertedAt ?? "",
+            master: e?.master ?? false
         })) ?? emptyArray<ChatEntry>();
 }

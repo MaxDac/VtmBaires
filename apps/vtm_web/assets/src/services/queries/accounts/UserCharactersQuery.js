@@ -2,7 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import type { GraphQLTaggedNode } from "relay-runtime/query/GraphQLTag";
-import {useLazyLoadQuery} from "react-relay";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
 export const userCharactersQuery: GraphQLTaggedNode = graphql`
     query UserCharactersQuery {
@@ -29,7 +29,7 @@ export type UserCharacter = {
 }
 
 export const useUserCharactersQuery = (): Array<UserCharacter> =>
-    useLazyLoadQuery(userCharactersQuery, {}, {
+    useCustomLazyLoadQuery(userCharactersQuery, {}, {
         fetchPolicy: "network-only"
     })
         ?.me

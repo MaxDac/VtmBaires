@@ -26,6 +26,7 @@ import {UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 import {Typography} from "@mui/material";
+import {getCharacterDescription} from "../../services/queries/character/GetCharacterDescriptionQuery";
 
 type ChatProps = {
     id: string;
@@ -42,6 +43,8 @@ const Chat = ({ id }: ChatProps): any => {
     } = useContext(UtilityContext);
 
     const [mapModalOpen, setMapModalOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState(map?.name);
+    const [modalDescription, setModalDescription] = useState(map?.description);
     const initialEntries = useChatEntriesQuery(id);
     const [entries, setEntries] = useState(initialEntries);
     const chatToken = useSubscriptionTokenQuery();
@@ -68,6 +71,24 @@ const Chat = ({ id }: ChatProps): any => {
         obj.scrollTop = obj.scrollHeight;
     }, [chatContainerScrollHeight]);
 
+    const showMapDescription = () => {
+        setModalTitle(_ => map?.name);
+        setModalDescription(_ => map?.description);
+        setMapModalOpen(_ => true);
+    };
+
+    const showCharacterDescription = id => {
+        getCharacterDescription(environment, id)
+            .then(res => {
+                if (res != null) {
+                    setModalTitle(_ => res?.name);
+                    setModalDescription(_ => res?.description);
+                    setMapModalOpen(_ => true);
+                }
+            })
+            .catch(e => console.error("Error while getting character description", e));
+    };
+
     const showEntries = () => {
         if (entries && entries.map) {
             return entries?.map((e, index) => {
@@ -75,7 +96,8 @@ const Chat = ({ id }: ChatProps): any => {
                     return (
                         <ChatEntryComponent entry={e}
                                             key={e.id}
-                                            isLast={index === entries.length - 1}/>
+                                            isLast={index === entries.length - 1}
+                                            showCharacterDescription={showCharacterDescription} />
                     );
                 }
 
@@ -134,7 +156,7 @@ const Chat = ({ id }: ChatProps): any => {
                 Il tuo personaggio non &egrave; ancora stato accetato.
             </Typography>
         )
-    }
+    };
 
     return (
         <MainLayout openDialog={openDialog}>
@@ -143,11 +165,11 @@ const Chat = ({ id }: ChatProps): any => {
                         onClose={_ => setMapModalOpen(false)}
                         aria-labelledby="map-info">
                     <DialogTitle>
-                        {map?.name}
+                        {modalTitle}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            {map?.description}
+                            {modalDescription}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
@@ -162,7 +184,7 @@ const Chat = ({ id }: ChatProps): any => {
                     height: "calc(100% - 67px)",
                     overflow: "hidden"
                 }} id="chat-entries">
-                    <ChatControls openMapModal={() => setMapModalOpen(true)}/>
+                    <ChatControls openMapModal={() => showMapDescription()}/>
                     <List sx={{
                         flex: "4 0",
                         overflowY: "scroll"

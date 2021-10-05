@@ -30,6 +30,22 @@ type AttributeType implements Node {
   section: String
 }
 
+input ChangeSheetInfoInput {
+  characterId: ID
+  request: ChangeSheetInfoRequest
+}
+
+type ChangeSheetInfoPayload {
+  result: Character
+}
+
+input ChangeSheetInfoRequest {
+  avatar: String
+  biography: String
+  chatAvatar: String
+  description: String
+}
+
 type Character implements Node {
   advantages: String
   aggravatedDamage: Int
@@ -209,10 +225,8 @@ type LoginResponse {
 }
 
 type MapChatEntry implements Node {
-  characterChatAvatar: String
-  characterId: ID
-  characterName: String
-  chatMapId: ID
+  character: Character
+  chatMap: ChatLocation
 
   """The ID of an object"""
   id: ID!
@@ -289,6 +303,7 @@ enum Role {
 type RootMutationType {
   addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
+  changeSheetInfo(input: ChangeSheetInfoInput!): ChangeSheetInfoPayload
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry

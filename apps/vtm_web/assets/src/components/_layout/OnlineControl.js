@@ -3,7 +3,7 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
 import PeopleIcon from "@mui/icons-material/People";
-import {listSessionQuery} from "../../../services/queries/accounts/SessionQuery";
+import {listSessionQuery} from "../../services/queries/accounts/SessionQuery";
 import {useTheme} from "@mui/styles";
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -15,10 +15,10 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Fade from "@mui/material/Fade";
 import {useMediaQuery} from "@mui/material";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import type {
     SessionQuery
-} from "../../../services/queries/accounts/__generated__/SessionQuery.graphql";
+} from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />

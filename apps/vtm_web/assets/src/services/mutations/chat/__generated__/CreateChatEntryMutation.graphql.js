@@ -18,9 +18,13 @@ export type CreateChatEntryMutationVariables = {|
 export type CreateChatEntryMutationResponse = {|
   +createChatEntry: ?{|
     +id: string,
-    +chatMapId: ?string,
-    +characterId: ?string,
-    +characterName: ?string,
+    +chatMap: ?{|
+      +id: string
+    |},
+    +character: ?{|
+      +id: string,
+      +name: ?string,
+    |},
     +result: ?string,
     +text: ?string,
   |}
@@ -37,9 +41,13 @@ mutation CreateChatEntryMutation(
 ) {
   createChatEntry(entry: $entry) {
     id
-    chatMapId
-    characterId
-    characterName
+    chatMap {
+      id
+    }
+    character {
+      id
+      name
+    }
     result
     text
   }
@@ -54,7 +62,14 @@ var v0 = [
     "name": "entry"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": [
@@ -69,32 +84,36 @@ v1 = [
     "name": "createChatEntry",
     "plural": false,
     "selections": [
+      (v1/*: any*/),
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "id",
+        "concreteType": "ChatLocation",
+        "kind": "LinkedField",
+        "name": "chatMap",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/)
+        ],
         "storageKey": null
       },
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "chatMapId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterId",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "characterName",
+        "concreteType": "Character",
+        "kind": "LinkedField",
+        "name": "character",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       },
       {
@@ -121,7 +140,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "CreateChatEntryMutation",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
   },
@@ -130,18 +149,18 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateChatEntryMutation",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "ee8662208b99efe47283dc65b6f9c25a",
+    "cacheID": "8025afac0b19bfdfd27e87030a32db7f",
     "id": null,
     "metadata": {},
     "name": "CreateChatEntryMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateChatEntryMutation(\n  $entry: ChatEntryRequest\n) {\n  createChatEntry(entry: $entry) {\n    id\n    chatMapId\n    characterId\n    characterName\n    result\n    text\n  }\n}\n"
+    "text": "mutation CreateChatEntryMutation(\n  $entry: ChatEntryRequest\n) {\n  createChatEntry(entry: $entry) {\n    id\n    chatMap {\n      id\n    }\n    character {\n      id\n      name\n    }\n    result\n    text\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '601b98e644240e90e0b6be88b0d9a20a';
+(node: any).hash = 'c5b851cb9a7d1d70063c58fb29e13082';
 module.exports = node;

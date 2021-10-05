@@ -11,9 +11,12 @@ import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ChatIcon from '@mui/icons-material/Chat';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import {Routes} from "../../AppRouter";
 import MenuCharacterSection from "./MenuCharacterSection";
 import {useHistory} from "react-router-dom";
+import Divider from "@mui/material/Divider";
 
 type Props = {
     drawerDone: () => void;
@@ -40,7 +43,7 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 <ListItemIcon>
                     <MapIcon />
                 </ListItemIcon>
-                <ListItemText primary="Map" />
+                <ListItemText primary="Mappa" />
             </ListItem>
             <MenuCharacterSection pushHistory={pushHistory} />
             <ListItem button>
@@ -94,6 +97,19 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
+            <ListItem button onClick={pushHistory(Routes.admin)}>
+                <ListItemIcon>
+                    <GroupAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Accettazione" />
+            </ListItem>
+            <ListItem button onClick={pushHistory(Routes.admin)}>
+                <ListItemIcon>
+                    <SupervisedUserCircleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Lista personaggi" />
+            </ListItem>
+            <Divider />
             {DOLogo()}
         </div>
     );

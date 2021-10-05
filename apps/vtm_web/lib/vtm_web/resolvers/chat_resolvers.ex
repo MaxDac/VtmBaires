@@ -4,6 +4,23 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
   alias VtmAuth.Accounts
 
+  defp map_entry(entry = %{
+    character_id: c_id,
+    character_name: c_name,
+    character_chat_avatar: c_avatar,
+    chat_map_id: map_id
+  }) do
+    entry
+    |> Map.put(:character, %{
+      id: c_id,
+      name: c_name,
+      chat_avatar: c_avatar
+    })
+    |> Map.put(:chat_map, %{
+      id: map_id
+    })
+  end
+
   def get_main_chat_maps(_, _, _) do
     {:ok, Chats.get_main_chat_maps()}
   end
@@ -17,7 +34,11 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def get_chat_entries(%{ map_id: map_id }, _) do
-    {:ok, Chats.get_chat_entries(map_id)}
+    entries =
+      Chats.get_chat_entries(map_id)
+      |> Enum.map(&map_entry/1)
+
+    {:ok, entries}
   end
 
   def create_chat_entry(_, %{ entry: entry }, %{context: %{current_user: user}}) do
@@ -39,7 +60,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     with {:ok, %{ id: id }}           <- Chats.create_chat_entry(new_entry),
          entry when not is_nil(entry) <- Chats.get_chat_entry(id),
          {:ok, _}                     <- Accounts.update_session(user) do
-      {:ok, entry}
+      {:ok, entry |> map_entry()}
     end
   end
 
@@ -64,9 +85,11 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
       {true, false} ->
         throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
         create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
+        |> map_entry()
       {true, true} ->
         throw_result = Chats.random_simulate_master_dice_throw(free_throw)
         create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
+        |> map_entry()
       _ ->
         {:error, :unauthorized}
     end

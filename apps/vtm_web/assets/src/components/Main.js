@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import MainLayout from "../MainLayout";
+import MainLayout from "./MainLayout";
 
 export default function Main(): any {
     return (

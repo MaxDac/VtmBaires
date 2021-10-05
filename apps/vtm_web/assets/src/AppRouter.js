@@ -30,6 +30,7 @@ import 'suneditor/dist/css/suneditor.min.css';
 // import ForumThread from "./components/forum/ForumThread";
 // import CreateNewPost from "./components/forum/forms/CreateNewPost";
 import AuthRoute from "./components/_auth/AuthRoute";
+import AuthMasterRoute from "./components/_auth/AuthMasterRoute";
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
@@ -56,7 +57,11 @@ export const Routes = {
     createNewForumThread: (sectionId: string): string => `/forum/${sectionId}/thread/new`,
     createNewForumPost: (threadId: string): string => `/forum/thread/${threadId}/post/new`,
     mainMap: "/map",
-    sheet: (id?: ?string): string => id != null ? `/sheet/${id}` : "/sheet",
+    sheet: (id?: ?string, reload?: ?boolean): string =>
+        id != null
+            ? (reload === true ? `/sheet/${id}/reload` : `/sheet/${id}`)
+            : "/sheet",
+    modifySheet: (id: string): string => `/sheet/modify/${id}`,
     subMap: (id: string): string => `/map/${id}`,
     chat: (id: string): string => `/chat/${id}`
 };
@@ -75,13 +80,15 @@ const Login = React.lazy(() => import('./components/login/Login'));
 const CreateUser = React.lazy(() => import('./components/login/CreateUser'));
 const RecoverPassword = React.lazy(() => import('./components/login/RecoverPassword'));
 
-const Main = React.lazy(() => import('./components/home/Main'));
+const Main = React.lazy(() => import('./components/Main'));
 const Creation1 = React.lazy(() => import('./components/sheet/creation/Creation1'));
 const Creation2 = React.lazy(() => import('./components/sheet/creation/Creation2'));
 const Creation3 = React.lazy(() => import('./components/sheet/creation/Creation3'));
 const Creation4 = React.lazy(() => import('./components/sheet/creation/Creation4'));
 const Creation5 = React.lazy(() => import('./components/sheet/creation/Creation5'));
+
 const CharacterSheet = React.lazy(() => import('./components/sheet/CharacterSheet'));
+const ModifyCharacterSheet: any = React.lazy(() => import('./components/sheet/sheet-sections/ModifyCharacterSheet'));
 
 const MainMap = React.lazy(() => import('./components/map/MainMap'));
 const Map: any = React.lazy(() => import('./components/map/Map'));
@@ -117,7 +124,9 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/creation/4" component={() => <Creation4 />} />
             <AuthRoute exact path="/creation/5" component={() => <Creation5 />} />
 
+            <AuthRoute exact path="/sheet/modify/:id" component={({match: {params: {id}}}) => <ModifyCharacterSheet id={id} />} />
             <AuthRoute exact path="/sheet" component={() => <CharacterSheet />} />
+            <AuthRoute exact path="/sheet/:id/reload" component={({match: {params: {id}}}) => <CharacterSheet id={id} reload={true} />} />
             <AuthRoute exact path="/sheet/:id" component={({match: {params: {id}}}) => <CharacterSheet id={id} />} />
 
             <AuthRoute exact path="/map" component={() => <MainMap />} />
@@ -138,8 +147,8 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
             <AuthRoute exact path="/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
 
-            <AuthRoute exact path="/admin/guides" component={() => <AdminGuides />} />
-            <AuthRoute exact path="/admin" component={() => <AdminDashboard />} />
+            <AuthMasterRoute exact path="/admin/guides" component={() => <AdminGuides />} />
+            <AuthMasterRoute exact path="/admin" component={() => <AdminDashboard />} />
         </Switch>
     );
 };

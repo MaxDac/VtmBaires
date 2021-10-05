@@ -1,12 +1,12 @@
 // @flow
 
 import React, {useContext} from "react";
-import {Routes} from "../../../AppRouter";
+import {Routes} from "../../AppRouter";
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {UtilityContext} from "../../../contexts";
+import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
-import {performLogout} from "../../../services/logout-service";
+import {performLogout} from "../../services/logout-service";
 
 const LogoutControl = (): any => {
     const history = useHistory();

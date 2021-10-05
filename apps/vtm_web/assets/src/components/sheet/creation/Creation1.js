@@ -112,9 +112,8 @@ const Creation1 = (): any => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                color="primary"
-                                className={classes.submit}>
-                                Continue
+                                color="primary">
+                                Continua
                             </Button>
                         </Grid>
                     </Grid>
