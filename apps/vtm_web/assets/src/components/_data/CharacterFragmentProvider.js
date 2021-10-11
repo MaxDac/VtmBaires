@@ -31,7 +31,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload}) => {
 
     return (
         <Typography>
-            Test 1
+            Test 2
         </Typography>
     );
 }

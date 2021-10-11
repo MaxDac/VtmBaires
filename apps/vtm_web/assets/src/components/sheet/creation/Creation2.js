@@ -8,6 +8,7 @@ import CreationBase from "../strategies/CreationBase";
 import MainLayout from "../../MainLayout";
 import useStyles from "../../Main.Layout.Style";
 import {useSession} from "../../../services/session-service";
+import TemplateSelectionControl from "../controls/TemplateSelectionControl";
 
 const Creation2 = (): any => {
     const classes = useStyles();
@@ -41,7 +42,7 @@ const Creation2 = (): any => {
         <>
             <Grid item xs={12}>
                 <Typography>
-                    You can choose one attribute at 4 levels:
+                    Scegli un attributo a cui assegnare 4 livelli di Attributo
                 </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -49,7 +50,7 @@ const Creation2 = (): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... three at 3 level:
+                    ... 3 al livello 3:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -63,7 +64,7 @@ const Creation2 = (): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... four at 2 level:
+                    ... quattro a livello 2:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -80,7 +81,7 @@ const Creation2 = (): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... and finally, one attribute at 1:
+                    ... e infine, uno a livello 1:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -92,14 +93,36 @@ const Creation2 = (): any => {
         if (character?.id != null) {
             return (
                 <div className={classes.centeredContainer}>
-                    <CreationBase classes={classes}
-                                  characterId={character.id}
-                                  currentStage={2}
-                                  attributeTypeName="Attribute"
-                                  emptyAttributes={emptyAttributes}
-                                  getAttributesToSave={getAttributesToSave}>
-                        {form}
-                    </CreationBase>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Typography>
+                                In questa e nella prossima sezione, potrai scegliere Attributi e Abilità del tuo personaggio.
+                                Invece di sceglierle manualmente, puoi invece selezionare uno dei <i>templates</i> proposti in seguito.
+                                Ricorda che, sia selezionando manualmente Attributi e Abilità, sia selezionanto uno dei <i>template</i> a disposizione,
+                                alla fine della creazione ti sarà data la possibilità di sistemare la scheda avendo a disposizione tutti i valori inseriti,
+                                sempre nel rispetto delle regole di creazione.
+                            </Typography>
+                            <Typography>
+                                Se vuoi selezionare un <i>template</i>, selezionalo nel controllo in basso, altrimenti ignoralo, inserisci gli Attributi
+                                e continua con la creazione del personaggio.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} sx={{
+                            margin: "20px"
+                        }}>
+                            <TemplateSelectionControl characterId={character.id} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <CreationBase classes={classes}
+                                          characterId={character.id}
+                                          currentStage={2}
+                                          attributeTypeName="Attribute"
+                                          emptyAttributes={emptyAttributes}
+                                          getAttributesToSave={getAttributesToSave}>
+                                {form}
+                            </CreationBase>
+                        </Grid>
+                    </Grid>
                 </div>
             );
         }

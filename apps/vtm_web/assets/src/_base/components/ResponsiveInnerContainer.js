@@ -5,11 +5,10 @@ import Grid from "@mui/material/Grid";
 import {useTheme} from "@mui/material/styles";
 
 type Props = {
-    classes: any,
     children: any
 }
 
-const ResponsiveInnerContainer = ({classes, children}: Props): any => {
+const ResponsiveInnerContainer = ({children}: Props): any => {
     const theme = useTheme();
 
     return (

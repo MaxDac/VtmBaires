@@ -24,6 +24,32 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
                 color: "red",
                 fontSize: "24px",
             }}>
+                Tipo di Predatore
+            </Typography>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon',
+                marginBottom: "10px"
+            }}>
+                {sheet?.predatorType?.name}
+            </Typography>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon',
+                color: "red",
+                fontSize: "24px",
+            }}>
+                Esperienza
+            </Typography>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon',
+                marginBottom: "10px"
+            }}>
+                {sheet?.experience} punti esperienza
+            </Typography>
+            <Typography sx={{
+                fontFamily: 'GabrieleLightRibbon',
+                color: "red",
+                fontSize: "24px",
+            }}>
                 Vantaggi
             </Typography>
             <Typography sx={{

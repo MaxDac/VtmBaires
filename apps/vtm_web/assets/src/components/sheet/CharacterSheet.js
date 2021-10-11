@@ -18,6 +18,7 @@ import {Routes} from "../../AppRouter";
 type Props = {
     id?: ?string;
     reload?: ?boolean;
+    contained?: ?boolean;
 }
 
 export const CharacterSheetSuspenseFallback = (): any => {
@@ -55,23 +56,32 @@ const CharacterSheet = (props: Props): any => {
         return (<></>);
     }
 
-    return (
-        <MainLayout>
-            <CharacterFragmentProvider characterId={props?.id}>
-                { character =>
-                    <ResponsiveInnerContainer classes={classes}>
-                        <Suspense fallback={<CharacterSheetSuspenseFallback />}>
-                            {modifySheetLink(character)}
-                            <CharacterSheetInfoSection classes={classes} characterQuery={character} />
-                            <ConcealedCharacterInfo characterId={props?.id}>
-                                <CharacterSheetTabbedSections classes={classes} characterQuery={character} />
-                            </ConcealedCharacterInfo>
-                        </Suspense>
-                    </ResponsiveInnerContainer>
-                }
-            </CharacterFragmentProvider>
-        </MainLayout>
-    )
+    const sheet = () => (
+        <CharacterFragmentProvider characterId={props?.id}>
+            { character =>
+                <ResponsiveInnerContainer contained={props.contained}>
+                    <Suspense fallback={<CharacterSheetSuspenseFallback />}>
+                        {modifySheetLink(character)}
+                        <CharacterSheetInfoSection classes={classes} characterQuery={character} />
+                        <ConcealedCharacterInfo characterId={props?.id}>
+                            <CharacterSheetTabbedSections classes={classes} characterQuery={character} />
+                        </ConcealedCharacterInfo>
+                    </Suspense>
+                </ResponsiveInnerContainer>
+            }
+        </CharacterFragmentProvider>
+    );
+
+    if (props.contained === true) {
+        return sheet();
+    }
+    else {
+        return (
+            <MainLayout>
+                {sheet()}
+            </MainLayout>
+        );
+    }
 }
 
 export default CharacterSheet;

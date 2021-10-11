@@ -14,6 +14,15 @@ type AddAdvantagesPayload {
   result: Character
 }
 
+input ApplyTemplateToCharacterInput {
+  characterId: ID!
+  templateId: ID!
+}
+
+type ApplyTemplateToCharacterPayload {
+  result: Boolean
+}
+
 type Attribute implements Node {
   attributeType: AttributeType
   description: String
@@ -28,6 +37,46 @@ type AttributeType implements Node {
   id: ID!
   name: String
   section: String
+}
+
+input ChangeCharacterAttributeInput {
+  attributeId: ID
+  characterId: ID
+  newValue: Int
+}
+
+type ChangeCharacterAttributePayload {
+  result: Boolean
+}
+
+input ChangeCharacterExperienceInput {
+  characterId: ID
+  experienceChange: Int
+}
+
+type ChangeCharacterExperiencePayload {
+  result: Character
+}
+
+input ChangeCharacterNotesInput {
+  advantages: String
+  characterId: ID
+  notes: String
+}
+
+type ChangeCharacterNotesPayload {
+  result: Character
+}
+
+input ChangeCharacterOtherStatsInput {
+  characterId: ID
+  humanity: Int
+  predatorTypeId: ID
+  willpower: Int
+}
+
+type ChangeCharacterOtherStatsPayload {
+  result: Character
 }
 
 input ChangeSheetInfoInput {
@@ -105,6 +154,7 @@ input CharacterFinalizationRequest {
 }
 
 type CharacterStats {
+  advantages: [CharacterAttribute]
   attributes: [CharacterAttribute]
   disciplines: [CharacterAttribute]
   id: ID
@@ -161,6 +211,14 @@ input CreateNewThreadRequest {
 
 type CreationResult {
   id: ID
+}
+
+type CreationTemplate implements Node {
+  description: String
+
+  """The ID of an object"""
+  id: ID!
+  name: String
 }
 
 scalar DateTime
@@ -303,6 +361,12 @@ enum Role {
 type RootMutationType {
   addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
+  applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
+  approveCharacter(characterId: ID): Boolean
+  changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
+  changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
+  changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
+  changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
   changeSheetInfo(input: ChangeSheetInfoInput!): ChangeSheetInfoPayload
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
@@ -333,6 +397,7 @@ type RootQueryType {
   clans: [Clan]
   getCharacter(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
+  getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
   getForumThread(id: ID): ForumThreadPage
   getForumThreads(forumSectionId: ID): [ForumThread]

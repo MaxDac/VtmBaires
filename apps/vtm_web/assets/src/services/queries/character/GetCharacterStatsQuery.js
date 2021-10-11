@@ -27,6 +27,13 @@ export const getCharacterStatsQuery: GraphQLTaggedNode = graphql`
                     name
                 }
             }
+            advantages {
+                id
+                value
+                attribute {
+                    name
+                }
+            }
             predatorType {
                 name
                 description
@@ -39,6 +46,7 @@ export type Stat = {
     id: ?string;
     name: ?string;
     value: ?number;
+    maxValue?: number;
 };
 
 export type Attribute = Stat & {
@@ -47,6 +55,8 @@ export type Attribute = Stat & {
 };
 
 export type Discipline = Stat;
+
+export type Advantage = Stat;
 
 export type PredatorType = {
     name: ?string;
@@ -57,6 +67,7 @@ export type CharacterStats = {|
     characterId: string;
     attributes: Array<Attribute>;
     disciplines: Array<Discipline>;
+    advantages: Array<Advantage>;
     predatorType: PredatorType
 |};
 
@@ -81,6 +92,11 @@ export const useCharacterStatsQuery = (characterId: string, queryOptions?: any):
                 name: a?.attribute?.name,
                 value: a?.value
             })) ?? [],
+            advantages: s?.advantages?.map(a => ({
+                id: a?.id,
+                name: a?.attribute?.name,
+                value: a?.value
+            })),
             predatorType: {
                 name: s?.predatorType?.name,
                 description: s?.predatorType?.description

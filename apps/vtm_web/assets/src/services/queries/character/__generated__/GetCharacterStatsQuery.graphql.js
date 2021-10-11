@@ -31,6 +31,13 @@ export type GetCharacterStatsQueryResponse = {|
         +name: ?string
       |},
     |}>,
+    +advantages: ?$ReadOnlyArray<?{|
+      +id: string,
+      +value: ?number,
+      +attribute: ?{|
+        +name: ?string
+      |},
+    |}>,
     +predatorType: ?{|
       +name: ?string,
       +description: ?string,
@@ -63,6 +70,14 @@ query GetCharacterStatsQuery(
       }
     }
     disciplines {
+      id
+      value
+      attribute {
+        name
+        id
+      }
+    }
+    advantages {
       id
       value
       attribute {
@@ -122,13 +137,46 @@ v5 = {
   "name": "section",
   "storageKey": null
 },
-v6 = {
+v6 = [
+  (v2/*: any*/),
+  (v3/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "Attribute",
+    "kind": "LinkedField",
+    "name": "attribute",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "description",
   "storageKey": null
-};
+},
+v8 = [
+  (v2/*: any*/),
+  (v3/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "Attribute",
+    "kind": "LinkedField",
+    "name": "attribute",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/),
+      (v2/*: any*/)
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -190,22 +238,17 @@ return {
             "kind": "LinkedField",
             "name": "disciplines",
             "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Attribute",
-                "kind": "LinkedField",
-                "name": "attribute",
-                "plural": false,
-                "selections": [
-                  (v4/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
+            "selections": (v6/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CharacterAttribute",
+            "kind": "LinkedField",
+            "name": "advantages",
+            "plural": true,
+            "selections": (v6/*: any*/),
             "storageKey": null
           },
           {
@@ -217,7 +260,7 @@ return {
             "plural": false,
             "selections": [
               (v4/*: any*/),
-              (v6/*: any*/)
+              (v7/*: any*/)
             ],
             "storageKey": null
           }
@@ -290,23 +333,17 @@ return {
             "kind": "LinkedField",
             "name": "disciplines",
             "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Attribute",
-                "kind": "LinkedField",
-                "name": "attribute",
-                "plural": false,
-                "selections": [
-                  (v4/*: any*/),
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
+            "selections": (v8/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CharacterAttribute",
+            "kind": "LinkedField",
+            "name": "advantages",
+            "plural": true,
+            "selections": (v8/*: any*/),
             "storageKey": null
           },
           {
@@ -318,7 +355,7 @@ return {
             "plural": false,
             "selections": [
               (v4/*: any*/),
-              (v6/*: any*/),
+              (v7/*: any*/),
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -329,15 +366,15 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ca6ec15c62a7adb9df4a6ed1e947cdc0",
+    "cacheID": "2046377819514327c52574a5560e84c8",
     "id": null,
     "metadata": {},
     "name": "GetCharacterStatsQuery",
     "operationKind": "query",
-    "text": "query GetCharacterStatsQuery(\n  $id: ID!\n) {\n  getCharacterStats(characterId: $id) {\n    id\n    attributes {\n      id\n      value\n      attribute {\n        name\n        attributeType {\n          name\n          section\n          id\n        }\n        id\n      }\n    }\n    disciplines {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    predatorType {\n      name\n      description\n      id\n    }\n  }\n}\n"
+    "text": "query GetCharacterStatsQuery(\n  $id: ID!\n) {\n  getCharacterStats(characterId: $id) {\n    id\n    attributes {\n      id\n      value\n      attribute {\n        name\n        attributeType {\n          name\n          section\n          id\n        }\n        id\n      }\n    }\n    disciplines {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    advantages {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    predatorType {\n      name\n      description\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '24639217309044293fa43fa2c722479a';
+(node: any).hash = 'd2c723d3dfccc41b379fdb18af683ebd';
 module.exports = node;

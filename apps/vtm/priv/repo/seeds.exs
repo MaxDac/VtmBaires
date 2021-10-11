@@ -169,9 +169,9 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: a
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
 
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Humans"})
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "ThinBlood", attributes: [alchemy]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Thin Blood", attributes: [alchemy]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Caitiff", attributes: [auspex, celerity, fortitude, obfuscate, potence, presence]})
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "BanuHaquim", attributes: [blood_sorcery, celerity, obfuscate]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Banu Haquim", attributes: [blood_sorcery, celerity, obfuscate]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Brujah", attributes: [celerity, potence, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Gangrel", attributes: [animalism, fortitude, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Hecata", attributes: [oblivion, dominate, auspex, potence]})

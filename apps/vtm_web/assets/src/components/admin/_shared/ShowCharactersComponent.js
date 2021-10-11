@@ -18,16 +18,18 @@ type Props = {
 const ShowCharactersComponent = ({characters, onCharacterSelected}: Props): any => {
     const selectCharacter = id => onCharacterSelected(id);
 
-    const characterLine = ({id, name}) => (
-        <>
-            <Divider />
-            <ListItem button disablePadding onClick={_ => selectCharacter(id)}>
-                <ListItemButton>
-                    <ListItemText primary={name} sx={{textAlign: "center"}} />
-                </ListItemButton>
-            </ListItem>
-        </>
-    );
+    const characterLine = ({id, name}) => {
+        return (
+            <>
+                <Divider />
+                <ListItem button disablePadding onClick={_ => selectCharacter(id)}>
+                    <ListItemButton>
+                        <ListItemText primary={name} sx={{textAlign: "center"}} />
+                    </ListItemButton>
+                </ListItem>
+            </>
+        );
+    }
 
     const showCharacters = () =>
         characters.map(characterLine);

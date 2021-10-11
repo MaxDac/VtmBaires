@@ -50,7 +50,12 @@ export const characterStateFragment: any = graphql`
         approved
         isComplete
         isNpc
+        experience
         advantages
         notes
+        predatorType {
+            id
+            name
+        }
     }
 `;

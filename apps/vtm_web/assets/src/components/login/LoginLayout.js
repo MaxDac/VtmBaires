@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { makeStyles } from '@mui/styles';
 import type { Node } from "react";
 import Copyright from '../../_base/components/Copyrights';

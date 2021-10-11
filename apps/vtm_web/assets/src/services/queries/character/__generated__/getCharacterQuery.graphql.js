@@ -67,8 +67,13 @@ fragment CharacterFragments_characterState on Character {
   approved
   isComplete
   isNpc
+  experience
   advantages
   notes
+  predatorType {
+    id
+    name
+  }
 }
 
 fragment CharacterFragments_characterStats on Character {
@@ -113,7 +118,11 @@ v3 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v4 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -199,10 +208,7 @@ return {
             "kind": "LinkedField",
             "name": "clan",
             "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
-            ],
+            "selections": (v4/*: any*/),
             "storageKey": null
           },
           {
@@ -323,6 +329,16 @@ return {
             "kind": "ScalarField",
             "name": "notes",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PredatorType",
+            "kind": "LinkedField",
+            "name": "predatorType",
+            "plural": false,
+            "selections": (v4/*: any*/),
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -330,12 +346,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8e74e3773c572bb5f070abe3dc057324",
+    "cacheID": "3c6b32d4772c1bf3eae5f38c575c0017",
     "id": null,
     "metadata": {},
     "name": "GetCharacterQuery",
     "operationKind": "query",
-    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  advantages\n  notes\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n}\n"
+    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  experience\n  advantages\n  notes\n  predatorType {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n}\n"
   }
 };
 })();

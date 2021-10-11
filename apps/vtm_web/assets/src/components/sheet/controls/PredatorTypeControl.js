@@ -6,7 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
-import {PredatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
+import {predatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
 import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {characterIsVampire} from "../creation/Creation4";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
@@ -20,7 +20,7 @@ type Props = {
 }
 
 const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props): any => {
-    const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(PredatorTypesQuery, {});
+    const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(predatorTypesQuery, {});
 
     const showPredatorTypes = () => {
         const options = [<MenuItem key="None" value=" ">None</MenuItem>];

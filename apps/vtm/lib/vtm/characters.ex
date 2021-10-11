@@ -104,12 +104,21 @@ defmodule Vtm.Characters do
     end
   end
 
+  @spec character_of_user?(Integer.t(), Integer.t()) :: boolean
   def character_of_user?(user_id, character_id) do
     query = from c in Character,
       where: c.id == ^character_id,
       where: c.user_id == ^user_id
 
     not is_nil(Repo.one(query))
+  end
+
+  @spec user_has_characters?(String.t()) :: :ok | {:error, String.t()}
+  def user_has_characters?(user_id) do
+    case Repo.all(from c in Character, where: c.user_id == ^user_id) do
+      []  -> :ok
+      _   -> {:error, "The user has more than one character"}
+    end
   end
 
   def character_at_stage?(character_id, stage) do
@@ -207,27 +216,30 @@ defmodule Vtm.Characters do
     Repo.one(query)
   end
 
-  defp is_attribute(%{attribute: %{attribute_type: %{name: "Discipline"}}}), do: false
-  defp is_attribute(_), do: true
+  defp get_type(%{attribute: %{attribute_type: %{name: "Discipline"}}}), do: 2
+  defp get_type(%{attribute: %{attribute_type: %{name: "Advantage"}}}), do: 3
+  defp get_type(_), do: 1
 
-  defp unzip(arr, condition, first \\ [], second \\ [])
-  defp unzip([], _, first, second), do: {first, second}
-  defp unzip([a | rest], condition, first, second) do
+  defp unzip_attributes(arr, condition, attributes \\ [], disciplines \\ [], advantages \\ [])
+  defp unzip_attributes([], _, attributes, disciplines, advantages), do: {attributes, disciplines, advantages}
+  defp unzip_attributes([a | rest], condition, attributes, disciplines, advantages) do
     case condition.(a) do
-      true -> unzip(rest, condition, [a | first], second)
-      _    -> unzip(rest, condition, first, [a | second])
+      1 -> unzip_attributes(rest, condition, [a | attributes], disciplines, advantages)
+      2 -> unzip_attributes(rest, condition, attributes, [a | disciplines], advantages)
+      3 -> unzip_attributes(rest, condition, attributes, disciplines, [a | advantages])
     end
   end
 
   def get_character_stats(id) do
     with attributes                                   <- get_character_attributes(id),
          predator_type when not is_nil(predator_type) <- get_character_predator_type(id),
-         {attrs, disciplines}                         <- attributes |> unzip(&is_attribute/1) do
+         {attributes, disciplines, advantages}        <- attributes |> unzip_attributes(&get_type/1) do
       %{
         id: id,
         predator_type: predator_type,
-        attributes: attrs |> Enum.reverse(),
-        disciplines: disciplines |> Enum.reverse()
+        attributes: attributes |> Enum.reverse(),
+        disciplines: disciplines,
+        advantages: advantages
       }
     else
       _ ->
@@ -235,7 +247,8 @@ defmodule Vtm.Characters do
           id: id,
           predator_type: %{},
           attributes: [],
-          disciplines: []
+          disciplines: [],
+          advantages: []
         }
     end
   end
@@ -288,154 +301,6 @@ defmodule Vtm.Characters do
     {:ok, nil}
   end
 
-  defp invalid_changeset(%Ecto.Changeset{valid?: false}), do: true
-  defp invalid_changeset(_), do: false
-
-  defp insertion_error({:error, _}), do: true
-  defp insertion_error(_), do: false
-
-  defp delete_attributes(character_id, type) do
-    query =
-      from ca in CharacterAttribute,
-        join: a in Attribute,
-        on: ca.attribute_id == a.id,
-        join: t in AttributeType,
-        on: a.attribute_type_id == t.id,
-        where: ca.character_id == ^character_id,
-        where: t.name == ^type
-
-    Repo.delete_all(query)
-  end
-
-  def append_attributes(character_id, attrs, new_stage) do
-    # Cleaning
-    case new_stage do
-      2 -> delete_attributes(character_id, "Attribute")
-      3 -> delete_attributes(character_id, "Ability")
-      _ -> %{}
-    end
-
-    values = attrs |> Enum.map(&CharacterAttribute.changeset(%CharacterAttribute{}, &1))
-
-    with false <- values |> Enum.any?(&invalid_changeset/1) do
-      Repo.transaction(fn ->
-        results = values |> Enum.map(&Repo.insert_or_update/1)
-
-        with false <- results |> Enum.any?(&insertion_error/1) do
-          {:ok, %{}}
-        else
-          _ ->
-            [error] =
-              results
-              |> Enum.filter(&insertion_error/1)
-              |> Enum.take(1)
-
-            Repo.rollback(error)
-        end
-      end)
-    else
-      true ->
-        values
-        |> Enum.filter(&invalid_changeset/1)
-        |> Enum.take(1)
-    end
-  end
-
-  defp param_to_id(id) when is_binary(id), do: String.to_integer(id)
-  defp param_to_id(id), do: id
-
-  defp switch_attribute_value(id_1, id_2, character_attributes) do
-    {first = %{value: value_1}, second = %{value: value_2}} = {
-      character_attributes |> Enum.find(fn
-        %{attribute_id: ^id_1}  -> true
-        _                       -> false
-      end),
-      character_attributes |> Enum.find(fn
-        %{attribute_id: ^id_2}  -> true
-        _                       -> false
-      end)
-    }
-
-    [
-      {first,  %{value: value_2}},
-      {second, %{value: value_1}}
-    ]
-    |> Enum.map(fn {c, attrs} ->
-      c
-      |> CharacterAttribute.changeset(attrs)
-      |> Repo.update()
-    end)
-    |> Enum.reduce({:ok, %{}}, fn
-      _, acc = {:error, } -> acc
-      a, _                -> a
-    end)
-  end
-
-  defp change_character_attribute(character_attribute, to_id) do
-    character_attribute
-    |> CharacterAttribute.changeset(%{attribute_id: to_id})
-    |> Repo.update()
-  end
-
-  def switch_attributes(%{character_id: id, first_attribute: first_id, second_attribute: second_id}) do
-    {id_1, id_2} = {
-      first_id |> param_to_id(),
-      second_id |> param_to_id()
-    }
-
-    query =
-      from ca in CharacterAttribute,
-        where: ca.character_id == ^id,
-        where: ca.attribute_id in [^id_1, ^id_2]
-
-    case Repo.all(query) do
-      [c = %{attribute_id: ^id_1}]  -> change_character_attribute(c, id_2)
-      [c = %{attribute_id: ^id_2}]  -> change_character_attribute(c, id_1)
-      attributes                    -> switch_attribute_value(id_1, id_2, attributes)
-    end
-  end
-
-  # def switch_attributes(request) do
-  #   IO.inspect {:error, request}
-  # end
-
-  def update_character_stage(user_id, new_stage, attrs) do
-    [%{character_id: character_id} | _] = attrs
-
-    with true     <- character_of_user?(user_id, character_id),
-         true     <- character_at_stage?(character_id, new_stage - 1),
-         {:ok, _} <- append_attributes(character_id, attrs, new_stage),
-         {:ok, _} <- update_character(character_id, %{stage: new_stage}) do
-      {:ok, character_id}
-    else
-      false ->
-        {:error, :unauthorized}
-      e -> e
-    end
-  end
-
-  def add_advantages(user_id, attrs = %{id: id}) do
-    query =
-      from c in Character,
-        where: c.id == ^id,
-        where: c.user_id == ^user_id
-
-    Repo.one(query)
-    |> Character.add_advantages_character_changeset(attrs)
-    |> Repo.update()
-  end
-
-  def complete_character(user_id, character_id) do
-    query =
-      from c in Character,
-        where: c.id == ^character_id,
-        where: c.user_id == ^user_id
-
-    Repo.one(query)
-    |> Character.finalize_character_changeset(%{is_complete: true})
-    |> Repo.update()
-  end
-
   defp delete_character_p(character_id) do
     with c when not is_nil(c) <- Character |> Repo.get(character_id) do
       c |> Repo.delete()
@@ -457,6 +322,16 @@ defmodule Vtm.Characters do
     end
   end
 
+  def approve_character(character_id) do
+    case Character |> Repo.get(character_id) do
+      nil       -> {:error, :not_found}
+      character ->
+        character
+        |> Character.changeset(%{approved: true})
+        |> Repo.update()
+    end
+  end
+
   def change_sheet_info(character_id, attrs = %{avatar: avatar}) when not is_nil(avatar) do
     Character
     |> Repo.get(character_id)
@@ -473,5 +348,31 @@ defmodule Vtm.Characters do
     |> Repo.get(character_id)
     |> Character.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  def change_character_attribute(character_id, attribute_id, new_value) do
+    [character_id, attribute_id, new_value] |> IO.inspect()
+    query =
+      from ca in CharacterAttribute,
+        where: ca.character_id == ^character_id,
+        where: ca.attribute_id == ^attribute_id
+
+    case {Character |> Repo.get(character_id), Repo.one(query), new_value} do
+      {nil, _, _} ->
+        {:error, :not_found}
+      {_, nil, 0} ->
+        {:ok, %{}}
+      {_, nil, v} ->
+        %CharacterAttribute{}
+        |> CharacterAttribute.changeset(%{character_id: character_id, attribute_id: attribute_id, value: v})
+        |> Repo.insert()
+      {_, ca, 0}  ->
+        ca
+        |> Repo.delete()
+      {_, ca, v}  ->
+        ca
+        |> CharacterAttribute.update_changeset(%{value: v})
+        |> Repo.update()
+    end
   end
 end

@@ -16,8 +16,13 @@ export type CharacterFragments_characterState = {|
   +approved: ?boolean,
   +isComplete: ?boolean,
   +isNpc: ?boolean,
+  +experience: ?number,
   +advantages: ?string,
   +notes: ?string,
+  +predatorType: ?{|
+    +id: string,
+    +name: ?string,
+  |},
   +$refType: CharacterFragments_characterState$ref,
 |};
 export type CharacterFragments_characterState$data = CharacterFragments_characterState;
@@ -28,19 +33,21 @@ export type CharacterFragments_characterState$key = {
 };
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CharacterFragments_characterState",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -73,6 +80,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "experience",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "advantages",
       "storageKey": null
     },
@@ -82,11 +96,31 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "notes",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PredatorType",
+      "kind": "LinkedField",
+      "name": "predatorType",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Character",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node: any).hash = 'e1f8e1654ac9921446cc70ebc9100848';
+(node: any).hash = '8303abe93689751d510135ff9da24e10';
 module.exports = node;

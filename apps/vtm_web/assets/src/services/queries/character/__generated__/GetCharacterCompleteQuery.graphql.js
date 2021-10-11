@@ -37,6 +37,10 @@ export type GetCharacterCompleteQueryResponse = {|
     +isNpc: ?boolean,
     +advantages: ?string,
     +notes: ?string,
+    +predatorType: ?{|
+      +id: string,
+      +name: ?string,
+    |},
     +$fragmentRefs: CharacterFragments_characterAvatar$ref,
   |}
 |};
@@ -75,6 +79,10 @@ query GetCharacterCompleteQuery(
     isNpc
     advantages
     notes
+    predatorType {
+      id
+      name
+    }
     ...CharacterFragments_characterAvatar
   }
 }
@@ -120,136 +128,147 @@ v4 = {
   "name": "chatAvatar",
   "storageKey": null
 },
-v5 = {
+v5 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+],
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "Clan",
   "kind": "LinkedField",
   "name": "clan",
   "plural": false,
-  "selections": [
-    (v2/*: any*/),
-    (v3/*: any*/)
-  ],
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "biography",
+  "selections": (v5/*: any*/),
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "biography",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "humanity",
+  "name": "description",
   "storageKey": null
 },
 v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "experience",
+  "name": "humanity",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "generation",
+  "name": "experience",
   "storageKey": null
 },
 v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "hunger",
+  "name": "generation",
   "storageKey": null
 },
 v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "health",
+  "name": "hunger",
   "storageKey": null
 },
 v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "damage",
+  "name": "health",
   "storageKey": null
 },
 v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "aggravatedDamage",
+  "name": "damage",
   "storageKey": null
 },
 v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "willpower",
+  "name": "aggravatedDamage",
   "storageKey": null
 },
 v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "willpowerDamage",
+  "name": "willpower",
   "storageKey": null
 },
 v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "stage",
+  "name": "willpowerDamage",
   "storageKey": null
 },
 v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "approved",
+  "name": "stage",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isComplete",
+  "name": "approved",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isNpc",
+  "name": "isComplete",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "advantages",
+  "name": "isNpc",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "advantages",
+  "storageKey": null
+},
+v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "notes",
+  "storageKey": null
+},
+v24 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PredatorType",
+  "kind": "LinkedField",
+  "name": "predatorType",
+  "plural": false,
+  "selections": (v5/*: any*/),
   "storageKey": null
 };
 return {
@@ -270,7 +289,6 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
           (v8/*: any*/),
@@ -288,6 +306,8 @@ return {
           (v20/*: any*/),
           (v21/*: any*/),
           (v22/*: any*/),
+          (v23/*: any*/),
+          (v24/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -317,7 +337,6 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          (v5/*: any*/),
           (v6/*: any*/),
           (v7/*: any*/),
           (v8/*: any*/),
@@ -335,6 +354,8 @@ return {
           (v20/*: any*/),
           (v21/*: any*/),
           (v22/*: any*/),
+          (v23/*: any*/),
+          (v24/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -348,12 +369,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "22b6a22a56c7dbf35c2a3904c0982abb",
+    "cacheID": "6e248cb901915c47f5de14534b6f95ab",
     "id": null,
     "metadata": {},
     "name": "GetCharacterCompleteQuery",
     "operationKind": "query",
-    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
+    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    predatorType {\n      id\n      name\n    }\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
   }
 };
 })();

@@ -76,6 +76,22 @@ defmodule Vtm.Messages do
     send_message_p(user, attrs)
   end
 
+  def send_master_message(receiver_user_id, subject, message) do
+    %{id: id} =
+      from(u in User, where: u.name == "Storyteller")
+      |> Repo.one()
+
+    %Message{}
+    |> Message.changeset(%{
+      subject: subject,
+      text: message,
+      on_game: false,
+      sender_user_id: id,
+      receiver_user_id: receiver_user_id
+    })
+    |> Repo.insert()
+  end
+
   defp remap_message(message = %Message{
     sender_character: {s_id, s_name},
     receiver_character: {r_id, r_name}

@@ -5,7 +5,7 @@ import type {GraphQLTaggedNode} from "relay-runtime/query/GraphQLTag";
 import type {PredatorTypesQueryResponse} from "./__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
-export const PredatorTypesQuery: GraphQLTaggedNode = graphql`
+export const predatorTypesQuery: GraphQLTaggedNode = graphql`
     query PredatorTypesQuery {
         predatorTypes {
             id
@@ -16,5 +16,5 @@ export const PredatorTypesQuery: GraphQLTaggedNode = graphql`
 `;
 
 export function usePredatorTypes(): ?PredatorTypesQueryResponse {
-    return useCustomLazyLoadQuery(PredatorTypesQuery, {});
+    return useCustomLazyLoadQuery(predatorTypesQuery, {});
 }

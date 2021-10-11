@@ -6,6 +6,9 @@ import {useCharacterStatsQuery} from "../../../services/queries/character/GetCha
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import AttributeStat from "../controls/AttributeStat";
+import {useFragment} from "react-relay";
+import {characterStatsFragment} from "../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterStats$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 
 export type RefreshedQueryOption = {
     fetchKey: number;
@@ -14,6 +17,7 @@ export type RefreshedQueryOption = {
 
 type Props = {
     characterId: string;
+    characterQuery: any;
     queryOptions?: ?RefreshedQueryOption;
 }
 
@@ -26,7 +30,11 @@ const sectionStyle = {
     paddingBottom: "5px"
 };
 
-const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => {
+const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions}: Props): any => {
+    const sheet = useFragment<?CharacterFragments_characterStats$key>(
+        characterStatsFragment,
+        characterQuery);
+
     const stats = useCharacterStatsQuery(characterId, queryOptions);
 
     const filterAttributes = (type, section) => stats?.attributes
@@ -48,7 +56,7 @@ const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => 
                 <>
                     <Grid item xs={12}>
                         <Typography sx={sectionStyle}>
-                            Disciplines
+                            Discipline
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -61,6 +69,29 @@ const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => 
 
         return (<></>);
     }
+
+    const advantages = () =>
+        stats?.advantages
+            ?.map(d => (
+                <Grid item xs={12} sm={6} md={4}>
+                    <AttributeStat stat={d} />
+                </Grid>
+            ));
+
+    const showAdvantages = () => (
+        <>
+            <Grid item xs={12}>
+                <Typography sx={sectionStyle}>
+                    Vantaggi
+                </Typography>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container>
+                    {advantages()}
+                </Grid>
+            </Grid>
+        </>
+    );
 
     const responsiveProperties = {
         xs: 12,
@@ -85,7 +116,7 @@ const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => 
             <Grid container>
                 <Grid item xs={12}>
                     <Typography sx={sectionStyle}>
-                        Attributes
+                        Attributi
                     </Typography>
                 </Grid>
                 <Grid item {...responsiveProperties}>
@@ -105,7 +136,7 @@ const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => 
                 </Grid>
                 <Grid item xs={12}>
                     <Typography sx={sectionStyle}>
-                        Skills
+                        Abilità
                     </Typography>
                 </Grid>
                 <Grid item {...responsiveProperties}>
@@ -124,6 +155,31 @@ const CharacterSheetStatsSection = ({characterId, queryOptions}: Props): any => 
                     </List>
                 </Grid>
                 {showDisciplines()}
+                {showAdvantages()}
+                <Grid item xs={12} sx={{
+                    margin: "0 auto",
+                    maxWidth: "500px",
+                    paddingTop: "20px",
+                    paddingBottom: "10px"
+                }}>
+                    <AttributeStat stat={{
+                        name: "Forza di Volontà",
+                        value: sheet?.willpower,
+                        maxValue: 10
+                    }} />
+                </Grid>
+                <Grid item xs={12} sx={{
+                    margin: "0 auto",
+                    maxWidth: "500px",
+                    paddingTop: "10px",
+                    paddingBottom: "10px"
+                }}>
+                    <AttributeStat stat={{
+                        name: "Umanità",
+                        value: sheet?.humanity,
+                        maxValue: 10
+                    }} />
+                </Grid>
             </Grid>
         </>
     );

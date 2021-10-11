@@ -64,6 +64,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :predator_type, :predator_type
     field :attributes, list_of(:character_attribute)
     field :disciplines, list_of(:character_attribute)
+    field :advantages, list_of(:character_attribute)
+  end
+
+  node object :creation_template do
+    field :name, :string
+    field :description, :string
   end
 
   input_object :character_creation_request do
@@ -147,6 +153,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
       resolve parsing_node_ids(&CharacterResolvers.get_character_stats/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
+
+    field :get_creation_templates, list_of(:creation_template) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.get_creation_templates/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
   end
 
   object :character_mutations do
@@ -183,6 +195,21 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    payload field :apply_template_to_character do
+      input do
+        field :character_id, non_null(:id)
+        field :template_id, non_null(:id)
+      end
+
+      output do
+        field :result, :boolean
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.apply_template_to_character/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :switch_character_attributes, :character do
       arg :character_id, :id
       arg :first_attribute, :string
@@ -209,10 +236,18 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :approve_character, :boolean do
+      arg :character_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.approve_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     payload field :change_sheet_info do
       input do
-        field :character_id, :id
-        field :request, :change_sheet_info_request
+        field :character_id, non_null(:id)
+        field :request, non_null(:change_sheet_info_request)
       end
 
       output do
@@ -222,6 +257,86 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
       resolve parsing_node_ids(&CharacterResolvers.change_sheet_info/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_attribute do
+      input do
+        field :character_id, non_null(:id)
+        field :attribute_id, non_null(:id)
+        field :new_value, non_null(:integer)
+      end
+
+      output do
+        field :result, :boolean
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.change_character_attribute/2, character_id: :character, attribute_id: :attribute)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_other_stats do
+      input do
+        field :character_id, non_null(:id)
+        field :predator_type_id, non_null(:id)
+        field :humanity, non_null(:integer)
+        field :willpower, non_null(:integer)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.update_character/2, character_id: :character, predator_type_id: :predator_type)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_experience do
+      input do
+        field :character_id, non_null(:id)
+        field :experience_change, non_null(:integer)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.update_character_experience/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_notes do
+      input do
+        field :character_id, non_null(:id)
+        field :notes, non_null(:string)
+        field :advantages, non_null(:string)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.update_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_status do
+      input do
+        field :character_id, non_null(:id)
+        field :notes, non_null(:string)
+        field :advantages, non_null(:string)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.update_character/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

@@ -19,7 +19,10 @@ defmodule VtmWeb.Resolvers.Helpers do
   """
   def from_global_id?(global_id) do
     with {:ok, %{id: new_id}}  <- from_global_id(global_id, VtmWeb.Schema) do
-      new_id
+      case new_id do
+        id when is_binary(id) -> String.to_integer(id)
+        id                    -> id
+      end
     else
       _ -> nil
     end

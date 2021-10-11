@@ -90,7 +90,8 @@ defmodule VtmWeb.Schema.MessageTypes do
 
       config &MessageResolvers.config_message_subscription/2
 
-      trigger :send_message, topic: &MessageResolvers.handle_new_message_trigger/1
+      trigger :send_message, topic: &MessageResolvers.handle_message_trigger/1
+      trigger :set_message_read, topic: &MessageResolvers.handle_message_trigger/1
 
       resolve &MessageResolvers.message_subscription_resolver/3
     end

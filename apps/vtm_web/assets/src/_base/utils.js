@@ -2,6 +2,7 @@
 
 import type {History} from "./types";
 import {Routes} from "../AppRouter";
+import {AlertInfo} from "./types";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -71,4 +72,31 @@ export function getInitials(name: string): string {
             .map(([f,]) => f.toUpperCase())
             .join("");
     }
+}
+
+export function handleMutation<T>(mutation: () => Promise<T>, showNotification: AlertInfo => void, args?: ?{
+    successMessage?: string,
+    errorMessage?: string,
+    onCompleted?: () => void
+}) {
+    return mutation()
+        .then(result => {
+            console.log("The result", result);
+            showNotification({
+                type: "success",
+                message: args?.successMessage ?? "La modifica è stata effettuata con successo"
+            });
+        })
+        .catch(error => {
+            console.log("An error occoured while performing the mutation: ", error);
+            showNotification({
+                type: "error",
+                message: args?.errorMessage ?? "La modifica non ha avuto successo, contatta un master per ulteriori informazioni."
+            });
+        })
+        .finally(() => {
+            if (args?.onCompleted != null) {
+                args.onCompleted();
+            }
+        });
 }

@@ -1,9 +1,7 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-
 import {useHistory} from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import AttributeSelectionField from "../creation/AttributeSelectionField";
 import Button from "@mui/material/Button";
@@ -117,9 +115,6 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     return (
         <>
-            <Typography>
-                Now you will have to select the attributes and abilities of your character.
-            </Typography>
             <Grid container>
                 {props.children(getAttributeSelector)}
             </Grid>

@@ -31,11 +31,13 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
     const [, currentCharacter] = useSession();
-    const { setCurrentCharacter } = useContext(SessionContext);
+    const {setCurrentCharacter} = useContext(SessionContext);
 
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
+
+    console.log("character", currentCharacter);
 
     const handleCharacterSelection = (info: any) =>
         _ => {
@@ -50,9 +52,8 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
         }
 
     const showCharacters = () => {
-        const chs = characters;
-        if (chs != null && chs.length > 0) {
-            return chs
+        if (characters != null && characters.length > 0) {
+            return characters
                 .filter(o => o !== null)
                 .map(o => {
                     return (
@@ -70,32 +71,11 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
                                 }
                             </ListItemText>
                         </ListItem>
-                        // <MenuItem key={Number(o?.id)} style={{
-                        //     width: "200px"
-                        // }}>
-                        //     <table>
-                        //         <tbody>
-                        //         <tr>
-                        //             <td style={{width: "30px"}}>
-                        //             </td>
-                        //             <td style={{textAlign: "center", width: "calc(100% - 60px)"}}>
-                        //                 {o?.name}
-                        //             </td>
-                        //             <td style={{width: "30px", verticalAlign: "bottom"}}>
-                        //                 {o?.id === currentCharacter?.id
-                        //                     ? <RadioButtonCheckedIcon/>
-                        //                     : <RadioButtonUncheckedIcon/>
-                        //                 }
-                        //             </td>
-                        //         </tr>
-                        //         </tbody>
-                        //     </table>
-                        // </MenuItem>
                     )
                 });
         }
 
-        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Create new</MenuItem>;
+        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo</MenuItem>;
     }
 
     return (

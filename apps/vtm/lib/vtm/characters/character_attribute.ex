@@ -14,6 +14,12 @@ defmodule Vtm.Characters.CharacterAttribute do
     timestamps()
   end
 
+  def update_changeset(character_attribute, attrs) do
+    character_attribute
+    |> cast(attrs, [:value])
+    |> validate_required([:value])
+  end
+
   @doc false
   def changeset(character_attribute, attrs) do
     character_attribute

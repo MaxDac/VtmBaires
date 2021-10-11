@@ -44,7 +44,8 @@ const CharacterSheetTabbedSections = ({characterQuery}: Props): any => {
             <TabPanel value={value} index={1}>
                 <Suspense fallback={<CharacterSheetSuspenseFallback />}>
                     { characterQuery?.id != null
-                        ? <CharacterSheetStatsSection characterId={characterQuery.id} />
+                        ? <CharacterSheetStatsSection characterId={characterQuery.id}
+                                                      characterQuery={characterQuery} />
                         : <></>
                     }
                 </Suspense>

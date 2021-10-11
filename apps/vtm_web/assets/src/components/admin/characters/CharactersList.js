@@ -13,7 +13,7 @@ const CharactersList = (): any => {
     const history = useHistory();
     const characters = useForceReloadFirstQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList ?? [];
 
-    const showCharacter = id => history.push(Routes.sheet(id));
+    const showCharacter = id => history.push(Routes.characterDashboard(id));
 
     return (
         <MainLayout>

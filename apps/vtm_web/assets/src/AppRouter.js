@@ -42,7 +42,7 @@ export const Routes = {
     admin: "/admin",
     charactersList: "/admin/characters",
     unapprovedCharacters: "/admin/unapproved",
-    approveCharacter: (id: string) => `/admin/approve/${id}`
+    characterDashboard: (id: string) => `/admin/character/${id}`
 };
 
 export const AdminRoutes = {
@@ -88,8 +88,8 @@ const ForumSection = React.lazy(() => import('./components/forum/ForumSection'))
 const AdminGuides = React.lazy(() => import('./components/admin/guides/AdminGuides'));
 const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
 const CharactersList = React.lazy(() => import('./components/admin/characters/CharactersList'));
+const CharacterDashboard = React.lazy(() => import('./components/admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./components/admin/approvation/UnapprovedCharacters'));
-const ApproveCharacter = React.lazy(() => import('./components/admin/approvation/ApproveCharacter'));
 
 const AppRouter = (): any => {
     return (
@@ -132,8 +132,8 @@ const AppRouter = (): any => {
             <AuthMasterRoute exact path="/admin/guides" component={() => <AdminGuides />} />
             <AuthMasterRoute exact path="/admin" component={() => <AdminDashboard />} />
             <AuthMasterRoute exact path="/admin/characters" component={() => <CharactersList />} />
+            <AuthMasterRoute exact path="/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
             <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
-            <AuthMasterRoute exact path="/admin/approve/:id" component={({match: {params: {id}}}) => <ApproveCharacter id={id} />} />
         </Switch>
     );
 };

@@ -34,11 +34,11 @@ const ReadMessage = ({messageId}: Props): any => {
     const message = useCustomLazyLoadQuery<GetMessageQuery>(getMessageQuery, {messageId})?.getMessage;
 
     useEffect(() => {
-        if (message?.id != null && message?.read) {
-            SetMessageReadMutation(message.id)
+        if (message?.id != null && !message.read) {
+            SetMessageReadMutation(environment, message.id)
                 .catch(e => console.error("Error while setting read flag on the message.", e));
         }
-    }, [message]);
+    }, [environment, message]);
 
     const avatarSize = 72;
 

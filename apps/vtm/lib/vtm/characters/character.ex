@@ -23,6 +23,7 @@ defmodule Vtm.Characters.Character do
     field :aggravated_damage, :integer
     field :willpower, :integer
     field :willpower_damage, :integer
+    field :stains, :integer
 
     field :stage, :integer
     field :approved, :boolean
@@ -53,8 +54,8 @@ defmodule Vtm.Characters.Character do
 
   def finalize_character_changeset(character, attrs) do
     character
-    |> cast(attrs, [:is_complete])
-    |> validate_required([:is_complete])
+    |> cast(attrs, [:is_complete, :willpower, :health, :hunger])
+    |> validate_required([:is_complete, :willpower, :health, :hunger])
   end
 
   def update_changeset(character, attrs) do
@@ -68,8 +69,18 @@ defmodule Vtm.Characters.Character do
       :experience,
       :humanity,
       :generation,
+      :hunger,
+      :health,
+      :damage,
+      :aggravated_damage,
+      :willpower,
+      :willpower_damage,
+      :stains,
+      :advantages,
+      :notes,
       :stage,
-      :approved
+      :approved,
+      :predator_type_id
     ])
     |> foreign_key_constraint(:clan_id)
     |> foreign_key_constraint(:predator_type_id)
@@ -95,6 +106,7 @@ defmodule Vtm.Characters.Character do
       :aggravated_damage,
       :willpower,
       :willpower_damage,
+      :stains,
       :stage,
       :approved,
       :user_id,
