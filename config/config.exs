@@ -33,10 +33,10 @@ config :swoosh, :api_client, false
 
 config :vtm_web, VtmWeb.Mailer,
   adapter: Swoosh.Adapters.SMTP,
-  relay: "smtps.aruba.it",
-  port: 465,
+  relay: System.get_env("MAIL_HOST"), # "smtps.aruba.it",
+  port: System.get_env("MAIL_PORT"), # 465,
   username: System.get_env("MAIL_USER"),
-  password: "Yom!K1ppur", # System.get_env("MAIL_PASS"),
+  password: System.get_env("MAIL_PASS"),
   ssl: true
 
 # Configures Elixir's Logger

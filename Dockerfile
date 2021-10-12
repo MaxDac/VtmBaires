@@ -5,15 +5,20 @@ RUN apk add --no-cache build-base nodejs yarn python3 git && \
     mix local.rebar --force
 
 ARG db_url
-
 ARG secret_key
+ARG mail_smtps_server
+ARG mail_port
+ARG mail_user
+ARG mail_pass
 
 # set build ENV
 ENV MIX_ENV=prod
-
 ENV DATABASE_URL=$db_url
-
 ENV SECRET_KEY_BASE=$secret_key
+ENV MAIL_HOST=$mail_smtps_server
+ENV MAIL_PORT=$mail_port
+ENV MAIL_USER=$mail_user
+ENV MAIL_PASS=$mail_pass
 
 WORKDIR /build
 
