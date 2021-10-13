@@ -20,6 +20,8 @@ defmodule VtmWeb.Schema do
   import_types __MODULE__.ChatTypes
   import_types __MODULE__.MessageTypes
   import_types __MODULE__.ForumTypes
+  import_types __MODULE__.StatusTypes
+  import_types __MODULE__.NpcTypes
 
   query do
     import_fields :base_queries
@@ -28,6 +30,8 @@ defmodule VtmWeb.Schema do
     import_fields :chat_queries
     import_fields :messages_queries
     import_fields :forum_queries
+    import_fields :status_queries
+    import_fields :npc_queries
   end
 
   mutation do
@@ -36,6 +40,8 @@ defmodule VtmWeb.Schema do
     import_fields :chat_mutations
     import_fields :messages_mutations
     import_fields :forum_mutations
+    import_fields :status_mutations
+    import_fields :npc_mutations
   end
 
   subscription do

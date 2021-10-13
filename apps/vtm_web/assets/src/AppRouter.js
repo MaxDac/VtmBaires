@@ -31,6 +31,7 @@ export const Routes = {
     createNewForumThread: (sectionId: string): string => `/forum/${sectionId}/thread/new`,
     createNewForumPost: (threadId: string): string => `/forum/thread/${threadId}/post/new`,
     mainMap: "/map",
+
     sheet: (id?: ?string, reload?: ?boolean): string =>
         id != null
             ? (reload === true ? `/sheet/${id}/reload` : `/sheet/${id}`)
@@ -42,7 +43,8 @@ export const Routes = {
     admin: "/admin",
     charactersList: "/admin/characters",
     unapprovedCharacters: "/admin/unapproved",
-    characterDashboard: (id: string) => `/admin/character/${id}`
+    characterDashboard: (id: string) => `/admin/character/${id}`,
+    createNewNpc: "/admin/npc/new"
 };
 
 export const AdminRoutes = {
@@ -90,6 +92,7 @@ const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboar
 const CharactersList = React.lazy(() => import('./components/admin/characters/CharactersList'));
 const CharacterDashboard = React.lazy(() => import('./components/admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./components/admin/approvation/UnapprovedCharacters'));
+const CreateNewNpc = React.lazy(() => import('./components/sheet/npcs/CreateNewNpc'));
 
 const AppRouter = (): any => {
     return (
@@ -134,6 +137,7 @@ const AppRouter = (): any => {
             <AuthMasterRoute exact path="/admin/characters" component={() => <CharactersList />} />
             <AuthMasterRoute exact path="/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
             <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
+            <AuthMasterRoute exact path="/admin/npc/new" component={() => <CreateNewNpc />} />
         </Switch>
     );
 };

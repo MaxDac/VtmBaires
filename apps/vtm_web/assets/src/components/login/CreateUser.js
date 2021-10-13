@@ -102,7 +102,7 @@ const CreateUserComponent = (): Node => {
                         <Link to={Routes.login} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
-                            Return to Login
+                            Ritorna al Login
                         </Link>
                     </Grid>
                 </Grid>

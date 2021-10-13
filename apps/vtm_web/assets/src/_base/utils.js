@@ -82,10 +82,13 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
     return mutation()
         .then(result => {
             console.log("The result", result);
-            showNotification({
-                type: "success",
-                message: args?.successMessage ?? "La modifica è stata effettuata con successo"
-            });
+
+            if (args?.successMessage != null) {
+                showNotification({
+                    type: "success",
+                    message: args?.successMessage ?? "La modifica è stata effettuata con successo"
+                });
+            }
         })
         .catch(error => {
             console.log("An error occoured while performing the mutation: ", error);

@@ -6,4 +6,8 @@ defmodule Vtm.Helpers do
     map
     |> Map.new(&key_tuple_to_atom/1)
   end
+
+  def throw_dice() do
+    :rand.uniform(10)
+  end
 end

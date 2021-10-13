@@ -151,6 +151,20 @@ defmodule Vtm.Characters do
     nil
   end
 
+  @doc """
+  Returns a subset of information about the character available to any user.
+  """
+  @spec get_character_description(Integer.t()) :: Character.t() | nil
+  def get_character_description(character_id) do
+    from(c in Character, where: c.id == ^character_id, select: %Character{
+      id: c.id,
+      name: c.name,
+      chat_avatar: c.chat_avatar,
+      description: c.description
+    })
+    |> Repo.one()
+  end
+
   def get_character_status(user_id, character_id) do
     query =
       from c in Character,
@@ -170,6 +184,11 @@ defmodule Vtm.Characters do
         }
 
     Repo.one(query)
+  end
+
+  def get_all_npcs() do
+    from(c in Character, where: c.is_npc == true)
+    |> Repo.all()
   end
 
   defp associate_attribute_to_value(attribute = %Attribute{id: attribute_id}, map) do

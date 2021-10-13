@@ -8,9 +8,9 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChangeCharacterNotesInput = {|
-  advantages?: ?string,
-  characterId?: ?string,
-  notes?: ?string,
+  advantages: string,
+  characterId: string,
+  notes: string,
 |};
 export type ChangeCharacterNotesMutationVariables = {|
   input: ChangeCharacterNotesInput

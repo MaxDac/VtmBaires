@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import InputBase from "@mui/material/InputBase";
-import "../../fonts/gabriele-l.ttf";
+import "../../../fonts/gabriele-l.ttf";
 import ChatThrowDiceInput from "./ChatThrowDiceInput";
 import type {ChatDiceRequest} from "./ChatThrowDiceInput";
 import Box from "@mui/material/Box";
@@ -11,6 +11,7 @@ import Fab from "@mui/material/Fab";
 import CasinoIcon from "@mui/icons-material/Casino";
 import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
+import {useMediaQuery} from "@mui/material";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -22,6 +23,13 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
     const [value, setValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inDices, setInDices] = useState(true);
+
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+
+    console.log("is small?", isSmall);
+
+    // TODO - set the dimensions of the thing based on the dimension of the screen
+    const textboxRows = 4; // isSmall ? 2 : 4;
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);
@@ -53,9 +61,9 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                                 onDialogClosing={() => setIsModalOpen(false)}
                                 onDialogFormSubmit={newDiceEntry} />
 
-            <InputBase placeholder="Write your action here"
+            <InputBase placeholder="Scrivi qui la tua azione"
                        multiline
-                       rows={4}
+                       rows={textboxRows}
                        fullWidth
                        value={value}
                        onFocus={_ => setInDices(false)}

@@ -30,14 +30,14 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
     const history = useHistory();
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
-    const [, currentCharacter] = useSession();
+    const [user, currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
+
+    const isMaster = () => user.role === "MASTER";
 
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"
     })?.me?.userCharacters;
-
-    console.log("character", currentCharacter);
 
     const handleCharacterSelection = (info: any) =>
         _ => {
@@ -78,6 +78,12 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
         return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo</MenuItem>;
     }
 
+    const showNpcs = () => {
+        if (isMaster()) {
+
+        }
+    }
+
     return (
         <>
             <ListItem button onClick={_ => setExpand(p => !p)}>
@@ -89,7 +95,7 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
             </ListItem>
             <Collapse in={expand} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {showCharacters()}
+                    {expand ? showCharacters() : <></>}
                 </List>
             </Collapse>
         </>

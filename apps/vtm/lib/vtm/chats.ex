@@ -2,6 +2,7 @@ defmodule Vtm.Chats do
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
+  alias Vtm.Helpers
   alias Vtm.Chats.ChatMap
   alias Vtm.Chats.ChatEntry
   alias Vtm.Characters.Character
@@ -86,7 +87,7 @@ defmodule Vtm.Chats do
   @spec random_dice_thrower(Number.t()) :: [Number.t()]
   defp random_dice_thrower(amount) do
     1..amount
-    |> Enum.map(fn _ -> :rand.uniform(10) end)
+    |> Enum.map(fn _ -> Helpers.throw_dice() end)
   end
 
   def random_simulate_master_dice_throw(free_throw) do
@@ -158,17 +159,17 @@ defmodule Vtm.Chats do
       end)
       |> Enum.join(", ")
 
-    "(#{visual}, difficulty: #{difficulty})"
+    "(#{visual}, difficoltà: #{difficulty})"
   end
 
   defp parse_result(result, dices_as_string) do
     case result do
-      :bestial_failure    -> "*The character suffers a bestial failure!* #{dices_as_string}."
-      :total_failure      -> "The character suffers a total failure! #{dices_as_string}."
-      :critical_success   -> "The character obtains a critical success! #{dices_as_string}."
-      :failure            -> "The character fails. #{dices_as_string}."
-      :messy_critical     -> "*The character Beast awakens with a messy critical!* #{dices_as_string}."
-      :success            -> "The character succeeds #{dices_as_string}."
+      :bestial_failure    -> "*Il personaggio sperimenta un fallimento bestiale!* #{dices_as_string}."
+      :total_failure      -> "Il personaggio fallisce totalmente! #{dices_as_string}."
+      :critical_success   -> "Il personaggio ottiene un successo critico! #{dices_as_string}."
+      :failure            -> "Il personaggio fallisce. #{dices_as_string}."
+      :messy_critical     -> "*La Bestia emerge: il personaggio totalizza un successo caotico!* #{dices_as_string}."
+      :success            -> "Il personaggio riesce nell'intento #{dices_as_string}."
     end
   end
 

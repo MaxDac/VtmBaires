@@ -17,6 +17,7 @@ import {Routes} from "../../AppRouter";
 import MenuCharacterSection from "./MenuCharacterSection";
 import {useHistory} from "react-router-dom";
 import Divider from "@mui/material/Divider";
+import MenuNpcSection from "./MenuNpcSection";
 
 type Props = {
     drawerDone: () => void;
@@ -97,6 +98,7 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
+            <MenuNpcSection pushHistory={pushHistory} />
             <ListItem button onClick={pushHistory(Routes.unapprovedCharacters)}>
                 <ListItemIcon>
                     <GroupAddIcon />

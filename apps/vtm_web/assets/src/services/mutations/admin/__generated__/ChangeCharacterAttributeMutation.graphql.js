@@ -8,9 +8,9 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChangeCharacterAttributeInput = {|
-  attributeId?: ?string,
-  characterId?: ?string,
-  newValue?: ?number,
+  attributeId: string,
+  characterId: string,
+  newValue: number,
 |};
 export type ChangeCharacterAttributeMutationVariables = {|
   input: ChangeCharacterAttributeInput

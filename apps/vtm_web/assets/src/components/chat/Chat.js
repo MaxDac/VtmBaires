@@ -3,7 +3,7 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import MainLayout from "../MainLayout";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
-import ChatInput from "./ChatInput";
+import ChatInput from "./controls/ChatInput";
 import {subscribe} from "../../_base/relay-utils";
 import List from "@mui/material/List";
 import ChatEntryComponent from "./ChatEntryComponent";
@@ -18,24 +18,27 @@ import useMap from "../../services/queries/map/MapQuery";
 import {useChatEntriesQuery} from "../../services/queries/chat/GetChatEntriesQuery";
 import Box from "@mui/material/Box";
 import {useRelayEnvironment} from "react-relay";
-import type {ChatDiceRequest} from "./ChatThrowDiceInput";
+import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
-import ChatControls from "./ChatControls";
+import ChatControls from "./controls/ChatControls";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import {UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 import {Typography} from "@mui/material";
-import {getCharacterDescription} from "../../services/queries/character/GetCharacterDescriptionQuery";
+import ChatMasterModal from "./modals/ChatMasterModal";
+import ChatDescriptionModal from "./modals/ChatDescriptionModal";
 
 type ChatProps = {
     id: string;
 }
 
-const Chat = ({ id }: ChatProps): any => {
+const Chat = ({id}: ChatProps): any => {
     const environment = useRelayEnvironment();
     const map = useMap(id);
-    const [, character] = useSession();
+    const [user, character] = useSession();
+
+    const isMaster = () => user.role === "MASTER";
 
     const {
         showUserNotification,
@@ -45,13 +48,16 @@ const Chat = ({ id }: ChatProps): any => {
     const [mapModalOpen, setMapModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState(map?.name);
     const [modalDescription, setModalDescription] = useState(map?.description);
+
+    const [characterModalOpen, setCharacterModalOpen] = useState(false);
+    const [selectedCharacterId, setSelectedCharacterId] = useState<?string>(null);
+    const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
+
     const initialEntries = useChatEntriesQuery(id);
     const [entries, setEntries] = useState(initialEntries);
     const chatToken = useSubscriptionTokenQuery();
 
     const chatContainer = useRef();
-
-    const chatContainerScrollHeight: number = (chatContainer.current: any)?.scrollHeight;
 
     useEffect(() => {
         updateSessionMap(environment, id)
@@ -65,11 +71,15 @@ const Chat = ({ id }: ChatProps): any => {
         return () => subscription.unsubscribe();
     }, [id, chatToken]);
 
+    // This was previously used as a dependency for the following useEffect, but it seems that it doesn't update itself.
+    // The operation performed inside the following useEffect is not asynchronous or difficult at all anyway
+    // const chatContainerScrollHeight: number = (chatContainer.current: any)?.scrollHeight;
+
     useEffect(() => {
         const obj: any = chatContainer.current;
         // obj.scrollIntoView();
         obj.scrollTop = obj.scrollHeight;
-    }, [chatContainerScrollHeight]);
+    });
 
     const showMapDescription = () => {
         setModalTitle(_ => map?.name);
@@ -77,16 +87,10 @@ const Chat = ({ id }: ChatProps): any => {
         setMapModalOpen(_ => true);
     };
 
-    const showCharacterDescription = id => {
-        getCharacterDescription(environment, id)
-            .then(res => {
-                if (res != null) {
-                    setModalTitle(_ => res?.name);
-                    setModalDescription(_ => res?.description);
-                    setMapModalOpen(_ => true);
-                }
-            })
-            .catch(e => console.error("Error while getting character description", e));
+    const showCharacterDescription = (id, name) => {
+        setSelectedCharacterId(_ => id);
+        setSelectedCharacterName(_ => name);
+        setCharacterModalOpen(_ => true);
     };
 
     const showEntries = () => {
@@ -161,6 +165,21 @@ const Chat = ({ id }: ChatProps): any => {
     return (
         <MainLayout openDialog={openDialog}>
             <>
+                <Dialog open={characterModalOpen && isMaster()}
+                        onClose={_ => setCharacterModalOpen(_ => false)}
+                        fullScreen
+                        aria-labelledby="map-info">
+                    <ChatMasterModal mapId={id}
+                                     characterId={selectedCharacterId}
+                                     characterName={selectedCharacterName}
+                                     closeModal={() => setCharacterModalOpen(_ => false)} />
+                </Dialog>
+                <Dialog open={characterModalOpen && !isMaster()}
+                        onClose={_ => setMapModalOpen(false)}
+                        aria-labelledby="map-info">
+                    <ChatDescriptionModal characterId={selectedCharacterId}
+                                          close={() => setCharacterModalOpen(_ => false)} />
+                </Dialog>
                 <Dialog open={mapModalOpen}
                         onClose={_ => setMapModalOpen(false)}
                         aria-labelledby="map-info">
@@ -184,7 +203,8 @@ const Chat = ({ id }: ChatProps): any => {
                     height: "calc(100% - 67px)",
                     overflow: "hidden"
                 }} id="chat-entries">
-                    <ChatControls openMapModal={() => showMapDescription()}/>
+                    <ChatControls openMapModal={() => showMapDescription()}
+                                  mapId={id} />
                     <List sx={{
                         flex: "4 0",
                         overflowY: "scroll"

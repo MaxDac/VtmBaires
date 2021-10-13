@@ -18,11 +18,8 @@ defmodule VtmWeb.Resolvers.Helpers do
   Returns the insider_id from the global_id or nil
   """
   def from_global_id?(global_id) do
-    with {:ok, %{id: new_id}}  <- from_global_id(global_id, VtmWeb.Schema) do
-      case new_id do
-        id when is_binary(id) -> String.to_integer(id)
-        id                    -> id
-      end
+    with {:ok, %{id: new_id}}  <- global_id |> from_global_id(VtmWeb.Schema) do
+      new_id |> String.to_integer()
     else
       _ -> nil
     end

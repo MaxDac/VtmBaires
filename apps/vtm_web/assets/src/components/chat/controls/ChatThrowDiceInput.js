@@ -7,19 +7,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from "@mui/material/Button";
-import useAttributesSlimQuery from "../../services/queries/info/AttributesSlimQuery";
+import useAttributesSlimQuery from "../../../services/queries/info/AttributesSlimQuery";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ListSubheader from "@mui/material/ListSubheader";
-import {materialize, range} from "../../_base/utils";
+import {materialize, range} from "../../../_base/utils";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {isUserMaster} from "../../services/base-types";
-import {useSession} from "../../services/session-service";
+import {isUserMaster} from "../../../services/base-types";
+import {useSession} from "../../../services/session-service";
 
 export type ChatDiceRequest = {
     attributeId: string;

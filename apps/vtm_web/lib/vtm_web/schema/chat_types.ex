@@ -102,6 +102,10 @@ defmodule VtmWeb.Schema.ChatTypes do
 
       trigger :create_chat_dice_entry, topic: &ChatResolvers.handle_chat_trigger/1
 
+      trigger :rouse_check, topic: &ChatResolvers.handle_chat_trigger/1
+
+      trigger :use_willpower, topic: &ChatResolvers.handle_chat_trigger/1
+
       resolve fn root, _args, _res ->
         {:ok, root}
       end

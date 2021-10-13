@@ -8,10 +8,10 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChangeCharacterOtherStatsInput = {|
-  characterId?: ?string,
-  humanity?: ?number,
-  predatorTypeId?: ?string,
-  willpower?: ?number,
+  characterId: string,
+  humanity: number,
+  predatorTypeId: string,
+  willpower: number,
 |};
 export type ChangeCharacterOtherStatsMutationVariables = {|
   input: ChangeCharacterOtherStatsInput

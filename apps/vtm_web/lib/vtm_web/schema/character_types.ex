@@ -48,6 +48,10 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :aggravated_damage, :integer
     field :willpower, :integer
     field :willpower_damage, :integer
+    field :stains, :integer
+    field :blood_potency, :integer
+    field :torpor, :boolean
+    field :dead, :boolean
     field :advantages, :string
     field :notes, :string
     field :clan, :clan

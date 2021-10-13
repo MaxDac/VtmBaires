@@ -11,9 +11,10 @@ export type GetCharacterDescriptionQueryVariables = {|
   id: string
 |};
 export type GetCharacterDescriptionQueryResponse = {|
-  +getCharacter: ?{|
+  +getCharacterDescription: ?{|
     +id: string,
     +name: ?string,
+    +chatAvatar: ?string,
     +description: ?string,
   |}
 |};
@@ -27,9 +28,10 @@ export type GetCharacterDescriptionQuery = {|
 query GetCharacterDescriptionQuery(
   $id: ID!
 ) {
-  getCharacter(id: $id) {
+  getCharacterDescription(characterId: $id) {
     id
     name
+    chatAvatar
     description
   }
 }
@@ -49,13 +51,13 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "id",
+        "name": "characterId",
         "variableName": "id"
       }
     ],
     "concreteType": "Character",
     "kind": "LinkedField",
-    "name": "getCharacter",
+    "name": "getCharacterDescription",
     "plural": false,
     "selections": [
       {
@@ -70,6 +72,13 @@ v1 = [
         "args": null,
         "kind": "ScalarField",
         "name": "name",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "chatAvatar",
         "storageKey": null
       },
       {
@@ -101,15 +110,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "24d0df529574189e388f598f47dfbdd7",
+    "cacheID": "5a4191a128e7ed547ae33d0b80dcc46f",
     "id": null,
     "metadata": {},
     "name": "GetCharacterDescriptionQuery",
     "operationKind": "query",
-    "text": "query GetCharacterDescriptionQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    description\n  }\n}\n"
+    "text": "query GetCharacterDescriptionQuery(\n  $id: ID!\n) {\n  getCharacterDescription(characterId: $id) {\n    id\n    name\n    chatAvatar\n    description\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'e5207cf8f4ea5bcad873955345f6af6f';
+(node: any).hash = '6d9fe282dee024f6b1da5b7d07ed60e1';
 module.exports = node;

@@ -15,7 +15,7 @@ import {markdownComponents} from "../../_base/components/ParsedText";
 type ChatEntryComponentProps = {
     entry: ChatEntry;
     isLast?: ?boolean;
-    showCharacterDescription: string => void;
+    showCharacterDescription: (string, string) => void;
 }
 
 const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntryComponentProps): any => {
@@ -100,7 +100,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntry
 
     const showDescription = _ => {
         if (!isMaster()) {
-            showCharacterDescription(entry?.character?.id);
+            showCharacterDescription(entry?.character?.id, entry?.character?.name);
         }
     };
 

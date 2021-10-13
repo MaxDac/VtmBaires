@@ -40,9 +40,9 @@ type AttributeType implements Node {
 }
 
 input ChangeCharacterAttributeInput {
-  attributeId: ID
-  characterId: ID
-  newValue: Int
+  attributeId: ID!
+  characterId: ID!
+  newValue: Int!
 }
 
 type ChangeCharacterAttributePayload {
@@ -50,8 +50,8 @@ type ChangeCharacterAttributePayload {
 }
 
 input ChangeCharacterExperienceInput {
-  characterId: ID
-  experienceChange: Int
+  characterId: ID!
+  experienceChange: Int!
 }
 
 type ChangeCharacterExperiencePayload {
@@ -59,9 +59,9 @@ type ChangeCharacterExperiencePayload {
 }
 
 input ChangeCharacterNotesInput {
-  advantages: String
-  characterId: ID
-  notes: String
+  advantages: String!
+  characterId: ID!
+  notes: String!
 }
 
 type ChangeCharacterNotesPayload {
@@ -69,19 +69,29 @@ type ChangeCharacterNotesPayload {
 }
 
 input ChangeCharacterOtherStatsInput {
-  characterId: ID
-  humanity: Int
-  predatorTypeId: ID
-  willpower: Int
+  characterId: ID!
+  humanity: Int!
+  predatorTypeId: ID!
+  willpower: Int!
 }
 
 type ChangeCharacterOtherStatsPayload {
   result: Character
 }
 
+input ChangeCharacterStatusInput {
+  advantages: String!
+  characterId: ID!
+  notes: String!
+}
+
+type ChangeCharacterStatusPayload {
+  result: Character
+}
+
 input ChangeSheetInfoInput {
-  characterId: ID
-  request: ChangeSheetInfoRequest
+  characterId: ID!
+  request: ChangeSheetInfoRequest!
 }
 
 type ChangeSheetInfoPayload {
@@ -101,9 +111,11 @@ type Character implements Node {
   approved: Boolean
   avatar: String
   biography: String
+  bloodPotency: Int
   chatAvatar: String
   clan: Clan
   damage: Int
+  dead: Boolean
   description: String
   experience: Int
   generation: Int
@@ -119,6 +131,8 @@ type Character implements Node {
   notes: String
   predatorType: PredatorType
   stage: Int
+  stains: Int
+  torpor: Boolean
   willpower: Int
   willpowerDamage: Int
 }
@@ -367,6 +381,7 @@ type RootMutationType {
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
   changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
   changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
+  changeCharacterStatus(input: ChangeCharacterStatusInput!): ChangeCharacterStatusPayload
   changeSheetInfo(input: ChangeSheetInfoInput!): ChangeSheetInfoPayload
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
@@ -381,22 +396,27 @@ type RootMutationType {
   newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
   requestNewPassword(userEmail: String!): Boolean
   resetSession: Boolean
+  rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
   setMessageRead(messageId: ID): Message
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
   updateSessionMap(mapId: ID): ID
   updateUserPassword(newPassword: String!, oldPassword: String!, repeatPassword: String!): Boolean
+  useWillpower(input: UseWillpowerInput!): UseWillpowerPayload
 }
 
 type RootQueryType {
+  allNpcs: [Character]
   allUsers: [User]
   attributes: [Attribute]
   charactersList: [Character]
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
+  getCharacterDescription(characterId: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
+  getCharacterStatus(characterId: ID): Character
   getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
   getForumThread(id: ID): ForumThreadPage
@@ -420,6 +440,15 @@ type RootQueryType {
 type RootSubscriptionType {
   newChatEntry(mapId: ID!, token: String!): MapChatEntry
   newMessageNotification(token: String!): MessageNotification
+}
+
+input RouseCheckInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type RouseCheckPayload {
+  result: MapChatEntry
 }
 
 input SendMessageRequest {
@@ -451,5 +480,14 @@ type User implements Node {
   sessionCharacter: Character
   userCharacters: [Character]
   userSessionCharacter: Character
+}
+
+input UseWillpowerInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type UseWillpowerPayload {
+  result: MapChatEntry
 }
 

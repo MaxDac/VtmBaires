@@ -24,6 +24,9 @@ defmodule Vtm.Characters.Character do
     field :willpower, :integer
     field :willpower_damage, :integer
     field :stains, :integer
+    field :blood_potency, :integer
+    field :torpor, :boolean
+    field :dead, :boolean
 
     field :stage, :integer
     field :approved, :boolean
@@ -80,7 +83,10 @@ defmodule Vtm.Characters.Character do
       :notes,
       :stage,
       :approved,
-      :predator_type_id
+      :predator_type_id,
+      :blood_potency,
+      :torpor,
+      :dead
     ])
     |> foreign_key_constraint(:clan_id)
     |> foreign_key_constraint(:predator_type_id)
@@ -113,7 +119,10 @@ defmodule Vtm.Characters.Character do
       :clan_id,
       :predator_type_id,
       :advantages,
-      :notes
+      :notes,
+      :blood_potency,
+      :torpor,
+      :dead
     ])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:clan_id)

@@ -156,6 +156,11 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions}:
                 </Grid>
                 {showDisciplines()}
                 {showAdvantages()}
+                <Grid item xs={12}>
+                    <Typography sx={sectionStyle}>
+                        Status
+                    </Typography>
+                </Grid>
                 <Grid item xs={12} sx={{
                     margin: "0 auto",
                     maxWidth: "500px",

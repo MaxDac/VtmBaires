@@ -8,6 +8,18 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
     arguments: %{character_id: character_id},
     context: %{current_user: %{id: user_id, role: role}}
   }, _) do
+    check_character(character_id, user_id, role, resolution)
+  end
+
+  def call(resolution = %{
+    arguments: %{input: input = %{character_id: character_id}},
+    context: %{current_user: %{id: user_id, role: role}}
+  }, _) do
+    IO.inspect input
+    check_character(character_id, user_id, role, resolution)
+  end
+
+  defp check_character(character_id, user_id, role, resolution) do
     case {role, Characters.character_of_user?(user_id, from_global_id?(character_id))} do
       {:master, _}  -> resolution
       {true, _}     -> resolution

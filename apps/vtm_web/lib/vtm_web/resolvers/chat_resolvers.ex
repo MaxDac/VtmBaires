@@ -2,24 +2,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   alias Vtm.Chats
   import VtmWeb.Resolvers.Helpers
 
-  alias VtmAuth.Accounts
-
-  defp map_entry(entry = %{
-    character_id: c_id,
-    character_name: c_name,
-    character_chat_avatar: c_avatar,
-    chat_map_id: map_id
-  }) do
-    entry
-    |> Map.put(:character, %{
-      id: c_id,
-      name: c_name,
-      chat_avatar: c_avatar
-    })
-    |> Map.put(:chat_map, %{
-      id: map_id
-    })
-  end
+  alias VtmWeb.Resolvers.ChatHelpers
 
   def get_main_chat_maps(_, _, _) do
     {:ok, Chats.get_main_chat_maps()}
@@ -36,39 +19,23 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   def get_chat_entries(%{ map_id: map_id }, _) do
     entries =
       Chats.get_chat_entries(map_id)
-      |> Enum.map(&map_entry/1)
+      |> Enum.map(&ChatHelpers.map_entry/1)
 
     {:ok, entries}
   end
 
-  def create_chat_entry(_, %{ entry: entry }, %{context: %{current_user: user}}) do
-    new_entry =
-      entry
-      |> Map.put(:character_id, from_global_id?(entry.character_id))
-      |> Map.put(:chat_map_id, from_global_id?(entry.chat_map_id))
-
-    new_entry =
-      case {new_entry |> Map.get(:text), user.role} do
-        {"***" <> rest, :master} ->
-          new_entry
-          |> Map.put(:text, rest)
-          |> Map.put(:master, true)
-        _ ->
-          new_entry
-      end
-
-    with {:ok, %{ id: id }}           <- Chats.create_chat_entry(new_entry),
-         entry when not is_nil(entry) <- Chats.get_chat_entry(id),
-         {:ok, _}                     <- Accounts.update_session(user) do
-      {:ok, entry |> map_entry()}
-    end
+  def create_chat_entry(_, %{entry: entry}, %{context: %{current_user: user}}) do
+    entry
+    |> Map.put(:character_id, from_global_id?(entry.character_id))
+    |> Map.put(:chat_map_id, from_global_id?(entry.chat_map_id))
+    |> ChatHelpers.create_chat_entry(user)
   end
 
   defp check_master(%{master: false}, _), do: true
   defp check_master(%{master: true}, %{role: :master}), do: true
   defp check_master(_, _), do: false
 
-  def create_chat_dice_entry(x, %{ entry: entry }, ctx = %{context: %{current_user: user}}) do
+  def create_chat_dice_entry(x, %{entry: entry}, ctx = %{context: %{current_user: user}}) do
     %{
       character_id: character_id,
       attribute_id: attribute_id,
@@ -85,11 +52,9 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
       {true, false} ->
         throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
         create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
-        |> map_entry()
       {true, true} ->
         throw_result = Chats.random_simulate_master_dice_throw(free_throw)
         create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
-        |> map_entry()
       _ ->
         {:error, :unauthorized}
     end

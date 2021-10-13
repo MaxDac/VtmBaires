@@ -8,8 +8,8 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 export type ChangeCharacterExperienceInput = {|
-  characterId?: ?string,
-  experienceChange?: ?number,
+  characterId: string,
+  experienceChange: number,
 |};
 export type ChangeCharacterExperienceMutationVariables = {|
   input: ChangeCharacterExperienceInput

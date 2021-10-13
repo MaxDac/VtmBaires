@@ -221,7 +221,7 @@ defmodule Vtm.Creation do
 
     {willpower, health, hunger} = {
       composure + resolve,
-      stamina,
+      stamina + 3,
       1
     }
 
