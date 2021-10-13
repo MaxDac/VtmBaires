@@ -23,6 +23,15 @@ type ApplyTemplateToCharacterPayload {
   result: Boolean
 }
 
+input AssignNpcAttributesInput {
+  characterId: ID!
+  request: NpcAttributesRequest
+}
+
+type AssignNpcAttributesPayload {
+  response: Character
+}
+
 type Attribute implements Node {
   attributeType: AttributeType
   description: String
@@ -208,6 +217,14 @@ type Clan implements Node {
   name: String
 }
 
+input ConfirmPngInput {
+  characterId: ID!
+}
+
+type ConfirmPngPayload {
+  response: Character
+}
+
 input CreateNewPostRequest {
   creatorCharacterId: ID
   creatorUserId: ID!
@@ -236,6 +253,15 @@ type CreationTemplate implements Node {
 }
 
 scalar DateTime
+
+input DefineNpcStatsInput {
+  characterId: ID!
+  request: NpcStatsRequest!
+}
+
+type DefineNpcStatsPayload {
+  response: Character
+}
 
 type Discipline implements Node {
   description: String
@@ -359,6 +385,25 @@ interface Node {
   id: ID!
 }
 
+input NpcAttribute {
+  id: ID!
+  value: Int!
+}
+
+input NpcAttributesRequest {
+  attributes: [NpcAttribute]!
+}
+
+input NpcStatsRequest {
+  advantages: String!
+  bloodPotency: Int!
+  generation: Int!
+  humanity: Int!
+  notes: String
+  predatorTypeId: ID!
+  willpower: Int!
+}
+
 type PredatorType implements Node {
   description: String
 
@@ -377,16 +422,20 @@ type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
   approveCharacter(characterId: ID): Boolean
+  assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
   changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
   changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
   changeCharacterStatus(input: ChangeCharacterStatusInput!): ChangeCharacterStatusPayload
   changeSheetInfo(input: ChangeSheetInfoInput!): ChangeSheetInfoPayload
+  confirmPng(input: ConfirmPngInput!): ConfirmPngPayload
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
+  createNpc(request: CharacterCreationRequest): Character
   createUser(email: String!, name: String!): CreationResult
+  defineNpcStats(input: DefineNpcStatsInput!): DefineNpcStatsPayload
   deleteCharacter(characterId: ID): Boolean
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character

@@ -10,4 +10,15 @@ defmodule Vtm.Helpers do
   def throw_dice() do
     :rand.uniform(10)
   end
+
+  def unzip(collection, condition, first \\ [], second \\ [])
+
+  def unzip([], _, first, second), do: {first |> Enum.reverse(), second |> Enum.reverse()}
+
+  def unzip([a | rest], condition, first, second) do
+    case condition.(a) do
+      true -> unzip(rest, condition, [a | first], second)
+      false -> unzip(rest, condition, first, [a | second])
+    end
+  end
 end

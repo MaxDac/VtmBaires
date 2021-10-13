@@ -13,6 +13,7 @@ export type SelectInputProps = {
     fieldName: string;
     label: string;
     values: Array<[string, string]>;
+    sx: any;
 };
 
 const FormSelectField = (props: SelectInputProps): any => {
@@ -22,7 +23,7 @@ const FormSelectField = (props: SelectInputProps): any => {
         const values = props.values;
         if (values && values.map) {
             return values
-                .map(([value, label]) => <MenuItem key={value} value={value}>{label}</MenuItem>);
+                .map(([value, label]) => <MenuItem key={value ?? "is-null"} value={value}>{label}</MenuItem>);
         }
 
         return [];
@@ -40,6 +41,7 @@ const FormSelectField = (props: SelectInputProps): any => {
                 name={props.fieldName}
                 fullWidth
                 sx={{
+                    ...props.sx,
                     minWidth: theme.spacing(10)
                 }}
                 value={props.formik.values[props.fieldName]}

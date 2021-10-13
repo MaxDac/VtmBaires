@@ -78,12 +78,6 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
         return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo</MenuItem>;
     }
 
-    const showNpcs = () => {
-        if (isMaster()) {
-
-        }
-    }
-
     return (
         <>
             <ListItem button onClick={_ => setExpand(p => !p)}>

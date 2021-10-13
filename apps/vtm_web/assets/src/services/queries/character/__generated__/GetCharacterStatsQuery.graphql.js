@@ -39,6 +39,7 @@ export type GetCharacterStatsQueryResponse = {|
       |},
     |}>,
     +predatorType: ?{|
+      +id: string,
       +name: ?string,
       +description: ?string,
     |},
@@ -86,9 +87,9 @@ query GetCharacterStatsQuery(
       }
     }
     predatorType {
+      id
       name
       description
-      id
     }
   }
 }
@@ -156,8 +157,21 @@ v6 = [
 v7 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "description",
+  "concreteType": "PredatorType",
+  "kind": "LinkedField",
+  "name": "predatorType",
+  "plural": false,
+  "selections": [
+    (v2/*: any*/),
+    (v4/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "description",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v8 = [
@@ -251,19 +265,7 @@ return {
             "selections": (v6/*: any*/),
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PredatorType",
-            "kind": "LinkedField",
-            "name": "predatorType",
-            "plural": false,
-            "selections": [
-              (v4/*: any*/),
-              (v7/*: any*/)
-            ],
-            "storageKey": null
-          }
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
@@ -346,35 +348,22 @@ return {
             "selections": (v8/*: any*/),
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PredatorType",
-            "kind": "LinkedField",
-            "name": "predatorType",
-            "plural": false,
-            "selections": [
-              (v4/*: any*/),
-              (v7/*: any*/),
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          }
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "2046377819514327c52574a5560e84c8",
+    "cacheID": "a872fe8baace040727c7ae51097263cc",
     "id": null,
     "metadata": {},
     "name": "GetCharacterStatsQuery",
     "operationKind": "query",
-    "text": "query GetCharacterStatsQuery(\n  $id: ID!\n) {\n  getCharacterStats(characterId: $id) {\n    id\n    attributes {\n      id\n      value\n      attribute {\n        name\n        attributeType {\n          name\n          section\n          id\n        }\n        id\n      }\n    }\n    disciplines {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    advantages {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    predatorType {\n      name\n      description\n      id\n    }\n  }\n}\n"
+    "text": "query GetCharacterStatsQuery(\n  $id: ID!\n) {\n  getCharacterStats(characterId: $id) {\n    id\n    attributes {\n      id\n      value\n      attribute {\n        name\n        attributeType {\n          name\n          section\n          id\n        }\n        id\n      }\n    }\n    disciplines {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    advantages {\n      id\n      value\n      attribute {\n        name\n        id\n      }\n    }\n    predatorType {\n      id\n      name\n      description\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'd2c723d3dfccc41b379fdb18af683ebd';
+(node: any).hash = '0edfffcdbf6e52262c12a5392457e3ab';
 module.exports = node;

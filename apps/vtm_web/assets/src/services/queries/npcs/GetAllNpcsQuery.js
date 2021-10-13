@@ -9,6 +9,7 @@ export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
             id
             name
             chatAvatar
+            isComplete
         }
     }
 `;

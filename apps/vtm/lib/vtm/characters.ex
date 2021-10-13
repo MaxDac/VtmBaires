@@ -76,8 +76,8 @@ defmodule Vtm.Characters do
 
   def get_user_characters(%{role: :master, id: id}) do
     query = from c in Character,
-      where: c.is_npc,
-      or_where: c.user_id == ^id
+      where: c.is_npc == false,
+      where: c.user_id == ^id
 
     query
     |> select_user_characters_info()
@@ -264,7 +264,7 @@ defmodule Vtm.Characters do
       _ ->
         %{
           id: id,
-          predator_type: %{},
+          predator_type: nil,
           attributes: [],
           disciplines: [],
           advantages: []
@@ -296,6 +296,14 @@ defmodule Vtm.Characters do
     end
   end
 
+  def create_npc(attrs, user) do
+    with {:ok, character} <- create(attrs, user) do
+      character
+      |> Character.update_changeset(%{is_npc: true})
+      |> Repo.update()
+    end
+  end
+
   def update_character(id, attrs) do
     with character <- Character |> Repo.get(id) do
       character
@@ -318,6 +326,44 @@ defmodule Vtm.Characters do
 
   def update_character_in_session(_, _) do
     {:ok, nil}
+  end
+
+  @doc """
+  Inserts or updates the given attributes.
+  This function accepts the character_id, and a collection of maps, in the following form:
+  %{id: attribute_id, value: attribute_value}
+  """
+  @spec assign_npc_attributes(Integer.t(), [Map.t()]) :: {:ok, Character.t()} | {:error, any()}
+  def assign_npc_attributes(character_id, attributes) do
+    existents =
+      from(ca in CharacterAttribute, where: ca.character_id == ^character_id)
+      |> Repo.all()
+
+    case existents |> Enum.count() do
+      #Inserting
+      0 ->
+        attributes
+        |> Enum.map(fn %{id: id, value: value} -> %CharacterAttribute{character_id: character_id, attribute_id: id, value: value} end)
+        |> Enum.map(&Repo.insert/1)
+
+      #updating
+      _ ->
+        attributes_map =
+          attributes
+          |> Map.new(fn %{id: id, value: value} -> {id, value} end)
+
+        existents
+        |> Enum.map(fn ca = %CharacterAttribute{attribute_id: id} ->
+          ca
+          |> CharacterAttribute.update_changeset(%{value: attributes_map[id]})
+        end)
+        |> Enum.map(&Repo.update/1)
+    end
+    |> Enum.reduce({:ok, %Character{id: character_id}}, fn
+      {:ok, _}, r               -> r
+      e = {:error, _}, {:ok, _} -> e
+      {:error, e}, {:error, ee} -> {:error, [e | ee]}
+    end)
   end
 
   defp delete_character_p(character_id) do
@@ -393,5 +439,23 @@ defmodule Vtm.Characters do
         |> CharacterAttribute.update_changeset(%{value: v})
         |> Repo.update()
     end
+  end
+
+  @spec confirm_png(Integer.t()) :: {:ok, Character.t()}
+  def confirm_png(character_id) do
+    stamina =
+      with %{attributes: ats} <- get_character_stats(character_id),
+           [%{value: st} | _] <- ats |> Enum.filter(fn %{attribute: %{name: "Costituzione"}} -> true; _ -> false end) do
+        st
+      end
+
+    Character
+    |> Repo.get(character_id)
+    |> Character.update_changeset(%{
+      health: stamina + 3,
+      hunger: 1,
+      is_complete: true
+    })
+    |> Repo.update()
   end
 end

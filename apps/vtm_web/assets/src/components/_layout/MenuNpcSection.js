@@ -30,10 +30,8 @@ const MenuNpcSection = ({pushHistory}: Props): any => {
     const history = useHistory();
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
-    const [user, currentCharacter] = useSession();
+    const [,currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
-
-    const isMaster = () => user.role === "MASTER";
 
     const npcs = useCustomLazyLoadQuery<GetAllNpcsQuery>(getAllNpcsQuery, {}, {
         fetchPolicy: "store-and-network"
@@ -42,6 +40,13 @@ const MenuNpcSection = ({pushHistory}: Props): any => {
     const handleNpcSelection = (info: any) =>
         _ => {
             setCurrentCharacter(info);
+
+            if (info.isComplete) {
+                history.push(Routes.sheet(info?.id));
+            }
+            else {
+                history.push(Routes.defineNpc(info?.id));
+            }
         }
 
     const showNpcs = () => {

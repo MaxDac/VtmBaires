@@ -35,6 +35,7 @@ export const getCharacterStatsQuery: GraphQLTaggedNode = graphql`
                 }
             }
             predatorType {
+                id
                 name
                 description
             }
@@ -98,6 +99,7 @@ export const useCharacterStatsQuery = (characterId: string, queryOptions?: any):
                 value: a?.value
             })),
             predatorType: {
+                id: s?.predatorType?.id,
                 name: s?.predatorType?.name,
                 description: s?.predatorType?.description
             }

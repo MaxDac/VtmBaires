@@ -44,7 +44,8 @@ export const Routes = {
     charactersList: "/admin/characters",
     unapprovedCharacters: "/admin/unapproved",
     characterDashboard: (id: string) => `/admin/character/${id}`,
-    createNewNpc: "/admin/npc/new"
+    createNewNpc: "/admin/npc/new",
+    defineNpc: (id: string) => `/admin/npc/${id}/define`
 };
 
 export const AdminRoutes = {
@@ -93,6 +94,7 @@ const CharactersList = React.lazy(() => import('./components/admin/characters/Ch
 const CharacterDashboard = React.lazy(() => import('./components/admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./components/admin/approvation/UnapprovedCharacters'));
 const CreateNewNpc = React.lazy(() => import('./components/sheet/npcs/CreateNewNpc'));
+const DefineNpc = React.lazy(() => import('./components/sheet/npcs/DefineNpc'));
 
 const AppRouter = (): any => {
     return (
@@ -138,6 +140,7 @@ const AppRouter = (): any => {
             <AuthMasterRoute exact path="/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
             <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/admin/npc/new" component={() => <CreateNewNpc />} />
+            <AuthMasterRoute exact path="/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
         </Switch>
     );
 };

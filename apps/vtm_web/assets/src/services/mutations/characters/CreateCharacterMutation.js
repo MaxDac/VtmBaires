@@ -16,19 +16,6 @@ const mutation = graphql`
         }
     }
 `;
-//
-// export type CreationResult = {
-//     id: string;
-//     name: string;
-// }
-//
-// export type CharacterCreationRequest = {
-//     name: string;
-//     avatar: string;
-//     clanId: number;
-//     description: string;
-//     biography: string;
-// }
 
 const mutationPromise = (environment: IEnvironment, request: CharacterCreationRequest): Promise<CreateCharacterMutationResponse> => {
     return wrapMutation<CreateCharacterMutationResponse>(environment, mutation, {
