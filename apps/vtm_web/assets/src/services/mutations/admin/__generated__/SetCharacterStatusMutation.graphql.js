@@ -7,37 +7,37 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type CharacterCreationRequest = {|
-  avatar?: ?string,
-  biography: string,
-  chatAvatar?: ?string,
-  clanId: string,
-  description: string,
-  isNpc?: ?number,
-  name: string,
+export type SetCharacterStatusRequest = {|
+  aggravatedDamage?: ?number,
+  damage?: ?number,
+  hunger?: ?number,
+  stains?: ?number,
+  willpowerDamage?: ?number,
 |};
-export type CreateNewNpcMutationVariables = {|
-  request: CharacterCreationRequest
+export type SetCharacterStatusMutationVariables = {|
+  characterId: string,
+  request: SetCharacterStatusRequest,
 |};
-export type CreateNewNpcMutationResponse = {|
-  +createNpc: ?{|
-    +character: ?{|
+export type SetCharacterStatusMutationResponse = {|
+  +setCharacterStatus: ?{|
+    +result: ?{|
       +id: string
     |}
   |}
 |};
-export type CreateNewNpcMutation = {|
-  variables: CreateNewNpcMutationVariables,
-  response: CreateNewNpcMutationResponse,
+export type SetCharacterStatusMutation = {|
+  variables: SetCharacterStatusMutationVariables,
+  response: SetCharacterStatusMutationResponse,
 |};
 
 
 /*
-mutation CreateNewNpcMutation(
-  $request: CharacterCreationRequest!
+mutation SetCharacterStatusMutation(
+  $characterId: ID!
+  $request: SetCharacterStatusRequest!
 ) {
-  createNpc(input: {request: $request}) {
-    character {
+  setCharacterStatus(input: {characterId: $characterId, request: $request}) {
+    result {
       id
     }
   }
@@ -46,6 +46,11 @@ mutation CreateNewNpcMutation(
 
 const node: ConcreteRequest = (function(){
 var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "characterId"
+  },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
@@ -60,6 +65,11 @@ v1 = [
         "fields": [
           {
             "kind": "Variable",
+            "name": "characterId",
+            "variableName": "characterId"
+          },
+          {
+            "kind": "Variable",
             "name": "request",
             "variableName": "request"
           }
@@ -68,9 +78,9 @@ v1 = [
         "name": "input"
       }
     ],
-    "concreteType": "CreateNpcPayload",
+    "concreteType": "SetCharacterStatusPayload",
     "kind": "LinkedField",
-    "name": "createNpc",
+    "name": "setCharacterStatus",
     "plural": false,
     "selections": [
       {
@@ -78,7 +88,7 @@ v1 = [
         "args": null,
         "concreteType": "Character",
         "kind": "LinkedField",
-        "name": "character",
+        "name": "result",
         "plural": false,
         "selections": [
           {
@@ -100,7 +110,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateNewNpcMutation",
+    "name": "SetCharacterStatusMutation",
     "selections": (v1/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
@@ -109,19 +119,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateNewNpcMutation",
+    "name": "SetCharacterStatusMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "38fea409a28e7a672ebb911569878ff4",
+    "cacheID": "83951ce4499ec09be2c2307438ebc505",
     "id": null,
     "metadata": {},
-    "name": "CreateNewNpcMutation",
+    "name": "SetCharacterStatusMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateNewNpcMutation(\n  $request: CharacterCreationRequest!\n) {\n  createNpc(input: {request: $request}) {\n    character {\n      id\n    }\n  }\n}\n"
+    "text": "mutation SetCharacterStatusMutation(\n  $characterId: ID!\n  $request: SetCharacterStatusRequest!\n) {\n  setCharacterStatus(input: {characterId: $characterId, request: $request}) {\n    result {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = 'ab54bf5ecfe26cef0247509d9c97d2e7';
+(node: any).hash = 'b4245fe67e114d4a42b4fc18baf60113';
 module.exports = node;

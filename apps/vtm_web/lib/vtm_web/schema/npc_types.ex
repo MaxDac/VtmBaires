@@ -32,8 +32,14 @@ defmodule VtmWeb.Schema.NpcTypes do
   end
 
   object :npc_mutations do
-    field :create_npc, :character do
-      arg :request, :character_creation_request
+    payload field :create_npc do
+      input do
+        field :request, non_null(:character_creation_request)
+      end
+
+      output do
+        field :character, :character
+      end
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve &NpcResolvers.create_npc/3

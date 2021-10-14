@@ -53,7 +53,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def get_character_stats(%{character_id: id }, %{context: %{current_user: user}}) do
     with %{id: character_id}  <- Characters.get_specific_character(user, id),
-         stats                <- Characters.get_character_stats(character_id) do
+         stats                <- Characters.get_character_stats(character_id) |> IO.inspect() do
       {:ok, stats}
     else
       _ ->

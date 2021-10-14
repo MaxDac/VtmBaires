@@ -117,8 +117,10 @@ export function wrapMutation<T>(environment: IEnvironment, operation: any, varia
                 mutation: operation,
                 variables,
                 onCompleted: parseResponse(res, rej, extractor),
-                onError: _ =>
-                    rej([ `There was an error while contacting the server.\r\nPlease check your connection.` ])
+                onError: e => {
+                    console.error("error", e);
+                    rej([`There was an error while contacting the server.\r\nPlease check your connection.`])
+                }
             }
         )
     });

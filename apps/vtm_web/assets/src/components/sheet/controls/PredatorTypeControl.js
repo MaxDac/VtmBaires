@@ -36,12 +36,12 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
         if (characterIsVampire(characterInfo)) {
             return (
                 <>
-                    <Grid item xs={12} className={classes.defaultParagraph}>
-                        Choose your character predator type.
+                    <Grid item xs={12} className={classes.defaultParagraph} sx={{paddingTop: "10px"}}>
+                        Scegli il tipo di predatore che il tuo personaggio dovr&agrave; interpretare.
                     </Grid>
                     <Grid item xs={12} style={{textAlign: "center"}}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="predator-type-label">Predator Type</InputLabel>
+                            <InputLabel id="predator-type-label">Tipo di Predatore</InputLabel>
                             <Select labelId="predator-type-label"
                                     id="predatorType"
                                     name="predatorType"

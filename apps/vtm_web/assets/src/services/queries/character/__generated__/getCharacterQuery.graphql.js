@@ -87,6 +87,8 @@ fragment CharacterFragments_characterStats on Character {
   aggravatedDamage
   willpower
   willpowerDamage
+  stains
+  bloodPotency
 }
 */
 
@@ -292,6 +294,20 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "stains",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "bloodPotency",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "stage",
             "storageKey": null
           },
@@ -346,12 +362,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3c6b32d4772c1bf3eae5f38c575c0017",
+    "cacheID": "352142dc9b79ea2a76024336eee567d3",
     "id": null,
     "metadata": {},
     "name": "GetCharacterQuery",
     "operationKind": "query",
-    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  experience\n  advantages\n  notes\n  predatorType {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n}\n"
+    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  experience\n  advantages\n  notes\n  predatorType {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n  stains\n  bloodPotency\n}\n"
   }
 };
 })();

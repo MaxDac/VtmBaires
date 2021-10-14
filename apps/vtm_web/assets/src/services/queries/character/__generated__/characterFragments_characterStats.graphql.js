@@ -21,6 +21,8 @@ export type CharacterFragments_characterStats = {|
   +aggravatedDamage: ?number,
   +willpower: ?number,
   +willpowerDamage: ?number,
+  +stains: ?number,
+  +bloodPotency: ?number,
   +$refType: CharacterFragments_characterStats$ref,
 |};
 export type CharacterFragments_characterStats$data = CharacterFragments_characterStats;
@@ -106,11 +108,25 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "willpowerDamage",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "stains",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "bloodPotency",
+      "storageKey": null
     }
   ],
   "type": "Character",
   "abstractKey": null
 };
 // prettier-ignore
-(node: any).hash = '8ceb361cb26ac467b833f50f59cc0eb0';
+(node: any).hash = 'e52599d06f5cffb0329114ef6dab051e';
 module.exports = node;

@@ -7,13 +7,17 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     {:ok, Characters.get_all_npcs()}
   end
 
-  def create_npc(_, %{request: request }, %{context: %{current_user: current_user}}) do
+  def create_npc(_, %{request: request}, %{context: %{current_user: current_user}}) do
     new_request =
       request
       |> Map.put(:user_id, 1)
       |> Map.put(:clan_id, from_global_id?(request.clan_id))
 
-    Characters.create_npc(new_request, current_user)
+    with {:ok, %{id: id}} <- Characters.create_npc(new_request, current_user),
+         {:ok, _}         <- Characters.add_npc_empty_attributes(id),
+         ch               <- Characters.get_specific_character(current_user, id) do
+      {:ok, %{character: ch}}
+    end
   end
 
   def define_npc_stats(%{character_id: c_id, request: request}, %{context: %{current_user: current_user}}) do

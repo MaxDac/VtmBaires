@@ -162,7 +162,7 @@ const Creation4 = (): any => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            Now you can select the last attribute of your character.
+                            In questa sezione puoi scegliere gli ultimi attributi della scheda del tuo personaggio, prima dei ritocchi finali.
                         </Typography>
                     </Grid>
                     <DisciplinesControl characterInfo={characterInfo}
@@ -180,10 +180,8 @@ const Creation4 = (): any => {
                                          error={formik.touched["predatorType"] && Boolean(formik.errors["predatorType"])} />
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            Write all the advantages that you would like to assign to your
-                            character.<br/>
-                            One master will review the list and correct the character sheet
-                            accordingly.
+                            I vantaggi non possono essere selezionati automaticamente, poich&eacute; dovranno essere vagliati dal master che controller&agrave; la tua scheda.
+                            Scrivi nel controllo di seguito tutti i vantaggi che vuoi assegnare al tuo personaggio.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -191,7 +189,7 @@ const Creation4 = (): any => {
                             variant="outlined"
                             margin="normal"
                             fullWidth
-                            label="Advantages"
+                            label="Vantaggi"
                             type="text"
                             id="advantages"
                             name="advantages"
@@ -204,8 +202,8 @@ const Creation4 = (): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            If you want to ask for something in particular, please input in the
-                            following.
+                            Se hai delle richieste particolari per il tuo personaggio, scrivile pure di seguito.
+                            Saranno vagliate dal master che controller&agrave; la tua scheda.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -213,7 +211,7 @@ const Creation4 = (): any => {
                             variant="outlined"
                             margin="normal"
                             fullWidth
-                            label="Notes"
+                            label="Note"
                             type="text"
                             id="notes"
                             name="notes"

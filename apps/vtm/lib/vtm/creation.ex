@@ -6,6 +6,7 @@ defmodule Vtm.Creation do
   alias Vtm.Characters
   alias Vtm.Characters.Character
   alias Vtm.Characters.Attribute
+  alias Vtm.Characters.AttributeType
   alias Vtm.Creation.Template
   alias Vtm.Creation.TemplateAttribute
   alias Vtm.Characters.CharacterAttribute
@@ -243,7 +244,9 @@ defmodule Vtm.Creation do
       nil ->
         {:error, :not_found}
       character ->
-        attrs = character |> get_complete_character_attrs() |> IO.inspect()
+        attrs =
+          character
+          |> get_complete_character_attrs()
 
         character
         |> Character.finalize_character_changeset(attrs)

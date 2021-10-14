@@ -48,6 +48,7 @@ export type Stat = {
     name: ?string;
     value: ?number;
     maxValue?: number;
+    color?: string;
 };
 
 export type Attribute = Stat & {

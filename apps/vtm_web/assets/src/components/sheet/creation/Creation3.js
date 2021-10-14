@@ -39,21 +39,42 @@ const Creation3 = (): any => {
         <MainLayout>
             <div className={classes.centeredContainer}>
                 <Typography>
-                    Select the type of character you want to create:
+                    In questa sezione della creazione del personaggio, dovrai scegliere le sue Abilit&agrave;.
                 </Typography>
-                <div style={{ padding: "20px" }}>
+                <Typography>
+                    Seguendo le nuove regole imposte dai manuali v5 di Vampiri: la Masquerade&trade;, dovrai scegliere quale tipo di personaggio vuoi interpretare.
+                    Puoi scegliere tra le seguenti opzioni:
+                </Typography>
+                <Typography>
+                    <ui>
+                        <li>
+                            <b>Specialista</b>: lo specialista si &egrave; concentrato nell'avanzamento di poche abilit&agrave; ad alto livello.
+                            &Egrave; l'unico tipo di personaggio in cui &egrave; possibile definire una abilit&agrave; a livello 4.
+                        </li>
+                        <li>
+                            <b>Bilanciato</b>: un personaggio bilanciato, come suggerisce la parola, &egrave; una commistione dei due tipi di personaggio.
+                        </li>
+                        <li>
+                            <b>Tuttofare</b>: il personaggio tuttofare ha un grande ventaglio di abilit&agrave;, ma poche ad un livello eccellente.
+                        </li>
+                    </ui>
+                </Typography>
+                <div style={{
+                    padding: "20px",
+                    textAlign: "center"
+                }}>
                     <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="select-label">Character Type</InputLabel>
-                        <Select
-                            labelId="select-label"
-                            id="character-type"
-                            name="character-type"
-                            fullWidth
-                            value={characterType}
-                            onChange={changeCharacterType}>
-                            <MenuItem value={1}>Jack of All Trades</MenuItem>
-                            <MenuItem value={2}>Balanced</MenuItem>
-                            <MenuItem value={3}>Specialist</MenuItem>
+                        <InputLabel id="select-label">Tipo di Personaggio</InputLabel>
+                        <Select labelId="select-label"
+                                id="character-type"
+                                name="character-type"
+                                fullWidth
+                                sx={{width: "200px"}}
+                                value={characterType}
+                                onChange={changeCharacterType}>
+                            <MenuItem value={1}>Tuttofare</MenuItem>
+                            <MenuItem value={2}>Bilanciato</MenuItem>
+                            <MenuItem value={3}>Specialista</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

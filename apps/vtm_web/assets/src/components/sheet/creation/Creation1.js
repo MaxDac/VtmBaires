@@ -18,14 +18,15 @@ const Creation1 = (): any => {
     const onSubmit = (values: CreationInfoFormValues) => {
         createCharacter(environment, values)
             .then(response => {
+                console.log("response", response);
                 if (response?.createCharacter != null) {
                     updateCurrentCharacter({
                         id: response.createCharacter.id,
                         name: response.createCharacter.name ?? "No name available"
                     });
-                }
 
-                history.push(Routes.creation2);
+                    history.push(Routes.creation2);
+                }
             })
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
     }

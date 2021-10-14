@@ -6,7 +6,6 @@ import {usePredatorTypes} from "../../../services/queries/info/PredatorTypesQuer
 import {useFormik} from "formik";
 import {handleMutation, range} from "../../../_base/utils";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import FormTextField from "../../../_base/components/FormTextField";
 import FormSelectField from "../../../_base/components/FormSelectField";
 import Button from "@mui/material/Button";
@@ -100,11 +99,6 @@ const AssignNpcGenericStats = ({characterId}: Props): any => {
     return (
         <form noValidate onSubmit={formik.handleSubmit}>
             <Grid container>
-                <Grid item xs={12}>
-                    <Typography>
-                        Completa il Personaggio non Giocante.
-                    </Typography>
-                </Grid>
                 <Grid item xs={12}>
                     <FormTextField formik={formik}
                                    fieldName="notes"

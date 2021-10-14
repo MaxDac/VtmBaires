@@ -10,9 +10,12 @@ import {CharacterCreationRequest} from "./__generated__/CreateNewNpcMutation.gra
 
 const mutation = graphql`
     mutation CreateNewNpcMutation($request: CharacterCreationRequest!) {
-        createNpc(request: $request) {
-            id
-            name
+        createNpc(input: {
+            request: $request
+        }) {
+            character {
+                id
+            }
         }
     }
 `;

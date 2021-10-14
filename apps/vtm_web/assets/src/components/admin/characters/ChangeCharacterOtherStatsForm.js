@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {handleMutation, range} from "../../../_base/utils";
+import {baseMenuItems, handleMutation} from "../../../_base/utils";
 import Button from "@mui/material/Button";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
@@ -27,19 +27,23 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
         ?.predatorTypes;
 
     const [willpower, setWillpower] = useState(character?.willpower);
+    const [health, setHealth] = useState(character?.health);
     const [humanity, setHumanity] = useState(character?.humanity);
+    const [bloodPotency, setBloodPotency] = useState(character?.bloodPotency);
     const [predatorType, setPredatorType] = useState(character?.predatorType?.id);
 
     const changeCharacterOtherStats = _ => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
-            `Sei sicuro di voler cambiare umanità a ${humanity} e Forza di Volontà a ${willpower}?`,
+            `Sei sicuro di voler cambiare le caratteristiche di questo personaggio?`,
             () =>
                 handleMutation(() => ChangeCharacterOtherStatsMutation(environment, {
                     characterId: character.id,
                     humanity: humanity,
                     willpower: willpower,
-                    predatorTypeId: predatorType
+                    predatorTypeId: predatorType,
+                    health: health,
+                    bloodPotency: bloodPotency
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
@@ -47,15 +51,7 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
         );
     };
 
-    const menuItems = () => {
-        const values = [];
-
-        for (const v of range(1, 10)) {
-            values.push(<MenuItem key={v} value={v}>{v}</MenuItem>);
-        }
-
-        return values;
-    };
+    const menuItems = () => baseMenuItems(1, 10);
 
     const predatorTypeItems = () =>
         predatorTypes?.map(t => <MenuItem key={t?.id} value={t?.id}>{t?.name}</MenuItem>);
@@ -70,14 +66,25 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
 
     const onPredatorTypeChanged = ({target: {value}}) => {
         setPredatorType(_ => value);
-    }
+    };
+
+    const onHealthChanged = ({target: {value}}) => {
+        setHealth(_ => value);
+    };
+
+    const onBloodPotencyChanged = ({target: {value}}) => {
+        setBloodPotency(_ => value);
+    };
+
+    const containerStyle = {
+        textAlign: "center",
+        padding: "10px"
+    };
 
     return (
         <Grid item xs={12} sx={{margin: "20px"}}>
             <Grid container>
-                <Grid item xs={12} md={3} sx={{
-                    textAlign: "center"
-                }}>
+                <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="humanity-label">Umanità</InputLabel>
                         <Select
@@ -90,9 +97,7 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} md={3} sx={{
-                    textAlign: "center"
-                }}>
+                <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="willpower-label">Forza di Volontà</InputLabel>
                         <Select
@@ -105,9 +110,7 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} md={3} sx={{
-                    textAlign: "center"
-                }}>
+                <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="predator-type-label">Predatore</InputLabel>
                         <Select
@@ -120,9 +123,35 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={3} sx={{paddingTop: "10px"}}>
+                <Grid item xs={12} sm={3} sx={containerStyle}>
                     <Button variant="contained"
                             onClick={changeCharacterOtherStats}>Aggiorna</Button>
+                </Grid>
+                <Grid item xs={12} md={3} sx={containerStyle}>
+                    <FormControl sx={{width: "150px"}}>
+                        <InputLabel id="health-label">Salute</InputLabel>
+                        <Select
+                            labelId="health-label"
+                            id="health"
+                            value={health}
+                            label="Salute"
+                            onChange={onHealthChanged}>
+                            {menuItems()}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} md={3} sx={containerStyle}>
+                    <FormControl sx={{width: "150px"}}>
+                        <InputLabel id="blood-potency-label">Potenza del Sangue</InputLabel>
+                        <Select
+                            labelId="blood-potency-label"
+                            id="blood-potency"
+                            value={bloodPotency}
+                            label="Potenza del Sangue"
+                            onChange={onBloodPotencyChanged}>
+                            {baseMenuItems(0, 4)}
+                        </Select>
+                    </FormControl>
                 </Grid>
             </Grid>
         </Grid>

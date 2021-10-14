@@ -56,11 +56,25 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     StatusChecks.apply_damage(character_id, damage_entity, type)
   end
 
-  def heal(%{character_id: character_id}, _) do
-    StatusChecks.heal(character_id)
+  def heal(%{character_id: character_id, chat_map_id: chat_map_id}, %{context: %{current_user: user}}) do
+    execute_when_master_or_user_itself(character_id, user, fn ->
+      with {:ok, text}  <- StatusChecks.heal(character_id) do
+        ChatHelpers.create_chat_entry(%{
+          character_id: character_id,
+          text: text,
+          chat_map_id: chat_map_id
+        }, user)
+      end
+    end)
   end
 
   def heal_willpower(%{character_id: character_id, quantity: quantity}, _) do
     StatusChecks.heal_willpower(character_id, quantity)
+  end
+
+  def set_character_status(%{character_id: character_id, request: request}, _) do
+    character_id
+    |> String.to_integer()
+    |> Characters.update_character(request)
   end
 end

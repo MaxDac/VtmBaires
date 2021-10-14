@@ -9,6 +9,7 @@ import AttributeStat from "../controls/AttributeStat";
 import {useFragment} from "react-relay";
 import {characterStatsFragment} from "../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterStats$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import CharacterSheetStatusStatsSection from "./CharacterSheetStatusStatsSection";
 
 export type RefreshedQueryOption = {
     fetchKey: number;
@@ -19,39 +20,111 @@ type Props = {
     characterId: string;
     characterQuery: any;
     queryOptions?: ?RefreshedQueryOption;
+    hideAttributes?: boolean;
+    hideAbilities?: boolean;
+    hideAdvantages?: boolean;
+    hideStatus?: boolean;
 }
 
-const sectionStyle = {
+export const sectionStyle = {
     fontFamily: 'GabrieleLightRibbon',
     color: "red",
     fontSize: "20px",
     textAlign: "center",
     paddingTop: "10px",
-    paddingBottom: "5px"
+    paddingBottom: "10px"
 };
 
-const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions}: Props): any => {
+const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
+                                        hideAttributes, hideAbilities, hideAdvantages, hideStatus}: Props): any => {
     const sheet = useFragment<?CharacterFragments_characterStats$key>(
         characterStatsFragment,
         characterQuery);
 
     const stats = useCharacterStatsQuery(characterId, queryOptions);
 
+    const showAttributes = hideAttributes !== true;
+    const showAbilities = hideAbilities !== true;
+    const showAdvantages = hideAdvantages !== true;
+    const showStatus = hideStatus !== true;
+
     const filterAttributes = (type, section) => stats?.attributes
         ?.filter(({type: t, section: s}) => t === type && s === section)
-        ?.map(s => <AttributeStat stat={s} />);
+        ?.map(s => <AttributeStat key={s?.id} stat={s} />);
+
+    const renderAttributes = () => {
+        if (showAttributes) {
+            return (
+                <>
+                    <Grid item xs={12}>
+                        <Typography sx={sectionStyle}>
+                            Attributi
+                        </Typography>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Attribute", "Physical")}
+                        </List>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Attribute", "Social")}
+                        </List>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Attribute", "Mental")}
+                        </List>
+                    </Grid>
+                </>
+            );
+        }
+
+        return (<></>);
+    }
+
+    const renderAbilities = () => {
+        if (showAbilities) {
+            return (
+                <>
+                    <Grid item xs={12}>
+                        <Typography sx={sectionStyle}>
+                            Abilità
+                        </Typography>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Ability", "Physical")}
+                        </List>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Ability", "Social")}
+                        </List>
+                    </Grid>
+                    <Grid item {...responsiveProperties}>
+                        <List dense>
+                            {filterAttributes("Ability", "Mental")}
+                        </List>
+                    </Grid>
+                </>
+            );
+        }
+
+        return (<></>);
+    }
 
     const hasDisciplines = () => (stats?.disciplines?.length ?? 0) > 0;
 
     const disciplines = () => stats?.disciplines
         ?.map(d => (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid key={d?.id} item xs={12} sm={6} md={4}>
                 <AttributeStat stat={d} />
             </Grid>
         ));
 
     const showDisciplines = () => {
-        if (hasDisciplines()) {
+        if (showAdvantages && hasDisciplines()) {
             return (
                 <>
                     <Grid item xs={12}>
@@ -78,20 +151,43 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions}:
                 </Grid>
             ));
 
-    const showAdvantages = () => (
-        <>
-            <Grid item xs={12}>
-                <Typography sx={sectionStyle}>
-                    Vantaggi
-                </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Grid container>
-                    {advantages()}
-                </Grid>
-            </Grid>
-        </>
-    );
+    const renderAdvantages = () => {
+        if (showAdvantages) {
+            return (
+                <>
+                    <Grid item xs={12}>
+                        <Typography sx={sectionStyle}>
+                            Vantaggi
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container>
+                            {advantages()}
+                        </Grid>
+                    </Grid>
+                </>
+            );
+        }
+
+        return (<></>);
+    }
+
+    const renderStatus = () => {
+        if (showStatus) {
+            return (
+                <>
+                    <Grid item xs={12}>
+                        <Typography sx={sectionStyle}>
+                            Status
+                        </Typography>
+                    </Grid>
+                    <CharacterSheetStatusStatsSection sheet={sheet}/>
+                </>
+            )
+        }
+
+        return (<></>);
+    }
 
     const responsiveProperties = {
         xs: 12,
@@ -114,77 +210,11 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions}:
                 Stats
             </Typography>
             <Grid container>
-                <Grid item xs={12}>
-                    <Typography sx={sectionStyle}>
-                        Attributi
-                    </Typography>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Attribute", "Physical")}
-                    </List>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Attribute", "Social")}
-                    </List>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Attribute", "Mental")}
-                    </List>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography sx={sectionStyle}>
-                        Abilità
-                    </Typography>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Ability", "Physical")}
-                    </List>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Ability", "Social")}
-                    </List>
-                </Grid>
-                <Grid item {...responsiveProperties}>
-                    <List dense>
-                        {filterAttributes("Ability", "Mental")}
-                    </List>
-                </Grid>
+                {renderAttributes()}
+                {renderAbilities()}
                 {showDisciplines()}
-                {showAdvantages()}
-                <Grid item xs={12}>
-                    <Typography sx={sectionStyle}>
-                        Status
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} sx={{
-                    margin: "0 auto",
-                    maxWidth: "500px",
-                    paddingTop: "20px",
-                    paddingBottom: "10px"
-                }}>
-                    <AttributeStat stat={{
-                        name: "Forza di Volontà",
-                        value: sheet?.willpower,
-                        maxValue: 10
-                    }} />
-                </Grid>
-                <Grid item xs={12} sx={{
-                    margin: "0 auto",
-                    maxWidth: "500px",
-                    paddingTop: "10px",
-                    paddingBottom: "10px"
-                }}>
-                    <AttributeStat stat={{
-                        name: "Umanità",
-                        value: sheet?.humanity,
-                        maxValue: 10
-                    }} />
-                </Grid>
+                {renderAdvantages()}
+                {renderStatus()}
             </Grid>
         </>
     );

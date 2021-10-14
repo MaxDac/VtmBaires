@@ -163,7 +163,10 @@ const Internal = ({character}) => {
                     </Grid>
                 </Grid>
                 <Suspense fallback={"loading..."}>
-                    <CharacterSheetStatsSection characterId={character.id} queryOptions={refreshedQueryOptions} />
+                    <CharacterSheetStatsSection characterId={character.id}
+                                                queryOptions={refreshedQueryOptions}
+                                                hideAdvantages
+                                                hideStatus />
                 </Suspense>
             </>
         );

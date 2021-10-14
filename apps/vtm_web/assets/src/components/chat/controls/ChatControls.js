@@ -4,9 +4,11 @@ import React, {useContext} from "react";
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import HealingIcon from '@mui/icons-material/Healing';
 import RoomIcon from '@mui/icons-material/Room';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import FlashOnOutlinedIcon from '@mui/icons-material/FlashOnOutlined';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useTheme} from "@mui/material/styles";
 import {useRelayEnvironment} from "react-relay";
 import RouseCheckMutation from "../../../services/mutations/chat/RouseCheckMutation";
@@ -14,13 +16,15 @@ import {useSession} from "../../../services/session-service";
 import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
+import HealMutation from "../../../services/mutations/chat/HealMutation";
 
 type Props = {
     openMapModal: () => void;
+    openCharacterStatusPopup: () => void;
     mapId: string;
 };
 
-const ChatControls = ({openMapModal, mapId}: Props): any => {
+const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): any => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
@@ -58,6 +62,17 @@ const ChatControls = ({openMapModal, mapId}: Props): any => {
         handleClose();
     }
 
+    const requestHeal = _ =>
+        openDialog(
+            "Guarire",
+            "Sei sicuro di voler spendere vitae per guarire il personaggio?\nRicorda che puoi farlo solo una volta per turno, e il tentativo apparirà in chat.",
+            () =>
+            handleMutation(
+                () => HealMutation(environment, character?.id, mapId),
+                showUserNotification
+            )
+        );
+
     return (
         <SpeedDial
             ariaLabel="Azioni chat"
@@ -86,6 +101,16 @@ const ChatControls = ({openMapModal, mapId}: Props): any => {
                 tooltipTitle="Spendi WP"
                 tooltipOpen
                 onClick={requestWillpowerUse} />
+            <SpeedDialAction
+                icon={<HealingIcon />}
+                tooltipTitle="Guarisci"
+                tooltipOpen
+                onClick={requestHeal} />
+            <SpeedDialAction
+                icon={<AssignmentIndIcon />}
+                tooltipTitle="Status"
+                tooltipOpen
+                onClick={_ => openCharacterStatusPopup()} />
         </SpeedDial>
     )
 }

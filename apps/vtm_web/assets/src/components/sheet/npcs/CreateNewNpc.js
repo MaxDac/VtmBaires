@@ -18,14 +18,17 @@ const CreateNewNpc = (): any => {
     const onSubmit = (values: CreationInfoFormValues) => {
         CreateNewNpcMutation(environment, values)
             .then(response => {
-                if (response?.createCharacter != null) {
+                if (response?.createNpc?.character?.id != null) {
                     updateCurrentCharacter({
-                        id: response.createCharacter.id,
-                        name: response.createCharacter.name ?? "No name available"
+                        id: response.createNpc.character.id,
+                        name: response?.createNpc?.character?.id ?? "No name available"
                     });
-                }
 
-                history.push(Routes.defineNpc);
+                    history.push(Routes.defineNpc(response?.createNpc?.character?.id));
+                }
+                else {
+                    history.push(Routes.main);
+                }
             })
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
     }

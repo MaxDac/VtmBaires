@@ -53,13 +53,12 @@ const DisciplinesControl = ({
                 <>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            Please select the two Disciplines available in creation.
-                            The first one will receive 2 points, the second only 1.
+                            Seleziona le due Discipline del tuo personaggio. La prima Disciplina sar&agrave; di livello 2, la seconda di livello 1.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{textAlign: "center"}}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="first-discipline-label">First Discipline</InputLabel>
+                            <InputLabel id="first-discipline-label">Prima Disciplina</InputLabel>
                             <Select labelId="first-discipline-label"
                                     id="discipline1"
                                     name="discipline1"
@@ -73,7 +72,7 @@ const DisciplinesControl = ({
                     </Grid>
                     <Grid item xs={12} sm={6} style={{textAlign: "center"}}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="second-discipline-label">Second Discipline</InputLabel>
+                            <InputLabel id="second-discipline-label">Seconda Disciplina</InputLabel>
                             <Select labelId="second-discipline-label"
                                     id="discipline2"
                                     name="discipline2"

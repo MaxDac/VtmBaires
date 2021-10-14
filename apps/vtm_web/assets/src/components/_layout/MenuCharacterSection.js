@@ -30,10 +30,8 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
     const history = useHistory();
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
-    const [user, currentCharacter] = useSession();
+    const [,currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
-
-    const isMaster = () => user.role === "MASTER";
 
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
         fetchPolicy: "store-and-network"

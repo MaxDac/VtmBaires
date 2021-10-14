@@ -31,6 +31,8 @@ export type GetCharacterCompleteQueryResponse = {|
     +aggravatedDamage: ?number,
     +willpower: ?number,
     +willpowerDamage: ?number,
+    +stains: ?number,
+    +bloodPotency: ?number,
     +stage: ?number,
     +approved: ?boolean,
     +isComplete: ?boolean,
@@ -73,6 +75,8 @@ query GetCharacterCompleteQuery(
     aggravatedDamage
     willpower
     willpowerDamage
+    stains
+    bloodPotency
     stage
     approved
     isComplete
@@ -223,45 +227,59 @@ v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "stage",
+  "name": "stains",
   "storageKey": null
 },
 v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "approved",
+  "name": "bloodPotency",
   "storageKey": null
 },
 v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isComplete",
+  "name": "stage",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isNpc",
+  "name": "approved",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "advantages",
+  "name": "isComplete",
   "storageKey": null
 },
 v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "notes",
+  "name": "isNpc",
   "storageKey": null
 },
 v24 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "advantages",
+  "storageKey": null
+},
+v25 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "notes",
+  "storageKey": null
+},
+v26 = {
   "alias": null,
   "args": null,
   "concreteType": "PredatorType",
@@ -308,6 +326,8 @@ return {
           (v22/*: any*/),
           (v23/*: any*/),
           (v24/*: any*/),
+          (v25/*: any*/),
+          (v26/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -356,6 +376,8 @@ return {
           (v22/*: any*/),
           (v23/*: any*/),
           (v24/*: any*/),
+          (v25/*: any*/),
+          (v26/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -369,12 +391,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6e248cb901915c47f5de14534b6f95ab",
+    "cacheID": "66498e23aaa97b0341c42f442b5e82c5",
     "id": null,
     "metadata": {},
     "name": "GetCharacterCompleteQuery",
     "operationKind": "query",
-    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    predatorType {\n      id\n      name\n    }\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
+    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stains\n    bloodPotency\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    predatorType {\n      id\n      name\n    }\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
   }
 };
 })();

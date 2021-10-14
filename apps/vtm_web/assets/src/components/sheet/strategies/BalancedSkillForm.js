@@ -54,7 +54,7 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
         <>
             <Grid item xs={12}>
                 <Typography>
-                    You can choose three skills at 3 levels:
+                    Puoi scegliere tre abilit&agrave; di livello 3:
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -68,7 +68,7 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... five at 2 level:
+                    ... cinque di livello 2:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -88,7 +88,7 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... seven at 1 level:
+                    ... e sette di livello 1:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>

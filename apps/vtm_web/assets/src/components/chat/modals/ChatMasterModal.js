@@ -6,9 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import CharacterSheet from "../../sheet/CharacterSheet";
 import Box from "@mui/material/Box";
 import {useSession} from "../../../services/session-service";
+import CharacterChatDashboard from "../../admin/characters/CharacterChatDashboard";
 
 type InternalProps = {
     mapId: string;
@@ -27,7 +27,7 @@ type Props = {
 const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}: InternalProps): any => {
     const [user,] = useSession();
 
-    if (user.role !== "MASTER") {
+    if (user?.role !== "MASTER") {
         return (<></>);
     }
     else {
@@ -49,9 +49,7 @@ const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}
                 <Box sx={{
                     overflow: "auto"
                 }}>
-                    <CharacterSheet contained={true}
-                                    id={characterId}
-                                    reload={true}/>
+                    <CharacterChatDashboard characterId={characterId} />
                 </Box>
             </>
         );

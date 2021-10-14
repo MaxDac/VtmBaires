@@ -14,6 +14,16 @@ type AddAdvantagesPayload {
   result: Character
 }
 
+input ApplyDamageInput {
+  characterId: ID!
+  damageEntity: Int!
+  type: DamageType!
+}
+
+type ApplyDamagePayload {
+  result: String
+}
+
 input ApplyTemplateToCharacterInput {
   characterId: ID!
   templateId: ID!
@@ -78,9 +88,12 @@ type ChangeCharacterNotesPayload {
 }
 
 input ChangeCharacterOtherStatsInput {
+  bloodPotency: Int!
   characterId: ID!
+  health: Int!
   humanity: Int!
   predatorTypeId: ID!
+  stains: Int!
   willpower: Int!
 }
 
@@ -240,6 +253,14 @@ input CreateNewThreadRequest {
   title: String!
 }
 
+input CreateNpcInput {
+  request: CharacterCreationRequest!
+}
+
+type CreateNpcPayload {
+  character: Character
+}
+
 type CreationResult {
   id: ID
 }
@@ -250,6 +271,11 @@ type CreationTemplate implements Node {
   """The ID of an object"""
   id: ID!
   name: String
+}
+
+enum DamageType {
+  AGGRAVATED
+  SUPERFICIAL
 }
 
 scalar DateTime
@@ -312,6 +338,24 @@ type ForumThread implements Node {
 type ForumThreadPage {
   posts: [ForumPost]
   thread: ForumThread
+}
+
+input HealInput {
+  characterId: ID!
+  chatMapId: ID!
+}
+
+type HealPayload {
+  result: MapChatEntry
+}
+
+input HealWillpowerInput {
+  characterId: ID!
+  quantity: Int!
+}
+
+type HealWillpowerPayload {
+  result: String
 }
 
 scalar Hour
@@ -420,6 +464,7 @@ enum Role {
 type RootMutationType {
   addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
+  applyDamage(input: ApplyDamageInput!): ApplyDamagePayload
   applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
   approveCharacter(characterId: ID): Boolean
   assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
@@ -433,12 +478,14 @@ type RootMutationType {
   createCharacter(request: CharacterCreationRequest): Character
   createChatDiceEntry(entry: ChatDiceEntryRequest): MapChatEntry
   createChatEntry(entry: ChatEntryRequest): MapChatEntry
-  createNpc(request: CharacterCreationRequest): Character
+  createNpc(input: CreateNpcInput!): CreateNpcPayload
   createUser(email: String!, name: String!): CreationResult
   defineNpcStats(input: DefineNpcStatsInput!): DefineNpcStatsPayload
   deleteCharacter(characterId: ID): Boolean
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
+  heal(input: HealInput!): HealPayload
+  healWillpower(input: HealWillpowerInput!): HealWillpowerPayload
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
   newForumPost(input: NewForumPostInput!): NewForumPostPayload
@@ -447,6 +494,7 @@ type RootMutationType {
   resetSession: Boolean
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
+  setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
   setMessageRead(messageId: ID): Message
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
@@ -514,6 +562,23 @@ type Session {
   character: Character
   location: ChatLocation
   user: User
+}
+
+input SetCharacterStatusInput {
+  characterId: ID!
+  request: SetCharacterStatusRequest!
+}
+
+type SetCharacterStatusPayload {
+  result: Character
+}
+
+input SetCharacterStatusRequest {
+  aggravatedDamage: Int
+  damage: Int
+  hunger: Int
+  stains: Int
+  willpowerDamage: Int
 }
 
 type User implements Node {

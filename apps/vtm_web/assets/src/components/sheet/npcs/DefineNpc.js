@@ -3,7 +3,6 @@
 import React, {useContext} from "react";
 import MainLayout from "../../MainLayout";
 import Grid from "@mui/material/Grid";
-import {useTheme} from "@mui/styles";
 import AssignNpcAttributes from "./AssignNpcAttributes";
 import AssignNpcGenericStats from "./AssignNpcGenericStats";
 import Button from "@mui/material/Button";
@@ -13,6 +12,7 @@ import ConfirmPngMutation from "../../../services/mutations/characters/ConfirmPn
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
+import Typography from "@mui/material/Typography";
 
 type Props = {
     characterId: string;
@@ -37,6 +37,14 @@ const DefineNpc = ({characterId}: Props): any => {
     return (
         <MainLayout>
             <Grid container>
+                <Grid item xs={12}>
+                    <Typography>
+                        In questa schermata puoi assegnare le informazioni generali, gli Attributi e le Abilit&agrave; del personaggio.
+                    </Typography>
+                    <Typography>
+                        Ricorda che sar&agrave; sempre possibile cambiare gli attributi della scheda, associare Discipline e Vantaggi direttamente nella schermata di modifica successiva.
+                    </Typography>
+                </Grid>
                 <Grid item xs={12}>
                     <AssignNpcGenericStats characterId={characterId} />
                 </Grid>

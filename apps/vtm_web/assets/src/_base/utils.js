@@ -3,6 +3,8 @@
 import type {History} from "./types";
 import {Routes} from "../AppRouter";
 import {AlertInfo} from "./types";
+import MenuItem from "@mui/material/MenuItem";
+import React from "react";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -46,9 +48,33 @@ export function firstOrDefault<T>(a: ?Array<T>): ?T {
  * @returns {Generator<number, void, number>} The generator.
  */
 export function* range(from: number, to: number): Generator<number, void, number> {
+    if (from > to) {
+        return reverseRange(from, to);
+    }
+
     for (let i = from; i <= to; i++) {
         yield i;
     }
+}
+
+export function* reverseRange(from: number, to: number): Generator<number, void, number> {
+    if (to > from) {
+        return range(from, to);
+    }
+
+    for (let i = from; i <= to; i--) {
+        yield i;
+    }
+}
+
+export function baseMenuItems(min: number, max: number) {
+    const values = [];
+
+    for (const v of range(min, max)) {
+        values.push(<MenuItem key={v} value={v}>{v}</MenuItem>);
+    }
+
+    return values;
 }
 
 export function materialize<T>(generator: Generator<T, void, T>): T[] {

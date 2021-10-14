@@ -286,6 +286,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
         field :predator_type_id, non_null(:id)
         field :humanity, non_null(:integer)
         field :willpower, non_null(:integer)
+        field :blood_potency, non_null(:integer)
+        field :health, non_null(:integer)
       end
 
       output do

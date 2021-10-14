@@ -10,6 +10,7 @@ export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
             name
             chatAvatar
             isComplete
+            approved
         }
     }
 `;

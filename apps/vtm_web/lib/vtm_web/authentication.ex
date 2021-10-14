@@ -1,5 +1,6 @@
 defmodule VtmWeb.Authentication do
   @cookie_name "x-xcrf-cookie"
+  @cookie_max_age 3600 * 2
 
   import Plug.Conn
 
@@ -17,7 +18,7 @@ defmodule VtmWeb.Authentication do
 
   def verify(token) do
     Phoenix.Token.verify(VtmWeb.Endpoint, get_user_salt(), token, [
-      max_age: 1800
+      max_age: @cookie_max_age
     ])
   end
 

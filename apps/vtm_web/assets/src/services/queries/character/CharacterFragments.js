@@ -32,6 +32,8 @@ export const characterStatsFragment: any = graphql`
         aggravatedDamage
         willpower
         willpowerDamage
+        stains
+        bloodPotency
     }
 `;
 

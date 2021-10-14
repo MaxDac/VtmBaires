@@ -14,6 +14,7 @@ import ChangeCharacterOtherStatsForm from "./ChangeCharacterOtherStatsForm";
 import Paper from "@mui/material/Paper";
 import ChangeCharacterNotesForm from "./ChangeCharacterNotesForm";
 import AddCharacterExperienceForm from "./AddCharacterExperienceForm";
+import ChangeCharacterStatusForm from "./ChangeCharacterStatusForm";
 
 type Props = {
     characterId: string;
@@ -57,6 +58,11 @@ const CharacterDashboard = ({characterId}: Props): any => {
                 <Grid item xs={12}>
                     <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
                         <ChangeCharacterOtherStatsForm character={character} />
+                    </Paper>
+                </Grid>
+                <Grid xs={12}>
+                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <ChangeCharacterStatusForm character={character} />
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>

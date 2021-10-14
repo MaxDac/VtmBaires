@@ -14,6 +14,7 @@ export type GetAllNpcsQueryResponse = {|
     +name: ?string,
     +chatAvatar: ?string,
     +isComplete: ?boolean,
+    +approved: ?boolean,
   |}>
 |};
 export type GetAllNpcsQuery = {|
@@ -29,6 +30,7 @@ query GetAllNpcsQuery {
     name
     chatAvatar
     isComplete
+    approved
   }
 }
 */
@@ -70,6 +72,13 @@ var v0 = [
         "kind": "ScalarField",
         "name": "isComplete",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "approved",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -93,15 +102,15 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "f50338d6c2b0558ca83ece96bacdc215",
+    "cacheID": "e84abdbb1c5dd6d51234fc49b41f355c",
     "id": null,
     "metadata": {},
     "name": "GetAllNpcsQuery",
     "operationKind": "query",
-    "text": "query GetAllNpcsQuery {\n  allNpcs {\n    id\n    name\n    chatAvatar\n    isComplete\n  }\n}\n"
+    "text": "query GetAllNpcsQuery {\n  allNpcs {\n    id\n    name\n    chatAvatar\n    isComplete\n    approved\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '378a786f5af644ae4cc2fd3e91cb8059';
+(node: any).hash = '42fa68c2bc58343c5eab0ed1085b4531';
 module.exports = node;

@@ -154,7 +154,7 @@ export const useSession = (sync?: boolean): [?User, ?SessionCharacter] => {
     useEffect(() => {
         const existent = getSessionSync();
 
-        if (sync === true) {
+        if (sync === true || (existent?.user != null && existent?.character != null)) {
             setSessionUser(existent?.user);
             setSessionCharacter(existent?.character)
         }

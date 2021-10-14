@@ -2,6 +2,7 @@ defmodule Vtm.Characters do
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
+  alias Vtm.Helpers
   alias Vtm.InfoRegistry
   alias Vtm.Characters.Character
   alias Vtm.Characters.Clan
@@ -14,6 +15,7 @@ defmodule Vtm.Characters do
   def all() do
     query =
       from c in Character,
+        order_by: c.name,
         select: {c.id, c.name}
 
     Repo.all(query)
@@ -250,9 +252,9 @@ defmodule Vtm.Characters do
   end
 
   def get_character_stats(id) do
-    with attributes                                   <- get_character_attributes(id),
-         predator_type when not is_nil(predator_type) <- get_character_predator_type(id),
-         {attributes, disciplines, advantages}        <- attributes |> unzip_attributes(&get_type/1) do
+    with attributes                             <- get_character_attributes(id),
+         predator_type                          <- get_character_predator_type(id),
+         {attributes, disciplines, advantages}  <- attributes |> unzip_attributes(&get_type/1) do
       %{
         id: id,
         predator_type: predator_type,
@@ -302,6 +304,21 @@ defmodule Vtm.Characters do
       |> Character.update_changeset(%{is_npc: true})
       |> Repo.update()
     end
+  end
+
+  def add_npc_empty_attributes(character_id) do
+    get_attributes()
+    |> Enum.filter(fn
+      %{attribute_type: %{name: "Attribute"}} -> true
+      %{attribute_type: %{name: "Ability"}} -> true
+      _  -> false
+    end)
+    |> Enum.map(fn %{id: id} ->
+      %CharacterAttribute{}
+      |> CharacterAttribute.changeset(%{attribute_id: id, character_id: character_id, value: 0})
+    end)
+    |> Enum.map(&Repo.insert/1)
+    |> Helpers.reduce_errors({:ok, %Character{id: character_id}})
   end
 
   def update_character(id, attrs) do
@@ -359,11 +376,7 @@ defmodule Vtm.Characters do
         end)
         |> Enum.map(&Repo.update/1)
     end
-    |> Enum.reduce({:ok, %Character{id: character_id}}, fn
-      {:ok, _}, r               -> r
-      e = {:error, _}, {:ok, _} -> e
-      {:error, e}, {:error, ee} -> {:error, [e | ee]}
-    end)
+    |> Helpers.reduce_errors({:ok, %Character{id: character_id}})
   end
 
   defp delete_character_p(character_id) do
@@ -454,7 +467,8 @@ defmodule Vtm.Characters do
     |> Character.update_changeset(%{
       health: stamina + 3,
       hunger: 1,
-      is_complete: true
+      is_complete: true,
+      approved: true
     })
     |> Repo.update()
   end

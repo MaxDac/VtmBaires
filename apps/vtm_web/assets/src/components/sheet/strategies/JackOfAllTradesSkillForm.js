@@ -62,7 +62,7 @@ const JackOfAllTradesSkillForm = ({ classes }: CreationBaseProps): any => {
         <>
             <Grid item xs={12}>
                 <Typography>
-                    You can choose one skill at 3 levels:
+                    Scegli una abilit&agrave; di livello 3:
                 </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -70,7 +70,7 @@ const JackOfAllTradesSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... eight at 2 level:
+                    ... otto di livello 2:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -99,7 +99,7 @@ const JackOfAllTradesSkillForm = ({ classes }: CreationBaseProps): any => {
             </Grid>
             <Grid item xs={12}>
                 <Typography>
-                    ... ten at 1 level:
+                    ... e 10 di livello 1:
                 </Typography>
             </Grid>
             <Grid item xs={12} md={2}>

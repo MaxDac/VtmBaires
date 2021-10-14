@@ -36,6 +36,7 @@ export type Character = {|
     +willpower: ?number,
     +willpowerDamage: ?number,
     +stage: ?number,
+    +stains: ?number,
     +approved: ?boolean,
     +isComplete: ?boolean,
     +isNpc: ?boolean,

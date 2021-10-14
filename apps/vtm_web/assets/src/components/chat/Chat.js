@@ -28,6 +28,7 @@ import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionM
 import {Typography} from "@mui/material";
 import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
+import ChatStatusModal from "./modals/ChatStatusModal";
 
 type ChatProps = {
     id: string;
@@ -36,7 +37,7 @@ type ChatProps = {
 const Chat = ({id}: ChatProps): any => {
     const environment = useRelayEnvironment();
     const map = useMap(id);
-    const [user, character] = useSession();
+    const [user,character] = useSession();
 
     const isMaster = () => user.role === "MASTER";
 
@@ -52,6 +53,7 @@ const Chat = ({id}: ChatProps): any => {
     const [characterModalOpen, setCharacterModalOpen] = useState(false);
     const [selectedCharacterId, setSelectedCharacterId] = useState<?string>(null);
     const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
+    const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
     const initialEntries = useChatEntriesQuery(id);
     const [entries, setEntries] = useState(initialEntries);
@@ -168,7 +170,7 @@ const Chat = ({id}: ChatProps): any => {
                 <Dialog open={characterModalOpen && isMaster()}
                         onClose={_ => setCharacterModalOpen(_ => false)}
                         fullScreen
-                        aria-labelledby="map-info">
+                        aria-labelledby="character-modal">
                     <ChatMasterModal mapId={id}
                                      characterId={selectedCharacterId}
                                      characterName={selectedCharacterName}
@@ -176,9 +178,17 @@ const Chat = ({id}: ChatProps): any => {
                 </Dialog>
                 <Dialog open={characterModalOpen && !isMaster()}
                         onClose={_ => setMapModalOpen(false)}
-                        aria-labelledby="map-info">
+                        aria-labelledby="character-description">
                     <ChatDescriptionModal characterId={selectedCharacterId}
                                           close={() => setCharacterModalOpen(_ => false)} />
+                </Dialog>
+                <Dialog open={characterStatusOpen}
+                        onClose={_ => setCharacterStatusOpen(_ => false)}
+                        maxWidth="sm"
+                        fullWidth
+                        aria-labelledby="character-status">
+                    <ChatStatusModal characterId={character?.id}
+                                     close={() => setCharacterStatusOpen(_ => false)} />
                 </Dialog>
                 <Dialog open={mapModalOpen}
                         onClose={_ => setMapModalOpen(false)}
@@ -204,6 +214,7 @@ const Chat = ({id}: ChatProps): any => {
                     overflow: "hidden"
                 }} id="chat-entries">
                     <ChatControls openMapModal={() => showMapDescription()}
+                                  openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
                                   mapId={id} />
                     <List sx={{
                         flex: "4 0",

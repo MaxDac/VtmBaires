@@ -126,6 +126,7 @@ defmodule Vtm.Characters.Character do
     ])
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:clan_id)
+    |> unique_constraint(:name, name: :character_name_unique_key)
     |> validate_required([:user_id, :name])
   end
 end
