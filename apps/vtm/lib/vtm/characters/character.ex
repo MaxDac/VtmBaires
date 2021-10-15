@@ -25,6 +25,9 @@ defmodule Vtm.Characters.Character do
     field :willpower_damage, :integer
     field :stains, :integer
     field :blood_potency, :integer
+    field :last_resonance, :string
+    field :last_hunt, :naive_datetime
+    field :last_resonance_intensity, :integer
     field :torpor, :boolean
     field :dead, :boolean
 
@@ -85,6 +88,9 @@ defmodule Vtm.Characters.Character do
       :approved,
       :predator_type_id,
       :blood_potency,
+      :last_resonance,
+      :last_resonance_intensity,
+      :last_hunt,
       :torpor,
       :dead
     ])
@@ -121,6 +127,9 @@ defmodule Vtm.Characters.Character do
       :advantages,
       :notes,
       :blood_potency,
+      :last_resonance,
+      :last_resonance_intensity,
+      :last_hunt,
       :torpor,
       :dead
     ])

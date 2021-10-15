@@ -11,6 +11,12 @@ defmodule Vtm.Helpers do
     :rand.uniform(10)
   end
 
+  @spec random_dice_thrower(Number.t()) :: [Number.t()]
+  def random_dice_thrower(amount) do
+    1..amount
+    |> Enum.map(fn _ -> throw_dice() end)
+  end
+
   def unzip(collection, condition, first \\ [], second \\ [])
 
   def unzip([], _, first, second), do: {first |> Enum.reverse(), second |> Enum.reverse()}
@@ -34,5 +40,22 @@ defmodule Vtm.Helpers do
       e = {:error, _}, {:ok, _} -> e
       {:error, e}, {:error, ee} -> {:error, [e | ee]}
     end)
+  end
+
+  def add_one_day(date) do
+    date
+    |> NaiveDateTime.add(3_600 * 24, :second)
+  end
+
+  def at_least_one_day?(date) do
+    case date do
+      nil -> true
+      _ ->
+        diff =
+          add_one_day(date)
+          |> NaiveDateTime.diff(NaiveDateTime.utc_now())
+
+        diff < 0
+    end
   end
 end

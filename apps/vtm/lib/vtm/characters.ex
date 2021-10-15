@@ -218,12 +218,57 @@ defmodule Vtm.Characters do
     |> Map.new(&(&1))
   end
 
+  @spec get_character_attributes(Integer.t()) :: list(CharacterAttribute.t())
   def get_character_attributes(id) do
     character_attributes = get_character_attrs_with_value(id)
 
     get_attributes()
     |> Enum.filter(&filter_attributes(&1, character_attributes))
     |> Enum.map(&associate_attribute_to_value(&1, character_attributes))
+  end
+
+  defp handle_character_attribute_query_result(result, character_id) do
+    case result do
+      {attribute, character_attribute} when not is_nil(character_attribute) ->
+        %{character_attribute | attribute: attribute}
+      {attribute = %{id: attribute_id}, _} ->
+        %CharacterAttribute{
+          attribute: attribute,
+          attribute_id: attribute_id,
+          character_id: character_id,
+          value: 0
+        }
+    end
+  end
+
+  @spec get_character_attribute(Integer.t(), String.t()) :: CharacterAttribute.t()
+  def get_character_attribute(character_id, attribute_name) do
+    # Performance: a direct query is preferred instead of filtering all the character attributes
+    query =
+      from a in Attribute,
+        where: a.name == ^attribute_name,
+        left_join: ca in CharacterAttribute,
+        on: ca.attribute_id == a.id and ca.character_id == ^character_id,
+        select: {a, ca}
+
+    query
+    |> Repo.one()
+    |> handle_character_attribute_query_result(character_id)
+  end
+
+  @spec get_character_attributes_subset(Integer.t(), list(Integer.t())) :: list(CharacterAttribute.t())
+  def get_character_attributes_subset(character_id, attribute_names) do
+    # Performance: a direct query is preferred instead of filtering all the character attributes
+    query =
+      from a in Attribute,
+        where: a.name in ^attribute_names,
+        left_join: ca in CharacterAttribute,
+        on: a.id == ca.attribute_id and ca.character_id == ^character_id,
+        select: {a, ca}
+
+    query
+    |> Repo.all()
+    |> Enum.map(&handle_character_attribute_query_result(&1, character_id))
   end
 
   def get_character_predator_type(id) do

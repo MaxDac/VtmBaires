@@ -3,6 +3,7 @@ defmodule Vtm.StatusChecks do
 
   alias Vtm.Repo
   alias Vtm.Helpers
+  alias Vtm.Characters
   alias Vtm.Characters.Character
 
   defp update_character(character, changes) do
@@ -193,6 +194,131 @@ defmodule Vtm.StatusChecks do
         with {:ok, _} <- ch |> update_character(%{willpower_damage: wd - quantity}) do
           {:ok, "Il personaggio recupera forza di volontà."}
         end
+    end
+  end
+
+  defp at_least_zero(n) when n < 0, do: 0
+  defp at_least_zero(n), do: n
+
+  defp at_least_one(n) when n < 1, do: 1
+  defp at_least_one(n), do: n
+
+  defp less_than_5(x) when x > 5, do: 5
+  defp less_than_5(x), do: x
+
+  defp parse_throw(dices, tens \\ 0, successes \\ 0, ones \\ 0)
+  defp parse_throw([], tens, successes, ones), do: {tens, successes, ones}
+  defp parse_throw([x | rest], tens, successes, ones) when x == 10, do: parse_throw(rest, tens + 1, successes + 1, ones)
+  defp parse_throw([x | rest], tens, successes, ones) when x == 1, do: parse_throw(rest, tens, successes, ones + 1)
+  defp parse_throw([x | rest], tens, successes, ones) when x >= 6, do: parse_throw(rest, tens, successes + 1, ones)
+  defp parse_throw([_ | rest], tens, successes, ones), do: parse_throw(rest, tens, successes, ones)
+
+  defp update_hunger(character = %{hunger: hunger}, updater) do
+    character
+    |> Character.update_changeset(%{hunger: updater.(less_than_5(hunger))})
+    |> Repo.update()
+  end
+
+  defp increase_hunger(character, amount), do: update_hunger(character, &(&1 + amount))
+
+  defp decrease_hunger(character, amount), do: update_hunger(character, fn h -> at_least_one(h - amount) end)
+
+  def get_hunt_attributes_amount(%{id: character_id}) do
+    character_id
+    |> Characters.get_character_attributes_subset(["Prontezza", "Sopravvivenza", "Gregge", "Seguaci"])
+    |> Enum.map(fn %{value: value} -> value end)
+    |> Enum.sum()
+  end
+
+  defp determine_hunger(character) do
+    with amount               <- get_hunt_attributes_amount(character),
+         difficulty           <- 2 do
+
+      case Helpers.random_dice_thrower(amount) |> parse_throw() do
+        {0, 0, o} when o > 0          ->
+          with {:ok, character} <- character |> increase_hunger(2),
+               message          <-  "Il personaggio fallisce clamorosamente la caccia." do
+            {:no_hunt, message, character}
+          end
+        {_, s, _} when s < difficulty ->
+          with {:ok, character} <- character |> increase_hunger(1),
+               message          <- "Il personaggio fallisce la caccia." do
+            {:no_hunt, message, character}
+          end
+        {t, s, o}                     ->
+          IO.inspect({t, s, o})
+          with decrease         <- s + at_least_zero(t - o) - difficulty + 1,
+               message          <- "Il personaggio riesce a cacciare.",
+               {:ok, character} <- character |> decrease_hunger(decrease) do
+            {:ok, message, character}
+          end
+      end
+    end
+  end
+
+  defp determine_resonance_power() do
+    case {Helpers.throw_dice(), Helpers.throw_dice()} do
+      {x, r} when x >= 9 and r >= 9 -> 4
+      {x, _} when x >= 9            -> 3
+      {x, _} when x >= 6            -> 2
+      _                             -> 1
+    end
+  end
+
+  defp determine_resonance_type() do
+    case Helpers.throw_dice() do
+      x when x >= 9 -> "Flemmatico"
+      x when x >= 7 -> "Collerico"
+      x when x >= 4 -> "Malinconico"
+      _             -> "Flemmatico"
+    end
+  end
+
+  defp determine_resonance(character) do
+    with power  <- determine_resonance_power(),
+         type   <- determine_resonance_type() do
+      character
+      |> Character.update_changeset(%{last_resonance: type, last_resonance_intensity: power})
+      |> Repo.update()
+    end
+  end
+
+  defp set_new_hunt_time(character) do
+    character
+    |> Character.update_changeset(%{last_hunt: NaiveDateTime.utc_now()})
+    |> Repo.update()
+  end
+
+  defp perform_hunt(character) do
+    with {:ok, message, character}  <- determine_hunger(character),
+         {:ok, character}           <- determine_resonance(character) do
+      {:ok, message, character}
+    else
+      # If the character failed the hunt, it is not considered an error
+      {:no_hunt, message, character} ->
+        {:ok, message, character}
+      e ->
+        e
+    end
+  end
+
+  @doc """
+  Simulates the character hunting.
+  It considers the Herd Advantage while performing a throw of Wits + Survival.
+  """
+  @spec hunt(Integer.t()) :: Character.t()
+  def hunt(character_id) do
+    with character = %{last_hunt: last_hunt}  <- Character |> Repo.get(character_id) do
+      case Helpers.at_least_one_day?(last_hunt) do
+        false ->
+          {:ok, "L'ultima caccia risale a meno di un giorno fa.", character}
+        true ->
+          # Updating the hunt only if no technical errors occoured
+          with {:ok, message, character}  <- perform_hunt(character),
+               {:ok, character}           <- character |> set_new_hunt_time() do
+            {:ok, message, character}
+          end
+      end
     end
   end
 end

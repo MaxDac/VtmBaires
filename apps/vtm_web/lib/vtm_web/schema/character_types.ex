@@ -56,6 +56,9 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :notes, :string
     field :clan, :clan
     field :predator_type, :predator_type
+    field :last_resonance, :string
+    field :last_hunt, :date_time
+    field :last_resonance_intensity, :integer
   end
 
   node object :character_attribute do

@@ -84,19 +84,13 @@ defmodule Vtm.Chats do
   def create_chat_entry(attrs = %{ result: _ }), do: create_chat_entry_p(attrs)
   def create_chat_entry(_), do: {:error, "text or result should not be both emtpy."}
 
-  @spec random_dice_thrower(Number.t()) :: [Number.t()]
-  defp random_dice_thrower(amount) do
-    1..amount
-    |> Enum.map(fn _ -> Helpers.throw_dice() end)
-  end
-
   def random_simulate_master_dice_throw(free_throw) do
-    random_dice_thrower(free_throw)
+    Helpers.random_dice_thrower(free_throw)
     |> Enum.join(", ")
   end
 
   def random_simulate_dice_throw(user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do
-    simulate_dice_throw(&random_dice_thrower/1, user_id, character_id, attribute_id, ability_id, free_throw, difficulty)
+    simulate_dice_throw(&Helpers.random_dice_thrower/1, user_id, character_id, attribute_id, ability_id, free_throw, difficulty)
   end
 
   def simulate_dice_throw(dice_thrower, user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do

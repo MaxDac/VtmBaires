@@ -43,6 +43,12 @@ defmodule Vtm.SeedsHelpers do
     end
   end
 
+  def update_attribute(old, attrs) do
+    old
+    |> Vtm.Characters.Attribute.changeset(attrs)
+    |> Vtm.Repo.update()
+  end
+
   def insert_clan(attrs) do
     try do
       Vtm.Repo.insert(attrs)
@@ -155,18 +161,30 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: m
 {:ok, protean} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Proteide", description: "Proteide"})
 {:ok, alchemy} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Thin-Blood Alchemy", description: "Thin-Blood Alchemy"})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Allies", description: "Allies"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contacts", description: "Contacts"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fame", description: "Fame"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Haven", description: "Haven"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Herd", description: "Herd"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: "Influence"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: "Loresheet"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: "Mask"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: "Mawla"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: "Resources"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: "Retainers"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
+{:ok, allies} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Allies", description: "Allies"})
+{:ok, contacts} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contacts", description: "Contacts"})
+{:ok, fame} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fame", description: "Fame"})
+{:ok, haven} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Haven", description: "Haven"})
+{:ok, herd} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Herd", description: "Herd"})
+{:ok, influence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: "Influence"})
+{:ok, loresheet} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: "Loresheet"})
+{:ok, mask} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: "Mask"})
+{:ok, mawla} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: "Mawla"})
+{:ok, resources} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: "Resources"})
+{:ok, retainers} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: "Retainers"})
+{:ok, status} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
+
+# Translating in italian
+Vtm.SeedsHelpers.update_attribute(allies, %{name: "Alleati", description: "Alleati"})
+Vtm.SeedsHelpers.update_attribute(contacts, %{name: "Contatti", description: "Contatti"})
+Vtm.SeedsHelpers.update_attribute(fame, %{name: "Fama", description: "Fama"})
+Vtm.SeedsHelpers.update_attribute(haven, %{name: "Rifugio", description: "Rifugio"})
+Vtm.SeedsHelpers.update_attribute(herd, %{name: "Gregge", description: "Gregge"})
+Vtm.SeedsHelpers.update_attribute(influence, %{name: "Influenza", description: "Influenza"})
+Vtm.SeedsHelpers.update_attribute(loresheet, %{name: "Grimori", description: "Grimori"})
+Vtm.SeedsHelpers.update_attribute(mask, %{name: "Maschera", description: "Maschera"})
+Vtm.SeedsHelpers.update_attribute(resources, %{name: "Risorse", description: "Risorse"})
+Vtm.SeedsHelpers.update_attribute(retainers, %{name: "Seguaci", description: "Seguaci"})
 
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Humans"})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Thin Blood", attributes: [alchemy]})
