@@ -3,7 +3,7 @@
 import React from "react";
 import CharacterSheet from "../../sheet/CharacterSheet";
 import Grid from "@mui/material/Grid";
-import ChangeCharacterStatusForm from "./ChangeCharacterStatusForm";
+import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
 
 type Props = {

@@ -1,16 +1,16 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import {UtilityContext} from "../../../contexts";
+import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
+import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import {baseMenuItems, handleMutation} from "../../../_base/utils";
+import {baseMenuItems, handleMutation} from "../../../../_base/utils";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import SetCharacterStatusMutation from "../../../services/mutations/admin/SetCharacterStatusMutation";
+import SetCharacterStatusMutation from "../../../../services/mutations/admin/SetCharacterStatusMutation";
 
 type Props = {
     character: Character;

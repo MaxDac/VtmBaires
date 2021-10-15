@@ -76,14 +76,22 @@ const AlertLayout = (props: Props): any => {
     }
 
     const showUserNotification = notificationProps => {
-        const { type, graphqlError, message } = notificationProps;
+        const { type, graphqlError, message, duration } = notificationProps;
 
         if (graphqlError && graphqlError?.errors?.length > 0) {
             const e = parseGraphqlMessage(graphqlError, message);
-            enqueueSnackbar(e, { ...defaultSnackbarVariant, variant: type });
+            enqueueSnackbar(e, {
+                ...defaultSnackbarVariant,
+                variant: type,
+                autoHideDuration: duration ?? defaultSnackbarVariant.autoHideDuration
+            });
         }
         else {
-            enqueueSnackbar(message, { ...defaultSnackbarVariant, variant: type });
+            enqueueSnackbar(message, {
+                ...defaultSnackbarVariant,
+                variant: type,
+                autoHideDuration: duration ?? defaultSnackbarVariant.autoHideDuration
+            });
         }
     };
 

@@ -129,5 +129,34 @@ defmodule VtmWeb.Schema.StatusTypes do
       resolve parsing_node_ids(&StatusResolvers.set_character_status/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
+
+    payload field :hunt do
+      input do
+        field :character_id, non_null(:id)
+      end
+
+      output do
+        field :result, :string
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
+      resolve parsing_node_ids(&StatusResolvers.hunt/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :reset_character_hunt do
+      input do
+        field :character_id, non_null(:id)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&StatusResolvers.reset_hunt/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
   end
 end

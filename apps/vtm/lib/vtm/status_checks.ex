@@ -1,6 +1,8 @@
 defmodule Vtm.StatusChecks do
   import Ecto.Query, warn: false
 
+  @hunt_difficulty 1
+
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.Characters
@@ -231,23 +233,20 @@ defmodule Vtm.StatusChecks do
   end
 
   defp determine_hunger(character) do
-    with amount               <- get_hunt_attributes_amount(character),
-         difficulty           <- 2 do
-
+    with amount <- get_hunt_attributes_amount(character) do
       case Helpers.random_dice_thrower(amount) |> parse_throw() do
         {0, 0, o} when o > 0          ->
           with {:ok, character} <- character |> increase_hunger(2),
                message          <-  "Il personaggio fallisce clamorosamente la caccia." do
             {:no_hunt, message, character}
           end
-        {_, s, _} when s < difficulty ->
+        {_, s, _} when s < @hunt_difficulty ->
           with {:ok, character} <- character |> increase_hunger(1),
                message          <- "Il personaggio fallisce la caccia." do
             {:no_hunt, message, character}
           end
         {t, s, o}                     ->
-          IO.inspect({t, s, o})
-          with decrease         <- s + at_least_zero(t - o) - difficulty + 1,
+          with decrease         <- s + at_least_zero(t - o) - @hunt_difficulty + 1,
                message          <- "Il personaggio riesce a cacciare.",
                {:ok, character} <- character |> decrease_hunger(decrease) do
             {:ok, message, character}
@@ -267,19 +266,20 @@ defmodule Vtm.StatusChecks do
 
   defp determine_resonance_type() do
     case Helpers.throw_dice() do
-      x when x >= 9 -> "Flemmatico"
-      x when x >= 7 -> "Collerico"
-      x when x >= 4 -> "Malinconico"
-      _             -> "Flemmatico"
+      x when x >= 9 -> "Flemmatica"
+      x when x >= 7 -> "Collerica"
+      x when x >= 4 -> "Malinconica"
+      _             -> "Sanguigna"
     end
   end
 
   defp determine_resonance(character) do
-    with power  <- determine_resonance_power(),
-         type   <- determine_resonance_type() do
-      character
-      |> Character.update_changeset(%{last_resonance: type, last_resonance_intensity: power})
-      |> Repo.update()
+    with power            <- determine_resonance_power(),
+         type             <- determine_resonance_type(),
+         {:ok, character} <- character
+                             |> Character.update_changeset(%{last_resonance: type, last_resonance_intensity: power})
+                             |> Repo.update() do
+      {:ok, power, type, character}
     end
   end
 
@@ -289,10 +289,22 @@ defmodule Vtm.StatusChecks do
     |> Repo.update()
   end
 
+  defp enrich_message_with_resonance(hunt_message, power_level, type) do
+    power_level_message =
+      case power_level do
+        1 -> "trascurabile"
+        2 -> "fugace"
+        3 -> "intensa"
+        4 -> "acuta (discrasia)"
+      end
+
+    "#{hunt_message} La vitae estratta dalla preda concede una risonanza #{type} #{power_level_message}."
+  end
+
   defp perform_hunt(character) do
-    with {:ok, message, character}  <- determine_hunger(character),
-         {:ok, character}           <- determine_resonance(character) do
-      {:ok, message, character}
+    with {:ok, message, character}      <- determine_hunger(character),
+         {:ok, power, type, character}  <- determine_resonance(character) do
+      {:ok, message |> enrich_message_with_resonance(power, type), character}
     else
       # If the character failed the hunt, it is not considered an error
       {:no_hunt, message, character} ->
@@ -308,17 +320,25 @@ defmodule Vtm.StatusChecks do
   """
   @spec hunt(Integer.t()) :: Character.t()
   def hunt(character_id) do
-    with character = %{last_hunt: last_hunt}  <- Character |> Repo.get(character_id) do
-      case Helpers.at_least_one_day?(last_hunt) do
-        false ->
-          {:ok, "L'ultima caccia risale a meno di un giorno fa.", character}
-        true ->
-          # Updating the hunt only if no technical errors occoured
-          with {:ok, message, character}  <- perform_hunt(character),
-               {:ok, character}           <- character |> set_new_hunt_time() do
-            {:ok, message, character}
-          end
-      end
+    IO.inspect character_id
+    character = %{last_hunt: last_hunt} = Character |> Repo.get(character_id)
+
+    case Helpers.at_least_one_day?(last_hunt) do
+      false ->
+        {:ok, "L'ultima caccia risale a meno di un giorno fa.", character}
+      true ->
+        # Updating the hunt only if no technical errors occoured
+        with {:ok, message, character}  <- perform_hunt(character),
+             {:ok, character}           <- character |> set_new_hunt_time() do
+          {:ok, message, character}
+        end
     end
+  end
+
+  def reset_hunt(character_id) do
+    Character
+    |> Repo.get(character_id)
+    |> Character.changeset(%{last_hunt: nil})
+    |> Repo.update()
   end
 end

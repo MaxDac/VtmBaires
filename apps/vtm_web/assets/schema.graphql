@@ -93,7 +93,6 @@ input ChangeCharacterOtherStatsInput {
   health: Int!
   humanity: Int!
   predatorTypeId: ID!
-  stains: Int!
   willpower: Int!
 }
 
@@ -149,6 +148,9 @@ type Character implements Node {
   id: ID!
   isComplete: Boolean
   isNpc: Boolean
+  lastHunt: DateTime
+  lastResonance: String
+  lastResonanceIntensity: Int
   name: String
   notes: String
   predatorType: PredatorType
@@ -360,6 +362,14 @@ type HealWillpowerPayload {
 
 scalar Hour
 
+input HuntInput {
+  characterId: ID!
+}
+
+type HuntPayload {
+  result: String
+}
+
 type LoginResponse {
   character: Character
   token: String
@@ -456,6 +466,14 @@ type PredatorType implements Node {
   name: String
 }
 
+input ResetCharacterHuntInput {
+  characterId: ID!
+}
+
+type ResetCharacterHuntPayload {
+  result: Character
+}
+
 enum Role {
   MASTER
   USER
@@ -486,11 +504,13 @@ type RootMutationType {
   finalizeCharacter(characterId: ID): Character
   heal(input: HealInput!): HealPayload
   healWillpower(input: HealWillpowerInput!): HealWillpowerPayload
+  hunt(input: HuntInput!): HuntPayload
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
   newForumPost(input: NewForumPostInput!): NewForumPostPayload
   newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
   requestNewPassword(userEmail: String!): Boolean
+  resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
   resetSession: Boolean
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message

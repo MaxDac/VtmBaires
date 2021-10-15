@@ -77,4 +77,17 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     |> String.to_integer()
     |> Characters.update_character(request)
   end
+
+  def hunt(%{character_id: character_id}, _) do
+    with c_id                       <- character_id |> String.to_integer(),
+         {:ok, message, character}  <- StatusChecks.hunt(c_id) do
+      {:ok, %{result: message}}
+    end
+  end
+
+  def reset_hunt(%{character_id: character_id}, _) do
+    with c_id <- character_id |> String.to_integer() do
+      StatusChecks.reset_hunt(character_id)
+    end
+  end
 end

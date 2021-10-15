@@ -7,35 +7,27 @@
 'use strict';
 
 import type { ConcreteRequest } from 'relay-runtime';
-export type ChangeCharacterOtherStatsInput = {|
-  bloodPotency: number,
-  characterId: string,
-  health: number,
-  humanity: number,
-  predatorTypeId: string,
-  willpower: number,
+export type ResetHuntMutationVariables = {|
+  characterId: string
 |};
-export type ChangeCharacterOtherStatsMutationVariables = {|
-  input: ChangeCharacterOtherStatsInput
-|};
-export type ChangeCharacterOtherStatsMutationResponse = {|
-  +changeCharacterOtherStats: ?{|
+export type ResetHuntMutationResponse = {|
+  +resetCharacterHunt: ?{|
     +result: ?{|
       +id: string
     |}
   |}
 |};
-export type ChangeCharacterOtherStatsMutation = {|
-  variables: ChangeCharacterOtherStatsMutationVariables,
-  response: ChangeCharacterOtherStatsMutationResponse,
+export type ResetHuntMutation = {|
+  variables: ResetHuntMutationVariables,
+  response: ResetHuntMutationResponse,
 |};
 
 
 /*
-mutation ChangeCharacterOtherStatsMutation(
-  $input: ChangeCharacterOtherStatsInput!
+mutation ResetHuntMutation(
+  $characterId: ID!
 ) {
-  changeCharacterOtherStats(input: $input) {
+  resetCharacterHunt(input: {characterId: $characterId}) {
     result {
       id
     }
@@ -48,7 +40,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input"
+    "name": "characterId"
   }
 ],
 v1 = [
@@ -56,14 +48,20 @@ v1 = [
     "alias": null,
     "args": [
       {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
+        "fields": [
+          {
+            "kind": "Variable",
+            "name": "characterId",
+            "variableName": "characterId"
+          }
+        ],
+        "kind": "ObjectValue",
+        "name": "input"
       }
     ],
-    "concreteType": "ChangeCharacterOtherStatsPayload",
+    "concreteType": "ResetCharacterHuntPayload",
     "kind": "LinkedField",
-    "name": "changeCharacterOtherStats",
+    "name": "resetCharacterHunt",
     "plural": false,
     "selections": [
       {
@@ -93,7 +91,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ChangeCharacterOtherStatsMutation",
+    "name": "ResetHuntMutation",
     "selections": (v1/*: any*/),
     "type": "RootMutationType",
     "abstractKey": null
@@ -102,19 +100,19 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ChangeCharacterOtherStatsMutation",
+    "name": "ResetHuntMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "3dbd682096f870f3b86b3d59f7641704",
+    "cacheID": "6967bbaf4184c12d36ebda8bdf285ec6",
     "id": null,
     "metadata": {},
-    "name": "ChangeCharacterOtherStatsMutation",
+    "name": "ResetHuntMutation",
     "operationKind": "mutation",
-    "text": "mutation ChangeCharacterOtherStatsMutation(\n  $input: ChangeCharacterOtherStatsInput!\n) {\n  changeCharacterOtherStats(input: $input) {\n    result {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ResetHuntMutation(\n  $characterId: ID!\n) {\n  resetCharacterHunt(input: {characterId: $characterId}) {\n    result {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '4f2327b86462ba6153e6da0e930f13d5';
+(node: any).hash = '82682a21260d241a8f78f4cadcfdc07f';
 module.exports = node;

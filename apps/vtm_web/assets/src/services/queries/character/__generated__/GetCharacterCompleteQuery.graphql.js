@@ -33,6 +33,9 @@ export type GetCharacterCompleteQueryResponse = {|
     +willpowerDamage: ?number,
     +stains: ?number,
     +bloodPotency: ?number,
+    +lastHunt: ?any,
+    +lastResonance: ?string,
+    +lastResonanceIntensity: ?number,
     +stage: ?number,
     +approved: ?boolean,
     +isComplete: ?boolean,
@@ -77,6 +80,9 @@ query GetCharacterCompleteQuery(
     willpowerDamage
     stains
     bloodPotency
+    lastHunt
+    lastResonance
+    lastResonanceIntensity
     stage
     approved
     isComplete
@@ -241,45 +247,66 @@ v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "stage",
+  "name": "lastHunt",
   "storageKey": null
 },
 v21 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "approved",
+  "name": "lastResonance",
   "storageKey": null
 },
 v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isComplete",
+  "name": "lastResonanceIntensity",
   "storageKey": null
 },
 v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "isNpc",
+  "name": "stage",
   "storageKey": null
 },
 v24 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "advantages",
+  "name": "approved",
   "storageKey": null
 },
 v25 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "notes",
+  "name": "isComplete",
   "storageKey": null
 },
 v26 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isNpc",
+  "storageKey": null
+},
+v27 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "advantages",
+  "storageKey": null
+},
+v28 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "notes",
+  "storageKey": null
+},
+v29 = {
   "alias": null,
   "args": null,
   "concreteType": "PredatorType",
@@ -328,6 +355,9 @@ return {
           (v24/*: any*/),
           (v25/*: any*/),
           (v26/*: any*/),
+          (v27/*: any*/),
+          (v28/*: any*/),
+          (v29/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -378,6 +408,9 @@ return {
           (v24/*: any*/),
           (v25/*: any*/),
           (v26/*: any*/),
+          (v27/*: any*/),
+          (v28/*: any*/),
+          (v29/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -391,12 +424,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "66498e23aaa97b0341c42f442b5e82c5",
+    "cacheID": "cbecd16932f212465f3bc7ca047b78c5",
     "id": null,
     "metadata": {},
     "name": "GetCharacterCompleteQuery",
     "operationKind": "query",
-    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stains\n    bloodPotency\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    predatorType {\n      id\n      name\n    }\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
+    "text": "query GetCharacterCompleteQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    name\n    chatAvatar\n    clan {\n      id\n      name\n    }\n    biography\n    description\n    humanity\n    experience\n    generation\n    hunger\n    health\n    damage\n    aggravatedDamage\n    willpower\n    willpowerDamage\n    stains\n    bloodPotency\n    lastHunt\n    lastResonance\n    lastResonanceIntensity\n    stage\n    approved\n    isComplete\n    isNpc\n    advantages\n    notes\n    predatorType {\n      id\n      name\n    }\n    ...CharacterFragments_characterAvatar\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n"
   }
 };
 })();

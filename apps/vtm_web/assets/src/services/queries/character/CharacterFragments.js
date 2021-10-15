@@ -34,6 +34,9 @@ export const characterStatsFragment: any = graphql`
         willpowerDamage
         stains
         bloodPotency
+        lastHunt
+        lastResonance
+        lastResonanceIntensity
     }
 `;
 

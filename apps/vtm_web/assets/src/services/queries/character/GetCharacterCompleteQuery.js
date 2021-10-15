@@ -42,6 +42,9 @@ export type Character = {|
     +isNpc: ?boolean,
     +advantages: ?string,
     +notes: ?string,
+    +lastHunt: ?any,
+    +lastResonance: ?string,
+    +lastResonanceIntensity: ?number,
 |};
 
 export function useCharacterCompleteQuery(characterId: string): ?Character {

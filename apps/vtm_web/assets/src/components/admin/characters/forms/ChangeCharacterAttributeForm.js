@@ -1,8 +1,8 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import useAttributesSlimQuery from "../../../services/queries/info/AttributesSlimQuery";
+import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
+import useAttributesSlimQuery from "../../../../services/queries/info/AttributesSlimQuery";
 import Grid from "@mui/material/Grid";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,10 +10,10 @@ import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from "@mui/material/Button";
-import {handleMutation, range} from "../../../_base/utils";
+import {handleMutation, range} from "../../../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
-import ChangeCharacterAttributeMutation from "../../../services/mutations/admin/ChangeCharacterAttributeMutation";
+import {UtilityContext} from "../../../../contexts";
+import ChangeCharacterAttributeMutation from "../../../../services/mutations/admin/ChangeCharacterAttributeMutation";
 
 type Props = {
     character: Character;

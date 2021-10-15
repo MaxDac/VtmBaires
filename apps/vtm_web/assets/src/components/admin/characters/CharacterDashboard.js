@@ -9,12 +9,13 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ApproveCharacterForm from "../approvation/ApproveCharacterForm";
-import ChangeCharacterAttributeForm from "./ChangeCharacterAttributeForm";
-import ChangeCharacterOtherStatsForm from "./ChangeCharacterOtherStatsForm";
+import ChangeCharacterAttributeForm from "./forms/ChangeCharacterAttributeForm";
+import ChangeCharacterOtherStatsForm from "./forms/ChangeCharacterOtherStatsForm";
 import Paper from "@mui/material/Paper";
-import ChangeCharacterNotesForm from "./ChangeCharacterNotesForm";
-import AddCharacterExperienceForm from "./AddCharacterExperienceForm";
-import ChangeCharacterStatusForm from "./ChangeCharacterStatusForm";
+import ChangeCharacterNotesForm from "./forms/ChangeCharacterNotesForm";
+import AddCharacterExperienceForm from "./forms/AddCharacterExperienceForm";
+import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
+import ResetHuntForm from "./forms/ResetHuntForm";
 
 type Props = {
     characterId: string;
@@ -78,6 +79,11 @@ const CharacterDashboard = ({characterId}: Props): any => {
                 <Grid item xs={12}>
                     <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
                         <ApproveCharacterForm character={character} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <ResetHuntForm character={character} />
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>

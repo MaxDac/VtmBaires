@@ -91,7 +91,9 @@ function App(): Node {
                                   preventDuplicate
                                   variant="outlined"
                                   action={key =>
-                                      <Button onClick={onSnackbarDismissClick(key)}>
+                                      <Button onClick={onSnackbarDismissClick(key)} sx={{
+                                          color: "black"
+                                      }}>
                                           Dismiss
                                       </Button>
                                   }>

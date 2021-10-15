@@ -8,6 +8,7 @@ export type History = {
 
 export type AlertInfo = {
     type: 'success' | 'warning' | 'error' | 'info';
+    duration?: number;
     graphqlError?: ?GraphqlErrorMessage;
     message?: ?string;
 }
