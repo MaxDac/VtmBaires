@@ -13,18 +13,10 @@ import Typography from "@mui/material/Typography";
 import FormTextField from "../../../_base/components/FormTextField";
 import FormFileDropField from "../../../_base/components/FormFileDropField";
 import Button from "@mui/material/Button";
-
-export type CreationInfoFormValues = {
-    name: string;
-    clanId: string;
-    avatar: string;
-    chatAvatar: string;
-    description: string;
-    biography: string;
-}
+import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 
 type Props = {
-    onSubmit: CreationInfoFormValues => void;
+    onSubmit: CharacterCreationRequest => void;
 }
 
 const CharacterInfoFormValidationSchema = object().shape({

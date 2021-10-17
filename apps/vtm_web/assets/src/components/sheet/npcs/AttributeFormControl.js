@@ -4,7 +4,7 @@ import React from "react";
 import Rating from "@mui/material/Rating";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecordOutlined";
-import {Attribute} from "../../../services/queries/character/GetCharacterStatsQuery";
+import type {Attribute} from "../../../services/queries/character/GetCharacterStatsQuery";
 import Grid from "@mui/material/Grid";
 
 type Props = {
@@ -16,6 +16,7 @@ type Props = {
 
 const AttributeFormControl = ({characterId, attribute, maxValue, onChange}: Props): any => {
     const onChangeInternal = ({target: {value}}) =>
+        // $FlowFixMe
         onChange({
             ...attribute,
             value

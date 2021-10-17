@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import type {Stat} from "../../../services/queries/character/GetCharacterStatsQuery";
+import type {StatWithoutId} from "../../../services/queries/character/GetCharacterStatsQuery";
 import Rating from '@mui/material/Rating';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
 type Props = {
-    stat: Stat
+    stat: StatWithoutId
 }
 
 const AttributeStat = ({stat}: Props): any => {

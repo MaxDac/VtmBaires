@@ -1,7 +1,8 @@
 // @flow
 
+import { useCustomLazyLoadQuery } from "../../../_base/relay-utils";
+
 import graphql from 'babel-plugin-relay/macro';
-import {useLazyLoadQuery} from "react-relay";
 
 const subscriptionTokenQuery = graphql`
     query SubscriptionTokenQuery {
@@ -10,7 +11,7 @@ const subscriptionTokenQuery = graphql`
 `;
 
 const useSubscriptionTokenQuery = (): string =>
-    useLazyLoadQuery(subscriptionTokenQuery, {}, {
+    useCustomLazyLoadQuery(subscriptionTokenQuery, {}, {
         fetchPolicy: "network-only"
     })?.subscriptionToken;
 

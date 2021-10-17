@@ -45,6 +45,11 @@ export type Character = {|
     +lastHunt: ?any,
     +lastResonance: ?string,
     +lastResonanceIntensity: ?number,
+    +bloodPotency: ?number,
+    +predatorType: ?{|
+      +id: string,
+      +name: ?string,
+    |}
 |};
 
 export function useCharacterCompleteQuery(characterId: string): ?Character {

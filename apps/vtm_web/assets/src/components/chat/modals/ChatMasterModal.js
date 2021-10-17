@@ -56,9 +56,14 @@ const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}
     }
 }
 
-const ChatMasterModal = (props: Props) => {
-    if (props.characterId != null) {
-        return (<ChatMasterModalInternal {...props} />);
+const ChatMasterModal = (props: Props): any => {
+    if (props.characterId != null && props.characterName != null) {
+        const newProps = {
+            ...props,
+            characterId: (props.characterId: string),
+            characterName: (props.characterName: string)
+        }
+        return (<ChatMasterModalInternal {...newProps} />);
     }
 
     return (<></>);

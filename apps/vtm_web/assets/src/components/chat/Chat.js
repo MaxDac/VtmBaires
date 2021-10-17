@@ -39,7 +39,7 @@ const Chat = ({id}: ChatProps): any => {
     const map = useMap(id);
     const [user,character] = useSession();
 
-    const isMaster = () => user.role === "MASTER";
+    const isMaster = () => user?.role === "MASTER";
 
     const {
         showUserNotification,
@@ -164,6 +164,17 @@ const Chat = ({id}: ChatProps): any => {
         )
     };
 
+    const showChatMasterModal = () => {
+        if (selectedCharacterId != null && selectedCharacterName != null) {
+            <ChatMasterModal mapId={id}
+                             characterId={selectedCharacterId}
+                             characterName={selectedCharacterName}
+                             closeModal={() => setCharacterModalOpen(_ => false)} />
+        }
+
+        return (<></>);
+    }
+
     return (
         <MainLayout openDialog={openDialog}>
             <>
@@ -171,10 +182,7 @@ const Chat = ({id}: ChatProps): any => {
                         onClose={_ => setCharacterModalOpen(_ => false)}
                         fullScreen
                         aria-labelledby="character-modal">
-                    <ChatMasterModal mapId={id}
-                                     characterId={selectedCharacterId}
-                                     characterName={selectedCharacterName}
-                                     closeModal={() => setCharacterModalOpen(_ => false)} />
+                    {showChatMasterModal()}
                 </Dialog>
                 <Dialog open={characterModalOpen && !isMaster()}
                         onClose={_ => setMapModalOpen(false)}

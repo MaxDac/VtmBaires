@@ -4,9 +4,9 @@ import graphql from 'babel-plugin-relay/macro';
 import { wrapMutation } from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
 import type {
-    CreateNewNpcMutationResponse
+    CreateNewNpcMutationResponse,
+    CharacterCreationRequest
 } from "./__generated__/CreateNewNpcMutation.graphql";
-import {CharacterCreationRequest} from "./__generated__/CreateNewNpcMutation.graphql";
 
 const mutation = graphql`
     mutation CreateNewNpcMutation($request: CharacterCreationRequest!) {

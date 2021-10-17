@@ -37,7 +37,7 @@ export const sectionStyle = {
 
 const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
                                         hideAttributes, hideAbilities, hideAdvantages, hideStatus}: Props): any => {
-    const sheet = useFragment<?CharacterFragments_characterStats$key>(
+    const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
         characterStatsFragment,
         characterQuery);
 

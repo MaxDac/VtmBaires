@@ -29,8 +29,34 @@ export function handleAuthorizedRejection({ push }: History): any => void {
     }
 }
 
+export function emptyReadOnlyArray<T>(): $ReadOnlyArray<T> {
+    return [];
+}
+
 export function emptyArray<T>(): Array<T> {
     return [];
+}
+
+export function toArray<T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<?T> {
+    if (readOnlyArray != null) {
+        return ((readOnlyArray: any): Array<?T>);
+    }
+
+    return emptyArray<?T>();
+}
+
+export function filterNulls<T>(arr: Array<?T>): Array<T> {
+    return arr?.reduce((acc, p) => {
+        if (p != null) {
+            return [...acc, p];
+        }
+
+        return acc;
+    }, []);
+}
+
+export function toNotNullArray<T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<T> {
+    return filterNulls(toArray(readOnlyArray));
 }
 
 export function firstOrDefault<T>(a: ?Array<T>): ?T {
@@ -41,6 +67,10 @@ export function firstOrDefault<T>(a: ?Array<T>): ?T {
     return null;
 }
 
+export function castNotNull<T>(item: ?T): T {
+    return ((item: any): T);
+}
+
 /**
  * Returns a range between the two specified number (included).
  * @param from The lower boundary.
@@ -49,7 +79,7 @@ export function firstOrDefault<T>(a: ?Array<T>): ?T {
  */
 export function* range(from: number, to: number): Generator<number, void, number> {
     if (from > to) {
-        return reverseRange(from, to);
+        [from, to] = [to, from];
     }
 
     for (let i = from; i <= to; i++) {
@@ -57,17 +87,7 @@ export function* range(from: number, to: number): Generator<number, void, number
     }
 }
 
-export function* reverseRange(from: number, to: number): Generator<number, void, number> {
-    if (to > from) {
-        return range(from, to);
-    }
-
-    for (let i = from; i <= to; i--) {
-        yield i;
-    }
-}
-
-export function baseMenuItems(min: number, max: number) {
+export function baseMenuItems(min: number, max: number): any {
     const values = [];
 
     for (const v of range(min, max)) {
@@ -104,11 +124,9 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
     successMessage?: string,
     errorMessage?: string,
     onCompleted?: () => void
-}) {
+}): Promise<?T> {
     return mutation()
         .then(result => {
-            console.log("The result", result);
-
             if (args?.successMessage != null) {
                 showNotification({
                     type: "success",

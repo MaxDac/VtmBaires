@@ -26,17 +26,17 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
     const predatorTypes = useCustomLazyLoadQuery<PredatorTypesQuery>(predatorTypesQuery, {})
         ?.predatorTypes;
 
-    const [willpower, setWillpower] = useState(character?.willpower);
-    const [health, setHealth] = useState(character?.health);
-    const [humanity, setHumanity] = useState(character?.humanity);
-    const [bloodPotency, setBloodPotency] = useState(character?.bloodPotency);
-    const [predatorType, setPredatorType] = useState(character?.predatorType?.id);
+    const [willpower, setWillpower] = useState(character?.willpower ?? 0);
+    const [health, setHealth] = useState(character?.health ?? 0);
+    const [humanity, setHumanity] = useState(character?.humanity ?? 0);
+    const [bloodPotency, setBloodPotency] = useState(character?.bloodPotency ?? 0);
+    const [predatorType, setPredatorType] = useState(character?.predatorType?.id ?? "");
 
     const changeCharacterOtherStats = _ => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare le caratteristiche di questo personaggio?`,
-            () =>
+            () => {
                 handleMutation(() => ChangeCharacterOtherStatsMutation(environment, {
                     characterId: character.id,
                     humanity: humanity,
@@ -47,7 +47,8 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
-                })
+                });
+            }
         );
     };
 

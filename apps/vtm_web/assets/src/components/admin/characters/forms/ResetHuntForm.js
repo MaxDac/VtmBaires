@@ -20,12 +20,14 @@ const ResetHuntForm = ({character}: Props): any => {
     const resetCharacterHunt = () =>
         openDialog(
             "Resetta esito caccia",
-            `Sei sicuro di voler resettare l'esito della caccia di ${character?.name}?`,
-            () => handleMutation(
-                () => ResetHuntMutation(environment, character?.id),
-                showUserNotification, {
-                    successMessage: "L'esito della caccia è stato correttamente resettato."
-                })
+            `Sei sicuro di voler resettare l'esito della caccia di ${character?.name ?? ""}?`,
+            () => {
+                handleMutation(
+                    () => ResetHuntMutation(environment, character?.id),
+                    showUserNotification, {
+                        successMessage: "L'esito della caccia è stato correttamente resettato."
+                    });
+            }
         );
 
     return (

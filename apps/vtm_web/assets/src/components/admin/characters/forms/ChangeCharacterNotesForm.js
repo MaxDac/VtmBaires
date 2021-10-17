@@ -18,8 +18,8 @@ const ChangeCharacterNotesForm = ({character}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
-    const [advantages, setAdvantages] = useState(character?.advantages);
-    const [notes, setNotes] = useState(character?.notes);
+    const [advantages, setAdvantages] = useState(character?.advantages ?? "");
+    const [notes, setNotes] = useState(character?.notes ?? "");
 
     const onAdvantagesChanged = ({target: {value}}) => {
         setAdvantages(_ => value);
@@ -33,7 +33,7 @@ const ChangeCharacterNotesForm = ({character}: Props): any => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare le note del personaggio?`,
-            () =>
+            () => {
                 handleMutation(() => ChangeCharacterNotesMutation(environment, {
                     characterId: character.id,
                     advantages,
@@ -41,7 +41,8 @@ const ChangeCharacterNotesForm = ({character}: Props): any => {
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
-                })
+                });
+            }
         );
     };
 

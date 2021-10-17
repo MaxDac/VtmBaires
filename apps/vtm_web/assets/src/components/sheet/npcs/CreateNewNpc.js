@@ -7,7 +7,7 @@ import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import MainLayout from "../../MainLayout";
-import CharacterInfoForm, {CreationInfoFormValues} from "../controls/CharacterInfoForm";
+import CharacterInfoForm from "../controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
 
 const CreateNewNpc = (): any => {
@@ -15,7 +15,7 @@ const CreateNewNpc = (): any => {
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);
 
-    const onSubmit = (values: CreationInfoFormValues) => {
+    const onSubmit = (values: any) => {
         CreateNewNpcMutation(environment, values)
             .then(response => {
                 if (response?.createNpc?.character?.id != null) {
@@ -24,6 +24,7 @@ const CreateNewNpc = (): any => {
                         name: response?.createNpc?.character?.id ?? "No name available"
                     });
 
+                    // $FlowFixMe
                     history.push(Routes.defineNpc(response?.createNpc?.character?.id));
                 }
                 else {

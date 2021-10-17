@@ -26,30 +26,38 @@ const MenuHuntSection = (props: Props): any => {
                 "Caccia",
                 "Sei sicuro di voler mandare il tuo personaggio a caccia? Potrai giocare subito dopo, ma non potrai far cacciare di nuovo il personaggio per un altro giorno",
                 () => {
-                    HuntMutation(environment, character.id)
-                        .then((result: HuntMutationResponse) => {
-                            if (result?.hunt?.result != null) {
-                                showUserNotification({
-                                    type: "info",
-                                    duration: 7000,
-                                    message: result.hunt.result
-                                });
-                            }
-                            else {
-                                console.error("No back end message", result);
+                    if (character?.id != null) {
+                        HuntMutation(environment, character.id)
+                            .then((result: HuntMutationResponse) => {
+                                if (result?.hunt?.result != null) {
+                                    showUserNotification({
+                                        type: "info",
+                                        duration: 7000,
+                                        message: result.hunt.result
+                                    });
+                                }
+                                else {
+                                    console.error("No back end message", result);
+                                    showUserNotification({
+                                        type: "error",
+                                        message: "Qualcosa non è andato come previsto, contatta un master per maggiori informazioni."
+                                    });
+                                }
+                            })
+                            .catch(e => {
+                                console.error("Error while hunting!", e);
                                 showUserNotification({
                                     type: "error",
                                     message: "Qualcosa non è andato come previsto, contatta un master per maggiori informazioni."
-                                });
-                            }
-                        })
-                        .catch(e => {
-                            console.error("Error while hunting!", e);
-                            showUserNotification({
-                                type: "error",
-                                message: "Qualcosa non è andato come previsto, contatta un master per maggiori informazioni."
-                            })
-                        })
+                                })
+                            });
+                    }
+                    else {
+                        showUserNotification({
+                            type: "error",
+                            message: "Devi prima selezionare il personaggio."
+                        });
+                    }
                 });
         }
         else {

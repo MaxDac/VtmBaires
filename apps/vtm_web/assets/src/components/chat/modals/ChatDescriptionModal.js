@@ -44,9 +44,9 @@ const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): any 
     );
 }
 
-const ChatDescriptionModal = (props: Props) => {
+const ChatDescriptionModal = (props: Props): any => {
     if (props.characterId != null) {
-        return (<ChatDescriptionModalInternal {...props} />);
+        return (<ChatDescriptionModalInternal characterId={props.characterId} close={props.close} />);
     }
 
     return (<></>);

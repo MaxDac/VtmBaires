@@ -30,7 +30,7 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare i valori di status del personaggio?`,
-            () =>
+            () => {
                 handleMutation(() => SetCharacterStatusMutation(environment, character.id, {
                     hunger: hunger,
                     damage: damage,
@@ -40,13 +40,14 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
-                })
+                });
+            }
         );
     };
 
     const menuItems = (max: number) => baseMenuItems(1, max);
 
-    const stainsItems = () => baseMenuItems(0, 10 - character?.humanity);
+    const stainsItems = () => baseMenuItems(0, 10 - (character?.humanity ?? 0));
 
     const onHungerChanged = ({target: {value}}) => {
         setHunger(_ => value);
@@ -98,7 +99,7 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
                             value={damage}
                             label="Danni Superficiali"
                             onChange={onDamageChanged}>
-                            {baseMenuItems(0, character?.health)}
+                            {baseMenuItems(0, character?.health ?? 0)}
                         </Select>
                     </FormControl>
                 </Grid>
@@ -111,7 +112,7 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
                             value={aggravatedDamage}
                             label="Danni Aggravati"
                             onChange={onAggravatedDamageChanged}>
-                            {baseMenuItems(0, character?.health)}
+                            {baseMenuItems(0, character?.health ?? 0)}
                         </Select>
                     </FormControl>
                 </Grid>
@@ -141,7 +142,7 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
                             value={willpowerDamage}
                             label="FdV Spesa"
                             onChange={onWillpowerDamageChanged}>
-                            {menuItems(character?.willpower)}
+                            {menuItems(character?.willpower ?? 0)}
                         </Select>
                     </FormControl>
                 </Grid>

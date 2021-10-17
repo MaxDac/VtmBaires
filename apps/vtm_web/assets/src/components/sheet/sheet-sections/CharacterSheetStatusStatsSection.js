@@ -37,8 +37,8 @@ const CharacterSheetStatsSection = ({sheet}: Props): any => {
             }}>
                 <Paper elevation={12} sx={{padding: "10px", margin: "10px"}}>
                     <Typography>
-                        L'ultima caccia risale al {new Date(sheet.lastHunt).toLocaleString()},
-                        ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet.lastResonanceIntensity)}</b>.
+                        L'ultima caccia risale al {new Date(sheet?.lastHunt ?? "").toLocaleString()},
+                        ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
                     </Typography>
                 </Paper>
             </Grid>
@@ -47,21 +47,21 @@ const CharacterSheetStatsSection = ({sheet}: Props): any => {
                     name: "Forza di Volontà",
                     value: sheet?.willpower,
                     maxValue: 10
-                }} damage={sheet?.willpowerDamage} />
+                }} damage={sheet?.willpowerDamage ?? 0} />
             </Grid>
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeWithDamageStat stat={{
                     name: "Salute",
                     value: sheet?.health,
                     maxValue: 10
-                }} damage={sheet?.aggravatedDamage} secondDamage={sheet?.damage} />
+                }} damage={sheet?.aggravatedDamage ?? 0} secondDamage={sheet?.damage ?? 0} />
             </Grid>
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeCumulativeStat stat={{
                     name: "Umanità",
                     value: sheet?.humanity,
                     maxValue: 10
-                }} damage={sheet?.stains} />
+                }} damage={sheet?.stains ?? 0} />
             </Grid>
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeStat stat={{

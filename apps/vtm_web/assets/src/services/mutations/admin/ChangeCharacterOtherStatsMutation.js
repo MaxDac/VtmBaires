@@ -18,7 +18,7 @@ const mutation = graphql`
     }
 `;
 
-const mutationPromise = (environment: IEnvironment, request: ChangeCharacterOtherStatsInput): Promise<> => {
+const mutationPromise = (environment: IEnvironment, request: ChangeCharacterOtherStatsInput): Promise<ChangeCharacterOtherStatsMutationResponse> => {
     return wrapMutation<ChangeCharacterOtherStatsMutationResponse>(environment, mutation, {input: request});
 }
 

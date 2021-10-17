@@ -43,14 +43,17 @@ const AddCharacterExperienceForm = ({character}: Props): any => {
         openDialog(
             `Aggiunta di esperienza per ${character.name ?? ""}`,
             `Sei sicuro di voler ${changeTypeLabel} ${experience} punti esperienza a ${character.name ?? ""}?`,
-            () =>
-                handleMutation(() => ChangeCharacterExperienceMutation(environment, {
+            () => {
+                const promise = ChangeCharacterExperienceMutation(environment, {
                     characterId: character.id,
                     experienceChange: experience
-                }), showUserNotification, {
+                });
+
+                handleMutation(() => promise, showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
-                })
+                });
+            }
         );
     };
 

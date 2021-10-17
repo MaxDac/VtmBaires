@@ -12,7 +12,8 @@ const mutation = graphql`
 `;
 
 const mutationPromise = (environment: IEnvironment, characterId: string): Promise<boolean> => {
-    return wrapMutation<ApproveCharacterMutationResponse>(environment, mutation, {characterId});
+    return wrapMutation<ApproveCharacterMutationResponse>(environment, mutation, {characterId})
+        ?.then(r => r?.approveCharacter === true);
 }
 
 export default mutationPromise;

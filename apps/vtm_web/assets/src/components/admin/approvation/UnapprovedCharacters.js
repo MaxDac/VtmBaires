@@ -8,12 +8,13 @@ import {allUnapprovedCharactersQuery} from "../../../services/queries/character/
 import ShowCharactersComponent from "../_shared/ShowCharactersComponent";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
+import { toNotNullArray } from "../../../_base/utils";
 
 const UnapprovedCharacters = (): any => {
     const history = useHistory();
-    const unapprovedCharacters =
+    const unapprovedCharacters = toNotNullArray(
         useForceReloadFirstQuery<AllUnapprovedCharactersQuery>(allUnapprovedCharactersQuery, {})
-            ?.unapprovedCharactersList ?? [];
+            ?.unapprovedCharactersList);
 
     const showCharacter = id => history.push(Routes.characterDashboard(id))
 

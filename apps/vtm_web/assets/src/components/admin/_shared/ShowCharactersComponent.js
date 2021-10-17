@@ -10,10 +10,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 
 type Props = {
-    characters: Array<{
-        id: string,
-        name: string
-    }>;
+    characters: Array<{|
+        +id: string,
+        +name: ?string
+    |}>;
     onCharacterSelected: string => void;
 }
 
@@ -39,7 +39,7 @@ const ShowCharactersComponent = ({characters, onCharacterSelected}: Props): any 
         filteredCharacter.map(characterLine);
 
     const filter = ({target: {value}}) => {
-        setFilteredCharacter(_ => characters.filter(c => c.name.indexOf(value) !== -1));
+        setFilteredCharacter(_ => characters.filter(c => c.name?.indexOf(value) !== -1));
     }
 
     return (

@@ -12,6 +12,7 @@ import {handleMutation} from "../../../_base/utils";
 import AssignNpcAttributesMutation from "../../../services/mutations/npcs/AssignNpcAttributesMutation";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
+import { StarRateSharp } from "@mui/icons-material";
 
 type Props = {
     characterId: string;
@@ -23,9 +24,9 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
     const theme = useTheme();
     const stats = useCharacterStatsQuery(characterId, {
         fetchPolicy: "network-only"
-    })?.attributes;
+    })?.attributes ?? [];
 
-    const [savedStates, setSavedStats] = useState<Array<Attribute>>(stats);
+    const [savedStates, setSavedStats] = useState<Array<Attribute>>(StarRateSharp);
 
     const subTitleStyle = ({
         ...mainFontFamily,
@@ -41,7 +42,7 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
     });
 
     const onAttributeChanged = a =>
-        setSavedStats(p => p.reduce((acc, current) =>
+        setSavedStats(p => p?.reduce((acc, current) =>
             current.id === a.id
                 ? [...acc, a]
                 : [...acc, current], []));

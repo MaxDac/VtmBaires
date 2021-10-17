@@ -44,9 +44,9 @@ export const Routes = {
     admin: "/admin",
     charactersList: "/admin/characters",
     unapprovedCharacters: "/admin/unapproved",
-    characterDashboard: (id: string) => `/admin/character/${id}`,
+    characterDashboard: (id: string): string => `/admin/character/${id}`,
     createNewNpc: "/admin/npc/new",
-    defineNpc: (id: string) => `/admin/npc/${id}/define`,
+    defineNpc: (id: string): string => `/admin/npc/${id}/define`,
 
     guideMain: "/guides"
 };

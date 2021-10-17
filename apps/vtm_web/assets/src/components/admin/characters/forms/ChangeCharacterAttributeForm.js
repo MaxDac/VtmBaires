@@ -36,12 +36,12 @@ const ChangeCharacterAttributeForm = ({character}: Props): any => {
             return;
         }
 
-        const attributeName = attributes.filter(x => x.id === attributeId)[0]?.name;
+        const attributeName = attributes.filter(x => x?.id === attributeId)[0]?.name;
 
         openDialog(
             `Cambio di attributo per ${character.name ?? ""}`,
-            `Sei sicuro di voler cambiare il valore di ${attributeName} a ${newValue}?`,
-            () =>
+            `Sei sicuro di voler cambiare il valore di ${attributeName ?? ""} a ${newValue}?`,
+            () => {
                 handleMutation(() => ChangeCharacterAttributeMutation(environment, {
                     characterId: character.id,
                     attributeId: attributeId,
@@ -49,7 +49,8 @@ const ChangeCharacterAttributeForm = ({character}: Props): any => {
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
-                })
+                });
+            }
         );
     }
 
@@ -60,13 +61,18 @@ const ChangeCharacterAttributeForm = ({character}: Props): any => {
         (<MenuItem key={id} value={id}>{name}</MenuItem>);
 
     const attributesValues = () => attributes
-        .reduce(([acc, previousTypeName], {id, name, attributeType: {name: typeName}}) => {
-            const newAcc =
-                typeName !== previousTypeName
-                    ? [...acc, newAttributeSection(typeName)]
-                    : acc;
+        .reduce(([acc, previousTypeName], a) => {
+            if (a?.id != null && a?.name != null && a?.attributeType?.name != null) {
+                const {id, name, attributeType: {name: typeName}} = a;
+                const newAcc =
+                    typeName !== previousTypeName
+                        ? [...acc, newAttributeSection(typeName)]
+                        : acc;
+    
+                return [[...newAcc, attributeSelector(id, name)], typeName];
+            }
 
-            return [[...newAcc, attributeSelector(id, name)], typeName];
+            return [acc, previousTypeName];
         }, [[], ""]);
 
     const possibleValuesOptions = () => {

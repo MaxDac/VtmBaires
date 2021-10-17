@@ -13,10 +13,18 @@ type Props = {
 const CharacterChatDashboard = ({characterId}: Props): any => {
     const character = useCharacterCompleteQuery(characterId);
 
+    const showCharacterStatusForm = () => {
+        if (character != null) {
+            return (<ChangeCharacterStatusForm character={character} />);
+        }
+
+        return (<></>);
+    }
+
     return (
         <Grid container>
             <Grid xs={12}>
-                <ChangeCharacterStatusForm character={character} />
+                {showCharacterStatusForm()}
             </Grid>
             <Grid xs={12}>
                 <CharacterSheet contained={true}

@@ -22,7 +22,7 @@ type Props = {
 }
 
 const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): any => {
-    const sheet = useFragment<?CharacterFragments_characterStats$key>(
+    const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
         characterStatsFragment,
         characterQuery);
 
@@ -43,12 +43,13 @@ const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): any =>
     );
 }
 
-const ChatStatusModal = (props: Props) => {
+const ChatStatusModal = (props: Props): any => {
     if (props.characterId != null) {
         return (
             <CharacterFragmentProvider characterId={props.characterId}>
                 {character =>
-                    <ChatStatusModalInternal characterQuery={character} {...props} />
+                    <ChatStatusModalInternal characterQuery={character}
+                                             close={props.close} />
                 }
             </CharacterFragmentProvider>
         );

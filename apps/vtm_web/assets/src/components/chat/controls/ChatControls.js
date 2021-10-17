@@ -14,7 +14,10 @@ import {useRelayEnvironment} from "react-relay";
 import RouseCheckMutation from "../../../services/mutations/chat/RouseCheckMutation";
 import {useSession} from "../../../services/session-service";
 import {UtilityContext} from "../../../contexts";
-import {handleMutation} from "../../../_base/utils";
+import {
+  castNotNull,
+  handleMutation,
+} from "../../../_base/utils";
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
 import HealMutation from "../../../services/mutations/chat/HealMutation";
 
@@ -38,40 +41,65 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
         handleClose();
     }
 
+    const showSelectCharacterNotification = () => 
+        showUserNotification({
+            type: "warning",
+            message: "Devi prima selezionare un personaggio"
+        });
+
     const requestRouseCheck = _ => {
-        openDialog("Vitae", "Sei sicuro di voler spendere vitae?",
-            () =>
-                handleMutation(() =>
-                    RouseCheckMutation(environment, {
-                        characterId: character?.id,
-                        chatMapId: mapId
-                    }), showUserNotification));
+        if (character?.id != null) {
+            openDialog("Vitae", "Sei sicuro di voler spendere vitae?",
+                () => {
+                    handleMutation(() =>
+                        RouseCheckMutation(environment, {
+                            characterId: castNotNull(character?.id),
+                            chatMapId: mapId
+                        }), showUserNotification);
+                });
+        }
+        else {
+            showSelectCharacterNotification();
+        } 
 
         handleClose();
     }
 
     const requestWillpowerUse = _ => {
         openDialog("Forza di Volontà", "Sei sicuro di voler spendere Forza di Volontà?",
-            () =>
-                handleMutation(() =>
-                    UseWillpowerChatMutation(environment, {
-                        characterId: character?.id,
-                        chatMapId: mapId
-                    }), showUserNotification));
+            () => {
+                if (character?.id != null) {
+                    handleMutation(() =>
+                        UseWillpowerChatMutation(environment, {
+                            characterId: castNotNull(character?.id),
+                            chatMapId: mapId
+                        }), showUserNotification);
+                }
+                else {
+                    showSelectCharacterNotification();
+                }
+            });
 
         handleClose();
     }
 
-    const requestHeal = _ =>
+    const requestHeal = _ => {
         openDialog(
             "Guarire",
             "Sei sicuro di voler spendere vitae per guarire il personaggio?\nRicorda che puoi farlo solo una volta per turno, e il tentativo apparirà in chat.",
-            () =>
-            handleMutation(
-                () => HealMutation(environment, character?.id, mapId),
-                showUserNotification
-            )
+            () => {
+                if (character?.id != null) {
+                    handleMutation(
+                        () => HealMutation(environment, castNotNull(character?.id), mapId),
+                        showUserNotification
+                    );
+                }
+                else {
+                    showSelectCharacterNotification();
+                }
+            }
         );
+    };
 
     return (
         <SpeedDial

@@ -13,7 +13,7 @@ export type SelectInputProps = {
     fieldName: string;
     label: string;
     values: Array<[string, string]>;
-    sx: any;
+    sx?: any;
 };
 
 const FormSelectField = (props: SelectInputProps): any => {

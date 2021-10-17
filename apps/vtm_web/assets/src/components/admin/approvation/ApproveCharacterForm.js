@@ -1,7 +1,6 @@
 // @flow
 
 import React, {useContext} from "react";
-import {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import ApproveCharacterMutation from "../../../services/mutations/characters/ApproveCharacterMutation";
@@ -11,6 +10,7 @@ import {handleMutation} from "../../../_base/utils";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
 import Box from "@mui/material/Box";
+import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 
 type Props = {
     character: Character
@@ -22,13 +22,14 @@ const ApproveCharacterForm = ({character}: Props): any => {
     const environment = useRelayEnvironment();
 
     const approveCharacter = _ => {
-        openDialog(`Accetta ${character.name ?? ""}`, "Sei sicuro di voler accettare questo personaggio?", () =>
-            handleMutation(() => ApproveCharacterMutation(environment, character.id), showUserNotification, {
+        openDialog(`Accetta ${character.name ?? ""}`, "Sei sicuro di voler accettare questo personaggio?", () => {
+            const promise: Promise<boolean> = ApproveCharacterMutation(environment, character.id);
+            handleMutation(() => promise, showUserNotification, {
                 successMessage: "Il personaggio è stato accettato.",
                 errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
                 onCompleted: () => history.push(Routes.unapprovedCharacters)
             })
-        );
+        });
     }
 
     if (character?.approved !== true) {

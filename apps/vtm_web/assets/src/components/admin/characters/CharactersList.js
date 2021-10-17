@@ -8,17 +8,28 @@ import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
 import MainLayout from "../../MainLayout";
 import ShowCharactersComponent from "../_shared/ShowCharactersComponent";
+import { filterNulls, toArray } from "../../../_base/utils";
 
 const CharactersList = (): any => {
     const history = useHistory();
-    const characters = useForceReloadFirstQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList ?? [];
+    const characters = filterNulls(toArray(
+        useForceReloadFirstQuery<AllCharactersQuery>(allCharactersQuery, {})
+            ?.charactersList));
 
     const showCharacter = id => history.push(Routes.characterDashboard(id));
 
-    return (
-        <MainLayout>
+    const showComponent = () => {
+        if (characters != null) {
             <ShowCharactersComponent characters={characters}
                                      onCharacterSelected={showCharacter} />
+        }
+
+        return (<></>);
+    }
+
+    return (
+        <MainLayout>
+            {showComponent()}
         </MainLayout>
     );
 }

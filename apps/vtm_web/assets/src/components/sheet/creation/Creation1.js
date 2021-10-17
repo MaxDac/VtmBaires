@@ -8,14 +8,15 @@ import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import MainLayout from "../../MainLayout";
-import CharacterInfoForm, {CreationInfoFormValues} from "../controls/CharacterInfoForm";
+import CharacterInfoForm from "../controls/CharacterInfoForm";
+import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 
 const Creation1 = (): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);
 
-    const onSubmit = (values: CreationInfoFormValues) => {
+    const onSubmit = (values: CharacterCreationRequest) => {
         createCharacter(environment, values)
             .then(response => {
                 console.log("response", response);

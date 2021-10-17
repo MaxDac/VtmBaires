@@ -56,41 +56,41 @@ const AssignNpcGenericStats = ({characterId}: Props): any => {
             willpower: 5,
             bloodPotency: 1,
             generation: 13,
-            predatorTypeId: characterStats?.predatorType?.id
+            predatorTypeId: characterStats?.predatorType?.id ?? ""
         },
         validationSchema: DefineNpcFormValidationSchema,
         onSubmit
     });
 
-    const tenthValues = () => {
+    const tenthValues = (): [string, string][] => {
         const values = [];
 
         for (const v of range(1, 10)) {
             values.push([v, v]);
         }
 
-        return values;
+        return ((values: any): [string, string][]);
     }
 
-    const bloodPotencyValues = () => [
+    const bloodPotencyValues = () => (([
         [0, "0"],
         [1, "1"],
         [2, "2"],
         [3, "3"]
-    ];
+    ]: any): [string, string][]);
 
-    const generationValues = () => [
+    const generationValues = () => (([
         [13, "13"],
         [12, "12"],
         [11, "11"],
         [10, "10"],
         [9, "9"],
-    ];
+    ]: any): [string, string][]);
 
     const predatorTypeDropdownValues = () =>
-        [[undefined, ""]].concat(
+        (([[undefined, ""]].concat(
             predatorTypes
-                ?.map(p => [p?.id, p?.name]));
+                ?.map(p => [p?.id, p?.name])): any): [string, string][]);
 
     const dropdownStyle = ({
         textAlign: "center"

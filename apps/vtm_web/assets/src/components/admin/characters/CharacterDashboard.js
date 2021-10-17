@@ -48,52 +48,62 @@ const CharacterDashboard = ({characterId}: Props): any => {
         return (<></>);
     }
 
+    const showDashboard = () => {
+        if (character != null) {
+            return (
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ChangeCharacterAttributeForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ChangeCharacterOtherStatsForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ChangeCharacterStatusForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ChangeCharacterNotesForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <AddCharacterExperienceForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ApproveCharacterForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <ResetHuntForm character={character} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormGroup>
+                            <FormControlLabel control={<Switch defaultChecked onChange={changeSheetVisible} />}
+                                            label="Mostra scheda" />
+                        </FormGroup>
+                    </Grid>
+                    {sheet()}
+                </Grid>
+            );
+        }
+
+        return (<></>);
+    }
+
     return (
         <MainLayout>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ChangeCharacterAttributeForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ChangeCharacterOtherStatsForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ChangeCharacterStatusForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ChangeCharacterNotesForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <AddCharacterExperienceForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ApproveCharacterForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                        <ResetHuntForm character={character} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormGroup>
-                        <FormControlLabel control={<Switch defaultChecked onChange={changeSheetVisible} />}
-                                          label="Mostra scheda" />
-                    </FormGroup>
-                </Grid>
-                {sheet()}
-            </Grid>
+            {showDashboard()}
         </MainLayout>
     );
 }

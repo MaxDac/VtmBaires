@@ -82,7 +82,7 @@ const CreateUserComponent = (): Node => {
         email,
         name
     }) => {
-        if (!checkBoxRef.current.checked) {
+        if (!checkBoxRef.current?.checked === true) {
             showUserNotification({
                 type: "warning",
                 message: "Devi dichiarare di aver letto il Disclaimer prima di accedere al sito."
