@@ -1,15 +1,15 @@
 // @flow
 
-import React, {useContext} from "react";
+import React, {useContext, useRef} from "react";
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import LoginLayout from "./LoginLayout";
-import { object, string } from 'yup';
-import { useFormik } from "formik";
+import {object, string} from 'yup';
+import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Link, useHistory} from "react-router-dom";
-import type { Node } from "react";
+import type {Node} from "react";
 import {Routes} from "../../AppRouter";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
@@ -17,6 +17,9 @@ import {useRelayEnvironment} from "react-relay";
 import {userNameExists} from "../../services/queries/accounts/UserNameExistsQuery";
 import {userEmailExists} from "../../services/queries/accounts/UserEmailExistsQuery";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Checkbox from '@mui/material/Checkbox';
+import Typography from "@mui/material/Typography";
+import {FormControl} from "@mui/material";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -35,12 +38,33 @@ const CreateUserComponent = (): Node => {
     const history = useHistory();
     const theme = useTheme();
     const environment = useRelayEnvironment();
+    const {showUserNotification} = useContext(UtilityContext);
 
-    const { showUserNotification } = useContext(UtilityContext);
+    const checkBoxRef = useRef();
 
-    const checkUsername = (name: string) => userNameExists(environment, name).then(r => r === false);
+    const checkUsername = (name: string) =>
+        new Promise((res, rej) => {
+            if (name != null && name !== "") {
+                userNameExists(environment, name)
+                    .then(r => res(r === false))
+                    .catch(e => rej(e));
+            }
+            else {
+                res(false);
+            }
+        });
 
-    const checkEmail = (email: string) => userEmailExists(environment, email).then(r => r === false);
+    const checkEmail = (email: string) =>
+        new Promise((res, rej) => {
+            if (email != null && email !== "") {
+                userEmailExists(environment, email)
+                    .then(r => res(r === false))
+                    .catch(e => rej(e));
+            }
+            else {
+                res(false);
+            }
+        });
 
     const formik = useFormik({
         initialValues: {
@@ -58,6 +82,14 @@ const CreateUserComponent = (): Node => {
         email,
         name
     }) => {
+        if (!checkBoxRef.current.checked) {
+            showUserNotification({
+                type: "warning",
+                message: "Devi dichiarare di aver letto il Disclaimer prima di accedere al sito."
+            });
+            return;
+        }
+
         createUser(environment, {
             email,
             name
@@ -80,13 +112,18 @@ const CreateUserComponent = (): Node => {
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" />
                     <FormTextField formik={formik} fieldName="name" label="Name" />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{
-                            margin: theme.spacing(3, 0, 2),
-                        }}>
+                    <Typography sx={{paddingTop: "10px"}}>
+                        Cliccando di seguito, dichiari di aver preso visione del <Link to={Routes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
+                    </Typography>
+                    <FormControl>
+                        <Checkbox ref={checkBoxRef} />
+                    </FormControl>
+                    <Button type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{
+                                margin: theme.spacing(3, 0, 2),
+                            }}>
                         Register!
                     </Button>
                 </form>

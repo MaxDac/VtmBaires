@@ -2,7 +2,7 @@
 
 import type {History} from "./types";
 import {Routes} from "../AppRouter";
-import {AlertInfo} from "./types";
+import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 

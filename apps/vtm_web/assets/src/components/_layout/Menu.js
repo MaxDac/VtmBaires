@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
@@ -33,6 +32,12 @@ export const MainListItems = ({drawerDone}: Props): any => {
         history.push(route);
     };
 
+    const pushHistoryOnAnotherTab = (route: string) => () => {
+        drawerDone();
+        const newTab = window.open(`#${route}`, "_blank");
+        newTab.focus();
+    };
+
     return (
         <>
             <ListItem button onClick={pushHistory(Routes.main)}>
@@ -49,7 +54,7 @@ export const MainListItems = ({drawerDone}: Props): any => {
             </ListItem>
             <MenuHuntSection />
             <MenuCharacterSection pushHistory={pushHistory} />
-            <ListItem button>
+            <ListItem button onClick={pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon />
                 </ListItemIcon>

@@ -13,6 +13,7 @@ export const Routes = {
     login: "/login",
     register: "/register",
     recoverPassword: "/recover-password",
+    disclaimer: "/disclaimer",
     main: "/",
     creation1: "/creation/1",
     creation2: "/creation/2",
@@ -45,7 +46,9 @@ export const Routes = {
     unapprovedCharacters: "/admin/unapproved",
     characterDashboard: (id: string) => `/admin/character/${id}`,
     createNewNpc: "/admin/npc/new",
-    defineNpc: (id: string) => `/admin/npc/${id}/define`
+    defineNpc: (id: string) => `/admin/npc/${id}/define`,
+
+    guideMain: "/guides"
 };
 
 export const AdminRoutes = {
@@ -61,6 +64,7 @@ export const pushAdmin = (history: History, routeKey: string): (Event => void) =
 const Login = React.lazy(() => import('./components/login/Login'));
 const CreateUser = React.lazy(() => import('./components/login/CreateUser'));
 const RecoverPassword = React.lazy(() => import('./components/login/RecoverPassword'));
+const Disclaimer = React.lazy(() => import('./components/login/Disclaimer'));
 
 const Main = React.lazy(() => import('./components/Main'));
 const Creation1 = React.lazy(() => import('./components/sheet/creation/Creation1'));
@@ -96,12 +100,15 @@ const UnapprovedCharacters = React.lazy(() => import('./components/admin/approva
 const CreateNewNpc = React.lazy(() => import('./components/sheet/npcs/CreateNewNpc'));
 const DefineNpc = React.lazy(() => import('./components/sheet/npcs/DefineNpc'));
 
+const GuidesMain = React.lazy(() => import('./components/guides/GuidesMain'));
+
 const AppRouter = (): any => {
     return (
         <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={CreateUser} />
             <Route exact path="/recover-password" component={RecoverPassword} />
+            <Route exact path="/disclaimer" component={Disclaimer} />
 
             <AuthRoute exact path="/" component={() => <Main />} />
 
@@ -141,6 +148,8 @@ const AppRouter = (): any => {
             <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/admin/npc/new" component={() => <CreateNewNpc />} />
             <AuthMasterRoute exact path="/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
+
+            <Route path="/guides" component={GuidesMain} />
         </Switch>
     );
 };

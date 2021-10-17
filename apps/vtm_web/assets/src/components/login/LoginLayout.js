@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from '@mui/styles';
 import type { Node } from "react";
 import Copyright from '../../_base/components/Copyrights';
+import {Link} from "react-router-dom";
+import {Routes} from "../../AppRouter";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,6 +69,9 @@ const LoginLayout = (props: HomeLayoutProps): Node => {
                         {props.title}
                     </Typography>
                     {props.children}
+                    <Box mt={5} sx={{textAlign: "center"}}>
+                        <Link to={Routes.guideMain} target="_blank">Guida</Link>
+                    </Box>
                     <Box mt={5}>
                         <Copyright />
                     </Box>
