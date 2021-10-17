@@ -4,28 +4,17 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { GuideRoutes } from "../GuidesMain";
 import {Link} from 'react-router-dom';
+import { guideStyle, storyStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
 }
 
 const GuidesEnvironmentBaires = (props: Props): any => {
-    const storyStyle = {
-        fontFamily: 'GabrieleLightRibbon',
-        fontSize: "14px",
-        margin: "20px 0",
-        paddingLeft: "20px",
-        paddingRight: "10px"
-    }
-
-    const liStyle = {
-        margin: "15px 0"
-    };
-
     return (
         <>
             <Typography paragraph>
-                <h1>
+                <h1 style={titleStyle}>
                     Buenos Aires by Night
                 </h1>
             </Typography>
@@ -121,7 +110,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 Qualcosa che lui non sapeva.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Nella cornice offerta dagli eventi descritti nella sezione Globale dell'ambientazione,
                 si inserisce la nostra, incentrata sugli eventi di Buenos Aires. La citt&agrave; 
                 porteña, una delle pi&ugrave; grandi dell'America Latina, luogo d'immigrazione 
@@ -132,12 +121,12 @@ const GuidesEnvironmentBaires = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Ventesimo Secolo
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Prima degli eventi descritti nella versione 5 dei manuali di Vampiri: la Masquerade&trade;,
                 descritti nella sezione <Link to={GuideRoutes.environment}>precedente</Link> della guida,
                 gli Anziani della Camarilla hanno a pi&ugrave; riprese tentato di colonizzare parte delle
@@ -150,12 +139,12 @@ const GuidesEnvironmentBaires = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h4>
+                <h4 style={titleStyle}>
                     La Constitución de 1994
                 </h4>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Fino al 1994, la Camarilla in congiunzione col clan Giovanni - accusato a pi&ugrave; 
                 riprese, pi&ugrave; o meno velatamente, di doppiogiochismo col Sabbat - ottenne pochi 
                 successi, largamente oscurati dalle ripetute sconfitte. Poi, grazie anche ad una intensa
@@ -165,7 +154,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 Buenos Aires.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Pochi nel Sabbat si resero conto delle ripercussioni che questo avrebbe avuto
                 nella politica cainita: Capital Federal divenne centro di numerose riforme
                 volte ad accrescere il valore della citt&agrave;, ma soprattutto l'organizzazione
@@ -175,12 +164,12 @@ const GuidesEnvironmentBaires = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Ventunesimo secolo
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 La presenza della Camarilla nel Rio del Plata divenne sempre pi&ugrave; consistente,
                 e in pochi nel Sabbat riuscirono ad opporre una forte resistenza. Anche i Giovanni
                 non poterono sfruttare appieno l'influenza che i contratti con la Camarilla portarono
@@ -193,7 +182,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 di venir private del loro premio.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Due furono gli accadimenti che avrebbero potuto cementare la situazione politica,
                 e rendere stabile la presenza della Camarilla nell'America del Sud.<br />
                 Venne costituito un Principato in piena regola, appoggiato dalle forze degli 
@@ -206,17 +195,17 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 sul modello di quanto fu fatto gi&agrave; a Milano con Gian Galeazzo Visconti.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Poi arrivarono gli accadimenti delle Ultime Notti.
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Ultime Notti
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Poi arrivarono gli accadimenti delle Ultime Notti. Il Sabbat, nel 2005, 
                 dovette cominciare ad organizzare la logistica della traversata verso il 
                 Medio Oriente, per la grande Guerra della Gehenna. &Aacute;vila venne
@@ -225,7 +214,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 vennero percepiti come segnali di debolezza dai Vescovi.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Nel giro di un mese tutto precipit&ograve;. Il Sabbat si divise, 
                 cominci&ograve; a circolare come semplice diceria il sospetto che 
                 l'Arcivescovo stesse trattando con la Camarilla, e la reazione degli altri
@@ -239,7 +228,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 del disordine per infliggere la Morte Ultima all'Arcivescovo traditore.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Montevideo venne abbandonata dopo soli cinque giorni dalla comparsa 
                 della Seconda Inquisizione, guidata dall'Entit&agrave;, il servizio
                 segreto del Vaticano, e dalla reintegrata Societ&agrave; di San 
@@ -257,13 +246,13 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 subire la Morte Ultima.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Il piano riusc&igrave;, e si evit&ograve; una disastrosa
                 serie di brecce alla Masquerade, che avrebbero significato
                 la fine del Dominio ancor prima della sua nascita.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Mentre la via per la Camarilla era ormai delineata, restava
                 comunque da organizzare il Dominio, la relativa distribuzione
                 di cariche, e la costruzione di influenze. Molti dei Fratelli
@@ -274,7 +263,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 l'embrione della prima cellula Anarchica di Buenos Aires.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Nel frattempo, i Giovanni e i Seguaci di Set, anche nella
                 remota regione sudamericana, hanno subito l'eco degli eventi
                 che hanno interessato i loro clan.<br />
@@ -292,6 +281,90 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 dell'embrione Anarchico che si stava creando, aiutandolo
                 e, di fatto, consentendogli di svilupparsi nelle regioni 
                 periferiche della Provincia, una volta occupata dal Sabbat.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    America Latina
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                E nel resto dello sterminato continente dell'America Latina?
+                L'ambientazione di Buenos Aires by Night considerer&agrave; 
+                quanto segue per quel che riguarda gli altri stati del Nuovo 
+                Continente. Ignoreremo qualsiasi informazione presente in altri
+                manuali all'infuori di quelli descritti nella sezione di
+                <Link to={GuideRoutes.environment}>Ambientazione generale</Link>.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Per tutta la sua storia, l'America Latina &egrave; stata una terra
+                contesa tra le forze del Sabbat, e le creature del Mondo di Tenebra&trade;
+                pi&ugrave; legate alle forze della Natura: i <b>Licantropi</b>. Nelle
+                grandi metropoli come São Paulo, Buenos Aires, Lima o Santiago,
+                i quartier poveri e la grande violenza sono sempre state ispirate, 
+                sfruttate e guidate anche dalla mano del Sabbat, che ha trovato
+                spazi quasi del tutto liberi alla popolazione cainita, eccezion fatta
+                per alcune sparute Linee di Sangue.<br />
+                Ma la relativa tranquillit&agrave; con cui hanno da sempre colonizzato
+                queste zone &egrave; stata a pi&ugrave; riprese disturbata dalle costanti
+                incursioni dei lupini, gelosi dello spazio che le citt&agrave; stavano 
+                prepotentemente sottraendo alla lussureggiante natura che il 
+                continente poteva vantare.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La Camarilla, soprattutto dal progressivo abbandono da parte delle 
+                potenze colonizzatrici europee dei territori un tempo dominati,
+                ha progressivamente perso interesse per il continente, ritenuto 
+                troppo distante dai loro ancestrali domini europei, preferendo
+                aumentare la loro influenza sul Vecchio Continente, e fronteggiare
+                il Sabbat sui territori dell'America del Nord.<br />
+                Complici per&ograve; le sconfitte subite proprio negli Stati Uniti,
+                i primi sforzi vennero ispirati da certa classe dirigente Ventrue
+                di origine spagnola per aumentare la loro influenza in quelle zone
+                dimenticate. Buenos Aires, quindi, &egrave; da considerarsi il 
+                primo esperimento riuscito in Sud America dal diciottesimo secolo,
+                e sarebbe stato considerato un nodo di grande importanza strategica
+                e logistica per l'ulteriore espansione nel resto del Continente,
+                non fossero avvenute le catastrofi che si sono successe nei primi 
+                vent'anni del ventunesimo secolo.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La presenza della Seconda Inquisizione nel Continente Americano del Sud, 
+                con l'<b>Entit&agrave;</b> e la Societ&agrave; di San Leopoldo in testa, 
+                &egrave; stata da sempre forte, e le grandi distanze da percorrere
+                per viaggiare da una metropoli all'altra rendono l'abbandono della
+                tecnologia un grande handicap.<br />
+                Ma la situazione precipit&ograve; con l'attacco alla Chantry Tremere a
+                Vienna, col successivo Concilio di Praga indetto per tentare di gestire
+                la situazione, e il <b>Richiamo</b>, la chiamata soprannaturale a cui tutti
+                gli Anziani della Camarilla hanno dovuto rispondere.
+                Al Concilio di Praga, Theo Bell, il famoso Brujah affiliato alla Camarilla,
+                infliggendo la Morte Ultima ad Hardestadt - e forse a Pieterszoon stesso - ha
+                di fatto scisso il destino della quasi totalit&agrave; del clan Brujah
+                da quello della Camarilla, tagliando nel frattempo la testa alla gerarchia
+                sulla quale la Camarilla poggiava da secoli.<br />
+                Da allora, il clan Banu Haquim, storicamente accettato tra le fila della 
+                Camarilla, nonostante la protesta di ci&ograve; che rimase dei Tremere, 
+                non ha fatto altro che attutire il colpo, ma le poche risorse che la Camarilla 
+                aveva da offrire furono investite per mantenere quel poco che la Seconda 
+                Inquisizione, con l'epurazione di Londra e Berlino, aveva eradicato.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                In questo contesto globale si svolgono le - per lo pi&ugrave; - isolate 
+                attivit&agrave; del Dominio di Buenos Aires. Nonostante ora citt&agrave;
+                come São Paulo, Santiago, Lima, Rio de Janeiro, siano rimaster praticamente
+                sguarnite dalla presenza del Sabbat, la presenza di Lupini, della Seconda
+                Inquisizione e la scarsit&agrave; di risorse spedite dai Domini del Vecchio
+                Continente rendono improponibile l'espansione.<br />
+                In questo contesto, sia il Dominio che l'organizzazione Anarchica stanno
+                reclutando Fratelli di ritorno dalla disastrosa esperienza di Montevideo,
+                e nuovi "coloni" europei, cainiti in grado di approfittare delle numerose
+                posizioni di potere ancora vacanti.
             </Typography>
         </>
     );

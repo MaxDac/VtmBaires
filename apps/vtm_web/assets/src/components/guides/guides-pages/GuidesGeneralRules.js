@@ -2,31 +2,28 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
 }
 
 const GuidesGeneralRules = (props: Props): any => {
-    const liStyle = {
-        margin: "15px 0"
-    };
-
     return (
         <>
-            <Typography paragraph>
-                <h1>
+            <Typography paragraph sx={guideStyle}>
+                <h1 style={titleStyle}>
                     Regole generali
                 </h1>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 In questa sezione del regolamento esporremo le regole di condotta generale in gioco e fuori dal gioco.
                 Si intende per "in gioco" l'interazione di finzione tra personaggi, mentre per "fuori gioco" l'interazione
                 tra utenti.
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 <ol>
                     <li style={liStyle}>
                         Non sar&agrave; estesa <b>nessuna</b> tolleranza per mancanza di rispetto, offesa, minacce o altro
@@ -48,10 +45,10 @@ const GuidesGeneralRules = (props: Props): any => {
             </Typography>
 
             <Typography component="h3" paragraph>
-                <h2>Interazione fuori dal gioco</h2>
+                <h2 style={titleStyle}>Interazione fuori dal gioco</h2>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 All'interno del sito &egrave; possibile comunicare fuori dal contesto del gioco sia attraverso il forum,
                 sia attraverso il sistema di messaggistica, che distingue rigorosamente il contesto fuori e dentro il gioco.
                 Per interazioni fuori dal gioco, invitiamo gli utenti ad utilizzare il forum, lasciando ai messaggi
@@ -59,10 +56,10 @@ const GuidesGeneralRules = (props: Props): any => {
             </Typography>
 
             <Typography component="h3" paragraph>
-                <h2>Interazione in gioco</h2>
+                <h2 style={titleStyle}>Interazione in gioco</h2>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 L'interazione in gioco sar&agrave; possibile in tre diversi canali: il forum, i messaggi, ma soprattutto
                 la <b>chat</b>, vero cuore pulsante del gioco di Buenos Aires by Night. Proprio nel gioco via chat
                 forniamo le seguenti linee guida interpretative.
@@ -101,7 +98,7 @@ const GuidesGeneralRules = (props: Props): any => {
                 attenersi a due regole fondamentali: <b>sunto</b> e <b>azioni prive di pensieri</b>.
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 <ul>
                     <li style={liStyle}>
                         Vampiri: la Masquerade &egrave; un gioco profondamente <i>horror</i>. Le sue tematiche possono

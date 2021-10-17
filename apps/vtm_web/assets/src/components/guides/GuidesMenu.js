@@ -71,26 +71,26 @@ const GuidesMenu = (props: Props): any => {
                         </ListItem>
                     </List>
                 </Collapse>
-                <ListItem button>
+                <ListItem button onClick={_ => history.push(GuideRoutes.npcs)}>
                     <ListItemIcon>
                         <SupervisedUserCircleIcon />
                     </ListItemIcon>
                     <ListItemText primary="Personaggi" />
                 </ListItem>
                 <Divider />
-                <ListItem button>
+                <ListItem button onClick={_ => history.push(GuideRoutes.places)}>
                     <ListItemIcon>
                         <LocationCityIcon />
                     </ListItemIcon>
                     <ListItemText primary="Luoghi" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={_ => history.push(GuideRoutes.faqs)}>
                     <ListItemIcon>
                         <ContactSupportIcon />
                     </ListItemIcon>
                     <ListItemText primary="FAQ" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={_ => history.push(GuideRoutes.credits)}>
                     <ListItemIcon>
                         <BookmarkIcon />
                     </ListItemIcon>

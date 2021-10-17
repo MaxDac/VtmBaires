@@ -4,28 +4,17 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { GuideRoutes } from "../GuidesMain";
+import { guideStyle, storyStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
 }
 
 const GuidesEnvironmentSects = (props: Props): any => {
-    const storyStyle = {
-        fontFamily: 'GabrieleLightRibbon',
-        fontSize: "14px",
-        margin: "20px 0",
-        paddingLeft: "20px",
-        paddingRight: "10px"
-    }
-
-    const liStyle = {
-        margin: "15px 0"
-    };
-
     return (
         <>
             <Typography paragraph>
-                <h1>
+                <h1 style={titleStyle}>
                     Clan e Sette
                 </h1>
             </Typography>
@@ -107,7 +96,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 Si era aspettato di peggio.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 In Buenos Aires by Night, non sar&agrave; necessario specificare 
                 direttamente l'affiliazione di un personaggio, in quanto dovr&agrave; 
                 essere chiaro nella sua biografia. In seguito, saranno esposte le
@@ -115,12 +104,12 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Camarilla
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Dopo l'accordo concluso col portavoce degli <i>Amici Noctis</i>,
                 di cui si parla nella 
                 <Link to={GuideRoutes.environmentBaires}>sezione di Ambientazione</Link>, 
@@ -134,22 +123,22 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h4>
+                <h4 style={titleStyle}>
                     Clans
                 </h4>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 <i>Sezione in costruzione</i>
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Anarchici
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 L'abbandono da parte del Sabbat dei territori, e la successiva partenza
                 verso il Medio Oriente, non ha lasciato spazio solamente alla Camarilla.
                 <b>Rodrigo Manoukian</b>, un Ravnos Anticlan, ha rifiutato di asservirsi
@@ -159,7 +148,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 i Ministri dall'entrare a far parte della Setta.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 In seguito a questo pubblico rifiuto di affiliazione alla Camarilla, e
                 alla pretesa di territorio contro la Setta, altri delusi dall'esperienza
                 fallita del Dominio di Montevideo hanno deciso di aderire e dare corpo
@@ -171,25 +160,12 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h4>
-                    Coterie: Las Calaveras del Plata
-                </h4>
-            </Typography>
-
-            <Typography paragraph sx={liStyle}>
-                L'unico branco Sabbat ad essere rimasto a Buenos Aires, adesso &egrave;
-                l'unico punto di riferimento per chi aspira ad una non-vita che segua
-                i veri ideali anarchici, una sponda contro la Camarilla, e i Ministri
-                di Set. Il branco &egrave; formato da quattro componenti:
-            </Typography>
-
-            <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Hecata
                 </h2>
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 I Giovanni sono arrivati negli anni 80 del secolo passato con la Camarilla,
                 ufficialmente per dare supporto logistico alla Setta per il suo insediamento,
                 sfruttando le loro connessioni tra gli immigranti umani italiani di 
@@ -200,7 +176,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 sia perch&eacute; era <b>vero</b>.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Per questo motivo, nonostante dopo il 1994 il loro supporto &egrave; stato
                 fondalmentale per l'insediamento del Dominio di Montevideo, la Camarilla
                 non ha nemmeno offerto il suo aiuto quando, in seguito all'attacco finanziario 
@@ -210,7 +186,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 estirpare la presenza dei Giovanni da Buenos Aires.
             </Typography>
 
-            <Typography paragraph sx={liStyle}>
+            <Typography paragraph sx={guideStyle}>
                 Ci sarebbero riusciti, se non ci fosse stata una iniezione di Fratelli
                 della famiglia Pisanob, guidati dal <i>general mujer</i> <b>Mercedes Pisanob</b>
                 approdati a Buenos Aires per sfuggire alla persecuzione

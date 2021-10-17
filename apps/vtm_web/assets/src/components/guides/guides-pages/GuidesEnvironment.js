@@ -2,25 +2,22 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
 }
 
 const GuidesEnvironment = (props: Props): any => {
-    const liStyle = {
-        margin: "15px 0"
-    };
-
     return (
         <>
             <Typography paragraph>
-                <h1>
+                <h1 style={titleStyle}>
                     Ambientazione
                 </h1>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 Con questa sezione, comincia la parte di regolamento dedicata alle inforamzioni in gioco. Verr&agrave;
                 spiegata la storia, e il suo intreccio con quella descritta nei manuali di Vampiri: la Masquerade&trade; v5,
                 e verr&agrave; anche scritto quanto della pi&ugrave; aggioranta manualistica sar&agrave; considerato,
@@ -28,19 +25,19 @@ const GuidesEnvironment = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     Glossario
                 </h2>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 Proponiamo di seguito un breve glossario di termini che verranno utilizzati in questa e nella prossima
                 sezione. <b>Disclaimer</b>: i concetti di seguito sono espressi liberamente ed in modo il pi&ugrave;
                 stringato possibile, in modo da poterne fornire un'idea del tutto generale. Si rimanda ai manuali di
                 Vampiri: la Masquerade&trade; per approfondire questi concetti.
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 <ul>
                     <li>
                         <b>Abbraccio</b>: il rituale soprannaturale attraverso cui un vampiro pu&ograve; crearne un altro.
@@ -172,12 +169,12 @@ const GuidesEnvironment = (props: Props): any => {
             </Typography>
 
             <Typography paragraph>
-                <h2>
+                <h2 style={titleStyle}>
                     V5
                 </h2>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph sx={guideStyle}>
                 Cominceremo col riassumere cosa considereremo dell'ambientazione a livello globale introdotta nell'ultima
                 versione dei manuali. Vi invitiamo comunque a leggere i manuali rilasciati dalla White Wolf&trade;.
                 Nella sezione <b>Credits</b> troverete tutti i link relativi. Quanto segue non prentede essere un riassunto
@@ -199,8 +196,8 @@ const GuidesEnvironment = (props: Props): any => {
                         e la vera alternativa al potere della Camarilla, soprattutto dopo la defezione del clan Brujah.
                         I rapporti con la Camarilla, comunque, non soffrono della stessa natura antagonistica che la Setta
                         sperimentava col Sabbat nel ventesimo secolo, anche se conti aperti rimangono, come la defezione
-                        di Theo Bell, il famoso Brujah che ha ucciso Haderstaadt, il <i>deus ex machina</i> dietro la
-                        creazione della Camarilla, e probabilmente anche il suo infante, Jan Pieterzsoon.
+                        di Theo Bell, il famoso Brujah che ha ucciso Hardestadt, il <i>deus ex machina</i> dietro la
+                        creazione della Camarilla, e probabilmente anche il suo infante, Jan Pieterszoon.
                     </li>
 
                     <li style={liStyle}>

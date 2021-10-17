@@ -11,6 +11,9 @@ import GuidesGeneralRules from "./guides-pages/GuidesGeneralRules";
 import GuidesEnvironmentBaires from "./guides-pages/GuidesEnvironmentBaires";
 import GuidesEnvironmentSects from "./guides-pages/GuidesEnvironmentSects";
 import GuidesNpcs from "./guides-pages/GuidesNpcs";
+import GuidesFaq from "./guides-pages/GuidesFaq";
+import GuidesPlaces from "./guides-pages/GuidesPlaces";
+import GuidesCredits from "./guides-pages/GuidesCredits";
 
 type Props = {
     match: any
@@ -22,7 +25,10 @@ export const GuideRoutes = {
     environment: "/guides/environment",
     environmentBaires: "/guides/environment-baires",
     environmentSects: "/guides/environment-sects",
-    npcs: "/guides/npcs"
+    npcs: "/guides/npcs",
+    places: "/guides/places",
+    faqs: "/guides/faq",
+    credits: "/guides/credits"
 };
 
 const GuidesMain = ({match}: Props): any => {
@@ -44,6 +50,9 @@ const GuidesMain = ({match}: Props): any => {
                     <Route exact path={`${match.url}/environment-baires`} component={GuidesEnvironmentBaires} />
                     <Route exact path={`${match.url}/environment-sects`} component={GuidesEnvironmentSects} />
                     <Route exact path={`${match.url}/npcs`} component={GuidesNpcs} />
+                    <Route exact path={`${match.url}/places`} component={GuidesPlaces} />
+                    <Route exact path={`${match.url}/faq`} component={GuidesFaq} />
+                    <Route exact path={`${match.url}/credits`} component={GuidesCredits} />
                 </div>
             </Box>
         </GuideLayout>
