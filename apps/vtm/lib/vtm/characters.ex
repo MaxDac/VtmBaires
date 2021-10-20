@@ -153,6 +153,31 @@ defmodule Vtm.Characters do
     nil
   end
 
+  defp get_charater_clan(character_id) do
+    query =
+      from c in Character,
+        where: c.id == ^character_id,
+        join: cl in Clan,
+        on: c.clan_id == cl.id,
+        select: cl
+
+    query |> Repo.one()
+  end
+
+  def is_character_thin_blood?(character_id) do
+    case get_charater_clan(character_id) do
+      %{name: "Thin Blood"} -> true
+      _                     -> false
+    end
+  end
+
+  def is_character_human?(character_id) do
+    case get_charater_clan(character_id) do
+      %{name: "Umano"}  -> true
+      _                 -> false
+    end
+  end
+
   @doc """
   Returns a subset of information about the character available to any user.
   """

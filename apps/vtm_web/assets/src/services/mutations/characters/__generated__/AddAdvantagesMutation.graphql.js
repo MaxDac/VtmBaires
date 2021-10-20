@@ -9,6 +9,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type AddAdvantagesInput = {|
   attributes?: ?$ReadOnlyArray<?CharacterAttributeRequest>,
+  characterId: string,
   newStage: number,
   request: CharacterFinalizationRequest,
 |};
@@ -20,7 +21,7 @@ export type CharacterAttributeRequest = {|
 export type CharacterFinalizationRequest = {|
   advantages: string,
   notes?: ?string,
-  predatorTypeId: string,
+  predatorTypeId?: ?string,
 |};
 export type AddAdvantagesMutationVariables = {|
   input: AddAdvantagesInput

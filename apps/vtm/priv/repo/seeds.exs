@@ -95,6 +95,26 @@ defmodule Vtm.SeedsHelpers do
     |> Vtm.Forum.ForumSection.changeset(attrs)
     |> Vtm.Repo.insert()
   end
+
+  defp get_clan_by_name(name) do
+    Vtm.Characters.Clan |> Vtm.Repo.get_by(name: name)
+  end
+
+  def create_or_update_humans_clan() do
+    case {get_clan_by_name("Umano"), get_clan_by_name("Humans")} do
+      {nil, nil}  ->
+        Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Umano"})
+      {h, nil}    ->
+        {:ok, h}
+      {nil, h}    ->
+        h
+        |> Vtm.Characters.Clan.changeset(%{name: "Umano"})
+        |> Vtm.Repo.update()
+      {_, h}      ->
+        h
+        |> Vtm.Repo.delete()
+    end
+  end
 end
 
 {:ok, %{id: phisical_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Physical")
@@ -186,7 +206,9 @@ Vtm.SeedsHelpers.update_attribute(mask, %{name: "Maschera", description: "Masche
 Vtm.SeedsHelpers.update_attribute(resources, %{name: "Risorse", description: "Risorse"})
 Vtm.SeedsHelpers.update_attribute(retainers, %{name: "Seguaci", description: "Seguaci"})
 
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Humans"})
+
+# Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Umano"})
+Vtm.SeedsHelpers.create_or_update_humans_clan()
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Thin Blood", attributes: [alchemy]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Caitiff", attributes: [auspex, celerity, fortitude, obfuscate, potence, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Banu Haquim", attributes: [blood_sorcery, celerity, obfuscate]})
@@ -203,23 +225,6 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Toreador", attributes: 
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tremere", attributes: [auspex, blood_sorcery, dominate]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tzimisce", attributes: [auspex, dominate, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ventrue", attributes: [dominate, fortitude, presence]})
-
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(thin_blood, [alchemy])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(caitiff, [auspex, celerity, fortitude, obfuscate, potence, presence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(banu_haquim, [blood_sorcery, celerity, obfuscate])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(bruja, [celerity, potence, presence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(gangrel, [animalism, fortitude, protean])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(hecata, [oblivion, dominate, auspex, potence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(malkavian, [auspex, dominate, obfuscate])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(ministry, [obfuscate, presence, protean])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(nosferatu, [animalism, obfuscate, potence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(lasombra, [dominate, oblivion, potence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(ravnos, [animalism, fortitude, presence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(salubri, [auspex, dominate, fortitude])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(toreador, [auspex, celerity, presence])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(tremere, [auspex, blood_sorcery, dominate])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(tzimisce, [auspex, dominate, protean])
-# Vtm.Seeds.Helpers.Vtm.SeedsHelpers.insert_clan_discipline_association(ventrue, [dominate, fortitude, presence])
 
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Accattone", description: "Accattone"})
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Allevatore", description: "Allevatore"})

@@ -19,6 +19,7 @@ import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
 import {destroySession} from "../../../services/session-service";
 import DeleteCharacterMutation from "../../../services/mutations/characters/DeleteCharacterMutation";
+import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
 
 type Props = {
 
@@ -32,7 +33,7 @@ const Internal = ({character}) => {
     const history = useHistory();
 
     const [refreshedQueryOptions, setRefreshedQueryOptions] = useState<?RefreshedQueryOption>(null);
-
+    
     const refresh = useCallback(() => {
         setRefreshedQueryOptions(previous => ({
             fetchKey: (previous?.fetchKey ?? 0) + 1,
@@ -163,11 +164,15 @@ const Internal = ({character}) => {
                     </Grid>
                 </Grid>
                 <Suspense fallback={"loading..."}>
-                    <CharacterSheetStatsSection characterId={character.id}
-                                                characterQuery={character}
-                                                queryOptions={refreshedQueryOptions}
-                                                hideAdvantages
-                                                hideStatus />
+                    <CharacterFragmentProvider characterId={character.id}>
+                        { ch =>
+                            <CharacterSheetStatsSection characterId={character.id}
+                                                        characterQuery={ch}
+                                                        queryOptions={refreshedQueryOptions}
+                                                        hideAdvantages
+                                                        hideStatus />
+                        }
+                    </CharacterFragmentProvider>
                 </Suspense>
             </>
         );

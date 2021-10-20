@@ -131,6 +131,13 @@ defmodule Vtm.Creation do
   # def switch_attributes(request) do
   #   IO.inspect {:error, request}
   # end
+  def update_character_stage_non_vampires(user_id, new_stage, character_id, attrs) do
+    with true     <- Characters.character_of_user?(user_id, character_id),
+         true     <- Characters.character_at_stage?(character_id, new_stage - 1),
+         {:ok, _} <- Characters.update_character(character_id, %{stage: new_stage}) do
+      Characters.update_character(character_id, attrs)
+    end
+  end
 
   def update_character_stage(user_id, new_stage, attrs) do
     [%{character_id: character_id} | _] = attrs
@@ -196,15 +203,23 @@ defmodule Vtm.Creation do
     set_ability_stage(character_id)
   end
 
-  def add_advantages(user_id, attrs = %{id: id}) do
+  defp add_advantages_common(user_id, attrs = %{id: id}, apply_changeset) do
     query =
       from c in Character,
         where: c.id == ^id,
         where: c.user_id == ^user_id
 
     Repo.one(query)
-    |> Character.add_advantages_character_changeset(attrs)
+    |> apply_changeset.(attrs)
     |> Repo.update()
+  end
+
+  def add_advantages(user_id, attrs) do
+    add_advantages_common(user_id, attrs, &Character.add_advantages_character_changeset/2)
+  end
+
+  def add_human_advantages(user_id, attrs) do
+    add_advantages_common(user_id, attrs, &Character.add_human_advantages_character_changeset/2)
   end
 
   defp get_complete_character_attrs(%{id: id}) do

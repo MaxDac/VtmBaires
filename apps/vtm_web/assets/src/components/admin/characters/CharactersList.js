@@ -20,8 +20,8 @@ const CharactersList = (): any => {
 
     const showComponent = () => {
         if (characters != null) {
-            <ShowCharactersComponent characters={characters}
-                                     onCharacterSelected={showCharacter} />
+            return <ShowCharactersComponent characters={characters}
+                                            onCharacterSelected={showCharacter} />
         }
 
         return (<></>);

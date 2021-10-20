@@ -4,7 +4,7 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';
-import { range } from "../../_base/utils";
+import { range } from "../utils";
 
 const DefaultFallback = (): any => {
     const SkeletonRow = () => (

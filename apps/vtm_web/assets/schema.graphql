@@ -6,6 +6,7 @@ schema {
 
 input AddAdvantagesInput {
   attributes: [CharacterAttributeRequest]
+  characterId: ID!
   newStage: Int!
   request: CharacterFinalizationRequest!
 }
@@ -188,7 +189,7 @@ input CharacterCreationRequest {
 input CharacterFinalizationRequest {
   advantages: String!
   notes: String
-  predatorTypeId: ID!
+  predatorTypeId: ID
 }
 
 type CharacterStats {
@@ -532,11 +533,12 @@ type RootQueryType {
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
+  getCharacterAvatar(characterId: ID!): Character
   getCharacterDescription(characterId: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
-  getCharactersAvatar(characterIds: [ID]): [Character]
-  getCharactersChatAvatar(characterIds: [ID]): [Character]
+  getCharactersAvatar(characterIds: [ID!]): [Character]
+  getCharactersChatAvatar(characterIds: [ID!]): [Character]
   getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
   getForumThread(id: ID): ForumThreadPage

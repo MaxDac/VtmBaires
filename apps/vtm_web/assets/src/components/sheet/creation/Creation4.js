@@ -24,11 +24,11 @@ import useStyles from "../../Main.Layout.Style";
 import AddAdvantagesMutation from "../../../services/mutations/characters/AddAdvantagesMutation";
 
 export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
-    character?.clan?.name !== "Human";
+    character?.clan?.name !== "Umano";
 
 export const characterHasDisciplines: (?CharacterFragments_characterInfo => boolean) = character => {
     const clanName = character?.clan?.name;
-    return !(clanName === "Human" || clanName === "Thin Blood");
+    return !(clanName === "Umano" || clanName === "Thin Blood");
 }
 
 type InternalElementProps = {
@@ -108,38 +108,64 @@ const Creation4 = (): any => {
         predatorType,
         advantages,
         notes
-                                                                     }) => {
-        if (discipline1 &&
-            discipline2 &&
-            predatorType &&
+    }) => {
+
+        const disciplinesOk = !characterHasDisciplines(character) ||
+            (discipline1 &&
+            discipline2);
+
+        const predatorTypeOk = !characterIsVampire(character) || predatorType;
+
+        if (disciplinesOk &&
+            predatorTypeOk &&
             advantages &&
             notes) {
-            AddAdvantagesMutation(environment, {
-                attributes: [{
-                    attributeId: discipline1,
+
+                let request = {
+                    newStage: 4,
                     characterId: String(character?.id),
-                    value: 2
-                }, {
-                    attributeId: discipline2,
-                    characterId: String(character?.id),
-                    value: 1
-                }],
-                newStage: 4,
-                request: {
-                    predatorTypeId: predatorType,
-                    advantages: advantages,
-                    notes: notes
+                    request: {
+                        predatorTypeId: predatorType,
+                        advantages: advantages,
+                        notes: notes
+                    }
+                };
+
+                if (characterHasDisciplines(character)) {
+                    request = {
+                        ...request,
+                        attributes: [{
+                            attributeId: discipline1,
+                            characterId: String(character?.id),
+                            value: 2
+                        }, {
+                            attributeId: discipline2,
+                            characterId: String(character?.id),
+                            value: 1
+                        }]
+                    };
                 }
-            })
-            .then(_ => history.push(Routes.creation5))
-            .catch(e => {
-                console.error("error!", e);
-                showUserNotification({
-                    type: "error",
-                    graphqlError: e,
-                    message: "There was an error while saving the character"
-                })
-            });
+
+                if (characterIsVampire(character)) {
+                    request = {
+                        ...request,
+                        request: {
+                            ...request.request,
+                            predatorTypeId: predatorType
+                        }
+                    };
+                }
+
+                AddAdvantagesMutation(environment, request)
+                    .then(_ => history.push(Routes.creation5))
+                    .catch(e => {
+                        console.error("error!", e);
+                        showUserNotification({
+                            type: "error",
+                            graphqlError: e,
+                            message: "There was an error while saving the character"
+                        })
+                    });
         }
     }
 

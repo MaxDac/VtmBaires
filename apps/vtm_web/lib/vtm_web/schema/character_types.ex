@@ -96,7 +96,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   end
 
   input_object :character_finalization_request do
-    field :predator_type_id, non_null(:id)
+    field :predator_type_id, :id
     field :advantages, non_null(:string)
     field :notes, :string
   end
@@ -153,6 +153,14 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :get_character_avatar, :character do
+      arg :character_id, non_null(:id)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.get_character_avatar/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :get_characters_avatar, list_of(:character) do
       arg :character_ids, list_of(non_null(:id))
 
@@ -204,6 +212,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
     payload field :add_advantages do
       input do
+        field :character_id, non_null(:id)
         field :request, non_null(:character_finalization_request)
         field :attributes, list_of(:character_attribute_request)
         field :new_stage, non_null(:integer)
@@ -214,7 +223,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
       end
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
-      resolve &CharacterResolvers.add_advantages/3
+      resolve parsing_node_ids(&CharacterResolvers.add_advantages/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

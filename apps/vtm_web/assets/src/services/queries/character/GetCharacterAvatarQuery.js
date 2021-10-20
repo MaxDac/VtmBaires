@@ -6,7 +6,7 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 
 export const query: any = graphql`
     query GetCharacterAvatarQuery($id: ID!) {
-        getCharacter(id: $id) {
+        getCharacterAvatar(characterId: $id) {
             id
             avatar
         }

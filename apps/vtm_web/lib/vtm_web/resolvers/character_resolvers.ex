@@ -51,10 +51,25 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def get_characters_avatar(_, %{character_ids: c_ids}, _) do
-    {:ok, c_ids
+  def get_character_avatar(%{character_id: c_id}, _) do
+    {:ok, [c_id]
       |> Enum.map(&from_global_id?/1)
-      |> Characters.get_characters_avatar()}
+      |> Characters.get_characters_avatar()
+    }
+  end
+
+  def get_characters_avatar(_, %{character_ids: c_ids}, _) do
+    result =
+      c_ids
+      |> Enum.map(&from_global_id?/1)
+      |> Characters.get_characters_avatar()
+
+    case result do
+      [c] ->
+        {:ok, c}
+      _   ->
+        {:error, :not_found}
+    end
   end
 
   def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
@@ -169,7 +184,31 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def add_advantages(_, %{request: request, attributes: attributes, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
+  defp add_human_advantages(character_id, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
+    new_request =
+      request
+      |> Map.put(:id, character_id)
+
+    with {:ok, _} <- Creation.add_human_advantages(user_id, new_request),
+         {:ok, _} <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, request) do
+      get_character(%{id: character_id}, context)
+    end
+  end
+
+  defp add_thin_blood_advantages(character_id, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
+    new_request =
+      request
+      |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
+      |> Map.put(:id, character_id)
+
+    with {:ok, character_id}  <- Creation.add_advantages(user_id, new_request),
+         {:ok, _}             <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, request) do
+      get_character(%{id: character_id}, context)
+    end
+
+  end
+
+  defp add_vampire_advantages(%{request: request, attributes: attributes, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
     new_attributes =
       attributes
       |> Enum.map(&parse_attribute_query/1)
@@ -184,6 +223,19 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     with {:ok, _}             <- Creation.add_advantages(user_id, new_request),
          {:ok, character_id}  <- Creation.update_character_stage(user_id, new_stage, new_attributes) do
       get_character(%{id: character_id}, context)
+    end
+  end
+
+  def add_advantages(request = %{character_id: char_id}, context) do
+    character_id = char_id |> String.to_integer()
+
+    case {Characters.is_character_human?(character_id), Characters.is_character_thin_blood?(character_id)} do
+      {true, false} ->
+        add_human_advantages(character_id, request, context)
+      {false, true} ->
+        add_thin_blood_advantages(character_id, request, context)
+      _ ->
+        add_vampire_advantages(request, context)
     end
   end
 
