@@ -153,6 +153,22 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :get_characters_avatar, list_of(:character) do
+      arg :character_ids, list_of(non_null(:id))
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.get_characters_avatar/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :get_characters_chat_avatar, list_of(:character) do
+      arg :character_ids, list_of(non_null(:id))
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.get_characters_chat_avatar/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :get_character_stats, :character_stats do
       arg :character_id, :id
 

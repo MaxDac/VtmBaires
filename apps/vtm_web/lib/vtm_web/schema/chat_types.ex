@@ -61,12 +61,29 @@ defmodule VtmWeb.Schema.ChatTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :all_chat_locations, list_of(:chat_location) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &ChatResolvers.all_chat_locations/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     # if left chat_entries, Relay got mad
     field :map_chat_entries, list_of(:map_chat_entry) do
       arg :map_id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&ChatResolvers.get_chat_entries/2, map_id: :chat_location)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    # if left chat_entries, Relay got mad
+    field :map_admin_chat_entries, list_of(:map_chat_entry) do
+      arg :map_id, :id
+      arg :from, :date_time
+      arg :to, :date_time
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&ChatResolvers.get_admin_chat_entries/2, map_id: :chat_location)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

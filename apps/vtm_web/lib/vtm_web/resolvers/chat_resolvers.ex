@@ -8,17 +8,30 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     {:ok, Chats.get_main_chat_maps()}
   end
 
-  def get_chat_maps(%{ parent_id: id }, _) do
+  def get_chat_maps(%{parent_id: id}, _) do
     {:ok, Chats.get_chat_maps(id)}
   end
 
-  def get_chat(%{ id: id }, _) do
+  def get_chat(%{id: id}, _) do
     {:ok, Chats.get_map(id)}
   end
 
-  def get_chat_entries(%{ map_id: map_id }, _) do
+  def all_chat_locations(_, _, _) do
+    {:ok, Chats.all_chat_locations()}
+  end
+
+  def get_chat_entries(%{map_id: map_id}, _) do
     entries =
       Chats.get_chat_entries(map_id)
+      |> Enum.map(&ChatHelpers.map_entry/1)
+
+    {:ok, entries}
+  end
+
+  def get_admin_chat_entries(%{map_id: map_id, from: from, to: to}, _) do
+    IO.inspect {from, to}
+    entries =
+      Chats.get_chat_entries_by_dates(map_id, from, to)
       |> Enum.map(&ChatHelpers.map_entry/1)
 
     {:ok, entries}

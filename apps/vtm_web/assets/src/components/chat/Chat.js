@@ -1,12 +1,10 @@
 // @flow
 
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useState, Suspense} from "react";
 import MainLayout from "../MainLayout";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./controls/ChatInput";
 import {subscribe} from "../../_base/relay-utils";
-import List from "@mui/material/List";
-import ChatEntryComponent from "./ChatEntryComponent";
 import chatEntryMutationPromise from "../../services/mutations/chat/CreateChatEntryMutation";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -15,7 +13,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import useMap from "../../services/queries/map/MapQuery";
-import {useChatEntriesQuery} from "../../services/queries/chat/GetChatEntriesQuery";
 import Box from "@mui/material/Box";
 import {useRelayEnvironment} from "react-relay";
 import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
@@ -29,6 +26,10 @@ import {Typography} from "@mui/material";
 import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
 import ChatStatusModal from "./modals/ChatStatusModal";
+import {useChatEntries} from "./hooks/ChatEntriesHook";
+import ChatScreen from "./ChatScreen";
+import type { ChatEntry } from "../../services/base-types";
+import DefaultFallback from "../../_base/components/DefaultFallback";
 
 type ChatProps = {
     id: string;
@@ -55,11 +56,10 @@ const Chat = ({id}: ChatProps): any => {
     const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
-    const initialEntries = useChatEntriesQuery(id);
-    const [entries, setEntries] = useState(initialEntries);
+    const initialEntries = useChatEntries(id);
     const chatToken = useSubscriptionTokenQuery();
 
-    const chatContainer = useRef();
+    const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
 
     useEffect(() => {
         updateSessionMap(environment, id)
@@ -68,20 +68,10 @@ const Chat = ({id}: ChatProps): any => {
     }, [environment, id])
 
     useEffect(() => {
-        const showNewChatEntry = entry => setEntries(es => [...es, entry]);
+        const showNewChatEntry = entry => setAdditionalEntries(es => [...es, entry]);
         const subscription = subscribe(subscriptionObservable(id, chatToken), showNewChatEntry);
         return () => subscription.unsubscribe();
     }, [id, chatToken]);
-
-    // This was previously used as a dependency for the following useEffect, but it seems that it doesn't update itself.
-    // The operation performed inside the following useEffect is not asynchronous or difficult at all anyway
-    // const chatContainerScrollHeight: number = (chatContainer.current: any)?.scrollHeight;
-
-    useEffect(() => {
-        const obj: any = chatContainer.current;
-        // obj.scrollIntoView();
-        obj.scrollTop = obj.scrollHeight;
-    });
 
     const showMapDescription = () => {
         setModalTitle(_ => map?.name);
@@ -94,25 +84,6 @@ const Chat = ({id}: ChatProps): any => {
         setSelectedCharacterName(_ => name);
         setCharacterModalOpen(_ => true);
     };
-
-    const showEntries = () => {
-        if (entries && entries.map) {
-            return entries?.map((e, index) => {
-                if (e != null) {
-                    return (
-                        <ChatEntryComponent entry={e}
-                                            key={e.id}
-                                            isLast={index === entries.length - 1}
-                                            showCharacterDescription={showCharacterDescription} />
-                    );
-                }
-
-                return (<></>);
-            });
-        }
-
-        return [];
-    }
 
     const createEntry = (action: (string, string) => Promise<any>) => {
         if (character?.id != null && map?.id != null) {
@@ -166,10 +137,10 @@ const Chat = ({id}: ChatProps): any => {
 
     const showChatMasterModal = () => {
         if (selectedCharacterId != null && selectedCharacterName != null) {
-            <ChatMasterModal mapId={id}
-                             characterId={selectedCharacterId}
-                             characterName={selectedCharacterName}
-                             closeModal={() => setCharacterModalOpen(_ => false)} />
+            return <ChatMasterModal mapId={id}
+                                    characterId={selectedCharacterId}
+                                    characterName={selectedCharacterName}
+                                    closeModal={() => setCharacterModalOpen(_ => false)} />
         }
 
         return (<></>);
@@ -224,12 +195,11 @@ const Chat = ({id}: ChatProps): any => {
                     <ChatControls openMapModal={() => showMapDescription()}
                                   openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
                                   mapId={id} />
-                    <List sx={{
-                        flex: "4 0",
-                        overflowY: "scroll"
-                    }} ref={chatContainer}>
-                        {showEntries()}
-                    </List>
+                    <Suspense fallback={<DefaultFallback />}>
+                        <ChatScreen entries={initialEntries}
+                                    additionalEntries={additionalEntries}
+                                    showCharacterDescription={showCharacterDescription} />
+                    </Suspense>
                     <Box component="div" sx={{
                         flex: "0 1 100px",
                         width: "100%"

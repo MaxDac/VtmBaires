@@ -42,12 +42,14 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
     });
 
     const onAttributeChanged = a =>
-        setSavedStats(p => p?.reduce((acc, current) =>
+        // $FlowFixMe
+        setSavedStats(p => p.reduce((acc, current) =>
             current.id === a.id
                 ? [...acc, a]
                 : [...acc, current], []));
 
     const onSave = () => {
+        // $FlowFixMe
         const attributes = savedStates.map(({id, value}) => ({id, value: Number(value)}));
 
         handleMutation(() => AssignNpcAttributesMutation(environment, characterId, {

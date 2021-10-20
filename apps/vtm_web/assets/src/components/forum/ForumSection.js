@@ -28,7 +28,8 @@ const ForumSection = ({sectionId}: Props): any => {
 
     const threads = useCustomLazyLoadQuery<GetForumThreadsQuery>(
         getForumThreadsQuery,
-        {forumSectionId: sectionId}
+        {forumSectionId: sectionId},
+        {fetchPolicy: "store-and-network"}
     )?.getForumThreads;
 
     const toFormThread = id => history.push(Routes.forumThread(id ?? ""));

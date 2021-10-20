@@ -193,6 +193,18 @@ defmodule Vtm.Characters do
     |> Repo.all()
   end
 
+  @spec get_characters_avatar(list(Integer.t())) :: list(Character.t())
+  def get_characters_avatar(character_ids) do
+    from(c in Character, where: c.id in ^character_ids, select: %Character{id: c.id, avatar: c.avatar})
+    |> Repo.all()
+  end
+
+  @spec get_characters_chat_avatar(list(Integer.t())) :: list(Character.t())
+  def get_characters_chat_avatar(character_ids) do
+    from(c in Character, where: c.id in ^character_ids, select: %Character{id: c.id, chat_avatar: c.chat_avatar})
+    |> Repo.all()
+  end
+
   defp associate_attribute_to_value(attribute = %Attribute{id: attribute_id}, map) do
     %{
       id: attribute_id,
@@ -256,12 +268,10 @@ defmodule Vtm.Characters do
     |> handle_character_attribute_query_result(character_id)
   end
 
-  @spec get_character_attributes_subset(Integer.t(), list(Integer.t())) :: list(CharacterAttribute.t())
-  def get_character_attributes_subset(character_id, attribute_names) do
+  defp get_character_attributes_subset(attribute_query, character_id) do
     # Performance: a direct query is preferred instead of filtering all the character attributes
     query =
-      from a in Attribute,
-        where: a.name in ^attribute_names,
+      from a in attribute_query,
         left_join: ca in CharacterAttribute,
         on: a.id == ca.attribute_id and ca.character_id == ^character_id,
         select: {a, ca}
@@ -269,6 +279,18 @@ defmodule Vtm.Characters do
     query
     |> Repo.all()
     |> Enum.map(&handle_character_attribute_query_result(&1, character_id))
+  end
+
+  @spec get_character_attributes_subset_by_names(Integer.t(), list(String.t())) :: list(CharacterAttribute.t())
+  def get_character_attributes_subset_by_names(character_id, attribute_names) do
+    from(a in Attribute, where: a.name in ^attribute_names)
+    |> get_character_attributes_subset(character_id)
+  end
+
+  @spec get_character_attributes_subset_by_ids(Integer.t(), list(Integer.t())) :: list(CharacterAttribute.t())
+  def get_character_attributes_subset_by_ids(character_id, attribute_ids) do
+    from(a in Attribute, where: a.id in ^attribute_ids)
+    |> get_character_attributes_subset(character_id)
   end
 
   def get_character_predator_type(id) do

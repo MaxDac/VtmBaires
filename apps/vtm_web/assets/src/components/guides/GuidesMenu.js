@@ -15,7 +15,8 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import HelpIcon from '@mui/icons-material/Help';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
@@ -84,9 +85,15 @@ const GuidesMenu = (props: Props): any => {
                     </ListItemIcon>
                     <ListItemText primary="Luoghi" />
                 </ListItem>
+                <ListItem button onClick={_ => history.push(GuideRoutes.siteHelp)}>
+                    <ListItemIcon>
+                        <HelpIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Help del Sito" />
+                </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.faqs)}>
                     <ListItemIcon>
-                        <ContactSupportIcon />
+                        <QuestionAnswerIcon />
                     </ListItemIcon>
                     <ListItemText primary="FAQ" />
                 </ListItem>

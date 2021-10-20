@@ -5,14 +5,29 @@ defmodule VtmWeb.Resolvers.ChatHelpers do
   def map_entry(entry = %{
     character_id: c_id,
     character_name: c_name,
-    character_chat_avatar: c_avatar,
+    # character_chat_avatar: c_avatar,
     chat_map_id: map_id
   }) do
     entry
     |> Map.put(:character, %{
       id: c_id,
-      name: c_name,
-      chat_avatar: c_avatar
+      name: c_name
+      # chat_avatar: c_avatar
+    })
+    |> Map.put(:chat_map, %{
+      id: map_id
+    })
+  end
+
+  def map_entry_slim(entry = %{
+    character_id: c_id,
+    character_name: c_name,
+    chat_map_id: map_id
+  }) do
+    entry
+    |> Map.put(:character, %{
+      id: c_id,
+      name: c_name
     })
     |> Map.put(:chat_map, %{
       id: map_id

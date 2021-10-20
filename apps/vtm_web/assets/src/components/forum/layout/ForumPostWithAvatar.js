@@ -1,11 +1,10 @@
 // @flow
 
 import React from "react";
-import Grid from "@mui/material/Grid";
-import Avatar from "@mui/material/Avatar";
 import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
+import Box from "@mui/material/Box";
 
 type Props = {
     onGame: boolean;
@@ -18,16 +17,25 @@ const ForumPostWithAvatar = ({post, onGame}: Props): any => {
         : {};
 
     return (
-        <Grid container>
-            <Grid item xs={6} sm={3} md={2} sx={{textAlign: "center"}}>
-                <Avatar sx={{width: "100px", height: "100px"}} src={post?.creatorAvatar} />
-            </Grid>
-            <Grid item xs={6} sm={9} md={10}>
+        <Box>
+            <img style={{width: "100px", height: "100px", border: "2px grey dotted"}} 
+                 src={post?.creatorAvatar}
+                 alt={`${post?.creatorName ?? ""} Avatar`}
+                 align="left"
+                 vspace="10px"
+                 hspace="10px" />
+            <Box component="span">
+                <Typography style={{
+                    ...style(),
+                    color: "#C92929"
+                }}>
+                    {post?.creatorName}
+                </Typography>
                 <Typography sx={style()}>
                     {post?.text}
                 </Typography>
-            </Grid>
-        </Grid>
+            </Box>
+        </Box>
     );
 }
 

@@ -21,7 +21,7 @@ defmodule VtmWeb.Schema.BaseTypes do
   end
 
   scalar :date do
-    parse fn %{ value: value } ->
+    parse fn %{value: value} ->
       case Date.from_iso8601(value) do
         x = {:ok, _} -> x
         _ -> :error
@@ -34,8 +34,8 @@ defmodule VtmWeb.Schema.BaseTypes do
   end
 
   scalar :date_time do
-    parse fn %{ value: value } ->
-      case Date.from_iso8601(value) do
+    parse fn %{value: value} ->
+      case NaiveDateTime.from_iso8601(value) do
         x = {:ok, _} -> x
         _ -> :error
       end

@@ -53,7 +53,7 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     end
   end
 
-  def handle_message_trigger(%{ receiver_user_id: id }), do: id
+  def handle_message_trigger(%{receiver_user_id: id}), do: id
   def handle_message_trigger(_), do: "0"
 
   def message_subscription_resolver(message = %Message{receiver_user_id: user_id}, _args, _res) do

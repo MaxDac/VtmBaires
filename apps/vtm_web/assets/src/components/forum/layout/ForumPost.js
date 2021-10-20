@@ -21,18 +21,19 @@ const ForumPost = ({post, onGame}: Props): any => {
         <Grid container>
             <Grid item xs={12}>
                 <Typography sx={{
-                    ...mainFontFamily,
-                    padding: "10px",
-                    margin: "10px"
+                    ...mainFontFamily
                 }}>
                     {post?.creatorName}
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{
+                padding: "10px",
+                margin: "10px"}}>
                 <Paper component="div" variant="outlined">
                     <Typography sx={{
                         ...style(),
-                        padding: "10px"
+                        padding: "10px",
+                        margin: "10px"
                     }}>
                         {post?.text}
                     </Typography>

@@ -10,11 +10,12 @@ import AuthMasterRoute from "./components/_auth/AuthMasterRoute";
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
 export const Routes = {
+    splashScreen: "/",
     login: "/login",
     register: "/register",
     recoverPassword: "/recover-password",
     disclaimer: "/disclaimer",
-    main: "/",
+    main: "/main",
     creation1: "/creation/1",
     creation2: "/creation/2",
     creation3: "/creation/3",
@@ -47,6 +48,7 @@ export const Routes = {
     characterDashboard: (id: string): string => `/admin/character/${id}`,
     createNewNpc: "/admin/npc/new",
     defineNpc: (id: string): string => `/admin/npc/${id}/define`,
+    chatViewer: "/admin/chat",
 
     guideMain: "/guides"
 };
@@ -60,6 +62,8 @@ export const push = (history: History, routeKey: string): (Event => void) =>
 
 export const pushAdmin = (history: History, routeKey: string): (Event => void) =>
     _ => history.push(AdminRoutes[routeKey]);
+
+const SplashScreen = React.lazy(() => import('./components/login/SplashScreen'));
 
 const Login = React.lazy(() => import('./components/login/Login'));
 const CreateUser = React.lazy(() => import('./components/login/CreateUser'));
@@ -92,8 +96,7 @@ const CreateNewPost = React.lazy(() => import('./components/forum/forms/CreateNe
 const ForumThread = React.lazy(() => import('./components/forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./components/forum/ForumSection'));
 
-const AdminGuides = React.lazy(() => import('./components/admin/guides/AdminGuides'));
-const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
+const ChatViewer = React.lazy(() => import('./components/admin/chat/ChatViewer'));
 const CharactersList = React.lazy(() => import('./components/admin/characters/CharactersList'));
 const CharacterDashboard = React.lazy(() => import('./components/admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./components/admin/approvation/UnapprovedCharacters'));
@@ -105,12 +108,13 @@ const GuidesMain = React.lazy(() => import('./components/guides/GuidesMain'));
 const AppRouter = (): any => {
     return (
         <Switch>
+            <Route exact path="/" component={SplashScreen} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={CreateUser} />
             <Route exact path="/recover-password" component={RecoverPassword} />
             <Route exact path="/disclaimer" component={Disclaimer} />
 
-            <AuthRoute exact path="/" component={() => <Main />} />
+            <AuthRoute exact path="/main" component={() => <Main />} />
 
             <AuthRoute exact path="/creation/1" component={() => <Creation1 />} />
             <AuthRoute exact path="/creation/2" component={() => <Creation2 />} />
@@ -141,13 +145,12 @@ const AppRouter = (): any => {
             <AuthRoute exact path="/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
             <AuthRoute exact path="/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
 
-            <AuthMasterRoute exact path="/admin/guides" component={() => <AdminGuides />} />
-            <AuthMasterRoute exact path="/admin" component={() => <AdminDashboard />} />
             <AuthMasterRoute exact path="/admin/characters" component={() => <CharactersList />} />
             <AuthMasterRoute exact path="/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
             <AuthMasterRoute exact path="/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/admin/npc/new" component={() => <CreateNewNpc />} />
             <AuthMasterRoute exact path="/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
+            <AuthMasterRoute exact path="/admin/chat" component={() => <ChatViewer />} />
 
             <Route path="/guides" component={GuidesMain} />
         </Switch>

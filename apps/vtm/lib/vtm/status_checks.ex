@@ -227,7 +227,7 @@ defmodule Vtm.StatusChecks do
 
   def get_hunt_attributes_amount(%{id: character_id}) do
     character_id
-    |> Characters.get_character_attributes_subset(["Prontezza", "Sopravvivenza", "Gregge", "Seguaci"])
+    |> Characters.get_character_attributes_subset_by_names(["Prontezza", "Sopravvivenza", "Gregge", "Seguaci"])
     |> Enum.map(fn %{value: value} -> value end)
     |> Enum.sum()
   end

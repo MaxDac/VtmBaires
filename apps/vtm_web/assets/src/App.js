@@ -16,6 +16,7 @@ import type {IEnvironment} from "relay-runtime";
 import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
 import MainSuspenseFallback from "./MainSuspenseFallback";
+import { performLogout } from "./services/logout-service";
 
 const Internal = ({env}: { env: IEnvironment}) => {
     const { showUserNotification } = useContext(UtilityContext);
@@ -34,7 +35,7 @@ const Internal = ({env}: { env: IEnvironment}) => {
     };
 
     return (
-        <ErrorBoundaryWithRetry fallback={fallback} onUnauthorized={() => history.push(Routes.login)}>
+        <ErrorBoundaryWithRetry fallback={fallback} onUnauthorized={() => performLogout(() => history.push(Routes.login))}>
             <RelayEnvironmentProvider environment={env}>
                 <AppRouter />
             </RelayEnvironmentProvider>

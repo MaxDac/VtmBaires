@@ -51,6 +51,18 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
+  def get_characters_avatar(_, %{character_ids: c_ids}, _) do
+    {:ok, c_ids
+      |> Enum.map(&from_global_id?/1)
+      |> Characters.get_characters_avatar()}
+  end
+
+  def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
+    {:ok, c_ids
+      |> Enum.map(&from_global_id?/1)
+      |> Characters.get_characters_chat_avatar()}
+  end
+
   def get_character_stats(%{character_id: id }, %{context: %{current_user: user}}) do
     with %{id: character_id}  <- Characters.get_specific_character(user, id),
          stats                <- Characters.get_character_stats(character_id) |> IO.inspect() do

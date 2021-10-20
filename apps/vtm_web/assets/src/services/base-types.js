@@ -25,7 +25,7 @@ export type ChatEntry = {
     character: {
         id: string;
         name: string;
-        chatAvatar: string;
+        chatAvatar?: string;
     },
     chatMap: {
         id: string;

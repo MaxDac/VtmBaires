@@ -17,12 +17,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
-import ContainedSuspenseFallback from "./ContainedSuspenseFallback";
 import {useMediaQuery} from "@mui/material";
 import {useEffect} from "react";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
 import LogoutControl from "./_layout/LogoutControl";
+import DefaultFallback from "../_base/components/DefaultFallback";
 
 const drawerWidth = 240;
 
@@ -212,7 +212,7 @@ export default function MiniDrawer({children}: {children: any}): any {
             {drawer()}
             <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{height: "100vh"}}>
                 <DrawerHeader />
-                <React.Suspense fallback={<ContainedSuspenseFallback />}>
+                <React.Suspense fallback={<DefaultFallback />}>
                     {children}
                 </React.Suspense>
             </Box>

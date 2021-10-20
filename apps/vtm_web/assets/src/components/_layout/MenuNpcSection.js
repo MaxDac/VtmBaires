@@ -12,7 +12,7 @@ import {Routes} from "../../AppRouter";
 import {useSession} from "../../services/session-service";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import GroupsIcon from '@mui/icons-material/Groups';
-import {SessionContext} from "../../contexts";
+import { SessionContext, UtilityContext } from "../../contexts";
 import {useHistory} from "react-router-dom";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -32,6 +32,7 @@ const MenuNpcSection = ({pushHistory}: Props): any => {
     const [expand, setExpand] = useState(false);
     const [,currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
+    const {openDialog} = useContext(UtilityContext);
 
     const npcs = useCustomLazyLoadQuery<GetAllNpcsQuery>(getAllNpcsQuery, {}, {
         fetchPolicy: "store-and-network"
@@ -42,7 +43,10 @@ const MenuNpcSection = ({pushHistory}: Props): any => {
             setCurrentCharacter(info);
 
             if (info.isComplete) {
-                history.push(Routes.sheet(info?.id));
+                openDialog(
+                    "Selezione personaggio", 
+                    "Il personaggio è stato selezionato, vuoi vedere la sua scheda?", 
+                    () => history.push(Routes.sheet(info?.id)));
             }
             else {
                 history.push(Routes.defineNpc(info?.id));

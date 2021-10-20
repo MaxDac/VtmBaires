@@ -26,6 +26,11 @@ defmodule Vtm.Chats do
     ChatMap |> Repo.get(chat_id)
   end
 
+  def all_chat_locations() do
+    from(c in ChatMap, where: c.is_chat == true)
+    |> Repo.all()
+  end
+
   @doc """
   Enriches the map id passed in input with the name, returning a session info struct.
   """
@@ -51,7 +56,7 @@ defmodule Vtm.Chats do
         id: c.id,
         character_id: ch.id,
         character_name: ch.name,
-        character_chat_avatar: ch.chat_avatar,
+        # character_chat_avatar: ch.chat_avatar,
         result: c.result,
         master: c.master,
         text: c.text,
@@ -63,6 +68,21 @@ defmodule Vtm.Chats do
   def get_chat_entries(map_id) do
     query = from c in chat_and_character_joined_query(),
       where: c.chat_map_id == ^map_id
+
+    Repo.all(query)
+  end
+
+  @spec get_chat_entries_by_dates(Integer.t(), NaiveDateTime.t(), NaiveDateTime.t()) :: list(ChatEntry.t())
+  def get_chat_entries_by_dates(map_id, from, to) do
+    query = from c in ChatEntry,
+      where: c.chat_map_id == ^map_id,
+      where: fragment("? BETWEEN ? AND ?", c.inserted_at, ^from, ^to),
+      join: ch in Character,
+      on: c.character_id == ch.id,
+      select: %ChatEntry{c | character: %{
+        id: ch.id,
+        name: ch.name
+      }}
 
     Repo.all(query)
   end
@@ -95,7 +115,7 @@ defmodule Vtm.Chats do
 
   def simulate_dice_throw(dice_thrower, user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do
     # Gathering all the information
-    amount = get_dice_amount(character_id, attribute_id, ability_id, free_throw)
+    {amount, throw_description} = get_dice_amount(character_id, attribute_id, ability_id, free_throw)
     %{ hunger: hunger } = Characters.get_character_status(user_id, character_id)
 
     # Simulating dice throwing
@@ -108,29 +128,38 @@ defmodule Vtm.Chats do
     dices_as_string = dices_to_string(dices, difficulty)
 
     # Parsing the result
-    parse_result(dice_throw_result, dices_as_string)
+    parse_result(dice_throw_result, throw_description, dices_as_string)
   end
 
   defp get_dice_amount(character_id, attribute_id, ability_id, free_throw) do
     case {attribute_id, ability_id, free_throw} do
       {attribute_id, ability_id, _} when not(is_nil(attribute_id)) and not(is_nil(ability_id)) ->
-        get_character_dices_amount(character_id, attribute_id, ability_id)
+        with result <- get_character_dices_amount(character_id, attribute_id, ability_id, free_throw) do
+          result
+        end
       {_, _, free_throw} when not is_nil(free_throw) ->
-        free_throw
+        {free_throw, "Tiro di #{free_throw} dadi"}
       _ ->
         0
     end
   end
 
-  defp get_character_dices_amount(character_id, attribute_id, ability_id) do
-    attrs = Characters.get_character_attrs_with_value(character_id)
+  defp get_character_dices_amount(character_id, attribute_id, ability_id, free_throw) do
+    attrs =
+      Characters.get_character_attributes_subset_by_ids(character_id, [attribute_id, ability_id])
 
-    case {attrs |> Map.get(attribute_id), attrs |> Map.get(ability_id)} do
-      {nil, nil}    -> 0
-      {nil, val}    -> val
-      {val, nil}    -> val
-      {val1, val2}  -> val1 + val2
-    end
+    {
+      %{value: attribute_value, attribute: %{name: attribute_name}},
+      %{value: ability_value, attribute: %{name: ability_name}}
+    } = {
+      attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == attribute_id end),
+      attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == ability_id end)
+    }
+
+    {
+      attribute_value + ability_value + free_throw,
+      "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"
+    }
   end
 
   defp get_dices_result(dice_thrower, amount, hunger) do
@@ -156,15 +185,18 @@ defmodule Vtm.Chats do
     "(#{visual}, difficoltà: #{difficulty})"
   end
 
-  defp parse_result(result, dices_as_string) do
-    case result do
-      :bestial_failure    -> "*Il personaggio sperimenta un fallimento bestiale!* #{dices_as_string}."
-      :total_failure      -> "Il personaggio fallisce totalmente! #{dices_as_string}."
-      :critical_success   -> "Il personaggio ottiene un successo critico! #{dices_as_string}."
-      :failure            -> "Il personaggio fallisce. #{dices_as_string}."
-      :messy_critical     -> "*La Bestia emerge: il personaggio totalizza un successo caotico!* #{dices_as_string}."
-      :success            -> "Il personaggio riesce nell'intento #{dices_as_string}."
-    end
+  defp parse_result(result, throw_description, dices_as_string) do
+    result_desc =
+      case result do
+        :bestial_failure    -> "*Il personaggio sperimenta un fallimento bestiale!* #{dices_as_string}."
+        :total_failure      -> "Il personaggio fallisce totalmente! #{dices_as_string}."
+        :critical_success   -> "Il personaggio ottiene un successo critico! #{dices_as_string}."
+        :failure            -> "Il personaggio fallisce. #{dices_as_string}."
+        :messy_critical     -> "*La Bestia emerge: il personaggio totalizza un successo caotico!* #{dices_as_string}."
+        :success            -> "Il personaggio riesce nell'intento #{dices_as_string}."
+      end
+
+    "#{throw_description}: #{result_desc}"
   end
 
   @spec get_dice_throw_results([{boolean(), number()}], number()) ::

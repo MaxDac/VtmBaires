@@ -1,6 +1,7 @@
 import "./wdyr";
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "./fonts/gabriele-l.ttf";
 import './index.css';
 import App from './App';
 import {HashRouter} from "react-router-dom";

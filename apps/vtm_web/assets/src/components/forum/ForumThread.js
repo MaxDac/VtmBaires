@@ -23,7 +23,8 @@ type Props = {
 const ForumThread = ({threadId}: Props): any => {
     const history = useHistory();
 
-    const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {forumThreadId: threadId})
+    const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {forumThreadId: threadId},
+        {fetchPolicy: "store-and-network"})
         ?.getForumThread;
     
     const section = firstOrDefault(useForumSections()

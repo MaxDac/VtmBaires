@@ -14,7 +14,7 @@ import {useSession} from "../../services/session-service";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import type {UserCharactersQuery} from "../../services/queries/accounts/__generated__/UserCharactersQuery.graphql";
 import {userCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
-import {SessionContext} from "../../contexts";
+import { SessionContext, UtilityContext } from "../../contexts";
 import {useHistory} from "react-router-dom";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -31,6 +31,7 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
     const [,currentCharacter] = useSession();
+    const {openDialog} = useContext(UtilityContext);
     const {setCurrentCharacter} = useContext(SessionContext);
 
     const characters = useCustomLazyLoadQuery<UserCharactersQuery>(userCharactersQuery, {}, {
@@ -45,7 +46,10 @@ const MenuCharacterSection = ({pushHistory}: Props): any => {
                 pushHistory(`${Routes.creationBase}${info.stage + 1}`)();
             }
             else {
-                pushHistory(Routes.sheet(info.id))();
+                openDialog(
+                    "Selezione personaggio", 
+                    "Il personaggio è stato selezionato, vuoi vedere la sua scheda?", 
+                    pushHistory(Routes.sheet(info.id)));
             }
         }
 

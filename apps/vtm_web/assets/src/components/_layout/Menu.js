@@ -12,6 +12,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ChatIcon from '@mui/icons-material/Chat';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import {Routes} from "../../AppRouter";
 import MenuCharacterSection from "./MenuCharacterSection";
 import {useHistory} from "react-router-dom";
@@ -111,6 +112,12 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
                     <SupervisedUserCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Lista personaggi" />
+            </ListItem>
+            <ListItem button onClick={pushHistory(Routes.chatViewer)}>
+                <ListItemIcon>
+                    <MarkChatReadIcon />
+                </ListItemIcon>
+                <ListItemText primary="Chats" />
             </ListItem>
             <Divider />
             {DOLogo()}

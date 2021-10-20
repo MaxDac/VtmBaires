@@ -5,6 +5,7 @@ import {Routes} from "../AppRouter";
 import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
+import {format} from "date-fns"
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -44,6 +45,21 @@ export function toArray<T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<?T> {
 
     return emptyArray<?T>();
 }
+
+export const uniques = <T>(arr: Array<T>): Array<T> => [...new Set(arr)];
+
+export const toMap = <TKey, TValue>(arr: ?Array<?[?TKey, ?TValue]>): ?Map<TKey, TValue> =>
+    arr?.reduce((map, next) => {
+        if (next != null) {
+            const [key, value] = next;
+
+            if (key != null && value != null) {
+                return map.set(key, value);
+            }
+        }
+
+        return map;
+    }, new Map<TKey, TValue>());
 
 export function filterNulls<T>(arr: Array<?T>): Array<T> {
     return arr?.reduce((acc, p) => {
@@ -127,12 +143,10 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
 }): Promise<?T> {
     return mutation()
         .then(result => {
-            if (args?.successMessage != null) {
-                showNotification({
-                    type: "success",
-                    message: args?.successMessage ?? "La modifica è stata effettuata con successo"
-                });
-            }
+            showNotification({
+                type: "success",
+                message: args?.successMessage ?? "La modifica è stata effettuata con successo"
+            });
         })
         .catch(error => {
             console.log("An error occoured while performing the mutation: ", error);
@@ -146,4 +160,12 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
                 args.onCompleted();
             }
         });
+}
+
+export function defaultFormatDateAndTime(date: ?any): ?string {
+    if (date != null) {
+         return format(new Date(date), "dd-LL-yyyy HH:mm");
+    }
+
+    return null;
 }

@@ -524,6 +524,7 @@ type RootMutationType {
 }
 
 type RootQueryType {
+  allChatLocations: [ChatLocation]
   allNpcs: [Character]
   allUsers: [User]
   attributes: [Attribute]
@@ -534,6 +535,8 @@ type RootQueryType {
   getCharacterDescription(characterId: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
+  getCharactersAvatar(characterIds: [ID]): [Character]
+  getCharactersChatAvatar(characterIds: [ID]): [Character]
   getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
   getForumThread(id: ID): ForumThreadPage
@@ -542,6 +545,7 @@ type RootQueryType {
   getSessionCharacter: Character
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
+  mapAdminChatEntries(from: DateTime, mapId: ID, to: DateTime): [MapChatEntry]
   mapChatEntries(mapId: ID): [MapChatEntry]
   me: User
   messagesDigest: MessageDigest
