@@ -15,7 +15,6 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
     arguments: %{input: input = %{character_id: character_id}},
     context: %{current_user: %{id: user_id, role: role}}
   }, _) do
-    IO.inspect input
     check_character(character_id, user_id, role, resolution)
   end
 

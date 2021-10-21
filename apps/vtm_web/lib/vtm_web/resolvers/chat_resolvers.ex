@@ -29,7 +29,6 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def get_admin_chat_entries(%{map_id: map_id, from: from, to: to}, _) do
-    IO.inspect {from, to}
     entries =
       Chats.get_chat_entries_by_dates(map_id, from, to)
       |> Enum.map(&ChatHelpers.map_entry/1)

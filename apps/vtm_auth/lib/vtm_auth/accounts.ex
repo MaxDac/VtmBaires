@@ -149,7 +149,6 @@ defmodule VtmAuth.Accounts do
       new_values =
         (info || %{})
         |> Map.merge(attrs |> VtmAuth.Helpers.atom_map_to_map())
-        |> IO.inspect()
 
       session
       |> Session.changeset(%{session_info: new_values})

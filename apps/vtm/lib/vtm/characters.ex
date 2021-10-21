@@ -521,7 +521,7 @@ defmodule Vtm.Characters do
   end
 
   def change_character_attribute(character_id, attribute_id, new_value) do
-    [character_id, attribute_id, new_value] |> IO.inspect()
+    [character_id, attribute_id, new_value]
     query =
       from ca in CharacterAttribute,
         where: ca.character_id == ^character_id,

@@ -320,7 +320,6 @@ defmodule Vtm.StatusChecks do
   """
   @spec hunt(Integer.t()) :: Character.t()
   def hunt(character_id) do
-    IO.inspect character_id
     character = %{last_hunt: last_hunt} = Character |> Repo.get(character_id)
 
     case Helpers.at_least_one_day?(last_hunt) do

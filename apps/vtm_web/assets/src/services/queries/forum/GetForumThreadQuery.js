@@ -10,6 +10,10 @@ export type Post = {
         +id: ?string,
         +name: ?string
     |},
+    +user: ?{|
+        +id: ?string,
+        +name: ?string
+    |},
     +insertedAt: ?any,
     +updatedAt: ?any,
 };
@@ -30,6 +34,10 @@ export const getForumThreadQuery: GraphQLTaggedNode = graphql`
                 id
                 text
                 character {
+                    id
+                    name
+                }
+                user {
                     id
                     name
                 }

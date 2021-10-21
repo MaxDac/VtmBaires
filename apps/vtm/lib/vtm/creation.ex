@@ -173,7 +173,6 @@ defmodule Vtm.Creation do
         where: ta.template_id == ^template_id)
       |> Repo.all()
       |> Enum.map(&create_attribute_value_from_template(&1, character_id))
-      |> IO.inspect()
 
     case CharacterAttribute |> Repo.insert_all(css) do
       {24, nil} -> :ok

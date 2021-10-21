@@ -61,12 +61,14 @@ defmodule Vtm.Forum do
 
   defp include_character_subquery() do
     from c in Character,
-      where: parent_as(:items).creator_character_id == c.id
+      where: parent_as(:items).creator_character_id == c.id,
+      select: %Character{id: c.id, name: c.name}
   end
 
   defp include_user_subquery() do
     from u in User,
-      where: parent_as(:items).creator_user_id == u.id
+      where: parent_as(:items).creator_user_id == u.id,
+      select: %User{id: u.id, name: u.name}
   end
 
   @spec map_creator_name({ForumThread.t() | ForumPost.t(), String.t() | nil, String.t()}) :: ForumThread.t() | ForumPost.t()
@@ -140,16 +142,16 @@ defmodule Vtm.Forum do
           left_lateral_join: u in subquery(include_user_subquery()),
           where: p.forum_thread_id == ^thread_id,
           order_by: [desc: p.inserted_at],
-          select: {p, c.id, c.name, u.name}
+          select: {p, c.id, c.name, u.id, u.name}
 
       {:ok, Repo.all(query)
         |> Enum.map(fn
-          {item, id, name, _} when not is_nil(name) ->
+          {item, id, name, _, _} when not is_nil(name) ->
             item
             |> Map.put(:character, %{id: id, name: name})
-          {item, _, name, _} ->
+          {item, _, _, id, name} ->
             item
-            |> Map.put(:creator_name, name)
+            |> Map.put(:user, %{id: id, name: name})
         end)}
     else
       nil -> {:error, :not_found}

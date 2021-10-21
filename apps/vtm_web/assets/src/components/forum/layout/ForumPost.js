@@ -23,7 +23,7 @@ const ForumPost = ({post, onGame}: Props): any => {
                 <Typography sx={{
                     ...mainFontFamily
                 }}>
-                    {post?.character?.name}
+                    {post?.character?.name ?? post?.user?.name}
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={{

@@ -310,6 +310,7 @@ type ForumPost implements Node {
   insertedAt: DateTime
   text: String
   updatedAt: DateTime
+  user: User
 }
 
 type ForumSection implements Node {

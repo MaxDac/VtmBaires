@@ -33,6 +33,7 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :forum_section, :forum_section
     field :forum_thread, :forum_thread
     field :character, :character
+    field :user, :user
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end
