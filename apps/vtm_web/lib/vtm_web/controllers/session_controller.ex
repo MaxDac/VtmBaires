@@ -42,7 +42,7 @@ defmodule VtmWeb.SessionController do
   Having that the site in production will use Nginx, it forwards the information
   as headers in Host and X-Real-IP respectively.
   """
-  defp get_remote_host_and_ip(conn) do
+  defp get_remote_host_and_ip(conn = %{req_headers: headers}) do
     case Application.get_env(:vtm_web, :environment) do
       :prod ->
         case {
@@ -52,7 +52,7 @@ defmodule VtmWeb.SessionController do
           {[host], [ip]} ->
             {host, ip}
           {host, ip} ->
-            {inspect(host), inspect(ip)}
+            {inspect(headers), inspect(ip)}
         end
       _ ->
         %{host: host, remote_ip: remote_ip} = conn
