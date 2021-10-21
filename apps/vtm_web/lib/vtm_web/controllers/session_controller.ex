@@ -46,12 +46,12 @@ defmodule VtmWeb.SessionController do
     case Application.get_env(:vtm_web, :environment) do
       :prod ->
         case {
-          conn |> get_req_header("Host"),
-          conn |> get_req_header("X-Real-IP")
+          conn |> get_req_header("host"),
+          conn |> get_req_header("x-real-ip")
         } do
           {[host], [ip]} ->
             {host, ip}
-          {host, ip} ->
+          {_, ip} ->
             {inspect(headers), inspect(ip)}
         end
       _ ->
