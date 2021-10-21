@@ -10,12 +10,39 @@ import HuntMutation from "../../services/mutations/characters/HuntMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useSession} from "../../services/session-service";
 import type {HuntMutationResponse} from "../../services/mutations/characters/__generated__/HuntMutation.graphql";
+import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
+import { useFragment } from "react-relay/hooks";
+import type { CharacterFragments_characterStats$key } from "../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import { characterStatsFragment } from "../../services/queries/character/CharacterFragments";
+import { characterIsVampire } from "../../_base/utils";
 
-type Props = {
+type MenuHuntSectionInternalProps = {
+    characterQuery: any;
+    huntRequest: any => void;
+};
 
-}
+const MenuHuntSectionInternal = ({characterQuery, huntRequest}: MenuHuntSectionInternalProps): any => {
+    const characterInfo = useFragment<CharacterFragments_characterStats$key>(characterStatsFragment, characterQuery);
 
-const MenuHuntSection = (props: Props): any => {
+    const showHuntMenu = () => {
+        if (characterIsVampire(characterInfo)) {
+            return (
+                <ListItem button onClick={huntRequest}>
+                    <ListItemIcon>
+                        <InvertColorsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Caccia" />
+                </ListItem>
+            );
+        }
+
+        return (<></>);
+    };
+
+    return showHuntMenu();
+};
+
+const MenuHuntSection = (): any => {
     const environment = useRelayEnvironment();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const [,character] = useSession();
@@ -69,12 +96,11 @@ const MenuHuntSection = (props: Props): any => {
     }
 
     return (
-        <ListItem button onClick={huntRequest}>
-            <ListItemIcon>
-                <InvertColorsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Caccia" />
-        </ListItem>
+        <CharacterFragmentProvider>
+            { character => 
+                <MenuHuntSectionInternal characterQuery={character} huntRequest={huntRequest} />
+            }
+        </CharacterFragmentProvider>
     );
 }
 

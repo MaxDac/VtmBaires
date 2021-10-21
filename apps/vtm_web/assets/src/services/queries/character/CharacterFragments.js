@@ -23,6 +23,10 @@ export const characterAvatarsFragment: any = graphql`
 export const characterStatsFragment: any = graphql`
     fragment CharacterFragments_characterStats on Character {
         id
+        clan {
+            id
+            name
+        }
         humanity
         experience
         generation

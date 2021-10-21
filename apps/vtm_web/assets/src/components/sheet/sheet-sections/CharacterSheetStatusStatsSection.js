@@ -8,12 +8,13 @@ import AttributeCumulativeStat from "../controls/AttributeCumulativeStat";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import { characterIsVampire } from "../../../_base/utils";
 
 type Props = {
     sheet: Character;
 }
 
-const CharacterSheetStatsSection = ({sheet}: Props): any => {
+const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
     const bottomLinesStyle = {
         name: "Umanità",
         value: sheet?.humanity,
@@ -27,21 +28,47 @@ const CharacterSheetStatsSection = ({sheet}: Props): any => {
             case 4: return "acuta (discrasia)";
             default: return "trascurabile";
         }
+    };
+
+    const showHuntResult = () => {
+        if (characterIsVampire(sheet)) {
+            return (
+                <Grid item xs={12} sx={{
+                    ...bottomLinesStyle,
+                    margin: "10px"
+                }}>
+                    <Paper elevation={12} sx={{padding: "10px", margin: "10px"}}>
+                        <Typography>
+                            L'ultima caccia risale al {new Date(sheet?.lastHunt ?? "").toLocaleString()},
+                            ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
+                        </Typography>
+                    </Paper>
+                </Grid>
+            );
+        }
+
+        return (<></>)
+    };
+
+    const showHunger = () => {
+        if (characterIsVampire(sheet)) {
+            return (
+                <Grid item xs={12} sx={bottomLinesStyle}>
+                    <AttributeStat stat={{
+                        name: "Fame",
+                        value: sheet?.hunger,
+                        maxValue: 5
+                    }} damage={sheet?.stains} />
+                </Grid>
+            );
+        }
+
+        return (<></>);
     }
 
     return (
         <>
-            <Grid item xs={12} sx={{
-                ...bottomLinesStyle,
-                margin: "10px"
-            }}>
-                <Paper elevation={12} sx={{padding: "10px", margin: "10px"}}>
-                    <Typography>
-                        L'ultima caccia risale al {new Date(sheet?.lastHunt ?? "").toLocaleString()},
-                        ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
-                    </Typography>
-                </Paper>
-            </Grid>
+            {showHuntResult()}
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeWithDamageStat stat={{
                     name: "Forza di Volontà",
@@ -63,15 +90,9 @@ const CharacterSheetStatsSection = ({sheet}: Props): any => {
                     maxValue: 10
                 }} damage={sheet?.stains ?? 0} />
             </Grid>
-            <Grid item xs={12} sx={bottomLinesStyle}>
-                <AttributeStat stat={{
-                    name: "Fame",
-                    value: sheet?.hunger,
-                    maxValue: 5
-                }} damage={sheet?.stains} />
-            </Grid>
+            {showHunger()}
         </>
     );
 }
 
-export default CharacterSheetStatsSection;
+export default CharacterSheetStatusStatsSection;

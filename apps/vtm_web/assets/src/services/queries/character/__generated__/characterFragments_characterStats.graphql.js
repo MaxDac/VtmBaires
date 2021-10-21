@@ -12,6 +12,10 @@ declare export opaque type CharacterFragments_characterStats$ref: FragmentRefere
 declare export opaque type CharacterFragments_characterStats$fragmentType: CharacterFragments_characterStats$ref;
 export type CharacterFragments_characterStats = {|
   +id: string,
+  +clan: ?{|
+    +id: string,
+    +name: ?string,
+  |},
   +humanity: ?number,
   +experience: ?number,
   +generation: ?number,
@@ -36,17 +40,38 @@ export type CharacterFragments_characterStats$key = {
 };
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CharacterFragments_characterStats",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "id",
+      "concreteType": "Clan",
+      "kind": "LinkedField",
+      "name": "clan",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -151,6 +176,7 @@ const node: ReaderFragment = {
   "type": "Character",
   "abstractKey": null
 };
+})();
 // prettier-ignore
-(node: any).hash = 'bae5ceb20a35193a27e0b2ada844bce5';
+(node: any).hash = '12cad091744a04594fe10166fedce726';
 module.exports = node;

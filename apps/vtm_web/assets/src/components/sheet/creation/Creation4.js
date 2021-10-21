@@ -22,14 +22,10 @@ import {object, string} from "yup";
 import {useFormik} from "formik";
 import useStyles from "../../Main.Layout.Style";
 import AddAdvantagesMutation from "../../../services/mutations/characters/AddAdvantagesMutation";
-
-export const characterIsVampire: (?CharacterFragments_characterInfo => boolean) = character =>
-    character?.clan?.name !== "Umano";
-
-export const characterHasDisciplines: (?CharacterFragments_characterInfo => boolean) = character => {
-    const clanName = character?.clan?.name;
-    return !(clanName === "Umano" || clanName === "Thin Blood");
-}
+import {
+  characterHasDisciplines,
+  characterIsVampire,
+} from "../../../_base/utils";
 
 type InternalElementProps = {
     character: any;

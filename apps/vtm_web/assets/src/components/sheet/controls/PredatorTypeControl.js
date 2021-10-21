@@ -8,9 +8,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 import {predatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
 import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
-import {characterIsVampire} from "../creation/Creation4";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import { characterIsVampire } from "../../../_base/utils";
 
 type Props = {
     characterInfo: CharacterFragments_characterInfo;

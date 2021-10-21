@@ -78,6 +78,10 @@ fragment CharacterFragments_characterState on Character {
 
 fragment CharacterFragments_characterStats on Character {
   id
+  clan {
+    id
+    name
+  }
   humanity
   experience
   generation
@@ -386,12 +390,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c680cb65f02d6131db47771884ce242b",
+    "cacheID": "a2c45774524c13a25869a671a456fdb2",
     "id": null,
     "metadata": {},
     "name": "GetCharacterQuery",
     "operationKind": "query",
-    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  experience\n  advantages\n  notes\n  predatorType {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n  stains\n  bloodPotency\n  lastHunt\n  lastResonance\n  lastResonanceIntensity\n}\n"
+    "text": "query GetCharacterQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    ...CharacterFragments_characterAvatar\n    ...CharacterFragments_characterInfo\n    ...CharacterFragments_characterSheet\n    ...CharacterFragments_characterStats\n    ...CharacterFragments_characterState\n  }\n}\n\nfragment CharacterFragments_characterAvatar on Character {\n  avatar\n}\n\nfragment CharacterFragments_characterInfo on Character {\n  id\n  name\n  chatAvatar\n  clan {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterSheet on Character {\n  id\n  biography\n  description\n}\n\nfragment CharacterFragments_characterState on Character {\n  id\n  stage\n  approved\n  isComplete\n  isNpc\n  experience\n  advantages\n  notes\n  predatorType {\n    id\n    name\n  }\n}\n\nfragment CharacterFragments_characterStats on Character {\n  id\n  clan {\n    id\n    name\n  }\n  humanity\n  experience\n  generation\n  hunger\n  health\n  damage\n  aggravatedDamage\n  willpower\n  willpowerDamage\n  stains\n  bloodPotency\n  lastHunt\n  lastResonance\n  lastResonanceIntensity\n}\n"
   }
 };
 })();

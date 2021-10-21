@@ -1,6 +1,4 @@
 defmodule VtmWeb.Resolvers.StatusResolvers do
-  import VtmWeb.Resolvers.Helpers
-
   alias Vtm.StatusChecks
   alias Vtm.Characters
 
@@ -27,7 +25,7 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     end
   end
 
-  def rouse_check(%{character_id: character_id, chat_map_id: chat_map_id}, context = %{context: %{current_user: user}}) do
+  def rouse_check(%{character_id: character_id, chat_map_id: chat_map_id}, %{context: %{current_user: user}}) do
     execute_when_master_or_user_itself(character_id, user, fn ->
       with {:ok, text}  <- StatusChecks.rouse_check(character_id) do
         ChatHelpers.create_chat_entry(%{
@@ -79,15 +77,15 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
   end
 
   def hunt(%{character_id: character_id}, _) do
-    with c_id                       <- character_id |> String.to_integer(),
-         {:ok, message, character}  <- StatusChecks.hunt(c_id) do
+    with c_id               <- character_id |> String.to_integer(),
+         {:ok, message, _}  <- StatusChecks.hunt(c_id) do
       {:ok, %{result: message}}
     end
   end
 
   def reset_hunt(%{character_id: character_id}, _) do
     with c_id <- character_id |> String.to_integer() do
-      StatusChecks.reset_hunt(character_id)
+      StatusChecks.reset_hunt(c_id)
     end
   end
 end

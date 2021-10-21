@@ -6,6 +6,9 @@ import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 import {format} from "date-fns"
+import type { CharacterFragments_characterInfo } from "../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
+import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -168,4 +171,24 @@ export function defaultFormatDateAndTime(date: ?any): ?string {
     }
 
     return null;
+}
+
+/**
+ * Determines whether the caracter is a vampire or not based on the clan.
+ * @param character The character.
+ * @return True if the character is a vampire, False otherwise
+ */
+export const characterIsVampire = (character: ?CharacterFragments_characterInfo | ?Character | ?CharacterFragments_characterStats): boolean => {
+    return character?.clan?.name !== "Umano";
+}
+
+/**
+ * Determines whehter the character has disciplines or not based on its clan.
+ * Only humans and thin-bloods will not have disciplines on creation.
+ * @param character The character.
+ * @return True if the character has disciplines, False otherwise.
+ */
+export const characterHasDisciplines = (character: ?CharacterFragments_characterInfo): boolean => {
+    const clanName = character?.clan?.name;
+    return !(clanName === "Umano" || clanName === "Thin Blood");
 }

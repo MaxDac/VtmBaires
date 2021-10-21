@@ -11,7 +11,7 @@ export type GetCharacterAvatarQueryVariables = {|
   id: string
 |};
 export type GetCharacterAvatarQueryResponse = {|
-  +getCharacter: ?{|
+  +getCharacterAvatar: ?{|
     +id: string,
     +avatar: ?string,
   |}
@@ -26,7 +26,7 @@ export type GetCharacterAvatarQuery = {|
 query GetCharacterAvatarQuery(
   $id: ID!
 ) {
-  getCharacter(id: $id) {
+  getCharacterAvatar(characterId: $id) {
     id
     avatar
   }
@@ -47,13 +47,13 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "id",
+        "name": "characterId",
         "variableName": "id"
       }
     ],
     "concreteType": "Character",
     "kind": "LinkedField",
-    "name": "getCharacter",
+    "name": "getCharacterAvatar",
     "plural": false,
     "selections": [
       {
@@ -92,15 +92,15 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "27be9176cfd6cd21110b5c5d7f6e57ef",
+    "cacheID": "4b80efaf5023646fdd13e1cc6cce4891",
     "id": null,
     "metadata": {},
     "name": "GetCharacterAvatarQuery",
     "operationKind": "query",
-    "text": "query GetCharacterAvatarQuery(\n  $id: ID!\n) {\n  getCharacter(id: $id) {\n    id\n    avatar\n  }\n}\n"
+    "text": "query GetCharacterAvatarQuery(\n  $id: ID!\n) {\n  getCharacterAvatar(characterId: $id) {\n    id\n    avatar\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '6cd48e7bb79b7e7d741b2b4f9436b68d';
+(node: any).hash = '6b0fdd4ffa9a2c72aa683263e0c39936';
 module.exports = node;
