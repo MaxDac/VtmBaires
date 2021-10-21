@@ -37,14 +37,39 @@ defmodule VtmWeb.SessionController do
     end
   end
 
-  defp update_session(%{host: host, remote_ip: remote_ip}, user) do
+  @doc """
+  Gets the remote host and IP.
+  Having that the site in production will use Nginx, it forwards the information
+  as headers in Host and X-Real-IP respectively.
+  """
+  defp get_remote_host_and_ip(conn) do
+    case Application.get_env(:vtm_web, :environment) do
+      :prod ->
+        case {
+          conn |> get_req_header("Host"),
+          conn |> get_req_header("X-Real-IP")
+        } do
+          {[host], [ip]} ->
+            {host, ip}
+          _ ->
+            {"", ""}
+        end
+      _ ->
+        %{host: host, remote_ip: remote_ip} = conn
+        {host, remote_ip |> ip_to_string()}
+    end
+  end
+
+  defp update_session(conn, user) do
     parsed_user =
       user
       |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
 
+    {host, ip} = get_remote_host_and_ip(conn)
+
     attrs = %{
       host: host,
-      ip: remote_ip |> ip_to_string()
+      ip: ip
     }
 
     Accounts.update_session(parsed_user, attrs)
