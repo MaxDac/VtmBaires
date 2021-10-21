@@ -51,8 +51,8 @@ defmodule VtmWeb.SessionController do
         } do
           {[host], [ip]} ->
             {host, ip}
-          _ ->
-            {"", ""}
+          {host, ip} ->
+            {inspect(host), inspect(ip)}
         end
       _ ->
         %{host: host, remote_ip: remote_ip} = conn
