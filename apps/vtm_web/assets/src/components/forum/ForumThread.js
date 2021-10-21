@@ -13,7 +13,6 @@ import {firstOrDefault} from "../../_base/utils";
 import {useSession} from "../../services/session-service";
 import {useHistory} from "react-router-dom";
 import ForumPostWithAvatar from "./layout/ForumPostWithAvatar";
-import ForumPost from "./layout/ForumPost";
 import ForumPostLayout from "./layout/ForumPostLayout";
 
 type Props = {
@@ -35,11 +34,7 @@ const ForumThread = ({threadId}: Props): any => {
 
     const showThreadPost = post => (
         <ForumPostLayout key={post?.id} post={post}>
-            {
-                post?.creatorAvatar != null
-                    ? <ForumPostWithAvatar post={post} onGame={section?.onGame === true} />
-                    : <ForumPost post={post} onGame={section?.onGame === true} />
-            }
+            <ForumPostWithAvatar post={post} onGame={section?.onGame === true} />
         </ForumPostLayout>
     );
 

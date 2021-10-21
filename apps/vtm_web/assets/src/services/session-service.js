@@ -77,7 +77,7 @@ export const getSession = (environment: IEnvironment): Promise<?Session> => {
  * Determines whether the user is a master or not.
  * @returns {Promise<bool>|Promise<bool|boolean>|*} True if the user is a master, False otherwise.
  */
-export const isMaster = (): Promise<bool> =>
+export const isMaster = (): Promise<boolean> =>
     checkMaster()
         .then(_ => true)
         .catch(_ => false);
@@ -111,7 +111,6 @@ export const updateCurrentCharacter = (character: SessionCharacter): ?Session =>
 }
 
 export const clearRelaySession = () => {
-    console.log("Clearing relay cache");
     cache.clear();
 }
 

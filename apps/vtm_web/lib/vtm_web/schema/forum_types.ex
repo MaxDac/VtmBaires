@@ -30,14 +30,9 @@ defmodule VtmWeb.Schema.ForumTypes do
 
   node object :forum_post do
     field :text, :string
-    field :creator_name, :string
-    field :creator_avatar, :string
-    # Passing only the ID, this way to pass it as a Relay ID
     field :forum_section, :forum_section
     field :forum_thread, :forum_thread
-    # TODO?
-    # field :creator_user_id, :id
-    # field :creator_character_id, :id
+    field :character, :character
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end
@@ -45,6 +40,14 @@ defmodule VtmWeb.Schema.ForumTypes do
   object :forum_thread_page do
     field :thread, :forum_thread
     field :posts, list_of(:forum_post)
+    # connection field :posts, node_type: :forum_post do
+    #   resolve fn
+    #     pagination_args, %{source: forum_thread} ->
+    #       Absinthe.Relay.Connection from_list(
+    #         Enum.map()
+    #       )
+    #   end
+    # end
   end
 
   object :forum_queries do

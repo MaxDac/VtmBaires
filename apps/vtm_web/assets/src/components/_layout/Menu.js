@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, {useState} from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,7 +14,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import {Routes} from "../../AppRouter";
-import MenuCharacterSection from "./MenuCharacterSection";
+import MenuCharacterSection from "./menu-character/MenuCharacterSection";
 import {useHistory} from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import MenuNpcSection from "./MenuNpcSection";
@@ -27,6 +27,7 @@ type Props = {
 
 export const MainListItems = ({drawerDone}: Props): any => {
     const history = useHistory();
+    const [reloadCount, setReloadCount] = useState(0);
 
     const pushHistory = (route: string) => () => {
         drawerDone();
@@ -37,6 +38,10 @@ export const MainListItems = ({drawerDone}: Props): any => {
         drawerDone();
         const newTab = window.open(`#${route}`, "_blank");
         newTab.focus();
+    };
+
+    const onUpdate = () => {
+        setReloadCount(c => c + 1);
     };
 
     return (
@@ -54,7 +59,9 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 <ListItemText primary="Mappa" />
             </ListItem>
             <MenuHuntSection />
-            <MenuCharacterSection pushHistory={pushHistory} />
+            <MenuCharacterSection drawerDone={drawerDone} 
+                                  reloadCount={reloadCount}
+                                  onUpdate={onUpdate} />
             <ListItem button onClick={pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon />
@@ -79,6 +86,7 @@ export const MainListItems = ({drawerDone}: Props): any => {
 
 export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
     const history = useHistory();
+    const [reloadCount, setReloadCount] = useState(0);
 
     const pushHistory = (route: string) => () => {
         drawerDone();
@@ -97,10 +105,16 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
         return (<></>);
     }
 
+    const onUpdate = () => {
+        setReloadCount(c => c + 1);
+    };
+
     return (
         <div>
             <ListSubheader inset>Admin</ListSubheader>
-            <MenuNpcSection pushHistory={pushHistory} />
+            <MenuNpcSection pushHistory={pushHistory} 
+                            reloadCount={reloadCount}
+                            onUpdate={onUpdate} />
             <ListItem button onClick={pushHistory(Routes.unapprovedCharacters)}>
                 <ListItemIcon>
                     <GroupAddIcon />

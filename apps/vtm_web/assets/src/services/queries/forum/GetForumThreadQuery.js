@@ -6,8 +6,10 @@ import type {GraphQLTaggedNode} from "relay-runtime";
 export type Post = {
     +id: string,
     +text: ?string,
-    +creatorName: ?string,
-    +creatorAvatar: ?string,
+    +character: ?{|
+        +id: ?string,
+        +name: ?string
+    |},
     +insertedAt: ?any,
     +updatedAt: ?any,
 };
@@ -27,8 +29,10 @@ export const getForumThreadQuery: GraphQLTaggedNode = graphql`
             posts {
                 id
                 text
-                creatorName
-                creatorAvatar
+                character {
+                    id
+                    name
+                }
                 insertedAt
                 updatedAt
             }

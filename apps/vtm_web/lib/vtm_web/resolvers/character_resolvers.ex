@@ -1,4 +1,8 @@
 defmodule VtmWeb.Resolvers.CharacterResolvers do
+  @moduledoc """
+  Resolvers for chat
+  """
+
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Characters
@@ -52,16 +56,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_character_avatar(%{character_id: c_id}, _) do
-    {:ok, [c_id]
-      |> Enum.map(&from_global_id?/1)
-      |> Characters.get_characters_avatar()
-    }
-  end
-
-  def get_characters_avatar(_, %{character_ids: c_ids}, _) do
     result =
-      c_ids
-      |> Enum.map(&from_global_id?/1)
+      [c_id |> String.to_integer()]
       |> Characters.get_characters_avatar()
 
     case result do
@@ -72,6 +68,15 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
+  def get_characters_avatar(_, %{character_ids: c_ids}, _) do
+    result =
+      c_ids
+      |> Enum.map(&from_global_id?/1)
+      |> Characters.get_characters_avatar()
+
+    {:ok, result}
+  end
+
   def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
     {:ok, c_ids
       |> Enum.map(&from_global_id?/1)
@@ -80,7 +85,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def get_character_stats(%{character_id: id }, %{context: %{current_user: user}}) do
     with %{id: character_id}  <- Characters.get_specific_character(user, id),
-         stats                <- Characters.get_character_stats(character_id) |> IO.inspect() do
+         stats                <- Characters.get_character_stats(character_id) do
       {:ok, stats}
     else
       _ ->
@@ -160,7 +165,6 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
         from_global_id?(character_id),
         from_global_id?(template_id)
       }
-      |> IO.inspect()
 
     case Characters.character_of_user?(user_id, c_id) do
       true ->

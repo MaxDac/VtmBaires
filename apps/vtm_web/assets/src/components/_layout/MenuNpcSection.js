@@ -24,9 +24,11 @@ import {getAllNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
 
 type Props = {
     pushHistory: string => () => void;
+    reloadCount: number;
+    onUpdate: () => void;
 }
 
-const MenuNpcSection = ({pushHistory}: Props): any => {
+const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
     const theme = useTheme();
     const [expand, setExpand] = useState(false);

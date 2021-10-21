@@ -301,8 +301,7 @@ type Discipline implements Node {
 }
 
 type ForumPost implements Node {
-  creatorAvatar: String
-  creatorName: String
+  character: Character
   forumSection: ForumSection
   forumThread: ForumThread
 

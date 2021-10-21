@@ -140,14 +140,13 @@ defmodule Vtm.Forum do
           left_lateral_join: u in subquery(include_user_subquery()),
           where: p.forum_thread_id == ^thread_id,
           order_by: [desc: p.inserted_at],
-          select: {p, c.name, u.name, c.avatar}
+          select: {p, c.id, c.name, u.name}
 
       {:ok, Repo.all(query)
         |> Enum.map(fn
-          {item, name, _, avatar} when not is_nil(name) ->
+          {item, id, name, _} when not is_nil(name) ->
             item
-            |> Map.put(:creator_name, name)
-            |> Map.put(:creator_avatar, avatar)
+            |> Map.put(:character, %{id: id, name: name})
           {item, _, name, _} ->
             item
             |> Map.put(:creator_name, name)

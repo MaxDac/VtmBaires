@@ -19,18 +19,30 @@ import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import type {
     SessionQuery
 } from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
+import {useHistory} from "react-router-dom";
+import {Routes} from "../../AppRouter";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />
 });
 
-const OnlineControlDialog = () => {
+const OnlineControlDialog = ({closePopup}) => {
+    const history = useHistory();
     const online = useCustomLazyLoadQuery<SessionQuery>(listSessionQuery, {}, {
-        fetchPolicy: "store-and-network"
+        fetchPolicy: "network-only"
     })?.sessionsList;
 
+    const tryGoToLocation = location =>
+        _ => {
+            if (location?.id != null) {
+                history.push(Routes.chat(location?.id));
+            }
+
+            closePopup();
+        };
+
     const onlineRow = o => (
-        <ListItem key={o?.user?.id} button>
+        <ListItem key={o?.user?.id} button onClick={tryGoToLocation(o?.location)}>
             <ListItemText
                 primary={`${o?.user?.name ?? ""}${
                     !!o?.character?.name
@@ -81,7 +93,7 @@ const OnlineControl = (): any => {
                     </Toolbar>
                 </AppBar>
                 <List>
-                    <OnlineControlDialog />
+                    <OnlineControlDialog closePopup={_ => setOpen(_ => false)} />
                 </List>
             </Dialog>
         </>

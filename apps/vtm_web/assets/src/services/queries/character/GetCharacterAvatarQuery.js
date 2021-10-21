@@ -13,6 +13,6 @@ export const query: any = graphql`
     }
 `;
 
-export default function useCharacterAvatarQuery(characterId: string): ?GetCharacterAvatarQueryResponse {
+export const useCharacterAvatarQuery = (characterId: string): ?GetCharacterAvatarQueryResponse => {
     return useCustomLazyLoadQuery(query, { id: characterId });
-}
+};

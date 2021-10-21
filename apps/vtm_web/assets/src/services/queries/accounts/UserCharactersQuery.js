@@ -28,9 +28,10 @@ export type UserCharacter = {
     chatAvatar: string;
 }
 
-export const useUserCharactersQuery = (): Array<UserCharacter> =>
+export const useUserCharactersQuery = (reloadCount?: number): Array<UserCharacter> =>
     useCustomLazyLoadQuery(userCharactersQuery, {}, {
-        fetchPolicy: "network-only"
+        fetchPolicy: "store-and-network",
+        fetchKey: reloadCount ?? 0
     })
         ?.me
         ?.userCharacters ?? [];
