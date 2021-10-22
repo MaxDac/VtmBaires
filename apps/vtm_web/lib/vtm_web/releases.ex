@@ -21,10 +21,10 @@ defmodule VtmWeb.Releases do
       Code.eval_file(path)
     end
 
-    path = Application.app_dir(:vtm, "priv/repo") <> "/seeds_templates.ex"
+    path = Application.app_dir(:vtm, "priv/repo") <> "/seeds_templates.exs"
     Code.eval_file(path)
 
-    path = Application.app_dir(:vtm, "priv/repo") <> "/seeds_locations.ex"
+    path = Application.app_dir(:vtm, "priv/repo") <> "/seeds_locations.exs"
     Code.eval_file(path)
   end
 end
