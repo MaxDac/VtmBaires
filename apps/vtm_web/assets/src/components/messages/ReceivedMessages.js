@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Suspense} from "react";
-import MainLayout from "../MainLayout";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userReceivedMessagesQuery} from "../../services/queries/messages/UserReceivedMessagesQuery";
 import List from "@mui/material/List";
@@ -9,7 +8,7 @@ import type {UserReceivedMessagesQuery} from "../../services/queries/messages/__
 import MessageListItem from "./components/MessageListItem";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
+import { MainRoutes } from "../MainRouter";
 
 const ReceivedMessages = (): any => {
     const history = useHistory();
@@ -37,12 +36,12 @@ const ReceivedMessages = (): any => {
                     : <></>);
 
     return (
-        <MainLayout>
+        <>
             <div style={{textAlign: "right"}}>
-                <Button type="submit" onClick={_ => history.push(Routes.newMessage())}>
+                <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
                     Scrivi nuovo
                 </Button>
-                <Button type="submit" onClick={_ => history.push(Routes.sentMessages)}>
+                <Button type="submit" onClick={_ => history.push(MainRoutes.sentMessages)}>
                     Messaggi inviati
                 </Button>
             </div>
@@ -51,7 +50,7 @@ const ReceivedMessages = (): any => {
                     {messageList()}
                 </List>
             </Suspense>
-        </MainLayout>
+        </>
     );
 }
 

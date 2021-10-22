@@ -5,7 +5,6 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "../strategies/CreationBase";
-import MainLayout from "../../MainLayout";
 import useStyles from "../../Main.Layout.Style";
 import {useSession} from "../../../services/session-service";
 import TemplateSelectionControl from "../controls/TemplateSelectionControl";
@@ -130,11 +129,7 @@ const Creation2 = (): any => {
         return <></>;
     }
 
-    return (
-        <MainLayout>
-            {getForm()}
-        </MainLayout>
-    );
+    return getForm();
 }
 
 export default Creation2;

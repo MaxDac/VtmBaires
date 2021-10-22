@@ -1,8 +1,7 @@
 // @flow
 
-import React, {useContext} from 'react';
+import React from 'react';
 import Container from '@mui/material/Container';
-import MainLayout from '../MainLayout';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,12 +9,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SendIcon from "@mui/icons-material/Send";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
-import {UtilityContext} from "../../contexts";
 import type {Map} from "../../services/base-types";
 import useStyles from "../Main.Layout.Style";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { MainRoutes } from "../MainRouter";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -26,17 +24,13 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
     const history = useHistory();
     const classes = useStyles();
 
-    const {
-        openDialog
-    } = useContext(UtilityContext);
-
     const subHeader = () =>
         <ListSubheader component="div" id="nested-list-subheader">
             Locations
         </ListSubheader>
 
     const openMap = (id: string, isChat: boolean) => _ =>
-        history.push(isChat ? Routes.chat(id) : Routes.subMap(id));
+        history.push(isChat ? MainRoutes.chat(id) : MainRoutes.subMap(id));
 
     const mapLinks = () => {
         const mapLink = ({ id, name, isChat }: any) =>
@@ -55,27 +49,25 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
     }
 
     return (
-        <MainLayout openDialog={openDialog}>
-            <Container maxWidth="lg" className={classes.container}>
-                <Grid container>
-                    <Grid item xs={12} sm={8} md={9}>
-                        <img src={imageUrl} style={{
-                            maxWidth: "70vw"
-                        }} alt="map" />
-                    </Grid>
-                    <Grid item xs={12} sm={4} md={3}>
-                        <Paper elevation={0} variant="outlined">
-                            <List component="nav"
-                                  aria-labelledby="nested-list-subheader"
-                                  subheader={subHeader()}
-                                  className={classes.listRoot}>
-                                {mapLinks()}
-                            </List>
-                        </Paper>
-                    </Grid>
+        <Container maxWidth="lg" className={classes.container}>
+            <Grid container>
+                <Grid item xs={12} sm={8} md={9}>
+                    <img src={imageUrl} style={{
+                        maxWidth: "70vw"
+                    }} alt="map" />
                 </Grid>
-            </Container>
-        </MainLayout>
+                <Grid item xs={12} sm={4} md={3}>
+                    <Paper elevation={0} variant="outlined">
+                        <List component="nav"
+                                aria-labelledby="nested-list-subheader"
+                                subheader={subHeader()}
+                                className={classes.listRoot}>
+                            {mapLinks()}
+                        </List>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

@@ -6,8 +6,8 @@ import List from "@mui/material/List";
 import ForumLayout from "./layout/ForumLayout";
 import ForumItemSelector from "./layout/ForumListItem";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
 import Typography from "@mui/material/Typography";
+import { MainRoutes } from "../MainRouter";
 
 const ForumSections = (): any => {
     const history = useHistory();
@@ -15,7 +15,7 @@ const ForumSections = (): any => {
 
     const toSection = sectionId => {
         if (sectionId != null) {
-            history.push(Routes.forumSection(sectionId));
+            history.push(MainRoutes.forumSection(sectionId));
         }
     }
 

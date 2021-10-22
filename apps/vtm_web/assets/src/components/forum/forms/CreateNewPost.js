@@ -15,7 +15,7 @@ import {UtilityContext} from "../../../contexts";
 import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/styles";
-import {Routes} from "../../../AppRouter";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     threadId: string
@@ -64,7 +64,7 @@ const CreateNewPost = ({threadId}: Props): any => {
         onSubmit
     })
 
-    const goBack = () => history.push(Routes.forumThread(threadId));
+    const goBack = () => history.push(MainRoutes.forumThread(threadId));
 
     const getTitle = () => thread?.title != null
         ? `Nuovo post in ${thread.title}`

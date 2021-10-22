@@ -20,6 +20,7 @@ import Divider from "@mui/material/Divider";
 import MenuNpcSection from "./MenuNpcSection";
 import MenuHuntSection from "./MenuHuntSection";
 import Typography from "@mui/material/Typography";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
     drawerDone: () => void;
@@ -53,7 +54,7 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.mainMap)}>
+            <ListItem button onClick={pushHistory(MainRoutes.mainMap)}>
                 <ListItemIcon>
                     <MapIcon />
                 </ListItemIcon>
@@ -69,13 +70,13 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
             </ListItem>
-            <ListItem button onClick={_ => history.push(Routes.forumSections)}>
+            <ListItem button onClick={_ => history.push(MainRoutes.forumSections)}>
                 <ListItemIcon>
                     <ChatIcon />
                 </ListItemIcon>
                 <ListItemText primary="Forum" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.settings)}>
+            <ListItem button onClick={pushHistory(MainRoutes.settings)}>
                 <ListItemIcon>
                     <SettingsIcon />
                 </ListItemIcon>
@@ -132,19 +133,19 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
             <MenuNpcSection pushHistory={pushHistory} 
                             reloadCount={reloadCount}
                             onUpdate={onUpdate} />
-            <ListItem button onClick={pushHistory(Routes.unapprovedCharacters)}>
+            <ListItem button onClick={pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>
                     <GroupAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Accettazione" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.charactersList)}>
+            <ListItem button onClick={pushHistory(MainRoutes.charactersList)}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Lista personaggi" />
             </ListItem>
-            <ListItem button onClick={pushHistory(Routes.chatViewer)}>
+            <ListItem button onClick={pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>
                     <MarkChatReadIcon />
                 </ListItemIcon>

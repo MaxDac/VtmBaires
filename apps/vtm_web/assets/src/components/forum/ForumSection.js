@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import {useSession} from "../../services/session-service";
-import {Routes} from "../../AppRouter";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
     sectionId: string;
@@ -32,7 +32,7 @@ const ForumSection = ({sectionId}: Props): any => {
         {fetchPolicy: "store-and-network"}
     )?.getForumThreads;
 
-    const toFormThread = id => history.push(Routes.forumThread(id ?? ""));
+    const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => threads
         ?.map(s => <ForumItemSelector item={s} onClick={toFormThread} />);
@@ -44,7 +44,7 @@ const ForumSection = ({sectionId}: Props): any => {
                     <Grid container>
                         <Grid item xs={12} sm={6} sx={{padding: "20px"}}>
                             <Button fullWidth
-                                    onClick={_ => history.push(Routes.forumSections)}
+                                    onClick={_ => history.push(MainRoutes.forumSections)}
                                     variant="contained"
                                     color="primary">
                                 Torna al forum
@@ -66,7 +66,7 @@ const ForumSection = ({sectionId}: Props): any => {
         return <></>;
     }
 
-    const createNew = _ => history.push(Routes.createNewForumThread(sectionId));
+    const createNew = _ => history.push(MainRoutes.createNewForumThread(sectionId));
 
     return (
         <ForumLayout title={section?.title ?? "Section"}>

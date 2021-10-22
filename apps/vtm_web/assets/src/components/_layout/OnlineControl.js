@@ -20,7 +20,7 @@ import type {
     SessionQuery
 } from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
+import { MainRoutes } from "../MainRouter";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />
@@ -35,7 +35,7 @@ const OnlineControlDialog = ({closePopup}) => {
     const tryGoToLocation = location =>
         _ => {
             if (location?.id != null) {
-                history.push(Routes.chat(location?.id));
+                history.push(MainRoutes.chat(location?.id));
             }
 
             closePopup();

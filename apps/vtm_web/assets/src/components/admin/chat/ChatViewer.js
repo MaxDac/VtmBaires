@@ -2,7 +2,6 @@
 
 import Grid from "@mui/material/Grid";
 import React, {useState} from "react";
-import MainLayout from "../../MainLayout";
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -116,47 +115,45 @@ const ChatViewer = (): any => {
     }
 
     return (
-        <MainLayout>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Grid container>
-                    <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
-                        <DateTimePicker
-                            label="A partire da"
-                            value={from}
-                            date={from}
-                            onChange={handleFromChange}
-                            renderInput={(params) => <TextField {...params} />} />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
-                        <DateTimePicker
-                            label="Fino a"
-                            value={to}
-                            date={to}
-                            onChange={handleToChange}
-                            renderInput={(params) => <TextField {...params} />} />
-                    </Grid>
-                    <Grid item xs={12} md={4} sx={{textAlign: "center"}}>
-                        <FormControl fullWidth>
-                            <InputLabel id="chat-room">Chat</InputLabel>
-                            <Select
-                                labelId="chat-room"
-                                id="chat-room-select"
-                                value={selectedChatId}
-                                label="Age"
-                                onChange={handleChatRoomChange}>
-                                {showAllChatRooms()}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12} sx={{
-                        margin: "20px",
-                        padding: "20px"
-                    }}>
-                        {showRows()}
-                    </Grid>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Grid container>
+                <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
+                    <DateTimePicker
+                        label="A partire da"
+                        value={from}
+                        date={from}
+                        onChange={handleFromChange}
+                        renderInput={(params) => <TextField {...params} />} />
                 </Grid>
-            </LocalizationProvider>
-        </MainLayout>
+                <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
+                    <DateTimePicker
+                        label="Fino a"
+                        value={to}
+                        date={to}
+                        onChange={handleToChange}
+                        renderInput={(params) => <TextField {...params} />} />
+                </Grid>
+                <Grid item xs={12} md={4} sx={{textAlign: "center"}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="chat-room">Chat</InputLabel>
+                        <Select
+                            labelId="chat-room"
+                            id="chat-room-select"
+                            value={selectedChatId}
+                            label="Age"
+                            onChange={handleChatRoomChange}>
+                            {showAllChatRooms()}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} sx={{
+                    margin: "20px",
+                    padding: "20px"
+                }}>
+                    {showRows()}
+                </Grid>
+            </Grid>
+        </LocalizationProvider>
     );
 };
 

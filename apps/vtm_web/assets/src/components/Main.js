@@ -2,7 +2,6 @@
 
 import Box from '@mui/system/Box';
 import React, {useEffect, useState} from 'react';
-import MainLayout from "./MainLayout";
 import CenteredBox from "../_base/components/CenteredBox";
 import Typography from '@mui/material/Typography';
 
@@ -34,38 +33,36 @@ export default function Main(): any {
     }, []);
 
     return (
-        <MainLayout>
-            <Box sx={{
-                background: `url("/SplashScreen.webp") no-repeat`,
-                border: "1px white solid",
-                height: "calc(100% - 70px)",
-                backgroundSize: "cover"
+        <Box sx={{
+            background: `url("/SplashScreen.webp") no-repeat`,
+            border: "1px white solid",
+            height: "calc(100% - 70px)",
+            backgroundSize: "cover"
+        }}>
+            <CenteredBox isBodyChild={false} innerBoxSx={{
+                maxWidth: "500px"
             }}>
-                <CenteredBox isBodyChild={false} innerBoxSx={{
-                    maxWidth: "500px"
+                <Typography sx={{
+                    fontFamily: 'GabrieleLightRibbon',
+                    color: "white",
+                    fontSize: "36px",
+                    // opacity: 0,
+                    // animation: "opacityAppear 2s ease-in-out forwards",
+                    // animationDelay: "1000ms"
                 }}>
-                    <Typography sx={{
-                        fontFamily: 'GabrieleLightRibbon',
-                        color: "white",
-                        fontSize: "36px",
-                        // opacity: 0,
-                        // animation: "opacityAppear 2s ease-in-out forwards",
-                        // animationDelay: "1000ms"
-                    }}>
-                        {firstPhrase}
-                    </Typography>
-                    <Typography sx={{
-                        fontFamily: 'GabrieleLightRibbon',
-                        color: "#C92929",
-                        fontSize: "36px"
-                        // opacity: 0,
-                        // animation: "opacityAppear 2s ease-in-out forwards",
-                        // animationDelay: "3000ms"
-                    }}>
-                        {secondPhrase}
-                    </Typography>
-                </CenteredBox>
-            </Box>
-        </MainLayout>
+                    {firstPhrase}
+                </Typography>
+                <Typography sx={{
+                    fontFamily: 'GabrieleLightRibbon',
+                    color: "#C92929",
+                    fontSize: "36px"
+                    // opacity: 0,
+                    // animation: "opacityAppear 2s ease-in-out forwards",
+                    // animationDelay: "3000ms"
+                }}>
+                    {secondPhrase}
+                </Typography>
+            </CenteredBox>
+        </Box>
     )
 }

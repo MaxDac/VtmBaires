@@ -1,7 +1,6 @@
 // @flow
 
 import React, {useCallback, useContext, useState, Suspense} from "react";
-import MainLayout from "../../MainLayout";
 import CharacterProvider from "../../_data/CharacterProvider";
 import CharacterSheetStatsSection from "../sheet-sections/CharacterSheetStatsSection";
 import Typography from "@mui/material/Typography";
@@ -182,8 +181,8 @@ const Internal = ({character}) => {
     return (<></>);
 }
 
-const Creation5 = (_: Props): any =>
-    <MainLayout>
+const Creation5 = (_: Props): any => (
+    <>
         <Typography>
             Complimenti! Hai inserito tutti i dati del tuo personaggio, adesso la tua scheda &egrave; pronta per poter essere approvata.
         </Typography>
@@ -196,6 +195,7 @@ const Creation5 = (_: Props): any =>
                 <Internal character={character} />
             }
         </CharacterProvider>
-    </MainLayout>;
+    </>
+);
 
 export default Creation5;

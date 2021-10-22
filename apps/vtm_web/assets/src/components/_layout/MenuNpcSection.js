@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import {Routes} from "../../AppRouter";
 import {useSession} from "../../services/session-service";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -21,6 +20,7 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/styles";
 import type {GetAllNpcsQuery} from "../../services/queries/npcs/__generated__/GetAllNpcsQuery.graphql";
 import {getAllNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
     pushHistory: string => () => void;
@@ -48,10 +48,10 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
                 openDialog(
                     "Selezione personaggio", 
                     "Il personaggio è stato selezionato, vuoi vedere la sua scheda?", 
-                    () => history.push(Routes.sheet(info?.id)));
+                    () => history.push(MainRoutes.sheet(info?.id)));
             }
             else {
-                history.push(Routes.defineNpc(info?.id));
+                history.push(MainRoutes.defineNpc(info?.id));
             }
         }
 
@@ -83,7 +83,7 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
             );
         }
 
-        rows.push(<MenuItem key={"0"} onClick={_ => history.push(Routes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
+        rows.push(<MenuItem key={"0"} onClick={_ => history.push(MainRoutes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
         return rows;
     }
 

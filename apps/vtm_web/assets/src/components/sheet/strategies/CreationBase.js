@@ -15,6 +15,7 @@ import type {GetCharacterStageQuery} from "../../../services/queries/character/_
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
+import { MainRoutes } from "../../MainRouter";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -109,7 +110,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
         const request: Array<CharacterAttributeRequest> = props.getAttributesToSave(values, generateRequest);
 
         appendAttributesMutation(environment, request, props.currentStage)
-            .then(_ => history.push(`${Routes.creationBase}${props.currentStage + 1}`))
+            .then(_ => history.push(`${MainRoutes.creationBase}${props.currentStage + 1}`))
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }
 

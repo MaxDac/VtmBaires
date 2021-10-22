@@ -2,7 +2,6 @@
 
 import React, {useContext, useEffect, useState} from "react";
 import IconButton from "@mui/material/IconButton";
-import {Routes} from "../../AppRouter";
 import Badge from "@mui/material/Badge";
 import ForumIcon from "@mui/icons-material/Forum";
 import {useHistory} from "react-router-dom";
@@ -13,6 +12,7 @@ import {getMessageDigestQuery} from "../../services/queries/messages/GetMessageD
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import type {MessageNotificationSubscriptionResponse} from "../../services/subscriptions/__generated__/MessageNotificationSubscription.graphql";
 import MessageNotificationSubscription from "../../services/subscriptions/MessageNotificationSubscription";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
 
@@ -57,7 +57,7 @@ const MessageControl = (props: Props): any => {
     }, [showUserNotification, chatToken]);
 
     return (
-        <IconButton aria-label="messages" onClick={_ => history.push(Routes.messages)}>
+        <IconButton aria-label="messages" onClick={_ => history.push(MainRoutes.messages)}>
             <Badge badgeContent={numberOfMessages} color="secondary">
                 <ForumIcon />
             </Badge>

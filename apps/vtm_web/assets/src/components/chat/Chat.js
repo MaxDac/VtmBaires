@@ -1,7 +1,6 @@
 // @flow
 
 import React, {useContext, useEffect, useState, Suspense} from "react";
-import MainLayout from "../MainLayout";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./controls/ChatInput";
 import {subscribe} from "../../_base/relay-utils";
@@ -42,10 +41,7 @@ const Chat = ({id}: ChatProps): any => {
 
     const isMaster = () => user?.role === "MASTER";
 
-    const {
-        showUserNotification,
-        openDialog
-    } = useContext(UtilityContext);
+    const {showUserNotification} = useContext(UtilityContext);
 
     const [mapModalOpen, setMapModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState(map?.name);
@@ -147,68 +143,66 @@ const Chat = ({id}: ChatProps): any => {
     }
 
     return (
-        <MainLayout openDialog={openDialog}>
-            <>
-                <Dialog open={characterModalOpen && isMaster()}
-                        onClose={_ => setCharacterModalOpen(_ => false)}
-                        fullScreen
-                        aria-labelledby="character-modal">
-                    {showChatMasterModal()}
-                </Dialog>
-                <Dialog open={characterModalOpen && !isMaster()}
-                        onClose={_ => setMapModalOpen(false)}
-                        aria-labelledby="character-description">
-                    <ChatDescriptionModal characterId={selectedCharacterId}
-                                          close={() => setCharacterModalOpen(_ => false)} />
-                </Dialog>
-                <Dialog open={characterStatusOpen}
-                        onClose={_ => setCharacterStatusOpen(_ => false)}
-                        maxWidth="sm"
-                        fullWidth
-                        aria-labelledby="character-status">
-                    <ChatStatusModal characterId={character?.id}
-                                     close={() => setCharacterStatusOpen(_ => false)} />
-                </Dialog>
-                <Dialog open={mapModalOpen}
-                        onClose={_ => setMapModalOpen(false)}
-                        aria-labelledby="map-info">
-                    <DialogTitle>
-                        {modalTitle}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            {modalDescription}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button autoFocus onClick={_ => setMapModalOpen(false)} color="primary">
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+        <>
+            <Dialog open={characterModalOpen && isMaster()}
+                    onClose={_ => setCharacterModalOpen(_ => false)}
+                    fullScreen
+                    aria-labelledby="character-modal">
+                {showChatMasterModal()}
+            </Dialog>
+            <Dialog open={characterModalOpen && !isMaster()}
+                    onClose={_ => setMapModalOpen(false)}
+                    aria-labelledby="character-description">
+                <ChatDescriptionModal characterId={selectedCharacterId}
+                                        close={() => setCharacterModalOpen(_ => false)} />
+            </Dialog>
+            <Dialog open={characterStatusOpen}
+                    onClose={_ => setCharacterStatusOpen(_ => false)}
+                    maxWidth="sm"
+                    fullWidth
+                    aria-labelledby="character-status">
+                <ChatStatusModal characterId={character?.id}
+                                    close={() => setCharacterStatusOpen(_ => false)} />
+            </Dialog>
+            <Dialog open={mapModalOpen}
+                    onClose={_ => setMapModalOpen(false)}
+                    aria-labelledby="map-info">
+                <DialogTitle>
+                    {modalTitle}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {modalDescription}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={_ => setMapModalOpen(false)} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Box component="div" sx={{
+                display: "flex",
+                flexDirection: "column",
+                height: "calc(100% - 67px)",
+                overflow: "hidden"
+            }} id="chat-entries">
+                <ChatControls openMapModal={() => showMapDescription()}
+                                openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
+                                mapId={id} />
+                <Suspense fallback={<DefaultFallback />}>
+                    <ChatScreen entries={initialEntries}
+                                additionalEntries={additionalEntries}
+                                showCharacterDescription={showCharacterDescription} />
+                </Suspense>
                 <Box component="div" sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "calc(100% - 67px)",
-                    overflow: "hidden"
-                }} id="chat-entries">
-                    <ChatControls openMapModal={() => showMapDescription()}
-                                  openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
-                                  mapId={id} />
-                    <Suspense fallback={<DefaultFallback />}>
-                        <ChatScreen entries={initialEntries}
-                                    additionalEntries={additionalEntries}
-                                    showCharacterDescription={showCharacterDescription} />
-                    </Suspense>
-                    <Box component="div" sx={{
-                        flex: "0 1 100px",
-                        width: "100%"
-                    }}>
-                        {showChatInput()}
-                    </Box>
+                    flex: "0 1 100px",
+                    width: "100%"
+                }}>
+                    {showChatInput()}
                 </Box>
-            </>
-        </MainLayout>
+            </Box>
+        </>
     );
 }
 

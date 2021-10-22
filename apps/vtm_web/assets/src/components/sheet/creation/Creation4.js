@@ -2,7 +2,6 @@
 
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import MainLayout from "../../MainLayout";
 import {UtilityContext} from "../../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -10,7 +9,6 @@ import DisciplinesControl from "../controls/DisciplinesControl";
 import PredatorTypeControl from "../controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import {Routes} from "../../../AppRouter";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {
     CharacterFragments_characterInfo$key
@@ -26,6 +24,7 @@ import {
   characterHasDisciplines,
   characterIsVampire,
 } from "../../../_base/utils";
+import { MainRoutes } from "../../MainRouter";
 
 type InternalElementProps = {
     character: any;
@@ -153,7 +152,7 @@ const Creation4 = (): any => {
                 }
 
                 AddAdvantagesMutation(environment, request)
-                    .then(_ => history.push(Routes.creation5))
+                    .then(_ => history.push(MainRoutes.creation5))
                     .catch(e => {
                         console.error("error!", e);
                         showUserNotification({
@@ -261,17 +260,15 @@ const Creation4 = (): any => {
     }
 
     return (
-        <MainLayout>
-            <CharacterFragmentProvider showWarningWhenNoCharacterSelected={true}>
-                {characterQuery =>
-                    <InternalElement character={characterQuery}>
-                        { character =>
-                            <InnerComponent characterInfo={character} classes={classes} />
-                        }
-                    </InternalElement>
-                }
-            </CharacterFragmentProvider>
-        </MainLayout>
+        <CharacterFragmentProvider showWarningWhenNoCharacterSelected={true}>
+            {characterQuery =>
+                <InternalElement character={characterQuery}>
+                    { character =>
+                        <InnerComponent characterInfo={character} classes={classes} />
+                    }
+                </InternalElement>
+            }
+        </CharacterFragmentProvider>
     );
 }
 

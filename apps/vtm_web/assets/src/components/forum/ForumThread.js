@@ -7,13 +7,13 @@ import ForumLayout from "./layout/ForumLayout";
 import type {GetForumThreadQuery} from "../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import {Routes} from "../../AppRouter";
 import useForumSections from "../../services/queries/forum/GetForumSectionsQuery";
 import {firstOrDefault} from "../../_base/utils";
 import {useSession} from "../../services/session-service";
 import {useHistory} from "react-router-dom";
 import ForumPostWithAvatar from "./layout/ForumPostWithAvatar";
 import ForumPostLayout from "./layout/ForumPostLayout";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
     threadId: string;
@@ -48,7 +48,7 @@ const ForumThread = ({threadId}: Props): any => {
                     <Grid container>
                         <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
                             <Button fullWidth
-                                    onClick={_ => history.push(Routes.forumSections)}
+                                    onClick={_ => history.push(MainRoutes.forumSections)}
                                     variant="contained"
                                     color="primary">
                                 Torna al Forum
@@ -56,7 +56,7 @@ const ForumThread = ({threadId}: Props): any => {
                         </Grid>
                         <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
                             <Button fullWidth
-                                    onClick={_ => history.push(Routes.forumSection(thread?.thread?.forumSection?.id ?? ""))}
+                                    onClick={_ => history.push(MainRoutes.forumSection(thread?.thread?.forumSection?.id ?? ""))}
                                     variant="contained"
                                     color="primary">
                                 Torna alla sezione
@@ -78,7 +78,7 @@ const ForumThread = ({threadId}: Props): any => {
         return <></>;
     }
 
-    const createNew = _ => history.push(Routes.createNewForumPost(threadId));
+    const createNew = _ => history.push(MainRoutes.createNewForumPost(threadId));
 
     return (
         <ForumLayout title={thread?.thread?.title ?? "Thread"}>

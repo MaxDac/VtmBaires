@@ -9,7 +9,6 @@ import {object, string} from "yup";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
-import MainLayout from "../../MainLayout";
 import {useFormik} from "formik";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
@@ -19,9 +18,9 @@ import {getCharacterQuery} from "../../../services/queries/character/GetCharacte
 import {useUserCharactersQuery} from "../../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../../services/session-service";
 import {Redirect, useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
 import ChangeCharacterSheetInfoMutation from "../../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
 import {UtilityContext} from "../../../contexts";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     id: string;
@@ -68,7 +67,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                 showUserNotification({type: "error", message: "C'è stato un errore salvando il personaggio."});
             })
             .finally(() => {
-                history.push(Routes.sheet(id, true));
+                history.push(MainRoutes.sheet(id, true));
             });
     }
 
@@ -92,41 +91,39 @@ const ModifyCharacterSheet = ({id}: Props): any => {
 
     if (!user?.role === "master" && userCharacters?.some(c => c.id === character?.id) === false) {
         return (
-            <Redirect to={Routes.sheet(id)} />
+            <Redirect to={MainRoutes.sheet(id)} />
         );
     }
 
     return (
-        <MainLayout>
-            <form ref={formRef} noValidate onSubmit={formik.handleSubmit}>
-                <Grid item xs={12} sx={formSectionStyle}>
-                    <Typography sx={{
-                        ...mainFontFamily,
-                        fontSize: "24px",
-                        margin: "20px"
-                    }}>
-                        Modifica il tuo personaggio
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} sx={formSectionStyle}>
-                    <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
-                </Grid>
-                <Grid item xs={12} sx={formSectionStyle}>
-                    <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
-                </Grid>
-                <Grid item xs={12} sx={formSectionStyle}>
-                    <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
-                </Grid>
-                <Grid item xs={12} sx={formSectionStyle}>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary">
-                        Salva
-                    </Button>
-                </Grid>
-            </form>
-        </MainLayout>
+        <form ref={formRef} noValidate onSubmit={formik.handleSubmit}>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <Typography sx={{
+                    ...mainFontFamily,
+                    fontSize: "24px",
+                    margin: "20px"
+                }}>
+                    Modifica il tuo personaggio
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary">
+                    Salva
+                </Button>
+            </Grid>
+        </form>
     );
 }
 

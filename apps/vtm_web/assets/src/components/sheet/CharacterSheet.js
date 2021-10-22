@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Suspense} from "react";
-import MainLayout from "../MainLayout";
 import CharacterSheetInfoSection from "./sheet-sections/CharacterSheetInfoSection";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
@@ -13,7 +12,7 @@ import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharac
 import {useSession} from "../../services/session-service";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
+import {MainRoutes} from "../MainRouter";
 
 type Props = {
     id?: ?string;
@@ -46,7 +45,7 @@ const CharacterSheet = (props: Props): any => {
                     margin: "20px",
                     textAlign: "center"
                 }}>
-                    <Button variant="contained" onClick={_ => history.push(Routes.modifySheet(character.id))}>
+                    <Button variant="contained" onClick={_ => history.push(MainRoutes.modifySheet(character.id))}>
                         Modifica scheda
                     </Button>
                 </div>
@@ -56,7 +55,7 @@ const CharacterSheet = (props: Props): any => {
         return (<></>);
     }
 
-    const sheet = () => (
+    return (
         <CharacterFragmentProvider characterId={props?.id}
                                    showWarningWhenNoCharacterSelected={true}>
             { character =>
@@ -72,17 +71,6 @@ const CharacterSheet = (props: Props): any => {
             }
         </CharacterFragmentProvider>
     );
-
-    if (props.contained === true) {
-        return sheet();
-    }
-    else {
-        return (
-            <MainLayout>
-                {sheet()}
-            </MainLayout>
-        );
-    }
 }
 
 export default CharacterSheet;

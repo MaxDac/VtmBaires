@@ -6,7 +6,6 @@ import {updateCurrentCharacter} from "../../../services/session-service";
 import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import MainLayout from "../../MainLayout";
 import CharacterInfoForm from "../controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
 
@@ -35,9 +34,7 @@ const CreateNewNpc = (): any => {
     }
 
     return (
-        <MainLayout>
-            <CharacterInfoForm onSubmit={onSubmit} />
-        </MainLayout>
+        <CharacterInfoForm onSubmit={onSubmit} />
     );
 }
 

@@ -4,12 +4,11 @@ import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import createCharacter from "../../../services/mutations/characters/CreateCharacterMutation";
 import {updateCurrentCharacter} from "../../../services/session-service";
-import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import MainLayout from "../../MainLayout";
 import CharacterInfoForm from "../controls/CharacterInfoForm";
 import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import { MainRoutes } from "../../MainRouter";
 
 const Creation1 = (): any => {
     const history = useHistory();
@@ -26,16 +25,14 @@ const Creation1 = (): any => {
                         name: response.createCharacter.name ?? "No name available"
                     });
 
-                    history.push(Routes.creation2);
+                    history.push(MainRoutes.creation2);
                 }
             })
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
     }
 
     return (
-        <MainLayout>
-            <CharacterInfoForm onSubmit={onSubmit} />
-        </MainLayout>
+        <CharacterInfoForm onSubmit={onSubmit} />
     );
 }
 

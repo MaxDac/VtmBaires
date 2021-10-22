@@ -3,10 +3,10 @@
 import React, {useContext} from "react";
 import {SessionContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
 import MenuItem from "@mui/material/MenuItem";
 import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../services/queries/accounts/UserCharactersQuery";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     drawerDone: () => void;
@@ -26,10 +26,11 @@ const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props
     const handleSheetSelection = (info: UserCharacter) =>
         _ => {
             if (!info.approved && !info.isComplete) {
-                pushHistory(`${Routes.creationBase}${info.stage + 1}`);
+                pushHistory(`${MainRoutes.creationBase}${info.stage + 1}`);
             }
             else {
-                pushHistory(Routes.sheet(info.id));
+                console.log("route", MainRoutes.sheet(info.id));
+                pushHistory(MainRoutes.sheet(info.id));
             }
         };
 
@@ -55,7 +56,7 @@ const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props
                                               handleCharacterSelection={handleCharacterSelection} />));
         }
 
-        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo personaggio</MenuItem>;
+        return <MenuItem key={"0"} onClick={_ => history.push(MainRoutes.creation1)}>Crea nuovo personaggio</MenuItem>;
     }
 
     return (

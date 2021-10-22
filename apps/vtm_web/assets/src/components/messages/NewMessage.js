@@ -6,7 +6,6 @@ import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
 import {bool, object, string} from "yup";
 import {useFormik} from "formik";
 import Grid from "@mui/material/Grid";
-import MainLayout from "../MainLayout";
 import FormTextField from "../../_base/components/FormTextField";
 import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
@@ -23,10 +22,10 @@ import SendMessageMutation from "../../services/mutations/messages/SendMessageMu
 import {useSession} from "../../services/session-service";
 import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
 import {useRelayEnvironment} from "react-relay";
 import {allUsersQuery} from "../../services/queries/accounts/AllUsersQuery";
 import type {AllUsersQuery} from "../../services/queries/accounts/__generated__/AllUsersQuery.graphql";
+import { MainRoutes } from "../MainRouter";
 
 type Props = {
     replyMessageId?: string;
@@ -228,7 +227,7 @@ const NewMessage = (props: Props): any => {
                 graphqlError: e,
                 message: "Errore inviando il messaggio!"
             }))
-            .finally(() => history.push(Routes.messages));
+            .finally(() => history.push(MainRoutes.messages));
     }
 
     const editor = () =>
@@ -237,11 +236,9 @@ const NewMessage = (props: Props): any => {
             : BrandNewMessage(onSubmit);
 
     return (
-        <MainLayout>
-            <ReturnToMessagesControl>
-                {editor()}
-            </ReturnToMessagesControl>
-        </MainLayout>
+        <ReturnToMessagesControl>
+            {editor()}
+        </ReturnToMessagesControl>
     );
 }
 

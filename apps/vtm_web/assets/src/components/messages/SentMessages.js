@@ -1,7 +1,6 @@
 // @flow
 
 import React, {Suspense} from "react";
-import MainLayout from "../MainLayout";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userSentMessagesQuery} from "../../services/queries/messages/UserSentMessagesQuery";
 import List from "@mui/material/List";
@@ -32,13 +31,11 @@ const SentMessages = (): any => {
                     : <></>);
 
     return (
-        <MainLayout>
-            <Suspense fallback={"Loading..."}>
-                <List sx={{width: "100%", bgcolor: "background.paper"}}>
-                    {messageList()}
-                </List>
-            </Suspense>
-        </MainLayout>
+        <Suspense fallback={"Loading..."}>
+            <List sx={{width: "100%", bgcolor: "background.paper"}}>
+                {messageList()}
+            </List>
+        </Suspense>
     );
 }
 

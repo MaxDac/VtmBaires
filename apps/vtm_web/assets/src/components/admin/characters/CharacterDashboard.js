@@ -1,7 +1,6 @@
 // @flow
 
 import React, {useState} from "react";
-import MainLayout from "../../MainLayout";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import CharacterSheet from "../../sheet/CharacterSheet";
 import Grid from "@mui/material/Grid";
@@ -101,11 +100,7 @@ const CharacterDashboard = ({characterId}: Props): any => {
         return (<></>);
     }
 
-    return (
-        <MainLayout>
-            {showDashboard()}
-        </MainLayout>
-    );
+    return showDashboard();
 }
 
 export default CharacterDashboard;

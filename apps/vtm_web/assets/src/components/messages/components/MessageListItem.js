@@ -7,10 +7,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
-// import IconButton from "@mui/material/IconButton";
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     message: {|
@@ -68,7 +65,7 @@ const MessageListItem = ({message}: Props): any => {
         <ListItem button
                   key={message.id}
                   alignItems="flex-start"
-                  onClick={_ => history.push(Routes.readMessage(message.id))}>
+                  onClick={_ => history.push(MainRoutes.readMessage(message.id))}>
             <ListItemAvatar>
                 {readIcon()}
             </ListItemAvatar>

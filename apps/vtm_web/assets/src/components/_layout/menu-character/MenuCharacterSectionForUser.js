@@ -3,10 +3,10 @@
 import React, {useContext} from "react";
 import {SessionContext} from "../../../contexts";
 import {useHistory} from "react-router";
-import {Routes} from "../../../AppRouter";
 import MenuItem from "@mui/material/MenuItem";
 import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../services/queries/accounts/UserCharactersQuery";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     drawerDone: () => void;
@@ -29,10 +29,10 @@ const MenuCharacterSectionForUser = ({drawerDone, characters, onUpdate}: Props):
             setCurrentCharacter(info);
 
             if (!info.approved && !info.isComplete) {
-                pushHistory(`${Routes.creationBase}${info.stage + 1}`);
+                pushHistory(`${MainRoutes.creationBase}${info.stage + 1}`);
             }
             else {
-                pushHistory(Routes.sheet(info.id));
+                pushHistory(MainRoutes.sheet(info.id));
             }
 
             onUpdate();
@@ -51,7 +51,7 @@ const MenuCharacterSectionForUser = ({drawerDone, characters, onUpdate}: Props):
                 });
         }
 
-        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo</MenuItem>;
+        return <MenuItem key={"0"} onClick={_ => history.push(MainRoutes.creation1)}>Crea nuovo</MenuItem>;
     }
 
     return (

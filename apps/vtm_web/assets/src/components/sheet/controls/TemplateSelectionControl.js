@@ -15,7 +15,7 @@ import {UtilityContext} from "../../../contexts";
 import ApplyTemplateToCharacterMutation from "../../../services/mutations/characters/ApplyTemplateToCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     characterId: string;
@@ -60,7 +60,7 @@ const TemplateSelectionControl = ({characterId}: Props): any => {
                             });
                         }
                         else {
-                            history.push(Routes.creation4);
+                            history.push(MainRoutes.creation4);
                         }
                     })
                     .catch(e => {

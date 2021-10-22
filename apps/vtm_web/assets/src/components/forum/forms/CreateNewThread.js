@@ -10,11 +10,11 @@ import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/styles";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
 import CreateNewThreadMutation from "../../../services/mutations/forum/CreateNewThreadMutation";
 import {useSession} from "../../../services/session-service";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     sectionId: string;
@@ -33,7 +33,7 @@ const CreateNewThread = ({sectionId}: Props): any => {
     const [user, character] = useSession();
     const section = firstOrDefault(useForumSections()?.getForumSections?.filter(s => s?.id === sectionId));
 
-    const goBack = () => history.push(Routes.forumSection(sectionId));
+    const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
     const onSubmit = ({title, description}) => {
         CreateNewThreadMutation(environment, {

@@ -4,7 +4,7 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import {Routes} from "../../../AppRouter";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     children: any;
@@ -16,7 +16,7 @@ const ReturnToMessagesControl = ({children}: Props): any => {
     return (
         <Grid container>
             <Grid item xs={12}>
-                <Button type="button" onClick={_ => history.push(Routes.messages)}>Torna ai messaggi</Button>
+                <Button type="button" onClick={_ => history.push(MainRoutes.messages)}>Torna ai messaggi</Button>
             </Grid>
             <Grid item xs={12}>
                 {children}

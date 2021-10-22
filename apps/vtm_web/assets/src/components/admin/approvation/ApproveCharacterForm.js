@@ -8,9 +8,9 @@ import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
 import Box from "@mui/material/Box";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
+import { MainRoutes } from "../../MainRouter";
 
 type Props = {
     character: Character
@@ -27,7 +27,7 @@ const ApproveCharacterForm = ({character}: Props): any => {
             handleMutation(() => promise, showUserNotification, {
                 successMessage: "Il personaggio è stato accettato.",
                 errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
-                onCompleted: () => history.push(Routes.unapprovedCharacters)
+                onCompleted: () => history.push(MainRoutes.unapprovedCharacters)
             })
         });
     }
