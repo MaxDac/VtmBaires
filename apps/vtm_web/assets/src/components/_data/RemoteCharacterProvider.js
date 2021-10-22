@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
-    children: string => any,
+    showWarningWhenNoCharacterSelected: boolean,
+    children: string => any
 }
 
 const RemoteCharacterProvider = (props: Props): any => {
@@ -15,11 +16,15 @@ const RemoteCharacterProvider = (props: Props): any => {
         return props.children(characters[0].id);
     }
 
-    return (
-        <Typography>
-            You must create a character to view the sheet.
-        </Typography>
-    )
+    if (props.showWarningWhenNoCharacterSelected) {
+        return (
+            <Typography>
+                You must create a character to view the sheet.
+            </Typography>
+        );
+    }
+
+    return (<></>)
 }
 
 export default RemoteCharacterProvider;

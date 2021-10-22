@@ -83,7 +83,7 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
             );
         }
 
-        rows.push(<MenuItem key={"0"} onClick={_ => history.push(Routes.createNewNpc)}>Crea nuovo</MenuItem>);
+        rows.push(<MenuItem key={"0"} onClick={_ => history.push(Routes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
         return rows;
     }
 

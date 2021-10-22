@@ -57,7 +57,8 @@ const CharacterSheet = (props: Props): any => {
     }
 
     const sheet = () => (
-        <CharacterFragmentProvider characterId={props?.id}>
+        <CharacterFragmentProvider characterId={props?.id}
+                                   showWarningWhenNoCharacterSelected={true}>
             { character =>
                 <ResponsiveInnerContainer contained={props.contained}>
                     <Suspense fallback={<CharacterSheetSuspenseFallback />}>

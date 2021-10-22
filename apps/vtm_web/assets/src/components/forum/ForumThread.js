@@ -46,7 +46,15 @@ const ForumThread = ({threadId}: Props): any => {
             return (
                 <Grid item xs={12}>
                     <Grid container>
-                        <Grid item xs={12} sm={6} sx={{padding: "20px"}}>
+                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
+                            <Button fullWidth
+                                    onClick={_ => history.push(Routes.forumSections)}
+                                    variant="contained"
+                                    color="primary">
+                                Torna al Forum
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
                             <Button fullWidth
                                     onClick={_ => history.push(Routes.forumSection(thread?.thread?.forumSection?.id ?? ""))}
                                     variant="contained"
@@ -54,7 +62,7 @@ const ForumThread = ({threadId}: Props): any => {
                                 Torna alla sezione
                             </Button>
                         </Grid>
-                        <Grid item xs={12} sm={6} sx={{padding: "20px"}}>
+                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
                             <Button fullWidth
                                     onClick={createNew}
                                     variant="contained"

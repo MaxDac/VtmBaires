@@ -46,7 +46,8 @@ const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): any =>
 const ChatStatusModal = (props: Props): any => {
     if (props.characterId != null) {
         return (
-            <CharacterFragmentProvider characterId={props.characterId}>
+            <CharacterFragmentProvider characterId={props.characterId}
+                                       showWarningWhenNoCharacterSelected={true}>
                 {character =>
                     <ChatStatusModalInternal characterQuery={character}
                                              close={props.close} />

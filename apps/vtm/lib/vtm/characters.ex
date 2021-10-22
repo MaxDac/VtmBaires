@@ -343,6 +343,13 @@ defmodule Vtm.Characters do
     end
   end
 
+  @spec get_character_stats(Integer.t()) :: %{
+          advantages: list,
+          attributes: list,
+          disciplines: list,
+          id: binary,
+          predator_type: any
+        }
   def get_character_stats(id) do
     with attributes                             <- get_character_attributes(id),
          predator_type                          <- get_character_predator_type(id),
@@ -472,10 +479,11 @@ defmodule Vtm.Characters do
   end
 
   defp delete_character_p(character_id) do
-    with c when not is_nil(c) <- Character |> Repo.get(character_id) do
-      c |> Repo.delete()
-    else
-      _ -> {:error, :not_found}
+    case Character |> Repo.get(character_id) do
+      c when not is_nil(c) ->
+        c |> Repo.delete()
+      _ ->
+        {:error, :not_found}
     end
   end
 

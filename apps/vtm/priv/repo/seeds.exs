@@ -13,6 +13,13 @@ defmodule Vtm.SeedsHelpers do
   import Ecto.Query
   require Logger
 
+  defp try_insert_by_name(repo, name, insert) do
+    case repo |> Vtm.Repo.get_by(name: name) do
+      nil -> insert.()
+      a   -> {:ok, a}
+    end
+  end
+
   def get_or_insert_attr_type(name, section) do
     query =
       from at in Vtm.Characters.AttributeType,
@@ -26,9 +33,15 @@ defmodule Vtm.SeedsHelpers do
   end
 
   def insert_attribute(%Vtm.Characters.Attribute{name: name, description: description, attribute_type_id: attribute_type_id}) do
-    %Vtm.Characters.Attribute{}
-    |> Vtm.Characters.Attribute.changeset(%{name: name, description: description, attribute_type_id: attribute_type_id})
-    |> Vtm.Repo.insert()
+    try_insert_by_name(
+      Vtm.Characters.Attribute,
+      name,
+      fn ->
+        %Vtm.Characters.Attribute{}
+        |> Vtm.Characters.Attribute.changeset(%{name: name, description: description, attribute_type_id: attribute_type_id})
+        |> Vtm.Repo.insert()
+      end
+    )
   end
 
   def get_or_insert_attribute(attrs = %Vtm.Characters.Attribute{name: name, description: description}) do
@@ -49,51 +62,56 @@ defmodule Vtm.SeedsHelpers do
     |> Vtm.Repo.update()
   end
 
-  def insert_clan(attrs) do
-    try do
-      Vtm.Repo.insert(attrs)
-    rescue
+  def insert_clan(attrs = %{name: name}) do
+    case Vtm.Characters.Clan |> Vtm.Repo.get_by(name: name) do
+      nil ->
+        try do
+          Vtm.Repo.insert(attrs)
+        rescue
+          e ->
+            Logger.error "An error happened while inserting the clan #{inspect e}"
+        catch
+          e ->
+            Logger.error "An error happened while inserting the clan #{inspect e}"
+        end
       e ->
-        Logger.error "An error happened while inserting the clan #{inspect e}"
-    catch
-      e ->
-        Logger.error "An error happened while inserting the clan #{inspect e}"
+        {:ok, e}
     end
   end
 
   def insert_predator_type(%Vtm.Characters.PredatorType{name: name, description: description}) do
-    %Vtm.Characters.PredatorType{}
-    |> Vtm.Characters.PredatorType.changeset(%{name: name, description: description})
-    |> Vtm.Repo.insert()
+    try_insert_by_name(
+      Vtm.Characters.PredatorType,
+      name,
+      fn ->
+        %Vtm.Characters.PredatorType{}
+        |> Vtm.Characters.PredatorType.changeset(%{name: name, description: description})
+        |> Vtm.Repo.insert()
+      end
+    )
   end
 
   def insert_map(%Vtm.Chats.ChatMap{name: name, is_chat: is_chat, chat_map_id: chat_map_id}) do
-    %Vtm.Chats.ChatMap{}
-    |> Vtm.Chats.ChatMap.changeset(%{name: name, is_chat: is_chat, chat_map_id: chat_map_id})
-    |> Vtm.Repo.insert()
+    try_insert_by_name(
+      Vtm.Chats.ChatMap,
+      name,
+      fn ->
+        %Vtm.Chats.ChatMap{}
+        |> Vtm.Chats.ChatMap.changeset(%{name: name, is_chat: is_chat, chat_map_id: chat_map_id})
+        |> Vtm.Repo.insert()
+      end
+    )
   end
 
-  def insert_map(%Vtm.Chats.ChatMap{name: name, is_chat: is_chat}) do
-    %Vtm.Chats.ChatMap{}
-    |> Vtm.Chats.ChatMap.changeset(%{name: name, is_chat: is_chat})
-    |> Vtm.Repo.insert()
-  end
-
-  def get_or_insert_map(attrs = %Vtm.Chats.ChatMap{name: name}) do
-    query =
-      from a in Vtm.Chats.ChatMap,
-        where: a.name == ^name
-
-    case Vtm.Repo.one(query) do
-      nil -> insert_map(attrs)
-      a   -> {:ok, a}
+  def insert_forum_section(attrs = %{title: title}) do
+    case Vtm.Forum.ForumSection |> Vtm.Repo.get_by(title: title) do
+      nil ->
+        %Vtm.Forum.ForumSection{}
+        |> Vtm.Forum.ForumSection.changeset(attrs)
+        |> Vtm.Repo.insert()
+      f ->
+        {:ok, f}
     end
-  end
-
-  def insert_forum_section(attrs) do
-    %Vtm.Forum.ForumSection{}
-    |> Vtm.Forum.ForumSection.changeset(attrs)
-    |> Vtm.Repo.insert()
   end
 
   defp get_clan_by_name(name) do
@@ -189,10 +207,10 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: m
 {:ok, influence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: "Influence"})
 {:ok, loresheet} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: "Loresheet"})
 {:ok, mask} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: "Mask"})
-{:ok, mawla} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: "Mawla"})
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: "Mawla"})
 {:ok, resources} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: "Resources"})
 {:ok, retainers} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: "Retainers"})
-{:ok, status} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
 
 # Translating in italian
 Vtm.SeedsHelpers.update_attribute(allies, %{name: "Alleati", description: "Alleati"})
@@ -236,37 +254,6 @@ Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sandma
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sanguisuga", description: "Sanguisuga"})
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Simulante", description: "Simulante"})
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sirena", description: "Sirena"})
-
-{:ok, %{id: palermo_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Palermo", is_chat: false})
-{:ok, %{id: recoleta_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Recoleta", is_chat: false})
-{:ok, %{id: puerto_madero_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Puerto Madero", is_chat: false})
-{:ok, %{id: boca_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "La Boca", is_chat: false})
-{:ok, %{id: provincia_id}} = Vtm.SeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Provincia", is_chat: false})
-
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Plaza Garibaldi", is_chat: true, chat_map_id: palermo_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Belgrano", is_chat: true, chat_map_id: palermo_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Colegiales", is_chat: true, chat_map_id: palermo_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chacarita", is_chat: true, chat_map_id: palermo_id})
-
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Cementerio Monumental", is_chat: true, chat_map_id: recoleta_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Recoleta", is_chat: true, chat_map_id: recoleta_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Retiro", is_chat: true, chat_map_id: recoleta_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Palacio Almas", is_chat: true, chat_map_id: recoleta_id})
-
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Puerto Madero", is_chat: true, chat_map_id: puerto_madero_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "San Telmo", is_chat: true, chat_map_id: puerto_madero_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Constitución", is_chat: true, chat_map_id: puerto_madero_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Monserrat", is_chat: true, chat_map_id: puerto_madero_id})
-
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Quilmes", is_chat: true, chat_map_id: provincia_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Avellaneda", is_chat: true, chat_map_id: provincia_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Ezeiza", is_chat: true, chat_map_id: provincia_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Tigre", is_chat: true, chat_map_id: provincia_id})
-
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "La Boca", is_chat: true, chat_map_id: boca_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Caminito", is_chat: true, chat_map_id: boca_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: true, chat_map_id: boca_id})
-Vtm.SeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "El Castillo", is_chat: true, chat_map_id: boca_id})
 
 Vtm.SeedsHelpers.insert_forum_section(%{title: "In Game", description: "Sezione dedicata a giocate via forum", on_game: true, can_view: true, can_edit: true})
 Vtm.SeedsHelpers.insert_forum_section(%{title: "Off Game", description: "Sezione dedicata a dubbi o discussioni sul gioco", on_game: false, can_view: true, can_edit: true})

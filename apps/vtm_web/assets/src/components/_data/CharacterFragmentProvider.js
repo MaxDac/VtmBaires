@@ -8,10 +8,10 @@ import {getCharacterQuery} from "../../services/queries/character/GetCharacterQu
 import type {
     GetCharacterQuery
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
-import Typography from "@mui/material/Typography";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 
 type Props = CharacterProviderBaseProps & {
+    showWarningWhenNoCharacterSelected: boolean;
     children: any => any;
     reload?: ?boolean;
 }
@@ -30,9 +30,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload}) => {
     }
 
     return (
-        <Typography>
-            Test 2
-        </Typography>
+        <></>
     );
 }
 
@@ -48,7 +46,7 @@ const CharacterFragmentProvider = (props: Props): any => {
     }
 
     return (
-        <RemoteCharacterProvider>
+        <RemoteCharacterProvider showWarningWhenNoCharacterSelected={props.showWarningWhenNoCharacterSelected}>
             { characterId =>
                 <CharacterFragmentProviderQuery characterId={characterId} children={props.children} reload={props.reload} />
             }

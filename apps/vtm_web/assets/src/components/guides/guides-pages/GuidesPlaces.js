@@ -1,9 +1,9 @@
 // @flow
 
 import React from "react";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { guideStyle, titleStyle } from "../GuidesStyles";
-import { Box } from "@mui/system";
+import {guideStyle, titleStyle} from "../GuidesStyles";
 
 type Props = {
 
@@ -78,10 +78,68 @@ const GuidesPlaces = (props: Props): any => {
                 Polizia di Stato. Il luogo &egrave; praticamente inespugnabile.
             </Typography>
 
+            <img src="elysium.webp"
+                 alt="Elysium"
+                 align="right"
+                 vspace="10px"
+                 hspace="10px"
+                 style={{
+                     height: "250px",
+                     width: "auto"
+                 }} />
+
             <Typography paragraph sx={guideStyle}>
                 Un altro edificio degno di nota &egrave; il vecchio Sanatorio abbandonato occupato dal Primogenito
                 Malkavian, riadibito nella sua ala pi&ugrave; moderna a centro per analisi del sangue ed
                 epidemiologico, per garantire un flusso costante di sangue in caso di emergenza.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                <h4 style={titleStyle}>
+                    Elysium
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                L'Elysium della Camarilla è situato agli ultimi piani del rinnovato palazzo della Conf&iacute;teria 
+                El Molino. Lontano dagli sguardi indiscreti dei mortali che possono accedere solamente ai piani 
+                inferiori dello stabile, gli ultimi piani sono protetti e dedicati, almeno ufficialmente, alla
+                dirigenza della societ&agrave;.
+            </Typography>
+
+            <img src="/palacio-pompadour.webp"
+                 alt="Palacio Pompadour"
+                 align="left"
+                 vspace="10px"
+                 hspace="10px"
+                 style={{
+                     width: "200px",
+                     height: "auto"
+                 }} />
+
+            <Typography paragraph sx={guideStyle}>
+                Le sue sale non sono sfarzose e nemmeno imponenti come quelli dei Domini europei, ma attualmente
+                quei Domini stanno venendo implacabilmente scovati e purgati della presenza cainita.<br />
+                La nuova filosofia della Camarilla &egrave; improntata ancora di pi&ugrave; verso la Masquerade,
+                ed alla divisione dei luoghi di ritrovo in piccoli punti differenti.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                <h4 style={titleStyle}>
+                    Palacio Pompadour
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il palazzo Pompadour &egrave; ufficialmente la sede della famosa rivista d'arte Duval, dedicata
+                alla memoria della vivissima Toreador, che infatti ne veste i panni della CEO in qualit&grave;
+                di erede... di s&eacute; stessa.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Universalmente considerato come un secondo Elysium, &egrave; sicuramente un luogo di incontro
+                pi&ugrave; informale. Il che potrebbe sembrare un paradosso, dato che la propriet&agrave; e la
+                responsabilit&grave; della gestione ricadono proprio sull'unica Arpia finora presente nel Dominio.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -107,6 +165,16 @@ const GuidesPlaces = (props: Props): any => {
                 i vecchi traffici e trovare l'equilibrio con la nuova alleanza coi Ministri di Set a Quilmes.
             </Typography>
 
+            <img src="/night-club.webp"
+                 alt="Zona Este"
+                 align="right"
+                 vspace="10px"
+                 hspace="10px"
+                 style={{
+                     width: "270px",
+                     height: "auto"
+                 }} />
+
             <Typography paragraph sx={guideStyle}>
                 Tra gli edifici degni di nota di questa zona c'&egrave; sicuramente il <b>Zona Este</b>, il 
                 locale gestito dal branco di Manoukian, e centro nevralgico della maggior parte dei traffici 
@@ -116,10 +184,35 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
+                <h4 style={titleStyle}>
+                    Zona Este
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il Night Club sorge nella zona nord della Provincia, a poca distanza dai confini della Capital
+                Federal. Il locale &egrave; occupa una zona molto grande del confine con una zona disastrata, 
+                una <i>villa</i>. Con un'estensione di circa un migliaio di metri quadrati, si sviluppa in due piani,
+                con un palco, una sala da ballo, diversi priv&eacute;e e un piano superiore, una balconata 
+                che corre lungo tre delle quattro pareti del locale, accessibile solo al personale, 
+                ai proprietari ed agli invitati.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
                 <h2 style={titleStyle}>
                     Avellaneda - Boca
                 </h2>
             </Typography>
+
+            <img src="/giovannis-mansion.webp"
+                 alt="Magione Giovanni"
+                 align="left"
+                 vspace="10px"
+                 hspace="10px"
+                 style={{
+                     width: "270px",
+                     height: "auto"
+                 }} />
 
             <Typography paragraph sx={guideStyle}>
                 Gli Hecata sono riusciti, dopo aver respinto l'offensiva dei Ministri a seguito della debacle 
@@ -154,6 +247,16 @@ const GuidesPlaces = (props: Props): any => {
                     Quilmes
                 </h2>
             </Typography>
+
+            <img src="/industrial-complex.webp"
+                 alt="Complesso Industriale"
+                 align="right"
+                 vspace="10px"
+                 hspace="10px"
+                 style={{
+                     width: "270px",
+                     height: "auto"
+                 }} />
 
             <Typography paragraph sx={guideStyle}>
                 I Ministri di Set avrebbero potuto vincere la loro guerra di influenze contro gli Hecata, se

@@ -19,6 +19,7 @@ import {useHistory} from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import MenuNpcSection from "./MenuNpcSection";
 import MenuHuntSection from "./MenuHuntSection";
+import Typography from "@mui/material/Typography";
 
 type Props = {
     drawerDone: () => void;
@@ -58,10 +59,10 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Mappa" />
             </ListItem>
-            <MenuHuntSection />
             <MenuCharacterSection drawerDone={drawerDone} 
                                   reloadCount={reloadCount}
                                   onUpdate={onUpdate} />
+            <MenuHuntSection />
             <ListItem button onClick={pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon />
@@ -105,6 +106,22 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
         return (<></>);
     }
 
+    const appVersion = () => {
+        if (!isClosed) {
+            return (
+                <ListItem>
+                    <Typography sx={{
+                        fontSize: "13px"
+                    }}>
+                        App Version: 0.1
+                    </Typography>
+                </ListItem>
+            );
+        }
+
+        return (<></>);
+    }
+
     const onUpdate = () => {
         setReloadCount(c => c + 1);
     };
@@ -135,6 +152,7 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
             </ListItem>
             <Divider />
             {DOLogo()}
+            {appVersion()}
         </div>
     );
 }

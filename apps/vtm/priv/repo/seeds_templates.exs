@@ -26,19 +26,24 @@ defmodule Vtm.TemplateSeedsHelpers do
     Repo.one(query)
   end
 
-  def insert_template_attr(attrs = %{attribute_name: a_name}) do
+  def insert_template_attr(attrs = %{template_id: t_id, attribute_name: a_name}) do
     %{id: a_id} =
       Vtm.Characters.Attribute
       |> Repo.get_by(name: a_name)
 
-    attrs =
-      attrs
-      |> Map.put(:attribute_id, a_id)
-      |> Map.drop([:attribute_name])
+    case Vtm.Creation.TemplateAttribute |> Vtm.Repo.get_by(attribute_id: 1, template_id: 4) do
+      nil ->
+        attrs =
+          attrs
+          |> Map.put(:attribute_id, a_id)
+          |> Map.drop([:attribute_name])
 
-    %Vtm.Creation.TemplateAttribute{}
-    |> Vtm.Creation.TemplateAttribute.changeset(attrs)
-    |> Vtm.Repo.insert()
+        %Vtm.Creation.TemplateAttribute{}
+        |> Vtm.Creation.TemplateAttribute.changeset(attrs)
+        |> Vtm.Repo.insert()
+      a ->
+        {:ok, a}
+    end
   end
 end
 

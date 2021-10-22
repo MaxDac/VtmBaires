@@ -96,7 +96,7 @@ const MenuHuntSection = (): any => {
     }
 
     return (
-        <CharacterFragmentProvider>
+        <CharacterFragmentProvider showWarningWhenNoCharacterSelected={false}>
             { character => 
                 <MenuHuntSectionInternal characterQuery={character} huntRequest={huntRequest} />
             }

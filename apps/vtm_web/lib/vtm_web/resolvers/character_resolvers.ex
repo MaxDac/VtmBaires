@@ -205,8 +205,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
       |> Map.put(:id, character_id)
 
-    with {:ok, character_id}  <- Creation.add_advantages(user_id, new_request),
-         {:ok, _}             <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, request) do
+    with {:ok, _} <- Creation.add_advantages(user_id, new_request),
+         {:ok, _} <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, new_request) do
       get_character(%{id: character_id}, context)
     end
 

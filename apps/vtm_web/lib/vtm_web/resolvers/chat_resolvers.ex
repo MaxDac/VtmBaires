@@ -63,10 +63,10 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     case {check_master(entry, user), entry |> Map.get(:master, false)} do
       {true, false} ->
         throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
-        create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
+        create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
       {true, true} ->
         throw_result = Chats.random_simulate_master_dice_throw(free_throw)
-        create_chat_entry(x, %{ entry: entry |> Map.put(:result, throw_result) }, ctx)
+        create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
       _ ->
         {:error, :unauthorized}
     end
@@ -79,6 +79,6 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     end
   end
 
-  def handle_chat_trigger(%{ chat_map_id: id }), do: id
+  def handle_chat_trigger(%{chat_map_id: id}), do: id
   def handle_chat_trigger(_), do: "0"
 end

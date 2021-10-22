@@ -40,6 +40,24 @@ defmodule Vtm.Creation do
     Repo.delete_all(query)
   end
 
+  defp append_attributes_transaction(values) do
+    results =
+      values
+      |> Enum.map(&Repo.insert_or_update/1)
+
+    case results |> Enum.any?(&insertion_error/1) do
+      false ->
+        {:ok, %{}}
+      _     ->
+        [error] =
+          results
+          |> Enum.filter(&insertion_error/1)
+          |> Enum.take(1)
+
+        Repo.rollback(error)
+    end
+  end
+
   def append_attributes(character_id, attrs, new_stage) do
     # Cleaning
     case new_stage do
@@ -50,24 +68,10 @@ defmodule Vtm.Creation do
 
     values = attrs |> Enum.map(&CharacterAttribute.changeset(%CharacterAttribute{}, &1))
 
-    with false <- values |> Enum.any?(&invalid_changeset/1) do
-      Repo.transaction(fn ->
-        results = values |> Enum.map(&Repo.insert_or_update/1)
-
-        with false <- results |> Enum.any?(&insertion_error/1) do
-          {:ok, %{}}
-        else
-          _ ->
-            [error] =
-              results
-              |> Enum.filter(&insertion_error/1)
-              |> Enum.take(1)
-
-            Repo.rollback(error)
-        end
-      end)
-    else
-      true ->
+    case values |> Enum.any?(&invalid_changeset/1) do
+      false ->
+        Repo.transaction(fn -> append_attributes_transaction(values) end)
+      true  ->
         values
         |> Enum.filter(&invalid_changeset/1)
         |> Enum.take(1)
@@ -132,25 +136,36 @@ defmodule Vtm.Creation do
   #   IO.inspect {:error, request}
   # end
   def update_character_stage_non_vampires(user_id, new_stage, character_id, attrs) do
-    with true     <- Characters.character_of_user?(user_id, character_id),
-         true     <- Characters.character_at_stage?(character_id, new_stage - 1),
-         {:ok, _} <- Characters.update_character(character_id, %{stage: new_stage}) do
-      Characters.update_character(character_id, attrs)
+    case {
+      Characters.character_of_user?(user_id, character_id),
+      Characters.character_at_stage?(character_id, new_stage - 1),
+      Characters.character_at_stage?(character_id, new_stage)
+    } do
+      {false, _, _} ->
+        {:error, :unauthorized}
+      {_, _, true} ->
+        Characters.update_character(character_id, attrs)
+      {_, true, _} ->
+        Characters.update_character(character_id, attrs |> Map.put(:stage, new_stage))
     end
   end
 
   def update_character_stage(user_id, new_stage, attrs) do
     [%{character_id: character_id} | _] = attrs
 
-    with true     <- Characters.character_of_user?(user_id, character_id),
-         true     <- Characters.character_at_stage?(character_id, new_stage - 1),
-         {:ok, _} <- append_attributes(character_id, attrs, new_stage),
-         {:ok, _} <- Characters.update_character(character_id, %{stage: new_stage}) do
-      {:ok, character_id}
-    else
-      false ->
+    case {
+      Characters.character_of_user?(user_id, character_id),
+      Characters.character_at_stage?(character_id, new_stage - 1),
+      Characters.character_at_stage?(character_id, new_stage)
+    } do
+      {false, _, _} ->
         {:error, :unauthorized}
-      e -> e
+      {_, _, true} ->
+        append_attributes(character_id, attrs, new_stage)
+      {_, true, _} ->
+        with {:ok, _} <- append_attributes(character_id, attrs, new_stage) do
+          Characters.update_character(character_id, %{stage: new_stage})
+        end
     end
   end
 

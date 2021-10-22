@@ -4,6 +4,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 
 const forumSectionDescription = section => (
     <Typography component="span" sx={{
@@ -26,16 +27,20 @@ export type ForumItemProps = {
 }
 
 const ForumListItem = ({item, onClick}: ForumItemProps): any => (
-    <ListItem key={item?.id} alignItems="flex-start" button onClick={_ => onClick(item?.id)}>
-        <ListItemText primary={item?.title}
-                      secondary={forumSectionDescription(item)}
-                      sx={{
-                          color: "white",
-                          fontFamily: 'GabrieleLightRibbon',
-                          fontSize: "24px",
-                          padding: "5px"
-                      }} />
-    </ListItem>
+    <>
+        <Divider />
+        <ListItem key={item?.id} alignItems="flex-start" button onClick={_ => onClick(item?.id)}>
+            <ListItemText primary={item?.title}
+                            secondary={forumSectionDescription(item)}
+                            sx={{
+                                color: "white",
+                                fontFamily: 'GabrieleLightRibbon',
+                                fontSize: "24px",
+                                padding: "5px"
+                            }} />
+        </ListItem>
+        <Divider />
+    </>
 );
 
 export default ForumListItem;

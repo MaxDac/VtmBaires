@@ -164,7 +164,8 @@ const Internal = ({character}) => {
                     </Grid>
                 </Grid>
                 <Suspense fallback={"loading..."}>
-                    <CharacterFragmentProvider characterId={character.id}>
+                    <CharacterFragmentProvider characterId={character.id}
+                                               showWarningWhenNoCharacterSelected={true}>
                         { ch =>
                             <CharacterSheetStatsSection characterId={character.id}
                                                         characterQuery={ch}
@@ -190,7 +191,7 @@ const Creation5 = (_: Props): any =>
             Adesso puoi apportare modifiche alla tua scheda, ora che è completa. Puoi scambiare i valori tra attributi e abilit&agrave;.
             Per apportare altre modifiche, contatta un master.
         </Typography>
-        <CharacterProvider>
+        <CharacterProvider showWarningWhenNoCharacterSelected={true}>
             { character =>
                 <Internal character={character} />
             }

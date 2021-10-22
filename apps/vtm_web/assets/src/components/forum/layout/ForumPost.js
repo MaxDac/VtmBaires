@@ -6,6 +6,7 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import {defaultFormatDateAndTime} from "../../../_base/utils";
 
 type Props = {
     onGame: boolean;
@@ -20,20 +21,34 @@ const ForumPost = ({post, onGame}: Props): any => {
     return (
         <Grid container>
             <Grid item xs={12}>
-                <Typography sx={{
-                    ...mainFontFamily
-                }}>
-                    {post?.character?.name ?? post?.user?.name}
-                </Typography>
+                <Grid container sx={{padding: "3px"}}>
+                    <Grid item xs={6}>
+                        <Typography sx={{
+                            ...mainFontFamily
+                        }}>
+                            {post?.character?.name ?? post?.user?.name}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} sx={{
+                        textAlign: "right",
+                        display: "inline-flex"
+                    }}>
+                        <div style={{
+                            marginTop: "auto",
+                            textAlign: "right",
+                            width: "100%",
+                            fontSize: "13px"
+                        }}>
+                            {defaultFormatDateAndTime(post?.insertedAt)}
+                        </div>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid item xs={12} sx={{
-                padding: "10px",
-                margin: "10px"}}>
+            <Grid item xs={12}>
                 <Paper component="div" variant="outlined">
                     <Typography sx={{
                         ...style(),
-                        padding: "10px",
-                        margin: "10px"
+                        padding: "10px"
                     }}>
                         {post?.text}
                     </Typography>

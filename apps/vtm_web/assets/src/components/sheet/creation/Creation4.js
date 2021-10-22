@@ -262,7 +262,7 @@ const Creation4 = (): any => {
 
     return (
         <MainLayout>
-            <CharacterFragmentProvider>
+            <CharacterFragmentProvider showWarningWhenNoCharacterSelected={true}>
                 {characterQuery =>
                     <InternalElement character={characterQuery}>
                         { character =>

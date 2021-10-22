@@ -141,7 +141,7 @@ defmodule Vtm.Forum do
           left_lateral_join: c in subquery(include_character_subquery()),
           left_lateral_join: u in subquery(include_user_subquery()),
           where: p.forum_thread_id == ^thread_id,
-          order_by: [desc: p.inserted_at],
+          order_by: [asc: p.inserted_at],
           select: {p, c.id, c.name, u.id, u.name}
 
       {:ok, Repo.all(query)

@@ -37,11 +37,9 @@ defmodule VtmWeb.SessionController do
     end
   end
 
-  @doc """
-  Gets the remote host and IP.
-  Having that the site in production will use Nginx, it forwards the information
-  as headers in Host and X-Real-IP respectively.
-  """
+  # Gets the remote host and IP.
+  # Having that the site in production will use Nginx, it forwards the information
+  # as headers in Host and X-Real-IP respectively.
   defp get_remote_host_and_ip(conn = %{req_headers: headers}) do
     case Application.get_env(:vtm_web, :environment) do
       :prod ->
@@ -106,7 +104,7 @@ defmodule VtmWeb.SessionController do
     |> Enum.join(".")
   end
 
-  defp ip_to_string(ip), do: IO.inspect(ip)
+  defp ip_to_string(ip), do: inspect(ip)
 
   @graphql """
   mutation ($userEmail: String!) {

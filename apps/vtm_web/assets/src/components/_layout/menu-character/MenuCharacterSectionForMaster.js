@@ -55,7 +55,7 @@ const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props
                                               handleCharacterSelection={handleCharacterSelection} />));
         }
 
-        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo</MenuItem>;
+        return <MenuItem key={"0"} onClick={_ => history.push(Routes.creation1)}>Crea nuovo personaggio</MenuItem>;
     }
 
     return (

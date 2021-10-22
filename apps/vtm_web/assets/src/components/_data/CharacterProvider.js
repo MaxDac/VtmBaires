@@ -8,6 +8,7 @@ import RemoteCharacterProvider from "./RemoteCharacterProvider";
 import {useCharacterCompleteQuery} from "../../services/queries/character/GetCharacterCompleteQuery";
 
 type Props = CharacterProviderBaseProps & {
+    showWarningWhenNoCharacterSelected: boolean,
     children: ?Character => any,
 }
 
@@ -33,7 +34,7 @@ const CharacterProvider = (props: Props): any => {
     }
 
     return (
-        <RemoteCharacterProvider>
+        <RemoteCharacterProvider showWarningWhenNoCharacterSelected={props.showWarningWhenNoCharacterSelected}>
             { characterId =>
                 <CharacterProviderQuery characterId={characterId} children={props.children} />
             }

@@ -20,7 +20,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     end
   end
 
-  def define_npc_stats(%{character_id: c_id, request: request}, %{context: %{current_user: current_user}}) do
+  def define_npc_stats(%{character_id: c_id, request: request}, _) do
     new_request =
       request
       |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
@@ -30,7 +30,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     end
   end
 
-  def assign_npc_attributes(%{character_id: c_id, request: %{attributes: attributes}}, %{context: %{current_user: current_user}}) do
+  def assign_npc_attributes(%{character_id: c_id, request: %{attributes: attributes}}, _) do
     parsed_attributes =
       attributes
       |> Enum.map(fn
@@ -40,7 +40,14 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     Characters.assign_npc_attributes(c_id |> String.to_integer(), parsed_attributes)
   end
 
+  @spec id_to_integer(String.t()) :: Integer.t()
+  defp id_to_integer(id) do
+    id |> String.to_integer()
+  end
+
+  @spec confirm_png(Map.t(), any()) :: {:ok, Character.t()}
   def confirm_png(%{character_id: id}, _) do
-    Characters.confirm_png(id |> String.to_integer())
+    c_id = id_to_integer(id)
+    Characters.confirm_png(c_id)
   end
 end
