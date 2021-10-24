@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.NpcResolvers do
+  @moduledoc false
+
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Characters
@@ -40,14 +42,10 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     Characters.assign_npc_attributes(c_id |> String.to_integer(), parsed_attributes)
   end
 
-  @spec id_to_integer(String.t()) :: Integer.t()
-  defp id_to_integer(id) do
-    id |> String.to_integer()
-  end
-
   @spec confirm_png(Map.t(), any()) :: {:ok, Character.t()}
   def confirm_png(%{character_id: id}, _) do
-    c_id = id_to_integer(id)
-    Characters.confirm_png(c_id)
+    id
+    |> String.to_integer()
+    |> Characters.confirm_png()
   end
 end

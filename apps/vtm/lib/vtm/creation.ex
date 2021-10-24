@@ -195,7 +195,7 @@ defmodule Vtm.Creation do
     end
   end
 
-  @spec set_ability_stage(String.t()) :: {:ok, Character.t()} | {:error, :not_found}
+  @spec set_ability_stage(integer) :: {:ok, Character.t()} | {:error, :not_found}
   defp set_ability_stage(character_id) do
     case Character |> Repo.get(character_id) do
       character when not is_nil(character) ->
@@ -210,7 +210,7 @@ defmodule Vtm.Creation do
   @doc """
   Applies the template to the character, moving its stage to 3, the one after setting all the skills.
   """
-  @spec apply_template_to_character(String.t(), String.t()) :: {:ok, Character.t()} | {:error, String.t()} | {:error, :not_found}
+  @spec apply_template_to_character(integer, integer) :: {:ok, Character.t()} | {:error, String.t()} | {:error, :not_found}
   def apply_template_to_character(character_id, template_id) do
     delete_all_attributes(character_id)
     insert_template_attributes_to_character(character_id, template_id)

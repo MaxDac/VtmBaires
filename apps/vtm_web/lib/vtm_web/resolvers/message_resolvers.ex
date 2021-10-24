@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.MessageResolvers do
+  @moduledoc false
+
   alias Vtm.Messages
   alias Vtm.Messages.Message
   alias Vtm.Messages.MessageDigest

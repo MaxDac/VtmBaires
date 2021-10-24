@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
+  @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   alias Vtm.Characters
@@ -12,7 +14,7 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
   end
 
   def call(resolution = %{
-    arguments: %{input: input = %{character_id: character_id}},
+    arguments: %{input: %{character_id: character_id}},
     context: %{current_user: %{id: user_id, role: role}}
   }, _) do
     check_character(character_id, user_id, role, resolution)

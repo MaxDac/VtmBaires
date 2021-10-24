@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.ChatResolvers do
+  @moduledoc false
+
   alias Vtm.Chats
   import VtmWeb.Resolvers.Helpers
 

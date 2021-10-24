@@ -1,4 +1,6 @@
 defmodule Vtm.Characters do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
@@ -243,7 +245,7 @@ defmodule Vtm.Characters do
   defp filter_attributes(%Attribute{id: id}, map), do: map |> Map.has_key?(id)
   defp filter_attributes(_, _), do: false
 
-  @spec get_character_attrs_with_value(String.t()) :: %{String.t() => Integer.t()}
+  @spec get_character_attrs_with_value(integer) :: %{String.t() => Integer.t()}
   def get_character_attrs_with_value(id) do
     query =
       from ca in CharacterAttribute,
@@ -255,7 +257,7 @@ defmodule Vtm.Characters do
     |> Map.new(&(&1))
   end
 
-  @spec get_character_attributes(Integer.t()) :: list(CharacterAttribute.t())
+  @spec get_character_attributes(integer) :: list(CharacterAttribute.t())
   def get_character_attributes(id) do
     character_attributes = get_character_attrs_with_value(id)
 
@@ -343,13 +345,6 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec get_character_stats(Integer.t()) :: %{
-          advantages: list,
-          attributes: list,
-          disciplines: list,
-          id: binary,
-          predator_type: any
-        }
   def get_character_stats(id) do
     with attributes                             <- get_character_attributes(id),
          predator_type                          <- get_character_predator_type(id),
@@ -554,11 +549,14 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec confirm_png(Integer.t()) :: {:ok, Character.t()}
+  @spec confirm_png(integer) :: {:ok, Character.t()}
   def confirm_png(character_id) do
     stamina =
       with %{attributes: ats} <- get_character_stats(character_id),
-           [%{value: st} | _] <- ats |> Enum.filter(fn %{attribute: %{name: "Costituzione"}} -> true; _ -> false end) do
+           [%{value: st} | _] <- ats |> Enum.filter(fn
+              %{attribute: %{name: "Costituzione"}} -> true
+               _ -> false
+            end) do
         st
       end
 
