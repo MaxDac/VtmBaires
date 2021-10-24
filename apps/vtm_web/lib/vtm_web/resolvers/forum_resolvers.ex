@@ -38,11 +38,11 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
       case attrs do
         %{creator_character_id: c_id} ->
           attrs
-          |> Map.put(:creator_character_id, from_global_id?(c_id))
+          |> Map.put(:creator_character_id, from_global_id!(c_id))
         a -> a
       end
-      |> Map.put(:forum_section_id, from_global_id?(section_id))
-      |> Map.put(:creator_user_id, from_global_id?(attrs.creator_user_id))
+      |> Map.put(:forum_section_id, from_global_id!(section_id))
+      |> Map.put(:creator_user_id, from_global_id!(attrs.creator_user_id))
 
     Forum.new_thread(user, section_id, attrs)
   end
@@ -52,11 +52,11 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
       case attrs do
         %{creator_character_id: c_id} ->
           attrs
-          |> Map.put(:creator_character_id, from_global_id?(c_id))
+          |> Map.put(:creator_character_id, from_global_id!(c_id))
         _ -> attrs
       end
-      |> Map.put(:creator_user_id, from_global_id?(attrs.creator_user_id))
-      |> Map.put(:forum_thread_id, from_global_id?(attrs.forum_thread_id))
+      |> Map.put(:creator_user_id, from_global_id!(attrs.creator_user_id))
+      |> Map.put(:forum_thread_id, from_global_id!(attrs.forum_thread_id))
 
     Forum.new_post(user, attrs.forum_thread_id, attrs)
   end

@@ -16,6 +16,6 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacter do
   end
 
   defp correct_user_for_character?(%{id: user_id}, %{character_id: character_id}) do
-    Characters.character_of_user?(user_id, from_global_id?(character_id))
+    Characters.character_of_user?(user_id, from_global_id!(character_id))
   end
 end

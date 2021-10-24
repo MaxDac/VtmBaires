@@ -2,27 +2,22 @@
 
 import React, {useContext} from "react";
 import {SessionContext} from "../../../contexts";
-import {useHistory} from "react-router";
+import {useHistory} from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../services/queries/accounts/UserCharactersQuery";
 import { MainRoutes } from "../../MainRouter";
 
 type Props = {
-    drawerDone: () => void;
+    pushHistory: string => void;
     characters: Array<UserCharacter>;
     onUpdate: () => void;
 }
 
-const MenuCharacterSectionForUser = ({drawerDone, characters, onUpdate}: Props): any => {
+const MenuCharacterSectionForUser = ({pushHistory, characters, onUpdate}: Props): any => {
     const history = useHistory();
 
     const {setCurrentCharacter} = useContext(SessionContext);
-
-    const pushHistory = (route: string) => {
-        drawerDone();
-        history.push(route);
-    }
     
     const handleSheetSelection = (info: any) =>
         _ => {

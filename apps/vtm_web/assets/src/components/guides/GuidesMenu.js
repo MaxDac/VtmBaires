@@ -61,6 +61,9 @@ const GuidesMenu = (props: Props): any => {
                 </ListItem>
                 <Collapse in={environmentOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.glossary)}>
+                            <ListItemText primary="Glossario" />
+                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.environment)}>
                             <ListItemText primary="Globale" />
                         </ListItem>

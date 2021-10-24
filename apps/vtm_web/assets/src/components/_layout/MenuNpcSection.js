@@ -9,7 +9,6 @@ import Avatar from "@mui/material/Avatar";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import {useSession} from "../../services/session-service";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import GroupsIcon from '@mui/icons-material/Groups';
 import { SessionContext, UtilityContext } from "../../contexts";
 import {useHistory} from "react-router-dom";
@@ -18,27 +17,22 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
 import List from "@mui/material/List";
 import {useTheme} from "@mui/styles";
-import type {GetAllNpcsQuery} from "../../services/queries/npcs/__generated__/GetAllNpcsQuery.graphql";
-import {getAllNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
 import { MainRoutes } from "../MainRouter";
+import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
 
 type Props = {
-    pushHistory: string => () => void;
-    reloadCount: number;
+    pushHistory: string => void;
+    npcs: Array<Npc>;
     onUpdate: () => void;
 }
 
-const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
+const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
     const history = useHistory();
     const theme = useTheme();
     const [expand, setExpand] = useState(false);
     const [,currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
     const {openDialog} = useContext(UtilityContext);
-
-    const npcs = useCustomLazyLoadQuery<GetAllNpcsQuery>(getAllNpcsQuery, {}, {
-        fetchPolicy: "store-and-network"
-    })?.allNpcs;
 
     const handleNpcSelection = (info: any) =>
         _ => {
@@ -48,11 +42,13 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
                 openDialog(
                     "Selezione personaggio", 
                     "Il personaggio è stato selezionato, vuoi vedere la sua scheda?", 
-                    () => history.push(MainRoutes.sheet(info?.id)));
+                    () => pushHistory(MainRoutes.sheet(info?.id)));
             }
             else {
-                history.push(MainRoutes.defineNpc(info?.id));
+                pushHistory(MainRoutes.defineNpc(info?.id));
             }
+
+            onUpdate();
         }
 
     const showNpcs = () => {

@@ -15,6 +15,7 @@ import GuidesFaq from "./guides-pages/GuidesFaq";
 import GuidesPlaces from "./guides-pages/GuidesPlaces";
 import GuidesCredits from "./guides-pages/GuidesCredits";
 import GuidesSiteHelp from "./guides-pages/GuidesSiteHelp";
+import GuidesGlossary from "./guides-pages/GuidesGlossary";
 
 type Props = {
     match: any
@@ -23,6 +24,7 @@ type Props = {
 export const GuideRoutes = {
     home: "/guides",
     generalRules: "/guides/general-rules",
+    glossary: "/guides/glossary",
     environment: "/guides/environment",
     environmentBaires: "/guides/environment-baires",
     environmentSects: "/guides/environment-sects",
@@ -48,6 +50,7 @@ const GuidesMain = ({match}: Props): any => {
                 <div>
                     <Route exact path={match.url} component={GuidesHome} />
                     <Route exact path={`${match.url}/general-rules`} component={GuidesGeneralRules} />
+                    <Route exact path={`${match.url}/glossary`} component={GuidesGlossary} />
                     <Route exact path={`${match.url}/environment`} component={GuidesEnvironment} />
                     <Route exact path={`${match.url}/environment-baires`} component={GuidesEnvironmentBaires} />
                     <Route exact path={`${match.url}/environment-sects`} component={GuidesEnvironmentSects} />

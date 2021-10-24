@@ -9,19 +9,14 @@ import type { UserCharacter } from "../../../services/queries/accounts/UserChara
 import { MainRoutes } from "../../MainRouter";
 
 type Props = {
-    drawerDone: () => void;
+    pushHistory: string => void;
     characters: Array<UserCharacter>;
     onUpdate: () => void;
 }
 
-const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props): any => {
+const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Props): any => {
     const history = useHistory();
     const {setCurrentCharacter} = useContext(SessionContext);
-
-    const pushHistory = (route: string) => {
-        drawerDone();
-        history.push(route);
-    }
     
     const handleSheetSelection = (info: UserCharacter) =>
         _ => {
@@ -29,9 +24,10 @@ const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props
                 pushHistory(`${MainRoutes.creationBase}${info.stage + 1}`);
             }
             else {
-                console.log("route", MainRoutes.sheet(info.id));
                 pushHistory(MainRoutes.sheet(info.id));
             }
+
+            onUpdate();
         };
 
     const handleCharacterSelection = (info: UserCharacter) =>
@@ -42,7 +38,6 @@ const MenuCharacterSectionForMaster = ({drawerDone, characters, onUpdate}: Props
                 approved: info.approved
             });
 
-            onUpdate();
             document.location.reload();
         };
 

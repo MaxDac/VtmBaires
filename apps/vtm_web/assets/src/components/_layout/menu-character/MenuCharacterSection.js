@@ -2,29 +2,28 @@
 
 import React from "react";
 import {useSession} from "../../../services/session-service";
-import {useUserCharactersQuery} from "../../../services/queries/accounts/UserCharactersQuery";
 import {isUserMaster} from "../../../services/base-types";
 import MenuCharacterSectionForMaster from "./MenuCharacterSectionForMaster";
 import MenuCharacterSectionForUser from "./MenuCharacterSectionForUser";
+import type {UserCharacter} from "../../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
-    drawerDone: () => void;
-    reloadCount: number;
+    pushHistory: string => void;
+    characters: Array<UserCharacter>;
     onUpdate: () => void;
 }
 
-const MenuCharacterSection = ({drawerDone, reloadCount, onUpdate}: Props): any => {
+const MenuCharacterSection = ({pushHistory, characters, onUpdate}: Props): any => {
     const [user,] = useSession();
-    const characters = useUserCharactersQuery(reloadCount);
 
     if (characters != null) {
         if (isUserMaster(user)) {
-            return <MenuCharacterSectionForMaster drawerDone={drawerDone} 
+            return <MenuCharacterSectionForMaster pushHistory={pushHistory}
                                                   characters={characters}
                                                   onUpdate={onUpdate} />
         }
         else {
-            return <MenuCharacterSectionForUser drawerDone={drawerDone}
+            return <MenuCharacterSectionForUser pushHistory={pushHistory}
                                                 characters={characters}
                                                 onUpdate={onUpdate} />
         }

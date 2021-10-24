@@ -38,8 +38,8 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
   def create_chat_entry(_, %{entry: entry}, %{context: %{current_user: user}}) do
     entry
-    |> Map.put(:character_id, from_global_id?(entry.character_id))
-    |> Map.put(:chat_map_id, from_global_id?(entry.chat_map_id))
+    |> Map.put(:character_id, from_global_id!(entry.character_id))
+    |> Map.put(:chat_map_id, from_global_id!(entry.chat_map_id))
     |> ChatHelpers.create_chat_entry(user)
   end
 
@@ -56,9 +56,9 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
       difficulty: difficulty
     } =
       entry
-      |> Map.put(:character_id, from_global_id?(entry.character_id))
-      |> Map.put(:attribute_id, from_global_id?(entry.attribute_id))
-      |> Map.put(:ability_id, from_global_id?(entry.ability_id))
+      |> Map.put(:character_id, from_global_id!(entry.character_id))
+      |> Map.put(:attribute_id, from_global_id!(entry.attribute_id))
+      |> Map.put(:ability_id, from_global_id!(entry.ability_id))
 
     case {check_master(entry, user), entry |> Map.get(:master, false)} do
       {true, false} ->
@@ -75,7 +75,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   def config_chat_subscription(%{map_id: map_id, token: token}, _context) do
     IO.puts "received token for subscription: #{token}"
     with {:ok, _} <- VtmWeb.Authentication.verify_subscription_key_token(token) do
-      {:ok, topic: from_global_id?(map_id)}
+      {:ok, topic: from_global_id!(map_id)}
     end
   end
 

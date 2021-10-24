@@ -20,10 +20,10 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     message =
       message
       |> Map.new(fn
-        {:receiver_user_id, v}      -> {:receiver_user_id, from_global_id?(v)}
-        {:sender_character_id, v}   -> {:sender_character_id, from_global_id?(v)}
-        {:receiver_character_id, v} -> {:receiver_character_id, from_global_id?(v)}
-        {:reply_to_id, v}           -> {:reply_to_id, from_global_id?(v)}
+        {:receiver_user_id, v}      -> {:receiver_user_id, from_global_id!(v)}
+        {:sender_character_id, v}   -> {:sender_character_id, from_global_id!(v)}
+        {:receiver_character_id, v} -> {:receiver_character_id, from_global_id!(v)}
+        {:reply_to_id, v}           -> {:reply_to_id, from_global_id!(v)}
         {key, value}                -> {key, value}
       end)
 

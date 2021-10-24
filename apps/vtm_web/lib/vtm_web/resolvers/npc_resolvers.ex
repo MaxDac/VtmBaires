@@ -11,7 +11,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     new_request =
       request
       |> Map.put(:user_id, 1)
-      |> Map.put(:clan_id, from_global_id?(request.clan_id))
+      |> Map.put(:clan_id, from_global_id!(request.clan_id))
 
     with {:ok, %{id: id}} <- Characters.create_npc(new_request, current_user),
          {:ok, _}         <- Characters.add_npc_empty_attributes(id),
@@ -23,7 +23,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
   def define_npc_stats(%{character_id: c_id, request: request}, _) do
     new_request =
       request
-      |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
+      |> Map.put(:predator_type_id, from_global_id!(request.predator_type_id))
 
     with {:ok, ch}  <- Characters.update_character(c_id |> String.to_integer(), new_request) do
       {:ok, %{response: ch}}
@@ -34,7 +34,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     parsed_attributes =
       attributes
       |> Enum.map(fn
-        %{id: id, value: value} -> %{id: from_global_id?(id), value: value}
+        %{id: id, value: value} -> %{id: from_global_id!(id), value: value}
       end)
 
     Characters.assign_npc_attributes(c_id |> String.to_integer(), parsed_attributes)

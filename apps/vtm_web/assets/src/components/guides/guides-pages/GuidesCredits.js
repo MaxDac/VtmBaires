@@ -79,6 +79,39 @@ const GuidesCredits = (props: Props): any => {
                 </Typography>
             </Box>
 
+            <Typography paragraph sx={guideStyle}>
+                <h2 style={titleStyle}>
+                    Contenuti consigliati
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Di seguito elencheremo alcuni contenuti (per lo pi&ugrave; <i>videogames</i>) che possono
+                aiutare a comprendere l'ambientazione, la storia, e il lessico di <b>Vampiri: la Masquearade</b>&trade;.
+                Ovviamente, <b>non sar&agrave; necessario comprare o giocare ai titoli descritti di seguito
+                per poter entrare e giocare in chat</b>, ma stimiamo che, soprattutto per giocatori alle 
+                prime armi, questi giochi aiutino ad acquisire le informazioni essenziali per giocare
+                correttamente.
+            </Typography>
+
+            <Box sx={{minHeight: "95x"}}>
+                <a href="https://whitewolf.fandom.com/wiki/Main_Page" target="_blank" rel="noreferrer">
+                    <img alt="WhiteWolfWikiLogo" src="/WhiteWolfWikiLogo.webp" align="right" hspace="10px" vspace="10px" style={imageLinkStyle} />
+                </a>
+
+                <Typography paragraph sx={guideStyle}>
+                    <h2 style={titleStyle}>
+                        White Wolf Wiki
+                    </h2>
+                </Typography>
+
+                <Typography paragraph sx={guideStyle}>
+                    In questa guida non ufficiale sono elencate la maggior parte delle informazioni sul 
+                    mondo di Vampiri: la Masquerade. Un utile riferimento per tutti i giocatori, dai pi&ugrave;
+                    esperti per consultare informazioni specifiche, ai meno esperti, per studiare in breve
+                    tutto quello che c'&egrave; da sapere sul Mondo di Tenebra.
+                </Typography>
+            </Box>
         </>
     );
 }

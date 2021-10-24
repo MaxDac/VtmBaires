@@ -71,7 +71,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   def get_characters_avatar(_, %{character_ids: c_ids}, _) do
     result =
       c_ids
-      |> Enum.map(&from_global_id?/1)
+      |> Enum.map(&from_global_id!/1)
       |> Characters.get_characters_avatar()
 
     {:ok, result}
@@ -79,7 +79,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
     {:ok, c_ids
-      |> Enum.map(&from_global_id?/1)
+      |> Enum.map(&from_global_id!/1)
       |> Characters.get_characters_chat_avatar()}
   end
 
@@ -110,7 +110,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   def create_character(_, %{request: request }, %{context: %{current_user: current_user}}) do
     new_request =
       request
-      |> Map.put(:clan_id, from_global_id?(request.clan_id))
+      |> Map.put(:clan_id, from_global_id!(request.clan_id))
       |> Map.put(:user_id, current_user.id)
 
     with :ok                                    <- Characters.user_has_characters?(current_user.id),
@@ -139,8 +139,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def parse_attribute_query(request = %{attribute_id: id, character_id: char_id}) do
     request
-    |> Map.put(:attribute_id, from_global_id?(id))
-    |> Map.put(:character_id, from_global_id?(char_id))
+    |> Map.put(:attribute_id, from_global_id!(id))
+    |> Map.put(:character_id, from_global_id!(char_id))
   end
 
   def append_attributes(_, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
@@ -162,8 +162,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     %{context: %{current_user: %{id: user_id}}}) do
     {c_id, t_id} =
       {
-        from_global_id?(character_id),
-        from_global_id?(template_id)
+        from_global_id!(character_id),
+        from_global_id!(template_id)
       }
 
     case Characters.character_of_user?(user_id, c_id) do
@@ -175,9 +175,9 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def switch_attributes(_, request = %{character_id: id}, context = %{context: %{current_user: %{id: user_id}}}) do
-    with parsed_id    <- from_global_id?(id),
+    with parsed_id    <- from_global_id!(id),
          true         <- Characters.character_of_user?(user_id, parsed_id),
-         new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id?(v)} end),
+         new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id!(v)} end),
          {:ok, _}     <- Creation.switch_attributes(new_request) do
       get_character(%{id: parsed_id}, context)
     else
@@ -202,7 +202,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   defp add_thin_blood_advantages(character_id, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
     new_request =
       request
-      |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
+      |> Map.put(:predator_type_id, from_global_id!(request.predator_type_id))
       |> Map.put(:id, character_id)
 
     with {:ok, _} <- Creation.add_advantages(user_id, new_request),
@@ -221,7 +221,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
     new_request =
       request
-      |> Map.put(:predator_type_id, from_global_id?(request.predator_type_id))
+      |> Map.put(:predator_type_id, from_global_id!(request.predator_type_id))
       |> Map.put(:id, first_attribute.character_id)
 
     with {:ok, _}             <- Creation.add_advantages(user_id, new_request),

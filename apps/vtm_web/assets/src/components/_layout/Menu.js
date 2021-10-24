@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState} from 'react';
+import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,15 +21,21 @@ import MenuNpcSection from "./MenuNpcSection";
 import MenuHuntSection from "./MenuHuntSection";
 import Typography from "@mui/material/Typography";
 import { MainRoutes } from "../MainRouter";
+import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
+import {useNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
 
 type Props = {
     drawerDone: () => void;
     isClosed: boolean;
+    reloadCount: number;
+    onUpdate: () => void;
 }
 
-export const MainListItems = ({drawerDone}: Props): any => {
+export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
-    const [reloadCount, setReloadCount] = useState(0);
+    const characters = useUserCharactersQuery(reloadCount);
+
+    console.log("characters")
 
     const pushHistory = (route: string) => () => {
         drawerDone();
@@ -40,10 +46,6 @@ export const MainListItems = ({drawerDone}: Props): any => {
         drawerDone();
         const newTab = window.open(`#${route}`, "_blank");
         newTab.focus();
-    };
-
-    const onUpdate = () => {
-        setReloadCount(c => c + 1);
     };
 
     return (
@@ -60,8 +62,8 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Mappa" />
             </ListItem>
-            <MenuCharacterSection drawerDone={drawerDone} 
-                                  reloadCount={reloadCount}
+            <MenuCharacterSection pushHistory={route => pushHistory(route)()}
+                                  characters={characters}
                                   onUpdate={onUpdate} />
             <MenuHuntSection />
             <ListItem button onClick={pushHistoryOnAnotherTab(Routes.guideMain)}>
@@ -70,7 +72,7 @@ export const MainListItems = ({drawerDone}: Props): any => {
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
             </ListItem>
-            <ListItem button onClick={_ => history.push(MainRoutes.forumSections)}>
+            <ListItem button onClick={pushHistory(MainRoutes.forumSections)}>
                 <ListItemIcon>
                     <ChatIcon />
                 </ListItemIcon>
@@ -86,11 +88,11 @@ export const MainListItems = ({drawerDone}: Props): any => {
     );
 };
 
-export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
+export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
-    const [reloadCount, setReloadCount] = useState(0);
+    const npcs = useNpcsQuery(reloadCount);
 
-    const pushHistory = (route: string) => () => {
+    const pushHistory = (route: string) => {
         drawerDone();
         history.push(route);
     };
@@ -123,15 +125,11 @@ export const SecondaryListItems = ({drawerDone, isClosed}: Props): any => {
         return (<></>);
     }
 
-    const onUpdate = () => {
-        setReloadCount(c => c + 1);
-    };
-
     return (
         <div>
             <ListSubheader inset>Admin</ListSubheader>
-            <MenuNpcSection pushHistory={pushHistory} 
-                            reloadCount={reloadCount}
+            <MenuNpcSection pushHistory={pushHistory}
+                            npcs={npcs}
                             onUpdate={onUpdate} />
             <ListItem button onClick={pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>

@@ -18,7 +18,7 @@ import {MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
-import {useEffect} from "react";
+import { useEffect, useState } from "react";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
 import LogoutControl from "./_layout/LogoutControl";
@@ -96,6 +96,8 @@ export default function MiniDrawer({children}: {children: any}): any {
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
 
+    const [characterFetchKey, setCharacterFetchKey] = useState(0);
+
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const isEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));
     const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
@@ -119,13 +121,20 @@ export default function MiniDrawer({children}: {children: any}): any {
         }
     }
 
+    const onCharacterUpdate = () => {
+        setCharacterFetchKey(p => p + 1);
+    }
+
     const masterMenu = () => {
         if (isUserMaster(user)) {
             return (
                 <>
                     <Divider/>
                     <List>
-                        <SecondaryListItems drawerDone={closeOnSelected} isClosed={!open} />
+                        <SecondaryListItems drawerDone={closeOnSelected} 
+                                            isClosed={!open}
+                                            onUpdate={onCharacterUpdate}
+                                            reloadCount={characterFetchKey} />
                     </List>
                 </>
             );
@@ -155,7 +164,10 @@ export default function MiniDrawer({children}: {children: any}): any {
             </DrawerHeader>
             <Divider />
             <List>
-                <MainListItems drawerDone={closeOnSelected} isClosed={!open} />
+                <MainListItems drawerDone={closeOnSelected}
+                               isClosed={!open}
+                               onUpdate={onCharacterUpdate}
+                               reloadCount={characterFetchKey} />
             </List>
             <Divider />
             {masterMenu()}
@@ -172,7 +184,16 @@ export default function MiniDrawer({children}: {children: any}): any {
         }
         
         return (
-            <MuiDrawer variant="persistent" open={open}>
+            <MuiDrawer variant="temporary"
+                       open={open}
+                       onClose={() => setOpen(_ => false)}
+                       ModalProps={{
+                           keepMounted: true, // Better open performance on mobile.
+                       }}
+                       sx={{
+                           display: { xs: 'block', sm: 'none' },
+                           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                       }}>
                 {drawerContent()}
             </MuiDrawer>
         );
