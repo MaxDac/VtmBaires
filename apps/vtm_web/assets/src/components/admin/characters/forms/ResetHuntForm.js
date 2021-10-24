@@ -11,9 +11,10 @@ import ResetHuntMutation from "../../../../services/mutations/admin/ResetHuntMut
 
 type Props = {
     character: Character;
+    onUpdate: () => void;
 }
 
-const ResetHuntForm = ({character}: Props): any => {
+const ResetHuntForm = ({character, onUpdate}: Props): any => {
     const environment = useRelayEnvironment();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
 
@@ -25,7 +26,8 @@ const ResetHuntForm = ({character}: Props): any => {
                 handleMutation(
                     () => ResetHuntMutation(environment, character?.id),
                     showUserNotification, {
-                        successMessage: "L'esito della caccia è stato correttamente resettato."
+                        successMessage: "L'esito della caccia è stato correttamente resettato.",
+                        onCompleted: onUpdate
                     });
             }
         );

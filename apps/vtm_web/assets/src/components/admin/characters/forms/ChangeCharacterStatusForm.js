@@ -14,9 +14,10 @@ import SetCharacterStatusMutation from "../../../../services/mutations/admin/Set
 
 type Props = {
     character: Character;
+    onUpdate?: () => void;
 }
 
-const ChangeCharacterStatusForm = ({character}: Props): any => {
+const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
@@ -39,7 +40,8 @@ const ChangeCharacterStatusForm = ({character}: Props): any => {
                     stains: stains
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
-                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
+                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
+                    onCompleted: onUpdate
                 });
             }
         );

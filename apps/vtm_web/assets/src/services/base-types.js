@@ -59,6 +59,9 @@ export type SessionCharacter = {|
     id?: ?string;
     name?: ?string;
     approved?: ?boolean;
+    clan?: {
+        name?: ?string
+    };
 |};
 
 export type Session = {|

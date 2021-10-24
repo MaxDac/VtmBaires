@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacter do
+  @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   alias Vtm.Characters
@@ -16,6 +18,8 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacter do
   end
 
   defp correct_user_for_character?(%{id: user_id}, %{character_id: character_id}) do
-    Characters.character_of_user?(user_id, from_global_id!(character_id))
+    with {:ok, c_id}  <- from_global_id?(character_id) do
+      Characters.character_of_user?(user_id, c_id)
+    end
   end
 end

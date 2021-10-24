@@ -16,18 +16,24 @@ type ChatEntryComponentProps = {
     entry: ChatEntry;
     isLast?: ?boolean;
     showCharacterDescription: (string, string) => void;
+    sx?: any;
 }
 
-const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntryComponentProps): any => {
+const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): any => {
     const divider = () => <Divider variant="inset" component="li" />
 
     const isText = () => Boolean(entry.text);
 
     const isMaster = () => entry.master;
 
+    const commonStyle = {
+        ...sx,
+        fontFamily: 'GabrieleLightRibbon'
+    }
+
     const masterPhraseStyle = {
-        fontFamily: 'GabrieleLightRibbon',
-        fontSize: '18px',
+        ...commonStyle,
+        fontSize: sx?.fontSize ?? '18px',
         fontWeight: 'bold',
         textAlign: 'center'
     };
@@ -39,7 +45,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntry
 
         return (
             <Box component="div" sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                ...commonStyle,
                 color: "red"
             }}>
                 {`${text} ${entry.insertedAt}`}
@@ -49,7 +55,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntry
 
     const parseChatEntryText = () =>
         <Typography component="div" sx={{
-            fontFamily: 'GabrieleLightRibbon'
+            ...commonStyle,
         }}>
             <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.text}
@@ -58,7 +64,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription}: ChatEntry
 
     const parseChatEntryResult = () =>
         <Typography component="div" sx={{
-            fontFamily: 'GabrieleLightRibbon'
+            ...commonStyle,
         }}>
             <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.result}

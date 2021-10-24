@@ -17,9 +17,10 @@ import ChangeCharacterAttributeMutation from "../../../../services/mutations/adm
 
 type Props = {
     character: Character;
+    onUpdate: () => void;
 }
 
-const ChangeCharacterAttributeForm = ({character}: Props): any => {
+const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const attributes = useAttributesSlimQuery()?.attributes ?? [];
@@ -48,7 +49,8 @@ const ChangeCharacterAttributeForm = ({character}: Props): any => {
                     newValue: newValue
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
-                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
+                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
+                    onCompleted: onUpdate
                 });
             }
         );

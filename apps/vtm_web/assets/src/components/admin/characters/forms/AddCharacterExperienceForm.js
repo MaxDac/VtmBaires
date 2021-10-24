@@ -15,9 +15,10 @@ import ChangeCharacterExperienceMutation from "../../../../services/mutations/ad
 
 type Props = {
     character: Character;
+    onUpdate: () => void;
 }
 
-const AddCharacterExperienceForm = ({character}: Props): any => {
+const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
@@ -51,7 +52,8 @@ const AddCharacterExperienceForm = ({character}: Props): any => {
 
                 handleMutation(() => promise, showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
-                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
+                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
+                    onCompleted: onUpdate
                 });
             }
         );

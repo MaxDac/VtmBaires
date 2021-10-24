@@ -39,10 +39,13 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def create_chat_entry(_, %{entry: entry}, %{context: %{current_user: user}}) do
-    entry
-    |> Map.put(:character_id, from_global_id!(entry.character_id))
-    |> Map.put(:chat_map_id, from_global_id!(entry.chat_map_id))
-    |> ChatHelpers.create_chat_entry(user)
+    with {:ok, c_id}  <- from_global_id?(entry.character_id),
+         {:ok, m_id}  <- from_global_id?(entry.chat_map_id) do
+      entry
+      |> Map.put(:character_id, c_id)
+      |> Map.put(:chat_map_id, m_id)
+      |> ChatHelpers.create_chat_entry(user)
+    end
   end
 
   defp check_master(%{master: false}, _), do: true
@@ -50,34 +53,39 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   defp check_master(_, _), do: false
 
   def create_chat_dice_entry(x, %{entry: entry}, ctx = %{context: %{current_user: user}}) do
-    %{
-      character_id: character_id,
-      attribute_id: attribute_id,
-      ability_id: ability_id,
-      free_throw: free_throw,
-      difficulty: difficulty
-    } =
-      entry
-      |> Map.put(:character_id, from_global_id!(entry.character_id))
-      |> Map.put(:attribute_id, from_global_id!(entry.attribute_id))
-      |> Map.put(:ability_id, from_global_id!(entry.ability_id))
+    with {:ok, c_id}  <- from_global_id?(entry.character_id),
+         {:ok, at_id} <- from_global_id?(entry.attribute_id),
+         {:ok, ab_id} <- from_global_id?(entry.ability_id) do
 
-    case {check_master(entry, user), entry |> Map.get(:master, false)} do
-      {true, false} ->
-        throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
-        create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
-      {true, true} ->
-        throw_result = Chats.random_simulate_master_dice_throw(free_throw)
-        create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
-      _ ->
-        {:error, :unauthorized}
+      %{
+        character_id: character_id,
+        attribute_id: attribute_id,
+        ability_id: ability_id,
+        free_throw: free_throw,
+        difficulty: difficulty
+      } =
+        entry
+        |> Map.put(:character_id, c_id)
+        |> Map.put(:attribute_id, at_id)
+        |> Map.put(:ability_id, ab_id)
+
+      case {check_master(entry, user), entry |> Map.get(:master, false)} do
+        {true, false} ->
+          throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
+          create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
+        {true, true} ->
+          throw_result = Chats.random_simulate_master_dice_throw(free_throw)
+          create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
+        _ ->
+          {:error, :unauthorized}
+      end
     end
   end
 
   def config_chat_subscription(%{map_id: map_id, token: token}, _context) do
-    IO.puts "received token for subscription: #{token}"
-    with {:ok, _} <- VtmWeb.Authentication.verify_subscription_key_token(token) do
-      {:ok, topic: from_global_id!(map_id)}
+    with {:ok, _}     <- VtmWeb.Authentication.verify_subscription_key_token(token),
+         {:ok, m_id}  <- from_global_id?(map_id) do
+      {:ok, topic: m_id}
     end
   end
 

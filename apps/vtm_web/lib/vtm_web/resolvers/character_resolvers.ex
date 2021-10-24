@@ -71,7 +71,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   def get_characters_avatar(_, %{character_ids: c_ids}, _) do
     result =
       c_ids
-      |> Enum.map(&from_global_id!/1)
+      |> from_global_ids()
       |> Characters.get_characters_avatar()
 
     {:ok, result}
@@ -79,7 +79,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
     {:ok, c_ids
-      |> Enum.map(&from_global_id!/1)
+      |> from_global_ids()
       |> Characters.get_characters_chat_avatar()}
   end
 
@@ -107,13 +107,17 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def create_character(_, %{request: request }, %{context: %{current_user: current_user}}) do
-    new_request =
-      request
-      |> Map.put(:clan_id, from_global_id!(request.clan_id))
-      |> Map.put(:user_id, current_user.id)
+  def create_character(_, %{request: request = %{clan_id: clan_id}}, %{context: %{current_user: current_user}}) do
+    get_new_request =
+      fn clan_id ->
+        request
+        |> Map.put(:clan_id, clan_id)
+        |> Map.put(:user_id, current_user.id)
+      end
 
-    with :ok                                    <- Characters.user_has_characters?(current_user.id),
+    with {:ok, c_id}                            <- from_global_id?(clan_id),
+         new_request                            <- get_new_request.(c_id),
+         :ok                                    <- Characters.user_has_characters?(current_user.id),
          {:ok, %Character{id: id, name: name}}  <- Characters.create(new_request, current_user),
          {:ok, _}                               <- VtmAuth.Accounts.update_session_dynamic_field(current_user, %{
            character_id: id,
@@ -137,18 +141,31 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     })
   end
 
+  @spec parse_attribute_query(%{
+          :attribute_id => binary,
+          :character_id => any,
+          optional(any) => any
+        }) ::
+          {:error, binary}
+          | {:ok, %{:attribute_id => integer, :character_id => integer, optional(any) => any}}
   def parse_attribute_query(request = %{attribute_id: id, character_id: char_id}) do
-    request
-    |> Map.put(:attribute_id, from_global_id!(id))
-    |> Map.put(:character_id, from_global_id!(char_id))
+    with {:ok, a_id}  <- from_global_id?(id),
+         {:ok, c_id}  <- from_global_id?(char_id) do
+      {:ok,
+        request
+        |> Map.put(:attribute_id, a_id)
+        |> Map.put(:character_id, c_id)}
+    end
   end
 
   def append_attributes(_, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
     new_request =
       request
       |> Enum.map(&parse_attribute_query/1)
+      |> reduce_error_list()
 
-    with {:ok, character_id} <- Creation.update_character_stage(user_id, new_stage, new_request) do
+    with {:ok, new_req}             <- new_request,
+         {:ok, %{id: character_id}} <- Creation.update_character_stage(user_id, new_stage, new_req) do
       get_character(%{id: character_id}, context)
     end
   end
@@ -160,25 +177,41 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   def apply_template_to_character(_,
     %{character_id: character_id, template_id: template_id},
     %{context: %{current_user: %{id: user_id}}}) do
-    {c_id, t_id} =
-      {
-        from_global_id!(character_id),
-        from_global_id!(template_id)
-      }
 
-    case Characters.character_of_user?(user_id, c_id) do
-      true ->
-        Creation.apply_template_to_character(c_id, t_id)
-      _ ->
-        {:error, "The character does not belong to the user"}
+    with {:ok, c_id}  <- from_global_id?(character_id),
+         {:ok, t_id}  <- from_global_id?(template_id) do
+
+      case Characters.character_of_user?(user_id, c_id) do
+        true ->
+          Creation.apply_template_to_character(c_id, t_id)
+        _ ->
+          {:error, "The character does not belong to the user"}
+      end
+
+    end
+  end
+
+  defp map_global_id_attributes(request) do
+    parsed_request =
+      request
+      |> Enum.map(fn {k, v} -> {k, from_global_id?(v)} end)
+      |> Enum.reduce({:ok, %{}}, fn
+        {k, {:ok, v}}, {:ok, m}         -> {:ok, m |> Map.put(k, v)}
+        {_, {:error, e}}, {:ok, _}      -> {:error, [e]}
+        {_, {:ok, _}}, e                -> e
+        {_, {:error, e}}, {:error, ee}  -> {:error, [e | ee]}
+      end)
+
+    with {:ok, ls}  <- parsed_request do
+      {:ok, ls |> Map.new()}
     end
   end
 
   def switch_attributes(_, request = %{character_id: id}, context = %{context: %{current_user: %{id: user_id}}}) do
-    with parsed_id    <- from_global_id!(id),
-         true         <- Characters.character_of_user?(user_id, parsed_id),
-         new_request  <- request |> Map.new(fn {k, v} -> {k, from_global_id!(v)} end),
-         {:ok, _}     <- Creation.switch_attributes(new_request) do
+    with {:ok, parsed_id}   <- from_global_id?(id),
+         true               <- Characters.character_of_user?(user_id, parsed_id),
+         {:ok, new_request} <- map_global_id_attributes(request),
+         {:ok, _}           <- Creation.switch_attributes(new_request) do
       get_character(%{id: parsed_id}, context)
     else
       false ->
@@ -200,13 +233,16 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   defp add_thin_blood_advantages(character_id, %{request: request, new_stage: new_stage}, context = %{context: %{current_user: %{id: user_id}}}) do
-    new_request =
+    new_request = fn p_id ->
       request
-      |> Map.put(:predator_type_id, from_global_id!(request.predator_type_id))
+      |> Map.put(:predator_type_id, p_id)
       |> Map.put(:id, character_id)
+    end
 
-    with {:ok, _} <- Creation.add_advantages(user_id, new_request),
-         {:ok, _} <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, new_request) do
+    with {:ok, p_id}  <- from_global_id?(request.predator_type_id),
+         new_req      <- new_request.(p_id),
+         {:ok, _}     <- Creation.add_advantages(user_id, new_req),
+         {:ok, _}     <- Creation.update_character_stage_non_vampires(user_id, new_stage, character_id, new_req) do
       get_character(%{id: character_id}, context)
     end
 
@@ -216,16 +252,20 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     new_attributes =
       attributes
       |> Enum.map(&parse_attribute_query/1)
+      |> reduce_error_list()
 
-    [first_attribute | _] = new_attributes
+    new_request = fn
+      [first_attribute | _], p_id ->
+        request
+        |> Map.put(:predator_type_id, p_id)
+        |> Map.put(:id, first_attribute.character_id)
+    end
 
-    new_request =
-      request
-      |> Map.put(:predator_type_id, from_global_id!(request.predator_type_id))
-      |> Map.put(:id, first_attribute.character_id)
-
-    with {:ok, _}             <- Creation.add_advantages(user_id, new_request),
-         {:ok, character_id}  <- Creation.update_character_stage(user_id, new_stage, new_attributes) do
+    with {:ok, new_attrs}     <- new_attributes,
+         {:ok, p_id}          <- from_global_id?(request.predator_type_id),
+         new_req              <- new_request.(new_attrs, p_id),
+         {:ok, _}             <- Creation.add_advantages(user_id, new_req),
+         {:ok, character_id}  <- Creation.update_character_stage(user_id, new_stage, new_attrs) do
       get_character(%{id: character_id}, context)
     end
   end
@@ -258,7 +298,13 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def approve_character(%{character_id: character_id}, _) do
     subject = "Accettazione utente"
-    message = "Complimenti! Il tuo utente è stato accettato. Puoi cominciare a giocare e partecipare attivamente alle giocate."
+    message =
+      """
+      Complimenti! Il tuo utente è stato accettato. Puoi cominciare a giocare e partecipare attivamente alle giocate.\n
+      \n
+      Se hai ricevuto questo messaggio mentre eri loggato, per rendere effettive le modifiche dovrai disconnetterti
+      e riconnetterti successivamente.
+      """
 
     with {:ok, character} <- Characters.approve_character(character_id),
          %{id: id}        <- Characters.get_character_user(character),

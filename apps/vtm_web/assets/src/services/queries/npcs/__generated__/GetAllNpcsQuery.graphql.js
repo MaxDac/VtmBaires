@@ -15,6 +15,10 @@ export type GetAllNpcsQueryResponse = {|
     +chatAvatar: ?string,
     +isComplete: ?boolean,
     +approved: ?boolean,
+    +clan: ?{|
+      +id: string,
+      +name: ?string,
+    |},
   |}>
 |};
 export type GetAllNpcsQuery = {|
@@ -31,12 +35,30 @@ query GetAllNpcsQuery {
     chatAvatar
     isComplete
     approved
+    clan {
+      id
+      name
+    }
   }
 }
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -45,20 +67,8 @@ var v0 = [
     "name": "allNpcs",
     "plural": true,
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      },
+      (v0/*: any*/),
+      (v1/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -79,6 +89,19 @@ var v0 = [
         "kind": "ScalarField",
         "name": "approved",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Clan",
+        "kind": "LinkedField",
+        "name": "clan",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          (v1/*: any*/)
+        ],
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -90,7 +113,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "GetAllNpcsQuery",
-    "selections": (v0/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootQueryType",
     "abstractKey": null
   },
@@ -99,18 +122,18 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "GetAllNpcsQuery",
-    "selections": (v0/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "e84abdbb1c5dd6d51234fc49b41f355c",
+    "cacheID": "77c23669aea9fe7b0c60d2d0d2c2d531",
     "id": null,
     "metadata": {},
     "name": "GetAllNpcsQuery",
     "operationKind": "query",
-    "text": "query GetAllNpcsQuery {\n  allNpcs {\n    id\n    name\n    chatAvatar\n    isComplete\n    approved\n  }\n}\n"
+    "text": "query GetAllNpcsQuery {\n  allNpcs {\n    id\n    name\n    chatAvatar\n    isComplete\n    approved\n    clan {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '42fa68c2bc58343c5eab0ed1085b4531';
+(node: any).hash = '570aed6922c3a73d691566f69eab3ddc';
 module.exports = node;

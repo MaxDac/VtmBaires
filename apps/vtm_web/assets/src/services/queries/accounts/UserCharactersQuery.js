@@ -14,6 +14,9 @@ export const userCharactersQuery: GraphQLTaggedNode = graphql`
                 approved
                 isComplete
                 chatAvatar
+                clan {
+                    name
+                }
             }
         }
     }
@@ -26,6 +29,9 @@ export type UserCharacter = {
     approved: boolean;
     isComplete: boolean;
     chatAvatar: string;
+    clan: {
+        name: string;
+    }
 }
 
 export const useUserCharactersQuery = (reloadCount?: number): Array<UserCharacter> =>

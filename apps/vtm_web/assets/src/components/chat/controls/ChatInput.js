@@ -10,7 +10,7 @@ import Fab from "@mui/material/Fab";
 import CasinoIcon from "@mui/icons-material/Casino";
 import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
-import {Typography} from "@mui/material";
+import {Typography, useMediaQuery} from "@mui/material";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -28,6 +28,9 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
     // TODO - set the dimensions of the thing based on the dimension of the screen
     const textboxRows = 4; // isSmall ? 2 : 4;
     const maxCharacters = 500;
+
+    const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
+    const fontSize = showMiniFont ? "13px" : "16px";
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);
@@ -98,8 +101,8 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                         sx={{
                             fontFamily: 'GabrieleLightRibbon',
                             padding: "5px",
-                            paddingRight: theme.spacing(10),
-                            width: "calc(100% - 70px)"
+                            width: "calc(100% - 70px)",
+                            fontSize: fontSize
                         }}
                         inputProps={{ 'aria-label': 'naked' }}
                         onKeyDown={handleControlKeyDown}

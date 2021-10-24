@@ -35,14 +35,12 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
 
-    console.log("characters")
-
-    const pushHistory = (route: string) => () => {
+    const pushHistory = (route: string) => {
         drawerDone();
         history.push(route);
     };
 
-    const pushHistoryOnAnotherTab = (route: string) => () => {
+    const pushHistoryOnAnotherTab = (route: string) => {
         drawerDone();
         const newTab = window.open(`#${route}`, "_blank");
         newTab.focus();
@@ -50,35 +48,35 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
 
     return (
         <>
-            <ListItem button onClick={pushHistory(Routes.main)}>
+            <ListItem button onClick={_ => pushHistory(Routes.main)}>
                 <ListItemIcon>
                     <HomeIcon />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button onClick={pushHistory(MainRoutes.mainMap)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.mainMap)}>
                 <ListItemIcon>
                     <MapIcon />
                 </ListItemIcon>
                 <ListItemText primary="Mappa" />
             </ListItem>
-            <MenuCharacterSection pushHistory={route => pushHistory(route)()}
+            <MenuCharacterSection pushHistory={pushHistory}
                                   characters={characters}
                                   onUpdate={onUpdate} />
             <MenuHuntSection />
-            <ListItem button onClick={pushHistoryOnAnotherTab(Routes.guideMain)}>
+            <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Guide" />
             </ListItem>
-            <ListItem button onClick={pushHistory(MainRoutes.forumSections)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.forumSections)}>
                 <ListItemIcon>
                     <ChatIcon />
                 </ListItemIcon>
                 <ListItemText primary="Forum" />
             </ListItem>
-            <ListItem button onClick={pushHistory(MainRoutes.settings)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.settings)}>
                 <ListItemIcon>
                     <SettingsIcon />
                 </ListItemIcon>
@@ -131,19 +129,19 @@ export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}
             <MenuNpcSection pushHistory={pushHistory}
                             npcs={npcs}
                             onUpdate={onUpdate} />
-            <ListItem button onClick={pushHistory(MainRoutes.unapprovedCharacters)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>
                     <GroupAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Accettazione" />
             </ListItem>
-            <ListItem button onClick={pushHistory(MainRoutes.charactersList)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Lista personaggi" />
             </ListItem>
-            <ListItem button onClick={pushHistory(MainRoutes.chatViewer)}>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>
                     <MarkChatReadIcon />
                 </ListItemIcon>

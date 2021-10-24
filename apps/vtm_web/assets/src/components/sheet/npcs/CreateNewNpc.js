@@ -8,6 +8,7 @@ import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "../controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
+import {MainRoutes} from "../../MainRouter";
 
 const CreateNewNpc = (): any => {
     const history = useHistory();
@@ -20,11 +21,15 @@ const CreateNewNpc = (): any => {
                 if (response?.createNpc?.character?.id != null) {
                     updateCurrentCharacter({
                         id: response.createNpc.character.id,
-                        name: response?.createNpc?.character?.id ?? "No name available"
+                        name: response?.createNpc?.character?.id ?? "No name available",
+                        clan: {
+                            ...response?.createNpc?.character?.clan
+                        }
                     });
 
-                    // $FlowFixMe
-                    history.push(Routes.defineNpc(response?.createNpc?.character?.id));
+                    // Forcing the cast after having checked the id for nulls
+                    const characterId: string = (response?.createNpc?.character?.id: any);
+                    history.push(MainRoutes.defineNpc(characterId));
                 }
                 else {
                     history.push(Routes.main);

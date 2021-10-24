@@ -35,7 +35,10 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
             setCurrentCharacter({
                 id: info.id,
                 name: info.name,
-                approved: info.approved
+                approved: info.approved,
+                clan: {
+                    name: info.clan?.name
+                }
             });
 
             document.location.reload();

@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.ForumResolvers do
+  @moduledoc false
+
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Forum
@@ -34,30 +36,48 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
   end
 
   def new_forum_thread(_, %{request: %{section_id: section_id} = attrs}, %{context: %{current_user: user}}) do
-    attrs =
+    with {:ok, s_id}  <- from_global_id?(section_id),
+         {:ok, cu_id} <- from_global_id?(attrs.creator_user_id) do
+      attrs =
+        attrs
+        |> Map.put(:forum_section_id, s_id)
+        |> Map.put(:creator_user_id, cu_id)
+
       case attrs do
         %{creator_character_id: c_id} ->
-          attrs
-          |> Map.put(:creator_character_id, from_global_id!(c_id))
-        a -> a
-      end
-      |> Map.put(:forum_section_id, from_global_id!(section_id))
-      |> Map.put(:creator_user_id, from_global_id!(attrs.creator_user_id))
+          with {:ok, cc_id} <- from_global_id?(c_id) do
+            attrs =
+              attrs
+              |> Map.put(:creator_character_id, cc_id)
 
-    Forum.new_thread(user, section_id, attrs)
+            Forum.new_thread(user, s_id, attrs)
+          end
+        _ ->
+          Forum.new_thread(user, s_id, attrs)
+      end
+    end
   end
 
   def new_forum_post(_, %{request: attrs}, %{context: %{current_user: user}}) do
-    attrs =
+    with {:ok, cu_id} <- from_global_id?(attrs.creator_user_id),
+         {:ok, t_id}  <- from_global_id?(attrs.forum_thread_id) do
+      attrs =
+        attrs
+        |> Map.put(:creator_user_id, cu_id)
+        |> Map.put(:forum_thread_id, t_id)
+
       case attrs do
         %{creator_character_id: c_id} ->
-          attrs
-          |> Map.put(:creator_character_id, from_global_id!(c_id))
-        _ -> attrs
-      end
-      |> Map.put(:creator_user_id, from_global_id!(attrs.creator_user_id))
-      |> Map.put(:forum_thread_id, from_global_id!(attrs.forum_thread_id))
+          with {:ok, cc_id} <- from_global_id?(c_id) do
+            attrs =
+              attrs
+              |> Map.put(:creator_character_id, cc_id)
 
-    Forum.new_post(user, attrs.forum_thread_id, attrs)
+            Forum.new_post(user, t_id, attrs)
+          end
+        _ ->
+          Forum.new_post(user, t_id, attrs)
+      end
+    end
   end
 end

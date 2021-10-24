@@ -15,6 +15,9 @@ const mutation = graphql`
         }) {
             character {
                 id
+                clan {
+                    name
+                }
             }
         }
     }

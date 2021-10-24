@@ -22,7 +22,10 @@ const Creation1 = (): any => {
                 if (response?.createCharacter != null) {
                     updateCurrentCharacter({
                         id: response.createCharacter.id,
-                        name: response.createCharacter.name ?? "No name available"
+                        name: response.createCharacter.name ?? "No name available",
+                        clan: {
+                            ...response.createCharacter?.clan?.name
+                        } 
                     });
 
                     history.push(MainRoutes.creation2);

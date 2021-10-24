@@ -67,6 +67,8 @@ defmodule Vtm.Characters do
 
   defp select_user_characters_info(query) do
     from character in query,
+      join: cl in Clan,
+      on: character.clan_id == cl.id,
       select: %Character{
         id: character.id,
         name: character.name,
@@ -75,6 +77,10 @@ defmodule Vtm.Characters do
         is_complete: character.is_complete,
         stage: character.stage,
         approved: character.approved,
+        clan: %{
+          id: cl.id,
+          name: cl.name
+        }
       }
   end
 
@@ -218,6 +224,7 @@ defmodule Vtm.Characters do
   def get_all_npcs() do
     from(c in Character, where: c.is_npc == true)
     |> Repo.all()
+    |> Enum.map(fn c -> c |> Repo.preload(:clan) end)
   end
 
   @spec get_characters_avatar(list(Integer.t())) :: list(Character.t())

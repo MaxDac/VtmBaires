@@ -7,6 +7,8 @@ import type { ChatEntry } from "../../services/base-types";
 import ChatEntryComponent from "./ChatEntryComponent";
 import { emptyArray } from "../../_base/utils";
 import { useChatEntriesForSubscriptions } from "./hooks/ChatEntryFromSubscriptionHook";
+import {useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/styles";
 
 type Props = {
     entries: ?Array<ChatEntry>;
@@ -15,9 +17,13 @@ type Props = {
 }
 
 const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Props): any => {
+    const theme = useTheme();
     const chatContainer = useRef();
 
     const additionalEntriesWithAvatar = useChatEntriesForSubscriptions(additionalEntries);
+
+    const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
+    const fontSize = showMiniFont ? "14px" : "16px";
 
     // This was previously used as a dependency for the following useEffect, but it seems that it doesn't update itself.
     // The operation performed inside the following useEffect is not asynchronous or difficult at all anyway
@@ -56,7 +62,10 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
                         <ChatEntryComponent entry={e}
                                             key={e.id}
                                             isLast={index === ets.length - 1}
-                                            showCharacterDescription={showCharacterDescription} />
+                                            showCharacterDescription={showCharacterDescription}
+                                            sx={{
+                                                fontSize
+                                            }} />
                     );
                 }
 

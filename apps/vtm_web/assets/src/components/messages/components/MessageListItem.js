@@ -8,6 +8,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useHistory} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
+import {defaultFormatDateAndTime} from "../../../_base/utils";
 
 type Props = {
     message: {|
@@ -49,17 +50,20 @@ const MessageListItem = ({message}: Props): any => {
             ? message.senderCharacter?.name ?? message.senderUser?.name
             : message.receiverCharacter?.name ?? message.receiverUser?.name ?? "";
 
-    const formatMessageTime = () =>
-        !!message.insertedAt
-            ? ` (${message.insertedAt})`
-            : "";
+    const formatMessageTime = () => {
+        const formattedDate = defaultFormatDateAndTime(message.insertedAt);
+        
+        if (formattedDate != null) {
+            return ` (${formattedDate})`;
+        }
+
+        return "";
+    }
 
     const getNameAndHour = () =>
         `${getName()}${formatMessageTime()}`
 
     const getSubject = () => message?.subject;
-
-
 
     return (
         <ListItem button

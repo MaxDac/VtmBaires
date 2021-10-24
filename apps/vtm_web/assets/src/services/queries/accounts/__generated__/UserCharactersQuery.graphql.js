@@ -17,6 +17,9 @@ export type UserCharactersQueryResponse = {|
       +approved: ?boolean,
       +isComplete: ?boolean,
       +chatAvatar: ?string,
+      +clan: ?{|
+        +name: ?string
+      |},
     |}>
   |}
 |};
@@ -36,6 +39,10 @@ query UserCharactersQuery {
       approved
       isComplete
       chatAvatar
+      clan {
+        name
+        id
+      }
     }
     id
   }
@@ -53,48 +60,36 @@ var v0 = {
 v1 = {
   "alias": null,
   "args": null,
-  "concreteType": "Character",
-  "kind": "LinkedField",
-  "name": "userCharacters",
-  "plural": true,
-  "selections": [
-    (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "stage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "approved",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "isComplete",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "chatAvatar",
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "stage",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "approved",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isComplete",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "chatAvatar",
   "storageKey": null
 };
 return {
@@ -112,7 +107,35 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v1/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Character",
+            "kind": "LinkedField",
+            "name": "userCharacters",
+            "plural": true,
+            "selections": [
+              (v0/*: any*/),
+              (v1/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Clan",
+                "kind": "LinkedField",
+                "name": "clan",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -134,7 +157,36 @@ return {
         "name": "me",
         "plural": false,
         "selections": [
-          (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Character",
+            "kind": "LinkedField",
+            "name": "userCharacters",
+            "plural": true,
+            "selections": [
+              (v0/*: any*/),
+              (v1/*: any*/),
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Clan",
+                "kind": "LinkedField",
+                "name": "clan",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v0/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
           (v0/*: any*/)
         ],
         "storageKey": null
@@ -142,15 +194,15 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e06d1a6cdb5c0424fdaaa3c73dbddc90",
+    "cacheID": "24e48d72416900ac46c797f145d13192",
     "id": null,
     "metadata": {},
     "name": "UserCharactersQuery",
     "operationKind": "query",
-    "text": "query UserCharactersQuery {\n  me {\n    userCharacters {\n      id\n      name\n      stage\n      approved\n      isComplete\n      chatAvatar\n    }\n    id\n  }\n}\n"
+    "text": "query UserCharactersQuery {\n  me {\n    userCharacters {\n      id\n      name\n      stage\n      approved\n      isComplete\n      chatAvatar\n      clan {\n        name\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '88d5aaa524fc69e239a093c43c38c0da';
+(node: any).hash = 'd418c8e8e0fe028ff65b7c9da53dfde7';
 module.exports = node;

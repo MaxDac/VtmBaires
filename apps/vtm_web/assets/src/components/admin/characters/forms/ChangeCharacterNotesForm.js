@@ -12,9 +12,10 @@ import ChangeCharacterNotesMutation from "../../../../services/mutations/admin/C
 
 type Props = {
     character: Character;
+    onUpdate: () => void;
 };
 
-const ChangeCharacterNotesForm = ({character}: Props): any => {
+const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
@@ -40,7 +41,8 @@ const ChangeCharacterNotesForm = ({character}: Props): any => {
                     notes
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
-                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
+                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
+                    onCompleted: onUpdate
                 });
             }
         );

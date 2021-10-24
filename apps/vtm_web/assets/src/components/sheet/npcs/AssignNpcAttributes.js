@@ -6,13 +6,12 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import {useTheme} from "@mui/styles";
 import {useCharacterStatsQuery} from "../../../services/queries/character/GetCharacterStatsQuery";
 import AttributeFormControl from "./AttributeFormControl";
-import type {Attribute} from "../../../services/queries/info/AttributesQuery";
 import Button from "@mui/material/Button";
-import {handleMutation} from "../../../_base/utils";
+import { emptyArray, handleMutation } from "../../../_base/utils";
 import AssignNpcAttributesMutation from "../../../services/mutations/npcs/AssignNpcAttributesMutation";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
-import { StarRateSharp } from "@mui/icons-material";
+import type { Attribute } from "../../../services/queries/character/GetCharacterStatsQuery";
 
 type Props = {
     characterId: string;
@@ -24,9 +23,9 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
     const theme = useTheme();
     const stats = useCharacterStatsQuery(characterId, {
         fetchPolicy: "network-only"
-    })?.attributes ?? [];
+    })?.attributes ?? emptyArray<Attribute>();
 
-    const [savedStates, setSavedStats] = useState<Array<Attribute>>(StarRateSharp);
+    const [savedStats, setSavedStats] = useState<Array<Attribute>>(stats);
 
     const subTitleStyle = ({
         ...mainFontFamily,
@@ -42,15 +41,13 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
     });
 
     const onAttributeChanged = a =>
-        // $FlowFixMe
-        setSavedStats(p => p.reduce((acc, current) =>
+        setSavedStats(p => p?.reduce((acc, current) =>
             current.id === a.id
                 ? [...acc, a]
                 : [...acc, current], []));
 
     const onSave = () => {
-        // $FlowFixMe
-        const attributes = savedStates.map(({id, value}) => ({id, value: Number(value)}));
+        const attributes = savedStats.map(({id, value}) => ({id: ((id: any): string), value: Number(value)}));
 
         handleMutation(() => AssignNpcAttributesMutation(environment, characterId, {
             attributes: attributes

@@ -14,6 +14,10 @@ export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
             chatAvatar
             isComplete
             approved
+            clan {
+                id
+                name
+            }
         }
     }
 `;
@@ -24,6 +28,10 @@ export type Npc = {
     chatAvatar: ?string;
     isComplete: ?boolean;
     approved: ?boolean;
+    clan: ?{
+        id: ?string;
+        name: ?string;
+    }
 };
 
 export const useNpcsQuery = (reloadCount: number): Array<Npc> =>
@@ -35,5 +43,9 @@ export const useNpcsQuery = (reloadCount: number): Array<Npc> =>
         name: n?.name,
         chatAvatar: n?.chatAvatar,
         isComplete: n?.isComplete,
-        approved: n?.approved
+        approved: n?.approved,
+        clan: {
+            id: n?.clan?.id,
+            name: n?.clan?.name
+        }
     })) ?? emptyArray<Npc>();

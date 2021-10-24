@@ -15,9 +15,10 @@ import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 
 type Props = {
-    id?: ?string;
-    reload?: ?boolean;
-    contained?: ?boolean;
+    id?: string;
+    reload?: boolean;
+    contained?: boolean;
+    fetchKey?: number;
 }
 
 export const CharacterSheetSuspenseFallback = (): any => {
@@ -56,8 +57,9 @@ const CharacterSheet = (props: Props): any => {
     }
 
     return (
-        <CharacterFragmentProvider characterId={props?.id}
-                                   showWarningWhenNoCharacterSelected={true}>
+        <CharacterFragmentProvider characterId={props.id}
+                                   showWarningWhenNoCharacterSelected={true}
+                                   fetchKey={props.fetchKey}>
             { character =>
                 <ResponsiveInnerContainer contained={props.contained}>
                     <Suspense fallback={<CharacterSheetSuspenseFallback />}>

@@ -1,4 +1,6 @@
 defmodule Vtm.Forum do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
@@ -162,7 +164,6 @@ defmodule Vtm.Forum do
   def new_thread(user, section_id, attrs) do
     with :ok  <- check_section_write(user, section_id),
          :ok  <- can_write_on_game?(section_id, attrs) do
-
       %ForumThread{}
       |> ForumThread.changeset(attrs)
       |> Repo.insert()

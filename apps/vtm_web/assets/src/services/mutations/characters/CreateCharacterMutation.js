@@ -13,6 +13,9 @@ const mutation = graphql`
         createCharacter(request: $request) {
             id
             name
+            clan {
+                name
+            }
         }
     }
 `;

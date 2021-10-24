@@ -47,7 +47,7 @@ defmodule Vtm.Creation do
 
     case results |> Enum.any?(&insertion_error/1) do
       false ->
-        {:ok, %{}}
+        %{}
       _     ->
         [error] =
           results
@@ -161,7 +161,9 @@ defmodule Vtm.Creation do
       {false, _, _} ->
         {:error, :unauthorized}
       {_, _, true} ->
-        append_attributes(character_id, attrs, new_stage)
+        with {:ok, _} <- append_attributes(character_id, attrs, new_stage) do
+          {:ok, %{id: character_id}}
+        end
       {_, true, _} ->
         with {:ok, _} <- append_attributes(character_id, attrs, new_stage) do
           Characters.update_character(character_id, %{stage: new_stage})

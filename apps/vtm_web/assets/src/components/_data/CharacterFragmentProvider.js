@@ -13,12 +13,14 @@ import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 type Props = CharacterProviderBaseProps & {
     showWarningWhenNoCharacterSelected: boolean;
     children: any => any;
-    reload?: ?boolean;
+    reload?: boolean;
+    fetchKey?: number;
 }
 
-const CharacterFragmentProviderQuery = ({characterId, children, reload}) => {
+const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey}) => {
     const policy = {
         fetchPolicy: reload ? "store-and-network" : "store-or-network",
+        fetchKey: fetchKey ?? 0
     };
 
     const character =
@@ -39,7 +41,9 @@ const CharacterFragmentProvider = (props: Props): any => {
 
     if (characterId != null) {
         return (
-            <CharacterFragmentProviderQuery characterId={characterId} reload={props.reload}>
+            <CharacterFragmentProviderQuery characterId={characterId}
+                                            reload={props.reload}
+                                            fetchKey={props.fetchKey}>
                 {props.children}
             </CharacterFragmentProviderQuery>
         );
@@ -48,7 +52,11 @@ const CharacterFragmentProvider = (props: Props): any => {
     return (
         <RemoteCharacterProvider showWarningWhenNoCharacterSelected={props.showWarningWhenNoCharacterSelected}>
             { characterId =>
-                <CharacterFragmentProviderQuery characterId={characterId} children={props.children} reload={props.reload} />
+                <CharacterFragmentProviderQuery characterId={characterId}
+                                                reload={props.reload}
+                                                fetchKey={props.fetchKey}>
+                    {props.children}
+                </CharacterFragmentProviderQuery>
             }
         </RemoteCharacterProvider>
     );

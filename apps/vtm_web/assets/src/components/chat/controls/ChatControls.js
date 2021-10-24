@@ -47,6 +47,33 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
             message: "Devi prima selezionare un personaggio"
         });
 
+    const vampireReservedActions = () => {
+        if (character?.clan?.name === "Umano") {
+            return [];
+        }
+
+        return [
+            <SpeedDialAction
+                key={1}
+                icon={<BloodtypeIcon />}
+                tooltipTitle="Spendi vitae"
+                tooltipOpen
+                onClick={requestRouseCheck} />,
+            <SpeedDialAction
+                key={2}
+                icon={<FlashOnOutlinedIcon />}
+                tooltipTitle="Spendi WP"
+                tooltipOpen
+                onClick={requestWillpowerUse} />,
+            <SpeedDialAction
+                key={3}
+                icon={<HealingIcon />}
+                tooltipTitle="Guarisci"
+                tooltipOpen
+                onClick={requestHeal} />
+        ];
+    }
+
     const requestRouseCheck = _ => {
         if (character?.id != null) {
             openDialog("Vitae", "Sei sicuro di voler spendere vitae?",
@@ -120,25 +147,11 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
                 tooltipOpen
                 onClick={onMapClicked} />
             <SpeedDialAction
-                icon={<BloodtypeIcon />}
-                tooltipTitle="Spendi vitae"
-                tooltipOpen
-                onClick={requestRouseCheck} />
-            <SpeedDialAction
-                icon={<FlashOnOutlinedIcon />}
-                tooltipTitle="Spendi WP"
-                tooltipOpen
-                onClick={requestWillpowerUse} />
-            <SpeedDialAction
-                icon={<HealingIcon />}
-                tooltipTitle="Guarisci"
-                tooltipOpen
-                onClick={requestHeal} />
-            <SpeedDialAction
                 icon={<AssignmentIndIcon />}
                 tooltipTitle="Status"
                 tooltipOpen
                 onClick={_ => openCharacterStatusPopup()} />
+            {vampireReservedActions()}
         </SpeedDial>
     )
 }

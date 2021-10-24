@@ -24,10 +24,15 @@ const CharacterDashboard = ({characterId}: Props): any => {
     const character = useCharacterCompleteQuery(characterId);
 
     const [showSheet, setShowSheet] = useState(true);
+    const [reloadCount, setReloadCount] = useState(0);
 
     const changeSheetVisible = ({target: {checked}}) => {
         setShowSheet(_ => checked);
     };
+
+    const onUpdate = () => {
+        setReloadCount(p => p + 1);
+    }
 
     const sheet = () => {
         if (showSheet) {
@@ -38,7 +43,8 @@ const CharacterDashboard = ({characterId}: Props): any => {
                     <Paper elevation={12}>
                         <CharacterSheet id={character?.id}
                                         reload={true}
-                                        contained={true}/>
+                                        contained={true}
+                                        fetchKey={reloadCount} />
                     </Paper>
                 </Grid>
             );
@@ -53,27 +59,32 @@ const CharacterDashboard = ({characterId}: Props): any => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ChangeCharacterAttributeForm character={character} />
+                            <ChangeCharacterAttributeForm character={character}
+                                                          onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ChangeCharacterOtherStatsForm character={character} />
+                            <ChangeCharacterOtherStatsForm character={character}
+                                                           onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ChangeCharacterStatusForm character={character} />
+                            <ChangeCharacterStatusForm character={character}
+                                                       onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ChangeCharacterNotesForm character={character} />
+                            <ChangeCharacterNotesForm character={character}
+                                                      onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <AddCharacterExperienceForm character={character} />
+                            <AddCharacterExperienceForm character={character}
+                                                        onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
@@ -83,7 +94,8 @@ const CharacterDashboard = ({characterId}: Props): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ResetHuntForm character={character} />
+                            <ResetHuntForm character={character}
+                                           onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>

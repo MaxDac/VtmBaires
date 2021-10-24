@@ -18,18 +18,25 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     Messages.get_message(user, id)
   end
 
-  def send_message(_, %{message: message}, %{context: %{current_user: user}}) do
-    message =
-      message
-      |> Map.new(fn
-        {:receiver_user_id, v}      -> {:receiver_user_id, from_global_id!(v)}
-        {:sender_character_id, v}   -> {:sender_character_id, from_global_id!(v)}
-        {:receiver_character_id, v} -> {:receiver_character_id, from_global_id!(v)}
-        {:reply_to_id, v}           -> {:reply_to_id, from_global_id!(v)}
-        {key, value}                -> {key, value}
-      end)
+  def send_message(_, %{message: message = %{
+    receiver_user_id: receiver_user_id,
+    sender_character_id: sender_character_id,
+    receiver_character_id: receiver_character_id,
+    reply_to_id: reply_to_id
+  }}, %{context: %{current_user: user}}) do
+    with {:ok, ru_id} <- from_global_id?(receiver_user_id),
+         {:ok, sc_id} <- from_global_id?(sender_character_id),
+         {:ok, rc_id} <- from_global_id?(receiver_character_id),
+         {:ok, rt_id} <- from_global_id?(reply_to_id) do
+      message =
+        message
+          |> Map.put(:receiver_user_id, ru_id)
+          |> Map.put(:sender_character_id, sc_id)
+          |> Map.put(:receiver_character_id, rc_id)
+          |> Map.put(:reply_to_id, rt_id)
 
-    Messages.send_message(user, message)
+      Messages.send_message(user, message)
+    end
   end
 
   def set_message_read(%{message_id: id}, %{context: %{current_user: user}}) do

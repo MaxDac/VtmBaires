@@ -9,7 +9,7 @@ import {SessionContext} from "../contexts";
 import ClearSessionMutation from "./mutations/sessions/ClearSessionMutation";
 import {cache} from "../_base/relay-environment";
 
-const storageUserInfoKey ="vtm-baires-session-info";
+const storageUserInfoKey = "vtm-baires-session-info";
 const getStorage = (): Storage => localStorage;
 
 export const storeSession = (response: Session) => {
@@ -29,7 +29,10 @@ const checkCharacter = (environment: IEnvironment, session: Session): Promise<?S
                 const newSession = {
                     ...session,
                     character: {
-                        ...response?.getSessionCharacter
+                        ...response?.getSessionCharacter,
+                        clan: {
+                            name: response?.getSessionCharacter?.clan?.name
+                        }
                     }
                 }
 
@@ -94,7 +97,7 @@ export const updateSession = (info: Session): ?Session => {
         ...info
     };
 
-    getStorage().setItem(storageUserInfoKey, JSON.stringify(newSession));
+    storeSession(newSession);
 
     return getSessionSync();
 }

@@ -119,6 +119,7 @@ defmodule Vtm.Messages do
         on: m.receiver_character_id == cr.id,
         where: m.receiver_user_id == ^user_id,
         where: m.hide_for_receiver == false,
+        order_by: [desc: m.inserted_at],
         select: %{%{%{m | sender_user: u} | sender_character: {
           cs.id,
           cs.name
@@ -142,6 +143,7 @@ defmodule Vtm.Messages do
         on: m.receiver_character_id == cr.id,
         where: m.sender_user_id == ^user_id,
         where: m.hide_for_sender == false,
+        order_by: [desc: m.inserted_at],
         select: %{%{%{m | receiver_user: u} | sender_character: {
           cs.id,
           cs.name

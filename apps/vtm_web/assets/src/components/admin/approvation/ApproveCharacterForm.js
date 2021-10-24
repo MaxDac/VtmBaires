@@ -13,7 +13,7 @@ import type {Character} from "../../../services/queries/character/GetCharacterCo
 import { MainRoutes } from "../../MainRouter";
 
 type Props = {
-    character: Character
+    character: Character;
 }
 
 const ApproveCharacterForm = ({character}: Props): any => {

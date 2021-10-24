@@ -52,7 +52,11 @@ defmodule VtmWeb.Resolvers.Helpers do
     end)
   end
 
-  @spec from_global_ids(list(binary)) :: list(integer | nil)
+  @doc """
+  Processes the ids passed in input, returning only the values parsed
+  as global ids, ignoring the ones returned as errors.
+  """
+  @spec from_global_ids(list(binary)) :: list(integer)
   def from_global_ids(global_ids) do
     global_ids
     |> Enum.map(&from_global_id!/1)
@@ -63,8 +67,12 @@ defmodule VtmWeb.Resolvers.Helpers do
     |> Enum.map(fn {:ok, value} -> value end)
   end
 
-  @spec from_global_ids?(list(binary)) :: {:ok, list(integer)} | {:error, list(binary)}
-  def from_global_ids?(global_ids) do
+  @doc """
+  Processes the ids passed in input, trying to process all of them.
+  If one of them fails, it returns a list of errors.
+  """
+  @spec from_global_ids_or_error(list(binary)) :: {:ok, list(integer)} | {:error, list(binary)}
+  def from_global_ids_or_error(global_ids) do
     global_ids
     |> Enum.map(&from_global_id!/1)
     |> reduce_error_list()

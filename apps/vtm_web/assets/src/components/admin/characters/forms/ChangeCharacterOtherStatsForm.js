@@ -18,9 +18,10 @@ import {predatorTypesQuery} from "../../../../services/queries/info/PredatorType
 
 type Props = {
     character: Character;
+    onUpdate: () => void;
 }
 
-const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
+const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const predatorTypes = useCustomLazyLoadQuery<PredatorTypesQuery>(predatorTypesQuery, {})
@@ -46,7 +47,8 @@ const ChangeCharacterOtherStatsForm = ({character}: Props): any => {
                     bloodPotency: bloodPotency
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
-                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni."
+                    errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
+                    onCompleted: onUpdate
                 });
             }
         );

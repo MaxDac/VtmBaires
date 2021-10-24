@@ -40,8 +40,6 @@ const AssignNpcGenericStats = ({characterId}: Props): any => {
     const predatorTypes = usePredatorTypes()?.predatorTypes;
     const theme = useTheme();
 
-    console.log("character", characterStats);
-
     const onSubmit = values =>
         handleMutation(
             () => DefineNpcStatsMutation(environment, characterId, values),

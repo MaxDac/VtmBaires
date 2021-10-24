@@ -21,12 +21,14 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
   end
 
   defp check_character(character_id, user_id, role, resolution) do
-    case {role, Characters.character_of_user?(user_id, from_global_id!(character_id))} do
-      {:master, _}  -> resolution
-      {true, _}     -> resolution
-      _             ->
-        resolution
-        |> Absinthe.Resolution.put_result({:error, "unauthorized"})
+    with {:ok, c_id}  <- from_global_id?(character_id) do
+      case {role, Characters.character_of_user?(user_id, c_id)} do
+        {:master, _}  -> resolution
+        {true, _}     -> resolution
+        _             ->
+          resolution
+          |> Absinthe.Resolution.put_result({:error, "unauthorized"})
+      end
     end
   end
 end
