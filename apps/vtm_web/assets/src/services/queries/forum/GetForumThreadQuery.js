@@ -26,9 +26,16 @@ export const getForumThreadQuery: GraphQLTaggedNode = graphql`
                 forumSection {
                     id
                 }
+                creatorCharacter {
+                    id
+                    name
+                }
+                creatorUser {
+                    id
+                    name
+                }
                 title
                 description
-                creatorName
             }
             posts {
                 id

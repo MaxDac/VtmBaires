@@ -12,7 +12,8 @@ import {getMessageDigestQuery} from "../../services/queries/messages/GetMessageD
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import type {MessageNotificationSubscriptionResponse} from "../../services/subscriptions/__generated__/MessageNotificationSubscription.graphql";
 import MessageNotificationSubscription from "../../services/subscriptions/MessageNotificationSubscription";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
+import Tooltip from '@mui/material/Tooltip';
 
 type Props = {
 
@@ -57,11 +58,13 @@ const MessageControl = (props: Props): any => {
     }, [showUserNotification, chatToken]);
 
     return (
-        <IconButton aria-label="messages" onClick={_ => history.push(MainRoutes.messages)}>
-            <Badge badgeContent={numberOfMessages} color="secondary">
-                <ForumIcon />
-            </Badge>
-        </IconButton>
+        <Tooltip title="Messaggi" placement="bottom">
+            <IconButton aria-label="messages" onClick={_ => history.push(MainRoutes.messages)}>
+                <Badge badgeContent={numberOfMessages} color="secondary">
+                    <ForumIcon />
+                </Badge>
+            </IconButton>
+        </Tooltip>
     );
 }
 

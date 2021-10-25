@@ -16,11 +16,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Fade from "@mui/material/Fade";
 import {useMediaQuery} from "@mui/material";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {
-    SessionQuery
-} from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
+import type {SessionQuery} from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
 import {useHistory} from "react-router-dom";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
+import Tooltip from '@mui/material/Tooltip';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />
@@ -67,9 +66,11 @@ const OnlineControl = (): any => {
 
     return (
         <>
-            <IconButton aria-label="Online" onClick={_ => setOpen(_ => true)}>
-                <PeopleIcon />
-            </IconButton>
+            <Tooltip title="Online" placement="bottom">
+                <IconButton aria-label="Online" onClick={_ => setOpen(_ => true)}>
+                    <PeopleIcon />
+                </IconButton>
+            </Tooltip>
             <Dialog
                 fullScreen={fullScreen}
                 fullWidth

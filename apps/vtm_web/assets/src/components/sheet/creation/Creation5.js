@@ -16,7 +16,6 @@ import type {RefreshedQueryOption} from "../sheet-sections/CharacterSheetStatsSe
 import FinalizeCharacterMutation from "../../../services/mutations/characters/FinalizeCharacterMutation";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../../AppRouter";
-import {destroySession} from "../../../services/session-service";
 import DeleteCharacterMutation from "../../../services/mutations/characters/DeleteCharacterMutation";
 import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
 
@@ -100,7 +99,8 @@ const Internal = ({character}) => {
                 .then(r => {
                     console.log("character deletion successful", r);
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
-                    destroySession().finally(() => history.push(Routes.main));
+                    history.push(Routes.main);
+                    document.location.reload();
                 })
                 .catch(e => {
                     showUserNotification({

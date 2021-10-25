@@ -33,11 +33,13 @@ const GuidesGeneralRules = (props: Props): any => {
                     </li>
                     <li style={liStyle}>
                         Diversa sar&agrave; ovviamente la nostra posizione rispetto al comportamento in gioco dei personaggi.
-                        Data la natura dell'ambientazione che viene interpretata, &egrave; addirittura per certi versi
-                        incoraggiato il comprotamento scorretto in gioco. Ci aspettiamo dagli utenti della comunit&agrave;
+                        Data la natura dell'ambientazione, &egrave; addirittura per certi versi
+                        incoraggiato il comportamento scorretto in gioco. Ci aspettiamo dagli utenti della comunit&agrave;
                         la capacit&agrave; di "digerire" le dinamiche delle giocate, e di saper tenere assolutamente
                         separata l'interpretazione dei personaggi dalle relazioni di mutuo rispetto che devono essere tenute
-                        tra utenti. Per questo motivo, sono da ritenersi <b>scoraggiate</b> giocate a sfondo sessuale
+                        tra utenti.<br />
+                        Per questo motivo, data la potenziale fonte di misinterpretazioni che potrebbero sorgere, 
+                        sono da ritenersi <b>scoraggiate</b> giocate a sfondo sessuale
                         pi&ugrave; o meno spinte, a meno che non siano pienamente ed evidentemente giustificate
                         dalla natura della giocata.
                     </li>
@@ -51,8 +53,12 @@ const GuidesGeneralRules = (props: Props): any => {
             <Typography paragraph sx={guideStyle}>
                 All'interno del sito &egrave; possibile comunicare fuori dal contesto del gioco sia attraverso il forum,
                 sia attraverso il sistema di messaggistica, che distingue rigorosamente il contesto fuori e dentro il gioco.
-                Per interazioni fuori dal gioco, invitiamo gli utenti ad utilizzare il forum, lasciando ai messaggi
-                la loro funzione in gioco di scambio di missive tra personaggi.
+                Fuori dal contesto del sito, esiste anche una comunit&grave; su Discord chiamata VTM Baires, alla quale
+                vi invitiamo ed incoraggiamo a partecipare, iscrivendovi.<br />
+                Per interazioni fuori dal gioco, invitiamo gli utenti ad utilizzare il Discord, o in casi eccezioniali il forum, 
+                lasciando ai messaggi la loro funzione in gioco di scambio di missive tra personaggi.<br />
+                <br />
+                <b>Roadmap</b>: il Forum &egrave; in versione beta, &egrave; fortemente consigliato usare il canale Discord.
             </Typography>
 
             <Typography component="h3" paragraph>
@@ -93,8 +99,8 @@ const GuidesGeneralRules = (props: Props): any => {
                         il rischio di riflettere un'opinione pericolosamente fuori dal gioco, od ancora di connotare e forzare
                         l'interpretazione in gioco dei personaggi altrui. Per questi motivi, &egrave; ritenuto strettamente necessario
                         attenersi a due regole fondamentali: <b>sunto</b> e <b>azioni prive di pensieri</b>.<br />
-                        Un'ultima nota: la serie di brevi racconti che verranno proposti dei documenti di questa guida 
-                        <b>non sono da prendere in considerazione</b>. Vanno considerati semplicemente come un arricchimento
+                        Un'ultima nota: la serie di brevi racconti che verranno proposti dei documenti di questa guida <b>non sono 
+                        da prendere in considerazione</b>. Vanno considerati semplicemente come un arricchimento
                         ai concetti descritti nell'ambientazione, il tentativo di dare una nota di colore in una altrimenti 
                         troppo schematica esposizione.
                     </li>
@@ -129,6 +135,7 @@ const GuidesGeneralRules = (props: Props): any => {
                                 Per questo motivo, la Morte Ultima del personaggio &egrave; considerata un
                                 avvenimento abbastanza normale, e sar&agrave; per questa ragione possibile
                                 "spostare" i punti esperienza gudagnati con un personaggio, a quello successivo.
+                                Non affezionatevi ai vostri personaggi!
                             </li>
                             <li>
                                 Da un lato, consigliamo i giocatori ad avvisare prontamente un narratore

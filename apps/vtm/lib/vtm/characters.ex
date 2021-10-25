@@ -114,7 +114,7 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec character_of_user?(Integer.t(), Integer.t()) :: boolean
+  @spec character_of_user?(integer, integer) :: boolean
   def character_of_user?(user_id, character_id) do
     query = from c in Character,
       where: c.id == ^character_id,
@@ -125,9 +125,14 @@ defmodule Vtm.Characters do
 
   @spec user_has_characters?(String.t()) :: :ok | {:error, String.t()}
   def user_has_characters?(user_id) do
-    case Repo.all(from c in Character, where: c.user_id == ^user_id) do
-      []  -> :ok
-      _   -> {:error, "The user has more than one character"}
+    query =
+      from c in Character,
+        where: c.is_npc == false,
+        where: c.user_id == ^user_id
+
+    case Repo.exists?(query) do
+      false -> :ok
+      _     -> {:error, "The user has more than one character"}
     end
   end
 

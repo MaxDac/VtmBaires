@@ -1,4 +1,6 @@
 defmodule Vtm.Creation do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
@@ -58,6 +60,7 @@ defmodule Vtm.Creation do
     end
   end
 
+  @spec append_attributes(integer, list[map], number) :: any
   def append_attributes(character_id, attrs, new_stage) do
     # Cleaning
     case new_stage do
@@ -150,6 +153,7 @@ defmodule Vtm.Creation do
     end
   end
 
+  @spec update_character_stage(integer, number, list(map)) :: {:ok, %{id: integer}} | {:error, :unauthorized} | {:error, any}
   def update_character_stage(user_id, new_stage, attrs) do
     [%{character_id: character_id} | _] = attrs
 

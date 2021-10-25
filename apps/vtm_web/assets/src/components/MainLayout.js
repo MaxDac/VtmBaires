@@ -1,7 +1,7 @@
 // @flow
 
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import React, {useEffect, useState} from 'react';
+import {styled, useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -18,7 +18,6 @@ import {MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
-import { useEffect, useState } from "react";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
 import LogoutControl from "./_layout/LogoutControl";

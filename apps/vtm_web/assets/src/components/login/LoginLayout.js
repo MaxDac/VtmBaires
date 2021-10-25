@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -12,6 +13,7 @@ import type { Node } from "react";
 import Copyright from '../../_base/components/Copyrights';
 import {Link} from "react-router-dom";
 import {Routes} from "../../AppRouter";
+import { performLogout } from "../../services/logout-service";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,6 +57,13 @@ export type HomeLayoutProps = {
 
 const LoginLayout = (props: HomeLayoutProps): Node => {
     const classes = useStyles();
+
+    useEffect(() => {
+        // Invoking the logout service to delete all the cached information
+        performLogout(() => {
+            console.log("cached information erased.");
+        });
+    }, []);
 
     return (
         <Grid container component="main" className={classes.root}>

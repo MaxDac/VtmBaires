@@ -7,6 +7,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
 import {performLogout} from "../../services/logout-service";
+import Tooltip from '@mui/material/Tooltip';
 
 const LogoutControl = (): any => {
     const history = useHistory();
@@ -18,9 +19,11 @@ const LogoutControl = (): any => {
     }
 
     return (
-        <IconButton aria-label="logout" onClick={logoutClick}>
-            <ExitToAppIcon />
-        </IconButton>
+        <Tooltip title="Logout" placement="bottom">
+            <IconButton aria-label="logout" onClick={logoutClick}>
+                <ExitToAppIcon />
+            </IconButton>
+        </Tooltip>
     );
 }
 

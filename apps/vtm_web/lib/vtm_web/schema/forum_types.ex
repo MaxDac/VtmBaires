@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.ForumTypes do
+  @moduledoc false
+
   use Absinthe.Schema.Notation
   use Absinthe.Relay.Schema.Notation, :modern
 
@@ -18,12 +20,10 @@ defmodule VtmWeb.Schema.ForumTypes do
   node object :forum_thread do
     field :title, :string
     field :description, :string
-    field :creator_name, :string
     # Passing only the ID, this way to pass it as a Relay ID
     field :forum_section, :forum_section
-    # TODO?
-    # field :creator_user_id, :id
-    # field :creator_character_id, :id
+    field :creator_user, :user
+    field :creator_character, :character
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end

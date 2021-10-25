@@ -327,7 +327,8 @@ type ForumSection implements Node {
 }
 
 type ForumThread implements Node {
-  creatorName: String
+  creatorCharacter: Character
+  creatorUser: User
   description: String
   forumSection: ForumSection
 

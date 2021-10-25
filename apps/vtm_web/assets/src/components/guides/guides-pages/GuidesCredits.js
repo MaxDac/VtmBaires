@@ -95,21 +95,30 @@ const GuidesCredits = (props: Props): any => {
             </Typography>
 
             <Box sx={{minHeight: "95x"}}>
-                <a href="https://whitewolf.fandom.com/wiki/Main_Page" target="_blank" rel="noreferrer">
-                    <img alt="WhiteWolfWikiLogo" src="/WhiteWolfWikiLogo.webp" align="right" hspace="10px" vspace="10px" style={imageLinkStyle} />
-                </a>
-
                 <Typography paragraph sx={guideStyle}>
                     <h2 style={titleStyle}>
-                        White Wolf Wiki
+                        Coteries of New York / Shadows of New York
                     </h2>
                 </Typography>
 
                 <Typography paragraph sx={guideStyle}>
-                    In questa guida non ufficiale sono elencate la maggior parte delle informazioni sul 
-                    mondo di Vampiri: la Masquerade. Un utile riferimento per tutti i giocatori, dai pi&ugrave;
-                    esperti per consultare informazioni specifiche, ai meno esperti, per studiare in breve
-                    tutto quello che c'&egrave; da sapere sul Mondo di Tenebra.
+                    Due giochi targati Mondo di Tenebra che &egrave; possibile acquistare tramite Steam 
+                    o Good old Games. Danno uno sguardo estremamente veritiero sull'ambientazione di 
+                    Vampiri la Masqueade&trade; e sulla sua atmosfera. Sono incentrati sull'ultima versione
+                    dei manuali, quindi sono molto utili per comprenderla.
+                </Typography>
+
+                <Typography paragraph sx={guideStyle}>
+                    <h2 style={titleStyle}>
+                        Vampire the Masquerade: Redemption & Bloodlines
+                    </h2>
+                </Typography>
+
+                <Typography paragraph sx={guideStyle}>
+                    Seppur relativamente vecchi (entrambi risalgono a quasi vent'anni fa) entrambi questi
+                    giochi, oltre ad offrire un gameplay pi&ugrave; tradizionale rispetto ai due citati prima,
+                    offrono un'ampio spettro di esperienze e <i>lore</i> che vi sar&agrave; sicuramente utile
+                    per approfondire ulteriormente l'ambientazione.
                 </Typography>
             </Box>
         </>

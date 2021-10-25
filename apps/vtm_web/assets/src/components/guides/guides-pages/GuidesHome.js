@@ -3,7 +3,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { guideStyle } from "../GuidesStyles";
+import { guideStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
@@ -12,10 +12,17 @@ type Props = {
 const GuidesHome = (props: Props): any => {
     return (
         <Box>
+            <Typography paragraph>
+                <h1 style={titleStyle}>
+                    Guide di Buenos Aires by Night
+                </h1>
+            </Typography>
+
             <Typography paragraph sx={guideStyle}>
                 Lo staff di Buenos Aires by Night vi d&agrave; il benvenuto nella sua comunit&agrave; online,
                 e vi ringrazia del tempo che dedicherete fin da ora al suo sviluppo ed alla sua evoluzione.
-                La presente guida non ambisce a coprire tutte le informazioni contenute nella manualistica della <b>White Wolf</b>&trade;
+                La guida che state per leggere non ambisce a coprire tutte le informazioni contenute nella 
+                manualistica della <b>White Wolf</b>&trade;
                 riguardo <b>Vampiri: la Masquerade</b>&trade;, vi rimandiamo ai relativi manuali, nella loro ultima versione v5,
                 ai quali la comunit&agrave; si ispira e tenta di implementare nel (a volte) limitante contesto online.
             </Typography>
@@ -33,8 +40,8 @@ const GuidesHome = (props: Props): any => {
                 La guida si svilupper&agrave; in questo modo:
                 <ul>
                     <li>
-                        Verranno elencate le regole generali del gioco, come deve essere condotta l'interpretazione dei
-                        personaggi, cosa &egrave; consentito e cosa no.
+                        Verranno elencate le regole generali del gioco, come si consiglia di condurre 
+                        l'interpretazione dei personaggi, cosa &egrave; consentito e cosa no.
                     </li>
                     <li>
                         Verr&agrave; descritta l'ambientazione di partenza in generale, e come questa si allaccia e si

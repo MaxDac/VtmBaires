@@ -46,7 +46,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def get_character(%{id: id }, %{context: %{current_user: user}}) do
+  @spec get_character(%{id: integer}, map) :: {:ok, map} | {:error, binary}
+  def get_character(%{id: id}, %{context: %{current_user: user}}) do
     case Characters.get_specific_character(user, id) do
       character when not is_nil(character) ->
         {:ok, character |> map_character()}
@@ -261,12 +262,12 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
         |> Map.put(:id, first_attribute.character_id)
     end
 
-    with {:ok, new_attrs}     <- new_attributes,
-         {:ok, p_id}          <- from_global_id?(request.predator_type_id),
-         new_req              <- new_request.(new_attrs, p_id),
-         {:ok, _}             <- Creation.add_advantages(user_id, new_req),
-         {:ok, character_id}  <- Creation.update_character_stage(user_id, new_stage, new_attrs) do
-      get_character(%{id: character_id}, context)
+    with {:ok, new_attrs} <- new_attributes,
+         {:ok, p_id}      <- from_global_id?(request.predator_type_id),
+         new_req          <- new_request.(new_attrs, p_id),
+         {:ok, _}         <- Creation.add_advantages(user_id, new_req),
+         {:ok, character} <- Creation.update_character_stage(user_id, new_stage, new_attrs) do
+      get_character(character, context)
     end
   end
 

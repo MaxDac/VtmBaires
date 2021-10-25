@@ -73,9 +73,10 @@ defmodule Vtm.Forum do
       select: %User{id: u.id, name: u.name}
   end
 
-  @spec map_creator_name({ForumThread.t() | ForumPost.t(), String.t() | nil, String.t()}) :: ForumThread.t() | ForumPost.t()
-  defp map_creator_name({item, name, _}) when not is_nil(name), do: item |> Map.put(:creator_name, name)
-  defp map_creator_name({item, _, name}), do: item |> Map.put(:creator_name, name)
+  # TODO
+  # This function is necessary because for the off game posts it returns error otherwise
+  defp include_character_when_null(character = %{id: c_id}) when not is_nil(c_id), do: character
+  defp include_character_when_null(_), do: %Character{id: 0, name: nil}
 
   @spec get_forum_threads(User.t(), Integer.t()) :: {:ok, [ForumThread.t()]} | {:error, :unauthorized}
   def get_forum_threads(user, section_id) do
@@ -86,33 +87,39 @@ defmodule Vtm.Forum do
           left_lateral_join: c in subquery(include_character_subquery()),
           left_lateral_join: u in subquery(include_user_subquery()),
           where: t.forum_section_id == ^section_id,
-          select: {t, c.name, u.name}
+          select: {t, c, u}
 
-      {:ok, Repo.all(query) |> Enum.map(&map_creator_name(&1))}
+      {:ok,
+        Repo.all(query)
+        |> Enum.map(fn
+          {thread, character, user} ->
+            thread
+            |> Map.put(:creator_user, user)
+            |> Map.put(:creator_character, character |> include_character_when_null())
+        end)}
     end
   end
 
   @spec get_forum_thread(User.t(), Integer.t()) :: {:ok, ForumThread.t()} | {:error, :unauthorized}
-  def get_forum_thread(user, id) do
+  def get_forum_thread(conn_user, id) do
     query =
       from t in ForumThread,
         as: :items,
         left_lateral_join: c in subquery(include_character_subquery()),
         left_lateral_join: u in subquery(include_user_subquery()),
         where: t.id == ^id,
-        select: {t, c.name, u.name}
+        select: {t, c, u}
 
     with {
       item = %{forum_section_id: section_id},
-      c_name,
-      u_name
+      character,
+      user
     }         <- Repo.one(query),
-         :ok  <- check_section(user, section_id) do
+         :ok  <- check_section(conn_user, section_id) do
       item =
-        case {c_name, u_name} do
-          {name, _} when not is_nil(name) -> item |> Map.put(:creator_name, name)
-          {_, name}                       -> item |> Map.put(:creator_name, name)
-        end
+        item
+        |> Map.put(:creator_character, character |> include_character_when_null())
+        |> Map.put(:creator_user, user)
 
       {:ok, item}
     else

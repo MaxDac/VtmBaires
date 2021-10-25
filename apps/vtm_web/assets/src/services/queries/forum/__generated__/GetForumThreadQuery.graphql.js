@@ -17,9 +17,16 @@ export type GetForumThreadQueryResponse = {|
       +forumSection: ?{|
         +id: string
       |},
+      +creatorCharacter: ?{|
+        +id: string,
+        +name: ?string,
+      |},
+      +creatorUser: ?{|
+        +id: string,
+        +name: ?string,
+      |},
       +title: ?string,
       +description: ?string,
-      +creatorName: ?string,
     |},
     +posts: ?$ReadOnlyArray<?{|
       +id: string,
@@ -53,9 +60,16 @@ query GetForumThreadQuery(
       forumSection {
         id
       }
+      creatorCharacter {
+        id
+        name
+      }
+      creatorUser {
+        id
+        name
+      }
       title
       description
-      creatorName
     }
     posts {
       id
@@ -139,6 +153,26 @@ v3 = [
           {
             "alias": null,
             "args": null,
+            "concreteType": "Character",
+            "kind": "LinkedField",
+            "name": "creatorCharacter",
+            "plural": false,
+            "selections": (v2/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "creatorUser",
+            "plural": false,
+            "selections": (v2/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "kind": "ScalarField",
             "name": "title",
             "storageKey": null
@@ -148,13 +182,6 @@ v3 = [
             "args": null,
             "kind": "ScalarField",
             "name": "description",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "creatorName",
             "storageKey": null
           }
         ],
@@ -235,15 +262,15 @@ return {
     "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "9878f18cc623e58abf87a5e6dff29f40",
+    "cacheID": "e4d96515407d1f3b9f2fd4d674290613",
     "id": null,
     "metadata": {},
     "name": "GetForumThreadQuery",
     "operationKind": "query",
-    "text": "query GetForumThreadQuery(\n  $forumThreadId: ID!\n) {\n  getForumThread(id: $forumThreadId) {\n    thread {\n      id\n      forumSection {\n        id\n      }\n      title\n      description\n      creatorName\n    }\n    posts {\n      id\n      text\n      character {\n        id\n        name\n      }\n      user {\n        id\n        name\n      }\n      insertedAt\n      updatedAt\n    }\n  }\n}\n"
+    "text": "query GetForumThreadQuery(\n  $forumThreadId: ID!\n) {\n  getForumThread(id: $forumThreadId) {\n    thread {\n      id\n      forumSection {\n        id\n      }\n      creatorCharacter {\n        id\n        name\n      }\n      creatorUser {\n        id\n        name\n      }\n      title\n      description\n    }\n    posts {\n      id\n      text\n      character {\n        id\n        name\n      }\n      user {\n        id\n        name\n      }\n      insertedAt\n      updatedAt\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '116a0a86af5f7cc72c670c2b3c43b5f3';
+(node: any).hash = '11712aee67368a6a55df8b67111aee97';
 module.exports = node;

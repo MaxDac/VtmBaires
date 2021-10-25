@@ -10,9 +10,16 @@ export const getForumThreadsQuery: GraphQLTaggedNode = graphql`
             forumSection {
                 id
             }
+            creatorUser {
+                id
+                name
+            }
+            creatorCharacter {
+                id
+                name
+            }
             title
             description
-            creatorName
             insertedAt
             updatedAt
         }

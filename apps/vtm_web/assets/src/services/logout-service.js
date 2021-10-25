@@ -6,7 +6,6 @@ export const performLogout = (onLogoutCompleted: () => void) => {
     const clearClientSession = () => {
         localStorage.clear();
         sessionStorage.clear();
-        console.log("performing logout");
         onLogoutCompleted();
     }
 
