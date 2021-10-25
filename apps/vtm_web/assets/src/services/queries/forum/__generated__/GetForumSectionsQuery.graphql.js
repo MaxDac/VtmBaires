@@ -16,6 +16,8 @@ export type GetForumSectionsQueryResponse = {|
     +onGame: ?boolean,
     +canView: ?boolean,
     +canEdit: ?boolean,
+    +insertedAt: ?any,
+    +updatedAt: ?any,
   |}>
 |};
 export type GetForumSectionsQuery = {|
@@ -33,6 +35,8 @@ query GetForumSectionsQuery {
     onGame
     canView
     canEdit
+    insertedAt
+    updatedAt
   }
 }
 */
@@ -88,6 +92,20 @@ var v0 = [
         "kind": "ScalarField",
         "name": "canEdit",
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "insertedAt",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "updatedAt",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -111,15 +129,15 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "7f9bee0da547756771f4e769ac3e4d11",
+    "cacheID": "e251570f1d117160d8e514cfe1e4ee88",
     "id": null,
     "metadata": {},
     "name": "GetForumSectionsQuery",
     "operationKind": "query",
-    "text": "query GetForumSectionsQuery {\n  getForumSections {\n    id\n    title\n    description\n    onGame\n    canView\n    canEdit\n  }\n}\n"
+    "text": "query GetForumSectionsQuery {\n  getForumSections {\n    id\n    title\n    description\n    onGame\n    canView\n    canEdit\n    insertedAt\n    updatedAt\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node: any).hash = '1e016cbd3d4e77225259cff711e96af0';
+(node: any).hash = '67ac3125c24a5c798393f66eaf8810a3';
 module.exports = node;

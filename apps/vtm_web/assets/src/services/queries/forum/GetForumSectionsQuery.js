@@ -14,6 +14,8 @@ export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
             onGame
             canView
             canEdit
+            insertedAt
+            updatedAt
         }
     }
 `;

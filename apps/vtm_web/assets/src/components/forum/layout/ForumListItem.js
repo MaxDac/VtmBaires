@@ -29,6 +29,7 @@ export type ForumItemProps = {
         +id: string;
         +title: ?string;
         +description: ?string;
+        +insertedAt: ?string;
     };
     onClick: ?string => void;
 }

@@ -26,6 +26,105 @@ const GuidesEnvironment = (props: Props): any => {
 
             <Typography paragraph>
                 <h2 style={titleStyle}>
+                    Vampiri: la Masquerade&trade; - La storia
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Prima di riassumere i cambiamenti che la versione 5 dei manuali hanno introdotto, cercheremo di condensare
+                in poche parole la conoscenza contenuta nei manuali precedenti, che considereremo conoscenza propedeutica
+                se volete giocare un personaggio cainita.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il gioco &egrave; incentrato sulle vicende dei cainiti, o Fratelli, una razza immortale generata, almeno stando
+                alle loro leggende, dal Peccato di Caino (da qui la parola cainiti), dal primo omicidio della storia. Da allora, 
+                Caino &egrave; costretto a vagare per la Terra, solo di Notte, dato che i raggi del Sole avrebbero bruciato le sue carni,
+                n&eacute; vivo n&eacute; morto, cibandosi della sola cosa che lo pu&ograve; sostenere: il sangue degli esseri umani.<br />
+                Sempre secondo la leggenda, nel suo vagabondare Caino incontr&ograve; Lilith, la prima moglie di Adamo, che lo 
+                prese sotto la sua protezione e lo mise a conoscenza del suo sapere oscuro. Gli insegn&ograve; che il sangue di 
+                cui si cibava acquisiva un'energia ed un potere oscuri, la sua fisiologia soprannaturale ne distillava la <i>vitae</i>, 
+                che gli garantiva poteri fuori dalla portata degli umani. Possedeva forza e velocit&agrave; soprannaturale, la capacit&agrave;
+                di comandare e di ammaliare con la sola forza del pensiero gli umani, ma soprattutto di perpetuare la sua specie tramite
+                il rituale che sarebbe poi stato chiamato l'<b>Abbraccio</b>.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Caino, fin&iacute; per allontanare Lilith e, preda della solitudine e della disperazione, commise il secondo peccato:
+                Abbracci&ograve; tre umani, rendendoli cainiti di Seconda Generazione. Fece costruire anche una citt&agrave;, la pi&ugrave;
+                grande, si dice, dell'antichit&agrave;, ancora oggetto di studi archeologici da parte di rispettati cainiti, la citt&agrave;
+                di <b>Enoch</b>, che per&ograve; venne spazzata via dalle acque del Diluvio.<br />
+                Una seconda citt&grave; fu eretta, e i suoi Infanti Abbracciarono altri tredici umani, la Terza Generazione. Questi, per&ograve;,
+                diedero origine alla Jihad, alla guerra che imperversa e flagella cainiti, e i loro servi mortali, da tutta la storia registrata.
+                Sire contro Infante, clan contro clan, da quando la Terza Generazione uccise la Seconda per prenderne il potere, tutti i cainiti
+                sono vittime inconsapevole di questa grande guerra, in cui gli Anziani influenzano ed orchestrano dall'ombra le mosse dei Neonati,
+                e i Neonati cercano di prendere il posto dei loro Sire, ed anche cainiti di clan diversi si scontrano ed ordiscono l'uno 
+                contro l'altro, mettendo in mezzo vittime mortali.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Caino, presagendo l'orrore che ne sarebbe derivato, abbandon&ograve; la citt&agrave; e gli Infanti dei suoi Infanti al loro destino,
+                sparendo di fatto dalla storia registrata. Da allora, i tredici cainiti sopravvissuti a loro volta Abbracciarono Infanti, dando
+                origine a tredici clan differenti, cainiti con alcune caratteristiche (e maledizioni) in comune che li differenziavano dai cainiti
+                degli altri clan, e ne influenzavano il comportamento e il rapporto con gli umani.<br />
+                E cos&igrave;, ad esempio, i cainiti del clan Nosferatu persero il loro aspetto umano, divenendo mostri orribili; i Lasombra videro
+                la loro immagine in ogni specchio distorta, e cos&igrave; via. Assieme alla maledizione caratteristica del clan, grazie alla 
+                condivisione della Vitae col proprio Sire, gli Infanti acquisivano anche la conoscenza delle Discipline di clan, i poteri
+                soprannaturali dei cainiti.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Da allora, la storia dei cainiti s'&egrave; intessuta a quella degli umani, sempre rimanendo nell'ombra ed orchestrando le politiche
+                degli umani cos&igrave; come quelle dei vari clan. Numerose furono le guerre, le lotte intestine e i confronti tra fazioni differenti
+                di cainiti.<br />
+                Le guerre puniche furono guidate da Ventrue e Malkavian romani per rompere e debellare l'idillio dei filosofi Brujah con gli 
+                umani, che a Cartagine riuscivano a vivere in armonia. Ci&ograve; che rimase del sogno dei Brujah fu cenere, e il sale che i
+                Romani sparsero su Cartagine per non far nascere (o uscire) pi&ugrave; nulla da quella terra.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Dopo l'anno Mille, le trame degli Antidiluviani si ritorsero apparentemente contro i loro perpetratori: quattro dei tredici
+                Antidiluviani, i mitici nipoti di Caino, furono vittime della Diablerie dei loro Infanti:
+
+                <ul>
+                    <li style={liStyle}>
+                        Un mago mortale, leader di una setta ermetica, <b>Tremere</b>, dopo aver usato in vari modi la <i>vitae</i> di altri 
+                        cainiti, individu&ograve; il corpo indifeso dell'Antidiluviano del clan Salubri, <b>Saulot</b>, e riusc&igrave; a
+                        commettere Diablerie su di lui, creando di fatto quello che fu da allora uno dei clan pi&ugrave; potenti ed organzzati:
+                        il clan Tremere. Furono addirittura in grado di combattere Tzimisce e altri cainiti su pi&ugrave; fronti, dopo la loro 
+                        creazione.
+                    </li>
+
+                    <li style={liStyle}>
+                        L'Antidiluviano del clan dei Cappadoci per&igrave; a sua volta sotto le zanne di uno dei suoi Infanti, <b>Augustus Giovanni</b>.
+                        Anche il nuovo leader del clan cre&ograve; il clan <b>Giovanni</b>, che da allora riusc&igrave; a sopravvivere grazie 
+                        alle ampie conoscenze Necromantiche.
+                    </li>
+
+                    <li style={liStyle}>
+                        Due Diablerie di Antidiluviani diedero il via, poi ad una serie di eventi che disegnarono la storia dei cainiti fino ai
+                        primi anni 2000: la diablerie, a distanza di pochi anni, dell'Antidiluviano <b>Tzimisce</b> e di quello <b>Lasombra</b>,
+                        rispettivamente per mano di due cainiti del clan, <b>Lugoj lo Spezza Sangue</b> e <b>Gratiano de Veronesi</b>. Gli Tzimisce 
+                        che si ribellarono ai loro Anziani, dando il via agli eventi che portarono alla Diablerie dell'Antidiluviano, riuscirono 
+                        dopo aver perfezionato un rituale in grado di spezzare i legami di sangue con i Sire, dando origine alla rivolta anarchica,
+                        che in seguito si sarebbe condensata nella setta del <b>Sabbat</b>.
+                    </li>
+                </ul>
+
+                Per far fronte a questi avvenimenti, ed all'avanzata della Prima Inquisizione umana, che stava decimando la popolazione cainita dal 1400, 
+                gli altri clan, guidati dai Ventrue, crearono la <b>Camarilla</b>. Proposero un accordo di pace ad <b>Anarchici</b> ed <b>Assamiti</b>,
+                le tre fazioni in guerra in quel periodo, durante la famosa <b>Convenzione di Thorns</b>, e cementarono un'organizzazione che resiste
+                fino ai giorni nostri, alla quale i ribelli che rifiutarono di aderirvi opposero quella del Sabbat.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Sabbat e Camarilla si confrontarono su pi&ugrave; fronti da allora, la Camarilla cercando di stabilire <b>Domini</b> e il Sabbat 
+                opponendo le sue <b>Diocesi</b>, almeno fino al volgere del nuovo Millennio, quando l'ordine durato per pi&ugrave; di cinque secoli
+                venne irrimediabilmente sconvolto dagli eventi descritti nella...
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
                     V5
                 </h2>
             </Typography>
