@@ -24,6 +24,8 @@ type MenuHuntSectionInternalProps = {
 const MenuHuntSectionInternal = ({characterQuery, huntRequest}: MenuHuntSectionInternalProps): any => {
     const characterInfo = useFragment<CharacterFragments_characterStats$key>(characterStatsFragment, characterQuery);
 
+    console.log("hunt character info", characterInfo);
+
     const showHuntMenu = () => {
         if (characterIsVampire(characterInfo)) {
             return (

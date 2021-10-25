@@ -4,6 +4,7 @@ defmodule Vtm.Forum do
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
+  alias Vtm.Pagination
 
   alias Vtm.Forum.ForumSection
   alias Vtm.Forum.ForumThread
@@ -61,6 +62,15 @@ defmodule Vtm.Forum do
     Repo.all(from s in ForumSection, where: s.can_view == true)
   end
 
+  @spec get_section_thread_count(integer) :: integer
+  def get_section_thread_count(section_id) do
+    ForumThread
+    |> from()
+    |> where([t], t.forum_section_id == ^section_id)
+    |> select([t], count(t.id))
+    |> Repo.one()
+  end
+
   defp include_character_subquery() do
     from c in Character,
       where: parent_as(:items).creator_character_id == c.id,
@@ -78,15 +88,21 @@ defmodule Vtm.Forum do
   defp include_character_when_null(character = %{id: c_id}) when not is_nil(c_id), do: character
   defp include_character_when_null(_), do: %Character{id: 0, name: nil}
 
-  @spec get_forum_threads(User.t(), Integer.t()) :: {:ok, [ForumThread.t()]} | {:error, :unauthorized}
-  def get_forum_threads(user, section_id) do
+  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, [ForumThread.t()]} | {:error, :unauthorized}
+  def get_forum_threads(user, section_id, page_size, page) do
     with :ok <- check_section(user, section_id) do
       query =
-        from t in ForumThread,
+        ForumThread
+        |> from()
+        |> where([t], t.forum_section_id == ^section_id)
+        |> order_by([t], [desc: t.inserted_at])
+        |> Pagination.as_paged_query(page_size, page)
+
+      query =
+        from t in query,
           as: :items,
           left_lateral_join: c in subquery(include_character_subquery()),
           left_lateral_join: u in subquery(include_user_subquery()),
-          where: t.forum_section_id == ^section_id,
           select: {t, c, u}
 
       {:ok,
@@ -97,6 +113,26 @@ defmodule Vtm.Forum do
             |> Map.put(:creator_user, user)
             |> Map.put(:creator_character, character |> include_character_when_null())
         end)}
+    end
+  end
+
+  @doc """
+  Return true if the section of the given thread is on game or not.
+  The query is by thread because it's a middle ground between all the forum
+  entities, and the section already has this characteristic.
+  """
+  @spec get_thread_section_on_game(integer) :: {:ok, boolean} | {:error, :not_found}
+  def get_thread_section_on_game(thread_id) do
+    query =
+      from t in ForumThread,
+        where: t.id == ^thread_id,
+        join: s in ForumSection,
+        on: t.forum_section_id == s.id,
+        select: s
+
+    case query |> Repo.one() do
+      %{on_game: on_game} -> {:ok, on_game}
+      _                   -> {:error, :not_found}
     end
   end
 
@@ -128,6 +164,15 @@ defmodule Vtm.Forum do
     end
   end
 
+  @spec get_forum_thread_post_count(integer) :: integer
+  def get_forum_thread_post_count(thread_id) do
+    ForumPost
+    |> from()
+    |> where([p], p.forum_thread_id == ^thread_id)
+    |> select([p], count(p.id))
+    |> Repo.one()
+  end
+
   @spec get_section_by_thread(Integer.t()) :: ForumSection.t()
   defp get_section_by_thread(thread_id) do
     query =
@@ -140,17 +185,23 @@ defmodule Vtm.Forum do
     Repo.one(query)
   end
 
-  @spec get_forum_posts(User.t(), Integer.t()) :: {:ok, [ForumPost.t()]} | {:error, :unauthorized}
-  def get_forum_posts(user, thread_id) do
+  @spec get_forum_posts(User.t(), integer, integer, integer) :: {:ok, [ForumPost.t()]} | {:error, :unauthorized}
+  def get_forum_posts(user, thread_id, page_size, page) do
     with %{id: id}  <- get_section_by_thread(thread_id),
          :ok        <- check_section(user, id) do
+
       query =
-        from p in ForumPost,
+        ForumPost
+        |> from()
+        |> where([p], p.forum_thread_id == ^thread_id)
+        |> order_by([p], [desc: p.inserted_at])
+        |> Pagination.as_paged_query(page_size, page)
+
+      query =
+        from p in query,
           as: :items,
           left_lateral_join: c in subquery(include_character_subquery()),
           left_lateral_join: u in subquery(include_user_subquery()),
-          where: p.forum_thread_id == ^thread_id,
-          order_by: [asc: p.inserted_at],
           select: {p, c.id, c.name, u.id, u.name}
 
       {:ok, Repo.all(query)

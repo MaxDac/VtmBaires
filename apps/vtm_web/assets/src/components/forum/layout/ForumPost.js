@@ -3,10 +3,10 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
-import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {defaultFormatDateAndTime} from "../../../_base/utils";
+import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 
 type Props = {
     onGame: boolean;

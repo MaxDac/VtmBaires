@@ -308,6 +308,7 @@ type ForumPost implements Node {
   """The ID of an object"""
   id: ID!
   insertedAt: DateTime
+  onGame: Boolean
   text: String
   updatedAt: DateTime
   user: User
@@ -335,13 +336,15 @@ type ForumThread implements Node {
   """The ID of an object"""
   id: ID!
   insertedAt: DateTime
+  onGame: Boolean
+  postCount: Int
   title: String
   updatedAt: DateTime
 }
 
-type ForumThreadPage {
-  posts: [ForumPost]
-  thread: ForumThread
+type GetThreadsResponse {
+  threadCount: Int
+  threads: [ForumThread]
 }
 
 input HealInput {
@@ -542,8 +545,9 @@ type RootQueryType {
   getCharactersChatAvatar(characterIds: [ID!]): [Character]
   getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
-  getForumThread(id: ID): ForumThreadPage
-  getForumThreads(forumSectionId: ID): [ForumThread]
+  getForumThread(id: ID!): ForumThread
+  getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]
+  getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
   mainMaps: [ChatLocation]

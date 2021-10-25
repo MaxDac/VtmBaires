@@ -9,29 +9,55 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
     {:ok, Forum.get_forum_sections(user)}
   end
 
-  def get_forum_threads(%{forum_section_id: section_id}, %{context: %{current_user: user}}) do
-    with {:ok, threads} <- Forum.get_forum_threads(user, section_id) do
+  def get_forum_threads(%{
+    forum_section_id: section_id,
+    page_size: page_size,
+    page: page
+  }, %{context: %{current_user: user}}) do
+    with thread_count   <- Forum.get_section_thread_count(section_id),
+         {:ok, threads} <- Forum.get_forum_threads(user, section_id, page_size, page) do
       # Remapping to preserve the Relay ID transformation
-      {:ok, threads
+      threads =
+        threads
         |> Enum.map(fn
-          t = %{forum_section_id: section_id} -> %{t | forum_section: %{id: section_id}}
+          t = %{forum_section_id: section_id} ->
+            t
+            |> Map.put(:forum_section, section_id)
+            |> Map.put(:thread_count, thread_count)
         end)
-      }
+
+      {:ok, %{
+        thread_count: thread_count,
+        threads: threads
+      }}
     end
   end
 
   def get_forum_thread(%{id: id}, %{context: %{current_user: user}}) do
-    with {:ok, thread}  <- Forum.get_forum_thread(user, id),
-         {:ok, posts}   <- Forum.get_forum_posts(user, id) do
-      {:ok, %{
-        # Remapping to preserve the Relay ID transformation
-        thread: %{thread | forum_section: %{id: thread.forum_section_id}},
-        posts:
-          posts
-          |> Enum.map(fn
-            t = %{forum_section_id: section_id} -> %{t | forum_section: %{id: section_id}}
-          end)
-      }}
+    with {:ok, on_game} <- Forum.get_thread_section_on_game(id),
+         {:ok, thread}  <- Forum.get_forum_thread(user, id),
+         post_count     <- Forum.get_forum_thread_post_count(id) do
+      {:ok,
+        thread
+        |> Map.put(:forum_section, %{id: thread.forum_section_id})
+        |> Map.put(:on_game, on_game)
+        |> Map.put(:post_count, post_count)
+      }
+    end
+  end
+
+  def get_forum_thread_posts(%{id: id, page_size: page_size, page: page}, %{context: %{current_user: user}}) do
+    with {:ok, on_game} <- Forum.get_thread_section_on_game(id),
+         {:ok, posts}   <- Forum.get_forum_posts(user, id, page_size, page) do
+      {:ok,
+        posts
+        |> Enum.map(fn
+          t = %{forum_section_id: section_id} ->
+            t
+            |> Map.put(:forum_section, %{id: section_id})
+            |> Map.put(:on_game, on_game)
+        end)
+      }
     end
   end
 

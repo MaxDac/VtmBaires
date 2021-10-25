@@ -1,4 +1,6 @@
 defmodule Vtm.Chats do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
@@ -7,6 +9,8 @@ defmodule Vtm.Chats do
   alias Vtm.Chats.ChatEntry
   alias Vtm.Characters.Character
   alias Vtm.Characters
+
+  @two_hours_in_second 3_600 * 2
 
   def get_main_chat_maps() do
     query = from m in ChatMap,
@@ -66,8 +70,13 @@ defmodule Vtm.Chats do
   end
 
   def get_chat_entries(map_id) do
+    two_hours_ago =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.add(@two_hours_in_second * -1)
+
     query = from c in chat_and_character_joined_query(),
-      where: c.chat_map_id == ^map_id
+      where: c.chat_map_id == ^map_id,
+      where: c.inserted_at > ^two_hours_ago
 
     Repo.all(query)
   end
@@ -100,8 +109,8 @@ defmodule Vtm.Chats do
     |> Repo.insert()
   end
 
-  def create_chat_entry(attrs = %{ text: _ }), do: create_chat_entry_p(attrs)
-  def create_chat_entry(attrs = %{ result: _ }), do: create_chat_entry_p(attrs)
+  def create_chat_entry(attrs = %{text: _}), do: create_chat_entry_p(attrs)
+  def create_chat_entry(attrs = %{result: _}), do: create_chat_entry_p(attrs)
   def create_chat_entry(_), do: {:error, "text or result should not be both emtpy."}
 
   def random_simulate_master_dice_throw(free_throw) do
@@ -116,7 +125,7 @@ defmodule Vtm.Chats do
   def simulate_dice_throw(dice_thrower, user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do
     # Gathering all the information
     {amount, throw_description} = get_dice_amount(character_id, attribute_id, ability_id, free_throw)
-    %{ hunger: hunger } = Characters.get_character_status(user_id, character_id)
+    %{hunger: hunger} = Characters.get_character_status(user_id, character_id)
 
     # Simulating dice throwing
     dices = get_dices_result(dice_thrower, amount, hunger)

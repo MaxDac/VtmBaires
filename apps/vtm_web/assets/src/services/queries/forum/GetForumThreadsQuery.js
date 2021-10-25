@@ -4,24 +4,27 @@ import graphql from 'babel-plugin-relay/macro';
 import type {GraphQLTaggedNode} from "relay-runtime";
 
 export const getForumThreadsQuery: GraphQLTaggedNode = graphql`
-    query GetForumThreadsQuery($forumSectionId: ID!) {
-        getForumThreads(forumSectionId: $forumSectionId) {
-            id
-            forumSection {
+    query GetForumThreadsQuery($forumSectionId: ID!, $pageSize: Int!, $page: Int!) {
+        getForumThreads(forumSectionId: $forumSectionId, pageSize: $pageSize, page: $page) {
+            threadCount
+            threads {
                 id
+                forumSection {
+                    id
+                }
+                creatorUser {
+                    id
+                    name
+                }
+                creatorCharacter {
+                    id
+                    name
+                }
+                title
+                description
+                insertedAt
+                updatedAt
             }
-            creatorUser {
-                id
-                name
-            }
-            creatorCharacter {
-                id
-                name
-            }
-            title
-            description
-            insertedAt
-            updatedAt
         }
     }
 `;

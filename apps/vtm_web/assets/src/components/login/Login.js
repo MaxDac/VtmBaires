@@ -63,8 +63,6 @@ const LoginComponent = (): Node => {
                 storeSession(res.data);
                 setTimeout(() => {
                     history.push(Routes.main);
-                    // This way the internal website will have the chance to reload the relay session.
-                    document.location.reload();
                 }, 200);
             })
             .catch(errors => {

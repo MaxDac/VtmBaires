@@ -34,7 +34,7 @@ const CreateNewPost = ({threadId}: Props): any => {
     const [user, character] = useSession();
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
-    })?.getForumThread?.thread;
+    })?.getForumThread;
 
     const onSubmit = ({text}) => {
         CreateNewPostMutation(environment, {

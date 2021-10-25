@@ -1,7 +1,6 @@
 // @flow
 
 import React from "react";
-import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import Box from "@mui/material/Box";
@@ -10,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import {useCharacterAvatarQuery} from "../../../services/queries/character/GetCharacterAvatarQuery";
 import ForumPost from "./ForumPost";
 import {defaultFormatDateAndTime} from "../../../_base/utils";
+import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 
 type Props = {
     onGame: boolean;

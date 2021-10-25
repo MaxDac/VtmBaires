@@ -4,7 +4,7 @@ import React from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import type {Post} from "../../../services/queries/forum/GetForumThreadQuery";
+import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 
 type Props = {
     post: ?Post;

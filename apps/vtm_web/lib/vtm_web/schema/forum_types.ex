@@ -20,10 +20,11 @@ defmodule VtmWeb.Schema.ForumTypes do
   node object :forum_thread do
     field :title, :string
     field :description, :string
-    # Passing only the ID, this way to pass it as a Relay ID
     field :forum_section, :forum_section
+    field :on_game, :boolean
     field :creator_user, :user
     field :creator_character, :character
+    field :post_count, :integer
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end
@@ -31,6 +32,7 @@ defmodule VtmWeb.Schema.ForumTypes do
   node object :forum_post do
     field :text, :string
     field :forum_section, :forum_section
+    field :on_game, :boolean
     field :forum_thread, :forum_thread
     field :character, :character
     field :user, :user
@@ -38,17 +40,9 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :updated_at, :date_time
   end
 
-  object :forum_thread_page do
-    field :thread, :forum_thread
-    field :posts, list_of(:forum_post)
-    # connection field :posts, node_type: :forum_post do
-    #   resolve fn
-    #     pagination_args, %{source: forum_thread} ->
-    #       Absinthe.Relay.Connection from_list(
-    #         Enum.map()
-    #       )
-    #   end
-    # end
+  object :get_threads_response do
+    field :thread_count, :integer
+    field :threads, list_of(:forum_thread)
   end
 
   object :forum_queries do
@@ -58,19 +52,31 @@ defmodule VtmWeb.Schema.ForumTypes do
       middleware Middlewares.ChangesetErrors
     end
 
-    field :get_forum_threads, list_of(:forum_thread) do
-      arg :forum_section_id, :id
+    field :get_forum_threads, :get_threads_response do
+      arg :forum_section_id, non_null(:id)
+      arg :page_size, non_null(:integer)
+      arg :page, non_null(:integer)
 
       middleware Middlewares.Authorize, :any
       resolve parsing_node_ids(&ForumResolvers.get_forum_threads/2, forum_section_id: :forum_section)
       middleware Middlewares.ChangesetErrors
     end
 
-    field :get_forum_thread, :forum_thread_page do
-      arg :id, :id
+    field :get_forum_thread, :forum_thread do
+      arg :id, non_null(:id)
 
       middleware Middlewares.Authorize, :any
       resolve parsing_node_ids(&ForumResolvers.get_forum_thread/2, id: :forum_thread)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    field :get_forum_thread_posts, list_of(:forum_post) do
+      arg :id, non_null(:id)
+      arg :page_size, non_null(:integer)
+      arg :page, non_null(:integer)
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.get_forum_thread_posts/2, id: :forum_thread)
       middleware Middlewares.ChangesetErrors
     end
   end
