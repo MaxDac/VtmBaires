@@ -64,18 +64,18 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                La Camarilla vanta infatti influeza nella Policia Federal e negli Ospedali di Capital Federal grazie
+                La Camarilla vanta infatti influenza nella Policia Federal e negli Ospedali di Capital Federal grazie
                 all'influenza Ventrue ed all'opera Malkavian. Tra gli edifici che per&ograve; pi&ugrave; 
-                contraddistinguono la presenza della Setta nella citt&agrave; &egrave; il suo Elysium.
+                contraddistinguono la presenza della Setta nella citt&agrave; &egrave; il suo <b>Elysium</b>.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
                 Installato in un palazzo da lungo tempo abbandonato a due passi dal Parlamento, gli asserviti 
-                della Primogenita Isabela Ruiz Diaz hanno coordinato la costituzione di una societ&agrave; di 
-                investimenti in grado di muovere grandi quantit&grave; di denaro, e di dollari, valuta estremamente
-                richiesta negli ambienti pi&grave; altolocati della politica argentina. Questo ha garantito 
+                della Primogenita <b>Isabela Ruiz Diaz</b> hanno coordinato la costituzione di una societ&agrave; di 
+                investimenti in grado di muovere grandi quantit&agrave; di denaro, e di dollari, valuta estremamente
+                richiesta negli ambienti pi&ugrave; altolocati della politica argentina. Questo ha garantito 
                 non solo discrezione, ma anche la protezione del luogo da parte dei servizi speciali della 
-                Polizia di Stato. Il luogo &egrave; praticamente inespugnabile.
+                Polizia di Stato. <b>Il luogo &egrave; praticamente inespugnabile</b>.
             </Typography>
 
             <img src="elysium.webp"
@@ -89,9 +89,10 @@ const GuidesPlaces = (props: Props): any => {
                  }} />
 
             <Typography paragraph sx={guideStyle}>
-                Un altro edificio degno di nota &egrave; il vecchio Sanatorio abbandonato occupato dal Primogenito
-                Malkavian, riadibito nella sua ala pi&ugrave; moderna a centro per analisi del sangue ed
-                epidemiologico, per garantire un flusso costante di sangue in caso di emergenza.
+                Altri edifici degni di nota sono il vecchio <b>Sanatorio</b> abbandonato occupato dal <b>Primogenito
+                Malkavian</b>, riadibito nella sua ala pi&ugrave; moderna a centro per analisi del sangue ed
+                epidemiologico, per garantire un flusso costante di sangue in caso di emergenza, ed il&nbsp;
+                <b>Palazzo Pompadour</b>, sede del secondo Elysium della citt&agrave;.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -101,8 +102,8 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                L'Elysium della Camarilla è situato agli ultimi piani del rinnovato palazzo della Conf&iacute;teria 
-                El Molino. Lontano dagli sguardi indiscreti dei mortali che possono accedere solamente ai piani 
+                L'Elysium della Camarilla è situato agli ultimi piani del rinnovato palazzo della <b>Conf&iacute;teria 
+                El Molino</b>. Lontano dagli sguardi indiscreti dei mortali che possono accedere solamente ai piani 
                 inferiori dello stabile, gli ultimi piani sono protetti e dedicati, almeno ufficialmente, alla
                 dirigenza della societ&agrave;.
             </Typography>
@@ -132,14 +133,14 @@ const GuidesPlaces = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Il palazzo Pompadour &egrave; ufficialmente la sede della famosa rivista d'arte Duval, dedicata
-                alla memoria della vivissima Toreador, che infatti ne veste i panni della CEO in qualit&grave;
+                alla memoria della vivissima Toreador, che infatti ne veste i panni della CEO in qualit&agrave;
                 di erede... di s&eacute; stessa.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
                 Universalmente considerato come un secondo Elysium, &egrave; sicuramente un luogo di incontro
                 pi&ugrave; informale. Il che potrebbe sembrare un paradosso, dato che la propriet&agrave; e la
-                responsabilit&grave; della gestione ricadono proprio sull'unica Arpia finora presente nel Dominio.
+                responsabilit&agrave; della gestione ricadono proprio sull'<b>unica Arpia</b> finora presente nel Dominio.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -149,8 +150,8 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Non &egrave; stato difficile per Manoukian prendere possesso di uno dei locali periferici 
-                pi&ugrave; frequentati dalla feccia di Buenos Aires. Da l&igrave;, il controllo delle <i>Villas</i>
+                Non &egrave; stato difficile per <b>Manoukian</b> prendere possesso di uno dei locali periferici 
+                pi&ugrave; frequentati dalla feccia di Buenos Aires. Da l&igrave;, il controllo delle <i>Villas</i>&nbsp;
                 &egrave; stata solo un'operazione di ristabilimento di antiche alleanze, riscossione di favori
                 e rinvigorimento nel controllo del territorio.
             </Typography>
@@ -162,7 +163,7 @@ const GuidesPlaces = (props: Props): any => {
                 solo questione di tempo prima che gli Anarchici possano riprendere il controllo e sfondare
                 i confini di Capital Federal.<br />
                 Per ora, comunque, la comune Anarchica sembra voler radunare e contare le forze, riogranizzare
-                i vecchi traffici e trovare l'equilibrio con la nuova alleanza coi Ministri di Set a Quilmes.
+                i vecchi traffici e trovare l'equilibrio con la nuova alleanza coi <b>Ministri di Set</b> a <b>Quilmes</b>.
             </Typography>
 
             <img src="/night-club.webp"
@@ -216,7 +217,7 @@ const GuidesPlaces = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Gli Hecata sono riusciti, dopo aver respinto l'offensiva dei Ministri a seguito della debacle 
-                finanziaria di Giovanni e Dunsirn, grazie all'intervento dei Pisanob rifugiatisi in citt&grave;,
+                finanziaria di Giovanni e Dunsirn, grazie all'intervento dei Pisanob rifugiatisi in citt&agrave;,
                 a strappare dalle mani degli avversari la regione residenziale di alto profilo a sud di Capital 
                 Federal, e la regione del porto della Boca.<br />
                 Le pretese degli Hecata sono state accontentate in virt&ugrave; di due fortunose decisioni della
@@ -230,9 +231,9 @@ const GuidesPlaces = (props: Props): any => {
                 Il riverbero della decisione, e l'esito di sostanziale pareggio del conflitto tra i due clan
                 hanno fatto propendere la Camarilla per lasciare il territorio attualmente occupato dagli Hecata
                 come cuscinetto contro la possibile avanzata dei Ministri.<br />
-                La Portavoce del clan, Mercedes Pisanob, ha immediatamente disposto la messa in sicurezza dei 
+                La Portavoce del clan, <b>Mercedes Pisanob</b>, ha immediatamente disposto la messa in sicurezza dei 
                 territori, ed ha cominciato la trattativa per la gestione di un importante sito per gli Hecata:
-                il Cementerio Monumental di Recoleta, manovra tuttora osteggiata dalla Primogenita Tremere.
+                il <b>Cementerio Monumental di Recoleta</b>, manovra tuttora osteggiata dalla Primogenita Tremere.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -270,7 +271,7 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Pochi sono i luoghi di interesse in questa parte della citt&grave; accessibili a chi non abbraccia
+                Pochi sono i luoghi di interesse in questa parte della citt&agrave; accessibili a chi non abbraccia
                 il culto del clan: il Tempio &egrave; ubicato in uno stabile interrato e protetto, virutalmente 
                 inaccessibile per chiunque non sappia cosa sta cercando.
             </Typography>

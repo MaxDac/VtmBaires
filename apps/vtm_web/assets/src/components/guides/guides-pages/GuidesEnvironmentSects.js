@@ -23,9 +23,9 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 La musica del locale era forse troppo alta, considerando che avevano da poco
                 aperto e le persone stavano ancora ordinando apertivi. Ma a lui piaceva cos&igrave;.
                 Gli altri del branco lo sapevano, e non fiatavano.<br />
-                L'impazienza era evidentemente dettata dal fatto che la Serpe era in ritardo.
-                Nessuno aveva idea di come chiamarli. Setiti, Seguaci di Set, Ministri. A nessuno
-                era importato poi molto, non erano mai stati in lizza per entrare a far parte del
+                L'impazienza era evidentemente dettata dal fatto che la <b>Serpe</b> era in ritardo.<br />
+                Nessuno aveva idea di come chiamarli. <b>Setiti</b>, <b>Seguaci di Set</b>, <b>Ministri</b>. 
+                A nessuno era importato poi molto, non erano mai stati in lizza per entrare a far parte del
                 club.
             </Typography>
 
@@ -111,25 +111,15 @@ const GuidesEnvironmentSects = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Dopo l'accordo concluso col portavoce degli <i>Amici Noctis</i>,
-                di cui si parla nella 
+                di cui si parla nella&nbsp;
                 <Link to={GuideRoutes.environmentBaires}>sezione di Ambientazione</Link>, 
                 la Camarilla ha ottenuto tutto quello di cui aveva bisogno 
                 per poter organizzare il Dominio di Buenos Aires, dopo aver perso
-                quello di Montevideo. Ha il suo Principe nella persona di
-                <b>Maria Augusta Carvalho Sforza</b>, supportata dall'Ancillae 
+                quello di Montevideo. Ha il suo Principe nella persona di&nbsp;
+                <b>Maria Augusta Carvalho Sforza</b>, supportata dall'Ancillae&nbsp;
                 <b>Isabela Ruiz Diaz</b>, Primogenito Ventrue Il resto dei personaggi
-                non giocanti saranno descritti nella 
+                non giocanti saranno descritti nella&nbsp;
                 <Link to={GuideRoutes.npcs}>sezione dei Personaggi non giocanti</Link>.
-            </Typography>
-
-            <Typography paragraph>
-                <h4 style={titleStyle}>
-                    Clans
-                </h4>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                <i>Sezione in costruzione</i>
             </Typography>
 
             <Typography paragraph>
@@ -188,8 +178,8 @@ const GuidesEnvironmentSects = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Ci sarebbero riusciti, se non ci fosse stata una iniezione di Fratelli
-                della famiglia Pisanob, guidati dal <i>general mujer</i> <b>Mercedes Pisanob</b>
-                approdati a Buenos Aires per sfuggire alla persecuzione
+                della famiglia Pisanob, guidati da <b>Mercedes Pisanob</b>, approdati a 
+                Buenos Aires per sfuggire alla persecuzione
                 degli Araldi, Cappadoci sfuggiti alla mattanza operata dal loro stesso
                 Antidiluviano. Grazie all'iniezione di nuove energie, ed alle loro
                 capacit&agrave; necromantiche, riuscirono a ritagliarsi uno spazio 

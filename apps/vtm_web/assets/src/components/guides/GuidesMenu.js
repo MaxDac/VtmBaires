@@ -18,6 +18,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import HelpIcon from '@mui/icons-material/Help';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
+import CasinoIcon from '@mui/icons-material/Casino';
+import TranslateIcon from '@mui/icons-material/Translate';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
 import {LoginRoutes} from "../login/LoginRouter";
@@ -75,6 +77,12 @@ const GuidesMenu = (props: Props): any => {
                         </ListItem>
                     </List>
                 </Collapse>
+                <ListItem button onClick={_ => history.push(GuideRoutes.rules)}>
+                    <ListItemIcon>
+                        <CasinoIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Meccaniche V5" />
+                </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.npcs)}>
                     <ListItemIcon>
                         <SupervisedUserCircleIcon />
@@ -87,6 +95,12 @@ const GuidesMenu = (props: Props): any => {
                         <LocationCityIcon />
                     </ListItemIcon>
                     <ListItemText primary="Luoghi" />
+                </ListItem>
+                <ListItem button onClick={_ => history.push(GuideRoutes.sayings)}>
+                    <ListItemIcon>
+                        <TranslateIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Modi di dire" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.siteHelp)}>
                     <ListItemIcon>

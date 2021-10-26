@@ -76,7 +76,7 @@ const GuidesNpcs = (props: Props): any => {
                 trattando, che con il viziato rampollo che stava alla sua destra, ma
                 la Famiglia veniva prima di tutto. "Quilmes potete tenerla per i 
                 traffici che dovrete organizzare per la banducola con cui vi siete 
-                aggregati. A noi rimarr&agrave; la parte nord: Lan&uacute;, Avellaneda
+                aggregati. A noi rimarr&agrave; la parte nord: Lan&uacute;s, Avellaneda
                 e Lomas de Zamora."
             </Typography>
 
@@ -120,8 +120,8 @@ const GuidesNpcs = (props: Props): any => {
 
             <Typography paragraph sx={storyStyle}>
                 "La prossima volta voglio poter poggiare i piedi a terra. Mi mancava
-                contatto con la Madre Terra." L'irritazione fece trasparire appieno
-                il suo accento messicano. Luis Giovanni sorrise. "<i>Est&aacute; bien</i>... <b><i>prima</i></b>."
+                contatto con <b>Madre Tierra</b>." L'irritazione fece trasparire appieno
+                il suo accento messicano. <b>Luis Giovanni</b> sorrise. "<i>Est&aacute; bien</i>... <b><i>prima</i></b>."
             </Typography>
 
             <Typography paragraph sx={storyStyle}>
@@ -154,8 +154,9 @@ const GuidesNpcs = (props: Props): any => {
                             Isabela Ruiz Dias &egrave; il Primogenito Ventrue nel Dominio di Buenos Aires.
                             Il suo &egrave; il sobrio aspetto di una morigerata nobilt&agrave; spagnola,
                             adombrato da leggeri difetti del volto tipici del retaggio di cui si vantava,
-                            in vita, di far parte, quello dei Borbone. La magneticit&agrave; della sua presenza
-                            non lascia comunque dubbi sulla temibilit&agrave; della sua persona, del suo status.
+                            in vita, di far parte, quello dei <b>Borbone</b>. La magneticit&agrave; della sua 
+                            presenza non lascia comunque dubbi sulla temibilit&agrave; della sua persona, del 
+                            suo status.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
                             Ci&ograve; che si vocifera su di lei &egrave; che sia lei la reale manovratrice
@@ -188,7 +189,7 @@ const GuidesNpcs = (props: Props): any => {
                             la sua mobilitazione fu il maggiore indizio dello sforzo che la Camarilla 
                             stava investendo nel progetto Sudamericano.<br />
                             La realt&agrave;, per chiunque abbia mai avuto a che fare con la Sforza, &egrave;
-                            che mai, forse, nella vita di Elysium, si &egrave; mai vista una Ventrue 
+                            che mai, forse, nella vita di Elysium, si &egrave; vista una Ventrue 
                             comportarsi come una Toreador come lei.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
@@ -198,7 +199,7 @@ const GuidesNpcs = (props: Props): any => {
                             farlo funzionare.<br />
                             Nessuno, all'interno del Dominio, &egrave; stato in grado di rubargli la scena,
                             e questo l'ha resa il perfetto candidato al Principato di quello che, a conti fatti,
-                            &egrave; stato uno sforzo operato quasi interamente dal clan dei Re.
+                            &egrave; stato uno sforzo operato quasi interamente dal <b>Clan dei Re</b>.
                         </Typography>
                     </Box>
                 </Box>
@@ -220,7 +221,7 @@ const GuidesNpcs = (props: Props): any => {
                     <Box>
                         <Typography paragraph sx={guideStyle}>
                             Nel continente Sudamericano dominato dal Sabbat, il clan che pi&ugrave; di 
-                            tutti gli altri dominava la scena era sicuramente il clan Lasombra. Coi loro 
+                            tutti gli altri dominava la scena era sicuramente il clan <b>Lasombra</b>. Coi loro 
                             traffici con la Chiesa e la loro spietata capacit&agrave; di comando, riuscivano
                             a tenere sotto controllo l'intero continente. Almeno finch&eacute; da Citt&agrave;
                             del Messico &egrave; partita l'adunata. Gli <b>Amici Noctis</b>, segreto 
@@ -230,8 +231,8 @@ const GuidesNpcs = (props: Props): any => {
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
                             Ex Vescovo della Diocesi di Buenos Aires, il suo tradimento &egrave; stato 
-                            cos&igrave; importante per l'insediamento della Camarilla a Buenos Aires, sia per
-                            placare la Chiesa e la sua Seconda Inquisizione che per la cattura delle ultime 
+                            cos&igrave; importante per l'insediamento della Camarilla a Buenos Aires, per
+                            placare la Chiesa e la sua Seconda Inquisizione e per la cattura delle ultime 
                             cellule Sabbat, che nella citt&agrave; porteña &egrave; stata rilassata la regola
                             dell'Abbraccio imposta dagli accordi di Chicago. Poco si sa, oltre questo, del
                             discreto Vescovo H&uuml;nger, a parte il fatto che fu Abbracciato poco dopo la
@@ -293,17 +294,18 @@ const GuidesNpcs = (props: Props): any => {
                     <Box>
                         <Typography paragraph sx={guideStyle}>
                             Uno degli effetti della disperazione della Camarilla porteña &egrave;
-                            stato sicuramente l'elezione di Fabiana Rodriguez alla carica di Primogenitura
-                            del clan Tremere. Non si sono nemmeno curati di capire a quale fazione
-                            appartenesse prima di nominarla, probabilmente perch&egrave;, data la 
+                            stato sicuramente l'elezione di Fabiana Rodriguez alla carica di <b>Primogenito
+                            del clan Tremere</b>. Non si sono nemmeno curati di capire a quale fazione
+                            appartenesse prima di nominarla, probabilmente perch&eacute;, data la 
                             difficolt&agrave; nelle comunicazioni imposta dal rigore dopo gli attacchi
-                            della Seconda Inquisizione.
+                            della Seconda Inquisizione, i Ventrue non riuscirono nemmeno a sapere che 
+                            i Tremere si erano scissi in quattro fazioni.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
                             Fabiana Rodriguez &egrave; stata una ricercatrice di talento argentina assunta
                             in piena onda hippie in un laboratorio di Pasadena per lo studio di sostanze 
                             psicotrope. Una volta Abbracciata, diede ascolto alla sua volont&agrave; interiore
-                            troppo tempo repressa, e prese parte al movimento di Carna dopo l'esplosione
+                            troppo tempo repressa, e prese parte al <b>Movimento di Carna</b> dopo l'esplosione
                             della Chantry Tremere a Vienna. Non si conoscono i dettagli del suo arrivo
                             a Buenos Aires dopo la creazione del Dominio, ma poco import&ograve; al Principe
                             Sforza. Non fece troppe domande quando, ansiosa di garantirsi l'aiuto Tremere
@@ -332,7 +334,7 @@ const GuidesNpcs = (props: Props): any => {
                             La scelta di Lucrezia Duval di continuare a svolgere 
                             il lavoro di Arpia che tanto successo le aveva portato in Francia
                             invece di accettare la Primogenitura, pu&ograve; apparire strana
-                            solo se si escludono due considerazioni: lo sforzo di voler instaurare
+                            solo se si ignorano due considerazioni: lo sforzo di voler instaurare
                             un Elysium funzionante nella citt&agrave; di Buenos Aires, e la 
                             straordinaria capacit&agrave; della Toreador di far infuriare anche 
                             il pi&ugrave; consumato diplomatico Ventrue.
@@ -370,7 +372,7 @@ const GuidesNpcs = (props: Props): any => {
                             vspace="10px" />
                     <Box>
                         <Typography paragraph sx={guideStyle}>
-                            Rodrigo era il reticente Ductus del branch de <i>Las Calaveras</i> quando
+                            Rodrigo era il reticente Ductus del branco de <i>Las Calaveras</i> quando
                             Buenos Aires era ancora saldamente in mano al Sabbat. Fece parte della prima 
                             ondata di cainiti partiti alla volta del Medio Oriente per partecipare alla
                             Guerra della Gehenna. Di comune accordo col suo branco, decise che partecipare
@@ -382,7 +384,7 @@ const GuidesNpcs = (props: Props): any => {
                         <Typography paragraph sx={guideStyle}>
                             Estendendo il suo controllo alla Provincia di Buenos Aires, strinse accordi
                             coi cainiti del Ministero di Set, rifiutati ufficilamente dalla Camarilla.
-                            Pur non volendo ricoprire ufficilamente il ruolo di Barone Anarchico,
+                            Pur non volendo ricoprire ufficilamente il ruolo di <b>Barone Anarchico</b>,
                             anche perch&eacute; tali consuetudini sono estranee e distanti alle abitudini 
                             della capitale argentina, lui e il suo branco rimangono i punti di riferimento
                             per altri ribelli Sabbatici poco inclini a partecipare alla grande guerra,
@@ -409,7 +411,7 @@ const GuidesNpcs = (props: Props): any => {
                         <Typography paragraph sx={guideStyle}>
                             Nella sua non-vita, Rocio Fernandez ha continuato a fare quello
                             che faceva in vita: sopravvivere.<br />
-                            Fu una delle vittime di un Abbraccio di Massa usato dal Sabbat
+                            Fu una delle vittime di un <b>Abbraccio di Massa</b> usato dal Sabbat
                             per tentare di respingere i primi tentativi di espansione della
                             Camarilla in Capital Federal. Sopravvisse, e continu&ograve; a farlo
                             nelle notti successive, superando le dure prove che la vita del
@@ -446,9 +448,9 @@ const GuidesNpcs = (props: Props): any => {
                         <Typography paragraph sx={guideStyle}>
                             Essere parte di un branco Sabbat, per Ernesto, non fece una grande
                             differenza in termini di morale o di legalit&agrave;. Un trafficante
-                            di droga mancato, per via di grandi problemi di dipendenza dalle droghe,
-                            nella non-vita continu&ograve; il suo lavoro, continuando a consumare
-                            sostanze stupefacienti attraverso la vitae delle sue vittime.<br />
+                            di droga mancato, per via di grandi problemi di dipendenza dalle stesse,
+                            nella non-vita continu&ograve; il suo lavoro, non smettendo per&ograve; di 
+                            consumare sostanze stupefacienti attraverso la vitae delle sue vittime.<br />
                             Fu rifiutato e accolto nuovamente in diversi branchi, prima di finire 
                             in quello di Manoukian.
                         </Typography>
@@ -456,7 +458,7 @@ const GuidesNpcs = (props: Props): any => {
                             Fu uno dei promotori, nel branco, per il ritorno a Buenos Aires, e il
                             rifiuto di una guerra che non capiva e a cui non voleva partecipare.<br />
                             Da allora supporta il branco nell'unico modo che conosce, fornendo 
-                            liquidit&agrave; attraverso lo spaccio nel locale del branco.
+                            liquidit&agrave; attraverso lo spaccio nel loro locale.
                         </Typography>
                     </Box>
                 </Box>
@@ -467,7 +469,7 @@ const GuidesNpcs = (props: Props): any => {
             <Box sx={characterBox}>
                 <Typography paragraph sx={guideStyle}>
                     <h3 style={titleStyle}>
-                        Javier - El Escondido
+                        Javier - El Chorro
                     </h3>
                 </Typography>
 
@@ -479,10 +481,22 @@ const GuidesNpcs = (props: Props): any => {
                             vspace="10px" />
                     <Box>
                         <Typography paragraph sx={guideStyle}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Di tutti i Fratelli del nuovo Dominio di Buenos Aires, Javier D'Arienzo &egrave; sicuramente
+                            il prodotto pi&ugrave; genuino, l'espressione pi&ugrave; verace della citt&agrave; di Buenos
+                            Aires. Ed il fatto che sia riuscito a fare il doppio gioco, mercanteggiando Favori con chiunque
+                            senza mai esplicitare ufficialmente la sua affiliazione a nessuna setta, dice molto della sua 
+                            capacit&agrave; e della considerazione che aveva all'interno del suo clan, anche in una Diocesi
+                            Sabbat.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Tutti sanno che in vita era un comunissimo <i>chorro</i>, un ladrone dei bassifondi, dotato per&ograve;
+                            di una furbizia fuori dal normale. Una volta Abbracciato, ci mise poco a distanziarsi da qualsiasi
+                            forma di affiliazione, nascondendosi nei <b>suoi</b> quartieri di <b>Villa Bosch</b>, stringendo
+                            accordi con chiunque avesse qualcosa da offrire, continuando ad accumulare cos&igrave; tanti
+                            Favori che, quando un Neonato voleva ispirare una Caccia di Sangue contro di lui, nemmeno i Vescovi
+                            della Diocesi osavano dar seguito alla richiesta, indebitati com'erano.<br />
+                            Prosegue la sua azione anche nel neonato Dominio della Camarilla: per lui &egrave; cambiato poco,
+                            Buenos Aires &egrave; sempre la sua citt&agrave;.
                         </Typography>
                     </Box>
                 </Box>
@@ -538,7 +552,7 @@ const GuidesNpcs = (props: Props): any => {
                             Fu per&ograve; Abbracciata da sua nonna, una messicana a sua volta
                             Abbracciata da un componente della Famiglia Pisanob interessato alla
                             sua conoscenza dei rituali Incas. Insieme vissero per diversi decenni
-                            almeno fino all'apparizione degli Araldi del Teschio. Uno di questi 
+                            almeno fino all'apparizione degli <b>Araldi del Teschio</b>. Uno di questi 
                             le perseguit&ograve;, e grazie al sacrificio della sua Sire,
                             Mercedes riusc&igrave; a fuggire fino a Buenos Aires, assieme ad
                             altri Pisanob fuggiaschi dal Messico.
@@ -551,8 +565,8 @@ const GuidesNpcs = (props: Props): any => {
                             sua rappresentante nel nuovo <i>rebranding</i> del clan Giovanni,
                             che cambi&ograve; il suo nome in Hecata.<br />
                             Negozi&ograve; la divisione dei territori nel sud della Capital Federal
-                            con i Ministri, e con la Camarilla fece valere l'accordo siglato dal
-                            suo Antidiluviano, di fatto reinstaurando l'accordo che port&ograve;
+                            con i Ministri, e con la Camarilla fece valere l'<b>Accordo siglato dal
+                            suo Antidiluviano</b>, di fatto reinstaurando l'accordo che port&ograve;
                             la Camarilla a Buenos Aires.
                         </Typography>
                     </Box>
