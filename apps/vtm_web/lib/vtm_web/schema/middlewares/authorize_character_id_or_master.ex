@@ -24,7 +24,7 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacterId do
     with {:ok, c_id}  <- from_global_id?(character_id) do
       case {role, Characters.character_of_user?(user_id, c_id)} do
         {:master, _}  -> resolution
-        {true, _}     -> resolution
+        {_, true}     -> resolution
         _             ->
           resolution
           |> Absinthe.Resolution.put_result({:error, "unauthorized"})
