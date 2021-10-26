@@ -91,6 +91,13 @@ edifici scorre la storia della città. Il quartiere, di giorno e di notte, è il
 mercatini di bancarelle sparse si ammassano ai lati delle vie, dove le milonghe nelle antiche
 sale portano avanti la storia del ballo caratteristico della nazione.
 """, is_chat: true, chat_map_id: centro_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Milonga", description: """
+Nel cuore di San Telmo, in un vecchio edificio della prima metà del XX secolo, protetto
+da una serie di vetrate al terzo piano, a serate alterne si organizza una delle milonghe
+più famose di Buenos Aires. Qui, in un considerevole spazio di almeno trecento metri quadrati
+si balla e si insegna tango. Rimane aperta fino almeno alle 4, e il vago stile bohemien
+che ispira attrae gente anche dall'estero.
+""", is_chat: true, chat_map_id: centro_id})
 
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Zona Este", description: """
 Zona Este è un grande e famoso Night Club della Provincia Nord di Buenos aires. Sorge ai
@@ -140,10 +147,27 @@ La verità è che la Magione è di proprietà dei Giovanni, attraverso un elabor
 prestanome. All'interno della Magione è notoriamente concesso l'accesso solo ai più stretti
 collaboratori della Famiglia.
 """, is_chat: true, chat_map_id: boca_id})
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Barracas", is_chat: true, chat_map_id: boca_id})
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "El Castillo", is_chat: true, chat_map_id: boca_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Barracas", description: """
+Nonostante il nome, Barracas è un quartiere molto ricco, a ridosso della Provincia. Sede di molte
+fabbriche di successo, adesso le sue vie sono popolate di bar e ristoranti, e la sua è una vita
+notturna molto movimentata. Tutti sanno che però è sempre meglio trattenersi in un locale e
+non percorrere a piedi le distanze da un locale all'altro, e chiedere sempre un taxi per spostarsi.
+""", is_chat: true, chat_map_id: boca_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "El Castillo", description: """
+Il vecchio edificio abbandonato del Castillo è un esempio di mala politica: fu cominciato come
+il primo edificio, simbolo di un quartiere che doveva far concorrenza a Puerto Madero, ma poi
+arrivò il Corralito, il default della nazione, e quello che rimase è uno scheletro fatiscente
+ormai inglobato di fatto nella giurisdizione della Provincia. Alto addirittura quindici piani,
+di cui solo gli ultimi cinque protetti da delle vetrate ormai cadenti, l'edificio è in stato
+di completo degrado, abbandonato alla presenza di senza tetto, spacciatori di vario tipo e
+prostitute.
+""", is_chat: true, chat_map_id: boca_id})
 
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Complesso Industriale", is_chat: true, chat_map_id: quilmes_id})
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Autopista clandestina", is_chat: true, chat_map_id: quilmes_id})
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Seduction", is_chat: true, chat_map_id: quilmes_id})
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chiesa sconsacrata", is_chat: true, chat_map_id: quilmes_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Complesso Industriale", description: """
+""", is_chat: true, chat_map_id: quilmes_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Autopista clandestina", description: """
+""", is_chat: true, chat_map_id: quilmes_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Seduction", description: """
+""", is_chat: true, chat_map_id: quilmes_id})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chiesa sconsacrata", description: """
+""", is_chat: true, chat_map_id: quilmes_id})
