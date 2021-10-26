@@ -24,7 +24,9 @@ import {
   characterHasDisciplines,
   characterIsVampire,
 } from "../../../_base/utils";
-import { MainRoutes } from "../../MainRouter";
+import {MainRoutes} from "../../MainRouter";
+import {Link} from "react-router-dom";
+import { GuideRoutes } from "../../guides/GuidesMain";
 
 type InternalElementProps = {
     character: any;
@@ -223,8 +225,14 @@ const Creation4 = (): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            Se hai delle richieste particolari per il tuo personaggio, scrivile pure di seguito.
-                            Saranno vagliate dal master che controller&agrave; la tua scheda.
+                            In questa sezione, dovrai inserire le tre <b>Convinzioni</b> del tuo personaggio.
+                            Puoi sceglierle tra quelle proposte nella&nbsp;
+                            <Link to={GuideRoutes.rules} 
+                                  target="_blank" 
+                                  rel="noreferrer"
+                                  style={{color: "#C92929"}}>guida</Link>.
+                            Se hai delle richieste particolari per il tuo personaggio, aggiungile alla definizione
+                            delle Convinzioni, saranno vagliate dal master che controller&agrave; la tua scheda.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
