@@ -95,7 +95,7 @@ export default function MiniDrawer({children}: {children: any}): any {
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
 
-    const [characterFetchKey, setCharacterFetchKey] = useState(0);
+    const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const isEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));

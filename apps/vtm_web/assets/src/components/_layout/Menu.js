@@ -35,6 +35,8 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
 
+    console.log("characters", characters);
+
     const pushHistory = (route: string) => {
         drawerDone();
         history.push(route);

@@ -27,7 +27,7 @@ const SetNewPassword = (): any => {
     const theme = useTheme();
     const environment = useRelayEnvironment();
 
-    const { showUserNotification } = useContext(UtilityContext);
+    const {showUserNotification, setWait} = useContext(UtilityContext);
 
     const formik = useFormik({
         initialValues: {
@@ -44,6 +44,8 @@ const SetNewPassword = (): any => {
                           newPassword,
                           repeatPassword
                       }) => {
+        setWait(true);
+
         ChangeUserPasswordMutation(environment,
             oldPassword,
             newPassword,
@@ -58,7 +60,8 @@ const SetNewPassword = (): any => {
             })
             .catch(errors => {
                 showUserNotification({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
-            });
+            })
+            .finally(() => setWait(false));
     };
 
     return (
@@ -77,7 +80,7 @@ const SetNewPassword = (): any => {
                     sx={{
                         margin: theme.spacing(3, 0, 2),
                     }}>
-                    Register!
+                    Cambia password
                 </Button>
             </form>
         </>

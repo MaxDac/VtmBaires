@@ -84,8 +84,7 @@ const OnlineControl = (): any => {
                             edge="start"
                             color="inherit"
                             onClick={handleClose}
-                            aria-label="close"
-                        >
+                            aria-label="close">
                             <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">

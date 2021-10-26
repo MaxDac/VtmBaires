@@ -20,6 +20,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from "@mui/material/Typography";
 import {FormControl} from "@mui/material";
+import Box from "@mui/material/Box";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -38,7 +39,7 @@ const CreateUserComponent = (): Node => {
     const history = useHistory();
     const theme = useTheme();
     const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
+    const {showUserNotification, setWait} = useContext(UtilityContext);
 
     const checkBoxRef = useRef();
 
@@ -82,7 +83,7 @@ const CreateUserComponent = (): Node => {
         email,
         name
     }) => {
-        if (!checkBoxRef.current?.checked === true) {
+        if (!checkBoxRef.current?.firstChild?.checked === true) {
             showUserNotification({
                 type: "warning",
                 message: "Devi dichiarare di aver letto il Disclaimer prima di accedere al sito."
@@ -90,17 +91,27 @@ const CreateUserComponent = (): Node => {
             return;
         }
 
+        setWait(true);
+
         createUser(environment, {
             email,
             name
         })
             .then(_ => {
-                showUserNotification({ type: "success", message: "User created successfully."});
+                showUserNotification({
+                    type: "success",
+                    message: "L'utente è stato creato correttamente, controlla la mail (spam incluso) per avere la tua prima password."
+                });
                 setTimeout(() => history.push(Routes.login), 2000);
             })
             .catch(errors => {
-                showUserNotification({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
-            });
+                showUserNotification({
+                    type: 'error',
+                    graphqlError: errors,
+                    message: "C'è stato un errore durante la creazione del personaggio, contatta un master per informazioni."
+                });
+            })
+            .finally(() => setWait(false));
     }
 
     return (
@@ -112,12 +123,16 @@ const CreateUserComponent = (): Node => {
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" />
                     <FormTextField formik={formik} fieldName="name" label="Name" />
-                    <Typography sx={{paddingTop: "10px"}}>
-                        Cliccando di seguito, dichiari di aver preso visione del <Link to={Routes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
-                    </Typography>
-                    <FormControl>
-                        <Checkbox ref={checkBoxRef} />
-                    </FormControl>
+                    <Box component="div" sx={{paddingTop: "10px"}}>
+                        <FormControl component="div">
+                            <Checkbox ref={checkBoxRef} />
+                        </FormControl>
+                        <Box component="div" sx={{height: "40px", display: "inline-flex"}}>
+                            <Typography component="div" sx={{marginTop: "auto", marginBottom: "auto"}}>
+                                Dichiaro di aver preso visione del <Link to={Routes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
+                            </Typography>
+                        </Box>
+                    </Box>
                     <Button type="submit"
                             fullWidth
                             variant="contained"
@@ -128,14 +143,17 @@ const CreateUserComponent = (): Node => {
                     </Button>
                 </form>
                 <Grid container>
-                    <Grid item xs>
+                    <Grid item xs={4}>
                         <Link to={Routes.recoverPassword} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             Recupera password
                         </Link>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={4} sx={{textAlign: "center"}}>
+                        <Link to={Routes.guideMain} target="_blank">Guida</Link>
+                    </Grid>
+                    <Grid item xs={4} sx={{textAlign: "right"}}>
                         <Link to={Routes.login} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>

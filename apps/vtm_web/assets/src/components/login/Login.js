@@ -73,42 +73,43 @@ const LoginComponent = (): Node => {
 
     return (
         <LoginLayout title="Login" icon={<LockOutlinedIcon />}>
-            <>
-                <form style={{
-                    width: '100%', // Fix IE 11 issue.
-                    marginTop: "10px",
-                }} noValidate onSubmit={formik.handleSubmit}>
-                    <FormTextField formik={formik} fieldName="email" label="Email" />
-                    <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
-                    <FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            margin: theme.spacing(3, 0, 2),
-                        }}>
-                        Accedi
-                    </Button>
-                </form>
-                <Grid container>
-                    <Grid item xs>
-                        <Link to={Routes.recoverPassword} variant="body2" sx={{
-                            color: theme.palette.grey[50]
-                        }}>
-                            Recupera Password
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link to={Routes.register} variant="body2" sx={{
-                            color: theme.palette.grey[50]
-                        }}>
-                            Registrati
-                        </Link>
-                    </Grid>
+            <form style={{
+                width: '100%', // Fix IE 11 issue.
+                marginTop: "10px",
+            }} noValidate onSubmit={formik.handleSubmit}>
+                <FormTextField formik={formik} fieldName="email" label="Email" />
+                <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
+                <FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        margin: theme.spacing(3, 0, 2),
+                    }}>
+                    Accedi
+                </Button>
+            </form>
+            <Grid container>
+                <Grid item xs={4}>
+                    <Link to={Routes.recoverPassword} variant="body2" sx={{
+                        color: theme.palette.grey[50]
+                    }}>
+                        Recupera Password
+                    </Link>
                 </Grid>
-            </>
+                <Grid item xs={4} sx={{textAlign: "center"}}>
+                    <Link to={Routes.guideMain} target="_blank">Guida</Link>
+                </Grid>
+                <Grid item xs={4} sx={{textAlign: "right"}}>
+                    <Link to={Routes.register} variant="body2" sx={{
+                        color: theme.palette.grey[50]
+                    }}>
+                        Registrati
+                    </Link>
+                </Grid>
+            </Grid>
         </LoginLayout>);
 };
 

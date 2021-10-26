@@ -3,10 +3,10 @@
 import React, {useContext} from "react";
 import {SessionContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
-import MenuItem from "@mui/material/MenuItem";
 import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../services/queries/accounts/UserCharactersQuery";
 import { MainRoutes } from "../../MainRouter";
+import CreateNewCharacterMenuItem from "./CreateNewCharacterMenuItem";
 
 type Props = {
     pushHistory: string => void;
@@ -54,7 +54,8 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
                                               handleCharacterSelection={handleCharacterSelection} />));
         }
 
-        return <MenuItem key={"0"} onClick={_ => history.push(MainRoutes.creation1)}>Crea nuovo personaggio</MenuItem>;
+        // return <MenuItem key={"0"} onClick={_ => history.push(MainRoutes.creation1)}>Crea nuovo personaggio</MenuItem>;
+        return <CreateNewCharacterMenuItem key={0} onClick={_ => history.push(MainRoutes.creation1)} />
     }
 
     return (
