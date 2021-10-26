@@ -56,6 +56,13 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+
+      registration.update();
+      setInterval(() => {
+        // Check for updates every 5 minutes
+        registration.update();
+      }, 1000 * 60 * 5);
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -71,6 +78,12 @@ function registerValidSW(swUrl, config) {
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
+
+              registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+              alert('Update available! To update, refresh this tab.', {
+                toastId: 'appUpdateAvailable',
+                autoClose: false
+              });
 
               // Execute callback
               if (config && config.onUpdate) {
