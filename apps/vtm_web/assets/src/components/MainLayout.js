@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {MainListItems, SecondaryListItems} from "./_layout/Menu";
+import {CommonListItem, MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
@@ -170,6 +170,8 @@ export default function MiniDrawer({children}: {children: any}): any {
             </List>
             <Divider />
             {masterMenu()}
+            <Divider />
+            <CommonListItem isClosed={!open} />
         </>
     );
 

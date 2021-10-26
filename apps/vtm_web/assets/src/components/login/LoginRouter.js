@@ -1,8 +1,9 @@
 // @flow
 
 import React from "react";
-import LoginLayout, {HomeLayoutProps} from "./LoginLayout";
+import LoginLayout from "./LoginLayout";
 import {Route} from "react-router-dom";
+import type {HomeLayoutProps} from "./LoginLayout";
 
 export const LoginRoutes = {
     login: "/access/login",

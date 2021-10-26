@@ -23,7 +23,7 @@ const ForumSections = (): any => {
         ?.map(s => <ForumItemSelector key={s?.id} item={s} onClick={toSection} />);
 
     return (
-        <ForumLayout title="Forum">
+        <ForumLayout title="Forum (beta)">
             <Typography sx={{
                 color: "#C9C9C9",
                 fontSize: "13px"

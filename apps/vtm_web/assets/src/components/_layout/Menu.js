@@ -16,13 +16,14 @@ import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
 import {Routes} from "../../AppRouter";
 import MenuCharacterSection from "./menu-character/MenuCharacterSection";
 import {useHistory} from "react-router-dom";
-import Divider from "@mui/material/Divider";
 import MenuNpcSection from "./MenuNpcSection";
 import MenuHuntSection from "./MenuHuntSection";
-import Typography from "@mui/material/Typography";
 import { MainRoutes } from "../MainRouter";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
+import AppVersion from "../../_base/components/AppVersion";
+import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
+import Box from "@mui/material/Box";
 
 type Props = {
     drawerDone: () => void;
@@ -97,36 +98,8 @@ export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}
         history.push(route);
     };
 
-    const DOLogo = () => {
-        if (!isClosed) {
-            return (
-                <ListItem>
-                    <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
-                </ListItem>
-            );
-        }
-
-        return (<></>);
-    }
-
-    const appVersion = () => {
-        if (!isClosed) {
-            return (
-                <ListItem>
-                    <Typography sx={{
-                        fontSize: "13px"
-                    }}>
-                        App Version: 0.1
-                    </Typography>
-                </ListItem>
-            );
-        }
-
-        return (<></>);
-    }
-
     return (
-        <div>
+        <>
             <ListSubheader inset>Admin</ListSubheader>
             <MenuNpcSection pushHistory={pushHistory}
                             npcs={npcs}
@@ -149,9 +122,44 @@ export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}
                 </ListItemIcon>
                 <ListItemText primary="Chats" />
             </ListItem>
-            <Divider />
-            {DOLogo()}
-            {appVersion()}
-        </div>
+        </>
     );
+}
+
+export const CommonListItem = ({isClosed}: {isClosed: boolean}): any => {
+    const DOLogo = () => {
+        if (!isClosed) {
+            return (
+                <ListItem>
+                    <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+                </ListItem>
+            );
+        }
+
+        return (<></>);
+    }
+
+    const appVersion = () => {
+        if (!isClosed) {
+            return (
+                <ListItem>
+                    <AppVersion />
+                </ListItem>
+            );
+        }
+
+        return (<></>);
+    };
+
+    return (
+        <>
+            <Box sx={{marginTop: "15px"}}>
+                <JoinUsOnDiscord />
+            </Box>
+            <Box sx={{marginTop: "15px"}}>
+                {DOLogo()}
+            </Box>
+            {appVersion()}
+        </>
+    )
 }

@@ -6,13 +6,18 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Copyright from "../../_base/components/Copyrights";
 import {useTheme} from "@mui/styles";
+import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 
 type Props = {
+    icon: any;
+    title: string;
     children: any;
 }
 
 const LoginFrameLayout = (props: Props): any => {
     const theme = useTheme();
+
+    const logosDistancing = 2;
 
     return (
         <>
@@ -26,11 +31,14 @@ const LoginFrameLayout = (props: Props): any => {
                 {props.title}
             </Typography>
             {props.children}
-            <Box mt={5}>
-                <Copyright />
-            </Box>
-            <Box mt={5}>
+            <Box mt={logosDistancing}>
                 <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+            </Box>
+            <Box mt={logosDistancing}>
+                <JoinUsOnDiscord />
+            </Box>
+            <Box mt={logosDistancing}>
+                <Copyright />
             </Box>
         </>
     );

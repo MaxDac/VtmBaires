@@ -6,11 +6,16 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CookieFreePolicy from "./CookieFreePolicy";
-
-const CookieAcceptedKey = "cookie-accepted";
+import {useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/styles";
 
 const NoCookieBar = (): any => {
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
+
     const [showCookiePolicy, setShowCookiePolicy] = useState(true);
+
+    const cookieHeight = isSmall ? "100px" : "61px";
 
     const onCookieCloseClick = _ => {
         setShowCookiePolicy(false);
@@ -23,7 +28,7 @@ const NoCookieBar = (): any => {
                 left: "0px",
                 right: "0px",
                 bottom: "0px",
-                height: "61px",
+                height: cookieHeight,
                 backgroundColor: "black",
                 color: "white",
                 opacity: "0.7"

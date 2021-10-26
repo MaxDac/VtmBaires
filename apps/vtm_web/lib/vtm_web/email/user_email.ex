@@ -9,8 +9,26 @@ defmodule VtmWeb.UserEmail do
     |> to({username, email})
     |> from({@postmaster_name, @postmaster_email})
     |> subject("Benvenuto a VTM Baires, #{username}!")
-    |> html_body("<h1>Benvenuto!</h1><br /><br /><p>Per accedere la prima volta al sito, puoi usare la seguente password: #{password}.</p>")
-    |> text_body("Benvenuto!\r\n\r\nPer accedere la prima volta al sito, puoi usare la seguente password: #{password}.")
+    |> html_body("""
+    <h1>Benvenuto!</h1><br />
+    <br />
+    <p>Per accedere la prima volta al sito, puoi usare la seguente password: <b>#{password}</b></p>
+    <p>Ti consigliamo di cambiare la tua password immediatamente, accedendo alle <b>Opzioni</b> nel
+    menu del sito una volta entrato.</p>
+    <p>Se riscontri problemi di accesso, o qualunque altro problema, contattaci su <a href="https://discord.gg/nhk6rkjJDA">Discord</a></p>
+    """)
+    |> text_body("""
+    Benvenuto!\r\n
+    \r\n
+    Per accedere la prima volta al sito, puoi usare la seguente password: #{password}
+    \r\n
+    \r\n
+    Ti consigliamo di cambiare la tua password immediatamente, accedendo alle Opzioni nel
+    menu del sito una volta entrato.
+    \r\n
+    \r\n
+    Se riscontri problemi di accesso, o qualunque altro problema, contattaci su Discord a questo link: https://discord.gg/nhk6rkjJDA
+    """)
   end
 
   def recover_password(username, email, new_password) do
