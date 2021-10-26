@@ -1,7 +1,6 @@
 // @flow
 
 import type {History} from "./types";
-import {Routes} from "../AppRouter";
 import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
@@ -9,6 +8,7 @@ import {format} from "date-fns"
 import type { CharacterFragments_characterInfo } from "../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import {LoginRoutes} from "../components/login/LoginRouter";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -29,7 +29,7 @@ export const log = (message: string, obj?: any, type?: LogType): void => {
 export function handleAuthorizedRejection({ push }: History): any => void {
     return (rejection: any) => {
         console.error("unauthorized by the back end", rejection);
-        push(Routes.login);
+        push(LoginRoutes.login);
     }
 }
 

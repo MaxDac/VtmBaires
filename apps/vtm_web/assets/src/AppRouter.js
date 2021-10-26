@@ -10,9 +10,6 @@ export type OpenDialogDelegate = (title: string, text: string, onOk: () => void,
 export const Routes = {
     splashScreen: "/",
     login: "/login",
-    register: "/register",
-    recoverPassword: "/recover-password",
-    disclaimer: "/disclaimer",
     main: "/main",
     guideMain: "/guides"
 };
@@ -29,10 +26,7 @@ export const pushAdmin = (history: History, routeKey: string): (Event => void) =
 
 const SplashScreen = React.lazy(() => import('./components/login/SplashScreen'));
 
-const Login = React.lazy(() => import('./components/login/Login'));
-const CreateUser = React.lazy(() => import('./components/login/CreateUser'));
-const RecoverPassword = React.lazy(() => import('./components/login/RecoverPassword'));
-const Disclaimer = React.lazy(() => import('./components/login/Disclaimer'));
+const LoginRouter = React.lazy(() => import('./components/login/LoginRouter'));
 const MainRouter = React.lazy(() => import('./components/MainRouter'));
 const GuidesMain = React.lazy(() => import('./components/guides/GuidesMain'));
 
@@ -40,10 +34,7 @@ const AppRouter = (): any => {
     return (
         <Switch>
             <Route exact path="/" component={SplashScreen} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={CreateUser} />
-            <Route exact path="/recover-password" component={RecoverPassword} />
-            <Route exact path="/disclaimer" component={Disclaimer} />
+            <Route path="/access" component={LoginRouter} />
             <Route path="/main" component={MainRouter} />
             <Route path="/guides" component={GuidesMain} />
         </Switch>

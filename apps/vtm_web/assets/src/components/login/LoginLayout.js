@@ -5,12 +5,8 @@ import { useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { makeStyles } from '@mui/styles';
 import type { Node } from "react";
-import Copyright from '../../_base/components/Copyrights';
 import { performLogout } from "../../services/logout-service";
 import NoCookieBar from "../../_base/components/NoCookieBar";
 
@@ -51,10 +47,13 @@ const useStyles = makeStyles((theme) => ({
 export type HomeLayoutProps = {
     title: string;
     icon: any;
+}
+
+type LoginLayoutProps = HomeLayoutProps & {
     children: Node;
 }
 
-const LoginLayout = (props: HomeLayoutProps): Node => {
+const LoginLayout = (props: LoginLayoutProps): Node => {
     const classes = useStyles();
 
     useEffect(() => {
@@ -70,19 +69,7 @@ const LoginLayout = (props: HomeLayoutProps): Node => {
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        {props.icon}
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        {props.title}
-                    </Typography>
                     {props.children}
-                    <Box mt={5}>
-                        <Copyright />
-                    </Box>
-                    <Box mt={5}>
-                        <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
-                    </Box>
                 </div>
             </Grid>
             <NoCookieBar />

@@ -4,7 +4,6 @@ import React, {useContext, useRef} from "react";
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import createUser from "../../services/mutations/sessions/CreateUserMutation";
-import LoginLayout from "./LoginLayout";
 import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
@@ -21,6 +20,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from "@mui/material/Typography";
 import {FormControl} from "@mui/material";
 import Box from "@mui/material/Box";
+import LoginFrameLayout from "./LoginFrameLayout";
+import {LoginRoutes} from "./LoginRouter";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -102,7 +103,7 @@ const CreateUserComponent = (): Node => {
                     type: "success",
                     message: "L'utente è stato creato correttamente, controlla la mail (spam incluso) per avere la tua prima password."
                 });
-                setTimeout(() => history.push(Routes.login), 2000);
+                setTimeout(() => history.push(LoginRoutes.login), 2000);
             })
             .catch(errors => {
                 showUserNotification({
@@ -115,7 +116,7 @@ const CreateUserComponent = (): Node => {
     }
 
     return (
-        <LoginLayout title="Registrazione" icon={<AddCircleOutlineIcon />}>
+        <LoginFrameLayout title="Registrazione" icon={<AddCircleOutlineIcon />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -129,7 +130,7 @@ const CreateUserComponent = (): Node => {
                         </FormControl>
                         <Box component="div" sx={{height: "40px", display: "inline-flex"}}>
                             <Typography component="div" sx={{marginTop: "auto", marginBottom: "auto"}}>
-                                Dichiaro di aver preso visione del <Link to={Routes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
+                                Dichiaro di aver preso visione del <Link to={LoginRoutes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
                             </Typography>
                         </Box>
                     </Box>
@@ -144,7 +145,7 @@ const CreateUserComponent = (): Node => {
                 </form>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Link to={Routes.recoverPassword} variant="body2" sx={{
+                        <Link to={LoginRoutes.recoverPassword} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             Recupera password
@@ -154,7 +155,7 @@ const CreateUserComponent = (): Node => {
                         <Link to={Routes.guideMain} target="_blank">Guida</Link>
                     </Grid>
                     <Grid item xs={4} sx={{textAlign: "right"}}>
-                        <Link to={Routes.login} variant="body2" sx={{
+                        <Link to={LoginRoutes.login} variant="body2" sx={{
                             color: theme.palette.grey[50]
                         }}>
                             Ritorna al Login
@@ -162,7 +163,7 @@ const CreateUserComponent = (): Node => {
                     </Grid>
                 </Grid>
             </>
-        </LoginLayout>
+        </LoginFrameLayout>
     );
 };
 

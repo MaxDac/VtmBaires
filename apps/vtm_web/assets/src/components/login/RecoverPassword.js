@@ -6,17 +6,13 @@ import {Link, useHistory} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import {useFormik} from "formik";
-import LoginLayout from "./LoginLayout";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import {requestNewPassword} from "../../services/login-service";
-import {Routes} from "../../AppRouter";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-
-type Props = {
-
-}
+import LoginFrameLayout from "./LoginFrameLayout";
+import {LoginRoutes} from "./LoginRouter";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -24,7 +20,7 @@ const RecoverPasswordSchema = object().shape({
         .required("Required")
 });
 
-const RecoverPassword = (props: Props): any => {
+const RecoverPassword = (): any => {
     const history = useHistory();
     const theme = useTheme();
     const {showUserNotification, setWait} = useContext(UtilityContext);
@@ -41,12 +37,12 @@ const RecoverPassword = (props: Props): any => {
         setWait(true);
 
         requestNewPassword(email)
-            .then(r => {
+            .then(_r => {
                 showUserNotification({
                     type: "success",
                     message: "Password ristabilita, controlla la tua mail!"
                 });
-                history.push(Routes.login);
+                history.push(LoginRoutes.login);
             })
             .catch(e => {
                 console.error("error while retrieving the password", e);
@@ -59,7 +55,7 @@ const RecoverPassword = (props: Props): any => {
     }
 
     return (
-        <LoginLayout title="Recupera la tua password" icon={<ContactMailIcon />}>
+        <LoginFrameLayout title="Recupera la tua password" icon={<ContactMailIcon />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -86,7 +82,7 @@ const RecoverPassword = (props: Props): any => {
                     </Grid>
                 </Grid>
             </>
-        </LoginLayout>
+        </LoginFrameLayout>
     );
 }
 

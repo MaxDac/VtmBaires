@@ -4,7 +4,6 @@ import React, {useContext} from "react";
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import { login } from "../../services/login-service";
-import LoginLayout from "./LoginLayout";
 import type { Node } from "react";
 import { Link, useHistory } from "react-router-dom";
 import {bool, object, string} from 'yup';
@@ -16,6 +15,8 @@ import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LoginFrameLayout from "./LoginFrameLayout";
+import {LoginRoutes} from "./LoginRouter";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -72,7 +73,7 @@ const LoginComponent = (): Node => {
     }
 
     return (
-        <LoginLayout title="Login" icon={<LockOutlinedIcon />}>
+        <LoginFrameLayout title="Login" icon={<LockOutlinedIcon />}>
             <form style={{
                 width: '100%', // Fix IE 11 issue.
                 marginTop: "10px",
@@ -93,7 +94,7 @@ const LoginComponent = (): Node => {
             </form>
             <Grid container>
                 <Grid item xs={4}>
-                    <Link to={Routes.recoverPassword} variant="body2" sx={{
+                    <Link to={LoginRoutes.recoverPassword} variant="body2" sx={{
                         color: theme.palette.grey[50]
                     }}>
                         Recupera Password
@@ -103,14 +104,14 @@ const LoginComponent = (): Node => {
                     <Link to={Routes.guideMain} target="_blank">Guida</Link>
                 </Grid>
                 <Grid item xs={4} sx={{textAlign: "right"}}>
-                    <Link to={Routes.register} variant="body2" sx={{
+                    <Link to={LoginRoutes.register} variant="body2" sx={{
                         color: theme.palette.grey[50]
                     }}>
                         Registrati
                     </Link>
                 </Grid>
             </Grid>
-        </LoginLayout>);
+        </LoginFrameLayout>);
 };
 
 export default LoginComponent;

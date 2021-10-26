@@ -1,12 +1,12 @@
 // @flow
 
 import React from "react";
-import LoginLayout from "./LoginLayout";
+import {LoginRoutes} from "./LoginRouter";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import {Routes} from "../../AppRouter";
+import LoginFrameLayout from "./LoginFrameLayout";
 
 type Props = {
 
@@ -14,7 +14,7 @@ type Props = {
 
 const Disclaimer = (props: Props): any => {
     return (
-        <LoginLayout title="Disclaimer" icon={<ErrorOutlineIcon />}>
+        <LoginFrameLayout title="Disclaimer" icon={<ErrorOutlineIcon />}>
             <Box sx={{margin: "10px"}}>
                 <Typography>
                     Registrazione (ai sensi e per gli effetti della legge 196/03)
@@ -61,11 +61,11 @@ const Disclaimer = (props: Props): any => {
                 </Typography>
             </Box>
             <Box sx={{margin: "0 auto", padding: "20px"}}>
-                <Link to={Routes.register}>
+                <Link to={LoginRoutes.register}>
                     Torna alla registrazione
                 </Link>
             </Box>
-        </LoginLayout>
+        </LoginFrameLayout>
     );
 }
 

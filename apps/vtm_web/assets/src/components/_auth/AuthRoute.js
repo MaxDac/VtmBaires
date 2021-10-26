@@ -2,8 +2,8 @@
 
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
-import {Routes} from "../../AppRouter";
 import {getSessionSync} from "../../services/session-service";
+import {LoginRoutes} from "../login/LoginRouter";
 
 type Props = {
     component?: (...any) => any;
@@ -14,7 +14,7 @@ const AuthRoute = ({ children, component, ...rest }: Props): any => {
     const user = getSessionSync()?.user;
 
     const loginRedirection = location => ({
-        pathname: Routes.login,
+        pathname: LoginRoutes.login,
         state: { from: location }
     });
 

@@ -7,8 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CookieFreePolicy from "./CookieFreePolicy";
 
+const CookieAcceptedKey = "cookie-accepted";
+
 const NoCookieBar = (): any => {
     const [showCookiePolicy, setShowCookiePolicy] = useState(true);
+
+    const onCookieCloseClick = _ => {
+        setShowCookiePolicy(false);
+    }
 
     if (showCookiePolicy) {
         return (
@@ -26,7 +32,7 @@ const NoCookieBar = (): any => {
                     <IconButton
                         edge="start"
                         color="inherit"
-                        onClick={_ => setShowCookiePolicy(_ => false)}
+                        onClick={onCookieCloseClick}
                         aria-label="close">
                         <CloseIcon/>
                     </IconButton>

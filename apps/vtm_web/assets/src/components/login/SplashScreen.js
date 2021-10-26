@@ -8,6 +8,7 @@ import { getSessionSync } from "../../services/session-service";
 import { useHistory } from 'react-router';
 import { Routes } from "../../AppRouter";
 import CenteredBox from "../../_base/components/CenteredBox";
+import {LoginRoutes} from "./LoginRouter";
 
 const SplashScreen = (): any => {
     const history = useHistory();
@@ -18,11 +19,11 @@ const SplashScreen = (): any => {
             history.push(Routes.main);
         }
         else {
-            history.push(Routes.login);
+            history.push(LoginRoutes.login);
         }
     });
 
-    const handleLogoClick = () => history.push(Routes.login);
+    const handleLogoClick = () => history.push(LoginRoutes.login);
 
     return (
         <Box onClick={_ => handleLogoClick()}>

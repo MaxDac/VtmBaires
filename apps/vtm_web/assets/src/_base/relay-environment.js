@@ -16,7 +16,7 @@ import type {
 import {post} from "axios";
 import {useHistory} from "react-router-dom";
 import {log} from "./utils";
-import {Routes} from "../AppRouter";
+import {LoginRoutes} from "../components/login/LoginRouter";
 
 export const cache: any = new RelayQueryResponseCache({
     size: 250,
@@ -35,7 +35,7 @@ const fetchGraphQL = history => {
         } catch (e) {
             if (e.response.status === 401) {
                 log("Unauthorized", e.response.data, "error");
-                history.push(Routes.login);
+                history.push(LoginRoutes.login);
             }
 
             return e.response.data;

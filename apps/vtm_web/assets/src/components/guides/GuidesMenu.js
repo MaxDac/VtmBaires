@@ -20,7 +20,7 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
-import {Routes} from "../../AppRouter";
+import {LoginRoutes} from "../login/LoginRouter";
 
 type Props = {
 
@@ -35,7 +35,7 @@ const GuidesMenu = (props: Props): any => {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem button onClick={_ => history.push(Routes.login)}>
+                <ListItem button onClick={_ => history.push(LoginRoutes.login)}>
                     <ListItemIcon>
                         <LockOutlinedIcon />
                     </ListItemIcon>
