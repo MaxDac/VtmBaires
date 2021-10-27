@@ -59,7 +59,7 @@ defmodule VtmWeb.Resolvers.Helpers do
   @spec from_global_ids(list(binary)) :: list(integer)
   def from_global_ids(global_ids) do
     global_ids
-    |> Enum.map(&from_global_id!/1)
+    |> Enum.map(&from_global_id?/1)
     |> Enum.filter(fn
       {:ok, _}  -> true
       _         -> false
@@ -74,7 +74,7 @@ defmodule VtmWeb.Resolvers.Helpers do
   @spec from_global_ids_or_error(list(binary)) :: {:ok, list(integer)} | {:error, list(binary)}
   def from_global_ids_or_error(global_ids) do
     global_ids
-    |> Enum.map(&from_global_id!/1)
+    |> Enum.map(&from_global_id?/1)
     |> reduce_error_list()
   end
 end

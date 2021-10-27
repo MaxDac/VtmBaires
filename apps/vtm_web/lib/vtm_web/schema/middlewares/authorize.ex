@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.Middlewares.Authorize do
+  @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   def call(resolution, role) do
