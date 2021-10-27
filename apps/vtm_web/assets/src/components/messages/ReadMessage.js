@@ -21,6 +21,7 @@ import SetMessageReadMutation from "../../services/mutations/messages/SetMessage
 import ParsedText from "../../_base/components/ParsedText";
 import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../MainRouter";
+import ReadMessageAvatar from "./components/ReadMessageAvatar";
 
 type Props = {
     messageId: string;
@@ -30,6 +31,7 @@ const ReadMessage = ({messageId}: Props): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
+
     const message = useCustomLazyLoadQuery<GetMessageQuery>(getMessageQuery, {messageId})?.getMessage;
 
     useEffect(() => {
@@ -53,9 +55,10 @@ const ReadMessage = ({messageId}: Props): any => {
         message?.receiverCharacter?.name ?? message?.receiverCharacter?.name;
 
     const getAvatarSrc = () => {
-        if (message?.senderCharacter?.chatAvatar) {
-            return (<Avatar alt="character-avatar" src={message?.senderCharacter?.chatAvatar} sx={avatarStyle} />);
-        }
+        if (message?.senderCharacter?.id != null) {
+            return <ReadMessageAvatar characterId={message.senderCharacter.id}
+                                      avatarStyle={avatarStyle} />
+        };
 
         return <Avatar sx={avatarStyle}>{getInitials(getSenderName() ?? "")}</Avatar>
     }

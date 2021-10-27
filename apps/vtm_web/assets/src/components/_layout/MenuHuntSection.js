@@ -24,8 +24,6 @@ type MenuHuntSectionInternalProps = {
 const MenuHuntSectionInternal = ({characterQuery, huntRequest}: MenuHuntSectionInternalProps): any => {
     const characterInfo = useFragment<CharacterFragments_characterStats$key>(characterStatsFragment, characterQuery);
 
-    console.log("hunt character info", characterInfo);
-
     const showHuntMenu = () => {
         if (characterIsVampire(characterInfo)) {
             return (
@@ -59,10 +57,12 @@ const MenuHuntSection = (): any => {
                         HuntMutation(environment, character.id)
                             .then((result: HuntMutationResponse) => {
                                 if (result?.hunt?.result != null) {
+                                    const huntResult = result.hunt.result;
+                                    console.log("showing ok message", result);
                                     showUserNotification({
                                         type: "info",
                                         duration: 7000,
-                                        message: result.hunt.result
+                                        message: huntResult
                                     });
                                 }
                                 else {

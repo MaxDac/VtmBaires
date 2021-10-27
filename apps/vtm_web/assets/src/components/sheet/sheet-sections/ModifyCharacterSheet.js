@@ -50,11 +50,13 @@ const ModifyCharacterSheet = ({id}: Props): any => {
         character);
 
     const onSubmit = values => {
-        const completeValues = {
-            ...values,
-            avatar,
-            chatAvatar
-        };
+        const completeValues = avatar != null && chatAvatar != null
+            ? {
+                ...values,
+                avatar,
+                chatAvatar
+            }
+            : values;
 
         ChangeCharacterSheetInfoMutation(environment, id, completeValues)
             .then(c => {

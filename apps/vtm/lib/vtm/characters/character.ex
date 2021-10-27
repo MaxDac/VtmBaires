@@ -1,4 +1,6 @@
 defmodule Vtm.Characters.Character do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -74,6 +76,7 @@ defmodule Vtm.Characters.Character do
     character
     |> cast(attrs, [
       :avatar,
+      :chat_avatar,
       :biography,
       :description,
       :is_npc,

@@ -19,12 +19,10 @@ export const getMessageQuery: GraphQLTaggedNode = graphql`
             senderCharacter {
                 id
                 name
-                chatAvatar
             }
             receiverCharacter {
                 id
                 name
-                chatAvatar
             }
             senderUserId
             senderCharacterId

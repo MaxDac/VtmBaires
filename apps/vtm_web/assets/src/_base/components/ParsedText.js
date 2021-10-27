@@ -3,6 +3,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import ReactMarkdown from 'react-markdown'
+import {replaceAll} from "../utils";
 
 type Props = {
     text: ?string;
@@ -18,7 +19,8 @@ export const markdownComponents: any = {
 
 const ParsedText = ({text, sx}: Props): any => {
     const applyNewLine = text =>
-        text.split("\\n")
+        replaceAll(replaceAll(text, "[i]", "_"), "[/i]", "_")
+            .split("\\n")
             .reduce((acc, element, index) => {
                 if (index === 0) {
                     return (

@@ -70,18 +70,49 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_characters_avatar(_, %{character_ids: c_ids}, _) do
+    # Characters and their avatars are represented as different objects for relay.
+    # For this, the response must be sent as character and avatar as different objects.
     result =
       c_ids
       |> from_global_ids()
       |> Characters.get_characters_avatar()
+      |> Enum.map(fn
+        %Character{id: id, avatar: avatar} ->
+          %{
+            character: %{id: id},
+            avatar: %{id: id, avatar: avatar}
+          }
+      end)
 
     {:ok, result}
   end
 
+  def get_character_chat_avatar(%{character_id: c_id}, _) do
+    result =
+      [c_id |> String.to_integer()]
+      |> Characters.get_characters_chat_avatar()
+
+    case result do
+      [c] ->
+        {:ok, c}
+      _   ->
+        {:error, :not_found}
+    end
+  end
+
   def get_characters_chat_avatar(_, %{character_ids: c_ids}, _) do
+    # Characters and their avatars are represented as different objects for relay.
+    # For this, the response must be sent as character and avatar as different objects.
     {:ok, c_ids
       |> from_global_ids()
-      |> Characters.get_characters_chat_avatar()}
+      |> Characters.get_characters_chat_avatar()
+      |> Enum.map(fn
+        %Character{id: id, chat_avatar: avatar} ->
+          %{
+            character: %{id: id},
+            chat_avatar: %{id: id, chat_avatar: avatar}
+          }
+      end)}
   end
 
   def get_character_stats(%{character_id: id }, %{context: %{current_user: user}}) do

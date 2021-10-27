@@ -15,7 +15,6 @@ const subscription = graphql`
             character {
                 id
                 name
-                chatAvatar
             }
             chatMap {
                 id

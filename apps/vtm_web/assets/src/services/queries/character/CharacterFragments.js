@@ -6,17 +6,10 @@ export const characterInfoFragment: any = graphql`
     fragment CharacterFragments_characterInfo on Character {
         id
         name
-        chatAvatar
         clan {
             id
             name
         }
-    }
-`;
-
-export const characterAvatarsFragment: any = graphql`
-    fragment CharacterFragments_characterAvatar on Character {
-        avatar
     }
 `;
 

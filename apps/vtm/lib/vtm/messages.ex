@@ -1,4 +1,6 @@
 defmodule Vtm.Messages do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Vtm.Repo
@@ -12,14 +14,26 @@ defmodule Vtm.Messages do
 
   import Vtm.Helpers
 
-  defp aggregate_user_if_inexistent(attrs = %{
-    receiver_user_id: nil,
+  defp aggregate_user(attrs = %{
     receiver_character_id: c_id
-  }) when not is_nil(c_id) do
+  }) do
     case Characters.get_character_user(%{id: c_id}) do
       %{id: id} when not is_nil(id) -> attrs |> Map.put(:receiver_user_id, id)
       _                             -> attrs
     end
+  end
+
+  defp aggregate_user_if_inexistent(attrs = %{
+    receiver_character_id: c_id
+  }) when not is_nil(c_id) do
+    aggregate_user(attrs)
+  end
+
+  defp aggregate_user_if_inexistent(attrs = %{
+    receiver_user_id: nil,
+    receiver_character_id: c_id
+  }) when not is_nil(c_id) do
+    aggregate_user(attrs)
   end
 
   defp aggregate_user_if_inexistent(attrs) do
@@ -31,7 +45,7 @@ defmodule Vtm.Messages do
   This method populates only the name of the sender for notification purpouses.
   """
   @spec parse_sender_name({:ok, Message.t()} | {:error, any()}) :: {:ok, Message.t()} | {:error, any()}
-  def parse_sender_name({:ok, message = %Message{sender_character_id: character_id}}) do
+  def parse_sender_name({:ok, message = %Message{sender_character_id: character_id}}) when not is_nil(character_id) do
     case Characters.get_character_name_by_id(character_id) do
       nil   -> parse_sender_name({:ok, message |> Map.drop([:receiver_character_id])})
       name  -> {:ok, message |> Map.put(:sender_name, name)}

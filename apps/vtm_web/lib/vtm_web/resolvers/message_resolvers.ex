@@ -18,25 +18,53 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     Messages.get_message(user, id)
   end
 
+  defp decode_from_request_if_existent(request, key) do
+    case request |> Map.has_key?(key) do
+      true ->
+        IO.puts "id: #{request[key]}"
+        with {:ok, value} <- from_global_id?(request[key]) do
+          {:ok, request |> Map.put(key, value)}
+        end
+      _   ->
+        {:ok, request}
+    end
+  end
+
   def send_message(_, %{message: message = %{
-    receiver_user_id: receiver_user_id,
+    on_game: true,
     sender_character_id: sender_character_id,
-    receiver_character_id: receiver_character_id,
-    reply_to_id: reply_to_id
+    receiver_character_id: receiver_character_id
   }}, %{context: %{current_user: user}}) do
-    with {:ok, ru_id} <- from_global_id?(receiver_user_id),
-         {:ok, sc_id} <- from_global_id?(sender_character_id),
-         {:ok, rc_id} <- from_global_id?(receiver_character_id),
-         {:ok, rt_id} <- from_global_id?(reply_to_id) do
-      message =
-        message
-          |> Map.put(:receiver_user_id, ru_id)
+    with {:ok, sc_id}   <- from_global_id?(sender_character_id),
+         {:ok, rc_id}   <- from_global_id?(receiver_character_id),
+         {:ok, message} <- message
           |> Map.put(:sender_character_id, sc_id)
           |> Map.put(:receiver_character_id, rc_id)
-          |> Map.put(:reply_to_id, rt_id)
-
-      Messages.send_message(user, message)
+          |> decode_from_request_if_existent(:reply_to_id) do
+      Messages.send_message(user,
+        message
+        |> Map.drop([:receiver_user_id]))
     end
+  end
+
+  def send_message(_, %{message: message = %{
+    receiver_user_id: receiver_user_id
+  }}, %{context: %{current_user: user}}) do
+    with {:ok, ru_id}   <- from_global_id?(receiver_user_id),
+         {:ok, message} <- message
+          |> Map.put(:receiver_user_id, ru_id)
+          |> decode_from_request_if_existent(:reply_to_id) do
+      Messages.send_message(user,
+        message
+        |> Map.drop([:receiver_character_id, :sender_character_id]))
+    end
+  end
+
+  def send_message(_, request, %{context: context}) do
+    IO.puts "request: #{inspect request}"
+    IO.puts "context: #{inspect context}"
+
+    {:error, :invalid_request}
   end
 
   def set_message_read(%{message_id: id}, %{context: %{current_user: user}}) do

@@ -23,7 +23,6 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inDices, setInDices] = useState(true);
     const [charactersCount, setCharactersCount] = useState(0);
-    const [shiftPressed, setShiftPressed] = useState(false);
 
     // TODO - set the dimensions of the thing based on the dimension of the screen
     const textboxRows = 4; // isSmall ? 2 : 4;
@@ -36,23 +35,16 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
         setValue(_ => val);
     };
 
-    const handleControlKeyDown = ({key}) => {
-        if (key === "Shift") {
-            setShiftPressed(_ => true);
-        }
-        else if (key === "Enter") {
-            if (shiftPressed) {
-                setShiftPressed(_ => false);
-                sendInputEntry();
-            }
+    const handleControlKeyDown = event => {
+        const {key} = event;
+        
+        if (key === "Enter") {
+            event.preventDefault();
+            sendInputEntry();
         }
     };
 
     const handleCntrolKeyUp = ({key, target: {value}}) => {
-        if (key === "Shift") {
-            setShiftPressed(_ => false);
-        }
-
         setCharactersCount(_ => (value: string).length);
     };
 

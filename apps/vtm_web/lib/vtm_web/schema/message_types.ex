@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.MessageTypes do
+  @moduledoc false
+
   use Absinthe.Schema.Notation
   use Absinthe.Relay.Schema.Notation, :modern
 
@@ -36,7 +38,7 @@ defmodule VtmWeb.Schema.MessageTypes do
     field :subject, non_null(:string)
     field :text, non_null(:string)
     field :on_game, :boolean
-    field :receiver_user_id, non_null(:id)
+    field :receiver_user_id, :id
     field :sender_character_id, :id
     field :receiver_character_id, :id
     field :reply_to_id, :id

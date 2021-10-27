@@ -64,9 +64,13 @@ const Chat = ({id}: ChatProps): any => {
     }, [environment, id])
 
     useEffect(() => {
+        console.log("subscribing");
         const showNewChatEntry = entry => setAdditionalEntries(es => [...es, entry]);
         const subscription = subscribe(subscriptionObservable(id, chatToken), showNewChatEntry);
-        return () => subscription.unsubscribe();
+        return () => {
+            console.info("unsubscribing");
+            subscription.unsubscribe();
+        };
     }, [id, chatToken]);
 
     const showMapDescription = () => {

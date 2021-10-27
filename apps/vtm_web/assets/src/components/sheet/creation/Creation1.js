@@ -18,7 +18,6 @@ const Creation1 = (): any => {
     const onSubmit = (values: CharacterCreationRequest) => {
         createCharacter(environment, values)
             .then(response => {
-                console.log("response", response);
                 if (response?.createCharacter != null) {
                     updateCurrentCharacter({
                         id: response.createCharacter.id,

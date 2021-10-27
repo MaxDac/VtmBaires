@@ -131,10 +131,8 @@ type Character implements Node {
   advantages: String
   aggravatedDamage: Int
   approved: Boolean
-  avatar: String
   biography: String
   bloodPotency: Int
-  chatAvatar: String
   clan: Clan
   damage: Int
   dead: Boolean
@@ -174,6 +172,30 @@ input CharacterAttributeRequest {
   attributeId: ID!
   characterId: ID!
   value: Int!
+}
+
+type CharacterAvatar implements Node {
+  avatar: String
+
+  """The ID of an object"""
+  id: ID!
+}
+
+type CharacterAvatarResponse {
+  avatar: CharacterAvatar
+  character: Character
+}
+
+type CharacterChatAvatar implements Node {
+  chatAvatar: String
+
+  """The ID of an object"""
+  id: ID!
+}
+
+type CharacterChatAvatarResponse {
+  character: Character
+  chatAvatar: CharacterChatAvatar
 }
 
 input CharacterCreationRequest {
@@ -537,12 +559,13 @@ type RootQueryType {
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
   getCharacter(id: ID): Character
-  getCharacterAvatar(characterId: ID!): Character
+  getCharacterAvatar(characterId: ID!): CharacterAvatar
+  getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar
   getCharacterDescription(characterId: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
-  getCharactersAvatar(characterIds: [ID!]): [Character]
-  getCharactersChatAvatar(characterIds: [ID!]): [Character]
+  getCharactersAvatar(characterIds: [ID!]): [CharacterAvatarResponse]
+  getCharactersChatAvatar(characterIds: [ID!]): [CharacterChatAvatarResponse]
   getCreationTemplates: [CreationTemplate]
   getForumSections: [ForumSection]
   getForumThread(id: ID!): ForumThread
@@ -582,7 +605,7 @@ type RouseCheckPayload {
 input SendMessageRequest {
   onGame: Boolean
   receiverCharacterId: ID
-  receiverUserId: ID!
+  receiverUserId: ID
   replyToId: ID
   senderCharacterId: ID
   subject: String!

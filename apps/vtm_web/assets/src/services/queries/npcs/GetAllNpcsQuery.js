@@ -11,7 +11,6 @@ export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
         allNpcs {
             id
             name
-            chatAvatar
             isComplete
             approved
             clan {
@@ -25,7 +24,7 @@ export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
 export type Npc = {
     id: string;
     name: ?string;
-    chatAvatar: ?string;
+    chatAvatar?: ?string;
     isComplete: ?boolean;
     approved: ?boolean;
     clan: ?{
@@ -41,7 +40,6 @@ export const useNpcsQuery = (reloadCount: number): Array<Npc> =>
     })?.allNpcs?.map(n => ({
         id: n?.id ?? "",
         name: n?.name,
-        chatAvatar: n?.chatAvatar,
         isComplete: n?.isComplete,
         approved: n?.approved,
         clan: {

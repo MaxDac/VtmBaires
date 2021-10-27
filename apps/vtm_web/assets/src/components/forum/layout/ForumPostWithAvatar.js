@@ -6,10 +6,12 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {useCharacterAvatarQuery} from "../../../services/queries/character/GetCharacterAvatarQuery";
 import ForumPost from "./ForumPost";
 import {defaultFormatDateAndTime} from "../../../_base/utils";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
+import type { GetCharacterAvatarQuery } from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 
 type Props = {
     onGame: boolean;
@@ -17,9 +19,9 @@ type Props = {
 }
 
 const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
-    const avatar = useCharacterAvatarQuery(characterId)
-        ?.getCharacterAvatar
-        ?.avatar;
+    const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, { id: characterId }, {
+        fetchPolicy: "store-or-network"
+    })?.getCharacterAvatar?.avatar;
 
     const style = () => onGame
         ? mainFontFamily
@@ -80,7 +82,6 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
 };
 
 const ForumPostWithAvatar = ({post, onGame}: Props): any => {
-    console.log("post", post);
     if (post?.character?.id) {
         return (
             <ForumPostWithAvatarInternal characterId={post?.character?.id} 

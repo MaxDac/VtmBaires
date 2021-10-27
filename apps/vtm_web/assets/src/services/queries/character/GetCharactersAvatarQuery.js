@@ -6,8 +6,13 @@ import type {GraphQLTaggedNode} from "relay-runtime";
 export const getCharactersAvatarQuery: GraphQLTaggedNode = graphql`
     query GetCharactersAvatarQuery($characterIds: [ID!]) {
         getCharactersAvatar(characterIds: $characterIds) {
-            id
-            avatar
+            character {
+                id
+            }
+            avatar {
+                id
+                avatar
+            }
         }
     }
 `;

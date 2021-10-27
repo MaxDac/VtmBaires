@@ -11,7 +11,6 @@ export const getCharacterCompleteQuery: GraphQLTaggedNode = graphql`
             ...CharacterFragments_characterSheet @relay(mask: false)
             ...CharacterFragments_characterStats @relay(mask: false)
             ...CharacterFragments_characterState @relay(mask: false)
-            ...CharacterFragments_characterAvatar
         }
     }
 `;

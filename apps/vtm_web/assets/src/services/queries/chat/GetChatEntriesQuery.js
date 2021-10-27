@@ -10,7 +10,6 @@ export const chatEntriesQuery: GraphQLTaggedNode = graphql`
             character {
                 id
                 name
-                chatAvatar
             }
             chatMap {
                 id

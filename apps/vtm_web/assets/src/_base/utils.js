@@ -192,3 +192,15 @@ export const characterHasDisciplines = (character: ?CharacterFragments_character
     const clanName = character?.clan?.name;
     return !(clanName === "Umano" || clanName === "Thin Blood");
 }
+
+/**
+ * Wrapper for the Javascript built-in function replaceAll that's not included in flow currently.
+ * @param text The text.
+ * @param what What to search.
+ * @param withWhat What to substitute it with.
+ * @return {string} The result text, with the substituted part.
+ */
+export const replaceAll = (text: string, what: string, withWhat: string): string => {
+    // $FlowFixMe
+    return text.replaceAll(what, withWhat);
+}

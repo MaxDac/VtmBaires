@@ -22,6 +22,7 @@ import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
 import LogoutControl from "./_layout/LogoutControl";
 import DefaultFallback from "../_base/components/DefaultFallback";
+import ReloadControl from "./_layout/ReloadControl";
 
 const drawerWidth = 240;
 
@@ -226,6 +227,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                                 }}>
                         {title()}
                     </Typography>
+                    <ReloadControl />
                     <MessageControl />
                     <OnlineControl />
                     <LogoutControl />

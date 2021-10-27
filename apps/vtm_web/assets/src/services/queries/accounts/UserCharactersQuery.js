@@ -13,7 +13,6 @@ export const userCharactersQuery: GraphQLTaggedNode = graphql`
                 stage
                 approved
                 isComplete
-                chatAvatar
                 clan {
                     name
                 }
@@ -28,7 +27,7 @@ export type UserCharacter = {
     stage: number;
     approved: boolean;
     isComplete: boolean;
-    chatAvatar: string;
+    chatAvatar?: ?string;
     clan: {
         name: string;
     }

@@ -24,6 +24,7 @@ import {useNpcsQuery} from "../../services/queries/npcs/GetAllNpcsQuery";
 import AppVersion from "../../_base/components/AppVersion";
 import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import Box from "@mui/material/Box";
+import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
 
 type Props = {
     drawerDone: () => void;
@@ -35,8 +36,7 @@ type Props = {
 export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
-
-    console.log("characters", characters);
+    const charactersWithAvatars = useMenuCharactersAvatar(characters);
 
     const pushHistory = (route: string) => {
         drawerDone();
@@ -64,7 +64,7 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
                 <ListItemText primary="Mappa" />
             </ListItem>
             <MenuCharacterSection pushHistory={pushHistory}
-                                  characters={characters}
+                                  characters={charactersWithAvatars}
                                   onUpdate={onUpdate} />
             <MenuHuntSection />
             <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
@@ -89,9 +89,10 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
     );
 };
 
-export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}: Props): any => {
+export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
     const npcs = useNpcsQuery(reloadCount);
+    const npcsWithAvatar = useMenuCharactersAvatar(npcs);
 
     const pushHistory = (route: string) => {
         drawerDone();
@@ -102,7 +103,7 @@ export const SecondaryListItems = ({drawerDone, isClosed, reloadCount, onUpdate}
         <>
             <ListSubheader inset>Admin</ListSubheader>
             <MenuNpcSection pushHistory={pushHistory}
-                            npcs={npcs}
+                            npcs={npcsWithAvatar}
                             onUpdate={onUpdate} />
             <ListItem button onClick={_ => pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>

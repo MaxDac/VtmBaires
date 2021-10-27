@@ -8,7 +8,6 @@ export const getCharacterDescriptionQuery: GraphQLTaggedNode = graphql`
         getCharacterDescription(characterId: $id) {
             id
             name
-            chatAvatar
             description
         }
     }

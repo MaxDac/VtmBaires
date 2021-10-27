@@ -31,9 +31,15 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :description, :string
   end
 
-  node object :character do
+  node object :character_avatar do
     field :avatar, :string
+  end
+
+  node object :character_chat_avatar do
     field :chat_avatar, :string
+  end
+
+  node object :character do
     field :name, :string
     field :biography, :string
     field :description, :string
@@ -110,9 +116,19 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :biography, :string
   end
 
+  object :character_avatar_response do
+    field :character, :character
+    field :avatar, :character_avatar
+  end
+
+  object :character_chat_avatar_response do
+    field :character, :character
+    field :chat_avatar, :character_chat_avatar
+  end
+
   object :character_queries do
     field :characters_list, list_of(:character) do
-      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.all/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
@@ -155,7 +171,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
-    field :get_character_avatar, :character do
+    field :get_character_avatar, :character_avatar do
       arg :character_id, non_null(:id)
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
@@ -163,7 +179,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
-    field :get_characters_avatar, list_of(:character) do
+    field :get_characters_avatar, list_of(:character_avatar_response) do
       arg :character_ids, list_of(non_null(:id))
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
@@ -171,7 +187,15 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
-    field :get_characters_chat_avatar, list_of(:character) do
+    field :get_character_chat_avatar, :character_chat_avatar do
+      arg :character_id, non_null(:id)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.get_character_chat_avatar/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :get_characters_chat_avatar, list_of(:character_chat_avatar_response) do
       arg :character_ids, list_of(non_null(:id))
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
