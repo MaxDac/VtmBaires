@@ -33,15 +33,16 @@ defmodule Vtm.SeedsHelpers do
   end
 
   def insert_attribute(%Vtm.Characters.Attribute{name: name, description: description, attribute_type_id: attribute_type_id}) do
-    try_insert_by_name(
-      Vtm.Characters.Attribute,
-      name,
-      fn ->
+    case Vtm.Characters.Attribute |> Vtm.Repo.get_by(name: name) do
+      nil ->
         %Vtm.Characters.Attribute{}
         |> Vtm.Characters.Attribute.changeset(%{name: name, description: description, attribute_type_id: attribute_type_id})
         |> Vtm.Repo.insert()
-      end
-    )
+      a   ->
+        a
+        |> Vtm.Characters.Attribute.update_changeset(%{description: description})
+        |> Vtm.Repo.update()
+    end
   end
 
   def get_or_insert_attribute(attrs = %Vtm.Characters.Attribute{name: name, description: description}) do
@@ -144,24 +145,57 @@ end
 {:ok, %{id: advantage_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Advantage", "")
 {:ok, %{id: discipline_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Discipline", "")
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Forza", description: "Forza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Destrezza", description: "Destrezza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Costituzione", description: "Costituzione"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Forza", description: """
+La Forza governa quanto è possibile sollevare, quanto duramente il personaggio può colpire e quanta forza il personaggio può esercitare.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Destrezza", description: """
+La Destrezza governa l'agilità e la grazia del personaggio, quanto velocemente può schivare, e quanto fine è il controllo dei propri muscoli in situazioni di stress.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Costituzione", description: """
+La Costituzione rappresenta la resistenza fisica del personaggio, intesa come capacità di assorbimeto dei danni, e la capacità di sopravvivere a duri e prolungati sforzi.
+"""})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Carisma", description: "Carisma"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Persuasione", description: "Persuasione"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Autocontrollo", description: "Autocontrollo"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Carisma", description: """
+Il Carisma misura il naturale charme, la grazia e il sex appeal del personaggio. Più alto sarà il punteggio di Carisma, più le persone saranno attirate dal personaggio.
+Il Carisma non è da confondere con l'aspetto fisico del personaggio.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Persuasione", description: """
+La Manipolazione è l'abilità del personaggio di convincere altri del proprio punto di vista, e mentire in modo convincente.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Autocontrollo", description: """
+L'Autocontrollo consente di mantenere la calma, di comandare le proprie emozioni, e di mettere gli altri a proprio agio nonostante le loro ansietà.
+Rappresenta anche la capacità di rimanere freddo di fronte alle situazioni più stressanti.
+"""})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Intelligenza", description: "Intelligenza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Prontezza", description: "Prontezza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Fermezza", description: "Fermezza"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Intelligenza", description: """
+L'Intelligenza misura l'abilità di ragionare, ricercare, e applicare logica. Si possono ricordare informazion da libri e dai propri sensi.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Prontezza", description: """
+La Prontezza è la capacità di pensare velocemente e reagire correttamente con poche informazioni o nulla. "Senti due guardie arrivare" è Intelligenza.
+Prontezza consente al personaggio di subodorare un'imboscata, o di intuire la risposta giusta al momento giusto ad una Arpia, e non la notte seguente.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Fermezza", description: """
+La Fermezza fornisce fuoco e determinazione, misura al concentrazione e la forza mentale. La Fermezza rende possibile ronde di una notte intera, blocca
+qualsiasi distrazione.
+"""})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Atletica", description: "Atletica"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Criminalità", description: "Criminalità"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Manualità", description: "Manualità"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Atletica", description: """
+L'Atletica consente di correre più veloce in un inseguimento, di saltare via da una macchina in corsa, e di correre, e nuotare, come una sana e robusta persona.
+È possibile usare Atletica al posto di una qualsiasi altra abilità specifica di combattimento, ma se si usa questa Abilità non sarà possibile colpire gli avversari in nessun modo.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Criminalità", description: """
+
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Manualità", description: """
+Manualità è un'Abilità ad ampio spettro che racchiude esecuzione artistica, crezione di utensili, fino al miglioramento del proprio Rifugio.
+Si possono possedere più specializzazioni in Manualità che punteggio.
+"""})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Guidare", description: "Guidare"})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Armi da Fuoco", description: "Armi da Fuoco"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: "Rissa"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: """
+Rissa consente al personaggio di colpire i propri avversari con pugni, calci, o artigli. Finché non si hanno armi in mano, si dovrà usare Rissa per colpire
+gli avversari.
+"""})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Mischia", description: "Mischia"})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: "Furtività"})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Sopravvivenza", description: "Sopravvivenza"})

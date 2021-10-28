@@ -25,7 +25,6 @@ export const attributesQuery: any = graphql`
         attributes {
             id
             name
-            description
             attributeType {
                 id
                 name

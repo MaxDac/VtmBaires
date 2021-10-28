@@ -14,7 +14,7 @@ export default function Main(): any {
         const firstLinePhrase = "Buenos Aires by Night";
         const secondLinePhrase = "Benvenuto";
         const thirdLinePhraseItalian = "È un mondo di Tenebra. Il peccato di Caino ha generato entità maledette che infestano" +
-            " la notte in cerca di sangue vivo. I Fratelli sono stati una segreta influenza lungo tutte le ere della storia" +
+            " la notte in cerca di vivo sangue. I Fratelli sono stati una segreta influenza lungo tutte le ere della storia" +
             " umana, complottando l'uno contro l'altro in un'eterna Jihad. La loro progenie immortale è tra noi anche adess," +
             " celata dagli occhi umani da una elaborata... Masquerade..."
 

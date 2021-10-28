@@ -14,6 +14,12 @@ defmodule Vtm.Characters.Attribute do
   end
 
   @doc false
+  def update_changeset(attribute, attrs) do
+    attribute
+    |> cast(attrs, [:description])
+  end
+
+  @doc false
   def changeset(attribute, attrs) do
     attribute
     |> cast(attrs, [:name, :description, :attribute_type_id])

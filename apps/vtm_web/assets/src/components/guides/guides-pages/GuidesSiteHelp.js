@@ -15,7 +15,7 @@ const GuidesSiteHelp = (): any => {
 
             <Typography paragraph sx={guideStyle}>
                 <i>In questa sezione verr&agrave; spiegato il funzionamento del sito e delle sue sezioni.<br />
-                In base ai vostri feedback, questa sezione verr&grave; progressivamente riempita come la sezione F.A.Q.</i>
+                In base ai vostri feedback, questa sezione verr&garave; progressivamente riempita come la sezione F.A.Q.</i>
             </Typography>
         </>
     );
