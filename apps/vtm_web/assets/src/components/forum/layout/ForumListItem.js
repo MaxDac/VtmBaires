@@ -2,7 +2,7 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import ListItem from "@material-ui/core/ListItem";
+import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import {defaultFormatDateAndTime} from "../../../_base/utils";

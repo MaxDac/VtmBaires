@@ -3,7 +3,6 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 import type {History} from "./_base/types";
-import 'suneditor/dist/css/suneditor.min.css';
 
 export type OpenDialogDelegate = (title: string, text: string, onOk: () => void, onCancel: ?() => void) => void;
 
