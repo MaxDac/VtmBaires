@@ -144,7 +144,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/IsabelaRuizDiaz.png" 
+                    <img src="/IsabelaRuizDiaz.webp"
                             align="left"
                             alt="IsabelaRuizDiaz"
                             hspace="10px"
@@ -177,7 +177,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/MariaAugustaCarvalhoSforza.png" 
+                    <img src="/MariaAugustaCarvalhoSforza.webp"
                             align="right"
                             alt="MariaAugustaCarvalhoSforza"
                             hspace="10px"
@@ -213,7 +213,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/HeinrichHunger.png" 
+                    <img src="/HeinrichHunger.webp"
                             align="left"
                             alt="HeinrichHunger"
                             hspace="10px"
@@ -250,7 +250,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/SantiagoRinaldi.png" 
+                    <img src="/SantiagoRinaldi.webp"
                             align="right"
                             alt="SantiagoRinaldi"
                             hspace="10px"
@@ -286,7 +286,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/FabianaRodriguez.png" 
+                    <img src="/FabianaRodriguez.webp"
                             align="left"
                             alt="FabianaRodriguez"
                             hspace="10px"
@@ -324,7 +324,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/LucreziaDuval.png" 
+                    <img src="/LucreziaDuval.webp"
                             align="right"
                             alt="LucreziaDuval"
                             hspace="10px"
@@ -365,7 +365,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/RodrigoManoukian.png" 
+                    <img src="/RodrigoManoukian.webp"
                             align="left"
                             alt="RodrigoManoukian"
                             hspace="10px"
@@ -402,7 +402,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/RocioFernandez.png" 
+                    <img src="/RocioFernandez.webp"
                             align="right"
                             alt="RocioFernandez"
                             hspace="10px"
@@ -439,7 +439,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/ErnestoHerrera.png" 
+                    <img src="/ErnestoHerrera.webp"
                             align="left"
                             alt="ErnestoHerrera"
                             hspace="10px"
@@ -474,7 +474,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/Javier.png" 
+                    <img src="/Javier.webp"
                             align="right"
                             alt="Javier"
                             hspace="10px"
@@ -510,7 +510,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/Sardaukar.png" 
+                    <img src="/Sardaukar.webp"
                             align="left"
                             alt="Sardaukar"
                             hspace="10px"
@@ -536,7 +536,7 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/MercedesPisanob.png" 
+                    <img src="/MercedesPisanob.webp"
                             align="right"
                             alt="MercedesPisanob"
                             hspace="10px"

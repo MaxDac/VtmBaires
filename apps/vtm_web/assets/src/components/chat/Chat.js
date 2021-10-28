@@ -85,7 +85,7 @@ const Chat = ({id}: ChatProps): any => {
 
         if (chatToken != null && chatToken !== "") {
             console.log("subscribing");
-            const subscription = performSubscription(0);
+            const subscription = performSubscription();
             return () => {
                 console.info("unsubscribing");
                 subscription.unsubscribe();

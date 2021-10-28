@@ -1,4 +1,6 @@
 defmodule VtmWeb.Authentication do
+  @moduledoc false
+
   @cookie_name "x-xcrf-cookie"
   @cookie_max_age 3600 * 4
 

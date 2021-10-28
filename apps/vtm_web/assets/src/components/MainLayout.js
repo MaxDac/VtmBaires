@@ -210,7 +210,9 @@ export default function MiniDrawer({children}: {children: any}): any {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} sx={{
+                background: "url('masquerade.webp')"
+            }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"

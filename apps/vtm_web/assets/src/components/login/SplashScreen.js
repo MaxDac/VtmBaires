@@ -30,7 +30,7 @@ const SplashScreen = (): any => {
             <CenteredBox innerBoxSx={{
                 maxWidth: "237px",
                 height: "70vh",
-                background: `url("/Camarilla.png") no-repeat`}} isBodyChild={true}>
+                background: `url("/Camarilla.webp") no-repeat`}} isBodyChild={true}>
                 <CenteredBox isBodyChild={false}>
                     <Typography sx={{
                         fontFamily: 'GabrieleLightRibbon',
