@@ -127,6 +127,8 @@ export function wrapMutation<T>(environment: IEnvironment, operation: any, varia
 }
 
 const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: any => T) => {
+    console.log("requesting subscription with these variables", variables);
+
     requestSubscription(
         subscriptionEnvironment,
         {
@@ -136,7 +138,7 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
                 sink.complete();
             },
             onError: error => {
-                console.error("Error in subscription");
+                console.error("Error in subscription", error);
                 sink.error(error, true);
             },
             onNext: object => {
@@ -167,7 +169,10 @@ export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onErr
     const subscription = observable.subscribe({
         next: onNext,
         error: handleError,
-        complete: () => subscription.unsubscribe(),
+        complete: () => {
+            console.info("base unsubscribing");
+            subscription.unsubscribe();
+        },
         closed: false
     });
 

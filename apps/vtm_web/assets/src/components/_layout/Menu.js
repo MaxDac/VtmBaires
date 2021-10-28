@@ -4,7 +4,6 @@ import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
@@ -101,7 +100,7 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
 
     return (
         <>
-            <ListSubheader inset>Admin</ListSubheader>
+            {/*<ListSubheader inset>Admin</ListSubheader>*/}
             <MenuNpcSection pushHistory={pushHistory}
                             npcs={npcsWithAvatar}
                             onUpdate={onUpdate} />
@@ -155,7 +154,7 @@ export const CommonListItem = ({isClosed}: {isClosed: boolean}): any => {
     return (
         <>
             <Box sx={{marginTop: "15px"}}>
-                <JoinUsOnDiscord />
+                <JoinUsOnDiscord isClosed={isClosed} />
             </Box>
             <Box sx={{marginTop: "15px"}}>
                 {DOLogo()}

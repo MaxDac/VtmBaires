@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.AccountsResolvers do
+  @moduledoc false
+
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.SessionInfo

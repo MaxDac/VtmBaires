@@ -99,13 +99,13 @@ export default function MiniDrawer({children}: {children: any}): any {
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const isEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));
+    const theresEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));
     const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
     const showPartialTitle = useMediaQuery(theme.breakpoints.down('lg'));
 
     useEffect(() => {
-        setOpen(_ => isEnoughSpace);
-    }, [isEnoughSpace]);
+        setOpen(_ => theresEnoughSpace);
+    }, [theresEnoughSpace]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -156,7 +156,9 @@ export default function MiniDrawer({children}: {children: any}): any {
     }
 
     const drawerContent = () => (
-        <>
+        <Box sx={{
+            background: "url('pattern.webp')"
+        }}>
             <DrawerHeader>
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -173,11 +175,11 @@ export default function MiniDrawer({children}: {children: any}): any {
             {masterMenu()}
             <Divider />
             <CommonListItem isClosed={!open} />
-        </>
+        </Box>
     );
 
     const drawer = () => {
-        if (isEnoughSpace) {
+        if (theresEnoughSpace) {
             return (
                 <Drawer variant="permanent" open={open}>
                     {drawerContent()}
@@ -194,7 +196,11 @@ export default function MiniDrawer({children}: {children: any}): any {
                        }}
                        sx={{
                            display: { xs: 'block', sm: 'none' },
-                           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                           '& .MuiDrawer-paper': {
+                               boxSizing: 'border-box',
+                               width: drawerWidth,
+                               backgroundColor: "black"
+                           }
                        }}>
                 {drawerContent()}
             </MuiDrawer>
@@ -234,7 +240,11 @@ export default function MiniDrawer({children}: {children: any}): any {
                 </Toolbar>
             </AppBar>
             {drawer()}
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{height: "100vh"}}>
+            <Box component="main" sx={{
+                flexGrow: 1,
+                p: 3,
+                background: "url('pattern.webp')"
+            }} style={{height: "100vh"}}>
                 <DrawerHeader />
                 <React.Suspense fallback={<DefaultFallback />}>
                     {children}

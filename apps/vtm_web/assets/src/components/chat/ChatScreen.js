@@ -50,10 +50,17 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
         }
 
         return emptyArray<ChatEntry>();
+    };
+
+    const entriesSet = (entries: Array<ChatEntry>) => {
+        const map = new Map(entries.map(e => [e.id, e]));
+        const set = new Set(entries.map(e => e.id));
+        return [...set].map(id => map.get(id));
     }
 
     const showEntries = () => {
-        const ets = aggregatedEntries();
+        const aggregate = aggregatedEntries();
+        const ets = entriesSet(aggregate);
 
         if (ets && ets.map) {
             return ets?.map((e, index) => {

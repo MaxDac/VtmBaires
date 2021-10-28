@@ -40,7 +40,10 @@ const subscribe = (request: RequestParameters, variables: Variables, cacheConfig
         // This function must not return any value, that's why it's wrapped in curly braces.
         legacySubscriber(request, variables, cacheConfig, {
             onNext: sink.next,
-            onError: sink.error,
+            onError: e => {
+                console.error("Error in legacy subscription", e);
+                sink.error(e);
+            },
             onCompleted: sink.complete
         });
     });

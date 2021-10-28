@@ -10,7 +10,7 @@ export default function Main(): any {
     const [secondPhrase, setSecondPhrase] = useState("");
 
     const firstLinePhrase = "Buenos Aires by Night";
-    const secondLinePhrase = "Benvenuti";
+    const secondLinePhrase = "Benvenuto";
 
     useEffect(() => {
         const typeWriteLine = (setter: (string => string) => void, phrase: string, caret: number, onCompleted?: () => void) => {

@@ -1,4 +1,6 @@
 defmodule VtmAuth.Accounts do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   alias Comeonin.Ecto.Password
@@ -120,7 +122,7 @@ defmodule VtmAuth.Accounts do
     |> SessionInfo.extract_from_session()
   end
 
-  def update_session(%{ id: id }, attrs \\ %{}) do
+  def update_session(%{id: id}, attrs \\ %{}) do
     new_attrs =
       attrs
       |> Map.put_new(:last_checked, NaiveDateTime.utc_now())
@@ -141,19 +143,15 @@ defmodule VtmAuth.Accounts do
   end
 
   def update_session_dynamic_field(%{id: id}, attrs \\ %{}) do
-    query = get_last_session_by_user_query(id)
+    case get_last_session_by_user_query(id) |> Repo.one() do
+      session = %{session_info: info} ->
+        new_values =
+          (info || %{})
+          |> Map.merge(attrs |> VtmAuth.Helpers.atom_map_to_map())
 
-    with session = %{session_info: info}  <- Repo.one(query) do
-      IO.puts "Info: #{inspect info}"
-      IO.puts "Attrs: #{inspect attrs}"
-      new_values =
-        (info || %{})
-        |> Map.merge(attrs |> VtmAuth.Helpers.atom_map_to_map())
-
-      session
-      |> Session.changeset(%{session_info: new_values})
-      |> Repo.update()
-    else
+        session
+        |> Session.changeset(%{session_info: new_values})
+        |> Repo.update()
       _ ->
         {:error, :not_found}
     end
@@ -202,7 +200,7 @@ defmodule VtmAuth.Accounts do
   def authenticate(email, password, remember, _context) do
     with {:ok, user = %User{password: digest}}  <- get_user_by_email(email),
          true                                   <- Password.valid?(password, digest) do
-      update_session(user, %{ remember: remember })
+      update_session(user, %{remember: remember})
       {:ok, user}
     else
       _ ->

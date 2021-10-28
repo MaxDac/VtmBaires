@@ -51,6 +51,7 @@ const Chat = ({id}: ChatProps): any => {
     const [selectedCharacterId, setSelectedCharacterId] = useState<?string>(null);
     const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
+    const [subscriptionRetry, setSubscriptionRetry] = useState(0);
 
     const initialEntries = useChatEntries(id);
     const chatToken = useSubscriptionTokenQuery();
@@ -64,14 +65,34 @@ const Chat = ({id}: ChatProps): any => {
     }, [environment, id])
 
     useEffect(() => {
-        console.log("subscribing");
         const showNewChatEntry = entry => setAdditionalEntries(es => [...es, entry]);
-        const subscription = subscribe(subscriptionObservable(id, chatToken), showNewChatEntry);
-        return () => {
-            console.info("unsubscribing");
-            subscription.unsubscribe();
-        };
-    }, [id, chatToken]);
+
+        const performSubscription = () =>
+            subscribe(subscriptionObservable(id, chatToken), showNewChatEntry, (e, _) => {
+                console.error("Error while performing chat subscription.", e);
+                if (subscriptionRetry < 2) {
+                    setSubscriptionRetry(p => p + 1);
+                }
+                else {
+                    // showUserNotification({
+                    //     type: "error",
+                    //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
+                    // });
+                    // Trying to reload the page instead
+                    document.location.reload();
+                }
+            });
+
+        if (chatToken != null && chatToken !== "") {
+            console.log("subscribing");
+            const subscription = performSubscription(0);
+            return () => {
+                console.info("unsubscribing");
+                subscription.unsubscribe();
+            };
+        }
+    // eslint-disable-next-line
+    }, [id, chatToken, subscriptionRetry]);
 
     const showMapDescription = () => {
         setModalTitle(_ => map?.name);
@@ -188,7 +209,7 @@ const Chat = ({id}: ChatProps): any => {
             <Box component="div" sx={{
                 display: "flex",
                 flexDirection: "column",
-                height: "calc(100% - 67px)",
+                height: "calc(100% - 47px)",
                 overflow: "hidden"
             }} id="chat-entries">
                 <ChatControls openMapModal={() => showMapDescription()}

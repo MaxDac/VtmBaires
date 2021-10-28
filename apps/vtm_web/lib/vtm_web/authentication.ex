@@ -1,6 +1,6 @@
 defmodule VtmWeb.Authentication do
   @cookie_name "x-xcrf-cookie"
-  @cookie_max_age 3600 * 2
+  @cookie_max_age 3600 * 4
 
   import Plug.Conn
 

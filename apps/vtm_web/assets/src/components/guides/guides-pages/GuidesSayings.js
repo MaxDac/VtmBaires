@@ -63,6 +63,10 @@ const GuidesSayings = (): any => {
                         <b>Quilombo</b>: casino, situazione caotica
                     </li>
                     <li style={liStyle}>
+                        <b>Trago</b>: un drink, una bevanda. Nel contesto dei cainiti, pu&ograve; anche assumere il
+                        significato di caccia.
+                    </li>
+                    <li style={liStyle}>
                         <b>Trucho</b>: falso, contraffatto
                     </li>
                     <li style={liStyle}>

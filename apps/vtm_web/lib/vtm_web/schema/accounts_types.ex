@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.AccountTypes do
+  @moduledoc false
+
   use Absinthe.Schema.Notation
   use Absinthe.Relay.Schema.Notation, :modern
 
