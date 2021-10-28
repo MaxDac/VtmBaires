@@ -51,7 +51,6 @@ const Chat = ({id}: ChatProps): any => {
     const [selectedCharacterId, setSelectedCharacterId] = useState<?string>(null);
     const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
-    const [subscriptionRetry, setSubscriptionRetry] = useState(0);
 
     const initialEntries = useChatEntries(id);
     const chatToken = useSubscriptionTokenQuery();
@@ -80,17 +79,12 @@ const Chat = ({id}: ChatProps): any => {
         const performSubscription = () =>
             subscribe(subscriptionObservable(id, chatToken), showNewChatEntry, (e, _) => {
                 console.error("Error while performing chat subscription.", e);
-                if (subscriptionRetry < 2) {
-                    setSubscriptionRetry(p => p + 1);
-                }
-                else {
-                    // showUserNotification({
-                    //     type: "error",
-                    //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
-                    // });
-                    // Trying to reload the page instead
-                    document.location.reload();
-                }
+                // showUserNotification({
+                //     type: "error",
+                //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
+                // });
+                // Trying to reload the page instead
+                document.location.reload();
             });
 
         if (chatToken != null && chatToken !== "") {
@@ -103,7 +97,7 @@ const Chat = ({id}: ChatProps): any => {
             };
         }
     // eslint-disable-next-line
-    }, [id, chatToken, subscriptionRetry]);
+    }, [id, chatToken]);
 
     const showMapDescription = () => {
         setModalTitle(_ => map?.name);

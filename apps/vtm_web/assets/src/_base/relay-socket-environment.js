@@ -48,7 +48,7 @@ const subscribe = (request: RequestParameters, variables: Variables, cacheConfig
         });
     });
 
-const socketEnvironment: Environment = new Environment({
+const socketEnvironment: () => Environment = () => new Environment({
     network: Network.create(
         createFetcher(absintheSocket),
         subscribe

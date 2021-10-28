@@ -10,14 +10,19 @@ export default function Main(): any {
     const [secondPhrase, setSecondPhrase] = useState("");
     const [thirdPhrase, setThirdPhrase] = useState("");
 
-    const firstLinePhrase = "Buenos Aires by Night";
-    const secondLinePhrase = "Benvenuto";
-    const thirdLinePhrase = "It is a world of Darkness. The sin of Caine, has spawn a cursed horror that stalks the night" +
-        " in search of living blood. The kindreds have long been a secret influence through all ages of human history," +
-        " plotting against each other in a never-ending Jihad. Their immortal progeny are among us to this day, hidden" +
-        " from the eyes of humanity, by an elaborate... Masquerade.";
-
     useEffect(() => {
+        const firstLinePhrase = "Buenos Aires by Night";
+        const secondLinePhrase = "Benvenuto";
+        const thirdLinePhraseItalian = "È un mondo di Tenebra. Il peccato di Caino ha generato entità maledette che infestano" +
+            " la notte in cerca di sangue vivo. I Fratelli sono stati una segreta influenza lungo tutte le ere della storia" +
+            " umana, complottando l'uno contro l'altro in un'eterna Jihad. La loro progenie immortale è tra noi anche adess," +
+            " celata dagli occhi umani da una elaborata... Masquerade..."
+
+        const thirdLinePhraseEnglish = "It is a world of Darkness. The sin of Caine has spawned a cursed horror that stalks the night" +
+            " in search of living blood. The kindreds have long been a secret influence through all ages of human history," +
+            " plotting against each other in a never-ending Jihad. Their immortal progeny are among us to this day, hidden" +
+            " from the eyes of humanity, by an elaborate... Masquerade...";
+
         const typeWriteLine = (setter: (string => string) => void, phrase: string, caret: number, onCompleted?: () => void) => {
             if (caret <= phrase.length) {
                 const newPhrase = phrase.substring(0, caret);
@@ -37,7 +42,7 @@ export default function Main(): any {
 
         typeWriteLine(setFirstPhrase, firstLinePhrase, 0, () => {
             typeWriteLine(setSecondPhrase, secondLinePhrase, 0, () => {
-                typeWriteLine(setThirdPhrase, thirdLinePhrase, 0);
+                typeWriteLine(setThirdPhrase, Math.random() > 0.5 ? thirdLinePhraseEnglish : thirdLinePhraseItalian, 0);
             });
         });
     }, []);
