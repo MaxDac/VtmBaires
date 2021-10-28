@@ -65,6 +65,16 @@ const Chat = ({id}: ChatProps): any => {
     }, [environment, id])
 
     useEffect(() => {
+        const handleUnhandledExceptionAtChat = e => {
+            console.error("Unhandled error while subscribing", e);
+
+            if (typeof e === "string" && e.indexOf("message [") !== -1) {
+                document.location.reload();
+            }
+        };
+
+        window.addEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
+
         const showNewChatEntry = entry => setAdditionalEntries(es => [...es, entry]);
 
         const performSubscription = () =>
@@ -88,6 +98,7 @@ const Chat = ({id}: ChatProps): any => {
             const subscription = performSubscription();
             return () => {
                 console.info("unsubscribing");
+                window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
                 subscription.unsubscribe();
             };
         }

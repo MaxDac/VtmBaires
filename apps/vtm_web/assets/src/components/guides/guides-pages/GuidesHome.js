@@ -5,11 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { guideStyle, titleStyle } from "../GuidesStyles";
 
-type Props = {
-
-}
-
-const GuidesHome = (props: Props): any => {
+const GuidesHome = (): any => {
     return (
         <Box>
             <Typography paragraph>
@@ -23,19 +19,23 @@ const GuidesHome = (props: Props): any => {
                 e vi ringrazia del tempo che dedicherete fin da ora al suo sviluppo ed alla sua evoluzione.
                 La guida che state per leggere non ambisce a coprire tutte le informazioni contenute nella 
                 manualistica della <b>White Wolf</b>&trade;
-                riguardo <b>Vampiri: la Masquerade</b>&trade;, vi rimandiamo ai relativi manuali, nella loro ultima versione v5,
+                riguardo <b>Vampiri: la Masquerade</b>&trade;, ma speriamo di darvi una buona infarinata. Per
+                approfondimenti, comunque, vi rimandiamo ai relativi manuali, nella loro ultima versione v5,
                 ai quali la comunit&agrave; si ispira e tenta di implementare nel (a volte) limitante contesto online.
             </Typography>
+
             <Typography paragraph sx={guideStyle}>
                 In questa comunit&agrave; &egrave; indispensabile per giocare un vampiro, avere una estesa conoscenza
                 dell'ambientazione di Vampiri: la Masquerade&trade;. Questo non vuol dire che giocatori privi di questa
                 conoscenza siano esclusi automaticamente: potranno cominciare giocando personaggi umani, ed essere
                 introdotti lentamente al mondo, alla terminologia ed alle conoscenze del mondo dei vampiri.
             </Typography>
+
             <Typography paragraph sx={guideStyle}>
                 Vi invitiamo comunque a leggere la guida per apprendere quali adattamenti sono stati ritenuti necessari
                 nello sviluppo della land, quali limitazioni sono stati poste all'ambientazione, e le sue caratteristiche.
             </Typography>
+
             <Typography paragraph sx={guideStyle}>
                 La guida si svilupper&agrave; in questo modo:
                 <ul>

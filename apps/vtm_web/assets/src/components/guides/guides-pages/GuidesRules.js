@@ -4,16 +4,12 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 
-type Props = {
-
-}
-
-const GuidesRules = (props: Props): any => {
+const GuidesRules = (): any => {
     return (
         <>
             <Typography paragraph>
                 <h1 style={titleStyle}>
-                    Meccaniche di Gioco V5
+                    Adattamenti rispetto alla V5
                 </h1>
             </Typography>
 

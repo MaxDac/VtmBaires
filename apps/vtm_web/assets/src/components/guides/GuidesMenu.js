@@ -24,13 +24,10 @@ import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
 import {LoginRoutes} from "../login/LoginRouter";
 
-type Props = {
-
-}
-
-const GuidesMenu = (props: Props): any => {
+const GuidesMenu = (): any => {
     const history = useHistory();
     const [environmentOpen, setEnvironmentOpen] = useState(true);
+    const [rulesOpen, setRulesOpen] = useState(false);
 
     return (
         <div>
@@ -55,7 +52,12 @@ const GuidesMenu = (props: Props): any => {
                     </ListItemIcon>
                     <ListItemText primary="Regole generali" />
                 </ListItem>
-                <ListItem button onClick={_ => setEnvironmentOpen(p => !p)}>
+                <ListItem button onClick={_ => {
+                    setEnvironmentOpen(p => {
+                        setRulesOpen(_ => p);
+                        return !p;
+                    });
+                }}>
                     <ListItemIcon>
                         <TheaterComedyIcon />
                     </ListItemIcon>
@@ -77,12 +79,33 @@ const GuidesMenu = (props: Props): any => {
                         </ListItem>
                     </List>
                 </Collapse>
-                <ListItem button onClick={_ => history.push(GuideRoutes.rules)}>
+                <ListItem button onClick={_ => {
+                    setRulesOpen(p => {
+                        setEnvironmentOpen(_ => p);
+                        return !p
+                    });
+                }}>
                     <ListItemIcon>
                         <CasinoIcon />
                     </ListItemIcon>
                     <ListItemText primary="Meccaniche V5" />
                 </ListItem>
+                <Collapse in={rulesOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.attributes)}>
+                            <ListItemText primary="Attributi" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.mechanics)}>
+                            <ListItemText primary="Meccaniche" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.creation)}>
+                            <ListItemText primary="Creazione personaggio" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.rules)}>
+                            <ListItemText primary="Adattamenti" />
+                        </ListItem>
+                    </List>
+                </Collapse>
                 <ListItem button onClick={_ => history.push(GuideRoutes.npcs)}>
                     <ListItemIcon>
                         <SupervisedUserCircleIcon />

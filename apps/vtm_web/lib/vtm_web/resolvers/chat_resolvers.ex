@@ -54,8 +54,8 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
   def create_chat_dice_entry(x, %{entry: entry}, ctx = %{context: %{current_user: user}}) do
     with {:ok, c_id}  <- from_global_id?(entry.character_id),
-         {:ok, at_id} <- from_global_id?(entry.attribute_id),
-         {:ok, ab_id} <- from_global_id?(entry.ability_id) do
+         {:ok, at_id} <- from_global_id_if_not_null?(entry.attribute_id),
+         {:ok, ab_id} <- from_global_id_if_not_null?(entry.ability_id) do
 
       %{
         character_id: character_id,

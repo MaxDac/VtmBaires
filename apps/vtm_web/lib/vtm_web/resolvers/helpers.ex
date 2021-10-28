@@ -41,6 +41,16 @@ defmodule VtmWeb.Resolvers.Helpers do
     end
   end
 
+  @doc """
+  Tries to convert the global id if present, if not, it returns nil.
+  """
+  @spec from_global_id_if_not_null?(binary) :: {:ok, integer | nil} | {:error, binary}
+  def from_global_id_if_not_null?(global_id) when not is_nil(global_id) and global_id != "" do
+    from_global_id?(global_id)
+  end
+
+  def from_global_id_if_not_null?(_), do: {:ok, nil}
+
   @spec reduce_error_list(list({:ok, any} | {:error, binary})) :: {:ok, list(any)} | {:error, list(binary)}
   def reduce_error_list(list) do
     list

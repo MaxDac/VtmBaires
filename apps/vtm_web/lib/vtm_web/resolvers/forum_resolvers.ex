@@ -22,7 +22,7 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
         |> Enum.map(fn
           t = %{forum_section_id: section_id} ->
             t
-            |> Map.put(:forum_section, section_id)
+            |> Map.put(:forum_section, %{id: section_id})
             |> Map.put(:thread_count, thread_count)
         end)
 
@@ -76,10 +76,14 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
               attrs
               |> Map.put(:creator_character_id, cc_id)
 
-            Forum.new_thread(user, s_id, attrs)
+            with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs) do
+              {:ok, %{result: thread}}
+            end
           end
         _ ->
-          Forum.new_thread(user, s_id, attrs)
+          with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs) do
+            {:ok, %{result: thread}}
+          end
       end
     end
   end

@@ -9,10 +9,12 @@ export const performLogout = (onLogoutCompleted: () => void) => {
         onLogoutCompleted();
     }
 
-    window.addEventListener("unhandledrejection", e => {
+    const handleUnhandledExceptionAtLogout = e => {
         console.error("Unhandled error", e);
         clearClientSession();
-    })
+    };
+
+    window.addEventListener("unhandledrejection", handleUnhandledExceptionAtLogout);
 
     try {
         logout()
@@ -26,5 +28,8 @@ export const performLogout = (onLogoutCompleted: () => void) => {
     catch (e) {
         console.error("Catastrophic error", e);
         clearClientSession();
+    }
+    finally {
+        window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtLogout);
     }
 };

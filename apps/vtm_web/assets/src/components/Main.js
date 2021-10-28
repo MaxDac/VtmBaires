@@ -29,7 +29,7 @@ export default function Main(): any {
 
         typeWriteLine(setFirstPhrase, firstLinePhrase, 0, () => {
             typeWriteLine(setSecondPhrase, secondLinePhrase, 0);
-        })
+        });
     }, []);
 
     return (

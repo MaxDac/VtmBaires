@@ -99,7 +99,7 @@ const ForumThread = ({threadId}: Props): any => {
     const createNew = _ => history.push(MainRoutes.createNewForumPost(threadId));
 
     return (
-        <ForumLayout title={thread?.title ?? "Thread"}>
+        <ForumLayout title={thread?.title ?? "Thread"} description={thread?.description}>
             {topControls()}
             <Grid container>
                 {showThreadPosts()}

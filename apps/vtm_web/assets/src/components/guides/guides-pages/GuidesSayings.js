@@ -17,7 +17,7 @@ const GuidesSayings = (): any => {
                 Buenos Aires &egrave; stato per decenni un centro di raccolta delle pi&ugrave;
                 disparate culture provenienti da tutto il mondo, trasportate in barca coi 
                 numerosissimi migranti che hanno trovato ospitalit&agrave; negli sterminati spazi
-                dell'Argentina. Questo crogiolo di culture, personalit&grave;, impulsi, ha generato
+                dell'Argentina. Questo crogiolo di culture, personalit&agrave;, impulsi, ha generato
                 nel corso del Ventesimo secolo una delle societ&agrave; pi&ugrave; vibranti e 
                 profonde al mondo, regalandoci scrittori, poeti, musici, scienziati e tanto altro,
                 oltre al famoso e malinconico ballo per cui il Paese &egrave; cos&igrave; famoso: il&nbsp;
@@ -37,20 +37,27 @@ const GuidesSayings = (): any => {
             <Typography paragraph sx={guideStyle}>
                 <ul>
                     <li style={liStyle}>
-                        <b>Boludo</b>: ingenuo, stupido, usato in contesti bonari o scherzosi, o comunque
-                        non aggressivi
+                        <b>Boludo</b>: ingenuo, stupido, pu&ograve; essere usato in contesti bonari o scherzosi, ma
+                        anche come insulto.
                     </li>
                     <li style={liStyle}>
                         <b>Che</b>: usato per richiamare l'attenzione (tipo "Hey tu")
                     </li>
                     <li style={liStyle}>
-                        <b>Chorro</b>: ladrone, soprattutto detto agli abitanti della <i>villa</i>
+                        <b>Chorro</b>: ladrone
                     </li>
                     <li style={liStyle}>
                         <b>Laburar</b>: lavorare
                     </li>
                     <li style={liStyle}>
+                        <b>Loma del orto</b>: l'espressione che pi&ugrave; ci si avvicina, e che ne rende il significato,
+                        &egrave; <i>in culo ai lupi</i>
+                    </li>
+                    <li style={liStyle}>
                         <b>Mina</b>: donna, dall'italiano femmina (inteso un po' in quel senso)
+                    </li>
+                    <li style={liStyle}>
+                        <b>Orto</b>: il posteriore (leggi: culo)
                     </li>
                     <li style={liStyle}>
                         <b>Pelotudo</b>: idiota, o peggio (leggi: <i>coglione</i>), usato in contesti decisamente
@@ -70,7 +77,10 @@ const GuidesSayings = (): any => {
                         <b>Trucho</b>: falso, contraffatto
                     </li>
                     <li style={liStyle}>
-                        <b>Villero</b>: abitante della <i>Villa</i>, inteso come quartiere problematico, <i>favela</i>
+                        <b>Upite</b>: vedi <b>orto</b>
+                    </li>
+                    <li style={liStyle}>
+                        <b>Villero</b>: abitante della <i>Villa</i>, inteso come quartiere problematico
                     </li>
                 </ul>
             </Typography>

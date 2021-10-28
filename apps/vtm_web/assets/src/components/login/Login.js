@@ -52,11 +52,13 @@ const LoginComponent = (): Node => {
     }) => {
         setWait(true);
 
-        window.addEventListener("unhandledrejection", e => {
+        const handleUnhandledExceptionAtLogin = e => {
             setWait(false);
             console.error("Unhandled error", e);
             showUserNotification({type: 'error', message: "Username or password invalid."});
-        });
+        };
+
+        window.addEventListener("unhandledrejection", handleUnhandledExceptionAtLogin);
 
         login(email, password, remember)
             .then(res => {
@@ -69,6 +71,9 @@ const LoginComponent = (): Node => {
             .catch(errors => {
                 setWait(false);
                 showUserNotification({type: 'error', graphqlErrors: errors, message: "Username or password invalid."});
+            })
+            .finally(() => {
+                window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtLogin);
             });
     }
 

@@ -42,11 +42,22 @@ const CreateNewThread = ({sectionId}: Props): any => {
             creatorCharacterId: section?.onGame === true ? character?.id : null,
             title: title,
             description: description
-        }).then(_ => {
+        }).then(id => {
             showUserNotification({
                 type: "success",
                 message: "Nuovo thread creato."
             });
+
+            console.log("got id", id);
+
+            setTimeout(() => {
+                if (id != null && id !== "") {
+                    history.push(MainRoutes.forumThread(id));
+                }
+                else {
+                    goBack();
+                }
+            }, 500);
         }).catch(e => {
             console.error("Remote error", e);
             showUserNotification({
@@ -54,8 +65,6 @@ const CreateNewThread = ({sectionId}: Props): any => {
                 graphqlMessage: e,
                 message: "Impossibile creare il nuovo thread."
             });
-        }).finally(() => {
-            setTimeout(() => goBack(), 500);
         });
     };
 
