@@ -1,4 +1,6 @@
 defmodule Vtm.Characters.CharacterAttribute do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

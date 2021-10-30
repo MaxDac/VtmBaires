@@ -127,18 +127,27 @@ defmodule Vtm.Chats do
     {amount, throw_description} = get_dice_amount(character_id, attribute_id, ability_id, free_throw)
     %{hunger: hunger} = Characters.get_character_status(user_id, character_id)
 
-    # Simulating dice throwing
-    dices = get_dices_result(dice_thrower, amount, hunger)
+    case amount do
+      0 ->
+        "#{throw_description}: *Il personaggio non ha dadi da tirare*."
+      _ ->
+        # Simulating dice throwing
+        dices = get_dices_result(dice_thrower, amount, hunger)
 
-    # Computing the throw result agains the difficulty
-    dice_throw_result = get_dice_throw_results(dices, difficulty)
+        # Computing the throw result agains the difficulty
+        dice_throw_result = get_dice_throw_results(dices, difficulty)
 
-    # Transforming the dices roll as a string
-    dices_as_string = dices_to_string(dices, difficulty)
+        # Transforming the dices roll as a string
+        dices_as_string = dices_to_string(dices, difficulty)
 
-    # Parsing the result
-    parse_result(dice_throw_result, throw_description, dices_as_string)
+        # Parsing the result
+        parse_result(dice_throw_result, throw_description, dices_as_string)
+    end
   end
+
+  @spec zero_if_less_than_zero(integer) :: integer
+  defp zero_if_less_than_zero(a) when is_integer(a) and a < 0, do: 0
+  defp zero_if_less_than_zero(a), do: a
 
   defp get_dice_amount(character_id, attribute_id, ability_id, free_throw) do
     case {attribute_id, ability_id, free_throw} do
@@ -147,9 +156,10 @@ defmodule Vtm.Chats do
           result
         end
       {_, _, free_throw} when not is_nil(free_throw) ->
+        free_throw = free_throw |> zero_if_less_than_zero()
         {free_throw, "Tiro di #{free_throw} dadi"}
       _ ->
-        0
+        {0, "Tiro di 0 dadi"}
     end
   end
 
@@ -165,10 +175,11 @@ defmodule Vtm.Chats do
       attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == ability_id end)
     }
 
-    {
-      attribute_value + ability_value + free_throw,
-      "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"
-    }
+    amount =
+      (attribute_value + ability_value + free_throw)
+      |> zero_if_less_than_zero()
+
+    {amount, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"}
   end
 
   defp get_dices_result(dice_thrower, amount, hunger) do
@@ -194,6 +205,7 @@ defmodule Vtm.Chats do
     "(#{visual}, difficoltà: #{difficulty})"
   end
 
+  @spec parse_result(atom(), binary(), binary()) :: binary()
   defp parse_result(result, throw_description, dices_as_string) do
     result_desc =
       case result do

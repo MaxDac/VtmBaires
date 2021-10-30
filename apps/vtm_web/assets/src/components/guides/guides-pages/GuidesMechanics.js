@@ -295,6 +295,92 @@ const GuidesMechanics = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
+                Se il personaggio avr&agrave; successo nel tiro contrastato, ai danni che gi&agrave; ha ottenuto sottraendo i
+                successi dell'avversario potr&agrave; aggiungere i danni inferti con l'arma utilizzata. In assenza di un 
+                regolamento per le armi ancora disponibile, i personaggi potranno considerare il loro valore di <b>Risorse</b> 
+                per determinare il danno dell'arma che posseggono, secondo lo schema proposto di seguito.
+            </Typography>
+
+            <Typography paragraph>
+                <TableContainer component={Paper} sx={{ width: "100%", margin: "0 auto" }}>
+                    <Table aria-label="Tipi di copertura">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Risorse</StyledTableCell>
+                                <StyledTableCell>Danno massimo armi da fuoco</StyledTableCell>
+                                <StyledTableCell>Danno massimo armi da mischia</StyledTableCell>
+                                <StyledTableCell>Danno massimo armi da rissa</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    0
+                                </StyledTableCell>
+                                <StyledTableCell>Nessuna arma</StyledTableCell>
+                                <StyledTableCell>Nessuna arma</StyledTableCell>
+                                <StyledTableCell>Nessuna arma</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    1
+                                </StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    2
+                                </StyledTableCell>
+                                <StyledTableCell>2</StyledTableCell>
+                                <StyledTableCell>2</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    3
+                                </StyledTableCell>
+                                <StyledTableCell>2</StyledTableCell>
+                                <StyledTableCell>2</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    4
+                                </StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    5
+                                </StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
+                                <StyledTableCell>1</StyledTableCell>
+                            </StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Affinch&egrave; l'arma venga considerata, il personaggio all'inizio della giocata dovr&agrave; dichiarare
+                di possederla nell'azione iniziale, altrimenti non gli sar&agrave; possibile utilizzarla nel corso del
+                combattimento. Ricordiamo che non sar&agrave; possibile usare le Abilit&agrave; di Mischia e Armi da Fuoco
+                senza possedere un'arma.<br />
+                Se il personaggio acquisisce l'arma in gioco, un Narratore aggiorner&agrave; le note del personaggio, 
+                aggiungendo l'arma che, da quel momento, potr&agrave; essere dichiarata normalmente all'inizio dell'azione.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
                 Possono essere arrecati due tipi di danni differenti:
 
                 <ul>

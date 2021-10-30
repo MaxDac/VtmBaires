@@ -1,4 +1,6 @@
 defmodule Vtm.Characters.Attribute do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -29,6 +31,8 @@ defmodule Vtm.Characters.Attribute do
 end
 
 defmodule Vtm.Characters.Discipline do
+  @moduledoc false
+
   alias Vtm.Characters.AttributeType
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.Discipline

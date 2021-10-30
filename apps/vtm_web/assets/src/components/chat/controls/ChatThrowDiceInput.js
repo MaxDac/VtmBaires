@@ -45,6 +45,19 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const [freeThrow, setFreeThrow] = useState(0);
     const [difficulty, setDifficulty] = useState(2);
 
+    const attributeOrSkillSelected = (): boolean => 
+        attribute !== "" || skill !== "";
+
+    const freeThrowLabel = (): string => 
+        attributeOrSkillSelected()
+            ? "Modificatore"
+            : "Tiro libero";
+
+    const freeThrowMinimumAmount = (): number =>
+        attributeOrSkillSelected()
+            ? -10
+            : 0
+
     const filterAttribute = (name, section) =>
         attributes.filter(a =>
             a?.attributeType?.name === name &&
@@ -66,7 +79,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     }
 
     const freeThrowItems = () =>
-        materialize(range(0, 10))
+        materialize(range(freeThrowMinimumAmount(), 10))
             .map(i => <MenuItem key={i} value={i}>{i === 0 ? "None" : String(i)}</MenuItem>);
 
     useEffect(() => {
@@ -187,10 +200,10 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Throw Dices</DialogTitle>
+            <DialogTitle id="form-dialog-title">Tira Dadi</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Select Attribute and Skill, or input a custom amount of dices you want to throw.
+                    Seleziona un Attributo e un'Abilit&agrave; e il modificatore di ammontare, oppure tira un dado libero.
                 </DialogContentText>
                 <Grid container>
                     {masterChecker()}
@@ -199,7 +212,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                         padding: "10px"
                     }}>
                         <FormControl fullWidth>
-                            <InputLabel id="free-throw-label">Free Throw</InputLabel>
+                            <InputLabel id="free-throw-label">{freeThrowLabel()}</InputLabel>
                             <Select
                                 labelId="free-throw-label"
                                 id="freeThrow"
