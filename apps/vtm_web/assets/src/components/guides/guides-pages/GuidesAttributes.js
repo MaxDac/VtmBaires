@@ -103,6 +103,17 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
+                Le Discipline costituiscono l'insieme di poteri e di conoscenze che rendono i vampiri potenti esseri soprannaturali.
+                Con il nuovo regolamento di Vampiri: la Masquerade&trade;, sono stati introdotti pi&ugrave; poteri per lo stesso livello di
+                Disciplina, ma un personaggio potr&agrave; acquistare <b>un solo potere per livello di Disciplina</b>, includendo anche i poteri
+                amalgama, per i quali sar&agrave; necessario avere anche il punteggio richiesto nella seconda Disciplina.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Di seguito proponiamo un veloce riassunto dei poteri acquisibili in creazione.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
                 <ul>
                     <li style={liStyle}><b>Animalità</b>: i poteri di Animalit&agrave; hanno a che fare con la Bestia interiore, del personaggio e altrui.
                         <ul>
@@ -286,7 +297,7 @@ const GuidesAttributes = (): any => {
                             <li><b>Prodezza dal Dolore</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il cainita non soffre pi&ugrave; gli impedimenti dati dalla perdita di punti salute, fino al torpore. Riesce ad agire normalmente anche se incapacitato.</li>
                         </ul>
                     </li>
-                    <li style={liStyle}><b>Thin-Blood Alchemy</b>: Thin-Blood Alchemy</li>
+                    <li style={liStyle}><b>Thin-Blood Alchemy</b>: <i>Under Construction</i></li>
                     <li style={liStyle}><b>Velocità</b>: questa Disciplina aumenta la naturale grazie e la velocit&agrave; di movimento di un vampiro
                         <ul>
                             <li><b>Grazie Felina</b> (&#9679;): il vampiro assume la grazia e la destrezza di un ginnasta olimpico.</li>
@@ -537,7 +548,7 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h4 style={titleStyle}>
-                    Difetti
+                    Pregi
                 </h4>
             </Typography>
 
@@ -550,7 +561,7 @@ const GuidesAttributes = (): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Camarilla Contact</b>: il personaggio &egrave; riuscito ad amicarsi un cainita della Camarilla
+                        <b>Contatto in Camarilla</b>: il personaggio &egrave; riuscito ad amicarsi un cainita della Camarilla
                         che lo tratta (malamente) come informatore, in cambio della possibilit&agrave; di entrare a far
                         parte della Camarilla diventando un Fratello a tutti gli effetti. Prendendo questo Pregio, si
                         deve acquisire anche un pallino di Mawla, corrispondente alla Contatto nella Camarilla.
