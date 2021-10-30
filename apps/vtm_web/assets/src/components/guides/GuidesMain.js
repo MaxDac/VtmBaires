@@ -18,6 +18,7 @@ export const GuideRoutes = {
     environmentBaires: "/guides/environment-baires",
     environmentSects: "/guides/environment-sects",
     npcs: "/guides/npcs",
+    clans: "/guides/clans",
     attributes: "/guides/attributes",
     mechanics: "/guides/mechanics",
     creation: "/guides/creation",
@@ -42,6 +43,7 @@ const GuidesSiteHelp = React.lazy(() => import("./guides-pages/GuidesSiteHelp"))
 const GuidesGlossary = React.lazy(() => import("./guides-pages/GuidesGlossary"));
 const GuidesRules = React.lazy(() => import("./guides-pages/GuidesRules"));
 const GuidesSayings = React.lazy(() => import("./guides-pages/GuidesSayings"));
+const GuidesClans = React.lazy(() => import("./guides-pages/GuidesClans"));
 const GuidesAttributes = React.lazy(() => import("./guides-pages/GuidesAttributes"));
 const GuidesMechanics = React.lazy(() => import("./guides-pages/GuidesMechanics"));
 const GuidesCreation = React.lazy(() => import("./guides-pages/GuidesCreation"));
@@ -65,6 +67,7 @@ const GuidesMain = ({match}: Props): any => {
                     <Route exact path={`${match.url}/environment`} component={GuidesEnvironment} />
                     <Route exact path={`${match.url}/environment-baires`} component={GuidesEnvironmentBaires} />
                     <Route exact path={`${match.url}/environment-sects`} component={GuidesEnvironmentSects} />
+                    <Route exact path={`${match.url}/clans`} component={GuidesClans} />
                     <Route exact path={`${match.url}/attributes`} component={GuidesAttributes} />
                     <Route exact path={`${match.url}/mechanics`} component={GuidesMechanics} />
                     <Route exact path={`${match.url}/creation`} component={GuidesCreation} />

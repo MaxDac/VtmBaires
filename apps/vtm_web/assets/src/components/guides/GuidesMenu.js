@@ -92,6 +92,9 @@ const GuidesMenu = (): any => {
                 </ListItem>
                 <Collapse in={rulesOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.clans)}>
+                            <ListItemText primary="Clans" />
+                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.attributes)}>
                             <ListItemText primary="Attributi" />
                         </ListItem>
