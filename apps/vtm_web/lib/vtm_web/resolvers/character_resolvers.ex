@@ -328,9 +328,10 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def approve_character(%{character_id: character_id}, _) do
-    subject = "Accettazione utente"
-    message =
+  def approve_character(%{character_id: character_id, reason: reason}, _) do
+    subject = "Accettazione personaggio"
+
+    default_message =
       """
       Complimenti! Il tuo utente è stato accettato. Puoi cominciare a giocare e partecipare attivamente alle giocate.\n
       \n
@@ -338,11 +339,50 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       e riconnetterti successivamente.
       """
 
+    message =
+      case reason do
+        ""  ->
+          default_message
+        nil ->
+          default_message
+        _   ->
+          """
+          #{default_message}\n\nIl narratore che ha accettato il tuo personaggio ha voluto aggiungere qualcosa:\n
+          \n
+          #{reason}
+          """
+      end
+
     with {:ok, character} <- Characters.approve_character(character_id),
          %{id: id}        <- Characters.get_character_user(character),
          {:ok, message}   <- Messages.send_master_message(id, subject, message),
          _                <- Absinthe.Subscription.publish(VtmWeb.Endpoint, message, new_message_notification: id) do
       {:ok, true}
+    end
+  end
+
+  def reject_character(%{character_id: character_id, reason: reason}, %{context: %{current_user: user = %{id: user_id}}}) do
+    user_name = VtmAuth.Accounts.get_user_name_by_id(user_id)
+
+    subject = "Personaggio rifiutato!"
+    message =
+      """
+      Ci dispiace informarti che il tuo utente è stato stato rifiutato. La ragione è stata la seguente\n
+      \n
+      #{reason}\n
+      \n
+      La decisione è stata presa da #{user_name}.
+      """
+
+    with %{id: id}      <- Characters.get_character_user(%{id: character_id}),
+         {:ok, _}       <- Characters.delete_character(character_id, user),
+         {:ok, message} <- Messages.send_master_message(id, subject, message),
+         _              <- Absinthe.Subscription.publish(VtmWeb.Endpoint, message, new_message_notification: id) do
+      {:ok, true}
+    else
+      e ->
+        IO.puts "error while rejecting: #{inspect e}"
+        e
     end
   end
 

@@ -494,7 +494,7 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, %{}} | {:error, :unauthorized}
+  @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, Character.t()} | {:error, :unauthorized}
   def delete_character(character_id, user) do
     case user do
       %{role: :master} -> delete_character_p(character_id)

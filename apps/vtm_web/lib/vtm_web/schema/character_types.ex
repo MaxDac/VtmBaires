@@ -295,10 +295,20 @@ defmodule VtmWeb.Schema.CharacterTypes do
     end
 
     field :approve_character, :boolean do
-      arg :character_id, :id
+      arg :character_id, non_null(:id)
+      arg :reason, :string
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve parsing_node_ids(&CharacterResolvers.approve_character/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :reject_character, :boolean do
+      arg :character_id, non_null(:id)
+      arg :reason, non_null(:string)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.reject_character/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

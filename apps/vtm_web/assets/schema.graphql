@@ -511,7 +511,7 @@ type RootMutationType {
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   applyDamage(input: ApplyDamageInput!): ApplyDamagePayload
   applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
-  approveCharacter(characterId: ID): Boolean
+  approveCharacter(characterId: ID!, reason: String): Boolean
   assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
@@ -536,6 +536,7 @@ type RootMutationType {
   logout: Boolean
   newForumPost(input: NewForumPostInput!): NewForumPostPayload
   newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
+  rejectCharacter(characterId: ID!, reason: String!): Boolean
   requestNewPassword(userEmail: String!): Boolean
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
   resetSession: Boolean
