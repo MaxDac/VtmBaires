@@ -5,22 +5,6 @@ import GuideLayout, {drawerWidth} from "./GuideLayout";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import {Route} from "react-router-dom";
-import GuidesHome from "./guides-pages/GuidesHome";
-import GuidesEnvironment from "./guides-pages/GuidesEnvironment";
-import GuidesGeneralRules from "./guides-pages/GuidesGeneralRules";
-import GuidesEnvironmentBaires from "./guides-pages/GuidesEnvironmentBaires";
-import GuidesEnvironmentSects from "./guides-pages/GuidesEnvironmentSects";
-import GuidesNpcs from "./guides-pages/GuidesNpcs";
-import GuidesFaq from "./guides-pages/GuidesFaq";
-import GuidesPlaces from "./guides-pages/GuidesPlaces";
-import GuidesCredits from "./guides-pages/GuidesCredits";
-import GuidesSiteHelp from "./guides-pages/GuidesSiteHelp";
-import GuidesGlossary from "./guides-pages/GuidesGlossary";
-import GuidesRules from "./guides-pages/GuidesRules";
-import GuidesSayings from "./guides-pages/GuidesSayings";
-import GuidesAttributes from "./guides-pages/GuidesAttributes";
-import GuidesMechanics from "./guides-pages/GuidesMechanics";
-import GuidesCreation from "./guides-pages/GuidesCreation";
 
 type Props = {
     match: any
@@ -44,6 +28,23 @@ export const GuideRoutes = {
     faqs: "/guides/faq",
     credits: "/guides/credits"
 };
+
+const GuidesHome = React.lazy(() => import("./guides-pages/GuidesHome"));
+const GuidesEnvironment = React.lazy(() => import("./guides-pages/GuidesEnvironment"));
+const GuidesGeneralRules = React.lazy(() => import("./guides-pages/GuidesGeneralRules"));
+const GuidesEnvironmentBaires = React.lazy(() => import("./guides-pages/GuidesEnvironmentBaires"));
+const GuidesEnvironmentSects = React.lazy(() => import("./guides-pages/GuidesEnvironmentSects"));
+const GuidesNpcs = React.lazy(() => import("./guides-pages/GuidesNpcs"));
+const GuidesFaq = React.lazy(() => import("./guides-pages/GuidesFaq"));
+const GuidesPlaces = React.lazy(() => import("./guides-pages/GuidesPlaces"));
+const GuidesCredits = React.lazy(() => import("./guides-pages/GuidesCredits"));
+const GuidesSiteHelp = React.lazy(() => import("./guides-pages/GuidesSiteHelp"));
+const GuidesGlossary = React.lazy(() => import("./guides-pages/GuidesGlossary"));
+const GuidesRules = React.lazy(() => import("./guides-pages/GuidesRules"));
+const GuidesSayings = React.lazy(() => import("./guides-pages/GuidesSayings"));
+const GuidesAttributes = React.lazy(() => import("./guides-pages/GuidesAttributes"));
+const GuidesMechanics = React.lazy(() => import("./guides-pages/GuidesMechanics"));
+const GuidesCreation = React.lazy(() => import("./guides-pages/GuidesCreation"));
 
 const GuidesMain = ({match}: Props): any => {
     return (

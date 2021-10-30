@@ -42,35 +42,7 @@ const GuidesRules = (): any => {
 
                     <li style={liStyle}>
                         La gestione della moralit&agrave; cambia radicalmente. L'umanit&agrave; ora sar&agrave; l'unico 
-                        punteggio disponibile, ma si potranno decidere tre <b>Convinzioni</b> del personaggio. Vengono di seguito 
-                        elencate le convinzioni espresse dal Manuale base V5:
-
-                        <ul>
-                            <li>Non ucciderai</li>
-                            <li>Uccidi solo gli immeritevoli/i miscredenti/in un combattimento leale/per legittima difesa</li>
-                            <li>Mai esporre i minori alla violenza</li>
-                            <li>Ama il prossimo tuo come te stesso</li>
-                            <li>Disobbedienza equivale a disonore</li>
-                            <li>Proteggi gli innocenti dai pericoli</li>
-                            <li>Il coraggio &egrave; il valore pi&ugrave; importante</li>
-                            <li>Mantieni sempre la tua parola</li>
-                            <li>La Verit&agrave; &egrave; sacra; non dirai falsa testimonianza</li>
-                            <li>La schiavit&ugrave; &egrave; malvagit&agrave;</li>
-                            <li>Obbedisci all'Autorit&agrave;</li>
-                            <li>Il mio Paese prima di tutto</li>
-                            <li>Nessuno potr&agrave; mai controllarmi</li>
-                            <li>Non indulgere nelle droghe (o nell'alcol)</li>
-                            <li>Non torturerai</li>
-                            <li>Il colpevole dovr&agrave; essere punito</li>
-                            <li>Da ciascuno secondo le sue capacit&agrave;, per ciascuno secondo i suoi bisogni</li>
-                            <li>Ruba al ricco per dare al povero</li>
-                            <li>Rifiuta la ricchezza, poich&eacute; corrompe.</li>
-                            <li>Non agire contro (inserisci gruppo/fede/setta)</li>
-                            <li>Aiuta sempre le donne in pericolo</li>
-                            <li>Difendi i diseredati</li>
-                            <li>Rispetta (inserisci religione) come sacra e rispettane le leggi morali</li>
-                        </ul>
-
+                        punteggio disponibile, ma si potranno decidere tre <b>Convinzioni</b> del personaggio.
                         Ogni personaggio dovr&agrave; indicare tre convinzioni nelle note per il master in creazione.
                     </li>
 

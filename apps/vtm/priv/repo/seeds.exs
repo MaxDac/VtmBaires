@@ -184,41 +184,110 @@ L'Atletica consente di correre più veloce in un inseguimento, di saltare via da
 È possibile usare Atletica al posto di una qualsiasi altra abilità specifica di combattimento, ma se si usa questa Abilità non sarà possibile colpire gli avversari in nessun modo.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Criminalità", description: """
-
+Questa Abilità dona familiarità al personaggio in ambiti poco legali quali scassinare serrature, piantare cimici, disattivare allarmi, contraffazione,
+apertura di cassaforti e altre attività più o meno illecite. Dato che i moderni sistemi di sicurezza fanno molto spesso uso di dispositivi elettronici,
+potrebbe essere usata anche in corrispondenza dell'Abilità Tecnologia.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Manualità", description: """
 Manualità è un'Abilità ad ampio spettro che racchiude esecuzione artistica, crezione di utensili, fino al miglioramento del proprio Rifugio.
 Si possono possedere più specializzazioni in Manualità che punteggio.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Guidare", description: "Guidare"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Armi da Fuoco", description: "Armi da Fuoco"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Armi da Fuoco", description: """
+L'Abilità consente al personaggio di usare, manutenere e ricaricare velocemente armi da fuoco di vario calibro, dipendendo dal livello che si ha.
+"""})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: """
 Rissa consente al personaggio di colpire i propri avversari con pugni, calci, o artigli. Finché non si hanno armi in mano, si dovrà usare Rissa per colpire
 gli avversari.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Mischia", description: "Mischia"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: "Furtività"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Sopravvivenza", description: "Sopravvivenza"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Mischia", description: """
+Con questa Abilità, il personaggio riesce ad utilizzare armi da mischia quali coltelli, catene, bastoni o mazze da baseball. Anche i paletti di legno,
+una delle armi preferite dalla Seconda Inquisizione, sono da considerarsi armi da mischia.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: """
+Un personaggio con questa Abilità riesce facilmente a spiare, nascondersi e mimetizzarsi facilmente in una folla. Possedere alti livelli di questa
+Abilità aiuta anche la Caccia per i vampiri.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Sopravvivenza", description: """
+La Sopravvivenza trasmette l'abilità di resistere in territori serlvaggi, e ritornare subito dopo alla civilizzazione: navigare usando la posizione delle stelle,
+costruire un rifugio improvvisato, o notare tracce di Lupini prima che sia troppo tardi: tutte queste abilità rientrano nel novero di Sopravvivenza.
+La Sopravvivenza è tra l'altro una Abilità importante per la caccia.
+"""})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Affinità Animale", description: "Affinità Animale"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Galateo", description: "Galateo"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intuito", description: "Intuito"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intimidire", description: "Intimidire"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Autorità", description: "Autorità"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Espressività", description: "Espressività"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Convincere", description: "Convincere"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Bassifondi", description: "Bassifondi"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Sotterfugio", description: "Sotterfugio"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Affinità Animale", description: """
+Rappresenta la capacità del personaggio di ammansire ed addestrare animali, e di predirne i comportamenti. I personaggi vampiri sprovvisti di questa Abilità
+avranno serie difficoltà con gli animali, dato che questi eviteranno o saranno aggressivi naturalmente nei loro confronti.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Galateo", description: """
+Il Galateo è la capacità del personaggio di rispondere e identificare le convenzioni sociali di una determinata congregazione, conoscerne i protocolli.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intuito", description: """
+L'Intuito si applica principalmente alla lettura del linguaggio del corpo degli interlocutori, alle loro espressioni ed al tono della loro voce.
+Tramite questa Abilità si può capire se l'interlocutore sta mentendo, ed entro certi limiti intuire quali possono essere i motivi dietro le azioni di altri personaggi.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intimidire", description: """
+Intimidire è il potere di spaventare, inquietare o costringere gli avversari verso una vittoria sociale. Intimidire può essere associata sia alla Forza
+che ad altri Attributi sociali, se il personaggio preferisce una coercizione fisica o sociale.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Autorità", description: """
+Con questa Abilità il personaggio riesce a controllare una folla, o una truppa, innalzare il morale o placare una rivolta. È l'Abilità caratteristica di
+Principi e Baroni.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Espressività", description: """
+L'Espressività è l'Abilità con la quale il personaggio riesce ad esprimere sé stesso, molto spesso in modo artistico. Rappresenta anche la proprietà di linguaggio,
+sia verbale che artistico: il personaggio sarà in grado di dipingere un quadro, o di articolare saggiamente un discorso. Acquisendo questa Abilità, si guadagna
+una Specializzazione (da indicare in fase di creazione in scheda).
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Convincere", description: """
+La Persuasione è l'Abilità con cui un personaggio riesce a convincerne altri che sa cos'è meglio per loro. I maestri persuasori sanno come giocare con le emozioni
+delle loro vittime, o appellarsi alla loro ragione. Da non confondere con la Manipolazione, che è una capacità innata ed istintiva del personaggio, la Persuasione
+ha a che fare con lo studio e la conoscenza di arti quali la retorica.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Bassifondi", description: """
+Questa Abilità garantisce al personaggio l'abilità di parlare la stessa lingua dei bassifondi, riuscendoa mimetizzarcisi senza dare troppo nell'occhio.
+Un personaggio con questa Abilità riesce anche ad interpretare lo slang, o i simboli e i graffiti sui muri di determinati quartieri.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Sotterfugio", description: """
+Il Sotterfugio è l'arte di ingannare in modo convincente, per evitare situazioni spiacevoli a seguito di cattive azioni, o convincere fornendo scuse convincenti.
+Questa Abilità ha a che fare con l'intrigo, i segreti e il doppio gioco. Può essere anche utilizzata per sedurre, o imitare il comportamento di un mortale nel caso
+dei vampiri.
+"""})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Accademiche", description: "Accademiche"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Allerta", description: "Allerta"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Finanza", description: "Finanza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Investigazione", description: "Investigazione"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Medicina", description: "Medicina"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Occulto", description: "Occulto"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Politica", description: "Politica"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Scienza", description: "Scienza"})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Tecnologia", description: "Tecnologia"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Accademiche", description: """
+L'Abilità rappresenta la conoscenza, l'alta educazione, e l'abilità di ricercare informazioni in contesti umanisti o delle arti liberali. Storia, filosofia, fanno
+tutte parte di questa Abilità. Acquisendo questa Abilità si dovrà scegliere la specializzazione del personaggio (in quale branca della conoscenza è esperto).
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Allerta", description: """
+Allerta ha a che fare coi sensi. Con alti livelli di questa Abilità il personaggio riesce a notare dettagli apparentemente insignificanti, o a percepire un attacco.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Finanza", description: """
+Con questa Abilità è possibile identificare andamenti e manipolare il mercato azionario, o investire. Garantisce anche l'abilità di "seguire il denaro", identificando
+l'origine delle risorse finanziarie di un altro personaggio.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Investigazione", description: """
+L'Abilità dei detective: il personaggio sarà in grado di risolvere casi o dipanare segreti, identificare indizi, interpretarli, o trovare persone scomparse.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Medicina", description: """
+La Medicina ha a che fare con la cura del corpo umano e delle sue ferite. Garantisce anche la conoscenza su patologie di vario tipo, e la capacità di usare equipaggiamento
+medico.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Occulto", description: """
+Occulto rappresenta la conoscenza del mondo mistico, dalle pratiche e rituali di Massoni o Rosacroce, fino alle conoscenze Noddistiche e magiche. Il personaggio sarà in grado
+di riconoscere segni magici, siano essi efficaci o meno.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Politica", description: """
+La Politica si occupa della burocrazia e della diplomazia, sia mortale che cainita. Il personaggio potrà lavorare, o anche pressionare, la politica di una circoscrizione, o di
+un Comune, o anche più in su. Un cainita potrà sapere quale Setta domina, e dove.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Scienza", description: """
+La Scienza è un'Abilità con uno spettro molto ampio, che accomuna la conoscenza della biologia della vita e le leggi dell'entropia universale. Ha molto a che vedere con le
+conoscenze Accademiche, ma mentre queste sono focalizzate su conoscenze umanistiche, le Scienze sono focalizzate su materie scientifiche e ingegneristiche. Anche per Scienze,
+così come per Accademiche, in fase di creazione sarà necessario identificare quale specializzazione il personaggio avrà.
+"""})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Tecnologia", description: """
+La Tecnologia è una materia sempre in movimento: nel XIX secolo riguardava lo studio di motori a vapore, adesso riguarda tutto ciò che ha a che fare con calcolatori, quali
+computer, telefoni cellulari, ecc.
+"""})
 
 {:ok, animalism} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Animalità", description: "Animalità"})
 {:ok, auspex} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Auspex", description: "Auspex"})
@@ -233,30 +302,74 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: m
 {:ok, protean} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Proteide", description: "Proteide"})
 {:ok, alchemy} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Thin-Blood Alchemy", description: "Thin-Blood Alchemy"})
 
-{:ok, allies} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Allies", description: "Allies"})
-{:ok, contacts} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contacts", description: "Contacts"})
-{:ok, fame} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fame", description: "Fame"})
-{:ok, haven} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Haven", description: "Haven"})
-{:ok, herd} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Herd", description: "Herd"})
-{:ok, influence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: "Influence"})
-{:ok, loresheet} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: "Loresheet"})
-{:ok, mask} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: "Mask"})
-Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: "Mawla"})
-{:ok, resources} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: "Resources"})
-{:ok, retainers} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: "Retainers"})
-Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: "Status"})
+{:ok, allies} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Allies", description: """
+Gli alleati sono personaggi, umani o cainiti, che supportano il personaggio: famiglia, amici, o gli elementi dell'organizzazione di cui il personaggio fa parte.
+Il numero di livelli che si intendono acquistare possono significare più alleati (uno per pallino), o un alleato di maggiore influenza, su cui si può fare più affidamento.
+Dovrete indicare in scheda la natura dell'Alleato e il suo "valore".
+"""})
+{:ok, contacts} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contacts", description: """
+I contatti sono conoscenze superficiali del personaggio, che non si impegneranno molto per salvarlo da situazioni di pericolo, ma sono una utilissima fonte di informazioni.
+Contrariamente agli alleati, un pallino acquistato in Contatti garantirà un numero variabile di contatti in diverse aree di influenza politiche, sanitarie,
+o nelle forze dell'ordine del personaggio. Per questo, dovrete indicare in scheda per ciascun pallino in quale area di influenza i contatti del personaggio operano.
+"""})
+{:ok, fame} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fame", description: """
+La Fama misura quanto il personaggio è conosciuto in un particolare ambito. Il personaggio potrà essere stato un cantante o un attore famoso, o essere un cainita
+molto famoso nella società vampirica per un motivo (che dovrete specificare in creazione). La Fama potrebbe anche ritorcesi contro un personaggio: se un vampiro era
+famoso nella sua vita mortale, alcuni potrebbero trovare strano il vederlo solamente di notte.
+"""})
+{:ok, haven} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Haven", description: """
+Questo Vantaggio determina la qualità del rifugio del personaggio. Acquistare più pallini in Rifugio potrebbe anche significare che il personaggio ne ha più di uno
+in caso di emergenza. Quello che dovrete indicare in scheda per questo Vantaggio sarà la qualità e la quantità dei rifugi a cui il personaggio ha accesso.
+"""})
+{:ok, herd} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Herd", description: """
+Il Gregge è un gruppo di mortali da cui il cainita può nutrirsi senza troppi rischi e pericoli. Non si tratta di alleati, o di contatti, semplicemente si tratta di
+mortali che garantiscono un approvigionamento di vitae costante. Questo vantaggio aiuta grandemente nella caccia.
+"""})
+{:ok, influence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: """
+Questo Vantaggio determina quanto il cainita o il mortale è in grado di influenzare un'area del governo del Dominio. Le aree di influenza possono riguardare qualsiasi
+organizzazione mortale o cainita, dal governo del comune o di uno stato, alla stampa, alla sanità o alle forze dell'ordine, e perfino la Camarilla, nel caso dei
+cainiti. Ogni pallino potrà rappresentare sia un'area differente di influenza, oppure un grado di influenza maggiore in una particolare area di interesse. In entrambi i casi,
+dovranno essere indicate in fase di creazione le aree di influenza del personaggio.
+"""})
+{:ok, loresheet} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: """
+Rappresenta la Conoscenza su di un'area particolarmente difficile da apprendere di un personaggio. Che sia un segreto noddista, o la conoscenza di un segreto,
+o di particolari rituali dell'Oblivion proibiti, il personaggio possiede questa Conoscenza. Non sarà possibile acquisire in fase di creazione questo Vantaggio,
+ma sarà possibile acquisirlo in gioco.
+"""})
+{:ok, mask} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: """
+Pallini in questo vantaggio garantiscono identità alternative credibili per le agenzie governative umane. Il personaggio potrà aver creato un'identità corroborata
+da documenti falsi o contraffatti, o creati nelle agenzie preposte attraverso influenze o alleati. Un pallino in questo Vantaggio può significare una identità
+alternativa ulteriore, oppure la maggiore affidabilità di una delle identità alternative.
+"""})
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mawla", description: """
+Vantaggio che identifica un mentore del personaggio più o meno famoso. Più grande sarà il punteggio di Mawla, maggiore sarà il potere o il grado di conoscenza del
+Mentore del personaggio. Sarà possibile acquisire questo Vantaggio in fase di creazione, ma dovrà essere ben motivato.
+"""})
+{:ok, resources} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: """
+Le Risorse finanziarie del personaggio. Più alto sarà il livello di Risorse del personaggio, maggiore sarà la sua disponibilità economica. Le Risorse saranno
+considerate quando il personaggio vorrà acquistare particolari oggetti, come armi da fuoco.
+"""})
+{:ok, retainers} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: """
+Gli Asserviti, o ghoul, personaggi mortali (o cainiti, in rari casi) fedeli al personaggio in virtù di un legame di sangue. Un legame di sangue può rendere un mortale
+fedelissimo, ma può anche infondere sentimenti di gelosia, o altri sentimenti di desiderio, oscuri, e quindi potrebbe ritorcersi contro il personaggio cainita
+in determinati casi.
+"""})
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Status", description: """
+La collocazione sociale del personaggio nella congregazione di cui fa parte. Per i cainiti della Camarilla, rappresenta il rango assunto (Sceriffo, Primogenio, Principe, Arpia, ...),
+per gli Anarchici l'influenza che il vampiro possiede sugli altri, quanto cioè il cainita viene considerato una figura di riferimento.
+"""})
 
 # Translating in italian
-Vtm.SeedsHelpers.update_attribute(allies, %{name: "Alleati", description: "Alleati"})
-Vtm.SeedsHelpers.update_attribute(contacts, %{name: "Contatti", description: "Contatti"})
-Vtm.SeedsHelpers.update_attribute(fame, %{name: "Fama", description: "Fama"})
-Vtm.SeedsHelpers.update_attribute(haven, %{name: "Rifugio", description: "Rifugio"})
-Vtm.SeedsHelpers.update_attribute(herd, %{name: "Gregge", description: "Gregge"})
-Vtm.SeedsHelpers.update_attribute(influence, %{name: "Influenza", description: "Influenza"})
-Vtm.SeedsHelpers.update_attribute(loresheet, %{name: "Grimori", description: "Grimori"})
-Vtm.SeedsHelpers.update_attribute(mask, %{name: "Maschera", description: "Maschera"})
-Vtm.SeedsHelpers.update_attribute(resources, %{name: "Risorse", description: "Risorse"})
-Vtm.SeedsHelpers.update_attribute(retainers, %{name: "Seguaci", description: "Seguaci"})
+Vtm.SeedsHelpers.update_attribute(allies, %{name: "Alleati"})
+Vtm.SeedsHelpers.update_attribute(contacts, %{name: "Contatti"})
+Vtm.SeedsHelpers.update_attribute(fame, %{name: "Fama"})
+Vtm.SeedsHelpers.update_attribute(haven, %{name: "Rifugio"})
+Vtm.SeedsHelpers.update_attribute(herd, %{name: "Gregge"})
+Vtm.SeedsHelpers.update_attribute(influence, %{name: "Influenza"})
+Vtm.SeedsHelpers.update_attribute(loresheet, %{name: "Grimori"})
+Vtm.SeedsHelpers.update_attribute(mask, %{name: "Maschera"})
+Vtm.SeedsHelpers.update_attribute(resources, %{name: "Risorse"})
+Vtm.SeedsHelpers.update_attribute(retainers, %{name: "Seguaci"})
 
 
 # Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Umano"})
