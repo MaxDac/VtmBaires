@@ -8,7 +8,10 @@ import AttributeCumulativeStat from "../controls/AttributeCumulativeStat";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import { characterIsVampire } from "../../../_base/utils";
+import {
+  characterIsVampire,
+  defaultFormatDateAndTime,
+} from "../../../_base/utils";
 
 type Props = {
     sheet: Character;
@@ -39,7 +42,7 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
                 }}>
                     <Paper elevation={12} sx={{padding: "10px", margin: "10px"}}>
                         <Typography>
-                            L'ultima caccia risale al {new Date(sheet?.lastHunt ?? "").toLocaleString()},
+                            L'ultima caccia risale al {defaultFormatDateAndTime(sheet?.lastHunt ?? "")},
                             ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
                         </Typography>
                     </Paper>
