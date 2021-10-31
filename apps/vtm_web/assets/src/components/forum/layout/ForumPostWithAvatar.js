@@ -12,34 +12,69 @@ import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQu
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
 import type { GetCharacterAvatarQuery } from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
+import {useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/styles";
+import type {GetCharacterChatAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterChatAvatarQuery.graphql";
+import {getCharacterChatAvatarQuery} from "../../../services/queries/character/GetCharacterChatAvatarQuery";
+import Avatar from "@mui/material/Avatar";
 
 type Props = {
     onGame: boolean;
     post: ?Post;
 }
 
-const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
+const ForumChatAvatar = ({characterId, characterName}): any => {
+    const avatar = useCustomLazyLoadQuery<GetCharacterChatAvatarQuery>(getCharacterChatAvatarQuery, {
+        characterId: characterId
+    }, {
+        fetchPolicy: "store-or-network"
+    })?.getCharacterChatAvatar?.chatAvatar;
+
+    return (
+        <td style={{width: "50px"}}>
+            <Avatar src={avatar}
+                    sx={{width: "50px", height: "50px"}}
+                    alt={`${characterName ?? ""} Avatar`} />
+        </td>
+    );
+};
+
+const ForumAvatar = ({characterId, characterName}): any => {
     const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, { id: characterId }, {
         fetchPolicy: "store-or-network"
     })?.getCharacterAvatar?.avatar;
 
+    return (
+        <td style={{width: "120px"}}>
+            <img style={{width: "100px", height: "100px", border: "2px grey dotted"}}
+                 src={avatar}
+                 alt={`${characterName ?? ""} Avatar`}
+                 align="left"
+                 vspace="10px"
+                 hspace="10px" />
+        </td>
+    );
+};
+
+const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
+    const theme = useTheme();
     const style = () => onGame
         ? mainFontFamily
         : {};
+
+    const showChatAvatar = useMediaQuery(theme.breakpoints.down('md'));
+
+    const avatarControl = () =>
+        showChatAvatar
+            ? (<ForumChatAvatar characterId={characterId} characterName={post?.character?.name} />)
+            : (<ForumAvatar characterId={characterId} characterName={post?.character?.name} />);
 
     return (
         <Box>
             <table>
                 <tbody>
                     <tr>
-                        <td style={{width: "120px"}}>
-                            <img style={{width: "100px", height: "100px", border: "2px grey dotted"}} 
-                                src={avatar}
-                                alt={`${post?.character?.name ?? ""} Avatar`}
-                                align="left"
-                                vspace="10px"
-                                hspace="10px" />
-                        </td>
+                        {avatarControl()}
                         <td valign="top" style={{width: "100%"}}>
                             <Grid container>
                                 <Grid item xs={6}>
