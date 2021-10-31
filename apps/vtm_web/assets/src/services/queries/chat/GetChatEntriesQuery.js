@@ -17,6 +17,7 @@ export const chatEntriesQuery: GraphQLTaggedNode = graphql`
             master
             result
             text
+            offGame
             insertedAt
         }
     }

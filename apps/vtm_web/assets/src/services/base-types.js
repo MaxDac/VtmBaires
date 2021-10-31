@@ -21,6 +21,7 @@ export type ChatEntry = {
     id: string;
     text: string;
     result: string;
+    offGame: boolean;
     master: boolean;
     character: {
         id: string;

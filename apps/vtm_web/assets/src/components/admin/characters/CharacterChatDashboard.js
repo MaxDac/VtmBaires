@@ -23,10 +23,10 @@ const CharacterChatDashboard = ({characterId}: Props): any => {
 
     return (
         <Grid container>
-            <Grid xs={12}>
+            <Grid item xs={12}>
                 {showCharacterStatusForm()}
             </Grid>
-            <Grid xs={12}>
+            <Grid item xs={12}>
                 <CharacterSheet contained={true}
                                 id={characterId}
                                 reload={true}/>

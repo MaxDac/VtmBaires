@@ -55,10 +55,10 @@ defmodule VtmWeb.Schema.BaseTypes do
 
   scalar :decimal do
     parse fn
-      %{ value: value } when is_binary(value) ->
+      %{value: value} when is_binary(value) ->
         {result, _} = Decimal.parse(value)
         {:ok, result}
-      %{ value: value } when is_float(value) ->
+      %{value: value} when is_float(value) ->
         result = Decimal.from_float(value)
         {:ok, result}
       _ ->

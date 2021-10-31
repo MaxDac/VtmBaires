@@ -4,8 +4,6 @@ import React, {useState} from "react";
 import {object, string} from "yup";
 import useStyles from "../../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {ClansQuery} from "../../../services/queries/info/__generated__/ClansQuery.graphql";
-import {clansQuery} from "../../../services/queries/info/ClansQuery";
 import {useFormik} from "formik";
 import FormSelectField from "../../../_base/components/FormSelectField";
 import Grid from "@mui/material/Grid";
@@ -14,6 +12,8 @@ import FormTextField from "../../../_base/components/FormTextField";
 import FormFileDropField from "../../../_base/components/FormFileDropField";
 import Button from "@mui/material/Button";
 import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import type {CreationClansQuery} from "../../../services/queries/info/__generated__/CreationClansQuery.graphql";
+import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
@@ -27,7 +27,7 @@ const CharacterInfoFormValidationSchema = object().shape({
 
 const CharacterInfoForm = ({onSubmit}: Props): any => {
     const classes = useStyles();
-    const clans = useCustomLazyLoadQuery<ClansQuery>(clansQuery, {})?.clans;
+    const clans = useCustomLazyLoadQuery<CreationClansQuery>(creationClansQuery, {})?.creationClans;
 
     const [avatar, setAvatar] = useState<?string>(null);
     const [chatAvatar, setChatAvatar] = useState<?string>(null);

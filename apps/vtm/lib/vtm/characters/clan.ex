@@ -1,4 +1,6 @@
 defmodule Vtm.Characters.Clan do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,6 +8,7 @@ defmodule Vtm.Characters.Clan do
 
   schema "clans" do
     field :name, :string
+    field :selectable, :boolean
 
     many_to_many :attributes, Attribute, join_through: "clan_disciplines", on_replace: :delete
 

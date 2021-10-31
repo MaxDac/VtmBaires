@@ -10,6 +10,7 @@ const subscription = graphql`
         newChatEntry(mapId: $mapId, token: $token) {
             id
             text
+            offGame
             result
             master
             character {

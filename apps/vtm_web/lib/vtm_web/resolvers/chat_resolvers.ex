@@ -41,7 +41,13 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   def create_chat_entry(_, %{entry: entry}, %{context: %{current_user: user}}) do
     with {:ok, c_id}  <- from_global_id?(entry.character_id),
          {:ok, m_id}  <- from_global_id?(entry.chat_map_id) do
-      entry
+      case entry do
+        %{off_game: off_game} when not is_nil(off_game) ->
+          entry
+        _ ->
+          entry
+          |> Map.put(:off_game, false)
+      end
       |> Map.put(:character_id, c_id)
       |> Map.put(:chat_map_id, m_id)
       |> ChatHelpers.create_chat_entry(user)

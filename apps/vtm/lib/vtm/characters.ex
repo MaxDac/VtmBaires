@@ -39,6 +39,13 @@ defmodule Vtm.Characters do
     Clan |> Repo.all()
   end
 
+  def get_selectable_clans() do
+    Clan
+    |> from()
+    |> where([c], c.selectable == true)
+    |> Repo.all()
+  end
+
   def get_clan_disciplines(clan_id) do
     %{attributes: attributes} = Clan
     |> preload(:attributes)

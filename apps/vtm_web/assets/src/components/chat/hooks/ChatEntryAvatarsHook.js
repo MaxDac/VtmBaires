@@ -11,7 +11,10 @@ import type {ChatEntry} from "../../../services/base-types";
  * @return {ChatEntry[]} The entries with the avatar.
  */
 export const useChatEntryAvatarQuery = (entries: Array<ChatEntry>): Array<ChatEntry> => {
-    const characterIds = uniques(entries?.map(e => e?.character?.id));
+    const entriesToConsider = entries
+        ?.filter(e => e?.offGame === false && e?.master === false);
+
+    const characterIds = uniques(entriesToConsider?.map(e => e?.character?.id));
     const avatars = useCharactersChatAvatar(characterIds);
 
     return entries

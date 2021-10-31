@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import type {ChatEntry} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {markdownComponents} from "../../_base/components/ParsedText";
+import {defaultFormatTime} from "../../_base/utils";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;
@@ -25,6 +26,8 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const isText = () => Boolean(entry.text);
 
     const isMaster = () => entry.master;
+
+    const isOffGame = () => entry?.offGame === true;
 
     const commonStyle = {
         ...sx,
@@ -48,7 +51,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
                 ...commonStyle,
                 color: "red"
             }}>
-                {`${text} ${entry.insertedAt}`}
+                {`${text} ${defaultFormatTime(entry?.insertedAt) ?? ""}`}
             </Box>
         );
     }
@@ -90,19 +93,48 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
             ? isText() ? parseChatEntryMasterText() : parseChatEntryMasterResult()
             : isText() ? parseChatEntryText() : parseChatEntryResult();
 
-    const itemText = () =>
-        isMaster()
-            ? <ListItemText primary={secondaryText()} sx={{
-                textAlign: "center"
-            }} />
-            : (
-                <>
-                    <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src={entry.character.chatAvatar} />
-                    </ListItemAvatar>
-                    <ListItemText primary={primaryText()} secondary={secondaryText()} />
-                </>
-            );
+    const secondaryOffText = () => (
+        <Typography paragraph sx={{
+            fontSize: "13px",
+            lineHeight: 1,
+            marginBottom: "3px"
+        }}>
+            <b><i>{entry?.character?.name}</i></b>: {entry?.text}
+        </Typography>
+    );
+
+    const getMasterEntry = () => (
+        <ListItemText primary={secondaryText()} sx={{
+            textAlign: "center"
+        }} />
+    );
+
+    const getChatEntry = () => (
+        <>
+            <ListItemAvatar>
+                <Avatar alt="Remy Sharp" src={entry.character.chatAvatar} />
+            </ListItemAvatar>
+            <ListItemText primary={primaryText()} secondary={secondaryText()} />
+        </>
+    );
+
+    const getOffGameEntry = () => (
+        <>
+            <ListItemText secondary={secondaryOffText()} />
+        </>
+    );
+
+    const itemText = () => {
+        if (isOffGame()) {
+            return getOffGameEntry();
+        }
+
+        if (isMaster()) {
+            return getMasterEntry();
+        }
+
+        return getChatEntry();
+    }
 
     const showDescription = _ => {
         if (!isMaster()) {

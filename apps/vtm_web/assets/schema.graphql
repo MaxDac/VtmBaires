@@ -235,7 +235,8 @@ input ChatDiceEntryRequest {
 input ChatEntryRequest {
   characterId: ID!
   chatMapId: ID!
-  text: String
+  offGame: Boolean
+  text: String!
 }
 
 type ChatLocation implements Node {
@@ -411,6 +412,7 @@ type MapChatEntry implements Node {
   id: ID!
   insertedAt: Hour
   master: Boolean
+  offGame: Boolean
   result: String
   text: String
 }
@@ -559,6 +561,7 @@ type RootQueryType {
   charactersList: [Character]
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
+  creationClans: [Clan]
   getCharacter(id: ID): Character
   getCharacterAvatar(characterId: ID!): CharacterAvatar
   getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar

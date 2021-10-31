@@ -125,15 +125,31 @@ const Chat = ({id}: ChatProps): any => {
         if (!map?.id) {
             showUserNotification({ type: 'error', message: "You're not on a map."});
         }
-    }
+    };
 
-    const onNewEntry = (entry: string) =>
-        createEntry((characterId, mapId) =>
-            chatEntryMutationPromise(environment, {
-                characterId: characterId,
-                chatMapId: mapId,
-                text: entry,
-            }));
+    const parseEntry = (entry: string): [boolean, string] => {
+        const [first,] = entry;
+
+        if (first === "+") {
+            return [true, entry.substring(1)];
+        }
+
+        return [false, entry];
+    };
+
+    const onNewEntry = (entry: string) => {
+        if (entry != null && entry !== "") {
+            const [offGame, parsedEntry] = parseEntry(entry);
+
+            createEntry((characterId, mapId) =>
+                chatEntryMutationPromise(environment, {
+                    characterId: characterId,
+                    chatMapId: mapId,
+                    offGame: offGame,
+                    text: parsedEntry,
+                }));
+        }
+    };
 
     const onNewDiceEntry = (request: ChatDiceRequest) =>
         createEntry((characterId, mapId) =>

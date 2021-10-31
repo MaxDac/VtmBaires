@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.ChatHelpers do
+  @moduledoc false
+
   alias Vtm.Chats
   alias VtmAuth.Accounts
 

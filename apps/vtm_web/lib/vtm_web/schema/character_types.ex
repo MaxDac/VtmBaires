@@ -143,6 +143,10 @@ defmodule VtmWeb.Schema.CharacterTypes do
       resolve &CharacterResolvers.get_clans/3
     end
 
+    field :creation_clans, list_of(:clan) do
+      resolve &CharacterResolvers.get_creation_clans/3
+    end
+
     field :predator_types, list_of(:predator_type) do
       resolve &CharacterResolvers.get_predator_types/3
     end

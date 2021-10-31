@@ -25,6 +25,10 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     {:ok, Characters.get_clans()}
   end
 
+  def get_creation_clans(_, _, _) do
+    {:ok, Characters.get_selectable_clans()}
+  end
+
   def get_predator_types(_, _, _) do
     {:ok, Characters.get_predator_types()}
   end

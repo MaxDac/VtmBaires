@@ -1,14 +1,15 @@
 // @flow
 
 import React from "react";
-import { useEffect, useRef } from "react";
+import {useEffect, useRef} from "react";
 import List from "@mui/material/List";
-import type { ChatEntry } from "../../services/base-types";
+import type {ChatEntry} from "../../services/base-types";
 import ChatEntryComponent from "./ChatEntryComponent";
-import { emptyArray } from "../../_base/utils";
-import { useChatEntriesForSubscriptions } from "./hooks/ChatEntryFromSubscriptionHook";
+import {emptyArray, parseUTC} from "../../_base/utils";
+import {useChatEntriesForSubscriptions} from "./hooks/ChatEntryFromSubscriptionHook";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/styles";
+import {add, compareAsc} from "date-fns";
 
 type Props = {
     entries: ?Array<ChatEntry>;
@@ -52,9 +53,17 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
         return emptyArray<ChatEntry>();
     };
 
+    const moreThanTenMinutesAgo = (date: string): boolean => {
+        const tenMinutesAgo = add(new Date(), {minutes: -10});
+        return compareAsc(parseUTC(date), tenMinutesAgo) > -1;
+    }
+
     const entriesSet = (entries: Array<ChatEntry>) => {
-        const map = new Map(entries.map(e => [e.id, e]));
-        const set = new Set(entries.map(e => e.id));
+        const filteredEntries = entries
+            .filter(e => e.offGame === false || moreThanTenMinutesAgo(e.insertedAt));
+
+        const map = new Map(filteredEntries.map(e => [e.id, e]));
+        const set = new Set(filteredEntries.map(e => e.id));
         return [...set].map(id => map.get(id));
     }
 

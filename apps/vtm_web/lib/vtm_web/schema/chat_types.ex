@@ -18,15 +18,17 @@ defmodule VtmWeb.Schema.ChatTypes do
   node object :map_chat_entry do
     field :result, :string
     field :text, :string
+    field :off_game, :boolean
     field :master, :boolean
     field :character, :character
     field :chat_map, :chat_location
-    field :inserted_at, :hour
+    field :inserted_at, :date_time
   end
 
   input_object :chat_entry_request do
     field :character_id, non_null(:id)
-    field :text, :string
+    field :text, non_null(:string)
+    field :off_game, :boolean
     field :chat_map_id, non_null(:id)
   end
 

@@ -8,7 +8,7 @@ import {chatEntriesQuery} from "../../../services/queries/chat/GetChatEntriesQue
 import {useChatEntryAvatarQuery} from "./ChatEntryAvatarsHook";
 
 export const useChatEntriesQuery = (mapId: string): Array<ChatEntry> => {
-    return useCustomLazyLoadQuery<GetChatEntriesQuery>(chatEntriesQuery, { mapId }, {
+    return useCustomLazyLoadQuery<GetChatEntriesQuery>(chatEntriesQuery, {mapId}, {
         fetchPolicy: "network-only"
     })?.mapChatEntries
         ?.map(e => ({
@@ -22,6 +22,7 @@ export const useChatEntriesQuery = (mapId: string): Array<ChatEntry> => {
             },
             result: e?.result ?? "",
             text: e?.text ?? "",
+            offGame: e?.offGame ?? false,
             insertedAt: e?.insertedAt ?? "",
             master: e?.master ?? false
         })) ?? emptyArray<ChatEntry>();

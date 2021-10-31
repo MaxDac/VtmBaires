@@ -11,6 +11,7 @@ defmodule Vtm.Chats do
   alias Vtm.Characters
 
   @two_hours_in_second 3_600 * 2
+  @ten_minutes_in_seconds 60 * 10
 
   def get_main_chat_maps() do
     query = from m in ChatMap,
@@ -64,21 +65,45 @@ defmodule Vtm.Chats do
         result: c.result,
         master: c.master,
         text: c.text,
+        off_game: c.off_game,
         chat_map_id: c.chat_map_id,
         inserted_at: c.inserted_at
       }
   end
 
-  def get_chat_entries(map_id) do
+  defp get_chat_entries_on_game(map_id) do
     two_hours_ago =
       NaiveDateTime.utc_now()
       |> NaiveDateTime.add(@two_hours_in_second * -1)
 
     query = from c in chat_and_character_joined_query(),
       where: c.chat_map_id == ^map_id,
+      where: c.off_game == false,
       where: c.inserted_at > ^two_hours_ago
 
     Repo.all(query)
+  end
+
+  defp get_chat_entries_off_game(map_id) do
+    ten_minutes_ago =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.add(@ten_minutes_in_seconds * -1)
+
+    query = from c in chat_and_character_joined_query(),
+      where: c.chat_map_id == ^map_id,
+      where: c.off_game == true,
+      where: c.inserted_at > ^ten_minutes_ago
+
+    Repo.all(query)
+  end
+
+  def get_chat_entries(map_id) do
+    on_game = get_chat_entries_on_game(map_id)
+    off_game = get_chat_entries_off_game(map_id)
+
+    on_game
+    |> Enum.concat(off_game)
+    |> Enum.sort_by(&(&1.inserted_at), :asc)
   end
 
   @spec get_chat_entries_by_dates(Integer.t(), NaiveDateTime.t(), NaiveDateTime.t()) :: list(ChatEntry.t())

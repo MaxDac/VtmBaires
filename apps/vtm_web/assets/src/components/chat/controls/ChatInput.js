@@ -84,26 +84,28 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
 
             <Box>
                 <InputBase placeholder="Scrivi qui la tua azione"
-                        multiline
-                        rows={textboxRows}
-                        fullWidth
-                        value={value}
-                        onFocus={_ => setInDices(false)}
-                        onBlur={_ => setInDices(true)}
-                        sx={{
-                            fontFamily: 'GabrieleLightRibbon',
-                            padding: "5px",
-                            width: "calc(100% - 70px)",
-                            fontSize: fontSize
-                        }}
-                        inputProps={{ 'aria-label': 'naked' }}
-                        onKeyDown={handleControlKeyDown}
-                        onKeyUp={handleCntrolKeyUp}
-                        onChange={onControlChanged} />
+                           multiline
+                           rows={textboxRows}
+                           fullWidth
+                           value={value}
+                           onFocus={_ => setInDices(false)}
+                           onBlur={_ => setInDices(true)}
+                           sx={{
+                               fontFamily: 'GabrieleLightRibbon',
+                               padding: "5px",
+                               width: "calc(100% - 70px)",
+                               fontSize: fontSize
+                           }}
+                           inputProps={{ 'aria-label': 'naked' }}
+                           onKeyDown={handleControlKeyDown}
+                           onKeyUp={handleCntrolKeyUp}
+                           onChange={onControlChanged} />
                 <Typography sx={{
                     fontSize: "13px"
                 }}>
                     {countCharacterMessage()}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Anteponi un <b>+</b> alla frase per poter comunicare con gli altri giocatori off game
                 </Typography>
             </Box>
 
