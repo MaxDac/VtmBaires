@@ -37,10 +37,11 @@ type Props = {
     isReply: boolean;
     characterId?: string,
     userId?: string,
-    onGame?: boolean
+    onGame?: boolean,
+    toUserId?: string
 }
 
-const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", onGame = false}: Props): any => {
+const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, onGame = false}: Props): any => {
     const theme = useTheme();
     const allUsers = useCustomLazyLoadQuery<AllUsersQuery>(allUsersQuery, {})?.allUsers;
     const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
@@ -60,7 +61,7 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", onG
         const cleanedInput = cleanInput(values);
         console.log("cleaned", cleanedInput);
         submitted(cleanedInput);
-    }
+    };
 
     const formik = useFormik({
         validationSchema: MessageSchema,
@@ -69,7 +70,7 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", onG
             text: "",
             onGame: onGame,
             characterId: characterId,
-            userId: userId
+            userId: userId === "" ? (toUserId ?? "") : userId
         },
         onSubmit
     });

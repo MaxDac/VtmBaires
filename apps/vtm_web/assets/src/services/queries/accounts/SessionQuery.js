@@ -9,6 +9,7 @@ export const listSessionQuery: GraphQLTaggedNode = graphql`
             user {
                 id
                 name
+                role
             }
             character {
                 id

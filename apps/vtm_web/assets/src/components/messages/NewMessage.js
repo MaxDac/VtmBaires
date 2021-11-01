@@ -21,11 +21,12 @@ export type SubmitProperties = {
 
 type Props = {
     replyMessageId?: string;
+    toUserId?: string;
 }
 
-const BrandNewMessage = onSubmit => {
+const BrandNewMessage = (onSubmit, toUserId) => {
     return (
-        <MessageTemplate submitted={onSubmit} isReply={false} />
+        <MessageTemplate submitted={onSubmit} toUserId={toUserId} isReply={false} />
     );
 }
 
@@ -59,8 +60,10 @@ const NewMessage = (props: Props): any => {
 
     const editor = () =>
         props.replyMessageId != null
-            ? (<ReplyToMessage messageId={props.replyMessageId} onSubmit={onSubmit} />)
-            : BrandNewMessage(onSubmit);
+            ? (<ReplyToMessage messageId={props.replyMessageId}
+                               onSubmit={onSubmit}
+                               toUserId={props.toUserId} />)
+            : BrandNewMessage(onSubmit, props.toUserId);
 
     return (
         <ReturnToMessagesControl>

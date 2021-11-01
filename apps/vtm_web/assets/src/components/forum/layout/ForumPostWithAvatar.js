@@ -46,12 +46,9 @@ const ForumAvatar = ({characterId, characterName}): any => {
 
     return (
         <td style={{width: "120px"}}>
-            <img style={{width: "100px", height: "100px", border: "2px grey dotted"}}
-                 src={avatar}
-                 alt={`${characterName ?? ""} Avatar`}
-                 align="left"
-                 vspace="10px"
-                 hspace="10px" />
+            <Avatar style={{width: "100px", height: "100px"}}
+                    src={avatar}
+                    alt={`${characterName ?? ""} Avatar`} />
         </td>
     );
 };
