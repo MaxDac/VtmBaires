@@ -14,9 +14,10 @@ import MessageTemplate from "./MessageTemplate";
 type Props = {
     messageId: string;
     onSubmit: SubmitProperties => void;
+    toUserId?: string;
 }
 
-const ReplyToMessage = ({messageId, onSubmit}: Props): any => {
+const ReplyToMessage = ({messageId, onSubmit, toUserId}: Props): any => {
     const message = useCustomLazyLoadQuery<GetMessageQuery>(
         getMessageQuery,
         {messageId: messageId},
@@ -47,6 +48,7 @@ const ReplyToMessage = ({messageId, onSubmit}: Props): any => {
                 <MessageTemplate submitted={onSubmitInternal}
                                  characterId={message?.senderCharacter?.id}
                                  userId={message?.senderUser?.id}
+                                 toUserId={toUserId}
                                  onGame={message?.onGame === true}
                                  isReply={true} />
             </Grid>

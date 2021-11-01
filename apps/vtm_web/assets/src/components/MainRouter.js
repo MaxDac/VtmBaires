@@ -17,6 +17,7 @@ export const MainRoutes = {
     sentMessages: "/main/messages/sent",
     readMessage: (id: string): string => `/main/message/view/${id}`,
     newMessage: (id?: string): string => id ? `/main/message/new/${id}` : "/main/message/new",
+    newMessageTo: (userId: string): string => `/main/message/new/user/${userId}`,
     forumSections: "/main/forum",
     forumSection: (sectionId: string): string => `/main/forum/${sectionId}`,
     forumThread: (threadId: string): string => `/main/forum/thread/${threadId}`,
@@ -104,6 +105,7 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/messages/sent" component={() => <SentMessages />} />
             <AuthRoute exact path="/main/messages" component={() => <ReceivedMessages />} />
             <AuthRoute exact path="/main/message/view/:id" component={({match: {params: {id}}}) => <ReadMessage messageId={id} />} />
+            <AuthRoute exact path="/main/message/new/user/:id" component={({match: {params: {id}}}) => <NewMessage toUserId={id} />} />
             <AuthRoute exact path="/main/message/new/:id" component={({match: {params: {id}}}) => <NewMessage replyMessageId={id} />} />
             <AuthRoute exact path="/main/message/new" component={() => <NewMessage />} />
 
