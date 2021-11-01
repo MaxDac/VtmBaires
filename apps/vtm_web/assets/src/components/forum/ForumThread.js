@@ -6,12 +6,16 @@ import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQu
 import ForumLayout from "./layout/ForumLayout";
 import type {GetForumThreadQuery} from "../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import {useSession} from "../../services/session-service";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import ForumThreadPage from "./ForumThreadPage";
 import Pagination from '@mui/material/Pagination';
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import ForumIcon from "@mui/icons-material/Forum";
+import HomeIcon from "@mui/icons-material/Home";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 type Props = {
     threadId: string;
@@ -21,6 +25,7 @@ export const DefaultPageSize = 10;
 
 const ForumThread = ({threadId}: Props): any => {
     const history = useHistory();
+    const [threadPostFetchKey, setThreadPostFetchKey] = useState(0);
 
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
@@ -33,50 +38,62 @@ const ForumThread = ({threadId}: Props): any => {
 
     const pageCount = Math.ceil((thread?.postCount ?? 0) / DefaultPageSize);
 
+    const onThreadPageReload = () => {
+        setThreadPostFetchKey(p => p + 1);
+    }
+
     const showThreadPosts = () => (
-        <ForumThreadPage threadId={threadId} page={currentPage} />
+        <ForumThreadPage threadId={threadId}
+                         page={currentPage}
+                         onReload={onThreadPageReload}
+                         fetchKey={threadPostFetchKey} />
     );
 
     const onPageChanged = (newPage: number) => {
         setCurrentPage(_ => newPage);
     }
 
-    const topControls = () => {
-        if (thread?.onGame === false || character != null) {
-            return (
-                <Grid item xs={12}>
-                    <Grid container>
-                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
-                            <Button fullWidth
-                                    onClick={_ => history.push(MainRoutes.forumSections)}
-                                    variant="contained"
-                                    color="primary">
-                                Torna al Forum
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
-                            <Button fullWidth
-                                    onClick={_ => history.push(MainRoutes.forumSection(thread?.forumSection?.id ?? ""))}
-                                    variant="contained"
-                                    color="primary">
-                                Torna alla sezione
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={4} sx={{padding: "20px"}}>
-                            <Button fullWidth
-                                    onClick={createNew}
-                                    variant="contained"
-                                    color="primary">
-                                Crea nuovo post
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            );
+    const goToForum = _ => history.push(MainRoutes.forumSections);
+
+    const goToSection = _ => history.push(MainRoutes.forumSection(thread?.forumSection?.id ?? ""));
+
+    const createNew = _ => history.push(MainRoutes.createNewForumPost(threadId));
+
+    const forumControls = () => {
+        const createNewPost = () => {
+            if (thread?.onGame === false || character != null) {
+                return (
+                    <Tooltip title="Nuovo Post">
+                        <IconButton aria-label="Nuovo Post"
+                                    onClick={createNew}>
+                            <ForumIcon/>
+                        </IconButton>
+                    </Tooltip>
+                );
+            }
+
+            return (<></>);
         }
 
-        return <></>;
-    };
+
+        return (
+            <>
+                <Tooltip title="Torna al Forum">
+                    <IconButton aria-label="Forum"
+                                onClick={goToForum}>
+                        <HomeIcon/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Torna alla sezione">
+                    <IconButton aria-label="Sezione"
+                                onClick={goToSection}>
+                        <ArrowBackIcon/>
+                    </IconButton>
+                </Tooltip>
+                {createNewPost()}
+            </>
+        );
+    }
 
     const paginationControl = () => {
         if (pageCount > 1) {
@@ -96,11 +113,10 @@ const ForumThread = ({threadId}: Props): any => {
         return (<></>);
     };
 
-    const createNew = _ => history.push(MainRoutes.createNewForumPost(threadId));
-
     return (
-        <ForumLayout title={thread?.title ?? "Thread"} description={thread?.description}>
-            {topControls()}
+        <ForumLayout title={thread?.title ?? "Thread"}
+                     description={thread?.description}
+                     controls={forumControls()}>
             <Grid container>
                 {showThreadPosts()}
                 {paginationControl()}

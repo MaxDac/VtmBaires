@@ -206,9 +206,10 @@ defmodule Vtm.Forum do
 
       {:ok, Repo.all(query)
         |> Enum.map(fn
-          {item, id, name, _, _} when not is_nil(name) ->
+          {item, id, name, u_id, u_name} when not is_nil(name) ->
             item
             |> Map.put(:character, %{id: id, name: name})
+            |> Map.put(:user, %{id: u_id, name: u_name})
           {item, _, _, id, name} ->
             item
             |> Map.put(:user, %{id: id, name: name})
@@ -216,6 +217,21 @@ defmodule Vtm.Forum do
     else
       nil -> {:error, :not_found}
       e   -> e
+    end
+  end
+
+  def get_forum_post(user, post_id) do
+    case ForumPost |> Repo.get(post_id) do
+      post = %{forum_section_id: section_id} ->
+        with :ok  <- check_section(user, section_id) do
+          {:ok,
+            post
+            |> Repo.preload(:creator_user)
+            |> Repo.preload(:creator_character)
+          }
+        end
+      _ ->
+        {:error, :not_found}
     end
   end
 
@@ -254,30 +270,32 @@ defmodule Vtm.Forum do
         where: t.id == ^id,
         where: t.creator_user_id == ^user_id
 
-    case Repo.one(query) do
-      nil   -> {:error, :cannot_modify}
-      item  -> {:ok, item}
+    case {Repo.one(query), VtmAuth.Accounts.is_user_master?(user_id)} do
+      {_, true} -> {:ok, type |> Repo.get(id)}
+      {nil, _}  -> {:error, :cannot_modify}
+      {item, _} -> {:ok, item}
     end
   end
 
   def modify_thread(user, id, attrs) do
     with {:ok, item} <- can_modify?(user, ForumThread, id) do
       item
-      |> ForumThread.changeset(attrs)
-      |> Repo.insert()
+      |> ForumThread.update_changeset(attrs)
+      |> Repo.update()
     end
   end
 
   def modify_post(user, id, attrs) do
     with {:ok, item} <- can_modify?(user, ForumPost, id) do
       item
-      |> ForumPost.changeset(attrs)
-      |> Repo.insert()
+      |> ForumPost.update_changeset(attrs)
+      |> Repo.update()
     end
   end
 
   def delete_thread(user, id) do
-    with %{section_id: section_id}  <- get_section_by_thread(id),
+    with {:ok, _}                   <- can_modify?(user, ForumThread, id),
+         %{section_id: section_id}  <- get_section_by_thread(id),
          :ok                        <- check_section_write(user, section_id) do
       ForumThread
       |> Repo.get(id)
@@ -289,8 +307,8 @@ defmodule Vtm.Forum do
   end
 
   def delete_post(user, id) do
-    with item = %{forum_section_id: section_id} <- ForumPost |> Repo.get(id),
-         :ok                                    <- check_section_write(user, section_id) do
+    with {:ok, item = %{forum_section_id: section_id}}  <- can_modify?(user, ForumPost, id),
+         :ok                                            <- check_section_write(user, section_id) do
       item
       |> Repo.delete()
     else

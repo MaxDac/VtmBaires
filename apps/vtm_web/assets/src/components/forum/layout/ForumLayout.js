@@ -3,14 +3,17 @@
 import React from "react";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 type Props = {
     title: string;
     description?: ?string;
-    children: any
+    controls?: any;
+    children: any;
 }
 
-const ForumLayout = ({title, description, children}: Props): any => {
+const ForumLayout = ({title, description, controls, children}: Props): any => {
     const showDescription = () => {
         if (description != null && description !== "") {
             return (
@@ -27,9 +30,19 @@ const ForumLayout = ({title, description, children}: Props): any => {
 
     return (
         <>
-            <h1 style={{fontFamily: 'GabrieleLightRibbon'}}>
-                {title}
-            </h1>
+            <Stack direction="row">
+                <h1 style={{
+                    fontFamily: 'GabrieleLightRibbon',
+                    marginRight: "20px"
+                }}>
+                    {title}
+                </h1>
+                <Box sx={{display: "inline-flex"}}>
+                    <Stack direction="row" sx={{marginTop: "auto", marginBottom: "auto"}}>
+                        {controls}
+                    </Stack>
+                </Box>
+            </Stack>
             {showDescription()}
             <List sx={{width: "100%", color: "background.paper"}}>
                 {children}

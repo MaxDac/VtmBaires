@@ -1,4 +1,6 @@
 defmodule Vtm.Forum.ForumPost do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -16,6 +18,12 @@ defmodule Vtm.Forum.ForumPost do
     belongs_to :creator_character, Character
 
     timestamps()
+  end
+
+  def update_changeset(forum_post, attrs) do
+    forum_post
+    |> cast(attrs, [:text])
+    |> validate_required([:text])
   end
 
   @doc false

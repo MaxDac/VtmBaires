@@ -1,4 +1,6 @@
 defmodule Vtm.Forum.ForumThread do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -15,6 +17,12 @@ defmodule Vtm.Forum.ForumThread do
     belongs_to :creator_character, Character
 
     timestamps()
+  end
+
+  def update_changeset(forum_thread, attrs) do
+    forum_thread
+    |> cast(attrs, [:title, :description])
+    |> validate_required([:title, :description])
   end
 
   @doc false

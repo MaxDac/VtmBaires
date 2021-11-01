@@ -7,10 +7,13 @@ export type User = {|
     id: string;
     name: string;
     role: Roles;
-|}
+|};
+
+export const isUserRoleMaster = (role: ?Roles): boolean =>
+    role != null && role === "MASTER";
 
 export const isUserMaster = (user: ?User): boolean =>
-    user?.role != null && user.role === "MASTER";
+    user?.role != null && isUserRoleMaster(user.role);
 
 export type BaseInfo = {
     id: number;

@@ -169,6 +169,15 @@ defmodule VtmWeb.Schema.CharacterTypes do
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
+    field :get_character_user, :user do
+      arg :character_id, non_null(:id)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
+      resolve parsing_node_ids(&CharacterResolvers.get_character_user/2, id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :get_session_character, :character do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.get_session_character/3

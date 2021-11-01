@@ -109,6 +109,7 @@ defmodule Vtm.Characters do
     |> Repo.all()
   end
 
+  @spec get_character_user(%{:id => integer(), optional(any) => any}) :: User.t() | nil
   def get_character_user(%{id: id}) do
     character =
       Character

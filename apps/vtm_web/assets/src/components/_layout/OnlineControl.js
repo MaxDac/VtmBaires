@@ -24,7 +24,6 @@ import type {SessionQuery} from "../../services/queries/accounts/__generated__/S
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
-import {isUserMaster} from "../../services/base-types";
 import Stack from "@mui/material/Stack";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -58,6 +57,8 @@ const OnlineControlDialog = ({closePopup}) => {
 
             closePopup();
         };
+
+    const isUserMaster = user => user?.role != null && user.role === "MASTER";
 
     const userMasterIcon = user =>
         user?.role === "MASTER"

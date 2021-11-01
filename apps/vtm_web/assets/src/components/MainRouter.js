@@ -23,6 +23,7 @@ export const MainRoutes = {
     forumThread: (threadId: string): string => `/main/forum/thread/${threadId}`,
     createNewForumThread: (sectionId: string): string => `/main/forum/${sectionId}/thread/new`,
     createNewForumPost: (threadId: string): string => `/main/forum/thread/${threadId}/post/new`,
+    modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
 
     sheet: (id?: ?string, reload?: ?boolean): string =>
@@ -64,7 +65,7 @@ const ReadMessage: any = React.lazy(() => import('./messages/ReadMessage'));
 
 const ForumSections = React.lazy(() => import('./forum/ForumSections'));
 const CreateNewThread = React.lazy(() => import('./forum/forms/CreateNewThread'));
-const CreateNewPost = React.lazy(() => import('./forum/forms/CreateNewPost'));
+const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
 
@@ -111,7 +112,9 @@ const MainRouter = (props: Props): any => {
 
             <AuthRoute exact path="/main/forum" component={() => <ForumSections />} />
             <AuthRoute exact path="/main/forum/:id/thread/new" component={({match: {params: {id}}}) => <CreateNewThread sectionId={id} />} />
-            <AuthRoute exact path="/main/forum/thread/:id/post/new" component={({match: {params: {id}}}) => <CreateNewPost threadId={id} />} />
+            <AuthRoute exact path="/main/forum/thread/:threadId/post/modify/:postId" component={({match: {params: {threadId, postId}}}) =>
+                <ManagePost threadId={threadId} postId={postId} />} />
+            <AuthRoute exact path="/main/forum/thread/:id/post/new" component={({match: {params: {id}}}) => <ManagePost threadId={id} />} />
             <AuthRoute exact path="/main/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
             <AuthRoute exact path="/main/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
 

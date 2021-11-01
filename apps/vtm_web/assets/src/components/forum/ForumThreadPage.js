@@ -11,19 +11,22 @@ import {getForumThreadPostsQuery} from "../../services/queries/forum/GetForumThr
 type Props = {
     threadId: string;
     page: number;
+    fetchKey: number;
+    onReload: () => void;
 }
 
-const ForumThreadPage = ({threadId, page}: Props): any => {
+const ForumThreadPage = ({threadId, page, fetchKey, onReload}: Props): any => {
     const posts = useCustomLazyLoadQuery<GetForumThreadPostsQuery>(getForumThreadPostsQuery, {
         forumThreadId: threadId,
         pageSize: DefaultPageSize,
         page: page
     }, {
-        fetchPolicy: "store-and-network"
+        fetchPolicy: "store-and-network",
+        fetchKey
     })?.getForumThreadPosts;
 
     const showThreadPost = post => (
-        <ForumPostLayout key={post?.id} post={post}>
+        <ForumPostLayout key={post?.id} post={post} threadId={threadId} onReload={onReload}>
             <ForumPostWithAvatar post={post} onGame={post?.onGame === true} />
         </ForumPostLayout>
     );
