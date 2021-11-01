@@ -315,6 +315,22 @@ type DefineNpcStatsPayload {
   response: Character
 }
 
+input DeleteForumPostInput {
+  postId: ID!
+}
+
+type DeleteForumPostPayload {
+  result: ForumPost
+}
+
+input DeleteForumThreadInput {
+  threadId: ID!
+}
+
+type DeleteForumThreadPayload {
+  result: ForumThread
+}
+
 type Discipline implements Node {
   description: String
 
@@ -388,8 +404,6 @@ type HealWillpowerPayload {
   result: String
 }
 
-scalar Hour
-
 input HuntInput {
   characterId: ID!
 }
@@ -410,7 +424,7 @@ type MapChatEntry implements Node {
 
   """The ID of an object"""
   id: ID!
-  insertedAt: Hour
+  insertedAt: DateTime
   master: Boolean
   offGame: Boolean
   result: String
@@ -445,6 +459,25 @@ type MessageDigest {
 type MessageNotification {
   message: Message
   numberUnread: Int
+}
+
+input ModifyForumPostInput {
+  postId: ID!
+  text: String!
+}
+
+type ModifyForumPostPayload {
+  result: ForumPost
+}
+
+input ModifyForumThreadInput {
+  text: String!
+  threadId: ID!
+  title: String!
+}
+
+type ModifyForumThreadPayload {
+  result: ForumThread
 }
 
 input NewForumPostInput {
@@ -529,6 +562,8 @@ type RootMutationType {
   createUser(email: String!, name: String!): CreationResult
   defineNpcStats(input: DefineNpcStatsInput!): DefineNpcStatsPayload
   deleteCharacter(characterId: ID): Boolean
+  deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
+  deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
   heal(input: HealInput!): HealPayload
@@ -536,6 +571,8 @@ type RootMutationType {
   hunt(input: HuntInput!): HuntPayload
   login(email: String!, password: String!, remember: Boolean!): LoginResponse
   logout: Boolean
+  modifyForumPost(input: ModifyForumPostInput!): ModifyForumPostPayload
+  modifyForumThread(input: ModifyForumThreadInput!): ModifyForumThreadPayload
   newForumPost(input: NewForumPostInput!): NewForumPostPayload
   newForumThread(input: NewForumThreadInput!): NewForumThreadPayload
   rejectCharacter(characterId: ID!, reason: String!): Boolean
@@ -568,9 +605,11 @@ type RootQueryType {
   getCharacterDescription(characterId: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
+  getCharacterUser(characterId: ID!): User
   getCharactersAvatar(characterIds: [ID!]): [CharacterAvatarResponse]
   getCharactersChatAvatar(characterIds: [ID!]): [CharacterChatAvatarResponse]
   getCreationTemplates: [CreationTemplate]
+  getForumPost(id: ID!): ForumPost
   getForumSections: [ForumSection]
   getForumThread(id: ID!): ForumThread
   getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]

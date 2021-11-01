@@ -60,6 +60,16 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
+  def get_character_user(%{character_id: character_id}, _) do
+    id = character_id |> String.to_integer()
+    case Characters.get_character_user(%{id: id}) do
+      nil ->
+        {:error, :not_found}
+      u ->
+        {:ok, u}
+    end
+  end
+
   def get_character_avatar(%{character_id: c_id}, _) do
     result =
       [c_id |> String.to_integer()]

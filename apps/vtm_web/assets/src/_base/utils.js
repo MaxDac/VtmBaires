@@ -143,8 +143,8 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
     successMessage?: string,
     errorMessage?: string,
     onCompleted?: () => void
-}): Promise<?T> {
-    return mutation()
+}) {
+    mutation()
         .then(result => {
             showNotification({
                 type: "success",

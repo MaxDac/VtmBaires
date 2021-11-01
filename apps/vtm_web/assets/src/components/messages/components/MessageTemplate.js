@@ -38,7 +38,7 @@ type Props = {
     characterId?: string,
     userId?: string,
     onGame?: boolean,
-    toUserId?: string
+    toUserId?: ?string
 }
 
 const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, onGame = false}: Props): any => {

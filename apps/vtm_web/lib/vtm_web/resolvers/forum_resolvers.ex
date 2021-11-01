@@ -61,6 +61,20 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
     end
   end
 
+  def get_forum_thread_post(%{id: id}, %{context: %{current_user: user}}) do
+    with {:ok, character = %{
+      creator_user: c_user,
+      creator_character: c_character
+    }} <- Forum.get_forum_post(user, id) do
+      character =
+        character
+        |> Map.drop([:creator_user, :creator_character])
+        |> Map.put(:user, c_user)
+        |> Map.put(:character, c_character)
+      {:ok, character}
+    end
+  end
+
   def new_forum_thread(_, %{request: %{section_id: section_id} = attrs}, %{context: %{current_user: user}}) do
     with {:ok, s_id}  <- from_global_id?(section_id),
          {:ok, cu_id} <- from_global_id?(attrs.creator_user_id) do
@@ -108,6 +122,30 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
         _ ->
           Forum.new_post(user, t_id, attrs)
       end
+    end
+  end
+
+  def modify_forum_thread(attrs = %{thread_id: thread_id}, %{context: %{current_user: user}}) do
+    with {:ok, thread}  <- Forum.modify_thread(user, thread_id |> String.to_integer(), attrs) do
+      {:ok, %{result: thread}}
+    end
+  end
+
+  def modify_forum_post(attrs = %{post_id: post_id}, %{context: %{current_user: user}}) do
+    with {:ok, post}  <- Forum.modify_post(user, post_id |> String.to_integer(), attrs) do
+      {:ok, %{result: post}}
+    end
+  end
+
+  def delete_forum_thread(%{thread_id: thread_id}, %{context: %{current_user: user}}) do
+    with {:ok, thread}  <- Forum.delete_thread(user, thread_id |> String.to_integer()) do
+      {:ok, %{result: thread}}
+    end
+  end
+
+  def delete_forum_post(%{post_id: post_id}, %{context: %{current_user: user}}) do
+    with {:ok, post}  <- Forum.delete_post(user, post_id |> String.to_integer()) do
+      {:ok, %{result: post} }
     end
   end
 end

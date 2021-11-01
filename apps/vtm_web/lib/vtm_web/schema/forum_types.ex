@@ -79,6 +79,14 @@ defmodule VtmWeb.Schema.ForumTypes do
       resolve parsing_node_ids(&ForumResolvers.get_forum_thread_posts/2, id: :forum_thread)
       middleware Middlewares.ChangesetErrors
     end
+
+    field :get_forum_post, :forum_post do
+      arg :id, non_null(:id)
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.get_forum_thread_post/2, id: :forum_post)
+      middleware Middlewares.ChangesetErrors
+    end
   end
 
   input_object :create_new_thread_request do
@@ -122,6 +130,65 @@ defmodule VtmWeb.Schema.ForumTypes do
 
       middleware Middlewares.Authorize, :any
       resolve &ForumResolvers.new_forum_post/3
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :modify_forum_thread do
+      input do
+        field :thread_id, non_null(:id)
+        field :title, non_null(:string)
+        field :text, non_null(:string)
+      end
+
+      output do
+        field :result, :forum_thread
+      end
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.modify_forum_thread/2, thread_id: :forum_thread)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :modify_forum_post do
+      input do
+        field :post_id, non_null(:id)
+        field :text, non_null(:string)
+      end
+
+      output do
+        field :result, :forum_post
+      end
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.modify_forum_post/2, post_id: :forum_post)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :delete_forum_thread do
+      input do
+        field :thread_id, non_null(:id)
+      end
+
+      output do
+        field :result, :forum_thread
+      end
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.delete_forum_thread/2, thread_id: :forum_thread)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :delete_forum_post do
+      input do
+        field :post_id, non_null(:id)
+      end
+
+      output do
+        field :result, :forum_post
+      end
+
+      middleware Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ForumResolvers.delete_forum_post/2, post_id: :forum_post)
       middleware Middlewares.ChangesetErrors
     end
   end

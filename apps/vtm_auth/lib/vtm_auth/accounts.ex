@@ -122,6 +122,16 @@ defmodule VtmAuth.Accounts do
     |> SessionInfo.extract_from_session()
   end
 
+  @spec is_user_master?(integer()) :: boolean()
+  def is_user_master?(user_id) do
+    User
+    |> from()
+    |> where([u], u.id == ^user_id)
+    |> where([u], u.role == "master")
+    |> select([u], count(u.id))
+    |> Repo.one() == 1
+  end
+
   def update_session(%{id: id}, attrs \\ %{}) do
     new_attrs =
       attrs
