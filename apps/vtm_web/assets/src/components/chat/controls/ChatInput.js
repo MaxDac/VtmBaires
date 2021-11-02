@@ -29,7 +29,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
     const maxCharacters = 500;
 
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
-    const fontSize = showMiniFont ? "13px" : "16px";
+    const fontSize = showMiniFont ? "16px" : "18px";
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);

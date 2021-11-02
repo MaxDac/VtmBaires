@@ -15,6 +15,7 @@ import { useFragment } from "react-relay/hooks";
 import type { CharacterFragments_characterStats$key } from "../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import { characterStatsFragment } from "../../services/queries/character/CharacterFragments";
 import { characterIsVampire } from "../../_base/utils";
+import {menuIconStyle, menuTextStyle} from "./Menu";
 
 type MenuHuntSectionInternalProps = {
     characterQuery: any;
@@ -29,9 +30,9 @@ const MenuHuntSectionInternal = ({characterQuery, huntRequest}: MenuHuntSectionI
             return (
                 <ListItem button onClick={huntRequest}>
                     <ListItemIcon>
-                        <InvertColorsIcon />
+                        <InvertColorsIcon sx={menuIconStyle} />
                     </ListItemIcon>
-                    <ListItemText primary="Caccia" />
+                    <ListItemText primary="Caccia" primaryTypographyProps={menuTextStyle} />
                 </ListItem>
             );
         }

@@ -12,6 +12,8 @@ import type {UserCharacter} from "../../../services/queries/accounts/UserCharact
 import {useTheme} from "@mui/styles";
 import {useSession} from "../../../services/session-service";
 import IconButton from "@mui/material/IconButton";
+import {menuIconStyle, menuTextStyle} from "../Menu";
+import Tooltip from "@mui/material/Tooltip";
 
 type Props = {
     character: UserCharacter;
@@ -26,23 +28,27 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
     const actions = () => {
         return (
             <>
-                <IconButton edge="end"
-                            aria-label="select"
-                            onClick={handleSheetSelection(character)}
-                            sx={{marginRight: "3px"}}>
-                    <AssignmentIndIcon />
-                </IconButton>
+                <Tooltip title="Scheda personaggio">
+                    <IconButton edge="end"
+                                aria-label="select"
+                                onClick={handleSheetSelection(character)}
+                                sx={{marginRight: "3px"}}>
+                        <AssignmentIndIcon sx={menuIconStyle} />
+                    </IconButton>
+                </Tooltip>
                 {
                     handleCharacterSelection != null
                         ? (
-                            <IconButton edge="end"
-                                        onClick={handleCharacterSelection(character)}
-                                        aria-label="select">
-                                {character?.id === currentCharacter?.id
-                                    ? <RadioButtonCheckedIcon/>
-                                    : <RadioButtonUncheckedIcon/>
-                                }
-                            </IconButton>
+                            <Tooltip title="Seleziona personaggio">
+                                <IconButton edge="end"
+                                            onClick={handleCharacterSelection(character)}
+                                            aria-label="select">
+                                    {character?.id === currentCharacter?.id
+                                        ? <RadioButtonCheckedIcon sx={menuIconStyle} />
+                                        : <RadioButtonUncheckedIcon sx={menuIconStyle} />
+                                    }
+                                </IconButton>
+                            </Tooltip>
                         )
                         : (<></>)
                 }
@@ -60,7 +66,7 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
                     height: theme.spacing(3)
                 }} />
             </ListItemIcon>
-            <ListItemText primary={character?.name} />
+            <ListItemText primary={character?.name} primaryTypographyProps={menuTextStyle} />
         </ListItem>
     );
 }

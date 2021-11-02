@@ -19,6 +19,7 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/styles";
 import { MainRoutes } from "../MainRouter";
 import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
+import {menuIconStyle, menuTextStyle} from "./Menu";
 
 type Props = {
     pushHistory: string => void;
@@ -87,9 +88,9 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
         <>
             <ListItem button onClick={_ => setExpand(p => !p)}>
                 <ListItemIcon>
-                    <GroupsIcon />
+                    <GroupsIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="NPCs" />
+                <ListItemText primary="NPCs" primaryTypographyProps={menuTextStyle} />
                 {expand ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={expand} timeout="auto" unmountOnExit>

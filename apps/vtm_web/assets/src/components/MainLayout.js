@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {CommonListItem, MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
@@ -24,7 +24,7 @@ import LogoutControl from "./_layout/LogoutControl";
 import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/ReloadControl";
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -156,13 +156,12 @@ export default function MiniDrawer({children}: {children: any}): any {
     }
 
     const drawerContent = () => (
-        <Box sx={{
-            background: "url('pattern.webp')"
-        }}>
+        <Box>
             <DrawerHeader>
-                <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </IconButton>
+                {/*Hidden because the menu will not be deletable*/}
+                {/*<IconButton onClick={handleDrawerClose}>*/}
+                {/*    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
+                {/*</IconButton>*/}
             </DrawerHeader>
             <Divider />
             <List>
@@ -181,7 +180,13 @@ export default function MiniDrawer({children}: {children: any}): any {
     const drawer = () => {
         if (theresEnoughSpace) {
             return (
-                <Drawer variant="permanent" open={open}>
+                <Drawer variant="permanent"
+                        open={open}
+                        sx={{
+                            '& .MuiDrawer-paper': {
+                                backgroundColor: "transparent"
+                            }
+                        }}>
                     {drawerContent()}
                 </Drawer>
             );
@@ -198,8 +203,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                            display: { xs: 'block', sm: 'none' },
                            '& .MuiDrawer-paper': {
                                boxSizing: 'border-box',
-                               width: drawerWidth,
-                               backgroundColor: "black"
+                               width: drawerWidth
                            }
                        }}>
                 {drawerContent()}
@@ -208,11 +212,19 @@ export default function MiniDrawer({children}: {children: any}): any {
     }
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{
+            display: 'flex',
+            background: "url('background-total.png')",
+            backgroundPosition: "left top",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "black",
+            backgroundBlendMode: "normal"
+        }}>
             <CssBaseline />
             <AppBar position="fixed" open={open} sx={{
                 background: "url('masquerade.webp')",
-                backgroundColor: "#101010"
+                // backgroundColor: "#101010"
             }}>
                 <Toolbar>
                     <IconButton
