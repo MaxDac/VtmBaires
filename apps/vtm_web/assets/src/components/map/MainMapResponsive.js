@@ -13,12 +13,12 @@ const MainMapResponsive = ({maps, onMapSelected}: Props): any => {
     console.log("maps", maps);
     if (maps != null) {
         return (
-            <SubMap maps={maps} imageUrl="main-map-responsive.png" />
+            <SubMap maps={maps} imageUrl="main-map-responsive.webp" />
         );
     }
     
     return (
-        <img src="main-map-responsive.png" alt="Map Temp" />
+        <img src="main-map-responsive.webp" alt="Map Temp" />
     )
 }
 

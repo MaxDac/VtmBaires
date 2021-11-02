@@ -214,7 +214,7 @@ export default function MiniDrawer({children}: {children: any}): any {
     return (
         <Box sx={{
             display: 'flex',
-            background: "url('background-total.png')",
+            background: "url('background-total.webp')",
             backgroundPosition: "left top",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",

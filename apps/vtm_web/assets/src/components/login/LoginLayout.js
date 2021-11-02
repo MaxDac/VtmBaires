@@ -43,7 +43,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
         <Grid container component="main" sx={{
             height: '100vh',
             // backgroundImage: 'url(/login-image.webp)',
-            backgroundImage: 'url(/login-wallpaper-inverted.png)',
+            backgroundImage: 'url(/login-wallpaper-inverted.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundColor:
                 theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
