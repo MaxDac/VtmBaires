@@ -5,6 +5,7 @@ defmodule Vtm.Forum do
 
   alias Vtm.Repo
   alias Vtm.Pagination
+  alias Vtm.Helpers
 
   alias Vtm.Forum.ForumSection
   alias Vtm.Forum.ForumThread
@@ -293,10 +294,20 @@ defmodule Vtm.Forum do
     end
   end
 
+  defp delete_all_thread_posts(thread_id) do
+    ForumPost
+    |> from()
+    |> where([p], p.forum_thread_id == ^thread_id)
+    |> Repo.all()
+    |> Enum.map(fn t -> t |> Repo.delete() end)
+    |> Helpers.reduce_errors({:ok, %{id: thread_id}})
+  end
+
   def delete_thread(user, id) do
-    with {:ok, _}                   <- can_modify?(user, ForumThread, id),
-         %{section_id: section_id}  <- get_section_by_thread(id),
-         :ok                        <- check_section_write(user, section_id) do
+    with {:ok, _}           <- can_modify?(user, ForumThread, id),
+         %{id: section_id}  <- get_section_by_thread(id),
+         :ok                <- check_section_write(user, section_id),
+         {:ok, _}           <- delete_all_thread_posts(id) do
       ForumThread
       |> Repo.get(id)
       |> Repo.delete()
