@@ -20,53 +20,53 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
     return (
         <>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px",
             }}>
                 Tipo di Predatore
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 marginBottom: "10px"
             }}>
                 {sheet?.predatorType?.name}
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px",
             }}>
                 Esperienza
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 marginBottom: "10px"
             }}>
                 {sheet?.experience} punti esperienza
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px",
             }}>
                 Vantaggi
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 marginBottom: "10px"
             }}>
                 {sheet?.advantages}
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px"
             }}>
                 Note
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon'
+                fontFamily: 'DefaultTypewriter'
             }}>
                 {sheet?.notes}
             </Typography>

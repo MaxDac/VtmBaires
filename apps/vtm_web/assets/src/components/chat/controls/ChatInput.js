@@ -91,7 +91,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                            onFocus={_ => setInDices(false)}
                            onBlur={_ => setInDices(true)}
                            sx={{
-                               fontFamily: 'GabrieleLightRibbon',
+                               fontFamily: 'DefaultTypewriter',
                                padding: "5px",
                                width: "calc(100% - 70px)",
                                fontSize: fontSize

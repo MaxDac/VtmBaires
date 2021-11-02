@@ -232,7 +232,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                                 color="inherit"
                                 sx={{
                                     flexGrow: "1",
-                                    fontFamily: 'GabrieleLightRibbon'
+                                    fontFamily: 'DefaultTypewriter'
                                 }}>
                         {title()}
                     </Typography>

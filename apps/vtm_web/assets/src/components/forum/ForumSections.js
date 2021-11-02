@@ -36,7 +36,7 @@ const ForumSections = (): any => {
                                                                       insertedAt={s?.insertedAt} />}
                                   sx={{
                                       color: "white",
-                                      fontFamily: 'GabrieleLightRibbon',
+                                      fontFamily: 'DefaultTypewriter',
                                       fontSize: "24px",
                                       padding: "5px"
                                   }} />

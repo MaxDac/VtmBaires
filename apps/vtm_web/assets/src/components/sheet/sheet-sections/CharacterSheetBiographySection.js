@@ -18,14 +18,14 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
     return (
         <>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px"
             }}>
                 Biografia
             </Typography>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon'
+                fontFamily: 'DefaultTypewriter'
             }}>
                 {sheet?.biography}
             </Typography>

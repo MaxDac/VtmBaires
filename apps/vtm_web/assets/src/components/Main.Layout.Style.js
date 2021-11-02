@@ -4,7 +4,7 @@ const drawerWidth = 240;
 const chatInputHeight = 100;
 
 export const mainFontFamily = {
-    fontFamily: 'GabrieleLightRibbon'
+    fontFamily: 'DefaultTypewriter'
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%"
     },
     chatInput: {
-        fontFamily: 'GabrieleLightRibbon'
+        fontFamily: 'DefaultTypewriter'
     },
     chatButton: {
 
@@ -130,11 +130,11 @@ const useStyles = makeStyles((theme) => ({
         
     },
     chatShowName: {
-        fontFamily: 'GabrieleLightRibbon',
+        fontFamily: 'DefaultTypewriter',
         color: "red"
     },
     chatShowText: {
-        fontFamily: 'GabrieleLightRibbon'
+        fontFamily: 'DefaultTypewriter'
     },
     fab: {
         position: 'absolute',
@@ -159,12 +159,12 @@ const useStyles = makeStyles((theme) => ({
         height: "200px"
     },
     sheetTitle: {
-        fontFamily: 'GabrieleLightRibbon',
+        fontFamily: 'DefaultTypewriter',
         color: "red",
         fontSize: "24px"
     },
     sheetText: {
-        fontFamily: 'GabrieleLightRibbon'
+        fontFamily: 'DefaultTypewriter'
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,

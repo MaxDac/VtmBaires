@@ -23,8 +23,18 @@ code {
 }
 
 @font-face {
-  font-family: "GabrieleLightRibbon";
-  src: local("GabrieleLightRibbon"), url("./fonts/gabriele-l.ttf");
+  font-family: "Punktype";
+  src: local("Punktype"), url("./fonts/punktype.ttf");
+}
+
+@font-face {
+  font-family: "ThroughTheNight";
+  src: local("ThroughTheNight"), url("./fonts/through-the-night.ttf");
+}
+
+@font-face {
+  font-family: "DefaultTypewriter";
+  src: local("DefaultTypewriter"), url("./fonts/veteran-typewriter.ttf");
 }
 
 .MuiSpeedDialAction-fab {

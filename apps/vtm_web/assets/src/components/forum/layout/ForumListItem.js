@@ -28,7 +28,7 @@ type ForumSectionDescriptionProps = {
 export const ForumSectionDescription = ({description, insertedAt}: ForumSectionDescriptionProps): any => (
     <Typography component="span" sx={{
         display: "inline",
-        fontFamily: 'GabrieleLightRibbon',
+        fontFamily: 'DefaultTypewriter',
         padding: "5px",
         color: "white"
     }} variant="body2">
@@ -178,7 +178,7 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                                                                   insertedAt={item?.insertedAt} />}
                               sx={{
                                   color: "white",
-                                  fontFamily: 'GabrieleLightRibbon',
+                                  fontFamily: 'DefaultTypewriter',
                                   fontSize: "24px",
                                   padding: "5px"
                               }} />

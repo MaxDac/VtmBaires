@@ -33,7 +33,7 @@ const SplashScreen = (): any => {
                 background: `url("/Camarilla.webp") no-repeat`}} isBodyChild={true}>
                 <CenteredBox isBodyChild={false}>
                     <Typography sx={{
-                        fontFamily: 'GabrieleLightRibbon',
+                        fontFamily: 'DefaultTypewriter',
                         color: "#C92929",
                         fontSize: "24px",
                         textAlign: "center",

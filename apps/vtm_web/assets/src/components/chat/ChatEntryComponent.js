@@ -31,7 +31,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
 
     const commonStyle = {
         ...sx,
-        fontFamily: 'GabrieleLightRibbon'
+        fontFamily: 'DefaultTypewriter'
     }
 
     const masterPhraseStyle = {

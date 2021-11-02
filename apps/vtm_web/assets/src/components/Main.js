@@ -58,7 +58,7 @@ export default function Main(): any {
                 maxWidth: "500px"
             }}>
                 <Typography sx={{
-                    fontFamily: 'GabrieleLightRibbon',
+                    fontFamily: 'ThroughTheNight',
                     color: "white",
                     fontSize: "36px",
                     // opacity: 0,
@@ -68,7 +68,7 @@ export default function Main(): any {
                     {firstPhrase}
                 </Typography>
                 <Typography sx={{
-                    fontFamily: 'GabrieleLightRibbon',
+                    fontFamily: 'ThroughTheNight',
                     color: "#C92929",
                     fontSize: "36px"
                     // opacity: 0,
@@ -78,7 +78,7 @@ export default function Main(): any {
                     {secondPhrase}
                 </Typography>
                 <Typography sx={{
-                    fontFamily: 'GabrieleLightRibbon',
+                    fontFamily: 'ThroughTheNight',
                     color: "#C9C9C9",
                     fontSize: "16px",
                     paddingTop: "20px"
