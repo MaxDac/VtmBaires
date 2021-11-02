@@ -218,13 +218,14 @@ export default function MiniDrawer({children}: {children: any}): any {
             backgroundPosition: "left top",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            backgroundColor: "black",
-            backgroundBlendMode: "normal"
+            backgroundAttachment: "fixed",
+            backgroundBlendMode: "normal",
+            overflow: "auto"
         }}>
             <CssBaseline />
             <AppBar position="fixed" open={open} sx={{
                 background: "url('masquerade.webp')",
-                // backgroundColor: "#101010"
+                backgroundColor: "#101010B0"
             }}>
                 <Toolbar>
                     <IconButton
