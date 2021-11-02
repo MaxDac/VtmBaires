@@ -27,7 +27,7 @@ type Props = {
 }
 
 export const sectionStyle = {
-    fontFamily: 'GabrieleLightRibbon',
+    fontFamily: 'DefaultTypewriter',
     color: "red",
     fontSize: "20px",
     textAlign: "center",
@@ -203,7 +203,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
     return (
         <>
             <Typography sx={{
-                fontFamily: 'GabrieleLightRibbon',
+                fontFamily: 'DefaultTypewriter',
                 color: "red",
                 fontSize: "24px"
             }}>

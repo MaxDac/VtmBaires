@@ -32,6 +32,14 @@ type Props = {
     onUpdate: () => void;
 }
 
+export const menuIconStyle = {
+    color: "#C92929"
+};
+
+export const menuTextStyle = {
+    fontFamily: "Disturbed"
+}
+
 export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
@@ -52,15 +60,15 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
         <>
             <ListItem button onClick={_ => pushHistory(Routes.main)}>
                 <ListItemIcon>
-                    <HomeIcon />
+                    <HomeIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText primary="Home" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.mainMap)}>
                 <ListItemIcon>
-                    <MapIcon />
+                    <MapIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Mappa" />
+                <ListItemText primary="Mappa" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <MenuCharacterSection pushHistory={pushHistory}
                                   characters={charactersWithAvatars}
@@ -68,21 +76,21 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
             <MenuHuntSection />
             <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
-                    <AssignmentIcon />
+                    <AssignmentIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Guide" />
+                <ListItemText primary="Guide" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.forumSections)}>
                 <ListItemIcon>
-                    <ChatIcon />
+                    <ChatIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Forum" />
+                <ListItemText primary="Forum" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.settings)}>
                 <ListItemIcon>
-                    <SettingsIcon />
+                    <SettingsIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Impostazioni" />
+                <ListItemText primary="Impostazioni" primaryTypographyProps={menuTextStyle} />
             </ListItem>
         </>
     );
@@ -106,21 +114,21 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
                             onUpdate={onUpdate} />
             <ListItem button onClick={_ => pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>
-                    <GroupAddIcon />
+                    <GroupAddIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Accettazione" />
+                <ListItemText primary="Accettazione" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
                 <ListItemIcon>
-                    <SupervisedUserCircleIcon />
+                    <SupervisedUserCircleIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Lista personaggi" />
+                <ListItemText primary="Lista personaggi" primaryTypographyProps={menuTextStyle} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>
-                    <MarkChatReadIcon />
+                    <MarkChatReadIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Chats" />
+                <ListItemText primary="Chats" primaryTypographyProps={menuTextStyle} />
             </ListItem>
         </>
     );
@@ -131,7 +139,11 @@ export const CommonListItem = ({isClosed}: {isClosed: boolean}): any => {
         if (!isClosed) {
             return (
                 <ListItem>
-                    <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+                    <Box sx={{margin: "0 auto"}}>
+                        <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
+                            <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" />
+                        </a>
+                    </Box>
                 </ListItem>
             );
         }
@@ -143,7 +155,9 @@ export const CommonListItem = ({isClosed}: {isClosed: boolean}): any => {
         if (!isClosed) {
             return (
                 <ListItem>
-                    <AppVersion />
+                    <Box sx={{margin: "0 auto"}}>
+                        <AppVersion />
+                    </Box>
                 </ListItem>
             );
         }

@@ -24,7 +24,7 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
     const additionalEntriesWithAvatar = useChatEntriesForSubscriptions(additionalEntries);
 
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
-    const fontSize = showMiniFont ? "14px" : "16px";
+    const fontSize = showMiniFont ? "16px" : "18px";
 
     // This was previously used as a dependency for the following useEffect, but it seems that it doesn't update itself.
     // The operation performed inside the following useEffect is not asynchronous or difficult at all anyway

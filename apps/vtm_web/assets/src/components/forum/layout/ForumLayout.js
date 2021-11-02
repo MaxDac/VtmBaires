@@ -18,7 +18,7 @@ const ForumLayout = ({title, description, controls, children}: Props): any => {
         if (description != null && description !== "") {
             return (
                 <Typography paragraph sx={{
-                    fontFamily: 'GabrieleLightRibbon',
+                    fontFamily: 'Disturbed',
                 }}>
                     {description}
                 </Typography>
@@ -32,7 +32,7 @@ const ForumLayout = ({title, description, controls, children}: Props): any => {
         <>
             <Stack direction="row">
                 <h1 style={{
-                    fontFamily: 'GabrieleLightRibbon',
+                    fontFamily: 'Disturbed',
                     marginRight: "20px"
                 }}>
                     {title}

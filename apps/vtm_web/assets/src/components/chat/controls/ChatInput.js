@@ -29,7 +29,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
     const maxCharacters = 500;
 
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
-    const fontSize = showMiniFont ? "13px" : "16px";
+    const fontSize = showMiniFont ? "16px" : "18px";
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);
@@ -91,7 +91,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                            onFocus={_ => setInDices(false)}
                            onBlur={_ => setInDices(true)}
                            sx={{
-                               fontFamily: 'GabrieleLightRibbon',
+                               fontFamily: 'DefaultTypewriter',
                                padding: "5px",
                                width: "calc(100% - 70px)",
                                fontSize: fontSize

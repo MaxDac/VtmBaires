@@ -10,7 +10,7 @@ export const liStyle = {
 };
 
 export const storyStyle = {
-    fontFamily: 'GabrieleLightRibbon',
+    fontFamily: 'DefaultTypewriter',
     fontSize: "14px",
     margin: "20px 0",
     paddingLeft: "20px",
@@ -18,6 +18,6 @@ export const storyStyle = {
 };
 
 export const titleStyle = {
-    fontFamily: 'GabrieleLightRibbon',
+    fontFamily: 'DefaultTypewriter',
     color: "#C92929"
 };
