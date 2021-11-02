@@ -21,6 +21,7 @@ export const MainRoutes = {
     forumSections: "/main/forum",
     forumSection: (sectionId: string): string => `/main/forum/${sectionId}`,
     forumThread: (threadId: string): string => `/main/forum/thread/${threadId}`,
+    modifyForumThread: (sectionId: string, threadId: string): string => `/main/forum/${sectionId}/thread/${threadId}/modify`,
     createNewForumThread: (sectionId: string): string => `/main/forum/${sectionId}/thread/new`,
     createNewForumPost: (threadId: string): string => `/main/forum/thread/${threadId}/post/new`,
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
@@ -65,6 +66,7 @@ const ReadMessage: any = React.lazy(() => import('./messages/ReadMessage'));
 
 const ForumSections = React.lazy(() => import('./forum/ForumSections'));
 const CreateNewThread = React.lazy(() => import('./forum/forms/CreateNewThread'));
+const ModifyThread = React.lazy(() => import('./forum/forms/ModifyThread'));
 const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
@@ -111,6 +113,8 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/message/new" component={() => <NewMessage />} />
 
             <AuthRoute exact path="/main/forum" component={() => <ForumSections />} />
+            <AuthRoute exact path="/main/forum/:id/thread/:threadId/modify" component={({match: {params: {id, threadId}}}) =>
+                <ModifyThread sectionId={id} threadId={threadId} />} />
             <AuthRoute exact path="/main/forum/:id/thread/new" component={({match: {params: {id}}}) => <CreateNewThread sectionId={id} />} />
             <AuthRoute exact path="/main/forum/thread/:threadId/post/modify/:postId" component={({match: {params: {threadId, postId}}}) =>
                 <ManagePost threadId={threadId} postId={postId} />} />

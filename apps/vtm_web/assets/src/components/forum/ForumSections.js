@@ -3,24 +3,52 @@
 import React from "react";
 import useForumSections from "../../services/queries/forum/GetForumSectionsQuery";
 import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 import ForumLayout from "./layout/ForumLayout";
-import ForumItemSelector from "./layout/ForumListItem";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
+import { ForumSectionDescription } from "./layout/ForumListItem";
 
 const ForumSections = (): any => {
     const history = useHistory();
+
     const forumSections = useForumSections()?.getForumSections;
 
     const toSection = sectionId => {
         if (sectionId != null) {
             history.push(MainRoutes.forumSection(sectionId));
         }
-    }
+    };
 
     const showForumSections = () => forumSections
-        ?.map(s => <ForumItemSelector key={s?.id} item={s} onClick={toSection} />);
+        ?.map(s => (
+            <>
+                <Divider />
+                <ListItem key={s?.id}
+                        alignItems="flex-start"
+                        button
+                        onClick={_ => toSection(s?.id)}>
+                    <ListItemText primary={s?.title}
+                                  secondary={<ForumSectionDescription description={s?.description}
+                                                                      insertedAt={s?.insertedAt} />}
+                                  sx={{
+                                      color: "white",
+                                      fontFamily: 'GabrieleLightRibbon',
+                                      fontSize: "24px",
+                                      padding: "5px"
+                                  }} />
+                </ListItem>
+                <Divider />
+            </>
+        ));
+        
+        
+        // <ForumListItem key={s?.id}
+        //                           item={s}
+        //                           onClick={toSection} />);
 
     return (
         <ForumLayout title="Forum (beta)">

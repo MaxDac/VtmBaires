@@ -28,6 +28,7 @@ const ForumSection = ({sectionId}: Props): any => {
     const history = useHistory();
     const [,character] = useSession();
     const [currentPage, setCurrentPage] = useState(1);
+    const [threadFetchKey, setThreadFetchKey] = useState(0);
 
     const section = firstOrDefault(useForumSections()
         ?.getForumSections
@@ -35,16 +36,29 @@ const ForumSection = ({sectionId}: Props): any => {
 
     const response = useCustomLazyLoadQuery<GetForumThreadsQuery>(
         getForumThreadsQuery,
-        {forumSectionId: sectionId, pageSize: DefaultPageSize, page: currentPage},
-        {fetchPolicy: "store-and-network"}
+        {
+            forumSectionId: sectionId,
+            pageSize: DefaultPageSize,
+            page: currentPage
+        },
+        {
+            fetchPolicy: "store-and-network",
+            fetchKey: threadFetchKey
+        }
     )?.getForumThreads;
+
+    const onUpdate = () => setThreadFetchKey(p => p + 1);
 
     const pageCount = Math.ceil((response?.threadCount ?? 0) / DefaultPageSize);
 
     const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => response?.threads
-        ?.map(s => <ForumItemSelector item={s} onClick={toFormThread} />);
+        ?.map(s => <ForumItemSelector key={s?.id}
+                                      item={s}
+                                      internal={true}
+                                      onClick={toFormThread}
+                                      onUpdate={onUpdate} />);
 
     const onPageChanged = (newPage: number) => {
         setCurrentPage(_ => newPage);
@@ -59,8 +73,7 @@ const ForumSection = ({sectionId}: Props): any => {
             if (section?.onGame === false || character != null) {
                 return (
                     <Tooltip title="Crea nuovo thread">
-                        <IconButton edge="end"
-                                    aria-label="Messaggio"
+                        <IconButton aria-label="Messaggio"
                                     onClick={createNew}>
                             <ForumIcon/>
                         </IconButton>
@@ -75,8 +88,7 @@ const ForumSection = ({sectionId}: Props): any => {
         return (
             <>
                 <Tooltip title="Torna al Forum">
-                    <IconButton edge="end"
-                                aria-label="Messaggio"
+                    <IconButton aria-label="Messaggio"
                                 onClick={goToForum}>
                         <HomeIcon/>
                     </IconButton>

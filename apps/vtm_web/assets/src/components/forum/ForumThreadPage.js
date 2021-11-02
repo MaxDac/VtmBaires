@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React, {useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {DefaultPageSize} from "./ForumThread";
 import ForumPostLayout from "./layout/ForumPostLayout";
@@ -11,22 +11,26 @@ import {getForumThreadPostsQuery} from "../../services/queries/forum/GetForumThr
 type Props = {
     threadId: string;
     page: number;
-    fetchKey: number;
-    onReload: () => void;
 }
 
-const ForumThreadPage = ({threadId, page, fetchKey, onReload}: Props): any => {
+const ForumThreadPage = ({threadId, page}: Props): any => {
+    const [postFetchKey, setPostFetchKey] = useState(0);
+
+    const onReloadCustom = () => {
+        setPostFetchKey(p => p + 1);
+    }
+
     const posts = useCustomLazyLoadQuery<GetForumThreadPostsQuery>(getForumThreadPostsQuery, {
         forumThreadId: threadId,
         pageSize: DefaultPageSize,
         page: page
     }, {
         fetchPolicy: "store-and-network",
-        fetchKey
+        fetchKey: postFetchKey
     })?.getForumThreadPosts;
 
     const showThreadPost = post => (
-        <ForumPostLayout key={post?.id} post={post} threadId={threadId} onReload={onReload}>
+        <ForumPostLayout key={post?.id} post={post} threadId={threadId} onReload={onReloadCustom}>
             <ForumPostWithAvatar post={post} onGame={post?.onGame === true} />
         </ForumPostLayout>
     );

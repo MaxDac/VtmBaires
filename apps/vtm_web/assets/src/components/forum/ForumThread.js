@@ -25,12 +25,11 @@ export const DefaultPageSize = 10;
 
 const ForumThread = ({threadId}: Props): any => {
     const history = useHistory();
-    const [threadPostFetchKey, setThreadPostFetchKey] = useState(0);
 
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
     }, {
-        fetchPolicy: "store-or-network"
+        fetchPolicy: "store-and-network"
     })?.getForumThread;
 
     const [,character] = useSession();
@@ -38,15 +37,9 @@ const ForumThread = ({threadId}: Props): any => {
 
     const pageCount = Math.ceil((thread?.postCount ?? 0) / DefaultPageSize);
 
-    const onThreadPageReload = () => {
-        setThreadPostFetchKey(p => p + 1);
-    }
-
     const showThreadPosts = () => (
         <ForumThreadPage threadId={threadId}
-                         page={currentPage}
-                         onReload={onThreadPageReload}
-                         fetchKey={threadPostFetchKey} />
+                         page={currentPage} />
     );
 
     const onPageChanged = (newPage: number) => {
@@ -73,7 +66,7 @@ const ForumThread = ({threadId}: Props): any => {
             }
 
             return (<></>);
-        }
+        };
 
 
         return (

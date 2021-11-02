@@ -145,7 +145,7 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
 
   def delete_forum_post(%{post_id: post_id}, %{context: %{current_user: user}}) do
     with {:ok, post}  <- Forum.delete_post(user, post_id |> String.to_integer()) do
-      {:ok, %{result: post} }
+      {:ok, %{result: post}}
     end
   end
 end
