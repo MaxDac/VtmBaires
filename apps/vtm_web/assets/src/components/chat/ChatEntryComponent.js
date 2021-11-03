@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import type {ChatEntry} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {markdownComponents} from "../../_base/components/ParsedText";
-import {defaultFormatTime} from "../../_base/utils";
+import { defaultFormatTime } from "../../_base/date-utils";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;

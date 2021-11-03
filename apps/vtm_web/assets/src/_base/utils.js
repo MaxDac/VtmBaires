@@ -4,7 +4,6 @@ import type {History} from "./types";
 import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
-import {format, parseISO} from "date-fns"
 import type { CharacterFragments_characterInfo } from "../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
@@ -164,29 +163,6 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
             }
         });
 }
-
-export const parseUTC = (date: string): Date => {
-    if (date.slice(-1) !== "Z") {
-        return parseISO(`${date}Z`);
-    }
-
-    return parseISO(date);
-};
-
-export const defaultFormatWithStringFormat = (date: ?any, formatString: string): ?string => {
-    if (date != null) {
-        const utcDate = parseUTC(date);
-        return format(utcDate, formatString);
-    }
-
-    return null;
-}
-
-export const defaultFormatDateAndTime = (date: ?any): ?string =>
-    defaultFormatWithStringFormat(date, "dd-LL-yyyy HH:mm");
-
-export const defaultFormatTime = (date: ?any): ?string =>
-    defaultFormatWithStringFormat(date, "HH:mm");
 
 /**
  * Determines whether the caracter is a vampire or not based on the clan.

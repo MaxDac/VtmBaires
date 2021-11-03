@@ -8,7 +8,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useHistory} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
-import {defaultFormatDateAndTime} from "../../../_base/utils";
+import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 
 type Props = {
     message: {|

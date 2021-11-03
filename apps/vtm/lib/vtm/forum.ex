@@ -35,22 +35,22 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec check_section(User.t(), Integer.t()) :: :ok | {:error, :unauthorized}
+  @spec check_section(User.t(), Integer.t()) :: :ok | {:error, :illegal_access}
   defp check_section(%{role: :master}, _), do: :ok
 
   defp check_section(_, section_id) do
     case section_id |> user_can_read_query() |> Repo.one() do
-      nil -> {:error, :unauthorized}
+      nil -> {:error, :illegal_access}
       _   -> :ok
     end
   end
 
-  @spec check_section_write(User.t(), Integer.t()) :: :ok | {:error, :unauthorized}
+  @spec check_section_write(User.t(), Integer.t()) :: :ok | {:error, :illegal_access}
   defp check_section_write(%{role: :master}, _), do: :ok
 
   defp check_section_write(_, section_id) do
     case section_id |> user_can_write_query() |> Repo.one() do
-      nil -> {:error, :unauthorized}
+      nil -> {:error, :illegal_access}
       _   -> :ok
     end
   end
@@ -89,7 +89,7 @@ defmodule Vtm.Forum do
   defp include_character_when_null(character = %{id: c_id}) when not is_nil(c_id), do: character
   defp include_character_when_null(_), do: %Character{id: 0, name: nil}
 
-  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, [ForumThread.t()]} | {:error, :unauthorized}
+  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, [ForumThread.t()]} | {:error, :illegal_access}
   def get_forum_threads(user, section_id, page_size, page) do
     with :ok <- check_section(user, section_id) do
       query =
@@ -137,7 +137,7 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec get_forum_thread(User.t(), Integer.t()) :: {:ok, ForumThread.t()} | {:error, :unauthorized}
+  @spec get_forum_thread(User.t(), Integer.t()) :: {:ok, ForumThread.t()} | {:error, :illegal_access}
   def get_forum_thread(conn_user, id) do
     query =
       from t in ForumThread,
@@ -186,7 +186,7 @@ defmodule Vtm.Forum do
     Repo.one(query)
   end
 
-  @spec get_forum_posts(User.t(), integer, integer, integer) :: {:ok, [ForumPost.t()]} | {:error, :unauthorized}
+  @spec get_forum_posts(User.t(), integer, integer, integer) :: {:ok, [ForumPost.t()]} | {:error, :illegal_access}
   def get_forum_posts(user, thread_id, page_size, page) do
     with %{id: id}  <- get_section_by_thread(thread_id),
          :ok        <- check_section(user, id) do

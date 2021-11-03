@@ -45,11 +45,11 @@ export const MainRoutes = {
 }
 
 const Main = React.lazy(() => import('./Main'));
-const Creation1 = React.lazy(() => import('./sheet/creation/Creation1'));
-const Creation2 = React.lazy(() => import('./sheet/creation/Creation2'));
-const Creation3 = React.lazy(() => import('./sheet/creation/Creation3'));
-const Creation4 = React.lazy(() => import('./sheet/creation/Creation4'));
-const Creation5 = React.lazy(() => import('./sheet/creation/Creation5'));
+const Creation1 = React.lazy(() => import('./creation/Creation1'));
+const Creation2 = React.lazy(() => import('./creation/Creation2'));
+const Creation3 = React.lazy(() => import('./creation/Creation3'));
+const Creation4 = React.lazy(() => import('./creation/Creation4'));
+const Creation5 = React.lazy(() => import('./creation/Creation5'));
 
 const CharacterSheet = React.lazy(() => import('./sheet/CharacterSheet'));
 const ModifyCharacterSheet: any = React.lazy(() => import('./sheet/sheet-sections/ModifyCharacterSheet'));

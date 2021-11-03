@@ -1,23 +1,23 @@
 // @flow
 
 import React, {useCallback, useContext, useState, Suspense} from "react";
-import CharacterProvider from "../../_data/CharacterProvider";
-import CharacterSheetStatsSection from "../sheet-sections/CharacterSheetStatsSection";
+import CharacterProvider from "../_data/CharacterProvider";
+import CharacterSheetStatsSection from "../sheet/sheet-sections/CharacterSheetStatsSection";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import AttributeSwitchControl from "../controls/AttributeSwitchControl";
-import useAttributesSlimQuery from "../../../services/queries/info/AttributesSlimQuery";
-import switchCharacterAttributeMutation from "../../../services/mutations/characters/SwitchCharacterAttributeMutation";
+import AttributeSwitchControl from "../sheet/controls/AttributeSwitchControl";
+import useAttributesSlimQuery from "../../services/queries/info/AttributesSlimQuery";
+import switchCharacterAttributeMutation from "../../services/mutations/characters/SwitchCharacterAttributeMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
+import {UtilityContext} from "../../contexts";
 import {useTheme} from "@mui/styles";
 import Button from "@mui/material/Button";
-import type {RefreshedQueryOption} from "../sheet-sections/CharacterSheetStatsSection";
-import FinalizeCharacterMutation from "../../../services/mutations/characters/FinalizeCharacterMutation";
+import type {RefreshedQueryOption} from "../sheet/sheet-sections/CharacterSheetStatsSection";
+import FinalizeCharacterMutation from "../../services/mutations/characters/FinalizeCharacterMutation";
 import {useHistory} from "react-router-dom";
-import {Routes} from "../../../AppRouter";
-import DeleteCharacterMutation from "../../../services/mutations/characters/DeleteCharacterMutation";
-import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
+import {Routes} from "../../AppRouter";
+import DeleteCharacterMutation from "../../services/mutations/characters/DeleteCharacterMutation";
+import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 
 type Props = {
 

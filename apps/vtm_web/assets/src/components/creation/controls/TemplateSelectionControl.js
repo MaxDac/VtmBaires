@@ -96,9 +96,10 @@ const TemplateSelectionControl = ({characterId}: Props): any => {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
-                <Button variant="containerd"
-                        onClick={selectTemplate}>
+            <Grid item xs={12} sm={6} sx={{display: "inline-flex"}}>
+                <Button variant="contained"
+                        onClick={selectTemplate}
+                        sx={{marginTop: "auto", marginBottom: "auto"}}>
                     Seleziona template
                 </Button>
             </Grid>

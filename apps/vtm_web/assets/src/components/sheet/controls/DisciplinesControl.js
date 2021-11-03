@@ -12,6 +12,8 @@ import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplin
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import { characterHasDisciplines } from "../../../_base/utils";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../../guides/GuidesMain";
 
 type Props = {
     characterInfo: CharacterFragments_characterInfo;
@@ -52,8 +54,16 @@ const DisciplinesControl = ({
             return (
                 <>
                     <Grid item xs={12}>
-                        <Typography className={classes.defaultParagraph}>
-                            Seleziona le due Discipline del tuo personaggio. La prima Disciplina sar&agrave; di livello 2, la seconda di livello 1.
+                        <Typography paragraph className={classes.defaultParagraph}>
+                            Siccome hai scelto un personaggio vampiro, dovrai ora impostare la disposizione delle
+                            Discipline del tuo personaggio. In creazione, hai a disposizione tre differenti poteri,
+                            due poteri di una Disciplina e uno di una seconda Disciplina di clan. Ricorda che
+                            dovrai specificare quali poteri hai intenzione di associare al tuo personaggio nelle Note.
+                            Puoi trovare l'elenco completo delle Discipline nella sezione apposita
+                            nella <Link to={GuideRoutes.attributes}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        style={{color: "#C91919"}}>Guida</Link>.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{textAlign: "center"}}>

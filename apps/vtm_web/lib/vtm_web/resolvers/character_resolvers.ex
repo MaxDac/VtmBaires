@@ -261,7 +261,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       get_character(%{id: parsed_id}, context)
     else
       false ->
-        {:error, :unauthorized}
+        {:error, :illegal_access}
       e ->
         e
     end

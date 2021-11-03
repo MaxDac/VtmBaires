@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import {defaultFormatDateAndTime} from "../../../_base/utils";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
+import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 
 type Props = {
     onGame: boolean;

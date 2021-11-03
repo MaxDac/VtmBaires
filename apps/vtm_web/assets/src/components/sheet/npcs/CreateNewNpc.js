@@ -6,7 +6,7 @@ import {updateCurrentCharacter} from "../../../services/session-service";
 import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import CharacterInfoForm from "../controls/CharacterInfoForm";
+import CharacterInfoForm from "../../creation/controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
 import {MainRoutes} from "../../MainRouter";
 

@@ -4,10 +4,39 @@ import React from "react";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import CreationBase from "../strategies/CreationBase";
-import useStyles from "../../Main.Layout.Style";
-import {useSession} from "../../../services/session-service";
-import TemplateSelectionControl from "../controls/TemplateSelectionControl";
+import CreationBase from "./strategies/CreationBase";
+import useStyles from "../Main.Layout.Style";
+import {useSession} from "../../services/session-service";
+import TemplateSelectionControl from "./controls/TemplateSelectionControl";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../guides/GuidesMain";
+
+const Creation2Explanation = () => (
+    <Grid item xs={12}>
+        <Typography paragraph>
+            In questa e nella prossima sezione, potrai scegliere <Link to={GuideRoutes.attributes}
+                                                                       target="_blank"
+                                                                       rel="noreferrer"
+                                                                       style={{color: "#C91919"}}>Attributi e
+            Abilit&agrave;</Link> del tuo personaggio.
+            Se non sei sicuro di quali decisioni prendere, invece di sceglierle manualmente, puoi invece selezionare
+            uno dei <i>templates</i>, delle schede con valori riempiti automaticamente, proposti in seguito. I Template
+            offrono un'ottima opportunit&agrave; per qualsiasi giocatore, non solo i meno esperti, di concentrarsi
+            su ci&ograve; che importa veramente nella creazione di un personaggio, la sua storia e il suo <i>concept</i>.
+            Per questa ragione, consigliamo a tutti almeno di provare: noi stessi usiamo i template.<br />
+            Per selezionare un template clicca il bottone "<b>Seleziona template</b>" per confermare la tua scelta.
+        </Typography>
+        <Typography paragraph>
+            Ricorda che, sia selezionando manualmente Attributi e Abilit&agrave;, sia selezionanto uno dei <i>template</i>
+            a disposizione, alla fine della creazione ti sar&agrave; data comunque la possibilit&agrave; di sistemare la
+            scheda avendo a disposizione tutti i valori inseriti, sempre nel rispetto delle regole di creazione.
+        </Typography>
+        <Typography>
+            Se vuoi selezionare un <i>template</i>, selezionalo nel controllo in basso, altrimenti ignoralo, inserisci gli Attributi
+            e continua con la creazione del personaggio.
+        </Typography>
+    </Grid>
+);
 
 const Creation2 = (): any => {
     const classes = useStyles();
@@ -40,7 +69,15 @@ const Creation2 = (): any => {
     const form = getAttributeSelector =>
         <>
             <Grid item xs={12}>
-                <Typography>
+                <Typography paragraph>
+                    Seguendo il regolamento di Vampiri: la Masquerade&trade;, i livelli degli attributi sono fissi.
+                    Questo vuol dire che si avranno a disposizione, senza eccezioni, un Attributo a livello 4,
+                    tre attributi da selezionare per associare 3 livelli di Attributo, quattro di livello 2 e uno
+                    di livello 1.
+                </Typography>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography paragraph>
                     Scegli un attributo a cui assegnare 4 livelli di Attributo
                 </Typography>
             </Grid>
@@ -48,7 +85,7 @@ const Creation2 = (): any => {
                 {getAttributeSelector("attribute4", "Attribute at 4")}
             </Grid>
             <Grid item xs={12}>
-                <Typography>
+                <Typography paragraph>
                     ... 3 al livello 3:
                 </Typography>
             </Grid>
@@ -62,7 +99,7 @@ const Creation2 = (): any => {
                 {getAttributeSelector("attribute33", "Attribute at 3")}
             </Grid>
             <Grid item xs={12}>
-                <Typography>
+                <Typography paragraph>
                     ... quattro a livello 2:
                 </Typography>
             </Grid>
@@ -79,11 +116,11 @@ const Creation2 = (): any => {
                 {getAttributeSelector("attribute24", "Attribute at 2")}
             </Grid>
             <Grid item xs={12}>
-                <Typography>
+                <Typography paragraph>
                     ... e infine, uno a livello 1:
                 </Typography>
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12}>
                 {getAttributeSelector("attribute1", "Attribute at 1")}
             </Grid>
         </>;
@@ -93,19 +130,7 @@ const Creation2 = (): any => {
             return (
                 <div className={classes.centeredContainer}>
                     <Grid container>
-                        <Grid item xs={12}>
-                            <Typography>
-                                In questa e nella prossima sezione, potrai scegliere Attributi e Abilità del tuo personaggio.
-                                Invece di sceglierle manualmente, puoi invece selezionare uno dei <i>templates</i> proposti in seguito.
-                                Ricorda che, sia selezionando manualmente Attributi e Abilità, sia selezionanto uno dei <i>template</i> a disposizione,
-                                alla fine della creazione ti sarà data la possibilità di sistemare la scheda avendo a disposizione tutti i valori inseriti,
-                                sempre nel rispetto delle regole di creazione.
-                            </Typography>
-                            <Typography>
-                                Se vuoi selezionare un <i>template</i>, selezionalo nel controllo in basso, altrimenti ignoralo, inserisci gli Attributi
-                                e continua con la creazione del personaggio.
-                            </Typography>
-                        </Grid>
+                        <Creation2Explanation />
                         <Grid item xs={12} sx={{
                             margin: "20px"
                         }}>

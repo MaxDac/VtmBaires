@@ -17,7 +17,6 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.4",
     "date-fns": "^2.25.0",
-    "flow-bin": "^0.159.0",
     "formik": "^2.2.9",
     "notistack": "^2.0.2",
     "phoenix": "^1.6.2",
@@ -76,6 +75,7 @@
   },
   "proxy": "http://localhost:4000",
   "devDependencies": {
+    "flow-bin": "^0.163.0",
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",

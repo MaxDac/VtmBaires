@@ -1,11 +1,13 @@
 defmodule VtmAuth.UserTest do
+  @moduledoc false
+
   use VtmAuth.DataCase
 
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
 
-  @ok_user %{ "email" => "test@aaa.com", "name" => "John", "password" => "the_new_password", "role" => "player" }
-  @invalid_user %{ "email" => "test@aaa.com", "password" => "the_new_password", "role" => "player" }
+  @ok_user %{"email" => "test@aaa.com", "name" => "John", "password" => "the_new_password", "role" => "player"}
+  @invalid_user %{"email" => "test@aaa.com", "password" => "the_new_password", "role" => "player"}
 
   describe "create_new" do
     test "creates a new user" do

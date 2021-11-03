@@ -2,31 +2,31 @@
 
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import {UtilityContext} from "../../../contexts";
+import {UtilityContext} from "../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import DisciplinesControl from "../controls/DisciplinesControl";
-import PredatorTypeControl from "../controls/PredatorTypeControl";
+import DisciplinesControl from "../sheet/controls/DisciplinesControl";
+import PredatorTypeControl from "../sheet/controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {
     CharacterFragments_characterInfo$key
-} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import {characterInfoFragment} from "../../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
+} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import {characterInfoFragment} from "../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterInfo} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import {object, string} from "yup";
 import {useFormik} from "formik";
-import useStyles from "../../Main.Layout.Style";
-import AddAdvantagesMutation from "../../../services/mutations/characters/AddAdvantagesMutation";
+import useStyles from "../Main.Layout.Style";
+import AddAdvantagesMutation from "../../services/mutations/characters/AddAdvantagesMutation";
 import {
   characterHasDisciplines,
   characterIsVampire,
-} from "../../../_base/utils";
-import {MainRoutes} from "../../MainRouter";
+} from "../../_base/utils";
+import {MainRoutes} from "../MainRouter";
 import {Link} from "react-router-dom";
-import { GuideRoutes } from "../../guides/GuidesMain";
+import { GuideRoutes } from "../guides/GuidesMain";
 
 type InternalElementProps = {
     character: any;
@@ -203,8 +203,22 @@ const Creation4 = (): any => {
                                          error={formik.touched["predatorType"] && Boolean(formik.errors["predatorType"])} />
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            I vantaggi non possono essere selezionati automaticamente, poich&eacute; dovranno essere vagliati dal master che controller&agrave; la tua scheda.
-                            Scrivi nel controllo di seguito tutti i vantaggi che vuoi assegnare al tuo personaggio.
+                            I vantaggi non possono essere selezionati automaticamente, poich&eacute; dovranno essere
+                            vagliati dal master che controller&agrave; la tua scheda. I vantaggi sono la somma di
+                            Background, Pregi e Difetti, di cui puoi trovare una lista completa
+                            nella <Link to={GuideRoutes.attributes}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        style={{color: "#C91919"}}>guida</Link>. Per la guida su come associare i Vantaggi
+                            al tuo personaggio, consulta invece questa <Link to={GuideRoutes.creation}
+                                                                             target="_blank"
+                                                                             rel="noreferrer"
+                                                                             style={{color: "#C91919"}}>sezione</Link>,
+                            ricorda in breve che hai <b>sette punti a disposizione</b> da assegnare.
+                            Scrivi nel controllo di seguito tutti i vantaggi che vuoi assegnare al tuo personaggio, e
+                            ricorda che se ti trovi in difficolt&agrave;, puoi sempre contattare un master via messaggio
+                            o via Discord, tramite il link che puoi trovare nel menu a sinistra: la procedura di
+                            iscrizione &egrave; comunque stata salvata fin qui!
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -225,12 +239,13 @@ const Creation4 = (): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            In questa sezione, dovrai inserire le tre <b>Convinzioni</b> del tuo personaggio.
-                            Puoi sceglierle tra quelle proposte nella&nbsp;
+                            Se hai scelto di interpretare un personaggio <b>vampiro</b>, in questa sezione dovrai
+                            inserire le tre <b>Convinzioni</b> e le <b>Ancore</b> del tuo personaggio. Puoi sceglierle
+                            tra quelle proposte nella&nbsp;
                             <Link to={GuideRoutes.rules} 
                                   target="_blank" 
                                   rel="noreferrer"
-                                  style={{color: "#C92929"}}>guida</Link>.
+                                  style={{color: "#C92929"}}>guida</Link>.<br />
                             Se hai delle richieste particolari per il tuo personaggio, aggiungile alla definizione
                             delle Convinzioni, saranno vagliate dal master che controller&agrave; la tua scheda.
                         </Typography>

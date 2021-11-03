@@ -502,7 +502,7 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, Character.t()} | {:error, :unauthorized}
+  @spec delete_character(any, %{:id => any, optional(any) => any}) :: {:ok, Character.t()} | {:error, :illegal_access}
   def delete_character(character_id, user) do
     case user do
       %{role: :master} -> delete_character_p(character_id)
@@ -510,7 +510,7 @@ defmodule Vtm.Characters do
         if character_of_user?(user_id, character_id) do
           delete_character_p(character_id)
         else
-          {:error, :unauthorized}
+          {:error, :illegal_access}
         end
     end
   end

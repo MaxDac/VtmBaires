@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import ForumPost from "./ForumPost";
-import {defaultFormatDateAndTime} from "../../../_base/utils";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
@@ -17,6 +16,7 @@ import {useTheme} from "@mui/styles";
 import type {GetCharacterChatAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterChatAvatarQuery.graphql";
 import {getCharacterChatAvatarQuery} from "../../../services/queries/character/GetCharacterChatAvatarQuery";
 import Avatar from "@mui/material/Avatar";
+import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 
 type Props = {
     onGame: boolean;

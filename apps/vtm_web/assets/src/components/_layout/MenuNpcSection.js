@@ -68,7 +68,7 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                                         height: theme.spacing(3)
                                     }} />
                                 </ListItemIcon>
-                                <ListItemText primary={o?.name}>
+                                <ListItemText primary={o?.name} primaryTypographyProps={menuTextStyle}>
                                     {o?.id === currentCharacter?.id
                                         ? <RadioButtonCheckedIcon/>
                                         : <RadioButtonUncheckedIcon/>

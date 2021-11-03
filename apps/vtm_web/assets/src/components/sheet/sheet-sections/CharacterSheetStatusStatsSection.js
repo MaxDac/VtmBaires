@@ -8,10 +8,8 @@ import AttributeCumulativeStat from "../controls/AttributeCumulativeStat";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {
-  characterIsVampire,
-  defaultFormatDateAndTime,
-} from "../../../_base/utils";
+import {characterIsVampire} from "../../../_base/utils";
+import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 
 type Props = {
     sheet: Character;

@@ -3,7 +3,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import CreationBase from "../strategies/CreationBase";
+import CreationBase from "./CreationBase";
 import {propNotNullRendering} from "../../../_base/render-utils";
 import { useSession } from "../../../services/session-service";
 

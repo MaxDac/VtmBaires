@@ -145,7 +145,7 @@ defmodule Vtm.Creation do
       Characters.character_at_stage?(character_id, new_stage)
     } do
       {false, _, _} ->
-        {:error, :unauthorized}
+        {:error, :illegal_access}
       {_, _, true} ->
         Characters.update_character(character_id, attrs)
       {_, true, _} ->
@@ -153,7 +153,7 @@ defmodule Vtm.Creation do
     end
   end
 
-  @spec update_character_stage(integer, number, list(map)) :: {:ok, %{id: integer}} | {:error, :unauthorized} | {:error, any}
+  @spec update_character_stage(integer, number, list(map)) :: {:ok, %{id: integer}} | {:error, :illegal_access} | {:error, any}
   def update_character_stage(user_id, new_stage, attrs) do
     [%{character_id: character_id} | _] = attrs
 
@@ -163,7 +163,7 @@ defmodule Vtm.Creation do
       Characters.character_at_stage?(character_id, new_stage)
     } do
       {false, _, _} ->
-        {:error, :unauthorized}
+        {:error, :illegal_access}
       {_, _, true} ->
         with {:ok, _} <- append_attributes(character_id, attrs, new_stage) do
           {:ok, %{id: character_id}}

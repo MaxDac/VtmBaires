@@ -11,6 +11,9 @@ import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import { characterIsVampire } from "../../../_base/utils";
+import Typography from "@mui/material/Typography";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../../guides/GuidesMain";
 
 type Props = {
     characterInfo: CharacterFragments_characterInfo;
@@ -36,8 +39,18 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
         if (characterIsVampire(characterInfo)) {
             return (
                 <>
-                    <Grid item xs={12} className={classes.defaultParagraph} sx={{paddingTop: "10px"}}>
-                        Scegli il tipo di predatore che il tuo personaggio dovr&agrave; interpretare.
+                    <Grid item xs={12}>
+                        <Typography paragraph sx={{marginTop: "20px"}}>
+                            Avendo scelto un personaggio vampiro ("normale" o Sangue Debole), devi anche scegliere il
+                            Tipo di Predatore che vuoi interpretare. Il Tipo di Predatore &egrave; una nuova caratteristica
+                            del personaggio che interessa il modo in cui caccia il Sangue dei mortali (o dei cainiti).
+                            Puoi trovare pi&ugrave; informazioni riguardo il significato e i vari tipi tra i quali
+                            puoi scegliere nella <Link to={GuideRoutes.creation}
+                                                       target="_blank"
+                                                       rel="noreferrer"
+                                                       style={{color: "#C91919"}}>Guida</Link>.<br />
+                            Scegli il tipo di predatore che il tuo personaggio dovr&agrave; interpretare.
+                        </Typography>
                     </Grid>
                     <Grid item xs={12} style={{textAlign: "center"}}>
                         <FormControl className={classes.formControl}>

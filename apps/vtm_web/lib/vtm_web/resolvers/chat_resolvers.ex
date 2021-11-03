@@ -83,7 +83,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
           throw_result = Chats.random_simulate_master_dice_throw(free_throw)
           create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
         _ ->
-          {:error, :unauthorized}
+          {:error, :illegal_access}
       end
     end
   end

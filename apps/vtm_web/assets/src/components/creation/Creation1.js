@@ -2,13 +2,13 @@
 
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
-import createCharacter from "../../../services/mutations/characters/CreateCharacterMutation";
-import {updateCurrentCharacter} from "../../../services/session-service";
-import {UtilityContext} from "../../../contexts";
+import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
+import {updateCurrentCharacter} from "../../services/session-service";
+import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import CharacterInfoForm from "../controls/CharacterInfoForm";
-import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
-import { MainRoutes } from "../../MainRouter";
+import CharacterInfoForm from "./controls/CharacterInfoForm";
+import type { CharacterCreationRequest } from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import { MainRoutes } from "../MainRouter";
 
 const Creation1 = (): any => {
     const history = useHistory();

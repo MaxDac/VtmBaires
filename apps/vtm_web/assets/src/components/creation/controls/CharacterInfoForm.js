@@ -14,6 +14,8 @@ import Button from "@mui/material/Button";
 import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 import type {CreationClansQuery} from "../../../services/queries/info/__generated__/CreationClansQuery.graphql";
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../../guides/GuidesMain";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
@@ -32,10 +34,12 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
     const [avatar, setAvatar] = useState<?string>(null);
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
 
+    const [humanClan,] = clans?.filter(c => c?.name === "Umano") ?? [];
+
     const formik = useFormik({
         initialValues: {
             name: "",
-            clanId: "",
+            clanId: humanClan?.id ?? "",
             description: "",
             biography: ""
         },
@@ -71,10 +75,23 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Typography>
-                            In questa prima parte della registrazione di un nuovo personaggio, è necessario già avere ben chiara la sua storia, il suo aspetto e la sua interpretazione.
+                            In questa prima parte della registrazione di un nuovo personaggio, &egrave; necessario gi&agrave;
+                            avere ben chiara la sua storia, il suo aspetto e la sua interpretazione. Ti invitiamo a
+                            leggere la <Link to={GuideRoutes.creation}
+                                             target="_blank"
+                                             rel="noreferrer"
+                                             style={{color: "#C91919"}}>Guida</Link> per ulterior informazioni.
                         </Typography>
                         <Typography>
-                            Vampiri: la Masquerade è principalmente un gioco di inerpretazione, quindi questa prima schermata di creazione è la più importante di tutte. Dacci una idea chiara del personaggio che vuoi interpretare.
+                            Vampiri: la Masquerade &egrave; principalmente un gioco di interpretazione, quindi questa
+                            prima schermata di creazione &egrave; la pi&ugrave; importante di tutte.<br />
+                            Dacci una idea chiara del personaggio che vuoi interpretare, e se pensi che la
+                            quantit&agrave; di informazioni per creare un personaggio vampiro &egrave; eccessiva (lo
+                            &egrave; anche per noi), ti consigliamo di scegliere un personaggio Umano per familiarizzare
+                            con i concetti dell'Ambientazione: molto spesso, selezionare un umano &egrave; un'ottima idea
+                            anche per personaggi navigati, dato che permette di definire un personaggio pi&ugrave; affine
+                            alla nostra natura, e lasciare che sia la storia in gioco a fare il suo corso, ed a scegliere
+                            il clan del nostro personaggio per noi.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>

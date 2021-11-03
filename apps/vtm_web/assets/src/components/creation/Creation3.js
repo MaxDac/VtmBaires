@@ -6,10 +6,12 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import JackOfAllTradesSkillForm from "../strategies/JackOfAllTradesSkillForm";
-import BalancedSkillForm from "../strategies/BalancedSkillForm";
-import SpecialistSkillForm from "../strategies/SpecialistSkillForm";
-import useStyles from "../../Main.Layout.Style";
+import JackOfAllTradesSkillForm from "./strategies/JackOfAllTradesSkillForm";
+import BalancedSkillForm from "./strategies/BalancedSkillForm";
+import SpecialistSkillForm from "./strategies/SpecialistSkillForm";
+import useStyles from "../Main.Layout.Style";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../guides/GuidesMain";
 
 const Creation3 = (): any => {
     const classes = useStyles();
@@ -36,14 +38,21 @@ const Creation3 = (): any => {
 
     return (
         <div className={classes.centeredContainer}>
-            <Typography>
-                In questa sezione della creazione del personaggio, dovrai scegliere le sue Abilit&agrave;.
+            <Typography paragraph>
+                In questa sezione della creazione del personaggio, dovrai scegliere le sue&nbsp;
+                <Link to={GuideRoutes.attributes} target="_blank" rel="noreferrer" style={{color: "#C91919"}}>
+                    Abilit&agrave;
+                </Link>.
             </Typography>
-            <Typography>
-                Seguendo le nuove regole imposte dai manuali v5 di Vampiri: la Masquerade&trade;, dovrai scegliere quale tipo di personaggio vuoi interpretare.
-                Puoi scegliere tra le seguenti opzioni:
+            <Typography paragraph>
+                Seguendo le nuove regole imposte dai manuali v5 di Vampiri: la Masquerade&trade;, la selezione delle
+                Abilit&agrave; segue lo stesso spirito della selezione degli Attributi: i valori possibili sono
+                preimpostati, e sar&agrave; necessario semplicemente selezionare quale attributo associare ai livelli
+                proposti. In questo caso, per&ograve;, contrariamente agli Attributi, avrai la possibilit&agrave; di
+                scegliere quale tipo di personaggio vuoi interpretare, e di conseguenza tra quali livelli predeterminati
+                potrai scegliere di associare le Abilit&agrave;. Puoi scegliere tra le seguenti opzioni:
             </Typography>
-            <Typography>
+            <Typography paragraph>
                 <ui>
                     <li>
                         <b>Specialista</b>: lo specialista si &egrave; concentrato nell'avanzamento di poche abilit&agrave; ad alto livello.

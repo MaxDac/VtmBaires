@@ -5,11 +5,12 @@ import {useEffect, useRef} from "react";
 import List from "@mui/material/List";
 import type {ChatEntry} from "../../services/base-types";
 import ChatEntryComponent from "./ChatEntryComponent";
-import {emptyArray, parseUTC} from "../../_base/utils";
+import {emptyArray} from "../../_base/utils";
 import {useChatEntriesForSubscriptions} from "./hooks/ChatEntryFromSubscriptionHook";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/styles";
 import {add, compareAsc} from "date-fns";
+import { parseUTC } from "../../_base/date-utils";
 
 type Props = {
     entries: ?Array<ChatEntry>;
@@ -55,7 +56,13 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
 
     const moreThanTenMinutesAgo = (date: string): boolean => {
         const tenMinutesAgo = add(new Date(), {minutes: -10});
-        return compareAsc(parseUTC(date), tenMinutesAgo) > -1;
+        const convertedDate = parseUTC(date);
+
+        if (convertedDate != null) {
+            return compareAsc(convertedDate, tenMinutesAgo) > -1;
+        }
+
+        return true;
     }
 
     const entriesSet = (entries: Array<ChatEntry>) => {

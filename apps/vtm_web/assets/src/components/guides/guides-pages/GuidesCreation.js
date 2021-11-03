@@ -48,10 +48,11 @@ const GuidesCreation = (): any => {
 
             <Typography paragraph style={guideStyle}>
                 Questa &egrave; la sezione pi&ugrave; importante della scheda. In questa sezione, dovrete definire il nome del 
-                personaggio, il suo clan, il suo avatar, la sua descrizione, ma soprattutto la sua biografia, la storia della 
-                non vita (ed eventualmente dell'Abbraccio) del personaggio. La biografia dovr&agrave; essere credibile, e dovr&agrave;
-                adattarsi all'ambientazione di Buenos Aires by Night. Una biografia priva di contenuti potr&agrave; determinare
-                il rifiuto e la successiva cancellazione del personaggio.
+                personaggio, il suo <Link to={GuideRoutes.clans} style={{color: "#C91919"}}>clan</Link>, il suo avatar,
+                la sua descrizione, ma soprattutto la sua biografia, la storia della non vita (ed eventualmente dell'Abbraccio)
+                del personaggio. La biografia dovr&agrave; essere credibile, e dovr&agrave; adattarsi all'ambientazione
+                di Buenos Aires by Night. Una biografia priva di contenuti potr&agrave; determinare il rifiuto e la
+                successiva cancellazione del personaggio.
             </Typography>
 
             <Typography paragraph>
@@ -85,6 +86,12 @@ const GuidesCreation = (): any => {
                 poteri per ogni livello di Disciplina selezionato volete prendere</b>, dato che sar&agrave; possibile selezionare un
                 solo potere per livello di Disciplina. Potrete trovare le Discipline
                 <Link to={GuideRoutes.attributes}>nell'apposita sezione della guida</Link>.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Tipo di Predatore
+                </h4>
             </Typography>
                 
             <Typography paragraph style={guideStyle}>

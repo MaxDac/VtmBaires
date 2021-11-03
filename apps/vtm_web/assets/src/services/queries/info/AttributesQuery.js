@@ -2,6 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {AttributesQuery} from "./__generated__/AttributesQuery.graphql";
 
 export type AttributeTypeNames = "Attribute" | "Ability" | "Advantage" | "Discipline";
 
@@ -34,6 +35,56 @@ export const attributesQuery: any = graphql`
     }
 `;
 
+const getAttributeTypeNameOrder = attributeName => {
+    switch(attributeName) {
+        case "Attribute": return 1;
+        case "Ability": return 2;
+        case "Advantage": return 3;
+        default: return 4;
+    }
+};
+
+const getAttributeTypeSectionOrder = attributeName => {
+    switch(attributeName) {
+        case "Physical": return 1;
+        case "Social": return 2;
+        default: return 3;
+    }
+};
+
+const compareTypeNames = (first: string, second: string): number =>
+    getAttributeTypeNameOrder(first) - getAttributeTypeNameOrder(second);
+
+const compareTypeSection = (first: string, second: string): number =>
+    getAttributeTypeSectionOrder(first) - getAttributeTypeSectionOrder(second);
+
+const attributesDefaultSortFunction = (first: Attribute, second: Attribute): number => {
+    let result = compareTypeNames(first?.attributeType?.name, second?.attributeType?.name);
+
+    if (result === 0) {
+        result = compareTypeSection(first?.attributeType?.section, second?.attributeType?.section);
+    }
+
+    if (result === 0) {
+        return first?.name > second?.name
+            ? 1
+            : (first?.name === second?.name ? 0 : -1);
+    }
+
+    return result;
+};
+
 export default function useAttributesQuery(): ?Array<Attribute> {
-    return useCustomLazyLoadQuery(attributesQuery, {})?.attributes;
+    return useCustomLazyLoadQuery<AttributesQuery>(attributesQuery, {})
+        ?.attributes
+        ?.map(a => ({
+            id: a?.id ?? "",
+            name: a?.name ?? "",
+            attributeType: {
+                id: a?.attributeType?.id ?? "",
+                name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
+                section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
+            }
+        }))
+        ?.sort((a, b) => attributesDefaultSortFunction(a, b));
 }

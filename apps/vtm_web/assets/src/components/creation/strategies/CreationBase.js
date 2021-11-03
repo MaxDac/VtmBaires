@@ -3,7 +3,7 @@
 import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import AttributeSelectionField from "../creation/AttributeSelectionField";
+import AttributeSelectionField from "../controls/AttributeSelectionField";
 import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
 import {Routes} from "../../../AppRouter";
@@ -125,7 +125,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
                     color="primary"
                     className={props.classes.submit}
                     onClick={onSubmit}>
-                Continue!
+                Continua!
             </Button>
         </>
     )

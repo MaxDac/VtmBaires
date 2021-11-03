@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import {defaultFormatDateAndTime, handleMutation} from "../../../_base/utils";
+import {handleMutation} from "../../../_base/utils";
 import {useSession} from "../../../services/session-service";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -19,6 +19,7 @@ import DeleteThreadMutation from "../../../services/mutations/forum/DeleteThread
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
+import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 
 type ForumSectionDescriptionProps = {
     description: ?string;
