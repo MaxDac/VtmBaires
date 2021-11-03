@@ -148,7 +148,7 @@ const AssignNpcGenericStats = ({characterId}: Props): any => {
                 }}>
                     <Button
                         type="submit"
-                        variant="contained"
+                        variant="outlined"
                         color="primary">
                         Salva
                     </Button>

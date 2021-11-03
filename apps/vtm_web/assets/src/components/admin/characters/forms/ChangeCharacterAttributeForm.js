@@ -121,7 +121,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={4} sx={{paddingTop: "20px"}}>
-                    <Button variant="contained"
+                    <Button variant="outlined"
                             onClick={changeCharacterAttribute}>Aggiorna attributo</Button>
                 </Grid>
             </Grid>

@@ -75,7 +75,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                     padding: "10px",
                     textAlign: "center"
                 }}>
-                    <Button variant="contained"
+                    <Button variant="outlined"
                             onClick={changeCharacterNotes}>Aggiorna</Button>
                 </Grid>
             </Grid>

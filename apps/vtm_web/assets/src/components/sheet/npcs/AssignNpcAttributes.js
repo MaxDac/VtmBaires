@@ -93,7 +93,7 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
             }}>
                 <Button
                     type="submit"
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     onClick={_ => onSave()}>
                     Salva

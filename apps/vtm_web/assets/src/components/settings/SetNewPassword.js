@@ -76,7 +76,7 @@ const SetNewPassword = (): any => {
                 <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     sx={{
                         margin: theme.spacing(3, 0, 2),
                     }}>

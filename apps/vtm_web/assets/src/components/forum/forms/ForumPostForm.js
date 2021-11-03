@@ -25,7 +25,7 @@ const ForumPostForm = ({title, confirmButtonText, goBack, formik}: Props): any =
                 <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     sx={{
                         margin: theme.spacing(3, 0, 2),

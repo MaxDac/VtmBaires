@@ -2,10 +2,9 @@
 
 import React, {useContext} from "react";
 import Button from "@mui/material/Button";
-import Grid from '@mui/material/Grid';
 import { login } from "../../services/login-service";
 import type { Node } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {bool, object, string} from 'yup';
 import { useFormik } from "formik";
 import FormTextField from "../../_base/components/FormTextField";
@@ -17,6 +16,8 @@ import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Box from "@mui/material/Box";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -89,7 +90,7 @@ const LoginComponent = (): Node => {
                 <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     sx={{
                         margin: theme.spacing(3, 0, 2),
@@ -97,25 +98,13 @@ const LoginComponent = (): Node => {
                     Accedi
                 </Button>
             </form>
-            <Grid container>
-                <Grid item xs={4}>
-                    <Link to={LoginRoutes.recoverPassword} variant="body2" sx={{
-                        color: theme.palette.grey[50]
-                    }}>
-                        Recupera Password
-                    </Link>
-                </Grid>
-                <Grid item xs={4} sx={{textAlign: "center"}}>
-                    <Link to={Routes.guideMain} target="_blank">Guida</Link>
-                </Grid>
-                <Grid item xs={4} sx={{textAlign: "right"}}>
-                    <Link to={LoginRoutes.register} variant="body2" sx={{
-                        color: theme.palette.grey[50]
-                    }}>
-                        Registrati
-                    </Link>
-                </Grid>
-            </Grid>
+            <Box component="div" sx={{textAlign: "center"}}>
+                <ButtonGroup variant="outlined" aria-label="login links">
+                    <Button onClick={_ => history.push(LoginRoutes.recoverPassword)}>Recupera password</Button>
+                    <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
+                    <Button onClick={_ => history.push(LoginRoutes.register)}>Registrazione</Button>
+                </ButtonGroup>
+            </Box>
         </LoginFrameLayout>);
 };
 

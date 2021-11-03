@@ -14,6 +14,7 @@ import type {MessageNotificationSubscriptionResponse} from "../../services/subsc
 import MessageNotificationSubscription from "../../services/subscriptions/MessageNotificationSubscription";
 import {MainRoutes} from "../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
+import {menuIconStyle} from "./Menu";
 
 type Props = {
 
@@ -61,7 +62,7 @@ const MessageControl = (props: Props): any => {
         <Tooltip title="Messaggi" placement="bottom">
             <IconButton aria-label="messages" onClick={_ => history.push(MainRoutes.messages)}>
                 <Badge badgeContent={numberOfMessages} color="secondary">
-                    <ForumIcon />
+                    <ForumIcon sx={menuIconStyle} />
                 </Badge>
             </IconButton>
         </Tooltip>

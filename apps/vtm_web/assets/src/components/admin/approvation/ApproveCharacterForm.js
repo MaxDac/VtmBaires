@@ -65,11 +65,11 @@ const ApproveCharacterForm = ({character}: Props): any => {
                 }}>
                     <Grid container>
                         <Grid item xs={6}>
-                            <Button variant="contained"
+                            <Button variant="outlined"
                                     onClick={rejectCharacter}>Rifiuta personaggio</Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained"
+                            <Button variant="outlined"
                                     onClick={approveCharacter}>Approva personaggio</Button>
                         </Grid>
                         <Grid item xs={12} sx={{

@@ -55,7 +55,7 @@ const DefineNpc = ({characterId}: Props): any => {
             }}>
                 <Button
                     type="submit"
-                    variant="contained"
+                    variant="outlined"
                     fullWidth
                     color="primary"
                     onClick={_ => confirmPng()}>

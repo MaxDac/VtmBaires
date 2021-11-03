@@ -121,7 +121,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
             </Grid>
             <Button type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     className={props.classes.submit}
                     onClick={onSubmit}>

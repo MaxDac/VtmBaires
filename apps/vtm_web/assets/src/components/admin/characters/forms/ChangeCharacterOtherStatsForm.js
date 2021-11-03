@@ -127,7 +127,7 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} sx={containerStyle}>
-                    <Button variant="contained"
+                    <Button variant="outlined"
                             onClick={changeCharacterOtherStats}>Aggiorna</Button>
                 </Grid>
                 <Grid item xs={12} md={3} sx={containerStyle}>

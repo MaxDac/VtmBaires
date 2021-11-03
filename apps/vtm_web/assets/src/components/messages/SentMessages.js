@@ -9,6 +9,7 @@ import MessageListItem from "./components/MessageListItem";
 import Button from "@mui/material/Button";
 import {MainRoutes} from "../MainRouter";
 import {useHistory} from "react-router-dom";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 const SentMessages = (): any => {
     const history = useHistory();
@@ -37,12 +38,14 @@ const SentMessages = (): any => {
     return (
         <>
             <div style={{textAlign: "right"}}>
-                <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
-                    Scrivi nuovo
-                </Button>
-                <Button type="submit" onClick={_ => history.push(MainRoutes.messages)}>
-                    Messaggi ricevuti
-                </Button>
+                <ButtonGroup>
+                    <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
+                        Scrivi nuovo
+                    </Button>
+                    <Button type="submit" onClick={_ => history.push(MainRoutes.messages)}>
+                        Messaggi ricevuti
+                    </Button>
+                </ButtonGroup>
             </div>
             <Suspense fallback={"Loading..."}>
                 <List sx={{width: "100%", bgcolor: "background.paper"}}>

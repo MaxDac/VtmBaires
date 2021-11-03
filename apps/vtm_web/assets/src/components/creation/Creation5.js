@@ -140,7 +140,7 @@ const Internal = ({character}) => {
                     <Grid item xs={12} sx={{textAlign: "center"}}>
                         <Button
                             type="submit"
-                            variant="contained"
+                            variant="outlined"
                             color="primary"
                             onClick={() => completeCharacter(character.id)}>
                             Conferma il personaggio!
@@ -155,7 +155,7 @@ const Internal = ({character}) => {
                     <Grid item xs={12} sx={{textAlign: "center"}}>
                         <Button
                             type="submit"
-                            variant="contained"
+                            variant="outlined"
                             color="primary"
                             onClick={() => deleteCharacter(character.id)}>
                             Cancella il personaggio

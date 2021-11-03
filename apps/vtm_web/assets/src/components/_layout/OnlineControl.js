@@ -25,6 +25,7 @@ import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
 import Stack from "@mui/material/Stack";
+import {menuIconStyle} from "./Menu";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />
@@ -144,7 +145,7 @@ const OnlineControl = (): any => {
         <>
             <Tooltip title="Online" placement="bottom">
                 <IconButton aria-label="Online" onClick={_ => setOpen(_ => true)}>
-                    <PeopleIcon />
+                    <PeopleIcon sx={menuIconStyle} />
                 </IconButton>
             </Tooltip>
             <Dialog

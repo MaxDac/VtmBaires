@@ -120,7 +120,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             <Grid item xs={12} sx={formSectionStyle}>
                 <Button
                     type="submit"
-                    variant="contained"
+                    variant="outlined"
                     color="primary">
                     Salva
                 </Button>

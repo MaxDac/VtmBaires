@@ -26,11 +26,11 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
 
     const isPhone = useMediaQuery(theme.breakpoints.down("sm"));
 
-    console.log("is phone?", isPhone);
-
     const loginFrameBackgroundColor = isPhone
-        ? "linear-gradient(to right, #191919EE, #191919)"
-        : "#191919EE";
+        ? "#191919EE"
+        // : "linear-gradient(to right, #191919EE, #191919)"
+        : "transparent"
+    ;
 
     useEffect(() => {
         // Invoking the logout service to delete all the cached information
@@ -45,10 +45,10 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
             // backgroundImage: 'url(/login-image.webp)',
             backgroundImage: 'url(/login-wallpaper-inverted.webp)',
             backgroundRepeat: 'no-repeat',
-            backgroundColor:
-                theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+            backgroundColor: "black",
             backgroundSize: 'contain',
             backgroundPosition: 'left top',
+            backgroundBlendMode: "hard-light"
         }}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7} />

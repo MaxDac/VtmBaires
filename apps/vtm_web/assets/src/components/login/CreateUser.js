@@ -2,7 +2,6 @@
 
 import React, {useContext, useRef} from "react";
 import Button from "@mui/material/Button";
-import Grid from '@mui/material/Grid';
 import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import {object, string} from 'yup';
 import {useFormik} from "formik";
@@ -22,6 +21,7 @@ import {FormControl} from "@mui/material";
 import Box from "@mui/material/Box";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -136,32 +136,20 @@ const CreateUserComponent = (): Node => {
                     </Box>
                     <Button type="submit"
                             fullWidth
-                            variant="contained"
+                            variant="outlined"
                             sx={{
                                 margin: theme.spacing(3, 0, 2),
                             }}>
                         Register!
                     </Button>
                 </form>
-                <Grid container>
-                    <Grid item xs={4}>
-                        <Link to={LoginRoutes.recoverPassword} variant="body2" sx={{
-                            color: theme.palette.grey[50]
-                        }}>
-                            Recupera password
-                        </Link>
-                    </Grid>
-                    <Grid item xs={4} sx={{textAlign: "center"}}>
-                        <Link to={Routes.guideMain} target="_blank">Guida</Link>
-                    </Grid>
-                    <Grid item xs={4} sx={{textAlign: "right"}}>
-                        <Link to={LoginRoutes.login} variant="body2" sx={{
-                            color: theme.palette.grey[50]
-                        }}>
-                            Ritorna al Login
-                        </Link>
-                    </Grid>
-                </Grid>
+                <Box component="div" sx={{textAlign: "center"}}>
+                    <ButtonGroup variant="outlined" aria-label="registration links">
+                        <Button onClick={_ => history.push(LoginRoutes.recoverPassword)}>Recupera Password</Button>
+                        <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
+                        <Button onClick={_ => history.push(LoginRoutes.register)}>Registrazione</Button>
+                    </ButtonGroup>
+                </Box>
             </>
         </LoginFrameLayout>
     );

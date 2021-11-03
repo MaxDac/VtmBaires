@@ -113,7 +113,7 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                         <Button
                             type="submit"
                             fullWidth
-                            variant="contained"
+                            variant="outlined"
                             color="primary">
                             Continua
                         </Button>

@@ -74,7 +74,7 @@ const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{paddingTop: "20px", textAlign: "center"}}>
-                    <Button variant="contained"
+                    <Button variant="outlined"
                             onClick={changeCharacterAttribute}>
                         Aggiungi / Sottrai Esperienza
                     </Button>

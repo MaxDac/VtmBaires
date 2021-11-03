@@ -46,7 +46,7 @@ const CharacterSheet = (props: Props): any => {
                     margin: "20px",
                     textAlign: "center"
                 }}>
-                    <Button variant="contained" onClick={_ => history.push(MainRoutes.modifySheet(character.id))}>
+                    <Button variant="outlined" onClick={_ => history.push(MainRoutes.modifySheet(character.id))}>
                         Modifica scheda
                     </Button>
                 </div>
