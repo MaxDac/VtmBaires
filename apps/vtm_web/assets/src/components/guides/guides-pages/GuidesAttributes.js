@@ -2,13 +2,10 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
-import { useCustomLazyLoadQuery } from "../../../_base/relay-utils";
-import type { AttributesCompleteQuery } from "../../../services/queries/info/__generated__/AttributesCompleteQuery.graphql";
-import { attributesCompleteQuery } from "../../../services/queries/info/AttributesCompleteQuery";
-import { GuideRoutes } from "../GuidesMain";
+import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {AttributesCompleteQuery} from "../../../services/queries/info/__generated__/AttributesCompleteQuery.graphql";
+import {attributesCompleteQuery} from "../../../services/queries/info/AttributesCompleteQuery";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

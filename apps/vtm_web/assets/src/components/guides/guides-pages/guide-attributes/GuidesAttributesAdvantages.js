@@ -7,7 +7,7 @@ import { guideStyle, liStyle, titleStyle } from "../../GuidesStyles";
 import { GuideRoutes } from "../../GuidesMain";
 
 type Props = {
-    showAttributes: (string, string) => any[];
+    showAttributes: (name: string, section?: string) => any[];
 }
 
 const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
