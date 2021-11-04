@@ -70,6 +70,22 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, Accounts.user_email_exists?(email)}
   end
 
+  def send_welcome_message(user_id) do
+    Vtm.Messages.send_master_message(user_id, """
+    Benvenuto!
+    """, """
+    Benvenuto in Buenos Aires by Night, il corpo master ti ringrazia per averci scelto e ti augura una buona permanenza!
+
+    Per prima cosa, ti invitiamo ad ambientarti: con l'utente che hai creato potrai visionare il forum, le giocate nelle varie location, e la maggior parte del sito.
+
+    Per giocare, però, dovrai creare un personaggio. Potrai farlo cliccando il tasto "Crea personaggio" nel menu di sinistra. Se incontri difficoltà di qualsiasi genere, contattaci pure su Discord, troverai il link sempre nel menu di sinistra.
+
+    Ti auguriamo ancora una buona permanenza, e speriamo che tu possa divertirti con noi.
+
+    Il team di Buenos Aires by Night.
+    """)
+  end
+
   def create(_, request = %{email: email, name: user_name}, _) do
     new_password = generate_password(10)
 
@@ -81,6 +97,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     with {:ok, %User{id: id}} <- Accounts.create_user(request),
          mail                 <- UserEmail.welcome(user_name, email, new_password),
          {:ok, _}             <- Mailer.deliver(mail) do
+      Task.start(fn -> send_welcome_message(id) end)
       {:ok, %{id: id}}
     end
   end

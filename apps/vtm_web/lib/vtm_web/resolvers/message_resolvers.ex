@@ -38,12 +38,13 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
     with {:ok, sc_id}   <- from_global_id?(sender_character_id),
          {:ok, rc_id}   <- from_global_id?(receiver_character_id),
          {:ok, message} <- message
-          |> Map.put(:sender_character_id, sc_id)
-          |> Map.put(:receiver_character_id, rc_id)
-          |> decode_from_request_if_existent(:reply_to_id) do
-      Messages.send_message(user,
-        message
-        |> Map.drop([:receiver_user_id]))
+                           |> Map.put(:sender_character_id, sc_id)
+                           |> Map.put(:receiver_character_id, rc_id)
+                           |> decode_from_request_if_existent(:reply_to_id),
+         {:ok, message} <- Messages.send_message(user,
+                           message
+                           |> Map.drop([:receiver_user_id])) do
+      {:ok, message |> Map.put(:operation, "send_message")}
     end
   end
 
@@ -52,11 +53,12 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
   }}, %{context: %{current_user: user}}) do
     with {:ok, ru_id}   <- from_global_id?(receiver_user_id),
          {:ok, message} <- message
-          |> Map.put(:receiver_user_id, ru_id)
-          |> decode_from_request_if_existent(:reply_to_id) do
-      Messages.send_message(user,
-        message
-        |> Map.drop([:receiver_character_id, :sender_character_id]))
+                           |> Map.put(:receiver_user_id, ru_id)
+                           |> decode_from_request_if_existent(:reply_to_id),
+         {:ok, message} <- Messages.send_message(user,
+                           message
+                           |> Map.drop([:receiver_character_id, :sender_character_id])) do
+      {:ok, message |> Map.put(:operation, "send_message")}
     end
   end
 
@@ -68,12 +70,26 @@ defmodule VtmWeb.Resolvers.MessageResolvers do
   end
 
   def set_message_read(%{message_id: id}, %{context: %{current_user: user}}) do
-    Messages.set_message_read(user, id)
+    with {:ok, message} <- Messages.set_message_read(user, id) do
+      {:ok, message |> Map.put(:operation, "set_message_read")}
+    end
   end
 
   def delete_message(%{message_id: id}, %{context: %{current_user: user}}) do
     with {:ok, message} <- Messages.get_message(user, id) do
       Messages.delete_message(user, message)
+    end
+  end
+
+  def delete_all_received_message(_, _, %{context: %{current_user: user}}) do
+    with :ok <- Messages.delete_all_received_messages(user) do
+      {:ok, true}
+    end
+  end
+
+  def delete_all_sent_message(_, _, %{context: %{current_user: user}}) do
+    with :ok <- Messages.delete_all_sent_messages(user) do
+      {:ok, true}
     end
   end
 

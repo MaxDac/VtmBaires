@@ -2,7 +2,6 @@ defmodule VtmWeb.Resolvers.ChatHelpers do
   @moduledoc false
 
   alias Vtm.Chats
-  alias VtmAuth.Accounts
 
   def map_entry(entry = %{
     character_id: c_id,
@@ -47,9 +46,8 @@ defmodule VtmWeb.Resolvers.ChatHelpers do
           entry
       end
 
-    with {:ok, %{ id: id }}           <- Chats.create_chat_entry(new_entry),
-         entry when not is_nil(entry) <- Chats.get_chat_entry(id),
-         {:ok, _}                     <- Accounts.update_session(user) do
+    with {:ok, %{id: id}}             <- Chats.create_chat_entry(new_entry),
+         entry when not is_nil(entry) <- Chats.get_chat_entry(id) do
       {:ok, entry |> map_entry()}
     end
   end

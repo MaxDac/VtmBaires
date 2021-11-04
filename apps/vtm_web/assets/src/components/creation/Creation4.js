@@ -5,8 +5,8 @@ import {useHistory} from "react-router-dom";
 import {UtilityContext} from "../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import DisciplinesControl from "../sheet/controls/DisciplinesControl";
-import PredatorTypeControl from "../sheet/controls/PredatorTypeControl";
+import DisciplinesControl from "./controls/DisciplinesControl";
+import PredatorTypeControl from "./controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import {useFragment, useRelayEnvironment} from "react-relay";
@@ -53,7 +53,6 @@ const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) =
 
     if (isVampire) {
         shape = {
-            ...shape,
             predatorType: string("Please select your character predator type").required("Required")
         };
     }
@@ -239,13 +238,12 @@ const Creation4 = (): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            Se hai scelto di interpretare un personaggio <b>vampiro</b>, in questa sezione dovrai
-                            inserire le tre <b>Convinzioni</b> e le <b>Ancore</b> del tuo personaggio. Puoi sceglierle
-                            tra quelle proposte nella&nbsp;
+                            In questa sezione dovrai inserire le tre <b>Convinzioni</b> e le <b>Ancore</b> del tuo
+                            personaggio. Puoi sceglierle tra quelle proposte nella&nbsp;
                             <Link to={GuideRoutes.rules} 
                                   target="_blank" 
                                   rel="noreferrer"
-                                  style={{color: "#C92929"}}>guida</Link>.<br />
+                                  style={{color: "#C92929"}}>guida</Link>.
                             Se hai delle richieste particolari per il tuo personaggio, aggiungile alla definizione
                             delle Convinzioni, saranno vagliate dal master che controller&agrave; la tua scheda.
                         </Typography>
@@ -266,7 +264,7 @@ const Creation4 = (): any => {
                             error={formik.touched["notes"] && Boolean(formik.errors["notes"])}
                             helperText={formik.touched["notes"] && formik.errors["notes"]} />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{margin: "1rem"}}>
                         <Button
                             type="submit"
                             fullWidth

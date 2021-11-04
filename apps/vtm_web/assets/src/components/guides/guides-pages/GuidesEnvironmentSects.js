@@ -97,10 +97,15 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                In Buenos Aires by Night, non sar&agrave; necessario specificare 
-                direttamente l'affiliazione di un personaggio, in quanto dovr&agrave; 
-                essere chiaro nella sua biografia. In seguito, saranno esposte le
-                situazioni attuali delle varie Sette e Congreghe.
+                In Buenos Aires by Night, sar&agrave; possibile creare solamente personaggi affiliati alla Camarilla;
+                in questo modo, il corpo master sar&agrave; in grado di gestire efficacemente il gioco e l'organizzazione
+                di una singola setta, senza rischiare di disperdere e spezzettare le trame per le differenti fazioni.
+                L'unica eccezione saranno ovviamente i Sangue Debole, il cui gioco comunque verr&agrave; considerato
+                principalmente in funzione del loro status (cacciati a vista o meno) dalla Torre d'Avorio.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                In seguito, saranno esposte le situazioni attuali delle varie Sette e Congreghe.
             </Typography>
 
             <Typography paragraph>

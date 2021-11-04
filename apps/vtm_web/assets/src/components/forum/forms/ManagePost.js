@@ -139,8 +139,6 @@ const ManagePost = ({threadId, postId}: Props): any => {
         forumThreadId: threadId
     })?.getForumThread;
 
-    console.log("thread", thread);
-
     if (thread?.id != null) {
         if (postId != null) {
             return (<ModifyPost threadId={thread.id} title={thread?.title} postId={postId} />);

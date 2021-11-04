@@ -59,7 +59,7 @@ const MenuHuntSection = (): any => {
                             .then((result: HuntMutationResponse) => {
                                 if (result?.hunt?.result != null) {
                                     const huntResult = result.hunt.result;
-                                    console.log("showing ok message", result);
+
                                     showUserNotification({
                                         type: "info",
                                         duration: 7000,

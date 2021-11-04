@@ -25,15 +25,15 @@ const GuidesHome = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                In questa comunit&agrave; &egrave; indispensabile per giocare un vampiro, avere una estesa conoscenza
-                dell'ambientazione di Vampiri: la Masquerade&trade;. Questo non vuol dire che giocatori privi di questa
-                conoscenza siano esclusi automaticamente: potranno cominciare giocando personaggi umani, ed essere
-                introdotti lentamente al mondo, alla terminologia ed alle conoscenze del mondo dei vampiri.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Vi invitiamo comunque a leggere la guida per apprendere quali adattamenti sono stati ritenuti necessari
-                nello sviluppo della land, quali limitazioni sono stati poste all'ambientazione, e le sue caratteristiche.
+                Nel sito, sar&agrave; possibile giocare solamente personaggi vampiri affiliati alla <b>Camarilla</b>.
+                Questo vuol dire che non si accetteranno personaggi umani, e nemmeno personaggi di linee di sangue
+                esotiche, o di clan non ufficialmente affiliati alla Camarilla. Se non siete esperti nell'ambientazione,
+                o non avete mai letto un manuale, questa guida comprende quasi tutto quello che c'&egrave; da sapere
+                per poter interpretare un vampiro appena Abbracciato (trasformato in vampiro). All'interno del sito,
+                poi, le guide e i narratori saranno a vostra disposizione per chiarire qualsiasi dubbio. C'&egrave;
+                anche una comunit&agrave;
+                su <a href="https://discord.gg/nhk6rkjJDA" target="_blank" rel="noreferrer" style={{color: "#C91919"}}>Discord</a> su cui potrete
+                chiarire i vostri dubbi.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>

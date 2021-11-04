@@ -13,7 +13,7 @@ defmodule VtmAuth.Accounts do
 
   import VtmAuth.Helpers
 
-  @session_offset 60 * 30
+  @session_offset 30
 
   def list_users() do
     User

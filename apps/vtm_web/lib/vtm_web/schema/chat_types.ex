@@ -98,6 +98,7 @@ defmodule VtmWeb.Schema.ChatTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       middleware VtmWeb.Schema.Middlewares.AuthorizeCharacter, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve &ChatResolvers.create_chat_entry/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
@@ -107,6 +108,7 @@ defmodule VtmWeb.Schema.ChatTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       middleware VtmWeb.Schema.Middlewares.AuthorizeCharacter, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve &ChatResolvers.create_chat_dice_entry/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end

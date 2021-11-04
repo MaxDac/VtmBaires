@@ -437,6 +437,7 @@ type Message implements Node {
   insertedAt: DateTime
   modifiedAt: DateTime
   onGame: Boolean
+  operation: String
   read: Boolean
   receiverCharacter: Character
   receiverCharacterId: ID
@@ -561,6 +562,8 @@ type RootMutationType {
   createNpc(input: CreateNpcInput!): CreateNpcPayload
   createUser(email: String!, name: String!): CreationResult
   defineNpcStats(input: DefineNpcStatsInput!): DefineNpcStatsPayload
+  deleteAllReceivedMessage: Boolean
+  deleteAllSentMessage: Boolean
   deleteCharacter(characterId: ID): Boolean
   deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
   deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload

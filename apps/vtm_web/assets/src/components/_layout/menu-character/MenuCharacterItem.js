@@ -26,38 +26,36 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
     const [,currentCharacter] = useSession(true);
 
     const actions = () => {
-        return (
-            <>
-                <Tooltip title="Scheda personaggio">
-                    <IconButton edge="end"
-                                aria-label="select"
-                                onClick={handleSheetSelection(character)}
-                                sx={{marginRight: "3px"}}>
-                        <AssignmentIndIcon sx={menuIconStyle} />
-                    </IconButton>
-                </Tooltip>
-                {
-                    handleCharacterSelection != null
-                        ? (
-                            <Tooltip title="Seleziona personaggio">
-                                <IconButton edge="end"
-                                            onClick={handleCharacterSelection(character)}
-                                            aria-label="select">
-                                    {character?.id === currentCharacter?.id
-                                        ? <RadioButtonCheckedIcon sx={menuIconStyle} />
-                                        : <RadioButtonUncheckedIcon sx={menuIconStyle} />
-                                    }
-                                </IconButton>
-                            </Tooltip>
-                        )
-                        : (<></>)
-                }
-            </>
-        );
+        return handleCharacterSelection != null
+            ? (
+                <>
+                    <Tooltip title="Scheda personaggio">
+                        <IconButton edge="end"
+                                    aria-label="select"
+                                    onClick={handleSheetSelection(character)}
+                                    sx={{marginRight: "3px"}}>
+                            <AssignmentIndIcon sx={menuIconStyle} />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Seleziona personaggio">
+                        <IconButton edge="end"
+                                    onClick={handleCharacterSelection(character)}
+                                    aria-label="select">
+                            {character?.id === currentCharacter?.id
+                                ? <RadioButtonCheckedIcon sx={menuIconStyle} />
+                                : <RadioButtonUncheckedIcon sx={menuIconStyle} />
+                            }
+                        </IconButton>
+                    </Tooltip>
+                </>
+            )
+            : (<></>);
     };
 
     return (
         <ListItem key={character?.id}
+                  button={handleCharacterSelection == null}
+                  onClick={handleSheetSelection(character)}
                   // sx={{ pl: 4 }}
                   secondaryAction={actions()}>
             <ListItemIcon>

@@ -41,8 +41,7 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                 <>
                     <Grid item xs={12}>
                         <Typography paragraph sx={{marginTop: "20px"}}>
-                            Avendo scelto un personaggio vampiro ("normale" o Sangue Debole), devi anche scegliere il
-                            Tipo di Predatore che vuoi interpretare. Il Tipo di Predatore &egrave; una nuova caratteristica
+                            Il Tipo di Predatore &egrave; una nuova caratteristica
                             del personaggio che interessa il modo in cui caccia il Sangue dei mortali (o dei cainiti).
                             Puoi trovare pi&ugrave; informazioni riguardo il significato e i vari tipi tra i quali
                             puoi scegliere nella <Link to={GuideRoutes.creation}
@@ -52,7 +51,7 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                             Scegli il tipo di predatore che il tuo personaggio dovr&agrave; interpretare.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} style={{textAlign: "center"}}>
+                    <Grid item xs={12} style={{textAlign: "center", marginBottom: "1rem"}}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="predator-type-label">Tipo di Predatore</InputLabel>
                             <Select labelId="predator-type-label"

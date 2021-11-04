@@ -59,7 +59,6 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toU
 
     const onSubmit = (values: SubmitProperties) => {
         const cleanedInput = cleanInput(values);
-        console.log("cleaned", cleanedInput);
         submitted(cleanedInput);
     };
 

@@ -74,24 +74,16 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
             <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Typography>
+                        <Typography paragraph>
                             In questa prima parte della registrazione di un nuovo personaggio, &egrave; necessario gi&agrave;
                             avere ben chiara la sua storia, il suo aspetto e la sua interpretazione. Ti invitiamo a
                             leggere la <Link to={GuideRoutes.creation}
                                              target="_blank"
                                              rel="noreferrer"
                                              style={{color: "#C91919"}}>Guida</Link> per ulterior informazioni.
-                        </Typography>
-                        <Typography>
                             Vampiri: la Masquerade &egrave; principalmente un gioco di interpretazione, quindi questa
-                            prima schermata di creazione &egrave; la pi&ugrave; importante di tutte.<br />
-                            Dacci una idea chiara del personaggio che vuoi interpretare, e se pensi che la
-                            quantit&agrave; di informazioni per creare un personaggio vampiro &egrave; eccessiva (lo
-                            &egrave; anche per noi), ti consigliamo di scegliere un personaggio Umano per familiarizzare
-                            con i concetti dell'Ambientazione: molto spesso, selezionare un umano &egrave; un'ottima idea
-                            anche per personaggi navigati, dato che permette di definire un personaggio pi&ugrave; affine
-                            alla nostra natura, e lasciare che sia la storia in gioco a fare il suo corso, ed a scegliere
-                            il clan del nostro personaggio per noi.
+                            prima schermata di creazione &egrave; la pi&ugrave; importante di tutte, servir&agrave; a darci
+                            un'idea del personaggio che vuoi interpretare.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>

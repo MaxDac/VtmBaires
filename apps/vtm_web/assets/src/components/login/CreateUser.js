@@ -147,7 +147,7 @@ const CreateUserComponent = (): Node => {
                     <ButtonGroup variant="outlined" aria-label="registration links">
                         <Button onClick={_ => history.push(LoginRoutes.recoverPassword)}>Recupera Password</Button>
                         <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
-                        <Button onClick={_ => history.push(LoginRoutes.register)}>Registrazione</Button>
+                        <Button onClick={_ => history.push(LoginRoutes.login)}>Torna al Login</Button>
                     </ButtonGroup>
                 </Box>
             </>

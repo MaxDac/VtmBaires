@@ -59,9 +59,7 @@ const Internal = ({character}) => {
             firstAttribute: first,
             secondAttribute: second
         })
-            .then(r => {
-                console.log("response", r);
-            })
+            .then(r => {})
             .catch(e => {
                 showUserNotification({
                     type: "error",
@@ -79,7 +77,6 @@ const Internal = ({character}) => {
         openDialog("Conferma personaggio", "Sei sicuro di voler cancellare il personaggio?", () => {
             FinalizeCharacterMutation(environment, characterId)
                 .then(r => {
-                    console.log("character creation successful", r);
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
                     setTimeout(() => history.push(Routes.main), 1000);
                 })
@@ -97,7 +94,6 @@ const Internal = ({character}) => {
         openDialog("Conferma cancellazione", "Sei sicuro di voler cancellare il personaggio?", () => {
             DeleteCharacterMutation(environment, characterId)
                 .then(r => {
-                    console.log("character deletion successful", r);
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
                     history.push(Routes.main);
                     document.location.reload();
@@ -137,7 +133,7 @@ const Internal = ({character}) => {
                             o proporre correzioni, al tuo personaggio.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} sx={{textAlign: "center"}}>
+                    <Grid item xs={12} sx={{textAlign: "center", margin: "1rem"}}>
                         <Button
                             type="submit"
                             variant="outlined"
@@ -152,7 +148,7 @@ const Internal = ({character}) => {
                             Avrai la possibilit&agrave; di farne un altro cliccando sull'icona personaggio in alto a destra.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} sx={{textAlign: "center"}}>
+                    <Grid item xs={12} sx={{textAlign: "center", margin: "1rem"}}>
                         <Button
                             type="submit"
                             variant="outlined"

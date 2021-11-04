@@ -12,8 +12,6 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {CommonListItem, MainListItems, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
@@ -23,6 +21,7 @@ import OnlineControl from "./_layout/OnlineControl";
 import LogoutControl from "./_layout/LogoutControl";
 import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/ReloadControl";
+import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 
 const drawerWidth = 300;
 
@@ -95,6 +94,7 @@ export default function MiniDrawer({children}: {children: any}): any {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
+    const numberOfMessages = useMessageSubscription();
 
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
@@ -209,7 +209,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                 {drawerContent()}
             </MuiDrawer>
         );
-    }
+    };
 
     return (
         <Box sx={{
@@ -250,7 +250,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                         {title()}
                     </Typography>
                     <ReloadControl />
-                    <MessageControl />
+                    <MessageControl numberOfMessages={numberOfMessages} />
                     <OnlineControl />
                     <LogoutControl />
                 </Toolbar>

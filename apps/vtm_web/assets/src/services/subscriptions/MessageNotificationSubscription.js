@@ -12,6 +12,7 @@ const subscription = graphql`
                 id
                 subject
                 senderName
+                operation
             }
             numberUnread
         }
@@ -19,9 +20,8 @@ const subscription = graphql`
 `;
 
 const subscriptionObservable = (token: string): Observable<MessageNotificationSubscriptionResponse> =>
-    wrapSubscription<MessageNotificationSubscriptionResponse>(
-        subscription,
-        { token },
-        response => {console.log("response", response); return response; });
+    wrapSubscription<MessageNotificationSubscriptionResponse>(subscription, {
+        token
+    });
 
 export default subscriptionObservable;

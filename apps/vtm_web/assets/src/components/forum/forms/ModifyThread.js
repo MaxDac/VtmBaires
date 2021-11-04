@@ -32,8 +32,6 @@ const ModifyThread = ({sectionId, threadId}: Props): any => {
         forumThreadId: threadId
     })?.getForumThread;
 
-    console.log("thread", thread);
-
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
     const onSubmit = ({title, description}) => {

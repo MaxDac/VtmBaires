@@ -44,8 +44,6 @@ const CreateNewThread = ({sectionId}: Props): any => {
                 message: "Nuovo thread creato."
             });
 
-            console.log("got id", id);
-
             setTimeout(() => {
                 if (id != null && id !== "") {
                     history.push(MainRoutes.forumThread(id));

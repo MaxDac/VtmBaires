@@ -73,8 +73,6 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
     const [user,] = useSession();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
 
-    console.log("item", item);
-
     const isUserMaster = () => user?.role === "MASTER";
 
     const isUserThreadCreator = () => user?.id != null && item?.creatorUser?.id != null && user.id === item.creatorUser.id;

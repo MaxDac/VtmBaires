@@ -20,6 +20,7 @@ defmodule VtmWeb.Schema.MessageTypes do
     field :sender_character, :character
     field :receiver_character, :character
     field :sender_name, :string
+    field :operation, :string
     field :inserted_at, :date_time
     field :modified_at, :date_time
   end
@@ -65,6 +66,7 @@ defmodule VtmWeb.Schema.MessageTypes do
       arg :message, non_null(:send_message_request)
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve &MessageResolvers.send_message/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
@@ -73,6 +75,7 @@ defmodule VtmWeb.Schema.MessageTypes do
       arg :message_id, :id
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve parsing_node_ids(&MessageResolvers.set_message_read/2, message_id: :message)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
@@ -82,6 +85,18 @@ defmodule VtmWeb.Schema.MessageTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve parsing_node_ids(&MessageResolvers.delete_message/2, message_id: :message)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :delete_all_received_message, :boolean do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &MessageResolvers.delete_all_received_message/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :delete_all_sent_message, :boolean do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &MessageResolvers.delete_all_sent_message/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

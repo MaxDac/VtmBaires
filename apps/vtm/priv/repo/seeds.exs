@@ -134,6 +134,13 @@ defmodule Vtm.SeedsHelpers do
         |> Vtm.Repo.delete()
     end
   end
+
+  def set_selectable_clans(clans) do
+    Vtm.Characters.Clan |> Vtm.Repo.update_all(set: [selectable: false])
+
+    from(c in Vtm.Characters.Clan, where: c.name in ^clans)
+    |> Vtm.Repo.update_all(set: [selectable: true])
+  end
 end
 
 {:ok, %{id: phisical_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Physical")
@@ -390,7 +397,17 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tremere", selectable: t
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tzimisce", selectable: false, attributes: [auspex, dominate, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ventrue", selectable: true, attributes: [dominate, fortitude, presence]})
 
-
+Vtm.SeedsHelpers.set_selectable_clans(["Thin Blood",
+                                       "Caitiff",
+                                       "BanuHaquim",
+                                       "Brujah",
+                                       "Gangrel",
+                                       "Malkavian",
+                                       "Nosferatu",
+                                       "Lasombra",
+                                       "Toreador",
+                                       "Tremere",
+                                       "Ventrue"])
 
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Accattone", description: "Accattone"})
 Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Allevatore", description: "Allevatore"})

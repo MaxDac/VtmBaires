@@ -115,6 +115,7 @@ defmodule VtmWeb.Schema.ForumTypes do
       end
 
       middleware Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve &ForumResolvers.new_forum_thread/3
       middleware Middlewares.ChangesetErrors
     end
@@ -129,6 +130,7 @@ defmodule VtmWeb.Schema.ForumTypes do
       end
 
       middleware Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve &ForumResolvers.new_forum_post/3
       middleware Middlewares.ChangesetErrors
     end

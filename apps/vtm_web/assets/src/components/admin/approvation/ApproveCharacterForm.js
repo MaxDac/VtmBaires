@@ -24,8 +24,6 @@ const ApproveCharacterForm = ({character}: Props): any => {
     const environment = useRelayEnvironment();
     const [reason, setReason] = useState<?string>(null);
 
-    console.log("character", character);
-
     const approveCharacter = _ => {
         openDialog(`Accetta ${character.name ?? ""}`, "Sei sicuro di voler accettare questo personaggio?", () => {
             const promise: Promise<boolean> = ApproveCharacterMutation(environment, character.id, reason ?? "");

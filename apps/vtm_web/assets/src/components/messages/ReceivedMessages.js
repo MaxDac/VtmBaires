@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Suspense} from "react";
+import React, {Suspense, useContext, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userReceivedMessagesQuery} from "../../services/queries/messages/UserReceivedMessagesQuery";
 import List from "@mui/material/List";
@@ -10,12 +10,20 @@ import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import { MainRoutes } from "../MainRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import {UtilityContext} from "../../contexts";
+import {handleMutation} from "../../_base/utils";
+import DeleteAllReceivedMessagesMutation from "../../services/mutations/messages/DeleteAllReceivedMessagesMutation";
+import {useRelayEnvironment} from "react-relay";
 
 const ReceivedMessages = (): any => {
     const history = useHistory();
+    const environment = useRelayEnvironment();
+    const {openDialog, showUserNotification} = useContext(UtilityContext);
+    const [fetchKey, setFetchKey] = useState(0);
 
     const messages = useCustomLazyLoadQuery<UserReceivedMessagesQuery>(userReceivedMessagesQuery, {}, {
-        fetchPolicy: "store-and-network"
+        fetchPolicy: "store-and-network",
+        fetchKey: fetchKey
     });
 
     const messageList = () =>
@@ -36,15 +44,36 @@ const ReceivedMessages = (): any => {
                     }} />)
                     : <></>);
 
+    const onDeleteAll = _ => {
+        openDialog(
+            "Cancella tutti i messaggi",
+            "Sei sicuro di voler cancellare tutti i tuoi messaggi ricevuti?",
+            () => {
+                handleMutation(
+                    () => DeleteAllReceivedMessagesMutation(environment),
+                    showUserNotification,
+                    {
+                        successMessage: "I messaggi sono stati cancellati correttamente",
+                        onCompleted: () => {
+                            setFetchKey(p => p + 1);
+                        }
+                    });
+            }
+        )
+    };
+
     return (
         <>
-            <div style={{textAlign: "right"}}>
+            <div style={{textAlign: "right", padding: "1rem"}}>
                 <ButtonGroup>
                     <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
                         Scrivi nuovo
                     </Button>
                     <Button type="submit" onClick={_ => history.push(MainRoutes.sentMessages)}>
                         Messaggi inviati
+                    </Button>
+                    <Button type="submit" onClick={onDeleteAll}>
+                        Cancella tutti
                     </Button>
                 </ButtonGroup>
             </div>

@@ -151,7 +151,7 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
             });
         })
         .catch(error => {
-            console.log("An error occoured while performing the mutation: ", error);
+            console.error("An error occoured while performing the mutation: ", error);
             showNotification({
                 type: "error",
                 message: args?.errorMessage ?? "La modifica non ha avuto successo, contatta un master per ulteriori informazioni."

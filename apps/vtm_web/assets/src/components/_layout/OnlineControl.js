@@ -39,7 +39,6 @@ const OnlineControlDialog = ({closePopup}) => {
 
     const trySendMessageToUser = user =>
         _ => {
-            console.log("user", user);
             if (user?.id != null) {
                 history.push(MainRoutes.newMessageTo(user.id));
             }

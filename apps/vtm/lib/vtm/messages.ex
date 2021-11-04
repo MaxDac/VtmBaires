@@ -171,7 +171,10 @@ defmodule Vtm.Messages do
 
   @spec message_digest(Integer.t()) :: MessageDigest.t()
   def message_digest(user_id) do
-    query = from m in Message, where: m.receiver_user_id == ^user_id
+    query =
+      from m in Message,
+      where: m.receiver_user_id == ^user_id,
+      where: m.hide_for_receiver == false
 
     case Repo.all(query) do
       []        ->
@@ -220,5 +223,19 @@ defmodule Vtm.Messages do
     message
     |> Message.hide_changeset(attrs)
     |> Repo.update()
+  end
+
+  def delete_all_received_messages(%{id: user_id}) do
+    from(m in Message, where: m.receiver_user_id == ^user_id)
+    |> Repo.update_all(set: [hide_for_receiver: true])
+
+    :ok
+  end
+
+  def delete_all_sent_messages(%{id: user_id}) do
+    from(m in Message, where: m.sender_user_id == ^user_id)
+    |> Repo.update_all(set: [hide_for_sender: true])
+
+    :ok
   end
 end
