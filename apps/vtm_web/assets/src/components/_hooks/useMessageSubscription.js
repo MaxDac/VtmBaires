@@ -15,8 +15,6 @@ export const useMessageSubscription = (): number => {
         fetchPolicy: "store-and-network"
     });
 
-    console.log("digest", messagesDigest);
-
     const [numberOfMessages, setNumberOfMessages] = useState(messagesDigest?.messagesDigest?.unreadMessages ?? 0);
 
     // Message notification subscription

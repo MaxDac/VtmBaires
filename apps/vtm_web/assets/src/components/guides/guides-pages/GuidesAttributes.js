@@ -32,11 +32,27 @@ const GuidesAttributes = (): any => {
         fetchPolicy: "store-or-network"
     })?.attributes ?? [];
 
+    const sortAttributes = name =>
+        (a, b) => {
+            if (name !== "Attribute") {
+                if (a?.name != null && b?.name != null) {
+                    if (a.name > b.name) return 1;
+                    else if (a.name === b.name) return 0;
+                    else return -1;
+                }
+
+                return 0;
+            }
+            else {
+                return Number(a?.id) - Number(b?.id);
+            }
+        };
+
     const showAttributes = (name: string, section?: string) =>
         attributes
             .filter(a => a?.attributeType?.name === name)
             .filter(a => section == null || a?.attributeType?.section === section)
-            .sort((a, b) => (a?.name ?? "") > (b?.name ?? "") ? 1 : 0)
+            .sort((a, b) => sortAttributes(name)(a, b))
             .map(a => (
                 <li style={liStyle} key={a?.id}><b>{a?.name}</b>: {a?.description}</li>
             ));

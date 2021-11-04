@@ -199,7 +199,10 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: p
 Manualità è un'Abilità ad ampio spettro che racchiude esecuzione artistica, crezione di utensili, fino al miglioramento del proprio Rifugio.
 Si possono possedere più specializzazioni in Manualità che punteggio.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Guidare", description: "Guidare"})
+Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Guidare", description: """
+Questa Abilità consente al personaggio di poter guidare veicoli a motore. Più avanzata la conoscenza del personaggio in questa Abilità, maggiore
+sarà la cilindrata e la grandezza dei veicoli che potrà guidare.
+"""})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Armi da Fuoco", description: """
 L'Abilità consente al personaggio di usare, manutenere e ricaricare velocemente armi da fuoco di vario calibro, dipendendo dal livello che si ha.
 """})
@@ -309,41 +312,48 @@ computer, telefoni cellulari, ecc.
 {:ok, protean} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Proteide", description: "Proteide"})
 {:ok, alchemy} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Thin-Blood Alchemy", description: "Thin-Blood Alchemy"})
 
-{:ok, allies} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Allies", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Alleati", description: """
 Gli alleati sono personaggi, umani o cainiti, che supportano il personaggio: famiglia, amici, o gli elementi dell'organizzazione di cui il personaggio fa parte.
 Il numero di livelli che si intendono acquistare possono significare più alleati (uno per pallino), o un alleato di maggiore influenza, su cui si può fare più affidamento.
 Dovrete indicare in scheda la natura dell'Alleato e il suo "valore".
 """})
-{:ok, contacts} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contacts", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Contatti", description: """
 I contatti sono conoscenze superficiali del personaggio, che non si impegneranno molto per salvarlo da situazioni di pericolo, ma sono una utilissima fonte di informazioni.
 Contrariamente agli alleati, un pallino acquistato in Contatti garantirà un numero variabile di contatti in diverse aree di influenza politiche, sanitarie,
 o nelle forze dell'ordine del personaggio. Per questo, dovrete indicare in scheda per ciascun pallino in quale area di influenza i contatti del personaggio operano.
 """})
-{:ok, fame} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fame", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Fama", description: """
 La Fama misura quanto il personaggio è conosciuto in un particolare ambito. Il personaggio potrà essere stato un cantante o un attore famoso, o essere un cainita
 molto famoso nella società vampirica per un motivo (che dovrete specificare in creazione). La Fama potrebbe anche ritorcesi contro un personaggio: se un vampiro era
 famoso nella sua vita mortale, alcuni potrebbero trovare strano il vederlo solamente di notte.
 """})
-{:ok, haven} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Haven", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Generazione", description: """
+Questo Vantaggio determina la Generazione del cainita, ovvero, quanto distante il suo Sangue è da quello di Caino, il mitico progenitore dei vampiri, ovvero quanti vampiri
+sono stati Abbracciati fino a lui. I vampiri Abbracciati da Caino saranno della Seconda Generazione, i loro infanti saranno di Terza, e così via. Dato che i
+Sangue Debole sono già per definizione troppo distanti dal Progenitore, non potranno acquisire questo Vantaggio. Gli altri personaggi vampiri, invece, saranno considerati
+di Generazione 13. Potrete acquisire solo un punto di questo Vantaggio, e questo porterà il vostro personaggio ad avere Generazione 12. Non sarà possibile,
+in gioco, assumere una Generazione maggiore della 12 al primo personaggio.
+"""})
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Rifugio", description: """
 Questo Vantaggio determina la qualità del rifugio del personaggio. Acquistare più pallini in Rifugio potrebbe anche significare che il personaggio ne ha più di uno
 in caso di emergenza. Quello che dovrete indicare in scheda per questo Vantaggio sarà la qualità e la quantità dei rifugi a cui il personaggio ha accesso.
 """})
-{:ok, herd} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Herd", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Gregge", description: """
 Il Gregge è un gruppo di mortali da cui il cainita può nutrirsi senza troppi rischi e pericoli. Non si tratta di alleati, o di contatti, semplicemente si tratta di
 mortali che garantiscono un approvigionamento di vitae costante. Questo vantaggio aiuta grandemente nella caccia.
 """})
-{:ok, influence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influence", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Influenza", description: """
 Questo Vantaggio determina quanto il cainita o il mortale è in grado di influenzare un'area del governo del Dominio. Le aree di influenza possono riguardare qualsiasi
 organizzazione mortale o cainita, dal governo del comune o di uno stato, alla stampa, alla sanità o alle forze dell'ordine, e perfino la Camarilla, nel caso dei
 cainiti. Ogni pallino potrà rappresentare sia un'area differente di influenza, oppure un grado di influenza maggiore in una particolare area di interesse. In entrambi i casi,
 dovranno essere indicate in fase di creazione le aree di influenza del personaggio.
 """})
-{:ok, loresheet} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Loresheet", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Grimori", description: """
 Rappresenta la Conoscenza su di un'area particolarmente difficile da apprendere di un personaggio. Che sia un segreto noddista, o la conoscenza di un segreto,
 o di particolari rituali dell'Oblivion proibiti, il personaggio possiede questa Conoscenza. Non sarà possibile acquisire in fase di creazione questo Vantaggio,
 ma sarà possibile acquisirlo in gioco.
 """})
-{:ok, mask} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Mask", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Maschera", description: """
 Pallini in questo vantaggio garantiscono identità alternative credibili per le agenzie governative umane. Il personaggio potrà aver creato un'identità corroborata
 da documenti falsi o contraffatti, o creati nelle agenzie preposte attraverso influenze o alleati. Un pallino in questo Vantaggio può significare una identità
 alternativa ulteriore, oppure la maggiore affidabilità di una delle identità alternative.
@@ -352,11 +362,11 @@ Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_typ
 Vantaggio che identifica un mentore del personaggio più o meno famoso. Più grande sarà il punteggio di Mawla, maggiore sarà il potere o il grado di conoscenza del
 Mentore del personaggio. Sarà possibile acquisire questo Vantaggio in fase di creazione, ma dovrà essere ben motivato.
 """})
-{:ok, resources} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Resources", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Risorse", description: """
 Le Risorse finanziarie del personaggio. Più alto sarà il livello di Risorse del personaggio, maggiore sarà la sua disponibilità economica. Le Risorse saranno
 considerate quando il personaggio vorrà acquistare particolari oggetti, come armi da fuoco.
 """})
-{:ok, retainers} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Retainers", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Seguaci", description: """
 Gli Asserviti, o ghoul, personaggi mortali (o cainiti, in rari casi) fedeli al personaggio in virtù di un legame di sangue. Un legame di sangue può rendere un mortale
 fedelissimo, ma può anche infondere sentimenti di gelosia, o altri sentimenti di desiderio, oscuri, e quindi potrebbe ritorcersi contro il personaggio cainita
 in determinati casi.
@@ -365,18 +375,6 @@ Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_typ
 La collocazione sociale del personaggio nella congregazione di cui fa parte. Per i cainiti della Camarilla, rappresenta il rango assunto (Sceriffo, Primogenio, Principe, Arpia, ...),
 per gli Anarchici l'influenza che il vampiro possiede sugli altri, quanto cioè il cainita viene considerato una figura di riferimento.
 """})
-
-# Translating in italian
-Vtm.SeedsHelpers.update_attribute(allies, %{name: "Alleati"})
-Vtm.SeedsHelpers.update_attribute(contacts, %{name: "Contatti"})
-Vtm.SeedsHelpers.update_attribute(fame, %{name: "Fama"})
-Vtm.SeedsHelpers.update_attribute(haven, %{name: "Rifugio"})
-Vtm.SeedsHelpers.update_attribute(herd, %{name: "Gregge"})
-Vtm.SeedsHelpers.update_attribute(influence, %{name: "Influenza"})
-Vtm.SeedsHelpers.update_attribute(loresheet, %{name: "Grimori"})
-Vtm.SeedsHelpers.update_attribute(mask, %{name: "Maschera"})
-Vtm.SeedsHelpers.update_attribute(resources, %{name: "Risorse"})
-Vtm.SeedsHelpers.update_attribute(retainers, %{name: "Seguaci"})
 
 # Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Umano"})
 Vtm.SeedsHelpers.create_or_update_humans_clan()
