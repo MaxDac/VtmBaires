@@ -10,6 +10,7 @@ import { performLogout } from "../../services/logout-service";
 import NoCookieBar from "../../_base/components/NoCookieBar";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 export type HomeLayoutProps = {
     title: string;
@@ -51,7 +52,24 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
             backgroundBlendMode: "hard-light"
         }}>
             <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} />
+            <Grid item xs={false} sm={4} md={7}>
+                <Typography sx={{
+                    fontFamily: "Disturbed",
+                    fontSize: "2rem",
+                    color: "#191919",
+                    position: "absolute",
+                    bottom: "10px",
+                    width: {
+                        xs: "100%",
+                        sm: "40%",
+                        md: "65%"
+                    },
+                    textShadow: "1px 1px black",
+                    textAlign: "center"
+                }}>
+                    Buenos Aires by Night
+                </Typography>
+            </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{
                 background: loginFrameBackgroundColor,
                 overflow: "auto",
