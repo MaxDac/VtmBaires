@@ -15,15 +15,14 @@ const ResponsiveInnerContainer = ({children}: Props): any => {
         <Grid container sx={{
             paddingLeft: {
                 xs: 0,
-                md: theme.spacing(10),
-                lg: theme.spacing(20)
+                md: 0,
+                lg: theme.spacing(5)
             },
             paddingRight: {
                 xs: 0,
-                md: theme.spacing(10),
-                lg: theme.spacing(20)
-            },
-            paddingTop: theme.spacing(3)
+                md: 0,
+                lg: theme.spacing(5)
+            }
         }}>
             <Grid item xs={12}>
                 {children}

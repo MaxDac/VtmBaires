@@ -99,7 +99,7 @@ export default function MiniDrawer({children}: {children: any}): any {
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const theresEnoughSpace = useMediaQuery(theme.breakpoints.up("md"));
+    const theresEnoughSpace = useMediaQuery(theme.breakpoints.up("lg"));
     const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
     const showPartialTitle = useMediaQuery(theme.breakpoints.down('lg'));
 

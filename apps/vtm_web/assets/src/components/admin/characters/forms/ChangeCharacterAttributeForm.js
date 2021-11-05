@@ -23,7 +23,7 @@ type Props = {
 const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const attributes = useAttributesSlimQuery()?.attributes ?? [];
+    const attributes = useAttributesSlimQuery() ?? [];
 
     const [attributeId, setAttributeId] = useState<?string>(null);
     const [newValue, setNewValue] = useState(0);

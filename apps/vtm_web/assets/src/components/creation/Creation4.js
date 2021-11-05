@@ -240,7 +240,7 @@ const Creation4 = (): any => {
                         <Typography className={classes.defaultParagraph}>
                             In questa sezione dovrai inserire le tre <b>Convinzioni</b> e le <b>Ancore</b> del tuo
                             personaggio. Puoi sceglierle tra quelle proposte nella&nbsp;
-                            <Link to={GuideRoutes.rules} 
+                            <Link to={GuideRoutes.creation} 
                                   target="_blank" 
                                   rel="noreferrer"
                                   style={{color: "#C92929"}}>guida</Link>.

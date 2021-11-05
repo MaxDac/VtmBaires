@@ -4,6 +4,8 @@ import graphql from 'babel-plugin-relay/macro';
 import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GetCharacterStatsQuery} from "./__generated__/GetCharacterStatsQuery.graphql";
+import type { AttributeTypeNames } from "../info/AttributesQuery";
+import { sortStrings } from "../../../_base/info-helpers";
 
 export const getCharacterStatsQuery: GraphQLTaggedNode = graphql`
     query GetCharacterStatsQuery($id: ID!) {
@@ -58,6 +60,24 @@ export type Attribute = Stat & {
     type: ?string;
     section: ?string;
 };
+
+type CharacterAttributeSorterFunction = (?Attribute, ?Attribute) => number;
+
+export const characterAttributeSorter = (type: AttributeTypeNames): CharacterAttributeSorterFunction =>
+    (a: ?Attribute, b: ?Attribute): number => {
+        if (a?.section != null && b?.section != null && a.section !== b.section) {
+            return sortStrings(a.section, b.section);
+        }
+
+        if (type === "Attribute" && a?.id != null && b?.id != null) {
+            return sortStrings(a.id, b.id);
+        }
+        else if (a?.name != null && b?.name != null) {
+            return sortStrings(a.name, b.name);
+        }
+
+        return 0;
+    }
 
 export type Discipline = Stat;
 

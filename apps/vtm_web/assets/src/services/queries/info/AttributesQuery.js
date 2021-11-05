@@ -58,7 +58,7 @@ const compareTypeNames = (first: string, second: string): number =>
 const compareTypeSection = (first: string, second: string): number =>
     getAttributeTypeSectionOrder(first) - getAttributeTypeSectionOrder(second);
 
-const attributesDefaultSortFunction = (first: Attribute, second: Attribute): number => {
+export const attributesDefaultSortFunction = (first: Attribute, second: Attribute): number => {
     let result = compareTypeNames(first?.attributeType?.name, second?.attributeType?.name);
 
     if (result === 0) {

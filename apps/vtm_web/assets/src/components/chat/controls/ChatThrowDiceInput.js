@@ -36,7 +36,7 @@ type ChatThrowDiceInputProps = {
 };
 
 const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
-    const attributes = useAttributesSlimQuery()?.attributes ?? [];
+    const attributes = useAttributesSlimQuery() ?? [];
     const [user,] = useSession();
     const [open, setOpen] = useState(props.isOpen);
     const [masterThrow, setMasterThrow] = useState(false);

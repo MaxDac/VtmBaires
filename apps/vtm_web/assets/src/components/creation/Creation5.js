@@ -18,6 +18,8 @@ import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import DeleteCharacterMutation from "../../services/mutations/characters/DeleteCharacterMutation";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
+import {sortAttributes} from "../../_base/info-helpers";
+import type { AttributeTypeNames } from "../../services/queries/info/AttributesQuery";
 
 type Props = {
 
@@ -27,7 +29,7 @@ const Internal = ({character}) => {
     const theme = useTheme();
     const {setWait, showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const attributes = useAttributesSlimQuery()?.attributes;
+    const attributes = useAttributesSlimQuery();
     const history = useHistory();
 
     const [refreshedQueryOptions, setRefreshedQueryOptions] = useState<?RefreshedQueryOption>(null);
@@ -39,8 +41,9 @@ const Internal = ({character}) => {
         }));
     }, []);
 
-    const filterAttrs = (type: string): Array<[string, string]> => attributes
+    const filterAttrs = (type: AttributeTypeNames): Array<[string, string]> => attributes
         ?.filter(a => a?.attributeType?.name === type)
+        ?.sort((a, b) => sortAttributes(type)(a, b))
         ?.map(a => [String(a?.id), String(a?.name)]) ?? [];
 
     const getAttributes = () => filterAttrs("Attribute");

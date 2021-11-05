@@ -2,7 +2,10 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import {useCharacterStatsQuery} from "../../../services/queries/character/GetCharacterStatsQuery";
+import {
+  characterAttributeSorter,
+  useCharacterStatsQuery,
+} from "../../../services/queries/character/GetCharacterStatsQuery";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import AttributeStat from "../controls/AttributeStat";
@@ -50,6 +53,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
 
     const filterAttributes = (type, section) => stats?.attributes
         ?.filter(({type: t, section: s}) => t === type && s === section)
+        ?.sort((a, b) => characterAttributeSorter(type)(a, b))
         ?.map(s => <AttributeStat key={s?.id} stat={s} />);
 
     const renderAttributes = () => {
@@ -202,13 +206,6 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
 
     return (
         <>
-            <Typography sx={{
-                fontFamily: 'DefaultTypewriter',
-                color: "red",
-                fontSize: "24px"
-            }}>
-                Stats
-            </Typography>
             <Grid container>
                 {renderAttributes()}
                 {renderAbilities()}

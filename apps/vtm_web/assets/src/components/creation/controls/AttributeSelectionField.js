@@ -68,8 +68,8 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
     return (
         <div style={{padding: "10px", textAlign: "center"}}>
             <FormControl>
-                <InputLabel id="select-label">{props.label}</InputLabel>
-                <Select labelId="select-label"
+                <InputLabel id="attribute-selection-field">{props.label}</InputLabel>
+                <Select labelId="attribute-selection-field"
                         id={props.fieldName}
                         name={props.fieldName}
                         fullWidth

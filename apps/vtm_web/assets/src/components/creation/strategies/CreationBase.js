@@ -16,6 +16,7 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import { MainRoutes } from "../../MainRouter";
+import {sortAttributes} from "../../../_base/info-helpers";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -49,6 +50,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
     const selectFields = () => {
         const attrs = data
             ?.filter(({ attributeType: { name } }) => name === props.attributeTypeName)
+            ?.sort((a, b) => sortAttributes(props.attributeTypeName)(a, b))
             ?.map(({ id, name, attributeType: { section: group } }) => [group, String(id), name])
             ?? [];
 
