@@ -8,6 +8,7 @@ import Copyright from "../../_base/components/Copyrights";
 import {useTheme} from "@mui/styles";
 import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import {useMediaQuery} from "@mui/material";
+import AppVersion from "../../_base/components/AppVersion";
 
 type Props = {
     icon: any;
@@ -61,6 +62,9 @@ const LoginFrameLayout = (props: Props): any => {
             </Box>
             <Box mt={logosDistancing}>
                 <Copyright />
+            </Box>
+            <Box mt={logosDistancing}>
+                <AppVersion />
             </Box>
         </>
     );

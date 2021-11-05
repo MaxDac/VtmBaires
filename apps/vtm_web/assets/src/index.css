@@ -21,6 +21,10 @@ code {
     monospace;
 }
 
+.shadowed-text {
+  text-shadow: 5px 5px 5px black;
+}
+
 @font-face {
   font-family: "Disturbed";
   src: local("Punktype"), url("./fonts/punktype.ttf");

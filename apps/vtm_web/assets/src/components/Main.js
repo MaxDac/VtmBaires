@@ -51,7 +51,7 @@ export default function Main(): any {
         <Box sx={{
             background: `url("/SplashScreen.webp") no-repeat center`,
             backgroundColor: "black",
-            border: "1px white solid",
+            boxShadow: "-2px -2px #191919",
             height: "calc(100% - 70px)",
             backgroundSize: "cover"
         }}>

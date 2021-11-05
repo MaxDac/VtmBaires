@@ -12,6 +12,8 @@ import AssignNpcAttributesMutation from "../../../services/mutations/npcs/Assign
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import type { Attribute } from "../../../services/queries/character/GetCharacterStatsQuery";
+import {attributesDefaultSortFunction} from "../../../services/queries/info/AttributesQuery";
+import {sortAttributes} from "../../../_base/info-helpers";
 
 type Props = {
     characterId: string;
@@ -56,6 +58,7 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
 
     const filterAttributes = (type: "Attribute" | "Ability", section: "Physical" | "Social" | "Mental") => stats
         ?.filter(({type: t, section: s}) => t === type && s === section)
+        ?.sort((a, b) => sortAttributes(type)(a, b))
         ?.map(s => (<AttributeFormControl characterId={characterId}
                                           attribute={s}
                                           onChange={onAttributeChanged}

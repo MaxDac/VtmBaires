@@ -24,6 +24,7 @@ const NoCookieBar = (): any => {
     if (showCookiePolicy) {
         return (
             <Box sx={{
+                zIndex: "3",
                 position: "fixed",
                 left: "0px",
                 bottom: "0px",

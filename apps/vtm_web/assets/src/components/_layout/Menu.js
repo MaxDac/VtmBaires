@@ -36,7 +36,8 @@ export const menuIconStyle = {
 };
 
 export const menuTextStyle = {
-    fontFamily: "Disturbed"
+    fontFamily: "ThroughTheNight",
+    fontSize: "1.2rem"
 }
 
 export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
