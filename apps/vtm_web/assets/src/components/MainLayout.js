@@ -1,10 +1,10 @@
 // @flow
 
-import React, {useEffect, useState} from 'react';
-import {styled, useTheme} from '@mui/material/styles';
+import React, {useState} from 'react';
+import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,71 +25,6 @@ import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 
 const drawerWidth = 300;
 
-const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
-        width: `calc(${theme.spacing(9)} + 1px)`,
-    },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        boxSizing: 'border-box',
-        ...(open && {
-            ...openedMixin(theme),
-            '& .MuiDrawer-paper': openedMixin(theme),
-        }),
-        ...(!open && {
-            ...closedMixin(theme),
-            '& .MuiDrawer-paper': closedMixin(theme),
-        }),
-    }),
-);
-
 export default function MiniDrawer({children}: {children: any}): any {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -99,13 +34,8 @@ export default function MiniDrawer({children}: {children: any}): any {
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const theresEnoughSpace = useMediaQuery(theme.breakpoints.up("lg"));
     const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
     const showPartialTitle = useMediaQuery(theme.breakpoints.down('lg'));
-
-    useEffect(() => {
-        setOpen(_ => theresEnoughSpace);
-    }, [theresEnoughSpace]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -131,8 +61,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                 <>
                     <Divider/>
                     <List>
-                        <SecondaryListItems drawerDone={closeOnSelected} 
-                                            isClosed={!open}
+                        <SecondaryListItems drawerDone={closeOnSelected}
                                             onUpdate={onCharacterUpdate}
                                             reloadCount={characterFetchKey} />
                     </List>
@@ -157,57 +86,51 @@ export default function MiniDrawer({children}: {children: any}): any {
 
     const drawerContent = () => (
         <Box>
-            <DrawerHeader>
-                {/*Hidden because the menu will not be deletable*/}
-                {/*<IconButton onClick={handleDrawerClose}>*/}
-                {/*    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
-                {/*</IconButton>*/}
-            </DrawerHeader>
+            <Toolbar />
             <Divider />
             <List>
                 <MainListItems drawerDone={closeOnSelected}
-                               isClosed={!open}
                                onUpdate={onCharacterUpdate}
                                reloadCount={characterFetchKey} />
             </List>
             <Divider />
             {masterMenu()}
             <Divider />
-            <CommonListItem isClosed={!open} />
+            <CommonListItem />
         </Box>
     );
 
     const drawer = () => {
-        if (theresEnoughSpace) {
-            return (
-                <Drawer variant="permanent"
+        const container = window !== undefined ? () => window.document.body : undefined;
+
+        return (
+            <>
+                <Drawer container={container}
+                        variant="temporary"
                         open={open}
+                        onClose={_ => setOpen(p => !p)}
+                        ModalProps={{
+                            keepMounted: true, // Better open performance on mobile.
+                        }}
                         sx={{
-                            '& .MuiDrawer-paper': {
-                                backgroundColor: "transparent"
-                            }
+                            display: { xs: 'block', md: 'none' },
+                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}>
                     {drawerContent()}
                 </Drawer>
-            );
-        }
-        
-        return (
-            <MuiDrawer variant="temporary"
-                       open={open}
-                       onClose={() => setOpen(_ => false)}
-                       ModalProps={{
-                           keepMounted: true, // Better open performance on mobile.
-                       }}
-                       sx={{
-                           display: { xs: 'block', sm: 'none' },
-                           '& .MuiDrawer-paper': {
-                               boxSizing: 'border-box',
-                               width: drawerWidth
-                           }
-                       }}>
-                {drawerContent()}
-            </MuiDrawer>
+                <Drawer variant="permanent"
+                        sx={{
+                            display: { xs: 'none', md: 'block' },
+                            '& .MuiDrawer-paper': {
+                                boxSizing: 'border-box',
+                                width: drawerWidth,
+                                background: "transparent"
+                            },
+                        }}
+                        open>
+                    {drawerContent()}
+                </Drawer>
+            </>
         );
     };
 
@@ -225,18 +148,20 @@ export default function MiniDrawer({children}: {children: any}): any {
             <CssBaseline />
             <AppBar position="fixed" open={open} sx={{
                 background: "url('masquerade.webp')",
-                backgroundColor: "#101010B0"
+                backgroundColor: "#101010B0",
+                width: { md: `calc(100% - ${drawerWidth}px)` },
+                ml: { xs: `${drawerWidth}px` },
             }}>
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: '36px',
-                            ...(open && { display: 'none' }),
-                        }}>
+                    <IconButton color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerOpen}
+                                edge="start"
+                                sx={{
+                                    marginRight: '36px',
+                                    mr: 2,
+                                    display: { md: 'none' }
+                                }}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6"
@@ -255,13 +180,18 @@ export default function MiniDrawer({children}: {children: any}): any {
                     <LogoutControl />
                 </Toolbar>
             </AppBar>
-            {drawer()}
+            <Box component="nav"
+                 sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+                 aria-label="mailbox folders">
+                {drawer()}
+            </Box>
             <Box component="main" sx={{
                 flexGrow: 1,
                 p: 3,
+                width: { lg: `calc(100% - ${drawerWidth}px)` },
                 background: "url('pattern.webp')"
             }} style={{height: "100vh"}}>
-                <DrawerHeader />
+                <Toolbar />
                 <React.Suspense fallback={<DefaultFallback />}>
                     {children}
                 </React.Suspense>

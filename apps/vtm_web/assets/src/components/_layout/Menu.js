@@ -27,7 +27,6 @@ import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
 
 type Props = {
     drawerDone: () => void;
-    isClosed: boolean;
     reloadCount: number;
     onUpdate: () => void;
 }
@@ -134,41 +133,29 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
     );
 }
 
-export const CommonListItem = ({isClosed}: {isClosed: boolean}): any => {
-    const DOLogo = () => {
-        if (!isClosed) {
-            return (
-                <ListItem>
-                    <Box sx={{margin: "0 auto"}}>
-                        <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
-                            <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" />
-                        </a>
-                    </Box>
-                </ListItem>
-            );
-        }
+export const CommonListItem = (): any => {
+    const DOLogo = () => (
+        <ListItem>
+            <Box sx={{margin: "0 auto"}}>
+                <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
+                    <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" />
+                </a>
+            </Box>
+        </ListItem>
+    );
 
-        return (<></>);
-    }
-
-    const appVersion = () => {
-        if (!isClosed) {
-            return (
-                <ListItem>
-                    <Box sx={{margin: "0 auto"}}>
-                        <AppVersion />
-                    </Box>
-                </ListItem>
-            );
-        }
-
-        return (<></>);
-    };
+    const appVersion = () => (
+        <ListItem>
+            <Box sx={{margin: "0 auto"}}>
+                <AppVersion />
+            </Box>
+        </ListItem>
+    );
 
     return (
         <>
             <Box sx={{marginTop: "15px"}}>
-                <JoinUsOnDiscord isClosed={isClosed} />
+                <JoinUsOnDiscord />
             </Box>
             <Box sx={{marginTop: "15px"}}>
                 {DOLogo()}

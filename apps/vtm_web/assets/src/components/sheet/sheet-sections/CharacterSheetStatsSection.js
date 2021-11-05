@@ -195,7 +195,8 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
 
     const responsiveProperties = {
         xs: 12,
-        sm: 4,
+        sm: 6,
+        md: 4,
         sx: {
             textAlign: {
                 xs: "center",

@@ -4,11 +4,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-type Props = {
-    isClosed: boolean;
-}
-
-const JoinUsOnDiscord = ({isClosed}: Props): any => {
+const JoinUsOnDiscord = (): any => {
     return (
         <Box sx={{
             textAlign: "center"
@@ -21,26 +17,20 @@ const JoinUsOnDiscord = ({isClosed}: Props): any => {
                     height: "auto"
                 }} alt="discord" />
             </a>
-            {
-                !isClosed
-                    ? (
-                        <Typography variant="body2" color="textSecondary" align="center" sx={{
-                            whiteSpace: "break-spaces"
+                <Typography variant="body2" color="textSecondary" align="center" sx={{
+                    whiteSpace: "break-spaces"
+                }}>
+                    Stai riscontrando un problema? Contattaci su&nbsp;
+                    <a href="https://discord.gg/nhk6rkjJDA"
+                       target="_blank"
+                       rel="noreferrer">
+                        <Typography component="span" variant="body2" sx={{
+                            color: "#C92929"
                         }}>
-                            Stai riscontrando un problema? Contattaci su&nbsp;
-                            <a href="https://discord.gg/nhk6rkjJDA"
-                               target="_blank"
-                               rel="noreferrer">
-                                <Typography component="span" variant="body2" sx={{
-                                    color: "#C92929"
-                                }}>
-                                    Discord
-                                </Typography>
-                            </a>
+                            Discord
                         </Typography>
-                    ) :
-                    (<></>)
-            }
+                    </a>
+                </Typography>
         </Box>
     );
 }
