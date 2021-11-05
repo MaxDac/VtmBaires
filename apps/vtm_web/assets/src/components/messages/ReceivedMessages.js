@@ -14,8 +14,11 @@ import {UtilityContext} from "../../contexts";
 import {handleMutation} from "../../_base/utils";
 import DeleteAllReceivedMessagesMutation from "../../services/mutations/messages/DeleteAllReceivedMessagesMutation";
 import {useRelayEnvironment} from "react-relay";
+import {useTheme} from "@mui/styles";
+import {useMediaQuery} from "@mui/material";
 
 const ReceivedMessages = (): any => {
+    const theme = useTheme();
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
@@ -25,6 +28,8 @@ const ReceivedMessages = (): any => {
         fetchPolicy: "store-and-network",
         fetchKey: fetchKey
     });
+
+    const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 
     const messageList = () =>
         (messages?.me?.receivedMessages ?? [])
@@ -62,17 +67,19 @@ const ReceivedMessages = (): any => {
         )
     };
 
+    const buttonType = () => isSmall ? "contained" : "outlined";
+
     return (
         <>
             <div style={{textAlign: "right", padding: "1rem"}}>
                 <ButtonGroup>
-                    <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
+                    <Button variant={buttonType()} onClick={_ => history.push(MainRoutes.newMessage())}>
                         Scrivi nuovo
                     </Button>
-                    <Button type="submit" onClick={_ => history.push(MainRoutes.sentMessages)}>
+                    <Button variant={buttonType()} onClick={_ => history.push(MainRoutes.sentMessages)}>
                         Messaggi inviati
                     </Button>
-                    <Button type="submit" onClick={onDeleteAll}>
+                    <Button variant={buttonType()} onClick={onDeleteAll}>
                         Cancella tutti
                     </Button>
                 </ButtonGroup>

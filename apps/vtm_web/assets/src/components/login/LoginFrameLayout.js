@@ -57,7 +57,7 @@ const LoginFrameLayout = (props: Props): any => {
                 </a>
             </Box>
             <Box mt={logosDistancing}>
-                <JoinUsOnDiscord isClosed={false} />
+                <JoinUsOnDiscord />
             </Box>
             <Box mt={logosDistancing}>
                 <Copyright />

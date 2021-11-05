@@ -11,6 +11,7 @@ import NoCookieBar from "../../_base/components/NoCookieBar";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export type HomeLayoutProps = {
     title: string;
@@ -47,28 +48,64 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
             backgroundImage: 'url(/login-wallpaper-inverted.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: "black",
-            backgroundSize: 'contain',
-            backgroundPosition: 'left top',
+            backgroundSize: {
+                xs: "cover",
+                sm: "auto 100vh"
+            },
+            backgroundPosition: {
+                xs: 'top center',
+                sm: 'left top',
+            },
             backgroundBlendMode: "hard-light"
         }}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7}>
-                <Typography sx={{
-                    fontFamily: "Disturbed",
-                    fontSize: "2rem",
-                    color: "#191919",
+                <Box sx={{
                     position: "absolute",
-                    bottom: "10px",
-                    width: {
-                        xs: "100%",
-                        sm: "40%",
-                        md: "65%"
-                    },
-                    textShadow: "1px 1px black",
-                    textAlign: "center"
+                    zIndex: "3",
+                    bottom: "2rem",
+                    width: "100%"
                 }}>
-                    Buenos Aires by Night
-                </Typography>
+                    <Grid item xs={false} md={12} lg={7}>
+                        <Typography sx={{
+                            fontFamily: "Disturbed",
+                            fontSize: "2rem",
+                            color: "#191919",
+                            textShadow: "1px 1px black",
+                            textAlign: "center",
+                            marginLeft: {
+                                sm: "5rem",
+                                md: "7rem",
+                                lg: "9rem"
+                            }
+                        }}>
+                            Buenos Aires by Night
+                        </Typography>
+                    </Grid>
+                </Box>
+                <Box sx={{
+                    position: "absolute",
+                    zIndex: "2",
+                    bottom: "1.5rem",
+                    width: "100%"
+                }}>
+                    <Grid item xs={false} md={12} lg={7}>
+                        <Typography sx={{
+                            fontFamily: "Disturbed",
+                            fontSize: "3rem",
+                            color: "#C91919",
+                            textShadow: "1px 1px #590000",
+                            textAlign: "center",
+                            marginLeft: {
+                                sm: "5rem",
+                                md: "7rem",
+                                lg: "9rem"
+                            }
+                        }}>
+                            Buenos Aires by Night
+                        </Typography>
+                    </Grid>
+                </Box>
             </Grid>
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{
                 background: loginFrameBackgroundColor,
