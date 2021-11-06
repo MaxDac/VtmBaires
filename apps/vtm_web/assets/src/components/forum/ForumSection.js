@@ -17,6 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from '@mui/icons-material/Home';
+import {menuIconStyle} from "../_layout/Menu";
 
 type Props = {
     sectionId: string;
@@ -75,7 +76,7 @@ const ForumSection = ({sectionId}: Props): any => {
                     <Tooltip title="Crea nuovo thread">
                         <IconButton aria-label="Messaggio"
                                     onClick={createNew}>
-                            <ForumIcon/>
+                            <ForumIcon sx={menuIconStyle} />
                         </IconButton>
                     </Tooltip>
                 );
@@ -90,7 +91,7 @@ const ForumSection = ({sectionId}: Props): any => {
                 <Tooltip title="Torna al Forum">
                     <IconButton aria-label="Messaggio"
                                 onClick={goToForum}>
-                        <HomeIcon/>
+                        <HomeIcon sx={menuIconStyle} />
                     </IconButton>
                 </Tooltip>
                 {createNewThreadControl()}

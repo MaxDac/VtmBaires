@@ -18,6 +18,7 @@ import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
+import {menuIconStyle} from "../_layout/Menu";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -79,7 +80,7 @@ const LoginComponent = (): Node => {
     }
 
     return (
-        <LoginFrameLayout title="Login" icon={<LockOutlinedIcon />}>
+        <LoginFrameLayout title="Login" icon={<LockOutlinedIcon sx={menuIconStyle} />}>
             <form style={{
                 width: '100%', // Fix IE 11 issue.
                 marginTop: "10px",

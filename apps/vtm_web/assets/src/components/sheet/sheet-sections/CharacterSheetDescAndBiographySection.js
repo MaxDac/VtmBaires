@@ -6,22 +6,25 @@ import type {CharacterFragments_characterSheet$key} from "../../../services/quer
 import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
 import Typography from "@mui/material/Typography";
 import ParsedText from "../../../_base/components/ParsedText";
+import CharacterSheetInfoSection from "./CharacterSheetInfoSection";
 
 type Props = {
     characterQuery: any
 }
 
-const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
+const CharacterSheetDescAndBiographySection = ({characterQuery}: Props): any => {
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
         characterQuery);
 
     return (
         <>
+            <CharacterSheetInfoSection characterQuery={characterQuery} />
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
                 color: "secondary.light",
-                fontSize: "24px"
+                fontSize: "2rem",
+                marginTop: "1rem"
             }}>
                 Biografia
             </Typography>
@@ -33,4 +36,4 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
     );
 }
 
-export default CharacterSheetBiographySection;
+export default CharacterSheetDescAndBiographySection;

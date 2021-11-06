@@ -25,7 +25,11 @@ const AttributeStat = ({stat}: Props): any => {
         <>
             <Grid container>
                 <Grid item xs={12} sm={6}>
-                    <Typography>{stat.name}</Typography>
+                    <Typography sx={{
+                        fontFamily: "DefaultTypewriter"
+                    }}>
+                        {stat.name}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Rating name={stat.name}

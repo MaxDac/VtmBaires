@@ -16,6 +16,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import {MainRoutes} from "../MainRouter";
 import {useMediaQuery, useTheme} from '@mui/material';
+import {menuIconStyle} from "../_layout/Menu";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -85,9 +86,11 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
         const mapLink = ({ id, name, isChat }: any) =>
             <ListItem key={id} button onClick={openMap(id, isChat)}>
                 <ListItemIcon>
-                    <SendIcon />
+                    <SendIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary={name} />
+                <ListItemText primary={name} primaryTypographyProps={{
+                    fontFamily: "DefaultTypewriter"
+                }} />
             </ListItem>;
 
         if (maps && maps.map) {

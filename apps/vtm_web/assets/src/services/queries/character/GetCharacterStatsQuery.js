@@ -99,7 +99,9 @@ export type CharacterStats = {|
 
 export const useCharacterStatsQuery = (characterId: string, queryOptions?: any): ?CharacterStats => {
     const s =
-        useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId}, queryOptions)
+        useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId}, queryOptions ?? {
+            fetchPolicy: "store-and-network"
+        })
             ?.getCharacterStats;
 
     if (s?.id != null) {

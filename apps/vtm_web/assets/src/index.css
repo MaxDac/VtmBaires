@@ -1,3 +1,23 @@
+@font-face {
+  font-family: "Disturbed";
+  src: local("Punktype"), url("./fonts/punktype.ttf");
+}
+
+@font-face {
+  font-family: "ThroughTheNight";
+  src: local("ThroughTheNight"), url("./fonts/through-the-night.ttf");
+}
+
+@font-face {
+  font-family: "DefaultTypewriter";
+  src: local("DefaultTypewriter"), url("./fonts/veteran-typewriter.ttf");
+}
+
+@font-face {
+  font-family: "Chat";
+  src: local("Chat"), url("./fonts/chat.ttf");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -23,21 +43,6 @@ code {
 
 .shadowed-text {
   text-shadow: 5px 5px 5px black;
-}
-
-@font-face {
-  font-family: "Disturbed";
-  src: local("Punktype"), url("./fonts/punktype.ttf");
-}
-
-@font-face {
-  font-family: "ThroughTheNight";
-  src: local("ThroughTheNight"), url("./fonts/through-the-night.ttf");
-}
-
-@font-face {
-  font-family: "DefaultTypewriter";
-  src: local("DefaultTypewriter"), url("./fonts/veteran-typewriter.ttf");
 }
 
 .MuiSpeedDialAction-fab {

@@ -17,6 +17,7 @@ import {UtilityContext} from "../../../contexts";
 import DeletePostMutation from "../../../services/mutations/forum/DeletePostMutation";
 import {useRelayEnvironment} from "react-relay";
 import {handleMutation} from "../../../_base/utils";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type Props = {
     threadId: string;
@@ -69,7 +70,7 @@ const ForumPostLayout = ({threadId, post, children, onReload}: Props): any => {
                                 <IconButton edge="end"
                                             aria-label="Modifica"
                                             onClick={_ => modifyPost()}>
-                                    <BorderColorIcon/>
+                                    <BorderColorIcon sx={menuIconStyle} />
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -78,7 +79,7 @@ const ForumPostLayout = ({threadId, post, children, onReload}: Props): any => {
                                 <IconButton edge="end"
                                             aria-label="Rimuovi"
                                             onClick={_ => deletePost()}>
-                                    <DeleteIcon/>
+                                    <DeleteIcon sx={menuIconStyle} />
                                 </IconButton>
                             </Tooltip>
                         </Box>

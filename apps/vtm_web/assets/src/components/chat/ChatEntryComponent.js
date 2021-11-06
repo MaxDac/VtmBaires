@@ -32,7 +32,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const commonStyle = {
         color: "primary.light",
         ...sx,
-        fontFamily: 'DefaultTypewriter'
+        fontFamily: 'Chat'
     }
 
     const masterPhraseStyle = {

@@ -20,6 +20,7 @@ import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type ForumSectionDescriptionProps = {
     description: ?string;
@@ -109,7 +110,7 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                         <Tooltip title="Modifica post">
                             <IconButton aria-label="Modifica"
                                         onClick={_ => modifyThread()}>
-                                <BorderColorIcon />
+                                <BorderColorIcon sx={menuIconStyle} />
                             </IconButton>
                         </Tooltip>
                     </Box>
@@ -126,7 +127,7 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                         <Tooltip title="Rimuovi post">
                             <IconButton aria-label="Rimuovi"
                                         onClick={_ => deleteThread()}>
-                                <DeleteIcon />
+                                <DeleteIcon sx={menuIconStyle} />
                             </IconButton>
                         </Tooltip>
                     </Box>
@@ -145,7 +146,7 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                         <Tooltip title="Entra nel Thread">
                             <IconButton aria-label="Entra nel Thread"
                                         onClick={_ => onClick(item?.id)}>
-                                <ArrowForwardIcon />
+                                <ArrowForwardIcon sx={menuIconStyle} />
                             </IconButton>
                         </Tooltip>
                     </Box>

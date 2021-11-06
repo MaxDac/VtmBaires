@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
 import {useSession} from "../../../services/session-service";
 import CharacterChatDashboard from "../../admin/characters/CharacterChatDashboard";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type InternalProps = {
     mapId: string;
@@ -39,7 +40,7 @@ const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}
                                     color="inherit"
                                     onClick={_ => closeModal()}
                                     aria-label="close">
-                            <CloseIcon/>
+                            <CloseIcon sx={menuIconStyle} />
                         </IconButton>
                         <Typography sx={{ml: 2, flex: 1}} variant="h6" component="div">
                             {characterName}

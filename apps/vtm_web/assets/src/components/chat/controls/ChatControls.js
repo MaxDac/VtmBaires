@@ -20,6 +20,7 @@ import {
 } from "../../../_base/utils";
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
 import HealMutation from "../../../services/mutations/chat/HealMutation";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type Props = {
     openMapModal: () => void;
@@ -55,17 +56,17 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
         return [
             <SpeedDialAction
                 key={1}
-                icon={<BloodtypeIcon />}
+                icon={<BloodtypeIcon sx={menuIconStyle} />}
                 tooltipTitle="Spendi vitae"
                 onClick={requestRouseCheck} />,
             <SpeedDialAction
                 key={2}
-                icon={<FlashOnOutlinedIcon />}
+                icon={<FlashOnOutlinedIcon sx={menuIconStyle} />}
                 tooltipTitle="Spendi WP"
                 onClick={requestWillpowerUse} />,
             <SpeedDialAction
                 key={3}
-                icon={<HealingIcon />}
+                icon={<HealingIcon sx={menuIconStyle} />}
                 tooltipTitle="Guarisci"
                 onClick={requestHeal} />
         ];
@@ -133,17 +134,17 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
                 top: theme.spacing(10),
                 right: theme.spacing(3)
             }}
-            icon={<SpeedDialIcon />}
+            icon={<SpeedDialIcon sx={menuIconStyle} />}
             onClose={handleClose}
             onOpen={handleOpen}
             direction="down"
             open={open}>
             <SpeedDialAction
-                icon={<RoomIcon />}
+                icon={<RoomIcon sx={menuIconStyle} />}
                 tooltipTitle="Location"
                 onClick={onMapClicked} />
             <SpeedDialAction
-                icon={<AssignmentIndIcon />}
+                icon={<AssignmentIndIcon sx={menuIconStyle} />}
                 tooltipTitle="Status"
                 onClick={_ => openCharacterStatusPopup()} />
             {vampireReservedActions()}

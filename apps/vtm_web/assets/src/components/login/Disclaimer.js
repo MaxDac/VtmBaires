@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
 import LoginFrameLayout from "./LoginFrameLayout";
+import {menuIconStyle} from "../_layout/Menu";
 
 type Props = {
 
@@ -14,7 +15,7 @@ type Props = {
 
 const Disclaimer = (props: Props): any => {
     return (
-        <LoginFrameLayout title="Disclaimer" icon={<ErrorOutlineIcon />}>
+        <LoginFrameLayout title="Disclaimer" icon={<ErrorOutlineIcon sx={menuIconStyle} />}>
             <Box sx={{margin: "10px"}}>
                 <Typography>
                     Registrazione (ai sensi e per gli effetti della legge 196/03)

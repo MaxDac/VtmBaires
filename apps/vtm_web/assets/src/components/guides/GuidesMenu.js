@@ -23,6 +23,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
 import {LoginRoutes} from "../login/LoginRouter";
+import {menuIconStyle} from "../_layout/Menu";
 
 const GuidesMenu = (): any => {
     const history = useHistory();
@@ -36,19 +37,19 @@ const GuidesMenu = (): any => {
             <List>
                 <ListItem button onClick={_ => history.push(LoginRoutes.login)}>
                     <ListItemIcon>
-                        <LockOutlinedIcon />
+                        <LockOutlinedIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Torna al Login" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.home)}>
                     <ListItemIcon>
-                        <HomeIcon />
+                        <HomeIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.generalRules)}>
                     <ListItemIcon>
-                        <AssignmentLateIcon />
+                        <AssignmentLateIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Regole generali" />
                 </ListItem>
@@ -59,7 +60,7 @@ const GuidesMenu = (): any => {
                     });
                 }}>
                     <ListItemIcon>
-                        <TheaterComedyIcon />
+                        <TheaterComedyIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Ambientazione" />
                 </ListItem>
@@ -86,7 +87,7 @@ const GuidesMenu = (): any => {
                     });
                 }}>
                     <ListItemIcon>
-                        <CasinoIcon />
+                        <CasinoIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Meccaniche V5" />
                 </ListItem>
@@ -111,38 +112,38 @@ const GuidesMenu = (): any => {
                 </Collapse>
                 <ListItem button onClick={_ => history.push(GuideRoutes.npcs)}>
                     <ListItemIcon>
-                        <SupervisedUserCircleIcon />
+                        <SupervisedUserCircleIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Personaggi" />
                 </ListItem>
                 <Divider />
                 <ListItem button onClick={_ => history.push(GuideRoutes.places)}>
                     <ListItemIcon>
-                        <LocationCityIcon />
+                        <LocationCityIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Luoghi" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.sayings)}>
                     <ListItemIcon>
-                        <TranslateIcon />
+                        <TranslateIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Modi di dire" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.siteHelp)}>
                     <ListItemIcon>
-                        <HelpIcon />
+                        <HelpIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Help del Sito" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.faqs)}>
                     <ListItemIcon>
-                        <QuestionAnswerIcon />
+                        <QuestionAnswerIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="FAQ" />
                 </ListItem>
                 <ListItem button onClick={_ => history.push(GuideRoutes.credits)}>
                     <ListItemIcon>
-                        <BookmarkIcon />
+                        <BookmarkIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Credits" />
                 </ListItem>

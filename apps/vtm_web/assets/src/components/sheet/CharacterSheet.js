@@ -1,18 +1,17 @@
 // @flow
 
 import React, {Suspense} from "react";
-import CharacterSheetInfoSection from "./sheet-sections/CharacterSheetInfoSection";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
 import ConcealedCharacterInfo from "../_data/ConcealedCharacterInfo";
 import CharacterSheetTabbedSections from "./sheet-sections/CharacterSheetTabbedSections";
-import useStyles from "../Main.Layout.Style";
 import Skeleton from "@mui/material/Skeleton";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../services/session-service";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
+import Paper from "@mui/material/Paper";
 
 type Props = {
     id?: string;
@@ -33,7 +32,6 @@ export const CharacterSheetSuspenseFallback = (): any => {
 
 const CharacterSheet = (props: Props): any => {
     const history = useHistory();
-    const classes = useStyles();
     const userCharacters = useUserCharactersQuery();
     const [user,] = useSession();
 
@@ -61,16 +59,15 @@ const CharacterSheet = (props: Props): any => {
                                    showWarningWhenNoCharacterSelected={true}
                                    fetchKey={props.fetchKey}>
             { character =>
-                <ResponsiveInnerContainer contained={props.contained} sx={{
-                    background: "linear-gradient(to right, #19191900, #191919A0)"
-                }}>
-                    <Suspense fallback={<CharacterSheetSuspenseFallback />}>
-                        {modifySheetLink(character)}
-                        <CharacterSheetInfoSection classes={classes} characterQuery={character} />
-                        <ConcealedCharacterInfo characterId={props?.id}>
-                            <CharacterSheetTabbedSections classes={classes} characterQuery={character} />
-                        </ConcealedCharacterInfo>
-                    </Suspense>
+                <ResponsiveInnerContainer contained={props.contained}>
+                    <Paper variant="outlined" sx={{backgroundColor: "background.paper"}}>
+                        <Suspense fallback={<CharacterSheetSuspenseFallback />}>
+                            {modifySheetLink(character)}
+                            <ConcealedCharacterInfo characterId={props?.id}>
+                                <CharacterSheetTabbedSections characterQuery={character} />
+                            </ConcealedCharacterInfo>
+                        </Suspense>
+                    </Paper>
                 </ResponsiveInnerContainer>
             }
         </CharacterFragmentProvider>

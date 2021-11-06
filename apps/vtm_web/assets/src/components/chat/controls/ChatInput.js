@@ -11,6 +11,7 @@ import CasinoIcon from "@mui/icons-material/Casino";
 import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
 import {Typography, useMediaQuery} from "@mui/material";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -103,7 +104,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                            onFocus={_ => setInDices(false)}
                            onBlur={_ => setInDices(true)}
                            sx={{
-                               fontFamily: 'DefaultTypewriter',
+                               fontFamily: 'Chat',
                                padding: "5px",
                                width: "calc(100% - 70px)",
                                fontSize: fontSize
@@ -129,7 +130,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                     <Fab color="primary"
                          aria-label="dices"
                          onClick={openPopup}>
-                        <CasinoIcon />
+                        <CasinoIcon sx={menuIconStyle} />
                     </Fab>
                 </Zoom>
             </Box>
@@ -141,7 +142,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
                     <Fab color="primary"
                          aria-label="send"
                          onClick={sendInputEntry}>
-                        <SendIcon />
+                        <SendIcon sx={menuIconStyle} />
                     </Fab>
                 </Zoom>
             </Box>

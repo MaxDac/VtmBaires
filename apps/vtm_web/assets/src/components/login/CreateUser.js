@@ -22,6 +22,7 @@ import Box from "@mui/material/Box";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import {menuIconStyle} from "../_layout/Menu";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -116,7 +117,7 @@ const CreateUserComponent = (): Node => {
     }
 
     return (
-        <LoginFrameLayout title="Registrazione" icon={<AddCircleOutlineIcon />}>
+        <LoginFrameLayout title="Registrazione" icon={<AddCircleOutlineIcon sx={menuIconStyle} />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.

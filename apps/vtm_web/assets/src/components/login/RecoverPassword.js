@@ -15,6 +15,7 @@ import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {Routes} from "../../AppRouter";
 import Box from "@mui/material/Box";
+import {menuIconStyle} from "../_layout/Menu";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -57,7 +58,7 @@ const RecoverPassword = (): any => {
     }
 
     return (
-        <LoginFrameLayout title="Recupera la tua password" icon={<ContactMailIcon />}>
+        <LoginFrameLayout title="Recupera la tua password" icon={<ContactMailIcon sx={menuIconStyle} />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.

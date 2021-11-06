@@ -4,7 +4,7 @@ import React, {useState, Suspense} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from "@mui/material/Box";
-import CharacterSheetBiographySection from "./CharacterSheetBiographySection";
+import CharacterSheetDescAndBiographySection from "./CharacterSheetDescAndBiographySection";
 import TabPanel from "../../../_base/components/TabPanel";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import CharacterSheetStatsSection from "./CharacterSheetStatsSection";
@@ -39,7 +39,7 @@ const CharacterSheetTabbedSections = ({characterQuery}: Props): any => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <CharacterSheetBiographySection characterQuery={characterQuery} />
+                <CharacterSheetDescAndBiographySection characterQuery={characterQuery} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Suspense fallback={<CharacterSheetSuspenseFallback />}>

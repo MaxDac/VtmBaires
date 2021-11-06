@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {CommonListItem, MainListItems, SecondaryListItems} from "./_layout/Menu";
+import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
@@ -162,7 +162,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                                     mr: 2,
                                     display: { md: 'none' }
                                 }}>
-                        <MenuIcon />
+                        <MenuIcon sx={menuIconStyle} />
                     </IconButton>
                     <Typography variant="h6"
                                 noWrap

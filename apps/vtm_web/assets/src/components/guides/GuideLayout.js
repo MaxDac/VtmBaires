@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import GuidesMenu from "./GuidesMenu";
+import {menuIconStyle} from "../_layout/Menu";
 
 type Props = {
     children: any;
@@ -43,7 +44,7 @@ const GuideLayout = ({children}: Props): any => {
                                         sm: 'none'
                                     }
                                 }}>
-                        <MenuIcon />
+                        <MenuIcon sx={menuIconStyle} />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Guida di Buenos Aires by Night

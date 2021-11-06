@@ -62,8 +62,8 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                     .map(o => {
                         const npcSecondaryAction = () =>
                             o?.id === currentCharacter?.id
-                                ? <RadioButtonCheckedIcon />
-                                : <RadioButtonUncheckedIcon />
+                                ? <RadioButtonCheckedIcon sx={menuIconStyle} />
+                                : <RadioButtonUncheckedIcon sx={menuIconStyle} />
 
                         return (
                             <ListItem key={o?.id}

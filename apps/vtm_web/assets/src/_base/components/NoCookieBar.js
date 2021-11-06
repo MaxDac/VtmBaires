@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CookieFreePolicy from "./CookieFreePolicy";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/styles";
+import {menuIconStyle} from "../../components/_layout/Menu";
 
 const NoCookieBar = (): any => {
     const theme = useTheme();
@@ -40,7 +41,7 @@ const NoCookieBar = (): any => {
                         color="inherit"
                         onClick={onCookieCloseClick}
                         aria-label="close">
-                        <CloseIcon/>
+                        <CloseIcon sx={menuIconStyle} />
                     </IconButton>
                     <CookieFreePolicy/>
                 </Toolbar>

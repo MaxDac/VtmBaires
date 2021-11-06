@@ -53,7 +53,7 @@ function App(): Node {
         palette: {
             mode: paletteType,
             background: {
-                paper: "#292929"
+                paper: "#191919"
             },
             primary: {
                 main: "#A0A0A0",
@@ -63,7 +63,10 @@ function App(): Node {
             secondary: {
                 main: "#580B0B",
                 dark: "#380707",
-                light: "#751616"
+                light: "#9a2828"
+            },
+            third: {
+                main: "#C9C9C9"
             }
         },
         components: {

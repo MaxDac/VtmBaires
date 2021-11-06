@@ -6,6 +6,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecordOutlined";
 import type {Attribute} from "../../../services/queries/character/GetCharacterStatsQuery";
 import Grid from "@mui/material/Grid";
+import {menuIconStyle} from "../../_layout/Menu";
 
 type Props = {
     characterId: string;
@@ -30,8 +31,8 @@ const AttributeFormControl = ({characterId, attribute, maxValue, onChange}: Prop
             <Grid item xs={6}>
                 <Rating name={attribute.name}
                         defaultValue={attribute.value}
-                        icon={<FiberManualRecordIcon />}
-                        emptyIcon={<FiberManualRecordOutlinedIcon />}
+                        icon={<FiberManualRecordIcon sx={menuIconStyle} />}
+                        emptyIcon={<FiberManualRecordOutlinedIcon sx={menuIconStyle} />}
                         onChange={onChangeInternal}
                         max={maxValue} />
             </Grid>

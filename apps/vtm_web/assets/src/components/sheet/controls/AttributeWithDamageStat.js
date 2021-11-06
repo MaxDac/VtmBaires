@@ -8,6 +8,8 @@ import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecord
 import FiberManualRecordTwoToneIcon from '@mui/icons-material/FiberManualRecordTwoTone';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import {menuIconStyle} from "../../_layout/Menu";
+import {attributeEmptyPointStyle, attributeFullPointStyle} from "./AttributeStat";
 
 type Props = {
     stat: StatWithoutId;
@@ -22,30 +24,45 @@ const AttributeWithDamageStat = ({stat, damage, secondDamage}: Props): any => {
 
     const realMaxValue = (stat.maxValue ?? 0) - realValue - damage;
 
+    console.log("stats", {
+        stat,
+        damage,
+        secondDamage,
+        realValue,
+        realMaxValue
+    })
+
     return (
         <>
             <Grid container>
                 <Grid item xs={12} sm={6}>
-                    <Typography>{stat.name}</Typography>
+                    <Typography sx={{
+                        fontFamily: "DefaultTypewriter"
+                    }}>
+                        {stat.name}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Rating name={stat.name}
                             value={realValue}
                             readOnly
-                            icon={<FiberManualRecordIcon />}
-                            emptyIcon={<FiberManualRecordOutlinedIcon />}
+                            icon={<FiberManualRecordIcon sx={attributeFullPointStyle} />}
+                            emptyIcon={<FiberManualRecordOutlinedIcon sx={attributeEmptyPointStyle} />}
                             max={realValue} />
                     <Rating name={stat.name}
                             value={damage}
                             readOnly
-                            icon={<FiberManualRecordTwoToneIcon />}
-                            emptyIcon={<FiberManualRecordOutlinedIcon />}
+                            icon={<FiberManualRecordTwoToneIcon sx={{
+                                attributeFullPointStyle,
+                                color: "#C91919"
+                            }} />}
+                            emptyIcon={<FiberManualRecordOutlinedIcon sx={attributeEmptyPointStyle} />}
                             max={damage} />
                     <Rating name={stat.name}
                             value={secondDamage}
                             readOnly
-                            icon={<FiberManualRecordTwoToneIcon />}
-                            emptyIcon={<FiberManualRecordOutlinedIcon />}
+                            icon={<FiberManualRecordTwoToneIcon sx={attributeFullPointStyle} />}
+                            emptyIcon={<FiberManualRecordOutlinedIcon sx={attributeEmptyPointStyle} />}
                             sx={{color: "#C92929"}}
                             max={realMaxValue} />
                 </Grid>

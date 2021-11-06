@@ -15,6 +15,8 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GetCharacterAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
 
 type Props = {
     characterQuery: any
@@ -37,15 +39,33 @@ const CharacterSheetInfoSection = ({characterQuery}: Props): any => {
 
     return (
         <Grid container>
-            <Grid item xs={12} sm={5} md={4} xl={3} sx={{
+            <Grid item xs={12} lg={7} xl={5} sx={{
                 textAlign: "center"
             }}>
-                <img src={avatar} alt="character-avatar" style={{
-                    width: "200px",
-                    height: "200px"
-                }} />
+                <Paper sx={{
+                    width: "420px",
+                    height: "290px",
+                    display: "inline-flex",
+                    textAlign: "center",
+                    margin: "1rem",
+                    backgroundColor: "background.paper"
+                }} variant="outlined">
+                    <Avatar alt="character-avatar"
+                            // src={avatar}
+                            src="https://i.pinimg.com/originals/af/42/82/af428236bb113725c9064267e5b98e3c.jpg"
+                            variant="square"
+                            style={{
+                                margin: "0 auto",
+                                marginTop: "auto",
+                                marginBottom: "auto",
+                                width: "auto",
+                                height: "auto",
+                                maxWidth: "400px",
+                                maxHeight: "270px"
+                            }} />
+                </Paper>
             </Grid>
-            <Grid item xs={12} sm={7} md={8} xl={9}>
+            <Grid item xs={12} lg={5} xl={7}>
                 <Typography sx={{
                     ...mainFontFamily,
                     color: "secondary.light",

@@ -113,10 +113,10 @@ const AlertLayout = (props: Props): any => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onDialogCancelClick} color="secondary">
-                        Cancel
+                    <Button onClick={onDialogCancelClick} color="third">
+                        No
                     </Button>
-                    <Button onClick={onDialogOkClick} color="secondary" autoFocus>
+                    <Button onClick={onDialogOkClick} color="third" autoFocus>
                         Ok
                     </Button>
                 </DialogActions>

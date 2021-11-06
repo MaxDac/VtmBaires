@@ -33,19 +33,27 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
 
     const showHuntResult = () => {
         if (characterIsVampire(sheet)) {
-            return (
-                <Grid item xs={12} sx={{
-                    ...bottomLinesStyle,
-                    margin: "10px"
-                }}>
-                    <Paper elevation={12} sx={{padding: "10px", margin: "10px"}}>
-                        <Typography>
-                            L'ultima caccia risale al {defaultFormatDateAndTime(sheet?.lastHunt ?? "")},
-                            ha avuto una risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
-                        </Typography>
-                    </Paper>
-                </Grid>
-            );
+            const lastHuntDate = defaultFormatDateAndTime(sheet?.lastHunt ?? "");
+            if (lastHuntDate != null && lastHuntDate !== "") {
+                return (
+                    <Grid item xs={12} sx={{
+                        ...bottomLinesStyle,
+                        margin: "10px"
+                    }}>
+                        <Paper variant="outlined" sx={{padding: "10px", margin: "10px"}}>
+                            <Typography sx={{
+                                fontFamily: "DefaultTypewriter"
+                            }}>
+                                L'ultima caccia risale al {defaultFormatDateAndTime(sheet?.lastHunt ?? "")},
+                                ha avuto una
+                                risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
+                            </Typography>
+                        </Paper>
+                    </Grid>
+                );
+            }
+
+            return (<></>);
         }
 
         return (<></>)
