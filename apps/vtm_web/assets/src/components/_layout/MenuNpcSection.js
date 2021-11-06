@@ -19,7 +19,7 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/styles";
 import { MainRoutes } from "../MainRouter";
 import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
-import {menuIconStyle, menuTextStyle} from "./Menu";
+import {menuIconStyle, MenuSecondaryText} from "./Menu";
 
 type Props = {
     pushHistory: string => void;
@@ -60,20 +60,24 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                 npcs
                     .filter(o => o !== null)
                     .map(o => {
+                        const npcSecondaryAction = () =>
+                            o?.id === currentCharacter?.id
+                                ? <RadioButtonCheckedIcon />
+                                : <RadioButtonUncheckedIcon />
+
                         return (
-                            <ListItem key={o?.id} button sx={{ pl: 4 }} onClick={handleNpcSelection(o)}>
+                            <ListItem key={o?.id}
+                                      button
+                                      sx={{ pl: 4 }}
+                                      onClick={handleNpcSelection(o)}
+                                      secondaryAction={npcSecondaryAction()}>
                                 <ListItemIcon>
                                     <Avatar src={o?.chatAvatar} sx={{
                                         width: theme.spacing(3),
                                         height: theme.spacing(3)
                                     }} />
                                 </ListItemIcon>
-                                <ListItemText primary={o?.name} primaryTypographyProps={menuTextStyle}>
-                                    {o?.id === currentCharacter?.id
-                                        ? <RadioButtonCheckedIcon/>
-                                        : <RadioButtonUncheckedIcon/>
-                                    }
-                                </ListItemText>
+                                <ListItemText secondary={<MenuSecondaryText text={o?.name} />} />
                             </ListItem>
                         )
                     })
@@ -90,7 +94,7 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                 <ListItemIcon>
                     <GroupsIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="NPCs" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="NPGs" />} />
                 {expand ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={expand} timeout="auto" unmountOnExit>

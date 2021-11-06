@@ -12,6 +12,14 @@ type Props = {
     stat: StatWithoutId
 }
 
+export const attributeFullPointStyle = {
+    color: "secondary.light"
+};
+
+export const attributeEmptyPointStyle = {
+    color: "primary.dark"
+}
+
 const AttributeStat = ({stat}: Props): any => {
     return (
         <>
@@ -23,8 +31,8 @@ const AttributeStat = ({stat}: Props): any => {
                     <Rating name={stat.name}
                             value={stat.value}
                             readOnly
-                            icon={<FiberManualRecordIcon />}
-                            emptyIcon={<FiberManualRecordOutlinedIcon />}
+                            icon={<FiberManualRecordIcon sx={attributeFullPointStyle} />}
+                            emptyIcon={<FiberManualRecordOutlinedIcon sx={attributeEmptyPointStyle} />}
                             max={stat.maxValue} />
                 </Grid>
             </Grid>

@@ -30,7 +30,7 @@ const LoginFrameLayout = (props: Props): any => {
         <>
             <Avatar sx={{
                 margin: theme.spacing(1),
-                backgroundColor: "#C91919",
+                backgroundColor: "secondary.main",
                 color: "black"
             }}>
                 {props.icon}

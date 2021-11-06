@@ -5,14 +5,16 @@ import Grid from "@mui/material/Grid";
 import {useTheme} from "@mui/material/styles";
 
 type Props = {
-    children: any
+    sx: any;
+    children: any;
 }
 
-const ResponsiveInnerContainer = ({children}: Props): any => {
+const ResponsiveInnerContainer = ({sx, children}: Props): any => {
     const theme = useTheme();
 
     return (
         <Grid container sx={{
+            ...sx,
             paddingLeft: {
                 xs: 0,
                 md: 0,

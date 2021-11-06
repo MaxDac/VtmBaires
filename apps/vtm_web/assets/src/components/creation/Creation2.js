@@ -16,8 +16,7 @@ const Creation2Explanation = () => (
         <Typography paragraph>
             In questa e nella prossima sezione, potrai scegliere <Link to={GuideRoutes.attributes}
                                                                        target="_blank"
-                                                                       rel="noreferrer"
-                                                                       style={{color: "#C91919"}}>Attributi e
+                                                                       rel="noreferrer">Attributi e
             Abilit&agrave;</Link> del tuo personaggio.
             Se non sei sicuro di quali decisioni prendere, invece di sceglierle manualmente, puoi invece selezionare
             uno dei <i>templates</i>, delle schede con valori riempiti automaticamente, proposti in seguito. I Template
@@ -82,7 +81,7 @@ const Creation2 = (): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                {getAttributeSelector("attribute4", "Attribute at 4")}
+                {getAttributeSelector("attribute4", "Attributo a 4")}
             </Grid>
             <Grid item xs={12}>
                 <Typography paragraph>
@@ -90,13 +89,13 @@ const Creation2 = (): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("attribute31", "Attribute at 3")}
+                {getAttributeSelector("attribute31", "Attributo a 3")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("attribute32", "Attribute at 3")}
+                {getAttributeSelector("attribute32", "Attributo a 3")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("attribute33", "Attribute at 3")}
+                {getAttributeSelector("attribute33", "Attributo a 3")}
             </Grid>
             <Grid item xs={12}>
                 <Typography paragraph>
@@ -104,16 +103,16 @@ const Creation2 = (): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("attribute21", "Attribute at 2")}
+                {getAttributeSelector("attribute21", "Attributo a 2")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("attribute22", "Attribute at 2")}
+                {getAttributeSelector("attribute22", "Attributo a 2")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("attribute23", "Attribute at 2")}
+                {getAttributeSelector("attribute23", "Attributo a 2")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("attribute24", "Attribute at 2")}
+                {getAttributeSelector("attribute24", "Attributo a 2")}
             </Grid>
             <Grid item xs={12}>
                 <Typography paragraph>
@@ -121,7 +120,7 @@ const Creation2 = (): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                {getAttributeSelector("attribute1", "Attribute at 1")}
+                {getAttributeSelector("attribute1", "Attributo a 1")}
             </Grid>
         </>;
 

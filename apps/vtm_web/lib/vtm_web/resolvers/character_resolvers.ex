@@ -26,7 +26,10 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def get_creation_clans(_, _, _) do
-    {:ok, Characters.get_selectable_clans()}
+    {:ok,
+      Characters.get_selectable_clans()
+      |> Enum.sort(&(&1.name <= &2.name))
+    }
   end
 
   def get_predator_types(_, _, _) do

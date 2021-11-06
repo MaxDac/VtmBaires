@@ -130,7 +130,7 @@ const CreateUserComponent = (): Node => {
                         </FormControl>
                         <Box component="div" sx={{height: "40px", display: "inline-flex"}}>
                             <Typography component="div" sx={{marginTop: "auto", marginBottom: "auto"}}>
-                                Dichiaro di aver preso visione del <Link to={LoginRoutes.disclaimer} style={{color: "red"}}>Disclaimer</Link>
+                                Dichiaro di aver preso visione del <Link to={LoginRoutes.disclaimer} style={{color: "secondary.light"}}>Disclaimer</Link>
                             </Typography>
                         </Box>
                     </Box>

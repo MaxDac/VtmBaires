@@ -52,24 +52,29 @@ function App(): Node {
     const darkTheme = createTheme({
         palette: {
             mode: paletteType,
+            background: {
+                paper: "#292929"
+            },
             primary: {
-                main: "#aa0b0e",
-                dark: "#760709",
-                light: "#bb3b3e"
+                main: "#A0A0A0",
+                dark: "#505050",
+                light: "#C0C0C0"
             },
             secondary: {
-                main: "#81d4fa"
+                main: "#580B0B",
+                dark: "#380707",
+                light: "#751616"
             }
         },
         components: {
             MuiSpeedDial: {
                 styleOverrides: {
                     fab: {
-                        backgroundColor: "#aa0b0e",
+                        backgroundColor: "#580B0B",
                         color: "white"
                     },
                     "fab:hover": {
-                        backgroundColor: "#aa0b0e",
+                        backgroundColor: "#580B0B",
                         color: "white"
                     }
                 }
@@ -97,7 +102,7 @@ function App(): Node {
                                       <Button onClick={onSnackbarDismissClick(key)} sx={{
                                           color: "black"
                                       }}>
-                                          Dismiss
+                                          OK
                                       </Button>
                                   }>
                     <AlertLayout>

@@ -5,6 +5,7 @@ import {useFragment} from "react-relay";
 import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
 import Typography from "@mui/material/Typography";
+import ParsedText from "../../../_base/components/ParsedText";
 
 type Props = {
     characterQuery: any
@@ -19,7 +20,7 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
         <>
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
-                color: "red",
+                color: "secondary.light",
                 fontSize: "24px"
             }}>
                 Biografia
@@ -27,7 +28,7 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter'
             }}>
-                {sheet?.biography}
+                <ParsedText text={sheet?.biography} />
             </Typography>
         </>
     );

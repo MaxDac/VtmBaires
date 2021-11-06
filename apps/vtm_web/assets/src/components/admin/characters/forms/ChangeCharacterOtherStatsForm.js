@@ -90,12 +90,11 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="humanity-label">Umanità</InputLabel>
-                        <Select
-                            labelId="humanity-label"
-                            id="humanity"
-                            value={humanity}
-                            label="Umanità"
-                            onChange={onHumanityChanged}>
+                        <Select labelId="humanity-label"
+                                id="humanity"
+                                value={humanity}
+                                label="Umanità"
+                                onChange={onHumanityChanged}>
                             {menuItems()}
                         </Select>
                     </FormControl>
@@ -103,25 +102,23 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="willpower-label">Forza di Volontà</InputLabel>
-                        <Select
-                            labelId="willpower-label"
-                            id="willpower"
-                            value={willpower}
-                            label="Forza di Volontà"
-                            onChange={onWillpowerChanged}>
-                            {menuItems()}
+                        <Select labelId="willpower-label"
+                                id="willpower"
+                                value={willpower}
+                                label="Forza di Volontà"
+                                onChange={onWillpowerChanged}>
+                                {menuItems()}
                         </Select>
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="predator-type-label">Predatore</InputLabel>
-                        <Select
-                            labelId="predator-type-label"
-                            id="predator-type"
-                            value={predatorType}
-                            label="Predatore"
-                            onChange={onPredatorTypeChanged}>
+                        <Select labelId="predator-type-label"
+                                id="predator-type"
+                                value={predatorType}
+                                label="Predatore"
+                                onChange={onPredatorTypeChanged}>
                             {predatorTypeItems()}
                         </Select>
                     </FormControl>
@@ -133,12 +130,11 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="health-label">Salute</InputLabel>
-                        <Select
-                            labelId="health-label"
-                            id="health"
-                            value={health}
-                            label="Salute"
-                            onChange={onHealthChanged}>
+                        <Select labelId="health-label"
+                                id="health"
+                                value={health}
+                                label="Salute"
+                                onChange={onHealthChanged}>
                             {menuItems()}
                         </Select>
                     </FormControl>
@@ -146,8 +142,7 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="blood-potency-label">Potenza del Sangue</InputLabel>
-                        <Select
-                            labelId="blood-potency-label"
+                        <Select labelId="blood-potency-label"
                             id="blood-potency"
                             value={bloodPotency}
                             label="Potenza del Sangue"

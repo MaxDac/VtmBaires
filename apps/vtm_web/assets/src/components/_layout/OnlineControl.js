@@ -65,7 +65,7 @@ const OnlineControlDialog = ({closePopup}) => {
             ? (
                 <Tooltip title="Master">
                     <ListItemIcon>
-                        <AttributionIcon />
+                        <AttributionIcon sx={menuIconStyle} />
                     </ListItemIcon>
                 </Tooltip>
             )
@@ -77,16 +77,20 @@ const OnlineControlDialog = ({closePopup}) => {
                 <IconButton edge="end"
                             aria-label="Messaggio"
                             onClick={trySendMessageToUser(o?.user)}>
-                    <MessageIcon />
+                    <MessageIcon sx={menuIconStyle} />
                 </IconButton>
             </Tooltip>
-            <Tooltip title="Vai alla chat">
-                <IconButton edge="end"
-                            aria-label="Chat"
-                            onClick={tryGoToLocation(o?.location)}>
-                    <RoomIcon />
-                </IconButton>
-            </Tooltip>
+            {
+                o?.location != null
+                    ? (<Tooltip title="Vai alla chat">
+                        <IconButton edge="end"
+                                    aria-label="Chat"
+                                    onClick={tryGoToLocation(o.location)}>
+                            <RoomIcon sx={menuIconStyle} />
+                        </IconButton>
+                    </Tooltip>)
+                    : (<></>)
+            }
         </Stack>
     );
 
@@ -161,7 +165,7 @@ const OnlineControl = (): any => {
                             color="inherit"
                             onClick={handleClose}
                             aria-label="close">
-                            <CloseIcon />
+                            <CloseIcon sx={menuIconStyle} />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Utenti Online

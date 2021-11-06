@@ -82,12 +82,11 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="hunger-label">Fame</InputLabel>
-                        <Select
-                            labelId="hunger-label"
-                            id="hunger"
-                            value={hunger}
-                            label="Fame"
-                            onChange={onHungerChanged}>
+                        <Select labelId="hunger-label"
+                                id="hunger"
+                                value={hunger}
+                                label="Fame"
+                                onChange={onHungerChanged}>
                             {menuItems(5)}
                         </Select>
                     </FormControl>
@@ -95,12 +94,11 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="damage-label">Danni superficiali</InputLabel>
-                        <Select
-                            labelId="damage-label"
-                            id="damage"
-                            value={damage}
-                            label="Danni Superficiali"
-                            onChange={onDamageChanged}>
+                        <Select labelId="damage-label"
+                                id="damage"
+                                value={damage}
+                                label="Danni Superficiali"
+                                onChange={onDamageChanged}>
                             {baseMenuItems(0, character?.health ?? 0)}
                         </Select>
                     </FormControl>
@@ -108,12 +106,11 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="aggravated-damage-label">Danni Aggravati</InputLabel>
-                        <Select
-                            labelId="aggravated-damage-label"
-                            id="aggravated-damage"
-                            value={aggravatedDamage}
-                            label="Danni Aggravati"
-                            onChange={onAggravatedDamageChanged}>
+                        <Select labelId="aggravated-damage-label"
+                                id="aggravated-damage"
+                                value={aggravatedDamage}
+                                label="Danni Aggravati"
+                                onChange={onAggravatedDamageChanged}>
                             {baseMenuItems(0, character?.health ?? 0)}
                         </Select>
                     </FormControl>
@@ -125,12 +122,11 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="stains-label">Macchie</InputLabel>
-                        <Select
-                            labelId="stains-label"
-                            id="stains"
-                            value={stains}
-                            label="Macchie"
-                            onChange={onStainsChanged}>
+                        <Select labelId="stains-label"
+                                id="stains"
+                                value={stains}
+                                label="Macchie"
+                                onChange={onStainsChanged}>
                             {stainsItems()}
                         </Select>
                     </FormControl>
@@ -138,12 +134,11 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
                 <Grid item xs={12} md={3} sx={containerStyle}>
                     <FormControl sx={{width: "150px"}}>
                         <InputLabel id="willpower-damage-label">FdV Spesa</InputLabel>
-                        <Select
-                            labelId="willpower-damage-label"
-                            id="willpower-damage"
-                            value={willpowerDamage}
-                            label="FdV Spesa"
-                            onChange={onWillpowerDamageChanged}>
+                        <Select labelId="willpower-damage-label"
+                                id="willpower-damage"
+                                value={willpowerDamage}
+                                label="FdV Spesa"
+                                onChange={onWillpowerDamageChanged}>
                             {menuItems(character?.willpower ?? 0)}
                         </Select>
                     </FormControl>

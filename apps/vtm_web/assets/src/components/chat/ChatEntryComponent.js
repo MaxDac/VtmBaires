@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import type {ChatEntry} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {markdownComponents} from "../../_base/components/ParsedText";
-import { defaultFormatTime } from "../../_base/date-utils";
+import {defaultFormatTime} from "../../_base/date-utils";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;
@@ -30,6 +30,7 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const isOffGame = () => entry?.offGame === true;
 
     const commonStyle = {
+        color: "primary.light",
         ...sx,
         fontFamily: 'DefaultTypewriter'
     }
@@ -38,18 +39,25 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
         ...commonStyle,
         fontSize: sx?.fontSize ?? '18px',
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: "primary.light"
     };
+
+    const avatarStyle = {
+        width: "3rem",
+        height: "3rem"
+    }
 
     const primaryText = () => {
         const text = isText()
             ? entry.character.name
-            : `${entry.character.name} (dices)`;
+            : `${entry.character.name} (tiro di dadi)`;
 
         return (
             <Box component="div" sx={{
                 ...commonStyle,
-                color: "red"
+                color: "secondary.light",
+                textShadow: "2px 2px 5px black"
             }}>
                 {`${text} ${defaultFormatTime(entry?.insertedAt) ?? ""}`}
             </Box>
@@ -97,7 +105,8 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
         <Typography paragraph sx={{
             fontSize: "13px",
             lineHeight: 1,
-            marginBottom: "3px"
+            marginBottom: "3px",
+            color: "primary.dark"
         }}>
             <b><i>{entry?.character?.name}</i></b>: {entry?.text}
         </Typography>
@@ -112,7 +121,9 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const getChatEntry = () => (
         <>
             <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={entry.character.chatAvatar} />
+                <Avatar alt="Remy Sharp"
+                        src={entry.character.chatAvatar}
+                        sx={avatarStyle} />
             </ListItemAvatar>
             <ListItemText primary={primaryText()} secondary={secondaryText()} />
         </>

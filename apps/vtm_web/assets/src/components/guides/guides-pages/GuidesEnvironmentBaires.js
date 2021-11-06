@@ -351,7 +351,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 di fatto scisso il destino della quasi totalit&agrave; del clan Brujah
                 da quello della Camarilla, tagliando nel frattempo la testa alla gerarchia
                 sulla quale la Camarilla poggiava da secoli.<br />
-                Da allora, il clan <b>Banu Haquim</b>, storicamente accettato tra le fila della 
+                Da allora, il clan <b>Banu Haqim</b>, storicamente accettato tra le fila della 
                 Camarilla, nonostante la protesta di ci&ograve; che rimase dei Tremere, 
                 non ha fatto altro che attutire il colpo, ma le poche risorse che la Camarilla 
                 aveva da offrire furono investite per mantenere quel poco che la Seconda 

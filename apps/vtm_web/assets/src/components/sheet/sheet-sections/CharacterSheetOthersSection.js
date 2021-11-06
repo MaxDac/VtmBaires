@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import type {
     CharacterFragments_characterState$key
 } from "../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
+import ParsedText from "../../../_base/components/ParsedText";
 
 type Props = {
     characterQuery: any
@@ -21,7 +22,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
         <>
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
-                color: "red",
+                color: "secondary.light",
                 fontSize: "24px",
             }}>
                 Tipo di Predatore
@@ -34,7 +35,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             </Typography>
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
-                color: "red",
+                color: "secondary.light",
                 fontSize: "24px",
             }}>
                 Esperienza
@@ -47,29 +48,25 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             </Typography>
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
-                color: "red",
+                color: "secondary.light",
                 fontSize: "24px",
             }}>
                 Vantaggi
             </Typography>
-            <Typography sx={{
+            <ParsedText text={sheet?.advantages} sx={{
                 fontFamily: 'DefaultTypewriter',
                 marginBottom: "10px"
-            }}>
-                {sheet?.advantages}
-            </Typography>
+            }} />
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
-                color: "red",
+                color: "secondary.light",
                 fontSize: "24px"
             }}>
                 Note
             </Typography>
-            <Typography sx={{
+            <ParsedText text={sheet?.notes} sx={{
                 fontFamily: 'DefaultTypewriter'
-            }}>
-                {sheet?.notes}
-            </Typography>
+            }} />
         </>
     );
 }

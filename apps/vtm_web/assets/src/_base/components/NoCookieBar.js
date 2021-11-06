@@ -24,10 +24,10 @@ const NoCookieBar = (): any => {
     if (showCookiePolicy) {
         return (
             <Box sx={{
-                zIndex: "3",
+                zIndex: "10",
                 position: "fixed",
                 left: "0px",
-                bottom: "0px",
+                top: "0px",
                 width: "100%",
                 height: cookieHeight,
                 backgroundColor: "black",

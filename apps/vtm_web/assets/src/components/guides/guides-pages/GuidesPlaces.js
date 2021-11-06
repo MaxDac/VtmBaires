@@ -223,7 +223,7 @@ const GuidesPlaces = (props: Props): any => {
                 Le pretese degli Hecata sono state accontentate in virt&ugrave; di due fortunose decisioni della
                 Torre d'Avorio: la prima avvenuta quasi cinquecento anni fa, quando, assediata come ora dalla
                 Inquisizione, decise di firmare il famoso trattato di non belligeranza col neonato clan Giovanni.
-                La seconda, quando a livello globale hanno optato per accettare il clan dei Banu Haquim, 
+                La seconda, quando a livello globale hanno optato per accettare il clan dei Banu Haqim, 
                 e di rifiutare la richiesta avanzata dai Ministri di far parte della Setta.
             </Typography>
 

@@ -95,7 +95,8 @@ const ForumPostLayout = ({threadId, post, children, onReload}: Props): any => {
             <Paper elevation={10} sx={{
                 padding: "5px",
                 marginTop: "10px",
-                maginBottom: "10px"
+                maginBottom: "10px",
+                background: "#121212"
             }}>
                 <Grid container>
                     <Grid item xs={12}>

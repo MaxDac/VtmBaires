@@ -136,12 +136,11 @@ const ChatViewer = (): any => {
                 <Grid item xs={12} md={4} sx={{textAlign: "center"}}>
                     <FormControl fullWidth>
                         <InputLabel id="chat-room">Chat</InputLabel>
-                        <Select
-                            labelId="chat-room"
-                            id="chat-room-select"
-                            value={selectedChatId}
-                            label="Age"
-                            onChange={handleChatRoomChange}>
+                        <Select labelId="chat-room"
+                                id="chat-room-select"
+                                value={selectedChatId}
+                                label="Age"
+                                onChange={handleChatRoomChange}>
                             {showAllChatRooms()}
                         </Select>
                     </FormControl>

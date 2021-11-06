@@ -38,12 +38,12 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Banu Haquim
+                    Banu Haqim
                 </h3>
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Sempre chiamati Assamiti fuori dal clan, i Banu Haquim sono un clan di guerrieri formidabili, 
+                Sempre chiamati Assamiti fuori dal clan, i Banu Haqim sono un clan di guerrieri formidabili, 
                 come anche di maghi sapienti e di dotti diplomatici. La loro struttura &egrave; sempre stata
                 indipendente, e il loro quartier generale arroccato ad <b>Alamut</b>, in Medio Oriente.<br />
                 Sono stati recentemente accettati nella Camarilla. La loro debolezza &egrave; una strana 

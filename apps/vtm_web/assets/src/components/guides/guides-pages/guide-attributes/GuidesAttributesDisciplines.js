@@ -92,7 +92,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                                 </ul>
                             </li>
                             <li>
-                                <b>Banu Haquim</b>
+                                <b>Banu Haqim</b>
                                 <ul>
                                     <li><b>Vitae Corrosiva</b> (&#9679;): il vampiro riesce a convertire la sua vitae in una sostanza altamente corrosiva.</li>
                                     <li><b>Tocco dello Scorpione</b> (&#9679;&#9679;&#9679;): la vitae del vampiro diventa un icore velenoso che incapacita mortali e cainiti, e pu&ograve; essere sputato, o impresso su lame ed agire per contatto.
@@ -163,7 +163,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}><b>Oscurazione</b>: tramite questa Disciplina, il vampiro riesce a rendersi invisibile agli occhi dei mortali e della maggior parte dei cainiti. Il potere si basa su un'illusione, sulla manipolazione delle menti, non su un effetto fisico.
                         <ul>
                             <li><b>Cappa di Ombre</b> (&#9679;): il vampiro diventa invisibile se rimane perfettamente fermo, non emette nessun suono, e rimane dietro una sorta di copertura.</li>
-                            <li><b>Silenzio di Morte (Banu Haquim)</b> (&#9679;): il vampiro non emette suoni, o meglio, riesce ad annullare qualsiasi suono che emette dai sensi di chi gli &egrave; vicino. Microfoni ed altri apparecchi elettronici continuano a captare i suoni che emette.</li>
+                            <li><b>Silenzio di Morte (Banu Haqim)</b> (&#9679;): il vampiro non emette suoni, o meglio, riesce ad annullare qualsiasi suono che emette dai sensi di chi gli &egrave; vicino. Microfoni ed altri apparecchi elettronici continuano a captare i suoni che emette.</li>
                             <li><b>Passaggio Invisibile</b> (&#9679;&#9679;): il vampiro ora pu&ograve; muoversi, e se non emette suoni dirompenti, pu&ograve; rimanere invisibile.</li>
                             <li><b>Ghost in the Machine</b> (&#9679;&#9679;&#9679;): il vampiro riesce a trasmettere il potere di Oscurazione anche ai macchinari elettronici, rendendosi invisibile o comunque irriconoscibile. L'effetto svanisce col tempo, ma la figura del vampiro rimarr&agrave; irriconoscibile.</li>
                             <li><b>Maschera delle Mille Facce</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; assumere l'aspetto di un'altra persona qualunque, invece di sparire. L'identit&agrave; della persona sar&agrave; inerente al contesto, e il vampiro non potr&agrave; copiare l'aspetto di una persona nello specifico.</li>

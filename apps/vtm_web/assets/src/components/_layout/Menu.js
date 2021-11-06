@@ -24,6 +24,7 @@ import AppVersion from "../../_base/components/AppVersion";
 import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import Box from "@mui/material/Box";
 import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
+import Typography from "@mui/material/Typography";
 
 type Props = {
     drawerDone: () => void;
@@ -31,14 +32,43 @@ type Props = {
     onUpdate: () => void;
 }
 
+const whiteOnHover = {
+    transitionProperty: "color",
+    transitionDuration: "0.3s",
+    transitionTimingFunction: "ease-in-ease-out",
+    "&:hover": {
+        color: "white"
+    }
+}
+
 export const menuIconStyle = {
-    color: "#C92929"
+    ...whiteOnHover,
+    color: "primary.main"
 };
 
 export const menuTextStyle = {
-    fontFamily: "ThroughTheNight",
-    fontSize: "1.2rem"
+    ...whiteOnHover,
+    fontFamily: "Disturbed",
+    fontSize: "1.1rem",
+    color: "primary.light",
+    textShadow: "5px 5px 5px black",
+};
+
+export const menuTextStyleHover = {
+    ...menuTextStyle,
+    color: "white"
+};
+
+export type MenuSecondaryTypeProps = {
+    text: ?string;
+    hover?: boolean;
 }
+
+export const MenuSecondaryText = ({text, hover}: MenuSecondaryTypeProps): any => (
+    <Typography component="span" sx={!!hover ? menuTextStyleHover : menuTextStyle}>
+        {text ?? ""}
+    </Typography>
+)
 
 export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
@@ -62,13 +92,13 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
                 <ListItemIcon>
                     <HomeIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Home" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Home" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.mainMap)}>
                 <ListItemIcon>
                     <MapIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Mappa" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Mappa" />} />
             </ListItem>
             <MenuCharacterSection pushHistory={pushHistory}
                                   characters={charactersWithAvatars}
@@ -78,19 +108,19 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
                 <ListItemIcon>
                     <AssignmentIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Guide" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Guide" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.forumSections)}>
                 <ListItemIcon>
                     <ChatIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Forum" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Forum" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.settings)}>
                 <ListItemIcon>
                     <SettingsIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Impostazioni" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Impostazioni" />} />
             </ListItem>
         </>
     );
@@ -116,19 +146,19 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
                 <ListItemIcon>
                     <GroupAddIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Accettazione" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Accettazione" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Lista personaggi" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Lista personaggi" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>
                     <MarkChatReadIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText primary="Chats" primaryTypographyProps={menuTextStyle} />
+                <ListItemText secondary={<MenuSecondaryText text="Chats" />} />
             </ListItem>
         </>
     );

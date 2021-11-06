@@ -57,19 +57,16 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
                 key={1}
                 icon={<BloodtypeIcon />}
                 tooltipTitle="Spendi vitae"
-                tooltipOpen
                 onClick={requestRouseCheck} />,
             <SpeedDialAction
                 key={2}
                 icon={<FlashOnOutlinedIcon />}
                 tooltipTitle="Spendi WP"
-                tooltipOpen
                 onClick={requestWillpowerUse} />,
             <SpeedDialAction
                 key={3}
                 icon={<HealingIcon />}
                 tooltipTitle="Guarisci"
-                tooltipOpen
                 onClick={requestHeal} />
         ];
     }
@@ -144,12 +141,10 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
             <SpeedDialAction
                 icon={<RoomIcon />}
                 tooltipTitle="Location"
-                tooltipOpen
                 onClick={onMapClicked} />
             <SpeedDialAction
                 icon={<AssignmentIndIcon />}
                 tooltipTitle="Status"
-                tooltipOpen
                 onClick={_ => openCharacterStatusPopup()} />
             {vampireReservedActions()}
         </SpeedDial>

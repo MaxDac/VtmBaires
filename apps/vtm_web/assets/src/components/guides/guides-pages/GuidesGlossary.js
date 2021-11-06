@@ -74,9 +74,9 @@ const GuidesGlossary = (props: Props): any => {
                         considerarsi estremamente rari). Per maggior informazioni, consultate i manuali o i contenuti
                         disponibili online (vedi <Link to={GuideRoutes.credits}>Credits</Link>):
                         <ul>
-                            <li style={liStyle}><b>Banu Haquim (ex Assamiti)</b>: hanno di recente formalmente richiesto ed ottenuto
+                            <li style={liStyle}><b>Banu Haqim (ex Assamiti)</b>: hanno di recente formalmente richiesto ed ottenuto
                             di entrare a far parte della Camarilla.</li>
-                            <li style={liStyle}><b>Brujah</b>: una delle cause che ha convinto la Camarilla ad accogliere i Banu Haquim
+                            <li style={liStyle}><b>Brujah</b>: una delle cause che ha convinto la Camarilla ad accogliere i Banu Haqim
                             tra le sue fila &egrave; stata la defezione di massa di questo clan, dopo il tradimento
                             di Theo Bell al Conclave di Praga. Non tutti i Brujah hanno deciso di seguirlo, ed &egrave; considerato
                             perfettamente lecito creare un personaggio Brujah affiliato alla Camarilla.</li>
@@ -92,7 +92,7 @@ const GuidesGlossary = (props: Props): any => {
                             quasi del tutto spazzato via dopo la Diablerie sull'Antidiluviano operata da Augustus Giovanni.</li>
                             <li style={liStyle}><b>Lasombra</b>: dietro impulso degli <i>Amici Noctis</i>, anche i Lasombra hanno ufficialmente
                             richiesto ed ottenuto di entrare a far parte della Camarilla, con un accordo molto meno
-                            vantaggioso rispetto a quello strappato dai Banu Haquim: ogni nuovo Abbraccio dovr&agrave;
+                            vantaggioso rispetto a quello strappato dai Banu Haqim: ogni nuovo Abbraccio dovr&agrave;
                             essere pagato con l'uccisione di un membro Anziano del loro stesso clan.</li>
                             <li style={liStyle}><b>Malkavian</b>: nell'ambientazione si considera che i Malkavian hanno subito pi&ugrave;
                                 perdite in termini di non-vite rispetto agli altri clan, dato che la loro maledizione

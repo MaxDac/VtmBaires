@@ -50,7 +50,10 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
     const clanSelect = () => {
         if (clans != null && clans.length > 0) {
             const values = clans.map(clan => [clan?.id ?? "", clan?.name ?? ""]);
-            return <FormSelectField formik={formik} fieldName="clanId" label="Clan" values={values}/>
+            return <FormSelectField formik={formik}
+                                    fieldName="clanId"
+                                    label="Clan"
+                                    values={values} />
         }
 
         return <></>
@@ -79,8 +82,7 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                             avere ben chiara la sua storia, il suo aspetto e la sua interpretazione. Ti invitiamo a
                             leggere la <Link to={GuideRoutes.creation}
                                              target="_blank"
-                                             rel="noreferrer"
-                                             style={{color: "#C91919"}}>Guida</Link> per ulterior informazioni.
+                                             rel="noreferrer">Guida</Link> per ulterior informazioni.
                             Vampiri: la Masquerade &egrave; principalmente un gioco di interpretazione, quindi questa
                             prima schermata di creazione &egrave; la pi&ugrave; importante di tutte, servir&agrave; a darci
                             un'idea del personaggio che vuoi interpretare.

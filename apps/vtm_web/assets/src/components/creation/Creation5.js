@@ -77,7 +77,7 @@ const Internal = ({character}) => {
     }
 
     const completeCharacter = (characterId: string) => {
-        openDialog("Conferma personaggio", "Sei sicuro di voler cancellare il personaggio?", () => {
+        openDialog("Conferma personaggio", "Sei sicuro di voler confermare il personaggio?", () => {
             FinalizeCharacterMutation(environment, characterId)
                 .then(r => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})

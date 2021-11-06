@@ -13,7 +13,7 @@ import { MainRoutes } from "../MainRouter";
 const Creation1 = (): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
-    const { showUserNotification } = useContext(UtilityContext);
+    const {showUserNotification} = useContext(UtilityContext);
 
     const onSubmit = (values: CharacterCreationRequest) => {
         createCharacter(environment, values)
@@ -30,7 +30,13 @@ const Creation1 = (): any => {
                     history.push(MainRoutes.creation2);
                 }
             })
-            .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));
+            .catch(e => {
+                showUserNotification({
+                    type: 'error',
+                    graphqlError: e,
+                    message: "An error happened while creating the user."
+                })
+            });
     }
 
     return (

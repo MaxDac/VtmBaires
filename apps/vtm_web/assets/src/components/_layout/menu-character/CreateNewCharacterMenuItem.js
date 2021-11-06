@@ -5,7 +5,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import {menuIconStyle, menuTextStyle} from "../Menu";
+import {menuIconStyle, MenuSecondaryText} from "../Menu";
 
 type Props = {
     onClick: () => void;
@@ -17,7 +17,7 @@ const CreateNewCharacterMenuItem = ({onClick}: Props): any => {
             <ListItemIcon>
                 <PersonAddIcon sx={menuIconStyle} />
             </ListItemIcon>
-            <ListItemText primary="Crea Personaggio" primaryTypographyProps={menuTextStyle} />
+            <ListItemText secondary={<MenuSecondaryText text="Crea Personaggio" />} />
         </ListItem>
     );
 }

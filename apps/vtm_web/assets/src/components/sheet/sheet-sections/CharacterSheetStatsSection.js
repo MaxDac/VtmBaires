@@ -31,7 +31,7 @@ type Props = {
 
 export const sectionStyle = {
     fontFamily: 'DefaultTypewriter',
-    color: "red",
+    color: "secondary.light",
     fontSize: "20px",
     textAlign: "center",
     paddingTop: "10px",

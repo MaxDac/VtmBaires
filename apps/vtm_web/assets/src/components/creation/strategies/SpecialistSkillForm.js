@@ -48,7 +48,7 @@ const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                {getAttributeSelector("skill4", "Skill at 4")}
+                {getAttributeSelector("skill4", "Abilità a 4")}
             </Grid>
             <Grid item xs={12}>
                 <Typography>
@@ -56,13 +56,13 @@ const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill31", "Attribute at 3")}
+                {getAttributeSelector("skill31", "Abilità a 3")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill32", "Attribute at 3")}
+                {getAttributeSelector("skill32", "Abilità a 3")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill33", "Attribute at 3")}
+                {getAttributeSelector("skill33", "Abilità a 3")}
             </Grid>
             <Grid item xs={12}>
                 <Typography>
@@ -70,13 +70,13 @@ const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill21", "Attribute at 2")}
+                {getAttributeSelector("skill21", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill22", "Attribute at 2")}
+                {getAttributeSelector("skill22", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill23", "Attribute at 2")}
+                {getAttributeSelector("skill23", "Abilità a 2")}
             </Grid>
             <Grid item xs={12}>
                 <Typography>
@@ -84,13 +84,13 @@ const SpecialistSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill11", "Attribute at 1")}
+                {getAttributeSelector("skill11", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill12", "Attribute at 1")}
+                {getAttributeSelector("skill12", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill13", "Attribute at 1")}
+                {getAttributeSelector("skill13", "Abilità a 1")}
             </Grid>
         </>;
 

@@ -19,6 +19,19 @@ const sortForSkills = (a: Attribute, b: Attribute): number => {
 
 export type AttributeSorter = (Attribute, Attribute) => number;
 
+export const getAttributeSectionOrder = (attributeSection: string): number => {
+    switch (attributeSection) {
+        case "Mental": return 3;
+        case "Social": return 2;
+        default: return 1;
+    }
+}
+
+export const sortAttributesSection = (first: string, second: string): number => {
+    const [firstOrder, secondOrder] = [getAttributeSectionOrder(first), getAttributeSectionOrder(second)];
+    return firstOrder - secondOrder;
+}
+
 /**
  * Sorts the attributes.
  * @param attributeType: The attribute type name.
@@ -29,7 +42,7 @@ export const sortAttributes = (attributeType: AttributeTypeNames): AttributeSort
         if (a?.attributeType?.section != null &&
             b?.attributeType?.section != null &&
             a.attributeType.section !== b.attributeType.section) {
-            return sortStrings(a.attributeType.section, b.attributeType.section);
+            return sortAttributesSection(a.attributeType.section, b.attributeType.section);
         }
 
         return attributeType === "Attribute"

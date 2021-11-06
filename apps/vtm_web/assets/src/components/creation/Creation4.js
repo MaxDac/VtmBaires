@@ -207,12 +207,10 @@ const Creation4 = (): any => {
                             Background, Pregi e Difetti, di cui puoi trovare una lista completa
                             nella <Link to={GuideRoutes.attributes}
                                         target="_blank"
-                                        rel="noreferrer"
-                                        style={{color: "#C91919"}}>guida</Link>. Per la guida su come associare i Vantaggi
+                                        rel="noreferrer">guida</Link>. Per la guida su come associare i Vantaggi
                             al tuo personaggio, consulta invece questa <Link to={GuideRoutes.creation}
                                                                              target="_blank"
-                                                                             rel="noreferrer"
-                                                                             style={{color: "#C91919"}}>sezione</Link>,
+                                                                             rel="noreferrer">sezione</Link>,
                             ricorda in breve che hai <b>sette punti a disposizione</b> da assegnare.
                             Scrivi nel controllo di seguito tutti i vantaggi che vuoi assegnare al tuo personaggio, e
                             ricorda che se ti trovi in difficolt&agrave;, puoi sempre contattare un master via messaggio

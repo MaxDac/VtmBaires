@@ -170,7 +170,8 @@ export default function MiniDrawer({children}: {children: any}): any {
                                 color="inherit"
                                 sx={{
                                     flexGrow: "1",
-                                    fontFamily: 'DefaultTypewriter'
+                                    fontFamily: 'DefaultTypewriter',
+                                    color: "primary.main"
                                 }}>
                         {title()}
                     </Typography>
@@ -189,7 +190,8 @@ export default function MiniDrawer({children}: {children: any}): any {
                 flexGrow: 1,
                 p: 3,
                 width: { lg: `calc(100% - ${drawerWidth}px)` },
-                background: "url('pattern.webp')"
+                // background: "url('pattern.webp')"
+                // backgroundColor: "linear-gradient(to right, #19191900, #191919)"
             }} style={{height: "100vh"}}>
                 <Toolbar />
                 <React.Suspense fallback={<DefaultFallback />}>

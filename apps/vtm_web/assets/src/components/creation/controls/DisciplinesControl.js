@@ -62,8 +62,7 @@ const DisciplinesControl = ({
                             Puoi trovare l'elenco completo delle Discipline nella sezione apposita
                             nella <Link to={GuideRoutes.attributes}
                                         target="_blank"
-                                        rel="noreferrer"
-                                        style={{color: "#C91919"}}>Guida</Link>.
+                                        rel="noreferrer">Guida</Link>.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{textAlign: "center"}}>
@@ -72,6 +71,7 @@ const DisciplinesControl = ({
                             <Select labelId="first-discipline-label"
                                     id="discipline1"
                                     name="discipline1"
+                                    label="Prima Disciplina"
                                     value={firstDiscipline}
                                     onChange={onFirstDisciplineChange}
                                     error={firstError}
@@ -87,6 +87,7 @@ const DisciplinesControl = ({
                                     id="discipline2"
                                     name="discipline2"
                                     value={secondDiscipline}
+                                    label="Seconda Disciplina"
                                     onChange={onSecondDisciplineChange}
                                     error={secondError}
                                     style={{width: "200px"}}>

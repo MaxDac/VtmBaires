@@ -61,7 +61,9 @@ const CharacterSheet = (props: Props): any => {
                                    showWarningWhenNoCharacterSelected={true}
                                    fetchKey={props.fetchKey}>
             { character =>
-                <ResponsiveInnerContainer contained={props.contained}>
+                <ResponsiveInnerContainer contained={props.contained} sx={{
+                    background: "linear-gradient(to right, #19191900, #191919A0)"
+                }}>
                     <Suspense fallback={<CharacterSheetSuspenseFallback />}>
                         {modifySheetLink(character)}
                         <CharacterSheetInfoSection classes={classes} characterQuery={character} />

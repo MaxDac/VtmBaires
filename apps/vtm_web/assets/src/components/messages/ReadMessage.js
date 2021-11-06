@@ -76,7 +76,10 @@ const ReadMessage = ({messageId}: Props): any => {
 
     return (
         <ReturnToMessagesControl>
-            <Card sx={{width: "100%"}}>
+            <Card sx={{
+                width: "100%",
+                background: "#191919"
+            }}>
                 <CardContent>
                     <Grid container sx={{width: "100%"}}>
                         <Grid item xs={3} sm={2} md={1}>

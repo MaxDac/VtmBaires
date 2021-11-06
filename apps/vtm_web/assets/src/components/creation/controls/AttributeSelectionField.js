@@ -74,6 +74,7 @@ const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
                         name={props.fieldName}
                         fullWidth
                         value={innerValue}
+                        label={props.label}
                         onChange={onChange}
                         error={hasError()}
                         sx={{

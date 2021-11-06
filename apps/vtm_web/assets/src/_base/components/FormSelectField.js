@@ -30,23 +30,23 @@ const FormSelectField = (props: SelectInputProps): any => {
     }
 
     return (
-        <FormControl variant="outlined" sx={{
+        <FormControl sx={{
             margin: theme.spacing(1),
             minWidth: 150,
         }}>
             <InputLabel id="select-label">{props.label}</InputLabel>
-            <Select
-                labelId="select-label"
-                id={props.fieldName}
-                name={props.fieldName}
-                fullWidth
-                sx={{
-                    ...props.sx,
-                    minWidth: theme.spacing(10)
-                }}
-                value={props.formik.values[props.fieldName]}
-                onChange={props.formik.handleChange}
-                error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
+            <Select labelId="select-label"
+                    id={props.fieldName}
+                    name={props.fieldName}
+                    fullWidth
+                    sx={{
+                        ...props.sx,
+                        minWidth: theme.spacing(10)
+                    }}
+                    label={props.label}
+                    value={props.formik.values[props.fieldName]}
+                    onChange={props.formik.handleChange}
+                    error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
                 {items()}
             </Select>
         </FormControl>

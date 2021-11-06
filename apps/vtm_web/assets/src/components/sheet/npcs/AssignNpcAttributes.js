@@ -4,7 +4,10 @@ import React, {useContext, useState} from "react";
 import Grid from "@mui/material/Grid";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import {useTheme} from "@mui/styles";
-import {useCharacterStatsQuery} from "../../../services/queries/character/GetCharacterStatsQuery";
+import {
+  characterAttributeSorter,
+  useCharacterStatsQuery,
+} from "../../../services/queries/character/GetCharacterStatsQuery";
 import AttributeFormControl from "./AttributeFormControl";
 import Button from "@mui/material/Button";
 import { emptyArray, handleMutation } from "../../../_base/utils";
@@ -12,8 +15,6 @@ import AssignNpcAttributesMutation from "../../../services/mutations/npcs/Assign
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import type { Attribute } from "../../../services/queries/character/GetCharacterStatsQuery";
-import {attributesDefaultSortFunction} from "../../../services/queries/info/AttributesQuery";
-import {sortAttributes} from "../../../_base/info-helpers";
 
 type Props = {
     characterId: string;
@@ -37,7 +38,7 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
 
     const titleStyle = ({
         ...subTitleStyle,
-        color: "red",
+        color: "secondary.light",
         fontSize: theme.spacing(3),
         margin: "10px"
     });
@@ -58,7 +59,7 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
 
     const filterAttributes = (type: "Attribute" | "Ability", section: "Physical" | "Social" | "Mental") => stats
         ?.filter(({type: t, section: s}) => t === type && s === section)
-        ?.sort((a, b) => sortAttributes(type)(a, b))
+        ?.sort((a, b) => characterAttributeSorter(type)(a, b))
         ?.map(s => (<AttributeFormControl characterId={characterId}
                                           attribute={s}
                                           onChange={onAttributeChanged}

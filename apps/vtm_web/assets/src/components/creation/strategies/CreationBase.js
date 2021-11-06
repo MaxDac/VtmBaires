@@ -17,6 +17,7 @@ import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import { MainRoutes } from "../../MainRouter";
 import {sortAttributes} from "../../../_base/info-helpers";
+import {translateAttributeSection} from "../../../_base/dictionary-utils";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -51,7 +52,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
         const attrs = data
             ?.filter(({ attributeType: { name } }) => name === props.attributeTypeName)
             ?.sort((a, b) => sortAttributes(props.attributeTypeName)(a, b))
-            ?.map(({ id, name, attributeType: { section: group } }) => [group, String(id), name])
+            ?.map(({ id, name, attributeType: { section: group } }) => [translateAttributeSection(group), String(id), name])
             ?? [];
 
         return [["", "", "None"]].concat(attrs);

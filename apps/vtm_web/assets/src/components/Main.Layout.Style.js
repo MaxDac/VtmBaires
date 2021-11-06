@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     },
     chatShowName: {
         fontFamily: 'DefaultTypewriter',
-        color: "red"
+        color: "secondary.light"
     },
     chatShowText: {
         fontFamily: 'DefaultTypewriter'
@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sheetTitle: {
         fontFamily: 'DefaultTypewriter',
-        color: "red",
+        color: "secondary.light",
         fontSize: "24px"
     },
     sheetText: {

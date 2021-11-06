@@ -147,14 +147,13 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                         padding: "10px"
                     }}>
                         <FormControl fullWidth>
-                            <InputLabel id="attribute-label">Attribute</InputLabel>
-                            <Select
-                                labelId="attribute-label"
-                                id="attribute"
-                                value={attribute}
-                                label="Attribute"
-                                onChange={onAttributeChanged}>
-                                {buildSelectItems("Attribute")}
+                            <InputLabel id="attribute-label">Attributo</InputLabel>
+                            <Select labelId="attribute-label"
+                                    id="attribute"
+                                    value={attribute}
+                                    label="Attributo"
+                                    onChange={onAttributeChanged}>
+                                    {buildSelectItems("Attribute")}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -162,14 +161,13 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                         padding: "10px"
                     }}>
                         <FormControl fullWidth>
-                            <InputLabel id="skill-label">Skill</InputLabel>
-                            <Select
-                                labelId="skill-label"
-                                id="skill"
-                                value={skill}
-                                label="Skill"
-                                onChange={onSkillChanged}>
-                                {buildSelectItems("Ability")}
+                            <InputLabel id="skill-label">Abilità</InputLabel>
+                            <Select labelId="skill-label"
+                                    id="skill"
+                                    value={skill}
+                                    label="Abilità"
+                                    onChange={onSkillChanged}>
+                                    {buildSelectItems("Ability")}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -184,14 +182,13 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                     padding: "10px"
                 }}>
                     <FormControl fullWidth>
-                        <InputLabel id="difficulty-label">Difficulty</InputLabel>
-                        <Select
-                            labelId="difficulty-label"
-                            id="difficulty"
-                            value={difficulty}
-                            label="Difficulty"
-                            onChange={onDifficultyChanged}>
-                            {freeThrowItems()}
+                        <InputLabel id="difficulty-label">Difficoltà</InputLabel>
+                        <Select labelId="difficulty-label"
+                                id="difficulty"
+                                value={difficulty}
+                                label="Difficoltà"
+                                onChange={onDifficultyChanged}>
+                                {freeThrowItems()}
                         </Select>
                     </FormControl>
                 </Grid>
@@ -213,11 +210,10 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                     }}>
                         <FormControl fullWidth>
                             <InputLabel id="free-throw-label">{freeThrowLabel()}</InputLabel>
-                            <Select
-                                labelId="free-throw-label"
+                            <Select labelId="free-throw-label"
                                 id="freeThrow"
                                 value={freeThrow}
-                                label="Free Throw"
+                                label={freeThrowLabel()}
                                 onChange={onFreeThrowChanged}>
                                 {freeThrowItems()}
                             </Select>

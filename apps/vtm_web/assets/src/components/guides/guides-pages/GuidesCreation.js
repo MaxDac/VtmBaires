@@ -48,7 +48,7 @@ const GuidesCreation = (): any => {
 
             <Typography paragraph style={guideStyle}>
                 Questa &egrave; la sezione pi&ugrave; importante della scheda. In questa sezione, dovrete definire il nome del 
-                personaggio, il suo <Link to={GuideRoutes.clans} style={{color: "#C91919"}}>clan</Link>, il suo avatar,
+                personaggio, il suo <Link to={GuideRoutes.clans}>clan</Link>, il suo avatar,
                 la sua descrizione, ma soprattutto la sua biografia, la storia della non vita (ed eventualmente dell'Abbraccio)
                 del personaggio. La biografia dovr&agrave; essere credibile, e dovr&agrave; adattarsi all'ambientazione
                 di Buenos Aires by Night. Una biografia priva di contenuti potr&agrave; determinare il rifiuto e la
@@ -84,7 +84,7 @@ const GuidesCreation = (): any => {
                 selezionare le due Discipline che potranno avere in fase di creazione. Dato che ogni Disciplina, con il nuovo regolamento
                 pu&ograve; avere pi&ugrave; di un potere per livello, <b>sar&agrave; necessario indicare nelle note al master, quali 
                 poteri per ogni livello di Disciplina selezionato volete prendere</b>, dato che sar&agrave; possibile selezionare un
-                solo potere per livello di Disciplina. Potrete trovare le Discipline
+                solo potere per livello di Disciplina. Potrete trovare le Discipline&nbsp;
                 <Link to={GuideRoutes.attributes}>nell'apposita sezione della guida</Link>.
             </Typography>
 

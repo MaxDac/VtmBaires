@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {useSnackbar} from "notistack";
 import type {AlertContext} from "../types";
 import useStyles from "../../components/Main.Layout.Style";
+import {tryTranslateError} from "../dictionary-utils";
 
 type Props = {
     children: AlertContext => any
@@ -79,7 +80,7 @@ const AlertLayout = (props: Props): any => {
         const { type, graphqlError, message, duration } = notificationProps;
 
         if (graphqlError && graphqlError?.errors?.length > 0) {
-            const e = parseGraphqlMessage(graphqlError, message);
+            const e = tryTranslateError(parseGraphqlMessage(graphqlError, message));
             enqueueSnackbar(e, {
                 ...defaultSnackbarVariant,
                 variant: type,

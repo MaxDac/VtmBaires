@@ -40,7 +40,7 @@ const Creation3 = (): any => {
         <div className={classes.centeredContainer}>
             <Typography paragraph>
                 In questa sezione della creazione del personaggio, dovrai scegliere le sue&nbsp;
-                <Link to={GuideRoutes.attributes} target="_blank" rel="noreferrer" style={{color: "#C91919"}}>
+                <Link to={GuideRoutes.attributes} target="_blank" rel="noreferrer">
                     Abilit&agrave;
                 </Link>.
             </Typography>
@@ -75,6 +75,7 @@ const Creation3 = (): any => {
                     <Select labelId="select-label"
                             id="character-type"
                             name="character-type"
+                            label="Tipo di Personaggio"
                             fullWidth
                             sx={{width: "200px"}}
                             value={characterType}

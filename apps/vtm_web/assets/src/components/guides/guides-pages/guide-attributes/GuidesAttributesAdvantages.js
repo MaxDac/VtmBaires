@@ -219,7 +219,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                     <li style={liStyle}>
                         <b>Carne Morta</b>: il Sangue del personaggio &egrave; troppo debole per sostenere la sua
                         natura non-morta, e quindi le sue carni sono sempre in uno stato di decomposizione. Oltre
-                        all'odore grigiastro, la pelle emana anche un nauseabondo odore di putrefazione. Il Sangue Debole
+                        al colore grigiastro, la pelle emana anche un nauseabondo odore di putrefazione. Il Sangue Debole
                         sottrarr&agrave; un dado all'ammontare di ogni tiro di interazione sociale con un umano, e
                         ovviamente non potr&agrave; prendere il pregio <b>Come vivo</b>.
                     </li>

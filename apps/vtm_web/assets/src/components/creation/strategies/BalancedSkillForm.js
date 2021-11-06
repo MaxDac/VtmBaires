@@ -58,13 +58,13 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
-                {getAttributeSelector("skill31", "Skill at 3")}
+                {getAttributeSelector("skill31", "Abilità a 3")}
             </Grid>
             <Grid item xs={12} sm={4}>
-                {getAttributeSelector("skill32", "Skill at 3")}
+                {getAttributeSelector("skill32", "Abilità a 3")}
             </Grid>
             <Grid item xs={12} sm={4}>
-                {getAttributeSelector("skill33", "Skill at 3")}
+                {getAttributeSelector("skill33", "Abilità a 3")}
             </Grid>
             <Grid item xs={12}>
                 <Typography>
@@ -72,19 +72,19 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill21", "Attribute at 2")}
+                {getAttributeSelector("skill21", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill22", "Attribute at 2")}
+                {getAttributeSelector("skill22", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill23", "Attribute at 2")}
+                {getAttributeSelector("skill23", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={6}>
-                {getAttributeSelector("skill24", "Attribute at 2")}
+                {getAttributeSelector("skill24", "Abilità a 2")}
             </Grid>
             <Grid item xs={12} md={6}>
-                {getAttributeSelector("skill25", "Attribute at 2")}
+                {getAttributeSelector("skill25", "Abilità a 2")}
             </Grid>
             <Grid item xs={12}>
                 <Typography>
@@ -92,25 +92,25 @@ const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("skill11", "Skill at 1")}
+                {getAttributeSelector("skill11", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("skill12", "Skill at 1")}
+                {getAttributeSelector("skill12", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("skill13", "Skill at 1")}
+                {getAttributeSelector("skill13", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={3}>
-                {getAttributeSelector("skill14", "Skill at 1")}
+                {getAttributeSelector("skill14", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill15", "Skill at 1")}
+                {getAttributeSelector("skill15", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill16", "Skill at 1")}
+                {getAttributeSelector("skill16", "Abilità a 1")}
             </Grid>
             <Grid item xs={12} md={4}>
-                {getAttributeSelector("skill17", "Skill at 1")}
+                {getAttributeSelector("skill17", "Abilità a 1")}
             </Grid>
         </>;
 

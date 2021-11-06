@@ -18,30 +18,33 @@ export const markdownComponents: any = {
 }
 
 const ParsedText = ({text, sx}: Props): any => {
-    const applyNewLine = text =>
-        replaceAll(replaceAll(text, "[i]", "_"), "[/i]", "_")
-            .split("\\n")
-            .reduce((acc, element, index) => {
-                if (index === 0) {
-                    return (
-                        <>
-                            <ReactMarkdown components={markdownComponents}>
-                                {element}
-                            </ReactMarkdown>
-                        </>
-                    );
-                }
-
-                return (
-                    <>
-                        {acc}
-                        <br />
-                        <ReactMarkdown components={markdownComponents}>
-                            {element}
+    const applyNewLine = text => {
+        const components = () =>
+            replaceAll(replaceAll(text, "[i]", "_"), "[/i]", "_")
+                .split("\n")
+                .map(x => {
+                    console.log("fragment", x);
+                    return x;
+                })
+                .filter(f => f != null && f !== "")
+                .map((f, index) => (
+                    <Typography paragraph>
+                        <ReactMarkdown key={index} components={markdownComponents}>
+                            {f}
                         </ReactMarkdown>
-                    </>
-                );
-            }, <></>);
+                    </Typography>
+                ));
+
+        console.log("text", JSON.stringify({
+            text
+        }));
+
+        return (
+            <>
+                {components()}
+            </>
+        )
+    };
 
     return (
         <Typography component="div" sx={sx}>

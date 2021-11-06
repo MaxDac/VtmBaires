@@ -8,12 +8,12 @@ body {
 }
 
 a:hover {
-  color: antiquewhite;
+  color: #E93939;
 }
 
 a {
   text-decoration: none;
-  color: antiquewhite;
+  color: #C91919;
 }
 
 code {
@@ -41,7 +41,7 @@ code {
 }
 
 .MuiSpeedDialAction-fab {
-  background-color: red;
+  background-color: #C91919;
 }
 
 /* This style is needed by the react markdown. Apply this class to the react markdown to avoid p margin */

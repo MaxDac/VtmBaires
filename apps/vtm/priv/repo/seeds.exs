@@ -380,7 +380,7 @@ per gli Anarchici l'influenza che il vampiro possiede sugli altri, quanto cioè 
 Vtm.SeedsHelpers.create_or_update_humans_clan()
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Thin Blood", selectable: true, attributes: [alchemy]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Caitiff", selectable: true, attributes: [auspex, celerity, fortitude, obfuscate, potence, presence]})
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Banu Haquim", selectable: true, attributes: [blood_sorcery, celerity, obfuscate]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Banu Haqim", selectable: true, attributes: [blood_sorcery, celerity, obfuscate]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Brujah", selectable: true, attributes: [celerity, potence, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Gangrel", selectable: true, attributes: [animalism, fortitude, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Hecata", selectable: true, attributes: [oblivion, dominate, auspex, potence, fortitude]})
@@ -397,7 +397,7 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ventrue", selectable: t
 
 Vtm.SeedsHelpers.set_selectable_clans(["Thin Blood",
                                        "Caitiff",
-                                       "Banu Haquim",
+                                       "Banu Haqim",
                                        "Brujah",
                                        "Gangrel",
                                        "Malkavian",

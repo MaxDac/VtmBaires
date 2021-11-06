@@ -12,7 +12,7 @@ import type {UserCharacter} from "../../../services/queries/accounts/UserCharact
 import {useTheme} from "@mui/styles";
 import {useSession} from "../../../services/session-service";
 import IconButton from "@mui/material/IconButton";
-import {menuIconStyle, menuTextStyle} from "../Menu";
+import {menuIconStyle, MenuSecondaryText} from "../Menu";
 import Tooltip from "@mui/material/Tooltip";
 
 type Props = {
@@ -64,7 +64,7 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
                     height: theme.spacing(3)
                 }} />
             </ListItemIcon>
-            <ListItemText primary={character?.name} primaryTypographyProps={menuTextStyle} />
+            <ListItemText secondary={<MenuSecondaryText text={character?.name} />} />
         </ListItem>
     );
 }

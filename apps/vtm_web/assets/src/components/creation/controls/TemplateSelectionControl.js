@@ -84,14 +84,14 @@ const TemplateSelectionControl = ({characterId}: Props): any => {
                     margin: theme.spacing(1),
                     minWidth: 150
                 }}>
-                    <InputLabel id="select-label">Templates</InputLabel>
-                    <Select
-                        labelId="select-label"
-                        fullWidth
-                        onChange={onTemplateSelectionChange}
-                        sx={{
-                            minWidth: theme.spacing(10)
-                        }}>
+                    <InputLabel id="template-label">Templates</InputLabel>
+                    <Select labelId="template-label"
+                            label="Templates"
+                            fullWidth
+                            onChange={onTemplateSelectionChange}
+                            sx={{
+                                minWidth: theme.spacing(10)
+                            }}>
                         {items()}
                     </Select>
                 </FormControl>

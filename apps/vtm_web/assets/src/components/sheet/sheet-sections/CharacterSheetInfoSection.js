@@ -48,7 +48,7 @@ const CharacterSheetInfoSection = ({characterQuery}: Props): any => {
             <Grid item xs={12} sm={7} md={8} xl={9}>
                 <Typography sx={{
                     ...mainFontFamily,
-                    color: "red",
+                    color: "secondary.light",
                     fontSize: "24px"
                 }}>
                     {info?.name}

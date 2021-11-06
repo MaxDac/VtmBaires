@@ -93,7 +93,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                         <Typography sx={{
                             fontFamily: "Disturbed",
                             fontSize: "3rem",
-                            color: "#C91919",
+                            color: "secondary.main",
                             textShadow: "1px 1px #590000",
                             textAlign: "center",
                             marginLeft: {
@@ -110,7 +110,8 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{
                 background: loginFrameBackgroundColor,
                 overflow: "auto",
-                height: "100vh"
+                height: "100vh",
+                zIndex: "4"
             }}>
                 <div style={{
                     margin: theme.spacing(8, 4),

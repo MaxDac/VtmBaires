@@ -44,7 +44,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
         }
     };
 
-    const handleCntrolKeyUp = ({key, target: {value}}) => {
+    const handleCntrolKeyUp = ({target: {value}}) => {
         setCharactersCount(_ => (value: string).length);
     };
 
@@ -64,8 +64,20 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
 
     const floatingButtonStyle = {
         position: 'absolute',
-        bottom: theme.spacing(7),
+        bottom: {
+            xs: theme.spacing(1),
+            sm: theme.spacing(7)
+        },
         right: theme.spacing(3)
+    };
+
+    const floatingButtonBackgroundStyle = {
+        transitionDelay: transitionDuration.exit,
+        backgroundColor: "secondary.main",
+        color: "primary.main",
+        "&:hover": {
+            backgroundColor: "secondary.light"
+        }
     };
 
     const countCharacterMessage = () => {
@@ -74,7 +86,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
         }
 
         return `Numero di caratteri rimanenti: ${maxCharacters - charactersCount}`;
-    }
+    };
 
     return (
         <>
@@ -112,7 +124,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
             <Box sx={floatingButtonStyle}>
                 <Zoom timeout={transitionDuration}
                       in={inDices}
-                      sx={{ transitionDelay: transitionDuration.exit }}
+                      sx={floatingButtonBackgroundStyle}
                       unmountOnExit>
                     <Fab color="primary"
                          aria-label="dices"
@@ -124,7 +136,7 @@ const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
             <Box sx={floatingButtonStyle}>
                 <Zoom timeout={transitionDuration}
                       in={!inDices}
-                      sx={{ transitionDelay: transitionDuration.exit }}
+                      sx={floatingButtonBackgroundStyle}
                       unmountOnExit>
                     <Fab color="primary"
                          aria-label="send"

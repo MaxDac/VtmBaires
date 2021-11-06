@@ -46,8 +46,7 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                             Puoi trovare pi&ugrave; informazioni riguardo il significato e i vari tipi tra i quali
                             puoi scegliere nella <Link to={GuideRoutes.creation}
                                                        target="_blank"
-                                                       rel="noreferrer"
-                                                       style={{color: "#C91919"}}>Guida</Link>.<br />
+                                                       rel="noreferrer">Guida</Link>.<br />
                             Scegli il tipo di predatore che il tuo personaggio dovr&agrave; interpretare.
                         </Typography>
                     </Grid>
@@ -58,6 +57,7 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                                     id="predatorType"
                                     name="predatorType"
                                     value={value}
+                                    label="Tipo di Predatore"
                                     onChange={onChange}
                                     style={{width: "200px"}}>
                                 {showPredatorTypes()}
