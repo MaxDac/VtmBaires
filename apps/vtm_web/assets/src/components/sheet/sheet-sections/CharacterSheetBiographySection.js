@@ -25,11 +25,10 @@ const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
             }}>
                 Biografia
             </Typography>
-            <Typography sx={{
-                fontFamily: 'DefaultTypewriter'
-            }}>
-                <ParsedText text={sheet?.biography} />
-            </Typography>
+            <ParsedText text={sheet?.biography}
+                        sx={{
+                            fontFamily: "DefaultTypewriter"
+                        }}/>
         </>
     );
 }

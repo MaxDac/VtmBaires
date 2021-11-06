@@ -28,7 +28,7 @@ const ParsedText = ({text, sx}: Props): any => {
                 })
                 .filter(f => f != null && f !== "")
                 .map((f, index) => (
-                    <Typography paragraph>
+                    <Typography paragraph sx={sx}>
                         <ReactMarkdown key={index} components={markdownComponents}>
                             {f}
                         </ReactMarkdown>
@@ -47,7 +47,7 @@ const ParsedText = ({text, sx}: Props): any => {
     };
 
     return (
-        <Typography component="div" sx={sx}>
+        <Typography component="div">
             {applyNewLine(text ?? "")}
         </Typography>
     );
