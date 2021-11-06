@@ -7,6 +7,7 @@ import areas from "./map-settings.json";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import type {Map} from "../../services/base-types";
+import Paper from "@mui/material/Paper";
 
 type Props = {
     maps: ?Array<Map>,
@@ -38,11 +39,12 @@ const MainMapWide = ({maps, onMapSelected}: Props): any => {
     };
 
     return (
-        <Box component="div">
-            <Box component="div" sx={{
+        <Box component="div" sx={{display: "inline-flex", width: "100%"}}>
+            <Paper component="div" variant="outlined" sx={{
                 margin: "0 auto",
-                width: "800px",
-                minWidth: "800px"
+                width: "802px",
+                height: "568px",
+                textAlign: "center"
             }}>
                 <Stack>
                     <ImageMapper src="main-map.webp"
@@ -58,7 +60,7 @@ const MainMapWide = ({maps, onMapSelected}: Props): any => {
                         {legend}
                     </Typography>
                 </Stack>
-            </Box>
+            </Paper>
         </Box>
         // <SubMap maps={maps} imageUrl="/main-map.png" />
     );

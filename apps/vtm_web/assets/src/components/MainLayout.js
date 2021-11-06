@@ -139,10 +139,11 @@ export default function MiniDrawer({children}: {children: any}): any {
             display: 'flex',
             background: "url('background-total.webp')",
             backgroundPosition: "left top",
-            backgroundSize: "cover",
+            backgroundSize: "auto 100vh",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
-            backgroundBlendMode: "normal",
+            backgroundBlendMode: "screen",
+            backgroundColor: "background.paper",
             overflow: "auto"
         }}>
             <CssBaseline />
