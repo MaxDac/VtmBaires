@@ -57,6 +57,7 @@ const CharacterSheetInfoSection = ({characterQuery}: Props): any => {
                         background: `url('${avatar}')`,
                         backgroundPosition: "center center",
                         backgroundRepeat: "no-repeat",
+                        backgroundSize: "contain",
                         width: "400px",
                         height: "270px"
                     }} />

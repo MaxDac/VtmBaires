@@ -5,7 +5,6 @@ import {useDropzone} from "react-dropzone";
 import Avatar from "@mui/material/Avatar";
 import {makeStyles} from "@mui/styles";
 import {compressImage} from "../file-utils";
-import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
