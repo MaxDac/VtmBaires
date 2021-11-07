@@ -15,8 +15,8 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GetCharacterAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
-import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 type Props = {
     characterQuery: any
@@ -50,19 +50,16 @@ const CharacterSheetInfoSection = ({characterQuery}: Props): any => {
                     margin: "1rem",
                     backgroundColor: "background.paper"
                 }} variant="outlined">
-                    <Avatar alt="character-avatar"
-                            // src={avatar}
-                            src="https://i.pinimg.com/originals/af/42/82/af428236bb113725c9064267e5b98e3c.jpg"
-                            variant="square"
-                            style={{
-                                margin: "0 auto",
-                                marginTop: "auto",
-                                marginBottom: "auto",
-                                width: "auto",
-                                height: "auto",
-                                maxWidth: "400px",
-                                maxHeight: "270px"
-                            }} />
+                    <Box sx={{
+                        margin: "0 auto",
+                        marginTop: "auto",
+                        marginBottom: "auto",
+                        background: `url('${avatar}')`,
+                        backgroundPosition: "center center",
+                        backgroundRepeat: "no-repeat",
+                        width: "400px",
+                        height: "270px"
+                    }} />
                 </Paper>
             </Grid>
             <Grid item xs={12} lg={5} xl={7}>

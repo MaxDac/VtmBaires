@@ -8,8 +8,8 @@ import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecord
 import ClearIcon from '@mui/icons-material/Clear';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {menuIconStyle} from "../../_layout/Menu";
 import {attributeEmptyPointStyle, attributeFullPointStyle} from "./AttributeStat";
+import {mainFontFamily} from "../../Main.Layout.Style";
 
 type Props = {
     stat: StatWithoutId;
@@ -20,9 +20,7 @@ const AttributeCumulativeStat = ({stat, damage}: Props): any => (
     <>
         <Grid container>
             <Grid item xs={12} sm={6}>
-                <Typography sx={{
-                    fontFamily: "DefaultTypewriter"
-                }}>
+                <Typography sx={mainFontFamily}>
                     {stat.name}
                 </Typography>
             </Grid>

@@ -131,6 +131,7 @@ type Character implements Node {
   advantages: String
   aggravatedDamage: Int
   approved: Boolean
+  avatar: String
   biography: String
   bloodPotency: Int
   clan: Clan

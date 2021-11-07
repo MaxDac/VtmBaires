@@ -7,6 +7,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import {mainFontFamily} from "../../Main.Layout.Style";
 
 type Props = {
     stat: StatWithoutId
@@ -25,9 +26,7 @@ const AttributeStat = ({stat}: Props): any => {
         <>
             <Grid container>
                 <Grid item xs={12} sm={6}>
-                    <Typography sx={{
-                        fontFamily: "DefaultTypewriter"
-                    }}>
+                    <Typography sx={mainFontFamily}>
                         {stat.name}
                     </Typography>
                 </Grid>

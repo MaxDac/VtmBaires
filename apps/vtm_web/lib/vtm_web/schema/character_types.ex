@@ -43,6 +43,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :name, :string
     field :biography, :string
     field :description, :string
+    field :avatar, :string
     field :is_npc, :boolean
     field :is_complete, :boolean
     field :experience, :integer

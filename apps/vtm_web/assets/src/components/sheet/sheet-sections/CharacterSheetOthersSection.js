@@ -8,6 +8,7 @@ import type {
     CharacterFragments_characterState$key
 } from "../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
 import ParsedText from "../../../_base/components/ParsedText";
+import {mainFontFamily} from "../../Main.Layout.Style";
 
 type Props = {
     characterQuery: any
@@ -28,7 +29,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
                 Tipo di Predatore
             </Typography>
             <Typography sx={{
-                fontFamily: 'DefaultTypewriter',
+                ...mainFontFamily,
                 marginBottom: "10px"
             }}>
                 {sheet?.predatorType?.name}
@@ -41,7 +42,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
                 Esperienza
             </Typography>
             <Typography sx={{
-                fontFamily: 'DefaultTypewriter',
+                ...mainFontFamily,
                 marginBottom: "10px"
             }}>
                 {sheet?.experience} punti esperienza
@@ -54,7 +55,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
                 Vantaggi
             </Typography>
             <ParsedText text={sheet?.advantages} sx={{
-                fontFamily: 'DefaultTypewriter',
+                ...mainFontFamily,
                 marginBottom: "10px"
             }} />
             <Typography sx={{
@@ -64,9 +65,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             }}>
                 Note
             </Typography>
-            <ParsedText text={sheet?.notes} sx={{
-                fontFamily: 'DefaultTypewriter'
-            }} />
+            <ParsedText text={sheet?.notes} sx={mainFontFamily} />
         </>
     );
 }

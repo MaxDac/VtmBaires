@@ -81,7 +81,10 @@ const Internal = ({character}) => {
             FinalizeCharacterMutation(environment, characterId)
                 .then(r => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
-                    setTimeout(() => history.push(Routes.main), 1000);
+                    setTimeout(() => {
+                        history.push(Routes.main);
+                        setTimeout(() => document.location.reload(), 200);
+                    }, 1000);
                 })
                 .catch(e => {
                     showUserNotification({

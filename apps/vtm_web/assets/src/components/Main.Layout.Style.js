@@ -4,7 +4,8 @@ const drawerWidth = 240;
 const chatInputHeight = 100;
 
 export const mainFontFamily = {
-    fontFamily: 'DefaultTypewriter'
+    fontFamily: 'DefaultTypewriter',
+    color: "primary.main"
 };
 
 const useStyles = makeStyles((theme) => ({

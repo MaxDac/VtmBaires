@@ -35,7 +35,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
     const history = useHistory();
     const {showUserNotification} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const [avatar, setAvatar] = useState<?string>(null);
+
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
 
     const [user,] = useSession();
@@ -50,10 +50,9 @@ const ModifyCharacterSheet = ({id}: Props): any => {
         character);
 
     const onSubmit = values => {
-        const completeValues = avatar != null && chatAvatar != null
+        const completeValues = chatAvatar != null
             ? {
                 ...values,
-                avatar,
                 chatAvatar
             }
             : values;
@@ -77,13 +76,13 @@ const ModifyCharacterSheet = ({id}: Props): any => {
         validationSchema: ModifyCharacterValidationSchema,
         initialValues: {
             description: sheet?.description,
-            biography: sheet?.biography
+            biography: sheet?.biography,
+            avatar: sheet?.avatar,
         },
         onSubmit
     });
 
-    const avatarChanged = (a, ca) => {
-        setAvatar(a);
+    const avatarChanged = (_a, ca) => {
         setChatAvatar(ca);
     };
 
@@ -109,7 +108,13 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
-                <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
+                <FormFileDropField fieldName="avatar"
+                                   changed={avatarChanged}
+                                   showChatPreviews={true}
+                                   showLargePreview={false} />
+            </Grid>
+            <Grid item xs={12}>
+                <FormTextField formik={formik} fieldName="avatar" label="URL Avatar Scheda (270 * 400)" autoComplete="Avatar URL" />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />

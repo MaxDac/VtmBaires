@@ -40,6 +40,7 @@ export const characterStatsFragment: any = graphql`
 export const characterSheetFragment: any = graphql`
     fragment CharacterFragments_characterSheet on Character {
         id
+        avatar
         biography
         description
     }

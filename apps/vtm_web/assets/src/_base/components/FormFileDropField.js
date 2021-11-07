@@ -6,12 +6,16 @@ import Avatar from "@mui/material/Avatar";
 import {makeStyles} from "@mui/styles";
 import {compressImage} from "../file-utils";
 import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export type FormFileDropFieldProps = {
     changed: (?string, ?string) => void;
     fieldName: string;
     acceptedFiles?: ?string[];
-    showPreview?: ?boolean;
+    showLargePreview?: ?boolean;
+    showChatPreviews?: ?boolean;
 };
 
 const baseStyle = {
@@ -98,26 +102,47 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
     ]);
 
     const showPreview = () => {
-        if (props.showPreview && preview && preview !== "") {
-            return (
-                <Grid container>
-                    <Grid item xs={12} style={{
-                        textAlign: "center",
-                        fontSize: "24px",
-                        padding: "15px"
-                    }}>
-                        Preview
-                    </Grid>
-                    <Grid item xs={12} sm={4} style={{textAlign: "right"}}>
-                        <img src={largePreview} alt="original size" />
-                    </Grid>
-                    <Grid item xs={12} sm={4} style={{textAlign: "center"}}>
-                        <img src={preview} alt="original size" />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <Avatar alt="preview" src={preview} className={classes.large} />
-                    </Grid>
-                </Grid>);
+        console.log("props", props.showChatPreviews);
+        if ((props.showLargePreview || props.showChatPreviews) && preview && preview !== "") {
+            const wrapStackItem = (item: any): any => (
+                <Box sx={{padding: "1rem"}}>
+                    {item}
+                </Box>
+            );
+
+            const buildStackItems = () => {
+                const previews = [];
+
+                if (props.showLargePreview) {
+                    previews.push(
+                        wrapStackItem(
+                            <img key={1} src={largePreview} alt="original size" />
+                        )
+                    );
+                }
+
+                if (props.showChatPreviews) {
+                    previews.push(
+                        wrapStackItem(
+                            <img src={preview} alt="original size" />
+                        ),
+                        wrapStackItem(
+                            <Avatar alt="preview" src={preview} className={classes.large} />
+                        )
+                    );
+                }
+
+                if (previews.length > 0) {
+                    return [
+                        <Typography sx={{padding: "1rem"}}>Previews: </Typography>,
+                        ...previews
+                    ];
+                }
+
+                return previews;
+            };
+
+            return (<Stack direction="row">{buildStackItems()}</Stack>);
         }
         else {
             return <></>

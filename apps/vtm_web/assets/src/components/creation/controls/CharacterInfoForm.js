@@ -31,7 +31,6 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
     const classes = useStyles();
     const clans = useCustomLazyLoadQuery<CreationClansQuery>(creationClansQuery, {})?.creationClans;
 
-    const [avatar, setAvatar] = useState<?string>(null);
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
 
     const [humanClan,] = clans?.filter(c => c?.name === "Umano") ?? [];
@@ -40,6 +39,7 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
         initialValues: {
             name: "",
             clanId: humanClan?.id ?? "",
+            avatar: "",
             description: "",
             biography: ""
         },
@@ -59,15 +59,13 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
         return <></>
     }
 
-    const avatarChanged = (a, ca) => {
-        setAvatar(a);
+    const avatarChanged = (_a, ca) => {
         setChatAvatar(ca);
     }
 
     const onSubmitInternal = data => {
         onSubmit({
             ...data,
-            avatar,
             chatAvatar,
         });
     }
@@ -95,7 +93,19 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                         {clanSelect()}
                     </Grid>
                     <Grid item xs={12}>
-                        <FormFileDropField fieldName="avatar" showPreview={true} changed={avatarChanged} />
+                        <Typography paragraph>
+                            Di seguito, puoi caricare una immagine, possibilmente quadrata, per poter rappresentare il
+                            tuo personaggio nelle chat e nei messaggi.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormFileDropField fieldName="avatar"
+                                           changed={avatarChanged}
+                                           showChatPreviews={true}
+                                           showLargePreview={false} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormTextField formik={formik} fieldName="avatar" label="URL Avatar Scheda (270 * 400)" autoComplete="Avatar URL" />
                     </Grid>
                     <Grid item xs={12}>
                         <FormTextField formik={formik} fieldName="description" label="Descrizione" autoComplete="Descrizione" rows={5} />

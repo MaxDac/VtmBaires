@@ -7,6 +7,7 @@ import {characterSheetFragment} from "../../../services/queries/character/Charac
 import Typography from "@mui/material/Typography";
 import ParsedText from "../../../_base/components/ParsedText";
 import CharacterSheetInfoSection from "./CharacterSheetInfoSection";
+import {mainFontFamily} from "../../Main.Layout.Style";
 
 type Props = {
     characterQuery: any
@@ -28,10 +29,7 @@ const CharacterSheetDescAndBiographySection = ({characterQuery}: Props): any => 
             }}>
                 Biografia
             </Typography>
-            <ParsedText text={sheet?.biography}
-                        sx={{
-                            fontFamily: "DefaultTypewriter"
-                        }}/>
+            <ParsedText text={sheet?.biography} sx={mainFontFamily} />
         </>
     );
 }
