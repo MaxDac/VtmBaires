@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import {useTheme} from "@mui/material/styles";
 
 type Props = {
-    sx: any;
+    sx?: any;
     children: any;
 }
 

@@ -54,7 +54,7 @@ const CharacterSheetInfoSection = ({characterQuery}: Props): any => {
                         margin: "0 auto",
                         marginTop: "auto",
                         marginBottom: "auto",
-                        background: `url('${avatar}')`,
+                        background: `url('${avatar ?? ""}')`,
                         backgroundPosition: "center center",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "contain",

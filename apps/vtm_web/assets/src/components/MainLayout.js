@@ -143,7 +143,7 @@ export default function MiniDrawer({children}: {children: any}): any {
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
             backgroundBlendMode: "screen",
-            backgroundColor: "background.paper",
+            backgroundColor: "#101010",
             overflow: "auto"
         }}>
             <CssBaseline />
