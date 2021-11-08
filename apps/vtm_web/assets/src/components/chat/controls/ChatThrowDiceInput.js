@@ -24,6 +24,8 @@ import {useSession} from "../../../services/session-service";
 export type ChatDiceRequest = {
     attributeId: string;
     abilityId: string;
+    augmentAttribute?: boolean,
+    forDiscipline?: boolean,
     freeThrow: number;
     difficulty: number;
     master: boolean;
@@ -40,6 +42,8 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const [user,] = useSession();
     const [open, setOpen] = useState(props.isOpen);
     const [masterThrow, setMasterThrow] = useState(false);
+    const [forDiscipline, setForDiscipline] = useState(false);
+    const [augmentAttribute, setAugmentAttribute] = useState(false);
     const [attribute, setAttribute] = useState("");
     const [skill, setSkill] = useState("");
     const [freeThrow, setFreeThrow] = useState(0);
@@ -110,6 +114,8 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
         const request: ChatDiceRequest = {
             attributeId: attribute,
             abilityId: skill,
+            forDiscipline: forDiscipline,
+            augmentAttribute: augmentAttribute,
             freeThrow: Number(freeThrow),
             difficulty: Number(difficulty),
             master: masterThrow
@@ -130,7 +136,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                             <Checkbox defaultChecked
                                       checked={masterThrow}
                                       onChange={_ => setMasterThrow(p => !p)} />
-                        } label="Master throw"/>
+                        } label="Tiro Master"/>
                     </FormGroup>
                 </Grid>
             );
@@ -170,6 +176,28 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                                     {buildSelectItems("Ability")}
                             </Select>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6} sx={{
+                        padding: "10px"
+                    }}>
+                        <FormGroup>
+                            <FormControlLabel control={
+                                <Checkbox defaultChecked
+                                          checked={forDiscipline}
+                                          onChange={_ => setForDiscipline(p => !p)} />
+                            } label="Tiro per Disciplina"/>
+                        </FormGroup>
+                    </Grid>
+                    <Grid item xs={12} sm={6} sx={{
+                        padding: "10px"
+                    }}>
+                        <FormGroup>
+                            <FormControlLabel control={
+                                <Checkbox defaultChecked
+                                          checked={augmentAttribute}
+                                          onChange={_ => setAugmentAttribute(p => !p)} />
+                            } label="Aumenta Attributo col Sangue"/>
+                        </FormGroup>
                     </Grid>
                 </>
             )

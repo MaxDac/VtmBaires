@@ -11,6 +11,7 @@ export const getCharacterQuery: GraphQLTaggedNode = graphql`
             ...CharacterFragments_characterSheet
             ...CharacterFragments_characterStats
             ...CharacterFragments_characterState
+            ...CharacterFragments_characterOff
         }
     }
 `;

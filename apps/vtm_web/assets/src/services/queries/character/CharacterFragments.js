@@ -62,3 +62,11 @@ export const characterStateFragment: any = graphql`
         }
     }
 `;
+
+export const characterOffFragment: any = graphql`
+    fragment CharacterFragments_characterOff on Character {
+        id
+        soundtrack
+        off        
+    }
+`;

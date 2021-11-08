@@ -85,7 +85,7 @@ const LoginComponent = (): Node => {
                 width: '100%', // Fix IE 11 issue.
                 marginTop: "10px",
             }} noValidate onSubmit={formik.handleSubmit}>
-                <FormTextField formik={formik} fieldName="email" label="Email" />
+                <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
                 <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
                 <FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />
                 <Button

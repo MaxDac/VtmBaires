@@ -14,6 +14,8 @@ defmodule Vtm.Characters.Character do
     field :chat_avatar, :string
     field :biography, :string
     field :description, :string
+    field :soundtrack, :string
+    field :off, :string
     field :is_npc, :boolean
     field :is_complete, :boolean
     field :experience, :integer
@@ -79,6 +81,8 @@ defmodule Vtm.Characters.Character do
       :chat_avatar,
       :biography,
       :description,
+      :soundtrack,
+      :off,
       :is_npc,
       :is_complete,
       :experience,

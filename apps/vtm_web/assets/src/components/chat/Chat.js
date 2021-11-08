@@ -156,6 +156,8 @@ const Chat = ({id}: ChatProps): any => {
             chatDiceEntryMutationPromise(environment, {
                 abilityId: request.abilityId,
                 attributeId: request.attributeId,
+                forDiscipline: request.forDiscipline,
+                augmentAttribute: request.augmentAttribute,
                 difficulty: request.difficulty,
                 freeThrow: request.freeThrow,
                 master: request.master,

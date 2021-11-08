@@ -340,6 +340,7 @@ defmodule Vtm.Characters do
     |> get_character_attributes_subset(character_id)
   end
 
+  @spec get_character_predator_type(integer()) :: PredatorType.t() | nil
   def get_character_predator_type(id) do
     query =
       from c in Character,
@@ -347,6 +348,16 @@ defmodule Vtm.Characters do
         on: c.predator_type_id == p.id,
         where: c.id == ^id,
         select: p
+
+    Repo.one(query)
+  end
+
+  @spec get_character_blood_potency(integer()) :: integer() | nil
+  def get_character_blood_potency(character_id) do
+    query =
+      from c in Character,
+        where: c.id == ^character_id,
+        select: c.blood_potency
 
     Repo.one(query)
   end

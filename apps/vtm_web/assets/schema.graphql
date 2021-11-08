@@ -125,6 +125,8 @@ input ChangeSheetInfoRequest {
   biography: String
   chatAvatar: String
   description: String
+  off: String
+  soundtrack: String
 }
 
 type Character implements Node {
@@ -153,7 +155,9 @@ type Character implements Node {
   lastResonanceIntensity: Int
   name: String
   notes: String
+  off: String
   predatorType: PredatorType
+  soundtrack: String
   stage: Int
   stains: Int
   torpor: Boolean
@@ -226,9 +230,11 @@ type CharacterStats {
 input ChatDiceEntryRequest {
   abilityId: ID
   attributeId: ID
+  augmentAttribute: Boolean
   characterId: ID!
   chatMapId: ID!
   difficulty: Int
+  forDiscipline: Boolean
   freeThrow: Int
   master: Boolean
 }

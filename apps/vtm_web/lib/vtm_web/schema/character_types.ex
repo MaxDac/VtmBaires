@@ -43,6 +43,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :name, :string
     field :biography, :string
     field :description, :string
+    field :soundtrack, :string
+    field :off, :string
     field :avatar, :string
     field :is_npc, :boolean
     field :is_complete, :boolean
@@ -115,6 +117,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :chat_avatar, :string
     field :description, :string
     field :biography, :string
+    field :soundtrack, :string
+    field :off, :string
   end
 
   object :character_avatar_response do

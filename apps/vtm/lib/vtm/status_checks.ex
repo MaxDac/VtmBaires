@@ -1,4 +1,6 @@
 defmodule Vtm.StatusChecks do
+  @moduledoc false
+
   import Ecto.Query, warn: false
 
   @hunt_difficulty 1
@@ -32,27 +34,45 @@ defmodule Vtm.StatusChecks do
     Repo.one(query)
   end
 
+  @spec rouse_check_effect(integer()) :: {:error, :not_found} |
+                                         {:ok, :no_rouse} |
+                                         {:ok, :rouse} |
+                                         {:ok, :frenzy}
+  def rouse_check_effect(character_id) do
+    query =
+      from c in Character,
+        where: c.id == ^character_id,
+        select: %Character{id: c.id, hunger: c.hunger, blood_potency: c.blood_potency}
+
+    case {Repo.one(query), Helpers.throw_dice(), Helpers.throw_dice()} do
+      {nil, _, _} ->
+        {:error, :not_found}
+      {%{hunger: 5}, _, _} ->
+        {:ok, :frenzy}
+      {_, d, _} when d >= 6 ->
+        {:ok, :no_rouse}
+      {%{blood_potency: bp}, _, d} when bp >= 1 and d >= 6 ->
+        {:ok, :no_rouse}
+      {ch = %{hunger: h}, _, _} ->
+        with {:ok, _} <- ch |> update_character(%{hunger: h + 1}) do
+          {:ok, :rouse}
+        end
+    end
+  end
+
   @doc """
   This function implements the Rouse Check. It doesn't check whether the character belongs to a particular user.
   """
   @spec rouse_check(Integer.t()) :: {:ok, String.t()} | {:error, String.t()} | {:error, :not_found}
   def rouse_check(character_id) do
-    query =
-      from c in Character,
-        where: c.id == ^character_id,
-        select: %Character{id: c.id, hunger: c.hunger}
-
-    case {Repo.one(query), Helpers.throw_dice()} do
-      {nil, _}                      ->
-        {:error, :not_found}
-      {%{hunger: 5}, _}             ->
+    case rouse_check_effect(character_id) do
+      {:ok, :frenzy} ->
         {:ok, "Il personaggio è sulla soglia della frenesia, deve cibarsi prima di poter spendere vitae."}
-      {_, d} when d >= 6 ->
+      {:ok, :no_rouse} ->
         {:ok, "Il personaggio personaggio riesce ad usare efficientemente la sua vitae."}
-      {ch = %{hunger: h}, _} ->
-        with {:ok, _} <- ch |> update_character(%{hunger: h + 1}) do
-          {:ok, "Il personaggio riesce ad usare vitae, ma la sua fame cresce."}
-        end
+      {:ok, :rouse} ->
+        {:ok, "Il personaggio riesce ad usare vitae, ma la sua fame cresce."}
+      e -> e
     end
   end
 

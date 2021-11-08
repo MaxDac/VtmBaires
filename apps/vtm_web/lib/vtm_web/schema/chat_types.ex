@@ -36,6 +36,8 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :character_id, non_null(:id)
     field :attribute_id, :id
     field :ability_id, :id
+    field :for_discipline, :boolean
+    field :augment_attribute, :boolean
     field :master, :boolean
     field :free_throw, :integer
     field :difficulty, :integer

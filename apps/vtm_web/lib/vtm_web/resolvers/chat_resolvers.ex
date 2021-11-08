@@ -63,12 +63,9 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
          {:ok, at_id} <- from_global_id_if_not_null?(entry.attribute_id),
          {:ok, ab_id} <- from_global_id_if_not_null?(entry.ability_id) do
 
-      %{
+      request = %{
         character_id: character_id,
-        attribute_id: attribute_id,
-        ability_id: ability_id,
-        free_throw: free_throw,
-        difficulty: difficulty
+        free_throw: free_throw
       } =
         entry
         |> Map.put(:character_id, c_id)
@@ -77,7 +74,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
       case {check_master(entry, user), entry |> Map.get(:master, false)} do
         {true, false} ->
-          throw_result = Chats.random_simulate_dice_throw(user.id, character_id, attribute_id, ability_id, free_throw, difficulty)
+          throw_result = Chats.random_simulate_dice_throw(user.id, character_id, request)
           create_chat_entry(x, %{entry: entry |> Map.put(:result, throw_result)}, ctx)
         {true, true} ->
           throw_result = Chats.random_simulate_master_dice_throw(free_throw)

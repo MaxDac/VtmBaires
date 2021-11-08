@@ -8,7 +8,7 @@ import FormTextField from "../../../_base/components/FormTextField";
 import {object, string} from "yup";
 import {useFragment, useRelayEnvironment} from "react-relay";
 import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
-import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
+import {characterOffFragment, characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
 import {useFormik} from "formik";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
@@ -21,14 +21,17 @@ import {Redirect, useHistory} from "react-router-dom";
 import ChangeCharacterSheetInfoMutation from "../../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
 import {UtilityContext} from "../../../contexts";
 import { MainRoutes } from "../../MainRouter";
+import type {CharacterFragments_characterOff$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 
 type Props = {
     id: string;
 }
 
 const ModifyCharacterValidationSchema = object().shape({
-    description: string("Descrizione del personaggio"),
-    biography: string("Biografia del personaggio")
+    description: string("Descrizione del personaggio").required(),
+    biography: string("Biografia del personaggio").required(),
+    soundtrack: string("Soundtrack"),
+    off: string("Off")
 });
 
 const ModifyCharacterSheet = ({id}: Props): any => {
@@ -47,6 +50,10 @@ const ModifyCharacterSheet = ({id}: Props): any => {
 
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
+        character);
+
+    const offSheet = useFragment<?CharacterFragments_characterOff$key>(
+        characterOffFragment,
         character);
 
     const onSubmit = values => {
@@ -78,6 +85,8 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             description: sheet?.description,
             biography: sheet?.biography,
             avatar: sheet?.avatar,
+            soundtrack: offSheet?.soundtrack,
+            off: offSheet?.off
         },
         onSubmit
     });
@@ -121,6 +130,25 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
+            </Grid>
+            <Grid item xs={12}>
+                <FormTextField formik={formik} fieldName="soundtrack" label="Soundtrack" autoComplete="Soundtrack" />
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <Typography paragraph>
+                    Nella sezione Off potete mettere tutto ci&ograve; che volete condividere del vostro personaggio.
+                    Il testo, ad ogni modo, non è libero: potrete utilizzare i tag messi a disposizione dal markdown
+                    concesso. Potete trovare la documentazione completa del markdown concessa al
+                    seguente <a href="https://commonmark.org/help/"
+                              target="_blank"
+                              rel="noreferrer">link</a>, e un esempio al
+                    seguente <a href="https://remarkjs.github.io/react-markdown/"
+                             target="_blank"
+                             rel="noreferrer">link</a>.
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <FormTextField formik={formik} fieldName="off" label="Testo Sezione Off" autoComplete="Testo Sezione Off" rows={5} />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <Button

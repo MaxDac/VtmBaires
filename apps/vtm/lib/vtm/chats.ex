@@ -9,6 +9,7 @@ defmodule Vtm.Chats do
   alias Vtm.Chats.ChatEntry
   alias Vtm.Characters.Character
   alias Vtm.Characters
+  alias Vtm.StatusChecks
 
   @two_hours_in_second 3_600 * 2
   @ten_minutes_in_seconds 60 * 10
@@ -143,13 +144,14 @@ defmodule Vtm.Chats do
     |> Enum.join(", ")
   end
 
-  def random_simulate_dice_throw(user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do
-    simulate_dice_throw(&Helpers.random_dice_thrower/1, user_id, character_id, attribute_id, ability_id, free_throw, difficulty)
+  def random_simulate_dice_throw(user_id, character_id, request) do
+    simulate_dice_throw(&Helpers.random_dice_thrower/1, user_id, character_id, request)
   end
 
-  def simulate_dice_throw(dice_thrower, user_id, character_id, attribute_id, ability_id, free_throw, difficulty) do
+  def simulate_dice_throw(dice_thrower, user_id, character_id, request = %{difficulty: difficulty}) do
     # Gathering all the information
-    {amount, throw_description} = get_dice_amount(character_id, attribute_id, ability_id, free_throw)
+    {amount, throw_description} = get_dice_amount(character_id, request)
+
     %{hunger: hunger} = Characters.get_character_status(user_id, character_id)
 
     case amount do
@@ -170,14 +172,16 @@ defmodule Vtm.Chats do
     end
   end
 
-  @spec zero_if_less_than_zero(integer) :: integer
-  defp zero_if_less_than_zero(a) when is_integer(a) and a < 0, do: 0
-  defp zero_if_less_than_zero(a), do: a
-
-  defp get_dice_amount(character_id, attribute_id, ability_id, free_throw) do
+  defp get_dice_amount(character_id, %{
+    attribute_id: attribute_id,
+    ability_id: ability_id,
+    for_discipline: for_discipline,
+    augment_attribute: augment_attribute,
+    free_throw: free_throw
+  }) do
     case {attribute_id, ability_id, free_throw} do
       {attribute_id, ability_id, _} when not(is_nil(attribute_id)) and not(is_nil(ability_id)) ->
-        with result <- get_character_dices_amount(character_id, attribute_id, ability_id, free_throw) do
+        with result <- get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw) do
           result
         end
       {_, _, free_throw} when not is_nil(free_throw) ->
@@ -188,7 +192,37 @@ defmodule Vtm.Chats do
     end
   end
 
-  defp get_character_dices_amount(character_id, attribute_id, ability_id, free_throw) do
+  @spec zero_if_less_than_zero(integer) :: integer
+  defp zero_if_less_than_zero(a) when is_integer(a) and a < 0, do: 0
+  defp zero_if_less_than_zero(a), do: a
+
+  defp parse_augment_attribute(character_id, true) do
+    augment =
+      case Characters.get_character_blood_potency(character_id) do
+        0 -> 0
+        1 -> 1
+        _ -> 2
+      end
+
+    case StatusChecks.rouse_check_effect(character_id) do
+      {:ok, :frenzy} -> {0, :frenzy}
+      {:ok, effect} -> {augment, effect}
+      e -> e
+    end
+  end
+
+  defp parse_augment_attribute(_, _), do: {0, :no_rouse}
+
+  defp parse_amount_augment_for_discipline(character_id, for_discipline) do
+    case {for_discipline, Characters.get_character_blood_potency(character_id)} do
+      {false, _}  -> 0
+      {_, 2}      -> 1
+      {_, 3}      -> 2
+      _           -> 0
+    end
+  end
+
+  defp get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw) do
     attrs =
       Characters.get_character_attributes_subset_by_ids(character_id, [attribute_id, ability_id])
 
@@ -200,11 +234,25 @@ defmodule Vtm.Chats do
       attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == ability_id end)
     }
 
+    discipline_amount = parse_amount_augment_for_discipline(character_id, for_discipline)
+
+    {rouse_augment_amount, rouse_augment_effect} =
+      parse_augment_attribute(character_id, augment_attribute)
+
     amount =
-      (attribute_value + ability_value + free_throw)
+      (attribute_value + ability_value + free_throw + discipline_amount + rouse_augment_amount)
       |> zero_if_less_than_zero()
 
-    {amount, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"}
+    case {for_discipline, augment_attribute, rouse_augment_effect, amount} do
+      {false, false, _, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"}
+      {true, false, _, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina"}
+      {false, true, :no_rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} con spesa efficace di Sangue"}
+      {false, true, :rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} con spesa di Sangue"}
+      {false, true, :frenzy, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} (al limite della Frenesia)"}
+      {true, true, :no_rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina e con spesa efficace di Sangue"}
+      {true, true, :rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina e con spesa di Sangue"}
+      {true, true, :frenzy, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina (al limite della Frenesia)"}
+    end
   end
 
   defp get_dices_result(dice_thrower, amount, hunger) do

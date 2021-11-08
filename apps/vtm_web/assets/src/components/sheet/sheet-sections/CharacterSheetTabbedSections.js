@@ -10,6 +10,7 @@ import {mainFontFamily} from "../../Main.Layout.Style";
 import CharacterSheetStatsSection from "./CharacterSheetStatsSection";
 import {CharacterSheetSuspenseFallback} from "../CharacterSheet";
 import CharacterSheetOthersSection from "./CharacterSheetOthersSection";
+import CharacterSheetOffSection from "./CharacterSheetOffSection";
 
 type Props = {
     characterQuery: {id: string}
@@ -32,10 +33,13 @@ const CharacterSheetTabbedSections = ({characterQuery}: Props): any => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs value={value}
+                      onChange={handleChange}
+                      aria-label="basic tabs example">
                     <Tab label="Info" {...a11yProps(0)} sx={mainFontFamily} />
                     <Tab label="Stats" {...a11yProps(1)} sx={mainFontFamily} />
                     <Tab label="Note" {...a11yProps(2)} sx={mainFontFamily} />
+                    <Tab label="Off" {...a11yProps(3)} sx={mainFontFamily} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -52,6 +56,9 @@ const CharacterSheetTabbedSections = ({characterQuery}: Props): any => {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <CharacterSheetOthersSection characterQuery={characterQuery} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <CharacterSheetOffSection characterQuery={characterQuery} />
             </TabPanel>
         </Box>
     );

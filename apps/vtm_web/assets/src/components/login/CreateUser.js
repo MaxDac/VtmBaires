@@ -123,7 +123,7 @@ const CreateUserComponent = (): Node => {
                     width: '100%', // Fix IE 11 issue.
                     marginTop: "10px",
                 }} noValidate onSubmit={formik.handleSubmit}>
-                    <FormTextField formik={formik} fieldName="email" label="Email" />
+                    <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
                     <FormTextField formik={formik} fieldName="name" label="Name" />
                     <Box component="div" sx={{paddingTop: "10px"}}>
                         <FormControl component="div">

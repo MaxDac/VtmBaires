@@ -24,14 +24,6 @@ const AttributeWithDamageStat = ({stat, damage, secondDamage}: Props): any => {
 
     const realMaxValue = (stat.maxValue ?? 0) - realValue - damage;
 
-    console.log("stats", {
-        stat,
-        damage,
-        secondDamage,
-        realValue,
-        realMaxValue
-    })
-
     return (
         <>
             <Grid container>
