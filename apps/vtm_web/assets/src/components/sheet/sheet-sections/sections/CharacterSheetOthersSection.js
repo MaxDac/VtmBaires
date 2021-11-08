@@ -2,13 +2,13 @@
 
 import React from "react";
 import {useFragment} from "react-relay";
-import {characterStateFragment} from "../../../services/queries/character/CharacterFragments";
+import {characterStateFragment} from "../../../../services/queries/character/CharacterFragments";
 import Typography from "@mui/material/Typography";
 import type {
     CharacterFragments_characterState$key
-} from "../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
-import ParsedText from "../../../_base/components/ParsedText";
-import {mainFontFamily} from "../../Main.Layout.Style";
+} from "../../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
+import ParsedText from "../../../../_base/components/ParsedText";
+import {mainFontFamily} from "../../../Main.Layout.Style";
 
 type Props = {
     characterQuery: any

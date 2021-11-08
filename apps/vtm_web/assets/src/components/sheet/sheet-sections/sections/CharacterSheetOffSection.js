@@ -2,12 +2,12 @@
 
 import React from "react";
 import {useFragment} from "react-relay";
-import {characterOffFragment} from "../../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterOff$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
+import {characterOffFragment} from "../../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 import Box from "@mui/material/Box";
-import ParsedText from "../../../_base/components/ParsedText";
-import {mainFontFamily} from "../../Main.Layout.Style";
-import SoundWrapperComponent from "../../../_base/components/SoundWrapperComponent";
+import ParsedText from "../../../../_base/components/ParsedText";
+import {mainFontFamily} from "../../../Main.Layout.Style";
+import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
 
 type Props = {
     characterQuery: any

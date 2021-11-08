@@ -3,8 +3,7 @@
 import React, {Suspense} from "react";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
-import ConcealedCharacterInfo from "../_data/ConcealedCharacterInfo";
-import CharacterSheetTabbedSections from "./sheet-sections/CharacterSheetTabbedSections";
+import CharacterSheetTabs from "./CharacterSheetTabs";
 import Skeleton from "@mui/material/Skeleton";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../services/session-service";
@@ -12,6 +11,7 @@ import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import Paper from "@mui/material/Paper";
+import CharacterSheetPublic from "./CharacterSheetPublic";
 
 type Props = {
     id?: string;
@@ -52,7 +52,12 @@ const CharacterSheet = (props: Props): any => {
         }
 
         return (<></>);
-    }
+    };
+
+    const visualisation = character =>
+        canModify(character)
+            ? (<CharacterSheetTabs characterQuery={character} />)
+            : (<CharacterSheetPublic characterQuery={character} />);
 
     return (
         <CharacterFragmentProvider characterId={props.id}
@@ -63,9 +68,7 @@ const CharacterSheet = (props: Props): any => {
                     <Paper variant="outlined" sx={{backgroundColor: "background.paper"}}>
                         <Suspense fallback={<CharacterSheetSuspenseFallback />}>
                             {modifySheetLink(character)}
-                            <ConcealedCharacterInfo characterId={props?.id}>
-                                <CharacterSheetTabbedSections characterQuery={character} />
-                            </ConcealedCharacterInfo>
+                            {visualisation(character)}
                         </Suspense>
                     </Paper>
                 </ResponsiveInnerContainer>

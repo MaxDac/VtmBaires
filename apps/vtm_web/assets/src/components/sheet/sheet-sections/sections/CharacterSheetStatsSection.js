@@ -5,13 +5,13 @@ import Typography from "@mui/material/Typography";
 import {
   characterAttributeSorter,
   useCharacterStatsQuery,
-} from "../../../services/queries/character/GetCharacterStatsQuery";
+} from "../../../../services/queries/character/GetCharacterStatsQuery";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
-import AttributeStat from "../controls/AttributeStat";
+import AttributeStat from "../../controls/AttributeStat";
 import {useFragment} from "react-relay";
-import {characterStatsFragment} from "../../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterStats$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import {characterStatsFragment} from "../../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterStats$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import CharacterSheetStatusStatsSection from "./CharacterSheetStatusStatsSection";
 
 export type RefreshedQueryOption = {

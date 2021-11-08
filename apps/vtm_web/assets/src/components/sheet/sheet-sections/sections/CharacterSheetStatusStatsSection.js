@@ -2,14 +2,14 @@
 
 import React from "react";
 import Grid from "@mui/material/Grid";
-import AttributeStat from "../controls/AttributeStat";
-import AttributeWithDamageStat from "../controls/AttributeWithDamageStat";
-import AttributeCumulativeStat from "../controls/AttributeCumulativeStat";
-import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
+import AttributeStat from "../../controls/AttributeStat";
+import AttributeWithDamageStat from "../../controls/AttributeWithDamageStat";
+import AttributeCumulativeStat from "../../controls/AttributeCumulativeStat";
+import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import {characterIsVampire} from "../../../_base/utils";
-import { defaultFormatDateAndTime } from "../../../_base/date-utils";
+import {characterIsVampire} from "../../../../_base/utils";
+import { defaultFormatDateAndTime } from "../../../../_base/date-utils";
 
 type Props = {
     sheet: Character;

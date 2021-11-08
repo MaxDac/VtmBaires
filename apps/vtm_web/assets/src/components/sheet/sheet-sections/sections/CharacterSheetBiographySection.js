@@ -2,25 +2,23 @@
 
 import React from "react";
 import {useFragment} from "react-relay";
-import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
-import {characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterSheet$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
+import {characterSheetFragment} from "../../../../services/queries/character/CharacterFragments";
 import Typography from "@mui/material/Typography";
-import ParsedText from "../../../_base/components/ParsedText";
-import CharacterSheetInfoSection from "./CharacterSheetInfoSection";
-import {mainFontFamily} from "../../Main.Layout.Style";
+import ParsedText from "../../../../_base/components/ParsedText";
+import {mainFontFamily} from "../../../Main.Layout.Style";
 
 type Props = {
     characterQuery: any
 }
 
-const CharacterSheetDescAndBiographySection = ({characterQuery}: Props): any => {
+const CharacterSheetBiographySection = ({characterQuery}: Props): any => {
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
         characterQuery);
 
     return (
         <>
-            <CharacterSheetInfoSection characterQuery={characterQuery} />
             <Typography sx={{
                 fontFamily: 'DefaultTypewriter',
                 color: "secondary.light",
@@ -34,4 +32,4 @@ const CharacterSheetDescAndBiographySection = ({characterQuery}: Props): any => 
     );
 }
 
-export default CharacterSheetDescAndBiographySection;
+export default CharacterSheetBiographySection;
