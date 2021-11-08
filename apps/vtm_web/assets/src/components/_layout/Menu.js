@@ -116,6 +116,12 @@ export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any =
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Forum" />} />
             </ListItem>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
+                <ListItemIcon>
+                    <SupervisedUserCircleIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Lista personaggi" />} />
+            </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.settings)}>
                 <ListItemIcon>
                     <SettingsIcon sx={menuIconStyle} />
@@ -138,7 +144,6 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
 
     return (
         <>
-            {/*<ListSubheader inset>Admin</ListSubheader>*/}
             <MenuNpcSection pushHistory={pushHistory}
                             npcs={npcsWithAvatar}
                             onUpdate={onUpdate} />
@@ -147,12 +152,6 @@ export const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: Props): 
                     <GroupAddIcon sx={menuIconStyle} />
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Accettazione" />} />
-            </ListItem>
-            <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
-                <ListItemIcon>
-                    <SupervisedUserCircleIcon sx={menuIconStyle} />
-                </ListItemIcon>
-                <ListItemText secondary={<MenuSecondaryText text="Lista personaggi" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>

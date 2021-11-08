@@ -4,11 +4,11 @@ import React, {useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from "@mui/material/Box";
-import TabPanel from "../../_base/components/TabPanel";
-import {mainFontFamily} from "../Main.Layout.Style";
-import CharacterSheetInfoTab from "./sheet-sections/tabs/CharacterSheetInfoTab";
-import CharacterSheetStatsTab from "./sheet-sections/tabs/CharacterSheetStatsTab";
-import CharacterSheetDataTab from "./sheet-sections/tabs/CharacterSheetDataTab";
+import TabPanel from "../../../../_base/components/TabPanel";
+import {mainFontFamily} from "../../../Main.Layout.Style";
+import CharacterSheetInfoTab from "./CharacterSheetInfoTab";
+import CharacterSheetStatsTab from "./CharacterSheetStatsTab";
+import CharacterSheetDataTab from "./CharacterSheetDataTab";
 
 type Props = {
     characterQuery: {id: string}

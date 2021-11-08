@@ -36,40 +36,46 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
 
     useEffect(() => {
         if (isPlaying) {
-            audioRef.current.play();
+            audioRef.current?.play();
         }
         else {
-            audioRef.current.pause();
+            audioRef.current?.pause();
         }
     }, [isPlaying]);
 
     useEffect(() => {
 
-        audioRef.current.addEventListener("canplay", function() {
+        audioRef.current?.addEventListener("canplay", function() {
             this.volume = 0.3;
             setTrackDuration(_ => this.duration);
         });
 
-        audioRef.current.addEventListener("timeupdate", function() {
+        audioRef.current?.addEventListener("timeupdate", function() {
             setTrackCurrent(_ => this.currentTime);
         });
 
     }, []);
 
     const onVolumeChanged = ({target: {value}}) => {
-        audioRef.current.volume = value / 100;
+        if (audioRef.current?.volume != null) {
+            audioRef.current.volume = value / 100;
+        }
+
         setVolume(_ => value);
     };
 
     const onTrackChanged = ({target: {value}}) => {
-        audioRef.current.currentTime = value;
+        if (audioRef.current?.currentTime != null) {
+            audioRef.current.currentTime = value;
+        }
+
         setTrackCurrent(_ => value);
     };
 
     const getTrackCurrentFormatted = () => {
         const padding = s => String(s).padStart(2, "0");
-        const totalSeconds = Math.round(trackCurrent, 0);
-        const minutes = Math.floor(totalSeconds / 60, 0);
+        const totalSeconds = Math.round(trackCurrent);
+        const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds - minutes * 60;
         return `${padding(minutes)}:${padding(seconds)}`;
     };

@@ -10,13 +10,13 @@ import Typography from "@mui/material/Typography";
 import type {ClanDisciplinesQueryResponse} from "../../../services/queries/info/__generated__/ClanDisciplinesQuery.graphql";
 import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplinesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import { characterHasDisciplines } from "../../../_base/utils";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
+import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 
 type Props = {
-    characterInfo: CharacterFragments_characterInfo;
+    characterInfo: CharacterFragments_characterConcealedInfo;
     classes: any;
     onFirstDisciplineChange?: ?(Event) => void;
     onSecondDisciplineChange?: ?(Event) => void;

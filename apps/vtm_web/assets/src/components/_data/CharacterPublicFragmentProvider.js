@@ -1,0 +1,34 @@
+// @flow
+
+import React from "react";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {getCharacterPublicQuery} from "../../services/queries/character/GetCharacterPublicQuery";
+import type {GetCharacterPublicQuery} from "../../services/queries/character/__generated__/GetCharacterPublicQuery.graphql";
+
+type Props = {
+    id: string;
+    children: any => any;
+    reload?: boolean;
+    fetchKey?: number;
+}
+
+const CharacterFragmentPublicProviderQuery = ({id, children, reload, fetchKey}: Props): any => {
+    const policy = {
+        fetchPolicy: reload ? "store-and-network" : "store-or-network",
+        fetchKey: fetchKey ?? 0
+    };
+
+    const character =
+        useCustomLazyLoadQuery<GetCharacterPublicQuery>(getCharacterPublicQuery, { id: id }, policy)
+            ?.getCharacterPublicInfo;
+
+    if (character?.id != null) {
+        return children(character);
+    }
+
+    return (
+        <></>
+    );
+};
+
+export default CharacterFragmentPublicProviderQuery;

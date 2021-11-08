@@ -15,7 +15,7 @@ type Props = CharacterProviderBaseProps & {
     children: any => any;
     reload?: boolean;
     fetchKey?: number;
-}
+};
 
 const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey}) => {
     const policy = {
@@ -34,7 +34,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey
     return (
         <></>
     );
-}
+};
 
 const CharacterFragmentProvider = (props: Props): any => {
     const characterId = useCharacterProviderId(props.characterId);

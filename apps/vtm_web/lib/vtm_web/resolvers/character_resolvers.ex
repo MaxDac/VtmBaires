@@ -63,6 +63,16 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
+  @spec get_character_public_info(%{id: integer}, map()) :: {:ok, Character.t()} | {:error, binary()}
+  def get_character_public_info(%{id: id}, _) do
+    case Characters.get_character_public_info(id) do
+      character when not is_nil(character) ->
+        {:ok, character |> map_character()}
+      _ ->
+        {:error, "The user does not exist, or you have no permission to see it."}
+    end
+  end
+
   def get_character_user(%{character_id: character_id}, _) do
     id = character_id |> String.to_integer()
     case Characters.get_character_user(%{id: id}) do

@@ -17,6 +17,7 @@ import {creationClansQuery} from "../../../services/queries/info/CreationClansQu
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import {getUrlValidationMatchString} from "../../../_base/utils";
+import {avatarHeight, avatarWidth} from "../../character/sheet-sections/sections/CharacterSheetDescriptionSection";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
@@ -107,7 +108,10 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                                            showLargePreview={false} />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormTextField formik={formik} fieldName="avatar" label="URL Avatar Scheda (270 * 400)" autoComplete="Avatar URL" />
+                        <FormTextField formik={formik}
+                                       fieldName="avatar"
+                                       label={`URL Avatar Scheda (${avatarWidth} * ${avatarHeight})`}
+                                       autoComplete="Avatar URL" />
                     </Grid>
                     <Grid item xs={12}>
                         <FormTextField formik={formik} fieldName="description" label="Descrizione" autoComplete="Descrizione" rows={5} />

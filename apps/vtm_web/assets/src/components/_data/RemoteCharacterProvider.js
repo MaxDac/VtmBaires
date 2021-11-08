@@ -24,7 +24,7 @@ const RemoteCharacterProvider = (props: Props): any => {
         );
     }
 
-    return (<></>)
+    return (<></>);
 }
 
 export default RemoteCharacterProvider;

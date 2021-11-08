@@ -27,7 +27,7 @@ const FormCheckboxField = ({formik, fieldName, label, onChanged}: Props): any =>
             <FormControlLabel
                 control={
                     <Checkbox onChange={onControlChanged}
-                              checked={formik.values["remember"]}
+                              checked={formik.values[fieldName]}
                               name={fieldName}
                               id={fieldName}
                               color="primary" />

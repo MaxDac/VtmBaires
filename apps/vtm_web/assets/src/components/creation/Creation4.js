@@ -10,11 +10,7 @@ import PredatorTypeControl from "./controls/PredatorTypeControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import {useFragment, useRelayEnvironment} from "react-relay";
-import type {
-    CharacterFragments_characterInfo$key
-} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import {characterInfoFragment} from "../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterInfo} from "../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import {characterConcealedInfoFragment} from "../../services/queries/character/CharacterFragments";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import {object, string} from "yup";
 import {useFormik} from "formik";
@@ -27,6 +23,10 @@ import {
 import {MainRoutes} from "../MainRouter";
 import {Link} from "react-router-dom";
 import { GuideRoutes } from "../guides/GuidesMain";
+import type {
+  CharacterFragments_characterConcealedInfo,
+  CharacterFragments_characterConcealedInfo$key,
+} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 
 type InternalElementProps = {
     character: any;
@@ -34,8 +34,8 @@ type InternalElementProps = {
 };
 
 const InternalElement = ({character, children}: InternalElementProps): any => {
-    const infoFragment = useFragment<CharacterFragments_characterInfo$key>(
-        characterInfoFragment,
+    const infoFragment = useFragment<CharacterFragments_characterConcealedInfo$key>(
+        characterConcealedInfoFragment,
         character);
 
     return (
@@ -98,7 +98,7 @@ const Creation4 = (): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
 
-    const submit = (character: CharacterFragments_characterInfo) => ({
+    const submit = (character: CharacterFragments_characterConcealedInfo) => ({
         discipline1,
         discipline2,
         predatorType,

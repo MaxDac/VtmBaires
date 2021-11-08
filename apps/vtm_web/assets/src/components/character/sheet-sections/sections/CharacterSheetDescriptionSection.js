@@ -3,20 +3,25 @@
 import React from "react";
 import {useFragment} from "react-relay";
 import {
-    characterInfoFragment,
+    characterInfoFragment, characterOffFragment,
     characterSheetFragment
 } from "../../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterSheet$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import type {CharacterFragments_characterInfo$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
-import ConcealedCharacterInfo from "../../../_data/ConcealedCharacterInfo";
 import {mainFontFamily} from "../../../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import type {GetCharacterAvatarQuery} from "../../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 import { getCharacterAvatarQuery } from "../../../../services/queries/character/GetCharacterAvatarQuery";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
+import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
+import Stack from "@mui/material/Stack";
+
+export const avatarHeight: number = 350;
+export const avatarWidth: number = 400;
 
 type Props = {
     characterQuery: any
@@ -31,11 +36,20 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
         characterSheetFragment,
         characterQuery);
 
+    const off = useFragment<?CharacterFragments_characterOff$key>(
+        characterOffFragment,
+        characterQuery);
+
     const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, {
         id: characterQuery?.id
     }, {
         fetchPolicy: "store-or-network"
     })?.getCharacterAvatar?.avatar;
+
+    const getSheetName = () =>
+        info?.isNpc === true
+            ? `${info?.name ?? ""} (PNG)`
+            : info?.name;
 
     return (
         <Grid container>
@@ -43,8 +57,8 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
                 textAlign: "center"
             }}>
                 <Paper sx={{
-                    width: "420px",
-                    height: "290px",
+                    width: "410px",
+                    height: "360px",
                     display: "inline-flex",
                     textAlign: "center",
                     margin: "1rem",
@@ -59,25 +73,28 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "contain",
                         width: "400px",
-                        height: "270px"
+                        height: "350px"
                     }} />
                 </Paper>
             </Grid>
             <Grid item xs={12} lg={5} xl={7}>
-                <Typography sx={{
-                    ...mainFontFamily,
-                    color: "secondary.light",
-                    fontSize: "24px"
-                }}>
-                    {info?.name}
-
-                    <ConcealedCharacterInfo characterId={characterQuery?.getCharacter?.id}>
-                        &nbsp;({info?.clan?.name})
-                    </ConcealedCharacterInfo>
-                </Typography>
-                <Typography sx={mainFontFamily}>
-                    {sheet?.description}
-                </Typography>
+                <Stack spacing={2}>
+                    <Typography sx={{
+                        ...mainFontFamily,
+                        color: "secondary.light",
+                        fontSize: "24px"
+                    }}>
+                        {getSheetName()}
+                    </Typography>
+                    <Typography sx={mainFontFamily}>
+                        {sheet?.description}
+                    </Typography>
+                    {
+                        off?.soundtrack != null && off.soundtrack !== ""
+                            ? (<SoundWrapperComponent soundSourceUrl={off.soundtrack} />)
+                            : (<></>)
+                    }
+                </Stack>
             </Grid>
         </Grid>
     )

@@ -3,26 +3,31 @@
 import React, {useContext, useRef, useState} from "react";
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
-import FormFileDropField from "../../../_base/components/FormFileDropField";
-import FormTextField from "../../../_base/components/FormTextField";
+import FormFileDropField from "../../_base/components/FormFileDropField";
+import FormTextField from "../../_base/components/FormTextField";
 import {object, string} from "yup";
 import {useFragment, useRelayEnvironment} from "react-relay";
-import type {CharacterFragments_characterSheet$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
-import {characterOffFragment, characterSheetFragment} from "../../../services/queries/character/CharacterFragments";
+import type {CharacterFragments_characterSheet$key} from "../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
+import {
+    characterConcealedInfoFragment,
+    characterOffFragment,
+    characterSheetFragment
+} from "../../services/queries/character/CharacterFragments";
 import {useFormik} from "formik";
 import Typography from "@mui/material/Typography";
-import {mainFontFamily} from "../../Main.Layout.Style";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetCharacterQuery} from "../../../services/queries/character/__generated__/GetCharacterQuery.graphql";
-import {getCharacterQuery} from "../../../services/queries/character/GetCharacterQuery";
-import {useUserCharactersQuery} from "../../../services/queries/accounts/UserCharactersQuery";
-import {useSession} from "../../../services/session-service";
+import {mainFontFamily} from "../Main.Layout.Style";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import type {GetCharacterQuery} from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
+import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
+import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
+import {useSession} from "../../services/session-service";
 import {Redirect, useHistory} from "react-router-dom";
-import ChangeCharacterSheetInfoMutation from "../../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
-import {UtilityContext} from "../../../contexts";
-import { MainRoutes } from "../../MainRouter";
-import type {CharacterFragments_characterOff$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
-import {getUrlValidationMatchString} from "../../../_base/utils";
+import ChangeCharacterSheetInfoMutation from "../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
+import {UtilityContext} from "../../contexts";
+import { MainRoutes } from "../MainRouter";
+import type {CharacterFragments_characterOff$key} from "../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
+import {getUrlValidationMatchString} from "../../_base/utils";
+import type {CharacterFragments_characterConcealedInfo$key} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 
 type Props = {
     id: string;
@@ -52,6 +57,10 @@ const ModifyCharacterSheet = ({id}: Props): any => {
 
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
+        character);
+
+    const concealedSheetInfo = useFragment<?CharacterFragments_characterConcealedInfo$key>(
+        characterConcealedInfoFragment,
         character);
 
     const offSheet = useFragment<?CharacterFragments_characterOff$key>(
@@ -85,7 +94,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
         validationSchema: ModifyCharacterValidationSchema,
         initialValues: {
             description: sheet?.description,
-            biography: sheet?.biography,
+            biography: concealedSheetInfo?.biography,
             avatar: sheet?.avatar,
             soundtrack: offSheet?.soundtrack,
             off: offSheet?.off

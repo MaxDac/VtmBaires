@@ -204,7 +204,7 @@ defmodule Vtm.Chats do
         _ -> 2
       end
 
-    case StatusChecks.rouse_check_effect(character_id) do
+    case StatusChecks.rouse_check_effect(character_id, false) do
       {:ok, :frenzy} -> {0, :frenzy}
       {:ok, effect} -> {augment, effect}
       e -> e
@@ -243,16 +243,33 @@ defmodule Vtm.Chats do
       (attribute_value + ability_value + free_throw + discipline_amount + rouse_augment_amount)
       |> zero_if_less_than_zero()
 
-    case {for_discipline, augment_attribute, rouse_augment_effect, amount} do
-      {false, false, _, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw}"}
-      {true, false, _, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina"}
-      {false, true, :no_rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} con spesa efficace di Sangue"}
-      {false, true, :rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} con spesa di Sangue"}
-      {false, true, :frenzy, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} (al limite della Frenesia)"}
-      {true, true, :no_rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina e con spesa efficace di Sangue"}
-      {true, true, :rouse, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina e con spesa di Sangue"}
-      {true, true, :frenzy, a}  -> {a, "Tiro di #{attribute_name} e #{ability_name} più #{free_throw} per Disciplina (al limite della Frenesia)"}
-    end
+    {amount, get_character_dice_amount_label(attribute_name, ability_name, free_throw, for_discipline, augment_attribute, rouse_augment_effect)}
+  end
+
+  @spec get_character_dice_amount_label(binary(), binary(), integer(), boolean(), boolean(), :rouse | :no_rouse | :frenzy) :: binary()
+  defp get_character_dice_amount_label(attribute_name, ability_name, free_throw, for_discipline, augment_attribute, rouse_augment_effect) do
+    free_throw_label =
+      case free_throw do
+        0       -> ""
+        ft      -> " più #{ft}"
+      end
+
+    for_discipline_label =
+      case for_discipline do
+        false   -> ""
+        true    -> " per Disciplina"
+      end
+
+    augment_attribute =
+      case {augment_attribute, rouse_augment_effect} do
+        {false, _}      -> ""
+        {_, :no_rouse}  -> " con spesa efficace di Sangue"
+        {_, :rouse}     -> " con spesa di Sangue"
+        {_, :frenzy}    -> " (al limite della Frenesia)"
+        _               -> ""
+      end
+
+    "Tiro di #{attribute_name} e #{ability_name}#{free_throw_label}#{for_discipline_label}#{augment_attribute}"
   end
 
   defp get_dices_result(dice_thrower, amount, hunger) do

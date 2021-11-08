@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import CharacterSheet from "../../sheet/CharacterSheet";
+import CharacterSheet from "../../character/CharacterSheet";
 import Grid from "@mui/material/Grid";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

@@ -34,26 +34,26 @@ defmodule Vtm.StatusChecks do
     Repo.one(query)
   end
 
-  @spec rouse_check_effect(integer()) :: {:error, :not_found} |
-                                         {:ok, :no_rouse} |
-                                         {:ok, :rouse} |
-                                         {:ok, :frenzy}
-  def rouse_check_effect(character_id) do
+  @spec rouse_check_effect(integer(), boolean()) :: {:error, :not_found} |
+                                                    {:ok, :no_rouse} |
+                                                    {:ok, :rouse} |
+                                                    {:ok, :frenzy}
+  def rouse_check_effect(character_id, allow_rethrow \\ true) do
     query =
       from c in Character,
         where: c.id == ^character_id,
         select: %Character{id: c.id, hunger: c.hunger, blood_potency: c.blood_potency}
 
-    case {Repo.one(query), Helpers.throw_dice(), Helpers.throw_dice()} do
-      {nil, _, _} ->
+    case {Repo.one(query), allow_rethrow, Helpers.throw_dice(), Helpers.throw_dice()} do
+      {nil, _,  _, _} ->
         {:error, :not_found}
-      {%{hunger: 5}, _, _} ->
+      {%{hunger: 5}, _, _, _} ->
         {:ok, :frenzy}
-      {_, d, _} when d >= 6 ->
+      {_, _, d, _} when d >= 6 ->
         {:ok, :no_rouse}
-      {%{blood_potency: bp}, _, d} when bp >= 1 and d >= 6 ->
+      {%{blood_potency: bp}, true, _, d} when bp >= 1 and d >= 6 ->
         {:ok, :no_rouse}
-      {ch = %{hunger: h}, _, _} ->
+      {ch = %{hunger: h}, _, _, _} ->
         with {:ok, _} <- ch |> update_character(%{hunger: h + 1}) do
           {:ok, :rouse}
         end

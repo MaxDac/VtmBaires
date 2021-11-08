@@ -18,6 +18,7 @@ export const MainRoutes = {
     readMessage: (id: string): string => `/main/message/view/${id}`,
     newMessage: (id?: string): string => id ? `/main/message/new/${id}` : "/main/message/new",
     newMessageTo: (userId: string): string => `/main/message/new/user/${userId}`,
+    newMessageToCharacter: (characterId: string): string => `/main/message/new/character/${characterId}`,
     forumSections: "/main/forum",
     forumSection: (sectionId: string): string => `/main/forum/${sectionId}`,
     forumThread: (threadId: string): string => `/main/forum/thread/${threadId}`,
@@ -27,16 +28,16 @@ export const MainRoutes = {
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
 
+    charactersList: "/main/characters",
     sheet: (id?: ?string, reload?: ?boolean): string =>
         id != null
             ? (reload === true ? `/main/sheet/${id}/reload` : `/main/sheet/${id}`)
-            : "/main/sheet",
+            : "/main/character",
     modifySheet: (id: string): string => `/main/sheet/modify/${id}`,
     subMap: (id: string): string => `/main/map/${id}`,
     chat: (id: string): string => `/main/chat/${id}`,
 
     admin: "/main/admin",
-    charactersList: "/main/admin/characters",
     unapprovedCharacters: "/main/admin/unapproved",
     characterDashboard: (id: string): string => `/main/admin/character/${id}`,
     createNewNpc: "/main/admin/npc/new",
@@ -51,8 +52,8 @@ const Creation3 = React.lazy(() => import('./creation/Creation3'));
 const Creation4 = React.lazy(() => import('./creation/Creation4'));
 const Creation5 = React.lazy(() => import('./creation/Creation5'));
 
-const CharacterSheet = React.lazy(() => import('./sheet/CharacterSheet'));
-const ModifyCharacterSheet: any = React.lazy(() => import('./sheet/sheet-sections/ModifyCharacterSheet'));
+const CharacterSheet = React.lazy(() => import('./character/CharacterSheet'));
+const ModifyCharacterSheet: any = React.lazy(() => import('./character/ModifyCharacterSheet'));
 
 const MainMap = React.lazy(() => import('./map/MainMap'));
 const Map: any = React.lazy(() => import('./map/Map'));
@@ -72,11 +73,11 @@ const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
 
 const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
-const CharactersList = React.lazy(() => import('./admin/characters/CharactersList'));
+const CharactersList = React.lazy(() => import('./character/CharactersList'));
 const CharacterDashboard = React.lazy(() => import('./admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./admin/approvation/UnapprovedCharacters'));
-const CreateNewNpc = React.lazy(() => import('./sheet/npcs/CreateNewNpc'));
-const DefineNpc = React.lazy(() => import('./sheet/npcs/DefineNpc'));
+const CreateNewNpc = React.lazy(() => import('./character/npcs/CreateNewNpc'));
+const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
 
 
 type Props = {
@@ -94,6 +95,7 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/creation/4" component={() => <Creation4 />} />
             <AuthRoute exact path="/main/creation/5" component={() => <Creation5 />} />
 
+            <AuthRoute exact path="/main/characters" component={() => <CharactersList />} />
             <AuthRoute exact path="/main/sheet/modify/:id" component={({match: {params: {id}}}) => <ModifyCharacterSheet id={id} />} />
             <AuthRoute exact path="/main/sheet" component={() => <CharacterSheet />} />
             <AuthRoute exact path="/main/sheet/:id/reload" component={({match: {params: {id}}}) => <CharacterSheet id={id} reload={true} />} />
@@ -109,6 +111,7 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/messages" component={() => <ReceivedMessages />} />
             <AuthRoute exact path="/main/message/view/:id" component={({match: {params: {id}}}) => <ReadMessage messageId={id} />} />
             <AuthRoute exact path="/main/message/new/user/:id" component={({match: {params: {id}}}) => <NewMessage toUserId={id} />} />
+            <AuthRoute exact path="/main/message/new/character/:id" component={({match: {params: {id}}}) => <NewMessage toCharacterId={id} />} />
             <AuthRoute exact path="/main/message/new/:id" component={({match: {params: {id}}}) => <NewMessage replyMessageId={id} />} />
             <AuthRoute exact path="/main/message/new" component={() => <NewMessage />} />
 
@@ -122,7 +125,6 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
             <AuthRoute exact path="/main/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
 
-            <AuthMasterRoute exact path="/main/admin/characters" component={() => <CharactersList />} />
             <AuthMasterRoute exact path="/main/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
             <AuthMasterRoute exact path="/main/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/main/admin/npc/new" component={() => <CreateNewNpc />} />

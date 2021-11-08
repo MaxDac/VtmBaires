@@ -38,10 +38,11 @@ type Props = {
     characterId?: string,
     userId?: string,
     onGame?: boolean,
-    toUserId?: ?string
+    toUserId?: ?string,
+    toCharacterId?: ?string
 }
 
-const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, onGame = false}: Props): any => {
+const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, toCharacterId = null, onGame = false}: Props): any => {
     const theme = useTheme();
     const allUsers = useCustomLazyLoadQuery<AllUsersQuery>(allUsersQuery, {})?.allUsers;
     const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
@@ -62,14 +63,18 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toU
         submitted(cleanedInput);
     };
 
+    const inGameOrCharacterNotNull = toCharacterId != null ? true : onGame;
+
+    console.log("inGameOrCharacterNotNull", inGameOrCharacterNotNull);
+
     const formik = useFormik({
         validationSchema: MessageSchema,
         initialValues: {
             subject: "",
             text: "",
-            onGame: onGame,
-            characterId: characterId,
-            userId: userId === "" ? (toUserId ?? "") : userId
+            onGame: inGameOrCharacterNotNull,
+            userId: userId === "" ? (toUserId ?? "") : userId,
+            characterId: characterId === "" ? (toCharacterId ?? "") : characterId
         },
         onSubmit
     });

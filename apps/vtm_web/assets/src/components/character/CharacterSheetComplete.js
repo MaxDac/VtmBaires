@@ -3,15 +3,14 @@
 import React, {Suspense} from "react";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
-import CharacterSheetTabs from "./CharacterSheetTabs";
-import Skeleton from "@mui/material/Skeleton";
+import Paper from "@mui/material/Paper";
+import {CharacterSheetSuspenseFallback} from "./CharacterSheet";
+import {useHistory} from "react-router-dom";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../services/session-service";
 import Button from "@mui/material/Button";
-import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
-import Paper from "@mui/material/Paper";
-import CharacterSheetPublic from "./CharacterSheetPublic";
+import CharacterSheetTabs from "./sheet-sections/tabs/CharacterSheetTabs";
 
 type Props = {
     id?: string;
@@ -20,17 +19,7 @@ type Props = {
     fetchKey?: number;
 }
 
-export const CharacterSheetSuspenseFallback = (): any => {
-    return (
-        <>
-            <Skeleton variant="text" />
-            <Skeleton variant="circle" width={40} height={40} />
-            <Skeleton variant="rect" width={210} height={118} />
-        </>
-    );
-}
-
-const CharacterSheet = (props: Props): any => {
+const CharacterSheetComplete = (props: Props): any => {
     const history = useHistory();
     const userCharacters = useUserCharactersQuery();
     const [user,] = useSession();
@@ -54,11 +43,6 @@ const CharacterSheet = (props: Props): any => {
         return (<></>);
     };
 
-    const visualisation = character =>
-        canModify(character)
-            ? (<CharacterSheetTabs characterQuery={character} />)
-            : (<CharacterSheetPublic characterQuery={character} />);
-
     return (
         <CharacterFragmentProvider characterId={props.id}
                                    showWarningWhenNoCharacterSelected={true}
@@ -68,7 +52,7 @@ const CharacterSheet = (props: Props): any => {
                     <Paper variant="outlined" sx={{backgroundColor: "background.paper"}}>
                         <Suspense fallback={<CharacterSheetSuspenseFallback />}>
                             {modifySheetLink(character)}
-                            {visualisation(character)}
+                            <CharacterSheetTabs characterQuery={character} />
                         </Suspense>
                     </Paper>
                 </ResponsiveInnerContainer>
@@ -77,4 +61,4 @@ const CharacterSheet = (props: Props): any => {
     );
 }
 
-export default CharacterSheet;
+export default CharacterSheetComplete;

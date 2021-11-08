@@ -174,6 +174,21 @@ defmodule Vtm.Characters do
     nil
   end
 
+  @spec get_character_public_info(integer()) :: Character.t() | nil
+  def get_character_public_info(character_id) do
+    Character
+    |> from()
+    |> where([c], c.id == ^character_id)
+    |> select([c], %Character{
+      id: c.id,
+      name: c.name,
+      description: c.description,
+      soundtrack: c.soundtrack,
+      off: c.off
+    })
+    |> Repo.one()
+  end
+
   defp get_charater_clan(character_id) do
     query =
       from c in Character,

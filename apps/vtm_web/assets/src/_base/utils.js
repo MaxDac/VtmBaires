@@ -4,10 +4,10 @@ import type {History} from "./types";
 import type {AlertInfo} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
-import type { CharacterFragments_characterInfo } from "../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import {LoginRoutes} from "../components/login/LoginRouter";
+import type { CharacterFragments_characterConcealedInfo } from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -169,7 +169,7 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
  * @param character The character.
  * @return True if the character is a vampire, False otherwise
  */
-export const characterIsVampire = (character: ?CharacterFragments_characterInfo | ?Character | ?CharacterFragments_characterStats): boolean => {
+export const characterIsVampire = (character: ?CharacterFragments_characterConcealedInfo | ?Character | ?CharacterFragments_characterStats): boolean => {
     return character?.clan?.name !== "Umano";
 }
 
@@ -179,7 +179,7 @@ export const characterIsVampire = (character: ?CharacterFragments_characterInfo 
  * @param character The character.
  * @return True if the character has disciplines, False otherwise.
  */
-export const characterHasDisciplines = (character: ?CharacterFragments_characterInfo): boolean => {
+export const characterHasDisciplines = (character: ?CharacterFragments_characterConcealedInfo): boolean => {
     const clanName = character?.clan?.name;
     return !(clanName === "Umano" || clanName === "Thin Blood");
 }
@@ -200,5 +200,5 @@ export const replaceAll = (text: string, what: string, withWhat: string): string
  * Gets the RegEx validation string for an url.
  * @return {string} The URL RegEx validation string.
  */
-export const getUrlValidationMatchString = () =>
+export const getUrlValidationMatchString = (): RegExp =>
     /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi;

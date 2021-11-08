@@ -20,6 +20,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {isUserMaster} from "../../../services/base-types";
 import {useSession} from "../../../services/session-service";
+import {sortAttributes} from "../../../_base/info-helpers";
 
 export type ChatDiceRequest = {
     attributeId: string;
@@ -65,7 +66,8 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const filterAttribute = (name, section) =>
         attributes.filter(a =>
             a?.attributeType?.name === name &&
-            a?.attributeType?.section === section);
+            a?.attributeType?.section === section)
+            .sort((a, b) => sortAttributes(name)(a, b));
 
     const buildSelectItems = name => {
         const mapAttribute = a => (<MenuItem key={a?.id} value={a?.id}>{a?.name}</MenuItem>);

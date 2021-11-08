@@ -31,7 +31,9 @@ secret_key_base =
 config :vtm_web, VtmWeb.Endpoint,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
-    transport_options: [socket_opts: [:inet6]]
+    transport_options: [socket_opts: [:inet6]],
+    # This adds gzip compression to all the JSON sent by service
+    compress: true
   ],
   secret_key_base: secret_key_base
 

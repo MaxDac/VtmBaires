@@ -6,6 +6,15 @@ export const characterInfoFragment: any = graphql`
     fragment CharacterFragments_characterInfo on Character {
         id
         name
+        isNpc
+    }
+`;
+
+export const characterConcealedInfoFragment: any = graphql`
+    fragment CharacterFragments_characterConcealedInfo on Character {
+        id
+        name
+        biography
         clan {
             id
             name
@@ -41,7 +50,6 @@ export const characterSheetFragment: any = graphql`
     fragment CharacterFragments_characterSheet on Character {
         id
         avatar
-        biography
         description
     }
 `;
@@ -54,9 +62,14 @@ export const characterStateFragment: any = graphql`
         isComplete
         isNpc
         experience
+        biography
         advantages
         notes
         predatorType {
+            id
+            name
+        }
+        clan {
             id
             name
         }
@@ -67,6 +80,6 @@ export const characterOffFragment: any = graphql`
     fragment CharacterFragments_characterOff on Character {
         id
         soundtrack
-        off        
+        off
     }
 `;

@@ -22,11 +22,12 @@ export type SubmitProperties = {
 type Props = {
     replyMessageId?: string;
     toUserId?: string;
+    toCharacterId?: string;
 }
 
-const BrandNewMessage = (onSubmit, toUserId) => {
+const BrandNewMessage = (onSubmit, toUserId, toCharacterId) => {
     return (
-        <MessageTemplate submitted={onSubmit} toUserId={toUserId} isReply={false} />
+        <MessageTemplate submitted={onSubmit} toUserId={toUserId} toCharacterId={toCharacterId} isReply={false} />
     );
 }
 
@@ -62,8 +63,9 @@ const NewMessage = (props: Props): any => {
         props.replyMessageId != null
             ? (<ReplyToMessage messageId={props.replyMessageId}
                                onSubmit={onSubmit}
-                               toUserId={props.toUserId} />)
-            : BrandNewMessage(onSubmit, props.toUserId);
+                               toUserId={props.toUserId}
+                               toCharacterId={props.toCharacterId} />)
+            : BrandNewMessage(onSubmit, props.toUserId, props.toCharacterId);
 
     return (
         <ReturnToMessagesControl>

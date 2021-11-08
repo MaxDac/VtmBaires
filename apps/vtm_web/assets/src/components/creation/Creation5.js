@@ -2,17 +2,17 @@
 
 import React, {useCallback, useContext, useState, Suspense} from "react";
 import CharacterProvider from "../_data/CharacterProvider";
-import CharacterSheetStatsSection from "../sheet/sheet-sections/sections/CharacterSheetStatsSection";
+import CharacterSheetStatsSection from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import AttributeSwitchControl from "../sheet/controls/AttributeSwitchControl";
+import AttributeSwitchControl from "../character/controls/AttributeSwitchControl";
 import useAttributesSlimQuery from "../../services/queries/info/AttributesSlimQuery";
 import switchCharacterAttributeMutation from "../../services/mutations/characters/SwitchCharacterAttributeMutation";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import {useTheme} from "@mui/styles";
 import Button from "@mui/material/Button";
-import type {RefreshedQueryOption} from "../sheet/sheet-sections/sections/CharacterSheetStatsSection";
+import type {RefreshedQueryOption} from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import FinalizeCharacterMutation from "../../services/mutations/characters/FinalizeCharacterMutation";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";

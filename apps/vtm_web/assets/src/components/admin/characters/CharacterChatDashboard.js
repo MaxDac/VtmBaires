@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import CharacterSheet from "../../sheet/CharacterSheet";
+import CharacterSheet from "../../character/CharacterSheet";
 import Grid from "@mui/material/Grid";
 import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";

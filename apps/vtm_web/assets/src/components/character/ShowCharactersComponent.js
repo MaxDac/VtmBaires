@@ -3,33 +3,41 @@
 import React, {useState} from "react";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import SendMessageToCharacter from "../_layout/button-links/SendMessageToCharacter";
+import Stack from "@mui/material/Stack";
+import ShowCharacterSheet from "../_layout/button-links/ShowCharacterSheet";
+import ShowCharacterDashboard from "../_layout/button-links/ShowCharacterDashboard";
+import List from "@mui/material/List";
 
 type Props = {
     characters: Array<{|
         +id: string,
         +name: ?string
     |}>;
-    onCharacterSelected: string => void;
-}
+};
 
-const ShowCharactersComponent = ({characters, onCharacterSelected}: Props): any => {
+const ShowCharactersComponent = ({characters}: Props): any => {
     const [filteredCharacter, setFilteredCharacter] = useState(characters);
 
-    const selectCharacter = id => onCharacterSelected(id);
+    const characterActions = characterId => (
+        <Stack direction="row" spacing={1}>
+            <SendMessageToCharacter characterId={characterId} />
+            <ShowCharacterSheet characterId={characterId} />
+            <ShowCharacterDashboard characterId={characterId} />
+        </Stack>
+    )
 
     const characterLine = ({id, name}) => {
         return (
             <>
                 <Divider />
-                <ListItem button disablePadding onClick={_ => selectCharacter(id)}>
-                    <ListItemButton>
-                        <ListItemText primary={name} sx={{textAlign: "center"}} />
-                    </ListItemButton>
+                <ListItem key={id} disablePadding
+                          secondaryAction={characterActions(id)}>
+                    <ListItemText primary={name} sx={{textAlign: "center"}} />
                 </ListItem>
             </>
         );
@@ -57,13 +65,9 @@ const ShowCharactersComponent = ({characters, onCharacterSelected}: Props): any 
                                label="Filtra" />
                 </Grid>
                 <Grid item xs={12}>
-                    {/*<FixedSizeList height="100vh"*/}
-                    {/*               width="100%"*/}
-                    {/*               itemSize={20}*/}
-                    {/*               itemCount={characters.length}*/}
-                    {/*               overscanCount={5}>*/}
+                    <List sx={{width: "100%"}}>
                         {showCharacters()}
-                    {/*</FixedSizeList>*/}
+                    </List>
                 </Grid>
             </Grid>
         </Box>

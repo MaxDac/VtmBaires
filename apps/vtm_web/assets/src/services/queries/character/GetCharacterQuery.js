@@ -8,6 +8,7 @@ export const getCharacterQuery: GraphQLTaggedNode = graphql`
         getCharacter(id: $id) {
             id,
             ...CharacterFragments_characterInfo
+            ...CharacterFragments_characterConcealedInfo
             ...CharacterFragments_characterSheet
             ...CharacterFragments_characterStats
             ...CharacterFragments_characterState

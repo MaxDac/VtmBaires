@@ -9,14 +9,14 @@ import Grid from "@mui/material/Grid";
 import {predatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
 import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {CharacterFragments_characterInfo} from "../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import { characterIsVampire } from "../../../_base/utils";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
+import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 
 type Props = {
-    characterInfo: CharacterFragments_characterInfo;
+    characterInfo: CharacterFragments_characterConcealedInfo;
     classes: any;
     value: string;
     onChange?: ?(Event => void);

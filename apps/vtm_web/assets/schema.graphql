@@ -613,6 +613,7 @@ type RootQueryType {
   getCharacterAvatar(characterId: ID!): CharacterAvatar
   getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar
   getCharacterDescription(characterId: ID): Character
+  getCharacterPublicInfo(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
   getCharacterUser(characterId: ID!): User
