@@ -10,6 +10,8 @@ import PauseIcon from '@mui/icons-material/Pause';
 import Slider from '@mui/material/Slider';
 import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
 
 type Props = {
     id?: string;
@@ -28,9 +30,9 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
         ? (<PauseIcon sx={menuIconStyle} />)
         : (<PlayArrowIcon sx={menuIconStyle} />);
 
-    const volumeDown = useMemo(() => <VolumeDown />);
+    const volumeDown = useMemo(() => <VolumeDown sx={{color: "gray"}} />, []);
 
-    const volumeUp = useMemo(() => <VolumeUp />);
+    const volumeUp = useMemo(() => <VolumeUp sx={{color: "gray"}} />, []);
 
     useEffect(() => {
         if (isPlaying) {
@@ -57,55 +59,76 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
     const onVolumeChanged = ({target: {value}}) => {
         audioRef.current.volume = value / 100;
         setVolume(_ => value);
-    }
+    };
 
     const onTrackChanged = ({target: {value}}) => {
         audioRef.current.currentTime = value;
         setTrackCurrent(_ => value);
-    }
+    };
+
+    const getTrackCurrentFormatted = () => {
+        const padding = s => String(s).padStart(2, "0");
+        const totalSeconds = Math.round(trackCurrent, 0);
+        const minutes = Math.floor(totalSeconds / 60, 0);
+        const seconds = totalSeconds - minutes * 60;
+        return `${padding(minutes)}:${padding(seconds)}`;
+    };
 
     return (
         <Box>
-            <Stack direction="row"
-                   sx={{mb: 1, px: 1, maxWidth: "400px", margin: "0 auto"}}>
-                <IconButton aria-label="Play"
-                            onClick={_ => setIsPlaying(p => !p)}>
-                    {playingIcon()}
-                </IconButton>
-                <Slider size="small"
-                        max={trackDuration}
-                        min={0}
-                        defaultValue={0}
-                        value={trackCurrent}
-                        aria-label="Track"
-                        onChange={onTrackChanged}
-                        sx={{
-                            width: "250px",
-                            marginTop: "auto",
-                            marginBottom: "auto"
-                        }} />
+            <Paper variant="outlined" sx={{mb: 1, px: 1, maxWidth: "410px", margin: "0 auto"}}>
                 <Stack direction="row"
-                       spacing={1}
-                       sx={{
-                           width: "200px",
-                           mb: 1,
-                           px: 1,
-                           marginTop: "auto",
-                           marginBottom: "auto"
-                       }}
-                       alignItems="center">
-                    {volumeDown}
-                    <Slider aria-label="Volume"
-                            max={100}
+                       sx={{mb: 1, px: 1, maxWidth: "400px", margin: "0 auto"}}>
+                    <Box sx={{ paddingRight: "1rem"}}>
+                        <IconButton aria-label="Play"
+                                    onClick={_ => setIsPlaying(p => !p)}>
+                            {playingIcon()}
+                        </IconButton>
+                    </Box>
+                    <Slider size="small"
+                            max={trackDuration}
                             min={0}
-                            value={volume}
-                            onChange={onVolumeChanged} />
-                    {volumeUp}
+                            defaultValue={0}
+                            value={trackCurrent}
+                            aria-label="Track"
+                            onChange={onTrackChanged}
+                            sx={{
+                                width: "250px",
+                                marginTop: "auto",
+                                marginBottom: "auto"
+                            }} />
+                    <Typography sx={{
+                        paddingLeft: "0.7rem",
+                        marginTop: "auto",
+                        marginBottom: "auto",
+                        fontSize: "0.7rem",
+                        color: "primary.dark"
+                    }}>
+                        {getTrackCurrentFormatted()}
+                    </Typography>
+                    <Stack direction="row"
+                           spacing={1}
+                           sx={{
+                               width: "200px",
+                               mb: 1,
+                               px: 1,
+                               marginTop: "auto",
+                               marginBottom: "auto"
+                           }}
+                           alignItems="center">
+                        {volumeDown}
+                        <Slider aria-label="Volume"
+                                max={100}
+                                min={0}
+                                value={volume}
+                                onChange={onVolumeChanged} />
+                        {volumeUp}
+                    </Stack>
                 </Stack>
-            </Stack>
-            <audio id={id ?? "sound-control-wrapper"}
-                   ref={audioRef}
-                   src={soundSourceUrl} />
+                <audio id={id ?? "sound-control-wrapper"}
+                       ref={audioRef}
+                       src={soundSourceUrl} />
+            </Paper>
         </Box>
     );
 }

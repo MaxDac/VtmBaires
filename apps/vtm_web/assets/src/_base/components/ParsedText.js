@@ -8,6 +8,8 @@ import {replaceAll} from "../utils";
 type Props = {
     text: ?string;
     sx?: any;
+    components?: any;
+    ignoreDefaultComponents?: boolean;
 }
 
 type Transformation = Array<Transformation> => string => any;
@@ -17,7 +19,19 @@ export const markdownComponents: any = {
     em: ({node, ...props}) => <span style={{color: 'red'}} {...props} />
 }
 
-const ParsedText = ({text, sx}: Props): any => {
+const ParsedText = ({text, sx, components, ignoreDefaultComponents}: Props): any => {
+    const parseComponents = () => {
+        if (!!components) {
+            return components;
+        }
+
+        if (ignoreDefaultComponents === true) {
+            return null;
+        }
+
+        return markdownComponents;
+    }
+
     const applyNewLine = text => {
         const components = () =>
             replaceAll(replaceAll(text, "[i]", "_"), "[/i]", "_")
@@ -29,7 +43,7 @@ const ParsedText = ({text, sx}: Props): any => {
                 .filter(f => f != null && f !== "")
                 .map((f, index) => (
                     <Typography paragraph sx={sx}>
-                        <ReactMarkdown key={index} components={markdownComponents}>
+                        <ReactMarkdown key={index} components={parseComponents()}>
                             {f}
                         </ReactMarkdown>
                     </Typography>

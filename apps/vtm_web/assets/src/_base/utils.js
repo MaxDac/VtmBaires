@@ -195,3 +195,10 @@ export const replaceAll = (text: string, what: string, withWhat: string): string
     // $FlowFixMe
     return text.replaceAll(what, withWhat);
 }
+
+/**
+ * Gets the RegEx validation string for an url.
+ * @return {string} The URL RegEx validation string.
+ */
+export const getUrlValidationMatchString = () =>
+    /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi;

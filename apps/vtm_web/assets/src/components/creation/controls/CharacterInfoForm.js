@@ -16,6 +16,7 @@ import type {CreationClansQuery} from "../../../services/queries/info/__generate
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
+import {getUrlValidationMatchString} from "../../../_base/utils";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
@@ -24,7 +25,8 @@ type Props = {
 const CharacterInfoFormValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
     description: string("Enter your character description").required("Required"),
-    biography: string("Enter your character biography").required("Required")
+    biography: string("Enter your character biography").required("Required"),
+    avatar: string("Il tuo avatar").matches(getUrlValidationMatchString())
 });
 
 const CharacterInfoForm = ({onSubmit}: Props): any => {

@@ -1,7 +1,6 @@
 // @flow
 
 import React from "react";
-import Typography from "@mui/material/Typography";
 import {useFragment} from "react-relay";
 import {characterOffFragment} from "../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterOff$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
@@ -22,7 +21,9 @@ const CharacterSheetOffSection = ({characterQuery}: Props): any => {
     return (
         <>
             <SoundWrapperComponent soundSourceUrl={sheet.soundtrack} />
-            <ParsedText text={sheet.off} sx={mainFontFamily} />
+            <Box>
+                <ParsedText text={sheet.off} ignoreDefaultComponents sx={mainFontFamily} />
+            </Box>
         </>
     );
 }

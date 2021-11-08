@@ -22,6 +22,7 @@ import ChangeCharacterSheetInfoMutation from "../../../services/mutations/charac
 import {UtilityContext} from "../../../contexts";
 import { MainRoutes } from "../../MainRouter";
 import type {CharacterFragments_characterOff$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
+import {getUrlValidationMatchString} from "../../../_base/utils";
 
 type Props = {
     id: string;
@@ -29,8 +30,9 @@ type Props = {
 
 const ModifyCharacterValidationSchema = object().shape({
     description: string("Descrizione del personaggio").required(),
+    avatar: string("Il tuo avatar").matches(getUrlValidationMatchString()),
     biography: string("Biografia del personaggio").required(),
-    soundtrack: string("Soundtrack"),
+    soundtrack: string("Soundtrack").matches(getUrlValidationMatchString()),
     off: string("Off")
 });
 
@@ -136,7 +138,9 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <Typography paragraph>
-                    Nella sezione Off potete mettere tutto ci&ograve; che volete condividere del vostro personaggio.
+                    Nella sezione Off potete mettere tutto ci&ograve; che volete condividere del vostro personaggio
+                    col resto dei giocatori. Si consiglia di non condividere troppe informazioni del personaggio per
+                    evitare <i>metaplay</i>.
                     Il testo, ad ogni modo, non è libero: potrete utilizzare i tag messi a disposizione dal markdown
                     concesso. Potete trovare la documentazione completa del markdown concessa al
                     seguente <a href="https://commonmark.org/help/"
@@ -148,7 +152,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
-                <FormTextField formik={formik} fieldName="off" label="Testo Sezione Off" autoComplete="Testo Sezione Off" rows={5} />
+                <FormTextField formik={formik} fieldName="off" label="Testo Sezione Off" autoComplete="Testo Sezione Off" rows={15} />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <Button
