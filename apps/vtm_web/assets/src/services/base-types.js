@@ -68,7 +68,13 @@ export type SessionCharacter = {|
     };
 |};
 
+export type SessionLocation = {|
+    id?: ?string;
+    name?: ?string;
+|};
+
 export type Session = {|
     user: User,
-    character?: ?SessionCharacter
+    character?: ?SessionCharacter,
+    location?: ?SessionLocation
 |};

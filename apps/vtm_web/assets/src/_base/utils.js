@@ -201,4 +201,10 @@ export const replaceAll = (text: string, what: string, withWhat: string): string
  * @return {string} The URL RegEx validation string.
  */
 export const getUrlValidationMatchString = (): RegExp =>
-    /[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi;
+    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\\.-]+)+[\w\-\\._~:/?#[\]@!\\$&'\\(\\)\\*\\+,;=.]+$/gi;
+
+/**
+ * Returns a random number for a random fetch key.
+ * @return {number} The random number.
+ */
+export const randomFetchKey = (): number => Math.round(Math.random() * 100);

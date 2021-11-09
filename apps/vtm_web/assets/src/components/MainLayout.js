@@ -22,6 +22,7 @@ import LogoutControl from "./_layout/LogoutControl";
 import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
+import ReturnToChatControl from "./_layout/ReturnToChatControl";
 
 const drawerWidth = 300;
 
@@ -176,6 +177,7 @@ export default function MiniDrawer({children}: {children: any}): any {
                                 }}>
                         {title()}
                     </Typography>
+                    <ReturnToChatControl />
                     <ReloadControl />
                     <MessageControl numberOfMessages={numberOfMessages} />
                     <OnlineControl />

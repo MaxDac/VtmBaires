@@ -101,7 +101,6 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
     ]);
 
     const showPreview = () => {
-        console.log("props", props.showChatPreviews);
         if ((props.showLargePreview || props.showChatPreviews) && preview && preview !== "") {
             const wrapStackItem = (item: any): any => (
                 <Box sx={{padding: "1rem"}}>

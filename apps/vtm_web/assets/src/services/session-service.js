@@ -2,7 +2,12 @@
 
 import {checkMaster} from "./login-service";
 import {getSessionCharacter} from "./queries/accounts/SessionCharacterQuery";
-import type {Session, SessionCharacter, User} from "./base-types";
+import type {
+  Session,
+  SessionCharacter,
+  SessionLocation,
+  User,
+} from "./base-types";
 import type {IEnvironment} from "relay-runtime";
 import {useContext, useEffect, useState} from "react";
 import {SessionContext} from "../contexts";
@@ -15,7 +20,7 @@ const getStorage = (): Storage => localStorage;
 export const storeSession = (response: Session) => {
     getStorage().removeItem(storageUserInfoKey);
     getStorage().setItem(storageUserInfoKey, JSON.stringify(response));
-}
+};
 
 const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
     new Promise((resolve, _) => {
@@ -58,7 +63,7 @@ export const getSessionSync = (): ?Session => {
     }
 
     return null;
-}
+};
 
 /**
  * Gets the current login information. It tries to retrieve the character from the remote session
@@ -74,7 +79,7 @@ export const getSession = (environment: IEnvironment): Promise<?Session> => {
     }
 
     return new Promise((resolve, _) => resolve(null));
-}
+};
 
 /**
  * Determines whether the user is a master or not.
@@ -100,15 +105,26 @@ export const updateSession = (info: Session): ?Session => {
     storeSession(newSession);
 
     return getSessionSync();
-}
+};
 
 export const updateCurrentCharacter = (character: SessionCharacter): ?Session => {
     const currentSession = getSessionSync();
 
     if (currentSession) {
         updateSession({
-            user: currentSession.user,
+            ...currentSession,
             character
+        });
+    }
+};
+
+export const updateCurrentLocation = (location: SessionLocation): ?Session => {
+    const currentSession = getSessionSync();
+
+    if (currentSession) {
+        updateSession({
+            ...currentSession,
+            location
         });
     }
 }
@@ -127,6 +143,8 @@ export type SessionInfo = {
     getUser: () => Promise<?User>;
     getCurrentCharacter: () => Promise<?SessionCharacter>;
     setCurrentCharacter: SessionCharacter => ?Session;
+    getCurrentLocation: () => Promise<?SessionLocation>;
+    setCurrentLocation: SessionLocation => ?Session;
 };
 
 /**
@@ -137,7 +155,9 @@ export function getSessionHookValue(environment: IEnvironment): SessionInfo {
     return {
         getUser: () => getSession(environment).then(x => x?.user),
         getCurrentCharacter: () => getSession(environment).then(x => x?.character),
-        setCurrentCharacter: updateCurrentCharacter
+        setCurrentCharacter: updateCurrentCharacter,
+        getCurrentLocation: () => new Promise((r, _) => r(getSessionSync()?.location)),
+        setCurrentLocation: updateCurrentLocation
     };
 }
 
@@ -146,19 +166,21 @@ export function getSessionHookValue(environment: IEnvironment): SessionInfo {
  * @param sync If True, the method will return what is currently saved in the browser storage,
  * if false, and if the browser does not retain any information about the character, the method
  * will fetch the back-end information.
- * @returns {[User, SessionCharacter]} The user and the character in the session.
+ * @returns {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
  */
-export const useSession = (sync?: boolean): [?User, ?SessionCharacter] => {
+export const useSession = (sync?: boolean): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
     const sessionContext = useContext(SessionContext);
+    const [session,] = useState(getSessionSync());
     const [sessionCharacter, setSessionCharacter] = useState<?SessionCharacter>(null);
     const [sessionUser, setSessionUser] = useState<?User>(null);
 
     useEffect(() => {
-        const existent = getSessionSync();
+        const existent = session;
 
         if (sync === true || (existent?.user != null && existent?.character != null)) {
             setSessionUser(existent?.user);
-            setSessionCharacter(existent?.character)
+            setSessionCharacter(existent?.character);
+            // setSessionLocation(existent?.location);
         }
         else {
             sessionContext.getCurrentCharacter()
@@ -167,7 +189,7 @@ export const useSession = (sync?: boolean): [?User, ?SessionCharacter] => {
             sessionContext.getUser()
                 .then(x => setSessionUser(_ => x))
         }
-    }, [sessionContext, sync]);
+    }, [session, sessionContext, sync]);
 
-    return [sessionUser, sessionCharacter];
+    return [sessionUser, sessionCharacter, getSessionSync()?.location, session];
 };

@@ -9,6 +9,7 @@ import type {
     GetCharacterQuery
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {randomFetchKey} from "../../_base/utils";
 
 type Props = CharacterProviderBaseProps & {
     showWarningWhenNoCharacterSelected: boolean;
@@ -18,9 +19,11 @@ type Props = CharacterProviderBaseProps & {
 };
 
 const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey}) => {
+    const parsedFetchKey = fetchKey ?? (reload ? randomFetchKey() : 0);
+
     const policy = {
         fetchPolicy: reload ? "store-and-network" : "store-or-network",
-        fetchKey: fetchKey ?? 0
+        fetchKey: parsedFetchKey
     };
 
     const character =

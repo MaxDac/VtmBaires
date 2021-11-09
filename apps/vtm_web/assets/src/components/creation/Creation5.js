@@ -83,7 +83,7 @@ const Internal = ({character}) => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
                     setTimeout(() => {
                         history.push(Routes.main);
-                        setTimeout(() => document.location.reload(), 200);
+                        setTimeout(() => document.location.reload(false), 200);
                     }, 1000);
                 })
                 .catch(e => {
@@ -102,7 +102,7 @@ const Internal = ({character}) => {
                 .then(r => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
                     history.push(Routes.main);
-                    document.location.reload();
+                    document.location.reload(false);
                 })
                 .catch(e => {
                     showUserNotification({

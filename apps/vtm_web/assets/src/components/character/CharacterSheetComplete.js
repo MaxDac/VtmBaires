@@ -46,6 +46,7 @@ const CharacterSheetComplete = (props: Props): any => {
     return (
         <CharacterFragmentProvider characterId={props.id}
                                    showWarningWhenNoCharacterSelected={true}
+                                   reload={props.reload}
                                    fetchKey={props.fetchKey}>
             { character =>
                 <ResponsiveInnerContainer contained={props.contained}>

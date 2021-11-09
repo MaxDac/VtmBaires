@@ -1,25 +1,30 @@
 // @flow
 
-import React from "react";
+import React, {useContext} from "react";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RoomIcon from "@mui/icons-material/Room";
 import {menuIconStyle} from "../Menu";
-import {MainRoutes} from "../../MainRouter";
 import {useHistory} from "react-router-dom";
+import {goToChatAndUpdateSession} from "../../chat/chat-helpers";
+import {SessionContext} from "../../../contexts";
 
 type Props = {
-    locationId: ?string;
+    location: ?{
+        id: string;
+        name?: ?string;
+    };
     onSelected?: () => void;
 }
 
-const GoToMapLocation = ({locationId, onSelected}: Props): any => {
+const GoToMapLocation = ({location, onSelected}: Props): any => {
+    const sessionUtils = useContext(SessionContext);
     const history = useHistory();
 
-    const tryGoToLocation = id =>
+    const tryGoToLocation = location =>
         _ => {
-            if (id != null) {
-                history.push(MainRoutes.chat(id));
+            if (location?.id != null) {
+                goToChatAndUpdateSession(sessionUtils, history, location.id, location?.name);
             }
 
             if (onSelected != null) {
@@ -27,13 +32,13 @@ const GoToMapLocation = ({locationId, onSelected}: Props): any => {
             }
         };
 
-    if (locationId != null) {
+    if (location?.id != null) {
         return (
             <Tooltip title="Vai alla chat">
                 <IconButton edge="end"
                             aria-label="Chat"
                             size="large"
-                            onClick={tryGoToLocation(locationId)}>
+                            onClick={tryGoToLocation(location)}>
                     <RoomIcon sx={menuIconStyle}/>
                 </IconButton>
             </Tooltip>

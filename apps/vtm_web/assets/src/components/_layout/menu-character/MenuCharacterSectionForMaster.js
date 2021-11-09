@@ -20,7 +20,6 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
     
     const handleSheetSelection = (info: UserCharacter) =>
         _ => {
-            console.log("info", info);
             if (!info.approved && !info.isComplete) {
                 pushHistory(`${MainRoutes.creationBase}${info.stage + 1}`);
             }
@@ -42,7 +41,7 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
                 }
             });
 
-            document.location.reload();
+            document.location.reload(false);
         };
 
     const showCharacters = () => {

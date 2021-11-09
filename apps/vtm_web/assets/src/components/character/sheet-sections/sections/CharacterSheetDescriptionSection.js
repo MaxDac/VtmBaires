@@ -11,9 +11,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import type {CharacterFragments_characterInfo$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import {mainFontFamily} from "../../../Main.Layout.Style";
-import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
-import type {GetCharacterAvatarQuery} from "../../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
-import { getCharacterAvatarQuery } from "../../../../services/queries/character/GetCharacterAvatarQuery";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
@@ -40,12 +37,6 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
         characterOffFragment,
         characterQuery);
 
-    const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, {
-        id: characterQuery?.id
-    }, {
-        fetchPolicy: "store-or-network"
-    })?.getCharacterAvatar?.avatar;
-
     const getSheetName = () =>
         info?.isNpc === true
             ? `${info?.name ?? ""} (PNG)`
@@ -68,7 +59,7 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
                         margin: "0 auto",
                         marginTop: "auto",
                         marginBottom: "auto",
-                        background: `url('${avatar ?? ""}')`,
+                        background: `url('${sheet?.avatar ?? ""}')`,
                         backgroundPosition: "center center",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "contain",

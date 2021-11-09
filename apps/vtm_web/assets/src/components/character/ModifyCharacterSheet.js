@@ -33,12 +33,14 @@ type Props = {
     id: string;
 }
 
+const urlNotMatchingErrorMessage = "L'URL che stai utilizzando è invalido";
+
 const ModifyCharacterValidationSchema = object().shape({
     description: string("Descrizione del personaggio").required(),
-    avatar: string("Il tuo avatar").matches(getUrlValidationMatchString()),
+    avatar: string("Il tuo avatar").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
     biography: string("Biografia del personaggio").required(),
-    soundtrack: string("Soundtrack").matches(getUrlValidationMatchString()),
-    off: string("Off")
+    soundtrack: string("Soundtrack").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
+    off: string("Off").nullable().notRequired()
 });
 
 const ModifyCharacterSheet = ({id}: Props): any => {
@@ -87,6 +89,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             })
             .finally(() => {
                 history.push(MainRoutes.sheet(id, true));
+                // setTimeout(() => document.location.reload(false), 200);
             });
     }
 

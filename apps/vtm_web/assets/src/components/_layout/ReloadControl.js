@@ -9,7 +9,7 @@ import {menuIconStyle} from "./Menu";
 const ReloadControl = (): any => {
     return (
         <Tooltip title="Refresh Pagina" placement="bottom">
-            <IconButton aria-label="Refresh" onClick={_ => document.location.reload()}>
+            <IconButton aria-label="Refresh" onClick={_ => document.location.reload(false)}>
                 <RefreshIcon sx={menuIconStyle} />
             </IconButton>
         </Tooltip>

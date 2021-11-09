@@ -39,9 +39,15 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                         Acquistendo un numero variabile di pallini in questo Pregio, potrete parlare una lingua aggiuntiva per pallino.
                         Questo Pregio &egrave; fondamentale per personaggio che provengono da paesi in cui non si parla spagnolo, e dovranno
                         acquisire almeno un pallino.<br />
-                        <b>Difetto: (&bull;&bull;) Illitterato</b>: il personaggio non sa n&eacute; scrivere n&eacute; leggere. Il
-                        personaggio potr&agrave; acquisire un solo pallino in Scienze e Accademiche, e non potrete acquisire nessuna
-                        specializzazione concernente la modernit&agrave;.
+                        
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Illitterato</b>: il personaggio non sa n&eacute; scrivere n&eacute; leggere. Il
+                                personaggio potr&agrave; acquisire un solo pallino in Scienze e Accademiche, e non potrete acquisire nessuna
+                                specializzazione concernente la modernit&agrave;.
+                            </li>
+                        </ul>
+                        
                     </li>
 
                     <li style={liStyle}>
@@ -49,16 +55,27 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                         interazioni sociali dove questa caratteristica indubbiamente influisce. A seconda dell'entit&agrave; del
                         Pregio o del Difetto, il Narratore potr&agrave; considerare una Difficolt&agrave; nei tiri sociali diminuita
                         o aumentata.<br />
-                        <b>Difetto: (&bull;&bull;) Repulsivo</b>: il personaggio perde due dadi dall'ammontare nelle interazioni
-                        sociali in cui l'aspetto &egrave; determinante.<br />
-                        <b>Difetto: (&bull;) Brutto</b>: il personaggio perde un dado dall'ammontare nelle interazioni
-                        sociali in cui l'aspetto &egrave; determinante.<br />
-                        <b>Pregio: (&bull;&bull;) Bello</b>: il personaggio aggiunge un dado dall'ammontare nelle interazioni
-                        sociali in cui l'aspetto &egrave; determinante.<br />
-                        <b>Pregio: (&bull;&bull;&bull;&bull;) Stupendo</b>: il personaggio aggiunge due dadi dall'ammontare
-                        nelle interazioni sociali in cui l'aspetto &egrave; determinante, ma il suo aspetto sar&agrave;
-                        cos&igrave; evidente che sar&agrave; difficile rendersi credibile in altri contesti (intimidazioni).
-                        In casi estremi, potrebbe attirare anche attenzioni indesiderate.
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Repulsivo</b>: il personaggio perde due dadi dall'ammontare nelle interazioni
+                                sociali in cui l'aspetto &egrave; determinante.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Brutto</b>: il personaggio perde un dado dall'ammontare nelle interazioni
+                                sociali in cui l'aspetto &egrave; determinante.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;) Bello</b>: il personaggio aggiunge un dado dall'ammontare nelle interazioni
+                                sociali in cui l'aspetto &egrave; determinante.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;&#9679;&#9679;) Stupendo</b>: il personaggio aggiunge due dadi dall'ammontare
+                                nelle interazioni sociali in cui l'aspetto &egrave; determinante, ma il suo aspetto sar&agrave;
+                                cos&igrave; evidente che sar&agrave; difficile rendersi credibile in altri contesti (intimidazioni).
+                                In casi estremi, potrebbe attirare anche attenzioni indesiderate.
+                            </li>
+                        </ul>
                     </li>
 
                     <li style={liStyle}>
@@ -69,98 +86,148 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                         <b>Nota</b>: nel sito, se il giocatore vorr&agrave; prendere questo difetto, dovr&agrave; indicare
                         due risonanze che la sostanza da cui &egrave; dipendente ispira. Se l'ultima caccia non avr&agrave;
                         quelle risonanze, si considerer&agrave; che il vampiro <b>non si &egrave; nutrito di sangue con
-                        la sostanza di cui &egrave; dipendente</b>.<br />
-                        <b>Difetto: (&bull;&bull;) Dipendenza cronica</b>: si perdono due dadi dall'ammontare di <b>tutti</b>
-                        i tiri di dado dopo che il personaggio si &egrave; cibato di un mortale che non conteneva la sostanza,
-                        a meno che le azioni non portino al consumo proprio di quella sostanza.<br />
-                        <b>Difetto: (&bull;) Dipendenza</b>: si perdono due dadi dall'ammontare di <b>tutti</b>
-                        i tiri di dado dopo che il personaggio si &egrave; cibato di un mortale che non conteneva la sostanza,
-                        a meno che le azioni non portino al consumo proprio di quella sostanza.<br />
-                        <b>Pregio: (&bull;) Dipendente altamente funzionale</b>: il personaggio aggiunge un dado all'ammontare
-                        di tutti i dadi dopo essersi nutrito della sostanza di cui &egrave; dipendente. In questo caso, il
-                        giocatore dovr&agrave; identificare <b>solo una</b> risonanza con la quale potr&agrave; sfruttare
-                        il dado in pi&ugrave;.
+                        la sostanza di cui &egrave; dipendente</b>.
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Dipendenza cronica</b>: si perdono due dadi dall'ammontare di <b>tutti</b>
+                                i tiri di dado dopo che il personaggio si &egrave; cibato di un mortale che non conteneva la sostanza,
+                                a meno che le azioni non portino al consumo proprio di quella sostanza.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Dipendenza</b>: si perdono due dadi dall'ammontare di <b>tutti</b>
+                                i tiri di dado dopo che il personaggio si &egrave; cibato di un mortale che non conteneva la sostanza,
+                                a meno che le azioni non portino al consumo proprio di quella sostanza.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;) Dipendente altamente funzionale</b>: il personaggio aggiunge un dado all'ammontare
+                                di tutti i dadi dopo essersi nutrito della sostanza di cui &egrave; dipendente. In questo caso, il
+                                giocatore dovr&agrave; identificare <b>solo una</b> risonanza con la quale potr&agrave; sfruttare
+                                il dado in pi&ugrave;.
+                            </li>
+                        </ul>
                     </li>
 
                     <li style={liStyle}>
                         <b>Reazione al legame</b>: Il vampiro o il mortale reagisce in modo diverso dal normale ai legami di
-                        sangue.<br />
-                        <b>Difetto: (&bull;&bull;) Schiavo del Sangue</b>: il personaggio &egrave; completamente legato ad
-                        un vampiro solo dopo un sorso di sangue, invece di tre. Si dovr&agrave; indicare come si &egrave;
-                        estinto il precedente legame di sangue col Sire, o se il Sire &egrave; un giocatore / personaggio non
-                        giocante all'interno del gioco.<br />
-                        <b>Difetto: (&bull;) Dipendente dal Sangue</b>: il sapore del Sangue di un altro cainita &egrave;
-                        pi&ugrave; dolce per il personaggio che per altri. Si sottrae un dado per ogni tiro usato per
-                        resistere ad un legame di Sangue.<br />
-                        <b>Difetto: (&bull;) Legame lungo</b>: il legame di sangue si esaurisce pi&ugrave; lentamente
-                        per il personaggio. Si perde un livello di legame di sangue dopo tre mesi, invece che uno.<br />
-                        <b>Pregio: (&bull;) Resistente al Legame</b>: il personaggio &egrave; particolarmente resistente
-                        ai legami di sangue, ed aggiunge un dado per ogni livello (massimo 3) di questo Pregio all'ammontare
-                        di tutti i dadi di resistenza al legame di sangue.
-                        <b>Pregio: (&bull;&bull;) Legame corto</b>: i legami di Sangue durano meno per il personaggio. Un legame
-                        perde efficacia dopo ogni luna nuova o luna piena (cio&egrave; due volte al mese).
-                        <b>Pregio: (&bull;&bull;&bull;&bull;&bull;) Indipendente dal Legame</b>: i legami di Sangue non hanno
-                        effetto sul personaggio. Il personaggio potrebbe anche pensare di vendere la sua vitae ad un alchimista.
+                        sangue.
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Schiavo del Sangue</b>: il personaggio &egrave; completamente legato ad
+                                un vampiro solo dopo un sorso di sangue, invece di tre. Si dovr&agrave; indicare come si &egrave;
+                                estinto il precedente legame di sangue col Sire, o se il Sire &egrave; un giocatore / personaggio non
+                                giocante all'interno del gioco.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Dipendente dal Sangue</b>: il sapore del Sangue di un altro cainita &egrave;
+                                pi&ugrave; dolce per il personaggio che per altri. Si sottrae un dado per ogni tiro usato per
+                                resistere ad un legame di Sangue.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Legame lungo</b>: il legame di sangue si esaurisce pi&ugrave; lentamente
+                                per il personaggio. Si perde un livello di legame di sangue dopo tre mesi, invece che uno.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;) Resistente al Legame</b>: il personaggio &egrave; particolarmente resistente
+                                ai legami di sangue, ed aggiunge un dado per ogni livello (massimo 3) di questo Pregio all'ammontare
+                                di tutti i dadi di resistenza al legame di sangue.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;) Legame corto</b>: i legami di Sangue durano meno per il personaggio. Un legame
+                                perde efficacia dopo ogni luna nuova o luna piena (cio&egrave; due volte al mese).
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;&#9679;&#9679;&#9679;) Indipendente dal Legame</b>: i legami di Sangue non hanno
+                                effetto sul personaggio. Il personaggio potrebbe anche pensare di vendere la sua vitae ad un alchimista.
+                            </li>
+                        </ul>
                     </li>
 
                     <li style={liStyle}>
                         <b>Caccia</b>: Ci sono diversi pregi e difetti legati alla caccia e al morso, del tutto indipendenti
-                        tra di loro.<br />
-                        <b>Difetto: (&bull;&bull;) Vegano</b>: il personaggio riesce a cibarsi solo di animali, e dovr&agrave;
-                        spendere due punti di Forza di Volont&agrave; per potersi cibare di un umano. I <b>Ventrue</b> non
-                        potranno prendere questo Difetto.<br />
-                        <b>Difetto: (&bull;&bull;) Organivoro</b>: il personaggio, oltre al sangue, deve consumare
-                        anche gli organi e la carne delle vittime, specialmente gli organi ricchi di sangue.<br />
-                        <b>Difetto: (&bull;) Esclusione di preda</b>: il cainita non pu&ograve; cibarsi di particolari
-                        classi di prede. Se &egrave; costretto a farlo, guadagner&agrave; una <b>Macchia</b> (vedere
-                        la sezione delle meccaniche di gioco). Il personaggio guadagner&agrave; una Macchia anche se
-                        assister&agrave; alla caccia di un altro cainita ai danni della classe di prede di cui lui
-                        non riesce a cibarsi senza intervenire.<br />
-                        <b>Pregio: (&bull;) Mastino del sangue</b>: il personaggio riesce a captare la Risonanza del
-                        sangue di un mortale con l'olfatto. Il personaggio potr&agrave; tentare un tiro di Risoluzione +
-                        Allerta Diff. 3 a distanza di olfatto, 2 a distanza ravvicinata, 4 se altri odori sono presenti
-                        nell'aria o se &egrave; ad una distanza maggiore.
-                        <b>Pregio: (&bull;&bull;&bull;) Stomaco di ferro</b>: il cainita pu&ograve; cibarsi normalmente
-                        di sangue freddo, rancido e plasma frazionato. Non guadagner&agrave; comunque Risonanza dal sangue.
+                        tra di loro.
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Vegano</b>: il personaggio riesce a cibarsi solo di animali, e dovr&agrave;
+                                spendere due punti di Forza di Volont&agrave; per potersi cibare di un umano. I <b>Ventrue</b> non
+                                potranno prendere questo Difetto.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Organivoro</b>: il personaggio, oltre al sangue, deve consumare
+                                anche gli organi e la carne delle vittime, specialmente gli organi ricchi di sangue.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Esclusione di preda</b>: il cainita non pu&ograve; cibarsi di particolari
+                                classi di prede. Se &egrave; costretto a farlo, guadagner&agrave; una <b>Macchia</b> (vedere
+                                la sezione delle meccaniche di gioco). Il personaggio guadagner&agrave; una Macchia anche se
+                                assister&agrave; alla caccia di un altro cainita ai danni della classe di prede di cui lui
+                                non riesce a cibarsi senza intervenire.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;) Mastino del sangue</b>: il personaggio riesce a captare la Risonanza del
+                                sangue di un mortale con l'olfatto. Il personaggio potr&agrave; tentare un tiro di Risoluzione +
+                                Allerta Diff. 3 a distanza di olfatto, 2 a distanza ravvicinata, 4 se altri odori sono presenti
+                                nell'aria o se &egrave; ad una distanza maggiore.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;&#9679;) Stomaco di ferro</b>: il cainita pu&ograve; cibarsi normalmente
+                                di sangue freddo, rancido e plasma frazionato. Non guadagner&agrave; comunque Risonanza dal sangue.
+                            </li>
+                        </ul>
                     </li>
 
                     <li style={liStyle}>
                         <b>Mitici</b>: i seguenti Pregi e Difetti riguardano credenze e caratteristiche soprannaturali
-                        del cainita.<br />
-                        <b>Difetto: (&bull;&bull;) Debole al Paletto</b>: il personaggio soffre la Morte ultima
-                        quando viene trafitto da un paletto al cuore, invece di entrare semplicemente in torpore.<br />
-                        <b>Difetto: (&bull;) Maledizione da folklore</b>: il personaggio subisce danni Aggravati
-                        da una fonte di danno folkloristico, tra cui:
+                        del cainita.
+                        
                         <ul>
-                            <li>Acqua santa (come fuoco)</li>
-                            <li>Argento: armi d'argento infliggono aggravati, e anche toccare una moneta d'argento
-                                infligge danni aggravati
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Debole al Paletto</b>: il personaggio soffre la Morte ultima
+                                quando viene trafitto da un paletto al cuore, invece di entrare semplicemente in torpore.
                             </li>
-                            <li>Raggi UV (come Sole)</li>
+                            <li>
+                                <b>Difetto: (&#9679;) Maledizione da folklore</b>: il personaggio subisce danni Aggravati
+                                da una fonte di danno folkloristico, tra cui:
+                                <ul>
+                                    <li>Acqua santa (come fuoco)</li>
+                                    <li>Argento: armi d'argento infliggono aggravati, e anche toccare una moneta d'argento
+                                        infligge danni aggravati
+                                    </li>
+                                    <li>Raggi UV (come Sole)</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Blocco da Folklore</b>: il cainita ha un blocco psicologico dato da una
+                                leggenda folkloristica. Il personaggio rifuggir&agrave; attivamente il confronto con questi
+                                fenomeni, oppure dovr&agrave; spendere un punto di Forza di Volont&agrave; per oltrepassarli.
+                                Il personaggio pu&ograve; avere pi&ugrave; di un blocco, e ogni blocco
+                                sar&agrave; rappresentato da un punto aggiuntivo del difetto. Le leggende includono:
+                                <ul>
+                                    <li>Oggetti sacri branditi da persone normali (senza Vera Fede)</li>
+                                    <li>Attraversare acqua corrente</li>
+                                    <li>Entrare non invitato in una casa</li>
+                                    <li>Animali bianchi</li>
+                                    <li>Aglio</li>
+                                    <li>Rose selvatiche</li>
+                                    <li>Semi caduti che non sono stati contati</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;) Stigmate</b>: il personaggio comincia attivamente a sanguinare da ferite
+                                aperte in tutto il corpo quando raggiunge Fame 4. Questo ovviamente attirer&agrave; l'attenzione,
+                                e a discrezione del Narratore potr&agrave; provocare altri inconvenienti al vampiro.
+                            </li>
+                            <li>
+                                <b>Pregio: (&#9679;&#9679;) Mangiare cibo</b>: normalmente un cainita non tollera l'ingestione di
+                                cibo. Pu&ograve; trattenerlo nello stomaco se spende vitae per simulare di essere ancora in vita,
+                                altrimenti dovr&agrave; vomitarlo subito. Personaggi con questo pregio invece riescono
+                                a mangiare senza problemi, e possono anche provare piacere, al contrario del resto che
+                                ogni volta che assaggia cibo &egrave; come se assaggiasse cenere di sigaretta.<br />
+                                Il personaggio dovr&agrave; comunque espellere il cibo prima del riposo diurno.
+                            </li>
                         </ul>
-                        <b>Difetto: (&bull;) Blocco da Folklore</b>: il cainita ha un blocco psicologico dato da una
-                        leggenda folkloristica. Il personaggio rifuggir&agrave; attivamente il confronto con questi
-                        fenomeni, oppure dovr&agrave; spendere un punto di Forza di Volont&agrave; per oltrepassarli.
-                        Il personaggio pu&ograve; avere pi&ugrave; di un blocco, e ogni blocco
-                        sar&agrave; rappresentato da un punto aggiuntivo del difetto. Le leggende includono:
-                        <ul>
-                            <li>Oggetti sacri branditi da persone normali (senza Vera Fede)</li>
-                            <li>Attraversare acqua corrente</li>
-                            <li>Entrare non invitato in una casa</li>
-                            <li>Animali bianchi</li>
-                            <li>Aglio</li>
-                            <li>Rose selvatiche</li>
-                            <li>Semi caduti che non sono stati contati</li>
-                        </ul>
-                        <b>Difetto: (&bull;) Stigmate</b>: il personaggio comincia attivamente a sanguinare da ferite
-                        aperte in tutto il corpo quando raggiunge Fame 4. Questo ovviamente attirer&agrave; l'attenzione,
-                        e a discrezione del Narratore potr&agrave; provocare altri inconvenienti al vampiro.
-                        <b>Pregio: (&bull;&bull;) Mangiare cibo</b>: normalmente un cainita non tollera l'ingestione di
-                        cibo. Pu&ograve; trattenerlo nello stomaco se spende vitae per simulare di essere ancora in vita,
-                        altrimenti dovr&agrave; vomitarlo subito. Personaggi con questo pregio invece riescono
-                        a mangiare senza problemi, e possono anche provare piacere, al contrario del resto che
-                        ogni volta che assaggia cibo &egrave; come se assaggiasse cenere di sigaretta.<br />
-                        Il personaggio dovr&agrave; comunque espellere il cibo prima del riposo diurno.
                     </li>
                 </ul>
 

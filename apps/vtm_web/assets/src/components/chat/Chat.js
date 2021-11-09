@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext, useEffect, useState, Suspense} from "react";
+import React, {useContext, useEffect, useState, Suspense, useRef} from "react";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./controls/ChatInput";
 import {subscribe} from "../../_base/relay-utils";
@@ -18,7 +18,7 @@ import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./controls/ChatControls";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
-import {UtilityContext} from "../../contexts";
+import {SessionContext, UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 import {Typography} from "@mui/material";
@@ -35,6 +35,8 @@ type ChatProps = {
 }
 
 const Chat = ({id}: ChatProps): any => {
+    const session = useRef(useContext(SessionContext));
+
     const environment = useRelayEnvironment();
     const map = useMap(id);
     const [user,character] = useSession();
@@ -58,17 +60,24 @@ const Chat = ({id}: ChatProps): any => {
     const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
 
     useEffect(() => {
+        if (map?.id != null) {
+            session.current?.setCurrentLocation({
+                id: map.id,
+                name: map?.name
+            });
+        }
+
         updateSessionMap(environment, id)
             .then(r => console.log("Received response while attempting updating the session", r))
-            .catch(e => console.error("Error while updating session map", e))
-    }, [environment, id])
+            .catch(e => console.error("Error while updating session map", e));
+    }, [environment, id, map])
 
     useEffect(() => {
         const handleUnhandledExceptionAtChat = e => {
             console.error("Unhandled error while subscribing", e);
 
             if (typeof e === "string" && e.indexOf("message [") !== -1) {
-                document.location.reload();
+                document.location.reload(false);
             }
         };
 
@@ -84,7 +93,7 @@ const Chat = ({id}: ChatProps): any => {
                 //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
                 // });
                 // Trying to reload the page instead
-                document.location.reload();
+                document.location.reload(false);
             });
 
         if (chatToken != null && chatToken !== "") {
@@ -96,7 +105,6 @@ const Chat = ({id}: ChatProps): any => {
                 subscription.unsubscribe();
             };
         }
-    // eslint-disable-next-line
     }, [id, chatToken]);
 
     const showMapDescription = () => {

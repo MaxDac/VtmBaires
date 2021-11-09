@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, {useContext} from 'react';
 import Container from '@mui/material/Container';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -17,6 +17,8 @@ import Box from "@mui/material/Box";
 import {MainRoutes} from "../MainRouter";
 import {useMediaQuery, useTheme} from '@mui/material';
 import {menuIconStyle} from "../_layout/Menu";
+import {goToChatAndUpdateSession} from "../chat/chat-helpers";
+import {SessionContext} from "../../contexts";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -70,6 +72,7 @@ const SubMapWide = ({classes, imageUrl, subHeader, mapLinks}) => (
 
 const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
     const history = useHistory();
+    const sessionUtils = useContext(SessionContext);
     const classes = useStyles();
     const theme = useTheme();
     const showAsResponsive = useMediaQuery(theme.breakpoints.down("md"));
@@ -79,12 +82,18 @@ const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
             Locations
         </ListSubheader>
 
-    const openMap = (id: string, isChat: boolean) => _ =>
-        history.push(isChat ? MainRoutes.chat(id) : MainRoutes.subMap(id));
+    const openMap = (id: string, name: string, isChat: boolean) => _ => {
+        if (isChat) {
+            goToChatAndUpdateSession(sessionUtils, history, id, name);
+        }
+        else {
+            history.push(MainRoutes.subMap(id));
+        }
+    }
 
     const mapLinks = () => {
-        const mapLink = ({ id, name, isChat }: any) =>
-            <ListItem key={id} button onClick={openMap(id, isChat)}>
+        const mapLink = ({id, name, isChat}: any) =>
+            <ListItem key={id} button onClick={openMap(id, name, isChat)}>
                 <ListItemIcon>
                     <SendIcon sx={menuIconStyle} />
                 </ListItemIcon>

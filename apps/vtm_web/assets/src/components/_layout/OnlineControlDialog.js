@@ -47,7 +47,7 @@ const OnlineControlDialog = ({closePopup}: Props): any => {
                     ? (<SendMessageToCharacter characterId={o?.character?.id} onSelected={closePopup} />)
                     : (<></>)
             }
-            <GoToMapLocation locationId={o?.location?.id} onSelected={closePopup} />
+            <GoToMapLocation location={o?.location} onSelected={closePopup} />
         </Stack>
     );
 

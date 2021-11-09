@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
@@ -12,6 +12,7 @@ import VolumeDown from '@mui/icons-material/VolumeDown';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import {UtilityContext} from "../../contexts";
 
 type Props = {
     id?: string;
@@ -19,6 +20,7 @@ type Props = {
 }
 
 const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
+    const utilities = useRef(useContext(UtilityContext));
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackDuration, setTrackDuration] = useState(0);
     const [trackCurrent, setTrackCurrent] = useState(0);
@@ -35,11 +37,20 @@ const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
     const volumeUp = useMemo(() => <VolumeUp sx={{color: "gray"}} />, []);
 
     useEffect(() => {
+        const handleRejection =
+            error => {
+                console.error("Error while reproducing track", error);
+                utilities.current?.showUserNotification({
+                    type: "warning",
+                    message: "Non è stato possibile riprodurre l'audio che hai fornito"
+                });
+            };
+
         if (isPlaying) {
-            audioRef.current?.play();
+            audioRef.current?.play()?.catch(handleRejection);
         }
         else {
-            audioRef.current?.pause();
+            audioRef.current?.pause()?.catch(handleRejection);
         }
     }, [isPlaying]);
 

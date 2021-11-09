@@ -36,10 +36,6 @@ const ParsedText = ({text, sx, components, ignoreDefaultComponents}: Props): any
         const components = () =>
             replaceAll(replaceAll(text, "[i]", "_"), "[/i]", "_")
                 .split("\n")
-                .map(x => {
-                    console.log("fragment", x);
-                    return x;
-                })
                 .filter(f => f != null && f !== "")
                 .map((f, index) => (
                     <Typography paragraph sx={sx}>
@@ -48,10 +44,6 @@ const ParsedText = ({text, sx, components, ignoreDefaultComponents}: Props): any
                         </ReactMarkdown>
                     </Typography>
                 ));
-
-        console.log("text", JSON.stringify({
-            text
-        }));
 
         return (
             <>
