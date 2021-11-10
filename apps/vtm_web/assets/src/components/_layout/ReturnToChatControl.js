@@ -16,7 +16,11 @@ const ReturnToChatControl = (): any => {
     console.log("location", location);
 
     const tryGoToChat = locationId =>
-        _ => history.push(MainRoutes.chat(locationId));
+        _ => {
+            if (locationId != null) {
+                history.push(MainRoutes.chat(locationId));
+            }
+        }
 
     const title = () => {
         const common = "Torna all'ultima Chat";

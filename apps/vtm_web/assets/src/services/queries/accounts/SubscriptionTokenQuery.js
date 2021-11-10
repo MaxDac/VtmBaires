@@ -10,9 +10,12 @@ const subscriptionTokenQuery = graphql`
     }
 `;
 
-const useSubscriptionTokenQuery = (): string =>
-    useCustomLazyLoadQuery(subscriptionTokenQuery, {}, {
+const useSubscriptionTokenQuery = (): string => {
+    const token = useCustomLazyLoadQuery(subscriptionTokenQuery, {}, {
         fetchPolicy: "network-only"
     })?.subscriptionToken;
+
+    return token;
+}
 
 export default useSubscriptionTokenQuery;

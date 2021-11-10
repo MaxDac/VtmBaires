@@ -11,8 +11,8 @@ import {SessionContext} from "../../../contexts";
 
 type Props = {
     location: ?{
-        id: string;
-        name?: ?string;
+        +id: string;
+        +name?: ?string;
     };
     onSelected?: () => void;
 }
