@@ -42,15 +42,17 @@ export const useMessageSubscription = (): number => {
             }
         }
 
-        const messageSubscription = subscribe(MessageNotificationSubscription(chatToken), notification => {
-            handleNotification(notification);
-            handleMessageBadgeUpdate(notification);
-        });
+        if (chatToken != null) {
+            const messageSubscription = subscribe(MessageNotificationSubscription(chatToken), notification => {
+                handleNotification(notification);
+                handleMessageBadgeUpdate(notification);
+            });
 
-        return () => {
-            console.log("unsubscribe from message");
-            messageSubscription.unsubscribe();
-        };
+            return () => {
+                console.log("unsubscribe from message");
+                messageSubscription.unsubscribe();
+            };
+        }
     }, [showUserNotification, chatToken]);
 
     return numberOfMessages;

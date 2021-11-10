@@ -13,8 +13,6 @@ const ReturnToChatControl = (): any => {
     const history = useHistory();
     const [,,location] = useSession();
 
-    console.log("location", location);
-
     const tryGoToChat = locationId =>
         _ => {
             if (locationId != null) {

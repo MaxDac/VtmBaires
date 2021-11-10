@@ -70,7 +70,7 @@ const SubMapWide = ({classes, imageUrl, subHeader, mapLinks}) => (
     </Container>
 );
 
-const SubMap = ({ maps, imageUrl }: SubMapProps): any => {
+const SubMap = ({maps, imageUrl}: SubMapProps): any => {
     const history = useHistory();
     const sessionUtils = useContext(SessionContext);
     const classes = useStyles();

@@ -1,9 +1,7 @@
 // @flow
 
 import React, {useContext, useEffect, useState, Suspense, useRef} from "react";
-import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import ChatInput from "./controls/ChatInput";
-import {subscribe} from "../../_base/relay-utils";
 import chatEntryMutationPromise from "../../services/mutations/chat/CreateChatEntryMutation";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -17,7 +15,6 @@ import {useRelayEnvironment} from "react-relay";
 import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./controls/ChatControls";
-import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import {SessionContext, UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
@@ -29,6 +26,7 @@ import {useChatEntries} from "./hooks/ChatEntriesHook";
 import ChatScreen from "./ChatScreen";
 import type { ChatEntry } from "../../services/base-types";
 import DefaultFallback from "../../_base/components/DefaultFallback";
+import useChatSubscription from "../_hooks/useChatSubscription";
 
 type ChatProps = {
     id: string;
@@ -55,9 +53,14 @@ const Chat = ({id}: ChatProps): any => {
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
     const initialEntries = useChatEntries(id);
-    const chatToken = useSubscriptionTokenQuery();
-
     const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
+    useChatSubscription(id, setAdditionalEntries);
+
+    useEffect(() => {
+        updateSessionMap(environment, id)
+            // .then(r => console.log("Received response while attempting updating the session", r))
+            .catch(e => console.error("Error while updating session map", e));
+    }, [environment, id]);
 
     useEffect(() => {
         if (map?.id != null) {
@@ -66,46 +69,7 @@ const Chat = ({id}: ChatProps): any => {
                 name: map?.name
             });
         }
-
-        updateSessionMap(environment, id)
-            .then(r => console.log("Received response while attempting updating the session", r))
-            .catch(e => console.error("Error while updating session map", e));
-    }, [environment, id, map])
-
-    useEffect(() => {
-        const handleUnhandledExceptionAtChat = e => {
-            console.error("Unhandled error while subscribing", e);
-
-            if (typeof e === "string" && e.indexOf("message [") !== -1) {
-                document.location.reload(false);
-            }
-        };
-
-        window.addEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
-
-        const showNewChatEntry = entry => setAdditionalEntries(es => [...es, entry]);
-
-        const performSubscription = () =>
-            subscribe(subscriptionObservable(id, chatToken), showNewChatEntry, (e, _) => {
-                console.error("Error while performing chat subscription.", e);
-                // showUserNotification({
-                //     type: "error",
-                //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
-                // });
-                // Trying to reload the page instead
-                document.location.reload(false);
-            });
-
-        if (chatToken != null && chatToken !== "") {
-            console.log("subscribing");
-            const subscription = performSubscription();
-            return () => {
-                console.info("unsubscribing");
-                window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
-                subscription.unsubscribe();
-            };
-        }
-    }, [id, chatToken]);
+    }, [map])
 
     const showMapDescription = () => {
         setModalTitle(_ => map?.name);
