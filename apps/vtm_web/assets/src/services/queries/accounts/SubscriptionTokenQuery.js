@@ -12,7 +12,7 @@ const subscriptionTokenQuery = graphql`
     }
 `;
 
-const useSubscriptionTokenQuery = (): string => {
+const useSubscriptionTokenQuery = (): ?string => {
     const environment = useRelayEnvironment();
     const [token, setToken] = useState<?string>(null);
 

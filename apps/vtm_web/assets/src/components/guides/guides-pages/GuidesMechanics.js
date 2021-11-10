@@ -1,38 +1,18 @@
 // @flow
 
 import React from "react";
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { guideStyle, titleStyle } from "../GuidesStyles";
+import StyledTableRow from "../components/StyledTableRow";
+import StyledTableCell from "../components/StyledTableCell";
+import {guideStyle, titleStyle} from "../GuidesStyles";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
-}));
-  
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
-}));
-  
 const GuidesMechanics = (): any => {
     return (
         <>
@@ -71,6 +51,100 @@ const GuidesMechanics = (): any => {
                 Difficolt&agrave; 2, riesce.<br />
                 Il tiro di dadi dovr&agrave; anche tenere conto del punteggio di Fame, ma questo aspetto &egrave; contemplato nel sistema
                 di tiro automatico disponibile in chat, cliccando sul tasto con l'icona di dado.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Difficolt&agrave;
+                </h4>
+            </Typography>
+
+            <Typography paragraph>
+                Ogni tiro di dado avr&agrave; una Difficolt&agrave;, che va da 1 a 7 o pi&ugrave;. Nella tabella di seguito, potrete trovare, per ogni
+                livello di difficolt&agrave;, un suo equivalente nella vita reale.
+
+                <Box sx={{padding: "10px"}}>
+                    <TableContainer component={Paper} sx={{
+                        width: "55%", 
+                        margin: "0 auto" 
+                    }}>
+                        <Table aria-label="Difficoltà">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Valore di Difficolt&agrave;</StyledTableCell>
+                                    <StyledTableCell>Equivalente nella vita reale</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        1
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Routine (colpire un bersaglio immobile, convincere un amico fidato ad aiutarti)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Semplice (sedurre qualcuno gi&agrave; predisposto, intimidire una persona debole)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        3
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Moderata (sostituire l'autoradio di un'auto, percorrere una corda tesa rimanendo in equilirio)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        4
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Impegnativa (percepire l'origine di un sussurro, creare una memorabile opera d'arte)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Difficile (convincere un poliziotto che quella bustina di coca non &egrave; la tua, 
+                                        rimontare un motore completamente devastato)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        6
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Molto Difficile (correre su una corda tesa essendo sotto tiro, calmare una folla
+                                        inferocita)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        7 o pi&ugrave;
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Quasi impossibile (trovare un senza tetto in particolare a Los Angeles in una notte,
+                                        recitare alla perfezione un testo in lingua straniera sconosciuta)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
             </Typography>
 
             <Typography paragraph>
@@ -419,9 +493,9 @@ const GuidesMechanics = (): any => {
 
             <Typography paragraph style={guideStyle}>
                 I cainiti non avranno pi&ugrave; Punti Sangue a disposizione, ma un punteggio di <b>Fame</b>&nbsp;
-                variabile da 1 a 5. Ogni volta che un cainita vorr&agrave; spendere sangue, dovr&agrave;
+                variabile da 1 a 5. Ogni volta che un Cainita vorr&agrave; spendere sangue, dovr&agrave;
                 tirare un dado d10. Se otterr&agrave; pi&ugrave; di 6, non subir&agrave; nessuna penalit&agrave;.
-                Un fallimento indicher&agrave; l'aumento della <b>Fame</b>. A livello 5, il cainita sar&agrave;
+                Un fallimento indicher&agrave; l'aumento della <b>Fame</b>. A livello 5, il Cainita sar&agrave;
                 da considerare sulla soglia della Frenesia, e dovr&agrave; cibarsi immediatamente per non cadervi.<br />
                 La <b>Fame</b> avr&agrave; un riscontro anche sul risultato dei dadi. Per maggior informazioni
                 vi invitiamo a leggere il <b>Core Book</b> della versione 5. Comunque, i risultati dei dadi 
@@ -435,18 +509,18 @@ const GuidesMechanics = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Ogni cainita, dal momento dell'Abbraccio, eredita, assieme ai poteri e alle maledizioni del Sangue,
+                Ogni Cainita, dal momento dell'Abbraccio, eredita, assieme ai poteri e alle maledizioni del Sangue,
                 anche la <b>Bestia</b>. La Bestia &egrave; un'entit&agrave; di vita propria che si muove nei meandri
-                della mente del cainita, spingendolo sempre agli atti pi&ugrave; nefandi e orribili in nome di ci&ograve;
+                della mente del Cainita, spingendolo sempre agli atti pi&ugrave; nefandi e orribili in nome di ci&ograve;
                 che per i cainiti &egrave; assieme nutrimento, droga e elisir di vita eterna: il <b>Sangue</b>.
                 Oltre alla Fame, descritta precedentemente, la Bestia si adopera per distruggere i frammenti di 
-                umanit&agrave; che il cainita ancora segue nella non vita, costringendolo a contravvenire alle
+                umanit&agrave; che il Cainita ancora segue nella non vita, costringendolo a contravvenire alle
                 <b>Convinzioni</b>, da definire in fase di creazione del personaggio.
             </Typography>
 
             <Typography paragraph style={guideStyle}>
                 La discesa nella spirale della Bestia &egrave; una parte estremamente importante di Vampiri: la Masquerade&trade;,
-                in quanto rappresenta il centro dell'esistenza del cainita: la resistenza alla Bestia per non cederle il
+                in quanto rappresenta il centro dell'esistenza del Cainita: la resistenza alla Bestia per non cederle il
                 potere e abdicarle il proprio libero arbitrio.<br />
                 Ogni personaggi parte con un punteggio di Umanit&agrave; nella propria scheda. Il punteggio di umanit&agrave;
                 determina quanto vicino il vampiro rimane alle sue convinzioni mortali. Ogni volta che il vampiro
@@ -463,7 +537,7 @@ const GuidesMechanics = (): any => {
 
             <Typography paragraph style={guideStyle}>
                 La completa perdita di Umanit&agrave;, cio&egrave; arrivare ad umanit&agrave; 0, significa che la Bestia prende
-                completamente, totalmente e irrimediabilmente il controllo del cainita, il personaggio non sar&agrave; pi&ugrave;
+                completamente, totalmente e irrimediabilmente il controllo del Cainita, il personaggio non sar&agrave; pi&ugrave;
                 giocaile e passer&agrave; ad essere interpretato dal Narratore.
             </Typography>
         </>

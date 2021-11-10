@@ -13,6 +13,7 @@ type Props = {
 export const GuideRoutes = {
     home: "/guides",
     generalRules: "/guides/general-rules",
+    introduction: "/guides/introduction",
     glossary: "/guides/glossary",
     environment: "/guides/environment",
     environmentBaires: "/guides/environment-baires",
@@ -22,7 +23,7 @@ export const GuideRoutes = {
     attributes: "/guides/attributes",
     mechanics: "/guides/mechanics",
     creation: "/guides/creation",
-    rules: "/guides/rules",
+    homeRules: "/guides/home-rules",
     places: "/guides/places",
     sayings: "/guides/sayings",
     siteHelp: "/guides/site-help",
@@ -31,6 +32,7 @@ export const GuideRoutes = {
 };
 
 const GuidesHome = React.lazy(() => import("./guides-pages/GuidesHome"));
+const GuidesIntroduction = React.lazy(() => import("./guides-pages/GuidesIntroduction"));
 const GuidesEnvironment = React.lazy(() => import("./guides-pages/GuidesEnvironment"));
 const GuidesGeneralRules = React.lazy(() => import("./guides-pages/GuidesGeneralRules"));
 const GuidesEnvironmentBaires = React.lazy(() => import("./guides-pages/GuidesEnvironmentBaires"));
@@ -41,7 +43,7 @@ const GuidesPlaces = React.lazy(() => import("./guides-pages/GuidesPlaces"));
 const GuidesCredits = React.lazy(() => import("./guides-pages/GuidesCredits"));
 const GuidesSiteHelp = React.lazy(() => import("./guides-pages/GuidesSiteHelp"));
 const GuidesGlossary = React.lazy(() => import("./guides-pages/GuidesGlossary"));
-const GuidesRules = React.lazy(() => import("./guides-pages/GuidesRules"));
+const GuidesHomeRules = React.lazy(() => import("./guides-pages/GuidesHomeRules"));
 const GuidesSayings = React.lazy(() => import("./guides-pages/GuidesSayings"));
 const GuidesClans = React.lazy(() => import("./guides-pages/GuidesClans"));
 const GuidesAttributes = React.lazy(() => import("./guides-pages/GuidesAttributes"));
@@ -63,6 +65,7 @@ const GuidesMain = ({match}: Props): any => {
                 <div>
                     <Route exact path={match.url} component={GuidesHome} />
                     <Route exact path={`${match.url}/general-rules`} component={GuidesGeneralRules} />
+                    <Route exact path={`${match.url}/introduction`} component={GuidesIntroduction} />
                     <Route exact path={`${match.url}/glossary`} component={GuidesGlossary} />
                     <Route exact path={`${match.url}/environment`} component={GuidesEnvironment} />
                     <Route exact path={`${match.url}/environment-baires`} component={GuidesEnvironmentBaires} />
@@ -72,7 +75,7 @@ const GuidesMain = ({match}: Props): any => {
                     <Route exact path={`${match.url}/mechanics`} component={GuidesMechanics} />
                     <Route exact path={`${match.url}/creation`} component={GuidesCreation} />
                     <Route exact path={`${match.url}/npcs`} component={GuidesNpcs} />
-                    <Route exact path={`${match.url}/rules`} component={GuidesRules} />
+                    <Route exact path={`${match.url}/home-rules`} component={GuidesHomeRules} />
                     <Route exact path={`${match.url}/places`} component={GuidesPlaces} />
                     <Route exact path={`${match.url}/sayings`} component={GuidesSayings} />
                     <Route exact path={`${match.url}/site-help`} component={GuidesSiteHelp} />

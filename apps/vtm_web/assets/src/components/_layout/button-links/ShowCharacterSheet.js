@@ -28,8 +28,7 @@ const ShowCharacterSheet = ({characterId, onSelected}: Props): any => {
     if (characterId != null) {
         return (
             <Tooltip title="Visualizza scheda">
-                <IconButton edge="end"
-                            aria-label="Messaggio"
+                <IconButton aria-label="Messaggio"
                             size="large"
                             onClick={tryVisualizeCharacterSheet(characterId)}>
                     <ContactPageIcon sx={menuIconStyle} />

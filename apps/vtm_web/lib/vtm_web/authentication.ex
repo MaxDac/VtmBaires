@@ -30,7 +30,7 @@ defmodule VtmWeb.Authentication do
 
   def verify_subscription_key_token(token) do
     Phoenix.Token.verify(VtmWeb.Endpoint, get_subscription_token_salt(), token, [
-      max_age: 5
+      max_age: 30
     ])
   end
 

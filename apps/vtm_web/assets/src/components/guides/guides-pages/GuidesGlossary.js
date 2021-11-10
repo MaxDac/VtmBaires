@@ -4,7 +4,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import {Link} from "react-router-dom";
-import { GuideRoutes } from "../GuidesMain";
+import {GuideRoutes} from "../GuidesMain";
 
 type Props = {
 
@@ -53,12 +53,20 @@ const GuidesGlossary = (props: Props): any => {
                         nei diversi clan.
                     </li>
                     <li style={liStyle}>
-                        <b>Cainita</b>: il termine cainita si riferisce ai vampiri. Trae la sua etimologia dall'origine
+                        <b>Bestia</b>: la Bestia &egrave; un'entit&agrave; indipendente dal vampiro, che dimora nella sua mente, 
+                        e che lo spinge costantemente ad atti nefandi per poter procacciare l'unica sostanza che pu&ograve; 
+                        soddisfarlo: il Sangue. La Bestia &egrave; una costante minaccia, e tenter&agrave; sempre di prendere
+                        il controllo del Cainita. Se il livello di <Link to={GuideRoutes.homeRules}>Fame</Link> aumenta
+                        fino a 5, di fronte a pesanti umiliazioni o se confrontato a grandi pericoli, il Cainita rischia
+                        di perdere il controllo in favore della Bestia, uno stato che viene chiamato <b>Frenesia</b>.
+                    </li>
+                    <li style={liStyle}>
+                        <b>Cainita</b>: il termine Cainita si riferisce ai vampiri. Trae la sua etimologia dall'origine
                         ormai del tutto accettata nei circoli che i vampiri siano una razza nata dal peccato di Caino, 
                         il Progenitore.
                     </li>
                     <li style={liStyle}>
-                        <b>Camarilla</b>: l'organizzazione politica cainita un tempo pi&ugrave; diffusa ed importante a livello
+                        <b>Camarilla</b>: l'organizzazione politica Cainita un tempo pi&ugrave; diffusa ed importante a livello
                         globale. Nacque nel periodo Rinascimentale per controbattere alla minaccia dell'Inquisizione
                         e delle prime Diablerie sofferte dai cainiti di Terza Generazione, e per questa ragione
                         introdusse la Tradizione pi&ugrave; importante di tutte: la <b>Masquerade</b>.
@@ -135,13 +143,23 @@ const GuidesGlossary = (props: Props): any => {
                         almeno all'interno della Camarilla.
                     </li>
                     <li style={liStyle}>
-                        <b>Generazione</b>: nella mitologia cainita, i vampiri discendono da Caino attraverso il rituale
-                        dell'Abbraccio, che perpetra la razza cainita di generazione in generazione. Che sia vero o meno,
+                        <b>Frenesia</b>: la Frenesia &egrave; uno stato in cui le azioni del vampiro non sono sue
+                        proprie, ma viene come posseduto dall'entit&agrave; soprannaturale che abita la sua mente 
+                        dall'Abbraccio: la <b>Bestia</b>. Il vampiro, quando confrontato con il pericolo di essere
+                        dominato dalla Bestia, ha di fronte a s&eacute; due opzioni: la prima &egrave; quella di
+                        resistere, allontanandosi dalla fonte di pericolo, o sfamandosi autonomamente prima che lo 
+                        faccia la Bestia per lui; l'altra opzione &egrave; quella di "cavalcare" la Bestia,
+                        ovvero fare in modo che la Bestia prenda il sopravvento, ma mantenendo un'oncia di controllo
+                        per direzionarla dove ritiene pi&ugrave; conveniente.
+                    </li>
+                    <li style={liStyle}>
+                        <b>Generazione</b>: nella mitologia Cainita, i vampiri discendono da Caino attraverso il rituale
+                        dell'Abbraccio, che perpetra la razza Cainita di generazione in generazione. Che sia vero o meno,
                         &egrave; un fatto dimostrato che pi&ugrave; ci si "allontana" dalla prima generazione, meno potere
                         il sangue ritiene. L'Infante avr&agrave; meno potere del Sire, e così via fino ai Sangue Debole,
                         il cui sangue &egrave;, appunto, cos&igrave; debole da non manifestare pi&ugrave; n&eacute; le 
                         caratteristiche del clan, e nemmeno dei cainiti in generale.<br />
-                        La generazione di un cainita esprime quindi la sua lontananza dal progenitore: la tredicesima
+                        La generazione di un Cainita esprime quindi la sua lontananza dal progenitore: la tredicesima
                         generazione &egrave; ritenuta l'ultima generazione in cui il sangue ritiene ancora le caratteristiche
                         dei cainiti.
                     </li>
@@ -170,11 +188,11 @@ const GuidesGlossary = (props: Props): any => {
                         <b>Seconda Inquisizione</b>: a seguito di un piano molto ottimista della Camarilla fallito
                         miseramente (o riuscito troppo bene, dipendendo dal punto di vista), diverse organizzazioni
                         governative, ed alcuni servizi segreti, sono entrati a conoscenza dell'esistenza dei cainiti.
-                        L'attacco che ha scosso maggiormente la comunit&agrave; cainita, e che l'ha costretta ad un
+                        L'attacco che ha scosso maggiormente la comunit&agrave; Cainita, e che l'ha costretta ad un
                         ritorno graduale a forme di comunicazione e di spostamento quasi medievali, &egrave; stato
                         quello mascherato da attentato terroristico al quartier generale a Vienna del clan Tremere,
                         che ha di fatto azzerato gli alti ranghi del clan, il Concilio dei Sette. &Egrave; correntemente
-                        il pi&ugrave; grande pericolo per la non-vita cainita.
+                        il pi&ugrave; grande pericolo per la non-vita Cainita.
                     </li>
                     <li style={liStyle}>
                         <b>Vitae</b>: sostanza soprannaturale sublimata a partire dal sangue dei mortali, dalla fisiologia

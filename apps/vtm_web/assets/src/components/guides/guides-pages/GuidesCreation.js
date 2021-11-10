@@ -33,7 +33,7 @@ const GuidesCreation = (): any => {
                 Un'altra caratteristica della scheda che dovrete indicare saranno le <b>Convinzioni</b> e le <b>Ancore</b>,
                 ovvero il credo fondamentale che segue il personaggio, e ne determina la sua umanit&agrave;, e le persone
                 che hanno significato molto per lui nella sua vita mortale, e che ancora rivestono un punto di riferimento,
-                un'ancora per resistere alla Bestia, quando minaccia di conquistare definitivamente la mente e il cuore del cainita.
+                un'ancora per resistere alla Bestia, quando minaccia di conquistare definitivamente la mente e il cuore del Cainita.
             </Typography>
 
             <Typography paragraph style={guideStyle}>
@@ -106,14 +106,14 @@ const GuidesCreation = (): any => {
                     </li>
                     <li style={liStyle}>
                         <b>Allevatore</b>: l'Allevatore non si nutre di esseri umani, ma solamente di animali. Normalmente, questo tipo
-                        di cainita in vita era una persona con fortissimi principi morali, che ha trasposto anche nella non vita.
+                        di Cainita in vita era una persona con fortissimi principi morali, che ha trasposto anche nella non vita.
                         Il fatto di nutrirsi di animali rischia per&ograve; di aumentare la <b>Fame</b>, quindi vivono sempre col
                         pericolo della Frenesia.
                     </li>
                     <li style={liStyle}>
-                        <b>Consensualista</b>: il personaggio pu&ograve; nutrirsi solo di mortali consenzienti. Questo tipo di cainita 
+                        <b>Consensualista</b>: il personaggio pu&ograve; nutrirsi solo di mortali consenzienti. Questo tipo di Cainita 
                         potrebbe correre il costante rischio di infrangere la Masquerade, dato che la vittima rischia di poter capire
-                        cosa &egrave; realmente il cainita.
+                        cosa &egrave; realmente il Cainita.
                     </li>
                     <li style={liStyle}>
                         <b>Randagio</b>: il personaggio caccia e si nutre di qualsiasi cosa si muova, ogni volta che pu&ograve;. Il personaggio
@@ -127,7 +127,7 @@ const GuidesCreation = (): any => {
                     <li style={liStyle}>
                         <b>Sanguisuga</b>: il personaggio si nutre di altri vampiri. Li pu&ograve; cacciare, li pu&ograve; costringere, o 
                         pu&ograve; pretendere sangue come pagamento. Giocare un personaggio sanguisuga pu&ograve; essere estremamente
-                        pericolos, in quanto questa pratica &egrave; proibita nella comunit&agrave; cainita.
+                        pericolos, in quanto questa pratica &egrave; proibita nella comunit&agrave; Cainita.
                     </li>
                     <li style={liStyle}>
                         <b>Scene Queen</b>: il personaggio Scene Queen gode di popolarit&agrave; in una subcultura, sia essa <i>underground</i>, 
@@ -139,7 +139,7 @@ const GuidesCreation = (): any => {
                         <b>Simulante</b>: il Simulante ha ancora una famiglia mortale (oppure si &egrave; impossessato di una non sua), e 
                         continua ad avere contatti con essa anche nella non-morte. Alcuni Simulanti addirittura si sposano, o adottano figli.
                         Ovviamente questo per la Camarilla &egrave; un atteggiamento ritenuto pericoloso, e potrebbe prendere seri provvedimenti,
-                        arrivando fino ad uccidere la famiglia mortale del cainita.
+                        arrivando fino ad uccidere la famiglia mortale del Cainita.
                     </li>
                     <li style={liStyle}>
                         <b>Sirena</b>: il personaggio Sirena si nutre solamente durante un amplesso simulato. Sfrutta le sue capacit&agrave;

@@ -17,16 +17,16 @@ const GuidesAttributes = (): any => {
                 In creazione, il personaggio all'inizio dovr&agrave; scegliere il clan del proprio personaggio.
                 Mentre l'affiliazione di una Setta pu&ograve; avere a che fare con il libero arbitrio del personaggio,
                 il clan ha a che fare col sangue del Sire: &egrave; impossibile cambiarne le caratteristiche.<br />
-                Il Sangue determina i poteri del cainita, porta con s&eacute; le maledizioni del Sangue (debolezza 
+                Il Sangue determina i poteri del Cainita, porta con s&eacute; le maledizioni del Sangue (debolezza 
                 al fuoco e ai raggi solari, e la Bestia), e una maledizione caratteristica del clan, che ha la 
-                doppia funzione di tormentare la non-vita del cainita, e di riconoscerlo come appartenente 
+                doppia funzione di tormentare la non-vita del Cainita, e di riconoscerlo come appartenente 
                 ad una di queste grandi "famiglie" ancestrali.<br />
                 Siccome in Buenos Aires by Night sar&agrave; possibile solamente interpretare Fratelli appartenenti
                 alla Camarilla, anche la scelta dei clan sar&agrave; ridotta ai soli clan affiliati alla setta.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Nella leggenda cainita, i clan hanno avuto origine dai mitici Antidiluviani, esseri dai poteri
+                Nella leggenda Cainita, i clan hanno avuto origine dai mitici Antidiluviani, esseri dai poteri
                 leggendari che infestano la terra da migliaia di anni. Qualunque sia la loro origine, &egrave; 
                 indubbio che i differenti clan hanno delle caratteristiche differenti tra di loro. Esistono poi
                 i <b>Caitiff</b>, o Vili, che, pur essendo vampiri a tutti gli effetti, non mostrano i segni
@@ -254,7 +254,7 @@ const GuidesAttributes = (): any => {
                 capacit&agrave; di spezzare i legami di sangue tramite il rituale che in seguito sarebbe stato conosciuto come Vaulderie. Da sempre
                 affiliati del Sabbat, la stragrande maggioranza di loro &egrave; partita per la Guerra di Gehenna, ed allo stato attuale sono 
                 estremamente rari. Per questo motivo, i Narratori potranno decidere di rifiutare un personaggio di questo clan.<br />
-                La maledizione del loro sangue li costringe a dover dormire vicino a qualcosa che abbia estrema importanza per il cainita, il che
+                La maledizione del loro sangue li costringe a dover dormire vicino a qualcosa che abbia estrema importanza per il Cainita, il che
                 pu&ograve; essere la loro terra natale, o un gruppo di persone affiliate ad una organizzazione. Se non riescono a farlo, subiranno un
                 danno alla Forza di Volont&agrave; pari alla gravit&agrave; della loro Maledizione per ogni notte passata in questo modo.<br /> 
                 <b>Affiliazioni</b>: Anarchici o Indipendenti.<br />
@@ -289,7 +289,7 @@ const GuidesAttributes = (): any => {
                 tipica del clan: Nosferatu con aspetto normale, Malkavian sani di mente, o Ventrue in grado di cibarsi di qualsiasi forma di Sangue. 
                 Cainiti di questo tipo sono notoriamente stati sempre ostracizzati e esiliati dal clan, e addirittura dalla Camarilla, considerati poco 
                 meglio dei Sangue Debole. Il loro numero adesso &egrave; per&ograve; aumentato, e costituiscono una forza notevole, da non ignorare.<br />
-                I Vili non soffrono nessuna maledizione di clan, anche se soffrono normalmente della maledizione del Sangue cainita, e quindi raggi del Sole
+                I Vili non soffrono nessuna maledizione di clan, anche se soffrono normalmente della maledizione del Sangue Cainita, e quindi raggi del Sole
                 e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" cainiti.<br /> 
                 <b>Affiliazioni</b>: Anarchici, in rari casi nei bassi ranghi della Camarilla, ma non potranno assumere Status.<br />
                 <b>Discipline</b>: i Vili manifestano la loro duttilit&agrave; riuscendo ad apprendere qualsiasi Disciplina non rara (non potranno apprendere

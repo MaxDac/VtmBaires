@@ -33,7 +33,7 @@ const GuidesEnvironment = (props: Props): any => {
             <Typography paragraph sx={guideStyle}>
                 Prima di riassumere i cambiamenti che la versione 5 dei manuali ha introdotto, cercheremo di condensare
                 in poche parole la conoscenza contenuta nei manuali precedenti, che considereremo conoscenza propedeutica
-                se volete giocare un personaggio cainita.
+                se volete giocare un personaggio Cainita.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -113,7 +113,7 @@ const GuidesEnvironment = (props: Props): any => {
                     </li>
                 </ul>
 
-                Per far fronte a questi avvenimenti, ed all'avanzata della Prima Inquisizione umana, che stava decimando la popolazione cainita dal 1400, 
+                Per far fronte a questi avvenimenti, ed all'avanzata della Prima Inquisizione umana, che stava decimando la popolazione Cainita dal 1400, 
                 gli altri clan, guidati dai Ventrue, crearono la <b>Camarilla</b>. Proposero un accordo di pace ad <b>Anarchici</b> ed <b>Assamiti</b>,
                 le tre fazioni in guerra in quel periodo, durante la famosa <b>Convenzione di Thorns</b>, e cementarono un'organizzazione che resiste
                 fino ai giorni nostri, alla quale i ribelli che rifiutarono di aderirvi opposero quella del Sabbat.
@@ -153,7 +153,7 @@ const GuidesEnvironment = (props: Props): any => {
 
                     <li style={liStyle}>
                         Come conseguenza, gli Anarchici hanno trovato maggiore spazio politico
-                        all'interno della societ&agrave; cainita. Sono loro, nelle Notti Moderne, i veri antagonisti
+                        all'interno della societ&agrave; Cainita. Sono loro, nelle Notti Moderne, i veri antagonisti
                         e la vera alternativa al potere della Camarilla, soprattutto dopo la defezione del clan Brujah.
                         I rapporti con la Camarilla, comunque, non soffrono della stessa natura antagonistica che la Setta
                         sperimentava col Sabbat nel ventesimo secolo, anche se conti aperti rimangono, come il tradimento
@@ -164,15 +164,15 @@ const GuidesEnvironment = (props: Props): any => {
                     <li style={liStyle}>
                         La Seconda Inquisizione, miscuglio di servizi segreti vaticani, Societ&agrave; di Leopoldo,
                         ed altre organizzazioni governative statali e interstatali, ha colpito fortemente la societ&agrave;
-                        cainita e minato la sua sicurezza nella dominazione dei mortali. Dopo il colpo inferto al
+                        Cainita e minato la sua sicurezza nella dominazione dei mortali. Dopo il colpo inferto al
                         clan Tremere con la distruzione della Chantry viennese, Londra &egrave; stata purgata della
-                        presenza cainita, Berlino e altre citt&agrave; europee stanno subendo la stessa sorte. Tra
+                        presenza Cainita, Berlino e altre citt&agrave; europee stanno subendo la stessa sorte. Tra
                         questa minaccia e il <i>Beckoning</i>, la Camarilla &egrave; rimasta doppiamente sguarnita.
                     </li>
 
                     <li style={liStyle}>
                         La temporanea sparizione del Sabbat nella Societ&agrave; dei Fratelli, il <i>Beckoning</i> e la
-                        persecuzione della Seconda Inquisizione hanno stravolto la geografia politica del potere cainita.
+                        persecuzione della Seconda Inquisizione hanno stravolto la geografia politica del potere Cainita.
                         Ad approfittarne sono stati Neonati ed Ancillae, un tempo meri esecutori della volont&agrave;
                         dei loro sire, che hanno dovuto assumere le responsabilit&agrave; del potere. Poi, gli
                         Anarchici, che un tempo faticavano a ritagliarsi uno spazio al di fuori dello Stato Libero

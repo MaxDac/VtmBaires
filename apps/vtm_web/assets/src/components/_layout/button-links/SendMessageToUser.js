@@ -31,8 +31,7 @@ const SendMessageToUser = ({userId, onSelected}: Props): any => {
 
     return (
         <Tooltip title="Invia messaggio all'utente">
-            <IconButton edge="end"
-                        aria-label="Messaggio"
+            <IconButton aria-label="Messaggio"
                         size="large"
                         onClick={trySendMessageToUser}>
                 <MessageIcon sx={menuIconStyle} />

@@ -6,7 +6,7 @@ import subscriptionObservable from "../../services/subscriptions/ChatSubscriptio
 import type {ChatEntry} from "../../services/base-types";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 
-const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>)): any => {
+const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>) => void): any => {
     const chatToken = useSubscriptionTokenQuery();
 
     const setAdditionalEntriesRef = useRef(setAdditionalEntries);
@@ -24,8 +24,8 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
 
         const showNewChatEntry = entry => setAdditionalEntriesRef.current(es => [...es, entry]);
 
-        const performSubscription = () =>
-            subscribe(subscriptionObservable(id, chatToken), showNewChatEntry, (e, _) => {
+        const performSubscription = token =>
+            subscribe(subscriptionObservable(id, token), showNewChatEntry, (e, _) => {
                 console.error("Error while performing chat subscription.", e);
                 // showUserNotification({
                 //     type: "error",
@@ -37,7 +37,7 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
 
         if (chatToken != null && chatToken !== "") {
             console.log("subscribing");
-            const subscription = performSubscription();
+            const subscription = performSubscription(chatToken);
             return () => {
                 console.info("unsubscribing");
                 window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtChat);

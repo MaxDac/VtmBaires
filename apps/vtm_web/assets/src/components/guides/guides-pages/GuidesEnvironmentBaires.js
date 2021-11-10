@@ -156,7 +156,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Pochi nel Sabbat si resero conto delle ripercussioni che questo avrebbe avuto
-                nella politica cainita: Capital Federal divenne il fulcro di numerose riforme
+                nella politica Cainita: Capital Federal divenne il fulcro di numerose riforme
                 volte ad accrescere il valore della citt&agrave;, tra queste la riorganizzazione
                 e il potenziamento della polizia: covi Sabbat vennero divelti, e l'organizzazione
                 venne sempre di pi&ugrave; spinta verso la Provincia, la regione periferica della capitale

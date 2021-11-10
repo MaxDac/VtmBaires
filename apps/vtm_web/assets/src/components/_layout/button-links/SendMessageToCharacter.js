@@ -31,8 +31,7 @@ const SendMessageToCharacter = ({characterId, onSelected}: Props): any => {
 
     return (
         <Tooltip title="Invia messaggio al personaggio">
-            <IconButton edge="end"
-                        aria-label="Messaggio"
+            <IconButton aria-label="Messaggio"
                         size="large"
                         onClick={trySendMessageToCharacter}>
                 <EmailIcon sx={menuIconStyle} />

@@ -31,8 +31,7 @@ const ShowCharacterDashboard = ({characterId, onSelected}: Props): any => {
     if (isUserMaster(user) && characterId != null) {
         return (
             <Tooltip title="Visualizza Dashboard personaggio">
-                <IconButton edge="end"
-                            aria-label="Messaggio"
+                <IconButton aria-label="Messaggio"
                             size="large"
                             onClick={tryVisualizeCharacterDashboard(characterId)}>
                     <DashboardIcon sx={menuIconStyle} />

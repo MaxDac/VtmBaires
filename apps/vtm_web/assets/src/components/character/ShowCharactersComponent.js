@@ -24,7 +24,7 @@ const ShowCharactersComponent = ({characters}: Props): any => {
     const [filteredCharacter, setFilteredCharacter] = useState(characters);
 
     const characterActions = characterId => (
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row">
             <SendMessageToCharacter characterId={characterId} />
             <ShowCharacterSheet characterId={characterId} />
             <ShowCharacterDashboard characterId={characterId} />
@@ -35,9 +35,9 @@ const ShowCharactersComponent = ({characters}: Props): any => {
         return (
             <>
                 <Divider />
-                <ListItem key={id} disablePadding
+                <ListItem key={id}
                           secondaryAction={characterActions(id)}>
-                    <ListItemText primary={name} sx={{textAlign: "center"}} />
+                    <ListItemText primary={name} />
                 </ListItem>
             </>
         );
@@ -52,7 +52,9 @@ const ShowCharactersComponent = ({characters}: Props): any => {
 
     return (
         <Box sx={{
-            width: '100%',
+            margin: "0 auto",
+            maxWidth: "550px",
+            minWidth: "400px",
             bgcolor: 'background.paper'
         }}>
             <Grid container>

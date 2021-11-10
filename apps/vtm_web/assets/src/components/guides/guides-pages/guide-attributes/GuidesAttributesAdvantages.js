@@ -81,7 +81,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                     <li style={liStyle}>
                         <b>Dipendente</b>: Il vampiro dipende da un'altra sostanza oltre al Sangue, e la cerca attivamente
                         nel Sangue delle sue vittime. La dipendenza da una sostanza comporta che, all'assunzione, questa
-                        agisca anche sul metabolismo non-morto del cainita, producendo gli stessi effetti che avrebbe su
+                        agisca anche sul metabolismo non-morto del Cainita, producendo gli stessi effetti che avrebbe su
                         un mortale.<br />
                         <b>Nota</b>: nel sito, se il giocatore vorr&agrave; prendere questo difetto, dovr&agrave; indicare
                         due risonanze che la sostanza da cui &egrave; dipendente ispira. Se l'ultima caccia non avr&agrave;
@@ -120,7 +120,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                                 giocante all'interno del gioco.
                             </li>
                             <li>
-                                <b>Difetto: (&#9679;) Dipendente dal Sangue</b>: il sapore del Sangue di un altro cainita &egrave;
+                                <b>Difetto: (&#9679;) Dipendente dal Sangue</b>: il sapore del Sangue di un altro Cainita &egrave;
                                 pi&ugrave; dolce per il personaggio che per altri. Si sottrae un dado per ogni tiro usato per
                                 resistere ad un legame di Sangue.
                             </li>
@@ -159,10 +159,10 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                                 anche gli organi e la carne delle vittime, specialmente gli organi ricchi di sangue.
                             </li>
                             <li>
-                                <b>Difetto: (&#9679;) Esclusione di preda</b>: il cainita non pu&ograve; cibarsi di particolari
+                                <b>Difetto: (&#9679;) Esclusione di preda</b>: il Cainita non pu&ograve; cibarsi di particolari
                                 classi di prede. Se &egrave; costretto a farlo, guadagner&agrave; una <b>Macchia</b> (vedere
                                 la sezione delle meccaniche di gioco). Il personaggio guadagner&agrave; una Macchia anche se
-                                assister&agrave; alla caccia di un altro cainita ai danni della classe di prede di cui lui
+                                assister&agrave; alla caccia di un altro Cainita ai danni della classe di prede di cui lui
                                 non riesce a cibarsi senza intervenire.
                             </li>
                             <li>
@@ -172,7 +172,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                                 nell'aria o se &egrave; ad una distanza maggiore.
                             </li>
                             <li>
-                                <b>Pregio: (&#9679;&#9679;&#9679;) Stomaco di ferro</b>: il cainita pu&ograve; cibarsi normalmente
+                                <b>Pregio: (&#9679;&#9679;&#9679;) Stomaco di ferro</b>: il Cainita pu&ograve; cibarsi normalmente
                                 di sangue freddo, rancido e plasma frazionato. Non guadagner&agrave; comunque Risonanza dal sangue.
                             </li>
                         </ul>
@@ -180,7 +180,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
 
                     <li style={liStyle}>
                         <b>Mitici</b>: i seguenti Pregi e Difetti riguardano credenze e caratteristiche soprannaturali
-                        del cainita.
+                        del Cainita.
                         
                         <ul>
                             <li>
@@ -199,7 +199,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                                 </ul>
                             </li>
                             <li>
-                                <b>Difetto: (&#9679;) Blocco da Folklore</b>: il cainita ha un blocco psicologico dato da una
+                                <b>Difetto: (&#9679;) Blocco da Folklore</b>: il Cainita ha un blocco psicologico dato da una
                                 leggenda folkloristica. Il personaggio rifuggir&agrave; attivamente il confronto con questi
                                 fenomeni, oppure dovr&agrave; spendere un punto di Forza di Volont&agrave; per oltrepassarli.
                                 Il personaggio pu&ograve; avere pi&ugrave; di un blocco, e ogni blocco
@@ -220,7 +220,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                                 e a discrezione del Narratore potr&agrave; provocare altri inconvenienti al vampiro.
                             </li>
                             <li>
-                                <b>Pregio: (&#9679;&#9679;) Mangiare cibo</b>: normalmente un cainita non tollera l'ingestione di
+                                <b>Pregio: (&#9679;&#9679;) Mangiare cibo</b>: normalmente un Cainita non tollera l'ingestione di
                                 cibo. Pu&ograve; trattenerlo nello stomaco se spende vitae per simulare di essere ancora in vita,
                                 altrimenti dovr&agrave; vomitarlo subito. Personaggi con questo pregio invece riescono
                                 a mangiare senza problemi, e possono anche provare piacere, al contrario del resto che
@@ -261,7 +261,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Temperamento della Bestia</b>: il personaggio soffre la Bestia come qualsiasi altro cainita.
+                        <b>Temperamento della Bestia</b>: il personaggio soffre la Bestia come qualsiasi altro Cainita.
                         Dovr&agrave; sottoporsi agli stessi test sulla frenesia dei vampiri normali.
                     </li>
 
@@ -276,7 +276,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Maledizione di Clan</b>: il personaggio soffre della maledizione del clan del cainita che
+                        <b>Maledizione di Clan</b>: il personaggio soffre della maledizione del clan del Cainita che
                         l'ha abbracciato. La severit&agrave; del difetto &egrave; da considerarsi 1. Se il sangue
                         Debole ha acquisito il difetto <b>Temperamento della Bestia</b>, potr&agrave; acquisire
                         solamente la maledizione di clan Brujah o Gangrel, mentre potr&agrave; acquisire quella Tremere
@@ -328,7 +328,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Contatto in Camarilla</b>: il personaggio &egrave; riuscito ad amicarsi un cainita della Camarilla
+                        <b>Contatto in Camarilla</b>: il personaggio &egrave; riuscito ad amicarsi un Cainita della Camarilla
                         che lo tratta (malamente) come informatore, in cambio della possibilit&agrave; di entrare a far
                         parte della Camarilla diventando un Fratello a tutti gli effetti. Prendendo questo Pregio, si
                         deve acquisire anche un pallino di Mawla, corrispondente alla Contatto nella Camarilla.
@@ -336,7 +336,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
 
                     <li style={liStyle}>
                         <b>Sangue Incatenante</b>: il vampiro Sangue Debole pu&ograve; Abbracciare e creare legami di
-                        sangue come un cainita normale, anche se tutti i vampiri creati dal Sangue Debole, saranno
+                        sangue come un Cainita normale, anche se tutti i vampiri creati dal Sangue Debole, saranno
                         a loro volta dei Sangue Debole.
                     </li>
 

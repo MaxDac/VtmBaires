@@ -3,7 +3,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { guideStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, titleStyle} from "../GuidesStyles";
+import {Link} from "react-router-dom";
+import { GuideRoutes } from "../GuidesMain";
 
 const GuidesHome = (): any => {
     return (
@@ -25,7 +27,9 @@ const GuidesHome = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Nel sito, sar&agrave; possibile giocare solamente personaggi vampiri affiliati alla <b>Camarilla</b>.
+                Nel sito, sar&agrave; possibile giocare solamente personaggi vampiri affiliati alla <b>Camarilla</b> - 
+                per chi non ha mai giocato a Vampiri: la Masquerade&trade;, non vi preoccupate, verr&agrave; spiegato
+                tutto nell'apposita sezione di questa <Link to={GuideRoutes.environment}>guida</Link>.
                 Questo vuol dire che non si accetteranno personaggi umani, e nemmeno personaggi di linee di sangue
                 esotiche, o di clan non ufficialmente affiliati alla Camarilla. Se non siete esperti nell'ambientazione,
                 o non avete mai letto un manuale, questa guida comprende quasi tutto quello che c'&egrave; da sapere

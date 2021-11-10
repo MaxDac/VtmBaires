@@ -39,7 +39,7 @@ const OnlineControlDialog = ({closePopup}: Props): any => {
             : (<></>);
 
     const secondaryActions = o => (
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row">
             <ShowCharacterSheet characterId={o?.character?.id} onSelected={closePopup} />
             <SendMessageToUser userId={o?.user?.id} onSelected={closePopup} />
             {

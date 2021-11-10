@@ -66,6 +66,9 @@ const GuidesMenu = (): any => {
                 </ListItem>
                 <Collapse in={environmentOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.introduction)}>
+                            <ListItemText primary="Introduzione" />
+                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.glossary)}>
                             <ListItemText primary="Glossario" />
                         </ListItem>
@@ -105,7 +108,7 @@ const GuidesMenu = (): any => {
                         <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.creation)}>
                             <ListItemText primary="Creazione personaggio" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.rules)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.homeRules)}>
                             <ListItemText primary="Adattamenti" />
                         </ListItem>
                     </List>

@@ -120,7 +120,7 @@ const GuidesPlaces = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Le sue sale non sono sfarzose e nemmeno imponenti come quelli dei Domini europei, ma attualmente
-                quei Domini stanno venendo implacabilmente scovati e purgati della presenza cainita.<br />
+                quei Domini stanno venendo implacabilmente scovati e purgati della presenza Cainita.<br />
                 La nuova filosofia della Camarilla &egrave; improntata ancora di pi&ugrave; verso la Masquerade,
                 ed alla divisione dei luoghi di ritrovo in piccoli punti differenti.
             </Typography>

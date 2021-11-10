@@ -262,7 +262,7 @@ const GuidesNpcs = (props: Props): any => {
                             Aires, alcuni dei suoi trattati medici risalenti al diciannovesimo secolo.
                             Rinaldi &egrave; un sopravvissuto al Sabbat: fece parte del tradimento
                             di Milano, quando Gian Galeazzo Visconti si convert&igrave; in Principe 
-                            della Camarilla, ma &egrave; l'unica cosa degna di nota di questo cainita
+                            della Camarilla, ma &egrave; l'unica cosa degna di nota di questo Cainita
                             estremamente discreto.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
@@ -340,7 +340,7 @@ const GuidesNpcs = (props: Props): any => {
                             il pi&ugrave; consumato diplomatico Ventrue.
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
-                            La sua non-vita &egrave; nota a qualsiasi cainita con un po' di
+                            La sua non-vita &egrave; nota a qualsiasi Cainita con un po' di
                             conoscenza della Camarilla: una capacissima critica d'arte francese
                             nel periodo della Nouvelle Vague, venne Abbracciata da un Toreador 
                             ossessionato dalle parole di fuoco che periodicamente riceveva sulle 
