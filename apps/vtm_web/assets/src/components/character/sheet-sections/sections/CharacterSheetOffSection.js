@@ -1,6 +1,7 @@
 // @flow
 
 import React from "react";
+import Grid from "@mui/material/Grid";
 import {useFragment} from "react-relay";
 import {characterOffFragment} from "../../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
@@ -17,7 +18,9 @@ const CharacterSheetOffSection = ({characterQuery}: Props): any => {
         characterQuery);
 
     return (
-        <ParsedText text={sheet?.off} ignoreDefaultComponents sx={mainFontFamily} />
+        <Grid item xs={12}>
+            <ParsedText text={sheet?.off} ignoreDefaultComponents sx={mainFontFamily} />
+        </Grid>
     );
 }
 

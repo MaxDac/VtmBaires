@@ -3,22 +3,21 @@
 import React from "react";
 import {useFragment} from "react-relay";
 import {
-    characterInfoFragment, characterOffFragment,
+    characterInfoFragment, 
+    characterOffFragment,
     characterSheetFragment
 } from "../../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterSheet$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import type {CharacterFragments_characterInfo$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import {mainFontFamily} from "../../../Main.Layout.Style";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
 import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
 import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 import Stack from "@mui/material/Stack";
+import ParsedText from "../../../../_base/components/ParsedText";
 
-export const avatarHeight: number = 350;
-export const avatarWidth: number = 400;
+export const avatarWidth: number = 270;
+export const avatarHeight: number = 470;
 
 type Props = {
     characterQuery: any
@@ -43,52 +42,25 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
             : info?.name;
 
     return (
-        <Grid container>
-            <Grid item xs={12} lg={7} xl={5} sx={{
-                textAlign: "center"
+        <Stack spacing={2}>
+            <Typography sx={{
+                ...mainFontFamily,
+                color: "secondary.light",
+                fontSize: "24px"
             }}>
-                <Paper sx={{
-                    width: "410px",
-                    height: "360px",
-                    display: "inline-flex",
-                    textAlign: "center",
-                    margin: "1rem",
-                    backgroundColor: "background.paper"
-                }} variant="outlined">
-                    <Box sx={{
-                        margin: "0 auto",
-                        marginTop: "auto",
-                        marginBottom: "auto",
-                        background: `url('${sheet?.avatar ?? ""}')`,
-                        backgroundPosition: "center center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "contain",
-                        width: "400px",
-                        height: "350px"
-                    }} />
-                </Paper>
-            </Grid>
-            <Grid item xs={12} lg={5} xl={7}>
-                <Stack spacing={2}>
-                    <Typography sx={{
-                        ...mainFontFamily,
-                        color: "secondary.light",
-                        fontSize: "24px"
-                    }}>
-                        {getSheetName()}
-                    </Typography>
-                    <Typography sx={mainFontFamily}>
-                        {sheet?.description}
-                    </Typography>
-                    {
-                        off?.soundtrack != null && off.soundtrack !== ""
-                            ? (<SoundWrapperComponent soundSourceUrl={off.soundtrack} />)
-                            : (<></>)
-                    }
-                </Stack>
-            </Grid>
-        </Grid>
-    )
+                {getSheetName()}
+            </Typography>
+            <ParsedText text={sheet?.description} ignoreDefaultComponents={true} sx={{
+                ...mainFontFamily,
+                marginBottom: "10px"
+            }} />
+            {
+                off?.soundtrack != null && off.soundtrack !== ""
+                    ? (<SoundWrapperComponent soundSourceUrl={off.soundtrack} />)
+                    : (<></>)
+            }
+        </Stack>
+    );
 };
 
 export default CharacterSheetDescriptionSection;
