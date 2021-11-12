@@ -201,7 +201,7 @@ defmodule Vtm.Chats do
       case Characters.get_character_blood_potency(character_id) do
         0 -> 0
         1 -> 1
-        _ -> 2
+        _ -> 1
       end
 
     case StatusChecks.rouse_check_effect(character_id, false) do

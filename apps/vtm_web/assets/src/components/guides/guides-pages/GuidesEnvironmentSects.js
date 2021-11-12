@@ -4,7 +4,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { GuideRoutes } from "../GuidesMain";
-import { guideStyle, storyStyle, titleStyle } from "../GuidesStyles";
+import { guideStyle, liStyle, storyStyle, titleStyle } from "../GuidesStyles";
 
 type Props = {
 
@@ -102,6 +102,70 @@ const GuidesEnvironmentSects = (props: Props): any => {
                 di una singola setta, senza rischiare di disperdere e spezzettare le trame per le differenti fazioni.
                 L'unica eccezione saranno ovviamente i Sangue Debole, il cui gioco comunque verr&agrave; considerato
                 principalmente in funzione del loro status (cacciati a vista o meno) dalla Torre d'Avorio.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    Clans
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Le Ultime Notti hanno trasformato i Clan, le loro sorti e le loro stesse caratteristiche. In seguito
+                potrete trovare una rapida lista dei clan e di come sono cambiati nella versione 5:
+                
+                <ul>
+                    <li style={liStyle}><b>Banu Haqim (ex Assamiti)</b>: hanno di recente formalmente richiesto ed ottenuto
+                    di entrare a far parte della Camarilla.</li>
+                    <li style={liStyle}><b>Brujah</b>: una delle cause che ha convinto la Camarilla ad accogliere i Banu Haqim
+                    tra le sue fila &egrave; stata la defezione di massa di questo clan, dopo il tradimento
+                    di Theo Bell al Conclave di Praga. Non tutti i Brujah hanno deciso di seguirlo, ed &egrave; considerato
+                    perfettamente lecito creare un personaggio Brujah affiliato alla Camarilla.</li>
+                    <li style={liStyle}><b>Gangrel</b>: il clan Gangrel &egrave; ufficialmente indipendente dalla defezione di Xaviar.
+                        Anche alcuni Gangrel, come nel caso dei Brujah, hanno per&ograve; deciso di rimanere nella Camarilla,
+                        quindi &egrave; lecito creare personaggi Gangrel affiliati alla Setta.<br />
+                        Poco &egrave; cambiato dalla terza edizione di Vampiri: la Masquerade&trade;, sar&agrave;
+                        possibile interpretare liberamente un componente del clan come indipendente, affiliato
+                        della Camarilla o Anarchico.
+                    </li>
+                    <li style={liStyle}><b>Hecata (ex Giovanni)</b>: ex clan Giovanni. i Giovanni continuano a formare la maggioranza del clan,
+                    che adesso ospita anche gli elementi del clan dei Cappadoci nelle loro diverse emanazioni,
+                    quasi del tutto spazzato via dopo la Diablerie sull'Antidiluviano operata da Augustus Giovanni.</li>
+                    <li style={liStyle}><b>Lasombra</b>: dietro impulso degli <i>Amici Noctis</i>, anche i Lasombra hanno ufficialmente
+                    richiesto ed ottenuto di entrare a far parte della Camarilla, con un accordo molto meno
+                    vantaggioso rispetto a quello strappato dai Banu Haqim: ogni nuovo Abbraccio dovr&agrave;
+                    essere pagato con l'uccisione di un membro Anziano del loro stesso clan.</li>
+                    <li style={liStyle}><b>Malkavian</b>: nell'ambientazione si considera che i Malkavian hanno subito pi&ugrave;
+                        perdite in termini di non-vite rispetto agli altri clan, dato che la loro maledizione
+                        ha a che fare con forme pi&ugrave; o meno accentuate di follia. Nonostante questo, 
+                        il clan non subir&agrave; nessuna restrizione in fase di creazione, e potranno
+                        essere creati personaggi appartenenti sia ad Anarchici che alla Camarilla.
+                    </li>
+                    <li style={liStyle}><b>Ministry (ex Seguaci di Set) (*)</b>: (ancora da definire)</li>
+                    <li style={liStyle}><b>Ravnos (*)</b>: la Settimana degli Incubi, in cui l'Antidiluviano del clan si &egrave;
+                        risvegliato a cavallo tra il Ventesimo e il Ventunesimo secolo, &egrave; avvenuta. Durante questo periodo,
+                        inonando le menti dei componenti del clan di incubi ed incitandoli a frenesie incontrollate, l'Antidiluviano 
+                        ha di fatto decimato gran parte del clan dopo una settimana. I Ravnos sono estremamente rari, e 
+                        l'iscrizione potr&agrave; venire negata.
+                    </li>
+                    <li style={liStyle}><b>Toreador</b>: il clan Toreador fa ancora parte della Camarilla, ed &egrave; stato quello
+                        meno interessato dalla violenza della Seconda Inquisizione. In altre parole, poco &egrave; cambiato 
+                        rispetto alla Terza Edizione.
+                    </li>
+                    <li style={liStyle}><b>Tremere</b>: a seguito dell'attacco della Seconda Inquisizione alla Haus de Hexe, la Chantry
+                    principale Tremere a Vienna, molti dei legami di sangue che tenevano saldamente legati i membri del clan sono stati
+                    spezzati, il Concilio dei Sette &egrave; disperso. Come conseguenza, i Tremere, una volta potenti e uniti, hanno perso 
+                    la loro rigida organizzazione gerarchica piramidale. Il clan si &egrave; spaccato in quattro differenti "sette", 
+                    ma la maggior parte di loro continua a far parte della Camarilla.</li>
+                    <li style={liStyle}><b>Tzimisce (*)</b>: la maggior parte degli Tzimisce &egrave; partita coi contingenti Sabbat
+                    alla volta del Medio Oriente per combattere la Guerra di Gehenna, e al contrario dei Lasombra non ha tradito la causa.<br />
+                    Un personaggio Tzimisce per questa ragione &egrave; considerato raro, la sua accettazione non deve essere data per scontata,
+                    e dovr&agrave; essere fornita un'ottima motivazione in fase di creazione.</li>
+                    <li style={liStyle}><b>Ventrue</b>: il clan Ventrue &egrave; fondamento della Camarilla, ed si &egrave; ovviamente trovato 
+                    a dover risolvere la maggior parte dei problemi dovuti al disfacimento della Camarilla. Non sar&agrave; impedita la creazione
+                    di personaggi Ventrue affiliati alla Camarilla. Personaggi Ventrue Anarchici, per&ograve;, dovranno essere adeguatamente 
+                    giustificati.</li>
+                </ul>
             </Typography>
 
             <Typography paragraph sx={guideStyle}>

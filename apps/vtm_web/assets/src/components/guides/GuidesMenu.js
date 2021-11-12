@@ -109,7 +109,7 @@ const GuidesMenu = (): any => {
                             <ListItemText primary="Creazione personaggio" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.homeRules)}>
-                            <ListItemText primary="Adattamenti" />
+                            <ListItemText primary="Stati di Esistenza & Adattamenti" />
                         </ListItem>
                     </List>
                 </Collapse>

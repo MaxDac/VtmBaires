@@ -454,6 +454,311 @@ const GuidesHomeRules = (): any => {
                     </TableContainer>
                 </Box>
             </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Umanit&agrave; e Macchie
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La discesa nell'Oscurit&agrave; tra le grinfie della Bestia &egrave; un percorso che 
+                ogni Cainita percorre, indipendentemente dal fatto che lo voglia o meno. Col passare della
+                non-vita, la parvenza di umanit&agrave; che conservava dall'Abbraccio si incrina, si 
+                macchia sempre di pi&ugrave; di peccati ispirati dalla <b>Fame</b> e dalla <b>Bestia</b>.<br />
+                Non &egrave; un problema di <b>se</b>, ma di <b>quando</b> il Cainita perder&agrave; il
+                controllo, e far&agrave; qualcusa di cui, alla fine della Notte, non riuscir&agrave; 
+                pi&ugrave; a pentirsi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La gestione dell'Umanit&agrave; &egrave; un'altra delle cose che i nuovi manuali
+                affrontano in modo differente dai precedenti. Non ci sar&agrave; pi&ugrave; la possibilit&agrave;
+                di intraprendere Sentieri differenti dall'Umanit&agrave;, ma sar&agrave; possibile 
+                definire una gerarchia di <Link to={GuideRoutes.creation}>Convinzioni</Link> del personaggio.
+                Se il personaggio contravverr&agrave; ad una di queste Convinzioni durante una 
+                giocata, acquisir&agrave; una macchia a discrezione del Narratore. Alla fine della giocata,
+                il personaggio dovr&agrave; tirare con un ammontare pary a <b>10 - Umanit&agrave; - Macchie</b>, 
+                per un minimo di 1. Se, per esempio, il personaggio ha Umanit&agrave; 6 e ha ricevuto 
+                due Macchie durante la giocata, avr&agrave; a disposizione 2 dadi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Se il tiro ha successo, il personaggio sentir&agrave; rimorso, e potr&agrave; mantenere
+                il suo punteggio di Umanit&agrave;. In caso contrario, perder&agrave; un punto di 
+                Umanit&agrave;.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Nel caso in cui, durante una giocata, il personaggio "riempir&agrave;" tutte le caselle
+                vuote di Umanit&agrave; (3 Macchie ad Umanit&agrave; 7, 4 a Umanit&agrave; 6 e cos&igrave;
+                via), ogni azione che and&agrave; contro le Convinzioni del personaggio comporter&agrave;
+                un tiro di Frenesia a Difficolt&agrave; 4 prima di essere effettuata, e se riuscir&agrave;
+                comporter&agrave; la perdita di un punto, o danno, alla Forza di Volont&agrave;.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Frenesia
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La Frenesia &egrave; l'espressione della Bestia, che prende il controllo del corpo del
+                Cainita finch&eacute; la causa scatenante non svanisce. La Frenesia pu&ograve; essere
+                di tre tipi: 
+                
+                <ul>
+                    <li>
+                        la Frenesia di <b>Furia</b> scaturisce dalla rabbia per una umiliazione
+                        o per l'uccisione di una persona cara, di un amico
+                    </li>
+                    <li>
+                        la Frenesia di <b>Fame</b>, quando la Fame raggiunge livelli di guardia e il 
+                        Cainita percepisce Sangue nelle vicinanze
+                    </li>
+                    <li>
+                        la Frenesia di <b>Terrore</b>, o <b>R&ouml;tschreck</b> invece, &egrave; la 
+                        risposta della Bestia ad un pericolo immediato di Morte, come il Fuoco o la 
+                        luce del Sole. Pu&ograve; anche essere causata da troppe ferite subite.
+                    </li>
+                </ul>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un vampiro pu&ograve; resistere alla Frenesia: in questo caso, dovr&agrave; tirare 
+                un ammontare pari a <b>Forza di Volont&agrave; pi&ugrave; un terzo dell'Umanit&agrave;
+                arrotondato per difetto</b>, ad una Difficolt&agrave; determinata dal Narratore.<br />
+                C'&egrave; anche la possibilit&agrave; di "cavalcare" la Bestia, lasciando che 
+                prenda il sopravvento, mantenendo un barlume di lucidit&agrave; tale da poterla 
+                direzionare dove pi&ugrave; appropriato. In questo caso non sar&agrave; necessario
+                nessun tiro.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Di seguito, potrete trovare alcuni esempi di Difficolt&agrave;
+
+                <Box sx={{padding: "10px"}}>
+                    <TableContainer component={Paper} sx={{
+                        width: "60%", 
+                        margin: "0 auto" 
+                    }}>
+                        <Table aria-label="Difficoltà Frenesia">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Causa</StyledTableCell>
+                                    <StyledTableCell>Tipo di Frenesia</StyledTableCell>
+                                    <StyledTableCell>Difficolt&agrave;</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umiliazione pubblica
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Furia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Insultato da un inferiore
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Furia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Uccisione di un amico
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Furia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Danno ad un'Ancora o ad un amato
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Furia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Uccisione di un'Ancora o ad un amato
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Furia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        4
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Piccola ferita aperta, o odore di Sangue<br />
+                                        con Fame a 4 o 5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fame
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Assaggio di Sangue con Fame 4 o 5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fame
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Fallimento del <i>Rouse Check</i> <br />
+                                        con Fame 4 o 5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fame
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        4
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Fal&ograve;
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        R&ouml;tschreck
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Venire bruciato
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        R&ouml;tschreck
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Essere dentro un edificio in fiamme
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        R&ouml;tschreck
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Luce del Sole oscurata
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        R&ouml;tschreck
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Diretta esposizione alla luce solare
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        R&ouml;tschreck
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        4
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Legame di Sangue
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il Sangue dei Cainiti ha anche il potere di ispirare emozioni di forte lealt&agrave; e infatuazione
+                a mortali e altri Cainiti. Ogni sorso di Sangue aumenta il sentimento per il Cainita, a patto che 
+                il Sangue sia assunto in notti differenti. Il sentimento ispirato dal Sangue non &egrave; per&ograve;
+                un sentimento sano, umano, ma un legame inficiato dall'ossessione, oscuro, pervasivo ma negativo.
+                Gelosia, possessione sono attributi di questo sentimento, anche se l'Asservito si impegner&agrave;
+                con tutto s&eacute; stesso per servire come pu&ograve; il Sire.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un Cainita pu&ograve; legare col Sangue un numero di Cainiti pari al suo livello di Potenza del 
+                Sangue; se lega col Sangue un Cainita supplementare, il legame pi&ugrave; vecchio svanir&agrave; nel
+                giro di una settimana. Inoltre, per legare col Sangue un altro Cainita, il Sangue deve sgorgare 
+                direttamente dalle vene del Sire, e non devono passare che secondi da quando la Vitae esce dalle
+                vene, altrimenti il Sangue perde il suo potere. Un umano, invece, pu&ograve; essere legato
+                anche con sangue conservato in contenitori a tenuta stagna, tenuto lontano dalla luce solare, e 
+                non c'&egrave; limite al numero di mortali che il Cainita pu&ograve; legare col Sangue.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                L'effetto del Legame di Sangue ha tre livelli differenti, a seconda di quante notti l'Asservito
+                beve il sangue del Sire: la prima notte, il sentimento &egrave; intenso ma ancora ragionevole, 
+                l'Asservito potr&agrave; odiare o ammirare il Sire, ma non gli sar&agrave; indifferente.<br />
+                Al secondo sorso, l'Asservito comincia a sperimentare gelosia, possessione, infatuazione e
+                ossessione per il Sire.<br />
+                Al terzo sorso, il legame &egrave; totale: a questo livello, la parola del Sire &egrave; un 
+                ordine, e per resistere l'Asservito dovr&agrave; avere successo in un tiro 
+                di <b>Fermezza + Intelligenza con Difficolt&agrave; pari al livello del legame di Sangue</b>.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il Legame di Sangue perde un livello di forza dopo un anno di distanza dell'Asservito dal Sire.
+                Nel caso dei mortali, questo pu&ograve; essere pericoloso: il Legame ferma il processo di 
+                invecchiamento, riportando anzi il Mortale ad un'et&agrave; addirittura inferiore rispetto
+                a quella in cui il Legame &egrave; stato formato, ma non appena l'assunzione di Vitae cessa,
+                il processo di invecchiamento recupera il tempo perso, possibilmente riducendo l'Asservito
+                a cenere nel giro di minuti.
+            </Typography>
         </>
     );
 }

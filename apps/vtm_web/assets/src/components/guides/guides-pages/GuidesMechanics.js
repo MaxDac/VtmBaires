@@ -11,7 +11,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
+import {Link} from "react-router-dom";
 import {guideStyle, titleStyle} from "../GuidesStyles";
+import {GuideRoutes} from "../GuidesMain";
 
 const GuidesMechanics = (): any => {
     return (
@@ -139,6 +141,157 @@ const GuidesMechanics = (): any => {
                                     <StyledTableCell>
                                         Quasi impossibile (trovare un senza tetto in particolare a Los Angeles in una notte,
                                         recitare alla perfezione un testo in lingua straniera sconosciuta)
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Esiti
+                </h4>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Nella versione 5, oltre a cambiare la meccanica del tiro di dado e la determinazione dei successi, anche i possibili esiti
+                di un tiro sono cambiati, ed esprimono la complessit&agrave; dell'interazione col successo o l'insuccesso di un 
+                vampiro che deve sempre confrontarsi con la sua Bestia. In particolare, la <Link to={GuideRoutes.homeRules}>Fame</Link> ora
+                ha un influsso potente sulle azioni del Cainita: pi&ugrave; aumenta, pi&ugrave; le azioni del vampiro rischieranno di
+                essere dettate dalla Bestia. Quando un personaggio tira un dado, alcuni dadi appariranno in rosso: il numero di 
+                questi dadi dipende dal livello di Fame del personaggio, e possono condurre a differenti esiti.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Gli esiti dei dadi saranno calcolati automaticamente dal sistema di gioco, ma &egrave; necessario sapere quali sono 
+                poich&eacute; il personaggio dovr&agrave; basare almeno parte della sua interpretazione su questi.
+
+                <Box sx={{padding: "10px"}}>
+                    <TableContainer component={Paper} sx={{
+                        width: "100%", 
+                        margin: "0 auto" 
+                    }}>
+                        <Table aria-label="Esiti">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Tiro di dadi</StyledTableCell>
+                                    <StyledTableCell>Esempio</StyledTableCell>
+                                    <StyledTableCell>Esito</StyledTableCell>
+                                    <StyledTableCell>Descrizione</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Sucessi maggiori o uguali della Difficolt&agrave;<br />
+                                        o del tiro contrastato, con meno di 2 dadi a 10
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        2 6 7 5 a Diff. 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Successo
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Il personaggio riesce nell'azione. A seconda del numero di successi,
+                                        il Narratore potr&agrave; descrivere un'azione pi&ugrave; o meno 
+                                        palesemente riuscita.
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Il tiro presenta successi, ma in numero inferiore<br />
+                                        rispetto alla Difficolt&agrave; o al tiro contrastato
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        2 6 4 5 a Diff. 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fallimento
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Il personaggio fallisce l'azione, semplicemente.
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Nessun successo (tutti i dadi minori di 6)
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        2 1 4 5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fallimento totale
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        A discrezione del Narratore, pu&ograve; prendere il posto dell'insuccesso 
+                                        critico nelle precedenti versioni dei manuali. Nelle giocate Free Play,
+                                        &egrave; da considerarsi un totale fallimento di ci&ograve; che si sta
+                                        tentando di fare.
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Due o pi&ugrave; dieci in un tiro
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        10 10 5 6 a Diff. 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Successo critico
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Il successo critico rappresenta un'esecuzione perfetta di un'azione. Si 
+                                        ottiene con almeno 2 dadi pari a 10. In questo caso, la coppia di 10 vale 
+                                        doppio (4 successi). I 10 valgono doppi solo a coppie, quindi un tiro con
+                                        3 dadi a 10 equivale a 5 successi, non 6.
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Numero insufficiente di successi <br />
+                                        (minori della Difficolt&agrave; <br />
+                                        minori del tiro contrastato)
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <span style={{color: "red"}}>2 1</span> 5 6 a Diff. 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Fallimento bestiale
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Il fallimento bestiale differisce dal fallimento normale nel fatto che,
+                                        per un qualche motivo, la Bestia del personaggio si infuria per il 
+                                        mancato successo, e si manifesta in modo subdolo. Gli effetti di un 
+                                        Fallimento Bestiale portano molto spesso all'<b>insorgere della Compulsione
+                                        di Clan</b> come un atteggiamento che il vampiro considerer&agrave; del tutto
+                                        naturale e normale. In Giocate Libere si potr&agrave; interpretare la 
+                                        Compulsione di Clan (per Caitiff, o Vili, e Sangue Debole, aumenter&agrave;
+                                        di un livello la Fame), mentre gli effetti in una giocata gestita saranno 
+                                        a discrezione del Narratore.
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Un gruppo di due dieci, di cui uno con un Dado Fame
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <span style={{color: "red"}}>10</span> 10 5 6 a Diff. 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Successo caotico
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Non solo nell'insuccesso, ma anche un successo troppo riuscito pu&ograve; 
+                                        ispirare l'arroganza della Bestia. Un successo caotico &egrave; stato
+                                        ottenuto anche grazie all'influsso sottile e inconscio della Bestia,
+                                        che si manifesta rendendo l'azione <b>troppo</b> spettacolare. Le
+                                        conseguenze di un Successo caotico possono essere perdita di Vantaggi,
+                                        un'infrazione della Masquerade (il successo &egrave; ottenuto grazie
+                                        alle capacit&agrave; soprannaturali del vampiro), o una <b>
+                                            Macchia</b> all'Umanit&agrave;.
                                     </StyledTableCell>
                                 </StyledTableRow>
                             </TableBody>
@@ -459,13 +612,95 @@ const GuidesMechanics = (): any => {
 
                 <ul>
                     <li>
-                        <b>Danni superficiali</b>: gli umani subiranno questi danni normalmente, mentre i vampiri dimezzeranno 
-                        questo tipo di danni, arrotondando per difetto, prima di applicarli al loro totalizzatore di Salute.
-                        <b>Danni aggravati</b>: per gli umani, questi tipi di danno sono potenzialmente fatali, cos&igrave; come
-                        per i vampiri, che non dimezzeranno i danni in questo caso.
+                        <b>Danni superficiali</b>: gli umani e i Sangue Debole subiranno questi danni normalmente, mentre 
+                        i vampiri li dimezzeranno arrotondando per difetto, prima di applicarli al loro totalizzatore di Salute.
+                        Per i vampiri, armi da taglio o da fuoco provocano questo tipo di danno, mentre per gli umani sono
+                        da considerarsi danni Aggravati.
+                    </li>
+                    <li>
+                        <b>Danni aggravati</b>: umani (e Sangue Debole) e vampiri subiscono questi danni da fonti differenti.
+                        Per gli umani, fuoco, danni da taglio o da arma da fuoco sono considerati aggravati, e metteranno in
+                        serio pericolo la vita (o non-vita) dei personaggi. Per i vampiri, saranno considerati danni 
+                        Aggravati solamente il fuoco, la luce solare, e armi soprannaturali, come le zanne di altri vampiri
+                        o le propaggini generate con la Disciplina Proteide.<br />
+                        Nemmeno i vampiri potranno dimezzare questo tipo di danno.
                     </li>
                 </ul>
+            </Typography>
 
+            <Typography paragraph>
+                <TableContainer component={Paper} sx={{ width: "100%", margin: "0 auto" }}>
+                    <Table aria-label="Tabella dei Danni">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Fonte del danno</StyledTableCell>
+                                <StyledTableCell>Umani</StyledTableCell>
+                                <StyledTableCell>Sangue Debole</StyledTableCell>
+                                <StyledTableCell>Vampiri</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Pugni, bastoni, mazze
+                                </StyledTableCell>
+                                <StyledTableCell>Danni superficiali</StyledTableCell>
+                                <StyledTableCell>Danni superficiali</StyledTableCell>
+                                <StyledTableCell>Danni superficiali (dimezzati per difetto)</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Coltelli, Spade, Frecce
+                                </StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni superficiali (dimezzati per difetto)</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Armi da fuoco
+                                </StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni superficiali (dimezzati per difetto)</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Armi da fuoco di grosso<br /> calibro mirate alla testa
+                                </StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Fuoco
+                                </StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                                <StyledTableCell>Danni aggravati</StyledTableCell>
+                            </StyledTableRow>
+
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    Luce Solare
+                                </StyledTableCell>
+                                <StyledTableCell>Nessun danno</StyledTableCell>
+                                <StyledTableCell>1 danno superficiale per turno,<br />ogni 3 turni se coperti o con cielo nuvoloso</StyledTableCell>
+                                <StyledTableCell>Danni aggravati pari alla Severit&agrave;<br />
+                                della Maledizione (vedi <Link to={GuideRoutes.homeRules}>Potenza del sangue</Link>)<br />
+                                per turno</StyledTableCell>
+                            </StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
                 Se il personaggio ha riempito tutte le caselle di Salute con danni superficiali, i danni che subir&agrave;  
                 successivamente dovranno essere considerati come <b>Aggravati</b>. Se ad esempio un personaggio ha Costituzione 3,
                 e quindi possiede 6 caselle di Salute, dopo il sesto danno Superficiale, dovr&agrave; cominciare ad assegnare danni 
@@ -473,6 +708,12 @@ const GuidesMechanics = (): any => {
                 contatore di Salute segner&agrave; 3 danni di tipi Aggravato e 3 di tipo Superficiale. I danni aggravati si 
                 aggiungeranno direttamente al conteggio degli Aggravati, quindi se, oltre ai 9 danni superficiali, subir&agrave; 
                 anche 2 danni Aggravati, il suo totalizzatore segner&agrave; 5 danni Aggravati e 1 Superficiale.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Tipi di danno
+                </h4>
             </Typography>
 
             <Typography paragraph style={guideStyle}>

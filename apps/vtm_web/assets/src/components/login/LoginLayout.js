@@ -56,7 +56,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                 xs: 'top center',
                 sm: 'left top',
             },
-            backgroundBlendMode: "hard-light"
+            // backgroundBlendMode: "hard-light"
         }}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7}>

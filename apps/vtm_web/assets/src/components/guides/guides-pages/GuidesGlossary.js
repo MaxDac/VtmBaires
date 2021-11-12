@@ -76,63 +76,18 @@ const GuidesGlossary = (props: Props): any => {
                         Leggenda vuole che i tredici grandi clan siano originati da altrettanti matusalemme, Terza
                         Generazione (da intendere come progenie della progenie, "nipoti" di Caino). Durante la storia
                         i clan hanno cambiato consuetudini, facce, e a volte sono stati persino completamente trasformati
-                        a seguito delle Diablerie sofferte dai membri della Terza Generazione. Nelle Ultime Notti,
-                        verranno considerati i seguenti clan, dei quali verr&agrave; dato solo un aggiornamento rispetto
-                        ai fatti descritti nelle versioni precedenti dei manuali (quelli marcati con (*) sono da
-                        considerarsi estremamente rari). Per maggior informazioni, consultate i manuali o i contenuti
-                        disponibili online (vedi <Link to={GuideRoutes.credits}>Credits</Link>):
-                        <ul>
-                            <li style={liStyle}><b>Banu Haqim (ex Assamiti)</b>: hanno di recente formalmente richiesto ed ottenuto
-                            di entrare a far parte della Camarilla.</li>
-                            <li style={liStyle}><b>Brujah</b>: una delle cause che ha convinto la Camarilla ad accogliere i Banu Haqim
-                            tra le sue fila &egrave; stata la defezione di massa di questo clan, dopo il tradimento
-                            di Theo Bell al Conclave di Praga. Non tutti i Brujah hanno deciso di seguirlo, ed &egrave; considerato
-                            perfettamente lecito creare un personaggio Brujah affiliato alla Camarilla.</li>
-                            <li style={liStyle}><b>Gangrel</b>: il clan Gangrel &egrave; ufficialmente indipendente dalla defezione di Xaviar.
-                                Anche alcuni Gangrel, come nel caso dei Brujah, hanno per&ograve; deciso di rimanere nella Camarilla,
-                                quindi &egrave; lecito creare personaggi Gangrel affiliati alla Setta.<br />
-                                Poco &egrave; cambiato dalla terza edizione di Vampiri: la Masquerade&trade;, sar&agrave;
-                                possibile interpretare liberamente un componente del clan come indipendente, affiliato
-                                della Camarilla o Anarchico.
-                            </li>
-                            <li style={liStyle}><b>Hecata (ex Giovanni)</b>: ex clan Giovanni. i Giovanni continuano a formare la maggioranza del clan,
-                            che adesso ospita anche gli elementi del clan dei Cappadoci nelle loro diverse emanazioni,
-                            quasi del tutto spazzato via dopo la Diablerie sull'Antidiluviano operata da Augustus Giovanni.</li>
-                            <li style={liStyle}><b>Lasombra</b>: dietro impulso degli <i>Amici Noctis</i>, anche i Lasombra hanno ufficialmente
-                            richiesto ed ottenuto di entrare a far parte della Camarilla, con un accordo molto meno
-                            vantaggioso rispetto a quello strappato dai Banu Haqim: ogni nuovo Abbraccio dovr&agrave;
-                            essere pagato con l'uccisione di un membro Anziano del loro stesso clan.</li>
-                            <li style={liStyle}><b>Malkavian</b>: nell'ambientazione si considera che i Malkavian hanno subito pi&ugrave;
-                                perdite in termini di non-vite rispetto agli altri clan, dato che la loro maledizione
-                                ha a che fare con forme pi&ugrave; o meno accentuate di follia. Nonostante questo, 
-                                il clan non subir&agrave; nessuna restrizione in fase di creazione, e potranno
-                                essere creati personaggi appartenenti sia ad Anarchici che alla Camarilla.
-                            </li>
-                            <li style={liStyle}><b>Ministry (ex Seguaci di Set) (*)</b>: (ancora da definire)</li>
-                            <li style={liStyle}><b>Ravnos (*)</b>: la Settimana degli Incubi, in cui l'Antidiluviano del clan si &egrave;
-                                risvegliato a cavallo tra il Ventesimo e il Ventunesimo secolo, &egrave; avvenuta. Durante questo periodo,
-                                inonando le menti dei componenti del clan di incubi ed incitandoli a frenesie incontrollate, l'Antidiluviano 
-                                ha di fatto decimato gran parte del clan dopo una settimana. I Ravnos sono estremamente rari, e 
-                                l'iscrizione potr&agrave; venire negata.
-                            </li>
-                            <li style={liStyle}><b>Toreador</b>: il clan Toreador fa ancora parte della Camarilla, ed &egrave; stato quello
-                                meno interessato dalla violenza della Seconda Inquisizione. In altre parole, poco &egrave; cambiato 
-                                rispetto alla Terza Edizione.
-                            </li>
-                            <li style={liStyle}><b>Tremere</b>: a seguito dell'attacco della Seconda Inquisizione alla Haus de Hexe, la Chantry
-                            principale Tremere a Vienna, molti dei legami di sangue che tenevano saldamente legati i membri del clan sono stati
-                            spezzati, il Concilio dei Sette &egrave; disperso. Come conseguenza, i Tremere, una volta potenti e uniti, hanno perso 
-                            la loro rigida organizzazione gerarchica piramidale. Il clan si &egrave; spaccato in quattro differenti "sette", 
-                            ma la maggior parte di loro continua a far parte della Camarilla.</li>
-                            <li style={liStyle}><b>Tzimisce (*)</b>: la maggior parte degli Tzimisce &egrave; partita coi contingenti Sabbat
-                            alla volta del Medio Oriente per combattere la Guerra di Gehenna, e al contrario dei Lasombra non ha tradito la causa.<br />
-                            Un personaggio Tzimisce per questa ragione &egrave; considerato raro, la sua accettazione non deve essere data per scontata,
-                            e dovr&agrave; essere fornita un'ottima motivazione in fase di creazione.</li>
-                            <li style={liStyle}><b>Ventrue</b>: il clan Ventrue &egrave; fondamento della Camarilla, ed si &egrave; ovviamente trovato 
-                            a dover risolvere la maggior parte dei problemi dovuti al disfacimento della Camarilla. Non sar&agrave; impedita la creazione
-                            di personaggi Ventrue affiliati alla Camarilla. Personaggi Ventrue Anarchici, per&ograve;, dovranno essere adeguatamente 
-                            giustificati.</li>
-                        </ul>
+                        a seguito delle Diablerie sofferte dai membri della Terza Generazione. Per pi&ugrave; informazioni
+                        riguardo ai clan, puoi consultare la relativa <Link to={GuideRoutes.clans}>Sezione della guida</Link>.
+                    </li>
+                    <li style={liStyle}>
+                        <b>Diablerie</b>: chiamata anche <b>Amaranth</b> o <b>Amaranthus</b>, &egrave; l'equivalente del cannibalismo per gli umani,
+                        solo che a venire consumata in questo caso &egrave; l'anima stessa della vittima. Consiste nel consumare completamente la Vitae
+                        della vittima, quindi ingaggiare una battaglia spirituale con la stessa, finché la sua Volont&agrave; non cede, e la Diablerie
+                        &egrave; completa.<br />
+                        Tramite la Diablerie, il perpetratore imprigiona dentro di s&eacute; l'anima della vittima, e se questa era di Generazione
+                        minore rispetto a quella del perpetratore, quest'ultimo la aumenter&agrave;, dipendendo dalla differenza tra i due valori.
+                        La Diablerie &egrave; l'unico modo che un vampiro di Sangue Debole ha per diventare vampiro a tutti gli effetti: se infatti 
+                        la commette su un vampiro anche solo di Tredicesima generazione, lui stesso diventer&agrave; di Tredicesima generazione.
                     </li>
                     <li style={liStyle}>
                         <b>Discipline</b>: i poteri dei cainiti, esercitati "bruciando" o utilizzando una variabile

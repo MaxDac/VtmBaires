@@ -2,7 +2,9 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { guideStyle, titleStyle } from "../GuidesStyles";
+import {Link} from "react-router-dom";
+import {guideStyle, titleStyle} from "../GuidesStyles";
+import {GuideRoutes} from "../GuidesMain";
 
 const GuidesAttributes = (): any => {
     return (
@@ -38,6 +40,28 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
+                    Maledizione e Compulsione
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il Sangue del Clan influenza in maniera a volte sottile, a volte tragicamente evidente la non-vita
+                e il comportamento di un vampiro. Solo <b>Caitiff</b>, i Vili senza Clan, e i Sangue Debole 
+                non soffrono di queste condizioni, e questo &egrave; in parte la ragione della loro 
+                ostracizzazione da parte degli altri Clan.<br />
+                Mentre la Maledizione ha un effetto permanente, la Compulsione &egrave; pi&ugrave; sottile.
+                Influenza in modo lieve qualsiasi azione del personaggio, e si manifesta in modo prepotente
+                quando il tiro di un dado risulta in un <Link to={GuideRoutes.mechanics}>Fallimento Bestiale</Link>.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    Clan Giocabili
+                </h2>
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
                     Banu Haqim
                 </h3>
             </Typography>
@@ -49,6 +73,15 @@ const GuidesAttributes = (): any => {
                 Sono stati recentemente accettati nella Camarilla. La loro debolezza &egrave; una strana 
                 dipendenza dal sangue degli altri cainiti, e la difficolt&agrave; che dimostrano nel resistere
                 alla tentazione della Diablerie.<br />
+                <b>Maledizione</b>: da tempo immemore, i Banu Haqim hanno un debole per il sangue Cainita. Se 
+                assumono l'equivalente di un punto di Fame in Sangue, dovranno testare per la Frenesia di Rabbia
+                con una Difficolt&agrave; pari a 2 + Severit&agrave; della Maledizione. Se falliscono, sentiranno
+                il bisogno di continuare a bere Sangue Cainita, anche fino alla Diablerie.<br />
+                <b>Compulsione</b>: per il resto della scena il Cainita dovr&agrave; punire col Sangue chiunque
+                agisce in contrasto alle sue convinzioni, umano o Cainita. Finch&eacute; non si sar&agrave; dissetato 
+                con almeno un livello di Fame col Sangue del trasgressore, ogni suo ammontare diminuir&agrave; di 3. 
+                Ovviamente, se riesce nel suo intento, potr&agrave; subire anche la Maledizione di Clan se la vittima 
+                &egrave; un Cainita a sua volta.<br />
                 <b>Affiliazioni</b>: Camarilla, o Indipendenti.<br />
                 <b>Discipline</b>: Oscurazione, Blood Sorcery, Velocit&agrave;.
             </Typography>
@@ -65,6 +98,15 @@ const GuidesAttributes = (): any => {
                 recente abbandono di massa del clan dalla Camarilla. Alcuni cainiti <br />
                 La maledizione del loro sangue &egrave; la tendenza alla frenesia, sull'onda dell'ira che 
                 esprime il loro Sangue.<br /> 
+                <b>Maledizione</b>: i Cainiti del clan Brujah soffrono la Bestia molto pi&ugrave; degli altri clan, e tendono a 
+                scattare ad ogni provocazione. I personaggi dovranno sottrarre un numero di dadi pari alla Severit&agrave; della
+                Maledizione all'ammontare per resistere alla Frenesia di Rabbia. L'ammontare non potr&agrave; scendere sotto l'1.<br />
+                <b>Compulsione</b>: la Compulsione del Clan Brujah &egrave; quella di affermare la loro ribellione, sia convincendo
+                (anche con la forza se necessario) un'altra persona del proprio punto di vista in versione anti autoritaria, o
+                disubbedendo ad ordini, diretti od indiretti, da parte di ci&ograve; che lui considera l'autorit&agrave; - dal
+                rifiutarsi apertamente di eseguire un ordine, oppure trasgredendo volontariamente l'etichetta di un luogo, ad 
+                esempio l'Elysium. Finch&eacute; non avr&agrave; ottemperato a questo dettame del Sangue, l'ammontare di ogni 
+                suo tiro di dado sar&agrave; ridotto di 2.<br />
                 <b>Affiliazioni</b>: Anarchici, pochi cainiti hanno deciso di rimanere nella Camarilla.<br />
                 <b>Discipline</b>: Ascendente, Potenza, Velocit&agrave;.
             </Typography>
@@ -82,8 +124,239 @@ const GuidesAttributes = (): any => {
                 da un paio di decenni abbandonato in massa la Camarilla per rendersi indipendente, o anarchico.<br />
                 La maledizione del loro sangue &egrave; la tendenza alla frenesia, sull'onda dell'ira che 
                 esprime il loro Sangue.<br /> 
+                <b>Maledizione</b>: se i Cainiti del clan Brujah soffrono la Bestia, quelli del clan Gangrel hanno
+                con essa una relazione profonda. La loro maledizione consiste nella crescita di un tratto bestiale
+                (orecchie da pipistrello, occhi da gatto, tic animali, visione di serpente) per ogni livello di
+                Severit&agrave; della Maledizione per una notte dopo la Frenesia. Ogni tratto bestiale sottrae 1
+                all'ammontare di un Attributo. Se il Gangrel decide di "cavalcare" la Bestia (vedi la voce Frenesia
+                nel <Link to={GuideRoutes.glossary}>Glossario</Link>) acquisiranno solo un tratto animale,
+                indipendentemente dalla Severit&agrave; della Maledizione. L'Attributo penalizzato dal tratto animale
+                sar&agrave; deciso dal Narratore.<br />
+                <b>Compulsione</b>: la comunione con la Bestia per il Gangrel rende molto difficile, a volte, la 
+                normale comunicazione sociale. Quando la Compulsione del Clan sopravviene, il Cainita regredisce
+                a necessit&agrave; e bisogni animali: trova difficile parlare, trova scomodi e inutili anche i vestiti,
+                e trova anche che il modo migliore per risolvere conflitti sia l'uso della forza. Per una scena,
+                ogni tiro che richiede gli Attributi di Manipolazione e Intelligenza subiranno una penalit&agrave;
+                di 3.<br />
                 <b>Affiliazioni</b>: Anarchici o Indipendenti, pochi cainiti hanno deciso di rimanere nella Camarilla.<br />
                 <b>Discipline</b>: Ascendente, Potenza, Velocit&agrave;.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Lasombra
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                I Lasombra sono cainiti noti per la loro brutalit&agrave; e mancanza di scrupoli, oltre che per la loro connessione
+                che sfocia in feticismo con le Ombre, che controllano grazie al potere della loro Vitae. La loro tendenza &egrave; 
+                quella di dominare soggiogando, in maniera pi&ugrave; o meno plateale, dipendendo dal contesto. Hanno recentemente
+                stretto un accordo con la Camarilla per garantirsi l'affiliazione alla Setta, ma alcuni ribelli Sabbat possono 
+                ora far parte degli Anarchici, se non sono partiti col Sabbat per la Guerra della Gehenna.<br />
+                La maledizione del loro sangue consiste nell'impossibilit&agrave; di riflettere la loro immagine chiaramente sugli 
+                specchi: i Neonati vedranno la loro immagine sfocata, disturbata, mentre gli Anziani non la vedranno affatto. Questo
+                difetto influenza curiosamente anche tutta la tecnologia moderna: non possono essere registrati da telecamere, o 
+                da microfoni, e tutta la tecnologia attorno a loro tende a non funzionare correttamente, o affatto. Nonostante questo,
+                o proprio per l'effetto che fanno alla tecnologia, la Seconda Inquisizione riesce a capire immediatamente che ha a che 
+                fare con cainiti di questo clan.<br /> 
+                <b>Maledizione</b>: la Maledizione del clan Lasombra aveva a che fare con gli specchi, che distorcevano la loro 
+                immagine in modo quasi irriconoscibile, e col passare del tempo non la riflettevano affatto. Ora, questo difetto 
+                &egrave; diventato doppiamente pericoloso: ogni registrazione di un Lasombra apparir&agrave; distorta, rivelando 
+                a coloro che sanno cosa cercare immediatamente la natura del Cainita, e questi <i>glitch</i> non riusciranno
+                nemmeno con sicurezza a celare l'identit&agrave; del vampiro. Anche la tecnologia si ribella: il Cainita dovr&agrave;
+                tirare su Tecnologia a Difficolt&agrave; 2 pi&ugrave; Severit&agrave; della Maledizione per usare apparecchi 
+                elettronici, altrimenti semplicemente non riusciranno nemmeno a registrare la propria voce o manipolare 
+                uno <i>smartphone</i>. Per queste ragioni, &egrave; piuttosto frequente che un Lasombra asserva un mortale 
+                con legame di Sague per prendersi carico di tutto ci&ograve; che riguarda la tecnologia.<br />
+                <b>Compulsione</b>: la spietatezza insita nel Sangue dei Lasombra li porta a compiere qualsiasi azione pur di 
+                ottenere quello che vogliono. Per questo motivo sono estremamente influenzati da qualsiasi azione che compiono senza 
+                successo, o che non ha l'esito da loro prospettato. Finch&eacute; non hanno successo tentando nuovamente la stessa 
+                azione, perdono 2 dadi ad ogni ammontare per tutte le altre azioni. Se la Compulsione ha origine dopo un 
+                Fallimento Bestiale (vedi <Link to={GuideRoutes.mechanics}>meccaniche di gioco</Link>), quell'azione fallita 
+                sar&agrave; l'origine del loro malessere, e subiranno la penalit&agrave; finch&eacute; non l'avranno ritentata
+                con successo.<br />
+                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
+                <b>Discipline</b>: Potenza, Dominazione, Oblivion.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Malkavian
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il clan Malkavian &egrave; uno dei clan che nessuno comprende appieno, la loro storia &egrave; stata tormentata e
+                si intreccia con la Maledizione del loro Sangue: la Follia. Tutti i membri del clan hanno, o avevano gi&agrave; in vita,
+                una patologia mentale pi&ugrave; o meno accentuata, che li ha resi vittime delle Inquisizioni e degli altri Fratelli.
+                Ma assieme alla Follia, hanno sempre avuto una profonda intuizione, e i loro movimenti apparentemente casuali hanno
+                sempre inquietato chi aveva coscienza del fatto che non era saggio derubricare i Malkavian a semplici pazzi imprevedibili.
+                L'Abbraccio Malkavian &egrave; apparentemente causale, quindi non c'&egrave; nessuna limitazione al tipo di personaggio
+                che si vuole fare.<br />
+                <b>Maledizione</b>: il Sangue del Clan &egrave; maledetto dalla Follia. Dal momento dell'Abbraccio, i Malkavian 
+                acquisiscono una Alienazione Mentale a scelta del personaggio, ed all'Abbraccio, sempre che non siano di Tredicesima
+                Generazione e nasca un Sangue Debole, corrono il rischio che la mente della progenie sia cos&igrave; sconvolta
+                da qualsiasi cosa succeda durante il rito, che rimane catatonica.<br />
+                <b>Compulsione</b>: quando soffrono della compulsione del loro Clan, la percezione del Malkavian comincia a divergere
+                dalla realt&agrave;, e le esperienze extrasensoriali di cui sono spettatori (o vittime, secondo i punti di vista), li 
+                rende estremamente suscettibili a qualsiasi stimolo. Subiscono una penalit&agrave; di 2 dadi all'ammontare di 
+                qualsiasi tiro su Destrezza, Manipolazione, Autocontrollo e Prontezza, e anche per resistere alla Frenesia di Terrore.
+                (<b>HR</b>) Durante questo stato possono per&ograve; casualmente intuire indizi su una situazione differente, che 
+                magari non hanno nemmeno vissuto, e che magari mai vivranno, a discrezione del Narratore.<br />
+                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
+                <b>Discipline</b>: Auspex, Dominazione, Oscurazione.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Nosferatu
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Se il Sangue Malkavian rovina la mente dei cainiti, il Sangue Nosferatu ne rovina le fattezze. Chiunque venga
+                Abbracciato da un Nosferatu, finisce irrimediabilmente per diventare un orrore deambulante. Questo difetto ha
+                ovviamente influenzato la storia del clan: un clan di spie, di sopravvissuti, di hacker formidabili e soprattutto
+                unito al loro interno.<br />
+                <b>Maledizione</b>: la Maledizione nel Sangue dei Nosferatu li rende orribili in aspetto. Acquisiscono
+                il difetto <b>Repulsivo</b> in creazione, e ovviamente non sar&agrave; possibile acquisirlo tra i difetti, n&eacute;
+                potranno acquisire altri pregi riguardanti l'aspetto. Oltre questo, anche mascherandosi, avranno seri problemi
+                nell'interfacciars con un mortale, che istintivamente li riconoscer&agrave; per i mostri che sono. Nelle
+                interazioni con gli umani, anche da mascherati, o sotto l'effetto di Oscurazione, subiranno una penalit&agrave; 
+                all'ammontari pari alla Severit&agrave; della Maledizione.<br /> 
+                <b>Compulsione</b>: i Cainiti del clan Nosferatu sono attratti dai segreti in modo, appunto, compulsivo. Sentono il
+                bisogno viscerale di conoscere segreti che pochi, o nessuno, sa, e tendenzialmente non li condividono, se non per
+                scambiarli con altri segreti, e addirittura questa volont&agrave; arriva ad essere pi&ugrave; forte di quella per 
+                il Sangue. I Nosferatu vittime della loro compulsione subiranno due dadi di penalit&agrave; a tutti gli ammontare
+                se non compiono azioni volte alla scoperta di segreti, pi&ugrave; o meno grandi.<br />
+                <b>Affiliazioni</b>: Camarilla, Anarchici o Indipendenti.<br />
+                <b>Discipline</b>: Animalit&agrave;, Oscurazione, Potenza.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Toreador
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                I Toreador sono da sempre considerati gli artisti tra i cainiti, i Fratelli con pi&ugrave; sensibilit&agrave; e pi&ugrave; connessione
+                con gli umani e l'umanit&agrave;. Ed &egrave; vero, nel bene e nel male. Maestri diplomatici, li si pu&ograve; trovare a loro agio
+                tanto in Elysium come Arpie, tanto in mostre d'arte, come artisti o mecenati. Questo clan disprezza la volgarit&agrave; e la bruttezza,
+                ed apprezza la bellezza: vien da s&eacute; che i personaggi Toreador sono mediamente artisti, o... semplicemente affascinanti.<br />
+                La maledizione del loro sangue ha a che fare con la Bellezza: il Toreador non riesce a tollerare ci&ograve; che definisce brutto, e 
+                invece si ferma in estasi a contemplare ci&ograve; che per lui &egrave; il bello. Essendo questi termini del tutto arbitrari, chi 
+                vorr&agrave; interpretare un personaggio Toreador dovr&agrave; porre tra le Note cosa il suo personaggio ritiene bello e cosa brutto.<br /> 
+                <b>Maledizione</b>: i Toreador sono cultori, fautori, e addirittura dipendenti dalla bellezza. Sono cos&igrave; dipendenti da essa
+                che se si trovano in ambienti o con persone che non rispondono al loro gusto estetico, il loro stesso Sangue si rifiuta di funzionare
+                correttamente: quando si trovano in questi ambienti, sottraggono all'ammontare per tutte le Discipline un numero di dadi pari al 
+                livello di Severit&agrave; della Disciplina.<br />
+                <b>Compulsione</b>: come detto, i Toreador hanno un debole per la bellezza. Il loro Sangue, quando sono vittime della Compulsione,
+                non riescono a distogliere lo sguardo da qualcosa che, per loro, ha una bellezza estrema - e quello che &egrave; considerata bellezza,
+                ovviamente, varia da Toreador a Toreador. Potrebbe essere un quadro, una macchia di sangue su una parete, o addirittura l'alba. Per 
+                tutta la durata della scena, o finch&eacute; il vampiro non pu&ograve; pi&ugrave; percepire l'oggetto della sua attenzione,
+                dar&agrave; attenzione solo all'oggetto, se gli rivolgeranno la parola, parler&agrave; solo di quello, e tutte le azioni che non 
+                riguardano la contemplazione subiranno una penalit&agrave; di 2 dadi all'ammontare.<br />
+                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
+                <b>Discipline</b>: Ascendente, Auspex, Velocit&agrave;.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Tremere
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il clan dei magi, degli stregoni del Sangue, &egrave; sicuramente quello che ha ricevuto il pi&ugrave; duro colpo da parte della Seconda
+                Inquisizione. Un tempo chiuso in una rigida gerarchia piramidale tenuta insieme da legami di Sangue, con la distruzione della Haus de Hexe
+                il clan ha perso la punta della piramide, e il castello di carte &egrave; venuto gi&ugrave;. Ora, esistono diverse fazioni di Tremere,
+                alcuni nella Camarilla, pochi addirittura tra gli Anarchici. In generale, comunque, il clan Abbraccia persone estremamente intelligenti
+                e portate allo studio.<br />
+                <b>Maledizione</b>: prima dell'attacco alla Chantry di Vienna, il clan era tenuto insieme nella sua perfetta struttura piramidale dai 
+                legami di Sangue tra sire e infante, che teneva insieme questo clan di magi particolarmente inclini al reciproco tradimento ed alla
+                competizione estrema. Dopo la distruzione della Chantry, il castello di carte &egrave; caduto con la caduta del Concilio dei Sette, 
+                quella che fu la testa del Clan. Ora, forse per una mutazione, o per la maledizione dell'Antidiluviano diablerizzato da Tremere,
+                i Tremere non riescono pi&ugrave; a legare col Sangue altri vampiri, ed anche legare col Sangue mortali, ma la Vitae del Cainita 
+                deve essere bevuta per un numero addizionale di notti pari alla Severit&agrave; della Maledizione, affinch&eacute; il Legame abbia 
+                effetto.<br />
+                <b>Compulsione</b>: i Cainiti del clan Tremere sono ossessionati dalla perfezione. Quando fanno qualcosa, il loro Sangue non gli 
+                consente nulla al di sotto della perfezione. Quando sono preda della Compulsione, perderanno 2 dadi all'ammontare finch&egrave; non
+                otterranno un successo critico in un tiro di dado, arrivando anche a ripetere ossessivamente l'esecuzione di una particolare azione.
+                L'ammontare per un'azione ripetuta una volta scender&agrave; di uno, a partire dal secondo tentativo la penalit&agrave; 
+                all'ammontare si ridurr&agrave; a 0, ma solo per quella particolare azione ripetuta: per tutto il resto, rimarr&agrave; la 
+                penalit&agrave; di 2 dadi.<br />
+                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
+                <b>Discipline</b>: Auspex, Blood Sorcery, Dominazione.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Ventrue
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il clan dei Re, il clan che ha modellato la Camarilla e la sua struttura di potere e ne ha istituito le Tradizioni, o leggi, e ne ha 
+                importo la loro osservazione. I Ventrue vedono il comando come la loro naturale aspirazione, ci&ograve; che sono nati per fare, e 
+                pongono in pratica questa loro naturale propensione con la loro rigida gerarchia, il rispetto e l'imposizione dell'autorit&agrave;.
+                Al contrario dei Lasombra, che vedono nella prevaricazione una compulsione, i Ventrue vedono il Dominio come quasi un loro dovere.<br />
+                La maledizione del loro sangue gli impedisce di nutrirsi di mortali al di furoi di uno specifico tipo, siano essi donne d'affari, 
+                nobili o vergini. Se si cibano di sangue non appartenente alla categoria da loro prediletta, lo vomitano.<br /> 
+                <b>Maledizione</b>: la Maledizione dei Ventrue si esprime attraverso l'impossibilit&agrave; di ingerire Sangue da mortali all'infuori
+                di un ristretto insieme. Un personaggio Ventrue dovr&agrave; comunicare da quale gruppo di persone il personaggio si nutre. Esempi di 
+                gruppi possono essere umani di discendenza tedesca, donne dai capelli neri naturali, militari, tossicodipendenti da una particolare 
+                sostanza. Se il Ventrue si nutre di Sangue al di fuori di questo gruppo, dovr&agrave; spendere un punto di Forza di Volont&agrave;
+                per non vomitare. Con un tiro di <b>Fermezza + Allerta con Difficolt&agrave; 4 o pi&ugrave;</b>.<br />
+                <b>Compulsione</b>: i Ventrue devono comandare. Il loro Sangue non accetta nulla che non sia stato impartito tramite la loro leadership.
+                Quando soffrono della loro compulsione, i Cainiti del clan Ventrue subiscono una penalit&agrave; di 2 dadi a tutti gli ammontare, 
+                almeno finch&eacute; qualcuno non obbedisce direttamente ad un loro ordine, e tale ordine non pu&ograve; essere impartito tramite 
+                mezzi Soprannaturali, come Dominazione, altrimenti la penalit&agrave; durer&agrave; per tutta la scena.<br />
+                <b>Affiliazioni</b>: Camarilla.<br />
+                <b>Discipline</b>: Ascendente, Dominazione, Robustezza.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Caitiff
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                I Caitiff, o Vili, sono vampiri in tutto e per tutto, tranne che per il clan. Dopo l'Abbraccio, non hanno presentato nessuna caratteristica
+                tipica del clan: Nosferatu con aspetto normale, Malkavian sani di mente, o Ventrue in grado di cibarsi di qualsiasi forma di Sangue. 
+                Cainiti di questo tipo sono notoriamente stati sempre ostracizzati e esiliati dal clan, e addirittura dalla Camarilla, considerati poco 
+                meglio dei Sangue Debole. Il loro numero adesso &egrave; per&ograve; aumentato, e costituiscono una forza notevole, da non ignorare.<br />
+                I Vili non soffrono nessuna maledizione di clan, anche se soffrono normalmente della maledizione del Sangue Cainita, e quindi raggi del Sole
+                e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" cainiti.<br /> 
+                <b>Affiliazioni</b>: Anarchici, in rari casi nei bassi ranghi della Camarilla, ma non potranno assumere Status.<br />
+                <b>Discipline</b>: i Vili manifestano la loro duttilit&agrave; riuscendo ad apprendere qualsiasi Disciplina non rara (non potranno apprendere
+                Blood Sorcery o Oblivion, per esempio).
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Sangue Debole
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Nelle Ultime Notti, molti Abbracci di tredicesime generazioni hanno generato dei vampiri con un Sangue cos&igrave; debole e diluito da non 
+                riuscire nemmeno, in alcuni casi, a sostenere i loro corpi non morti, e a soffrire molto di meno le maledizioni ancestrali del Sangue di 
+                Caino. Alcuni di questi cainiti possono addirittura camminare al Sole, mangiare cibo umano senza vomitarlo, altri hanno addirittura
+                battito e sono indistinguibili da altri umani. In ogni caso, i Sangue Debole sono generalmente cacciati e sterminati senza piet&agrave;
+                dalla Camarilla quando non possono essere usati, ignorati nel migliore dei casi, attivamente esiliati o uccisi nel peggiore dagli Anarchici, 
+                in quanto secondo le leggende la loro apparizione &egrave; un segno dell'arrivo della Gehenna, la fine dei tempi per i cainiti.<br />
+                I Sangue Debole soffrono di una serie di Pregi e Difetti caratteristici del loro "clan", che dovranno essere specificati in creazione.<br />
+                <b>Affiliazioni</b>: Nessuna, sono generalmente cacciati a vista da tutti gli altri cainiti.<br />
+                <b>Discipline</b>: &egrave; possibile per loro apprendere l'Alchimia del Sangue.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    Altri Clan
+                </h2>
             </Typography>
 
             <Typography paragraph>
@@ -105,71 +378,12 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Lasombra
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                I Lasombra sono cainiti noti per la loro brutalit&agrave; e mancanza di scrupoli, oltre che per la loro connessione
-                che sfocia in feticismo con le Ombre, che controllano grazie al potere della loro Vitae. La loro tendenza &egrave; 
-                quella di dominare soggiogando, in maniera pi&ugrave; o meno plateale, dipendendo dal contesto. Hanno recentemente
-                stretto un accordo con la Camarilla per garantirsi l'affiliazione alla Setta, ma alcuni ribelli Sabbat possono 
-                ora far parte degli Anarchici, se non sono partiti col Sabbat per la Guerra della Gehenna.<br />
-                La maledizione del loro sangue consiste nell'impossibilit&agrave; di riflettere la loro immagine chiaramente sugli 
-                specchi: i Neonati vedranno la loro immagine sfocata, disturbata, mentre gli Anziani non la vedranno affatto. Questo
-                difetto influenza curiosamente anche tutta la tecnologia moderna: non possono essere registrati da telecamere, o 
-                da microfoni, e tutta la tecnologia attorno a loro tende a non funzionare correttamente, o affatto. Nonostante questo,
-                o proprio per l'effetto che fanno alla tecnologia, la Seconda Inquisizione riesce a capire immediatamente che ha a che 
-                fare con cainiti di questo clan.<br /> 
-                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
-                <b>Discipline</b>: Potenza, Dominazione, Oblivion.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Malkavian
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Il clan Malkavian &egrave; uno dei clan che nessuno comprende appieno, la loro storia &egrave; stata tormentata e
-                si intreccia con la Maledizione del loro Sangue: la Follia. Tutti i membri del clan hanno, o avevano gi&agrave; in vita,
-                una patologia mentale pi&ugrave; o meno accentuata, che li ha resi vittime delle Inquisizioni e degli altri Fratelli.
-                Ma assieme alla Follia, hanno sempre avuto una profonda intuizione, e i loro movimenti apparentemente casuali hanno
-                sempre inquietato chi aveva coscienza del fatto che non era saggio derubricare i Malkavian a semplici pazzi imprevedibili.
-                L'Abbraccio Malkavian &egrave; apparentemente causale, quindi non c'&egrave; nessuna limitazione al tipo di personaggio
-                che si vuole fare.<br />
-                La maledizione del loro sangue come detto, &egrave; la pazzia: ogni membro del clan ha una patologia mentale, e
-                dovr&agrave; essere indicata in fase di creazione.<br /> 
-                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
-                <b>Discipline</b>: Auspex, Dominazione, Oscurazione.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
                     Ministry
                 </h3>
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
                 <i>In costruzione</i>.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Nosferatu
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Se il Sangue Malkavian rovina la mente dei cainiti, il Sangue Nosferatu ne rovina le fattezze. Chiunque venga
-                Abbracciato da un Nosferatu, finisce irrimediabilmente per diventare un orrore deambulante. Questo difetto ha
-                ovviamente influenzato la storia del clan: un clan di spie, di sopravvissuti, di hacker formidabili e soprattutto
-                unito al loro interno.<br />
-                La maledizione del loro sangue come detto, &egrave; l'eccessiva bruttezza, la totale mostruosit&agrave;. Acquisiscono
-                il difetto <b>Repulsivo</b> in creazione, e ovviamente non sar&agrave; possibile acquisirlo tra i difetti.<br /> 
-                <b>Affiliazioni</b>: Camarilla, Anarchici o Indipendenti.<br />
-                <b>Discipline</b>: Animalit&agrave;, Oscurazione, Potenza.
             </Typography>
 
             <Typography paragraph>
@@ -208,42 +422,6 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Toreador
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                I Toreador sono da sempre considerati gli artisti tra i cainiti, i Fratelli con pi&ugrave; sensibilit&agrave; e pi&ugrave; connessione
-                con gli umani e l'umanit&agrave;. Ed &egrave; vero, nel bene e nel male. Maestri diplomatici, li si pu&ograve; trovare a loro agio
-                tanto in Elysium come Arpie, tanto in mostre d'arte, come artisti o mecenati. Questo clan disprezza la volgarit&agrave; e la bruttezza,
-                ed apprezza la bellezza: vien da s&eacute; che i personaggi Toreador sono mediamente artisti, o... semplicemente affascinanti.<br />
-                La maledizione del loro sangue ha a che fare con la Bellezza: il Toreador non riesce a tollerare ci&ograve; che definisce brutto, e 
-                invece si ferma in estasi a contemplare ci&ograve; che per lui &egrave; il bello. Essendo questi termini del tutto arbitrari, chi 
-                vorr&agrave; interpretare un personaggio Toreador dovr&agrave; porre tra le Note cosa il suo personaggio ritiene bello e cosa brutto.<br /> 
-                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
-                <b>Discipline</b>: Ascendente, Auspex, Velocit&agrave;.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Tremere
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Il clan dei magi, degli stregoni del Sangue, &egrave; sicuramente quello che ha ricevuto il pi&ugrave; duro colpo da parte della Seconda
-                Inquisizione. Un tempo chiuso in una rigida gerarchia piramidale tenuta insieme da legami di Sangue, con la distruzione della Haus de Hexe
-                il clan ha perso la punta della piramide, e il castello di carte &egrave; venuto gi&ugrave;. Ora, esistono diverse fazioni di Tremere,
-                alcuni nella Camarilla, pochi addirittura tra gli Anarchici. In generale, comunque, il clan Abbraccia persone estremamente intelligenti
-                e portate allo studio.<br />
-                La maledizione del loro sangue ha subito una mutazione con la distruzione della struttura piramidale: adesso, il loro sangue non riesce
-                ad imprimere legami di sangue con la potenza degli altri cainiti.<br /> 
-                <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
-                <b>Discipline</b>: Auspex, Blood Sorcery, Dominazione.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
                     Tzimisce
                 </h3>
             </Typography>
@@ -259,59 +437,6 @@ const GuidesAttributes = (): any => {
                 danno alla Forza di Volont&agrave; pari alla gravit&agrave; della loro Maledizione per ogni notte passata in questo modo.<br /> 
                 <b>Affiliazioni</b>: Anarchici o Indipendenti.<br />
                 <b>Discipline</b>: Animalit&agrave;, Dominazione, Proteide (Vicissitudine).
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Ventrue
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Il clan dei Re, il clan che ha modellato la Camarilla e la sua struttura di potere e ne ha istituito le Tradizioni, o leggi, e ne ha 
-                importo la loro osservazione. I Ventrue vedono il comando come la loro naturale aspirazione, ci&ograve; che sono nati per fare, e 
-                pongono in pratica questa loro naturale propensione con la loro rigida gerarchia, il rispetto e l'imposizione dell'autorit&agrave;.
-                Al contrario dei Lasombra, che vedono nella prevaricazione una compulsione, i Ventrue vedono il Dominio come quasi un loro dovere.<br />
-                La maledizione del loro sangue gli impedisce di nutrirsi di mortali al di furoi di uno specifico tipo, siano essi donne d'affari, 
-                nobili o vergini. Se si cibano di sangue non appartenente alla categoria da loro prediletta, lo vomitano.<br /> 
-                <b>Affiliazioni</b>: Camarilla.<br />
-                <b>Discipline</b>: Ascendente, Dominazione, Robustezza.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Caitiff
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                I Caitiff, o Vili, sono vampiri in tutto e per tutto, tranne che per il clan. Dopo l'Abbraccio, non hanno presentato nessuna caratteristica
-                tipica del clan: Nosferatu con aspetto normale, Malkavian sani di mente, o Ventrue in grado di cibarsi di qualsiasi forma di Sangue. 
-                Cainiti di questo tipo sono notoriamente stati sempre ostracizzati e esiliati dal clan, e addirittura dalla Camarilla, considerati poco 
-                meglio dei Sangue Debole. Il loro numero adesso &egrave; per&ograve; aumentato, e costituiscono una forza notevole, da non ignorare.<br />
-                I Vili non soffrono nessuna maledizione di clan, anche se soffrono normalmente della maledizione del Sangue Cainita, e quindi raggi del Sole
-                e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" cainiti.<br /> 
-                <b>Affiliazioni</b>: Anarchici, in rari casi nei bassi ranghi della Camarilla, ma non potranno assumere Status.<br />
-                <b>Discipline</b>: i Vili manifestano la loro duttilit&agrave; riuscendo ad apprendere qualsiasi Disciplina non rara (non potranno apprendere
-                Blood Sorcery o Oblivion, per esempio).
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
-                    Sangue Debole
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Nelle Ultime Notti, molti Abbracci di tredicesime generazioni hanno generato dei vampiri con un Sangue cos&igrave; debole e diluito da non 
-                riuscire nemmeno, in alcuni casi, a sostenere i loro corpi non morti, e a soffrire molto di meno le maledizioni ancestrali del Sangue di 
-                Caino. Alcuni di questi cainiti possono addirittura camminare al Sole, mangiare cibo umano senza vomitarlo, altri hanno addirittura
-                battito e sono indistinguibili da altri umani. In ogni caso, i Sangue Debole sono generalmente cacciati e sterminati senza piet&agrave;
-                dalla Camarilla, ignorati nel migliore dei casi, attivamente esiliati o uccisi nel peggiore dagli Anarchici, in quanto secondo le leggende
-                la loro apparizione &egrave; un segno dell'arrivo della Gehenna, la fine dei tempi per i cainiti.<br />
-                I Sangue Debole soffrono di una serie di Pregi e Difetti caratteristici del loro "clan", che dovranno essere specificati in creazione.<br /> 
-                <b>Affiliazioni</b>: Nessuna, sono generalmente cacciati a vista da tutti gli altri cainiti.<br />
-                <b>Discipline</b>: &egrave; possibile per loro apprendere l'Alchimia del Sangue.
             </Typography>
         </>
     );
