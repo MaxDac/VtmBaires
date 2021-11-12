@@ -3,18 +3,15 @@
 import React from "react";
 import {useFragment} from "react-relay";
 import {
-    characterInfoFragment, 
-    characterOffFragment,
+    characterInfoFragment,
     characterSheetFragment
 } from "../../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterSheet$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import Typography from "@mui/material/Typography";
 import type {CharacterFragments_characterInfo$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import {mainFontFamily} from "../../../Main.Layout.Style";
-import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
-import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
-import Stack from "@mui/material/Stack";
 import ParsedText from "../../../../_base/components/ParsedText";
+import Box from "@mui/material/Box";
 
 export const avatarWidth: number = 270;
 export const avatarHeight: number = 470;
@@ -32,17 +29,13 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
         characterSheetFragment,
         characterQuery);
 
-    const off = useFragment<?CharacterFragments_characterOff$key>(
-        characterOffFragment,
-        characterQuery);
-
     const getSheetName = () =>
         info?.isNpc === true
             ? `${info?.name ?? ""} (PNG)`
             : info?.name;
 
     return (
-        <Stack spacing={2}>
+        <Box component="div">
             <Typography sx={{
                 ...mainFontFamily,
                 color: "secondary.light",
@@ -54,12 +47,7 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
                 ...mainFontFamily,
                 marginBottom: "10px"
             }} />
-            {
-                off?.soundtrack != null && off.soundtrack !== ""
-                    ? (<SoundWrapperComponent soundSourceUrl={off.soundtrack} />)
-                    : (<></>)
-            }
-        </Stack>
+        </Box>
     );
 };
 

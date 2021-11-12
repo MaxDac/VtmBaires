@@ -11,16 +11,19 @@ export const avatarWidth: number = 270;
 export const avatarHeight: number = 470;
 
 type Props = {
-    characterQuery: any
+    characterQuery: any;
+    sx?: any;
 }
 
-const CharacterSheetAvatarSection = ({characterQuery}: Props): any => {
+const CharacterSheetAvatarSection = ({characterQuery, sx}: Props): any => {
     const sheet = useFragment<?CharacterFragments_characterSheet$key>(
         characterSheetFragment,
         characterQuery);
 
+    console.log("avatar", sheet);
+
     return (
-        <Paper sx={{
+        <Paper component="div" sx={{
             width: `${avatarWidth + 10}px`,
             height: `${avatarHeight + 10}px`,
             display: "inline-flex",
