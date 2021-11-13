@@ -130,7 +130,7 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
     // console.debug("requesting subscription with these variables", variables);
 
     requestSubscription(
-        subscriptionEnvironment(),
+        subscriptionEnvironment,
         {
             subscription: operation,
             variables,
