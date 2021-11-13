@@ -130,6 +130,7 @@ input ChangeSheetInfoRequest {
   biography: String
   chatAvatar: String
   description: String
+  objects: String
   off: String
   soundtrack: String
 }

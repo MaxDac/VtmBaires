@@ -142,10 +142,13 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                 <FormTextField formik={formik} fieldName="avatar" label="URL Avatar Scheda (270 * 400)" autoComplete="Avatar URL" />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
-                <FormTextField formik={formik} fieldName="description" label="Description" autoComplete="Description" rows={5} />
+                <FormTextField formik={formik} fieldName="description" label="Descrizione" autoComplete="Descrizione" rows={5} />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
-                <FormTextField formik={formik} fieldName="biography" label="Biography" autoComplete="Biography" rows={5} />
+                <FormTextField formik={formik} fieldName="biography" label="Biografia" autoComplete="Biografia" rows={5} />
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <FormTextField formik={formik} fieldName="objects" label="Oggetti" autoComplete="Oggetti" rows={5} />
             </Grid>
             <Grid item xs={12}>
                 <FormTextField formik={formik} fieldName="soundtrack" label="Soundtrack" autoComplete="Soundtrack" />

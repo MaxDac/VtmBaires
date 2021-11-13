@@ -114,7 +114,6 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :discipline_powers, :string
     field :advantages, non_null(:string)
     field :notes, :string
-    field :discipline_powers, :string
   end
 
   input_object :change_sheet_info_request do

@@ -21,6 +21,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
 
     const [advantages, setAdvantages] = useState(character?.advantages ?? "");
     const [notes, setNotes] = useState(character?.notes ?? "");
+    const [disciplinePowers, setDisciplinePowers] = useState(character?.disciplinePowers ?? "");
 
     const onAdvantagesChanged = ({target: {value}}) => {
         setAdvantages(_ => value);
@@ -30,6 +31,10 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
         setNotes(_ => value);
     };
 
+    const onDisciplinePowersChanged = ({target: {value}}) => {
+        setDisciplinePowers(_ => value);
+    }
+
     const changeCharacterNotes = _ => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
@@ -38,7 +43,8 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                 handleMutation(() => ChangeCharacterNotesMutation(environment, {
                     characterId: character.id,
                     advantages,
-                    notes
+                    notes,
+                    disciplinePowers
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
@@ -63,12 +69,22 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                 </Grid>
                 <Grid item xs={12} sx={{margin: "10px"}}>
                     <TextField id="notes"
-                               label="Notes"
+                               label="Note del Personaggio"
                                fullWidth
                                multiline
                                rows={3}
                                defaultValue={notes}
                                onChange={onNotesChanged}
+                               variant="filled" />
+                </Grid>
+                <Grid item xs={12} sx={{margin: "10px"}}>
+                    <TextField id="disciplinePowers"
+                               label="Poteri di Disciplina"
+                               fullWidth
+                               multiline
+                               rows={3}
+                               defaultValue={disciplinePowers}
+                               onChange={onDisciplinePowersChanged}
                                variant="filled" />
                 </Grid>
                 <Grid item xs={12} sx={{
