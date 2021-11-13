@@ -127,7 +127,7 @@ export function wrapMutation<T>(environment: IEnvironment, operation: any, varia
 }
 
 const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: any => T) => {
-    // console.log("requesting subscription with these variables", variables);
+    // console.debug("requesting subscription with these variables", variables);
 
     requestSubscription(
         subscriptionEnvironment(),

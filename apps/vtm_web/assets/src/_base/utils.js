@@ -20,7 +20,7 @@ export const log = (message: string, obj?: any, type?: LogType): void => {
             case "error": return console.error(message, obj);
             case "info": return console.info(message, obj);
             case "warning": return console.warn(message, obj);
-            default: return console.log(message, obj);
+            default: return console.debug(message, obj);
         }
     }
 }

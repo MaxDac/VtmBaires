@@ -49,7 +49,7 @@ export const useMessageSubscription = (): number => {
             });
 
             return () => {
-                console.log("unsubscribe from message");
+                console.debug("unsubscribe from message");
                 messageSubscription.unsubscribe();
             };
         }

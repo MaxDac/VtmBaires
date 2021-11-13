@@ -27,7 +27,7 @@ const CenteredBox = ({innerBoxSx, children, isBodyChild}: CenteredBoxProps): any
                 marginLeft: "auto",
                 marginRight: "auto",
                 width: "90%",
-            }} onClick={_ => console.log("clicking")}>
+            }} onClick={_ => console.debug("clicking")}>
                 {children}
             </Box>
         </Box>

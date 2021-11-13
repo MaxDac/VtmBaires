@@ -23,6 +23,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   node object :attribute do
     field :name, :string
     field :description, :string
+    field :order, :integer
     field :attribute_type, :attribute_type
   end
 

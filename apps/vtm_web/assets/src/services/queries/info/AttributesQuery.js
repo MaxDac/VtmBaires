@@ -17,6 +17,7 @@ export type AttributeType = {
 export type Attribute = {
     id: string;
     name: string;
+    order: number;
     description?: ?string;
     attributeType: AttributeType
 }
@@ -26,6 +27,7 @@ export const attributesQuery: any = graphql`
         attributes {
             id
             name
+            order
             attributeType {
                 id
                 name
@@ -80,6 +82,7 @@ export default function useAttributesQuery(): ?Array<Attribute> {
         ?.map(a => ({
             id: a?.id ?? "",
             name: a?.name ?? "",
+            order: a?.order ?? 0,
             attributeType: {
                 id: a?.attributeType?.id ?? "",
                 name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),

@@ -37,7 +37,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
     useEffect(() => {
         // Invoking the logout service to delete all the cached information
         performLogout(() => {
-            console.log("cached information erased.");
+            console.debug("cached information erased.");
         });
     }, []);
 

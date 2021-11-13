@@ -9,6 +9,7 @@ defmodule Vtm.Characters.Attribute do
   schema "attributes" do
     field :description, :string
     field :name, :string
+    field :order, :integer
 
     belongs_to :attribute_type, AttributeType
 

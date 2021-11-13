@@ -50,6 +50,8 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const [freeThrow, setFreeThrow] = useState(0);
     const [difficulty, setDifficulty] = useState(2);
 
+    console.debug("Attributes", attributes);
+
     const attributeOrSkillSelected = (): boolean => 
         attribute !== "" || skill !== "";
 
@@ -69,19 +71,38 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
             a?.attributeType?.section === section)
             .sort((a, b) => sortAttributes(name)(a, b));
 
-    const buildSelectItems = name => {
-        const mapAttribute = a => (<MenuItem key={a?.id} value={a?.id}>{a?.name}</MenuItem>);
-        const physicals = filterAttribute(name, "Physical")?.map(mapAttribute)
-        const socials = filterAttribute(name, "Social")?.map(mapAttribute);
-        const mentals = filterAttribute(name, "Mental")?.map(mapAttribute);
+    const mapAttributeToMenuItem = a => (<MenuItem key={a?.id} value={a?.id}>{a?.name}</MenuItem>);
 
-        return [(<MenuItem key={0} value="">None</MenuItem>)]
-            .concat([<ListSubheader key={1}>Physicals</ListSubheader>])
+    const buildSelectItems = name => {
+        const physicals = filterAttribute(name, "Physical")?.map(mapAttributeToMenuItem)
+        const socials = filterAttribute(name, "Social")?.map(mapAttributeToMenuItem);
+        const mentals = filterAttribute(name, "Mental")?.map(mapAttributeToMenuItem);
+
+        return [<ListSubheader key={1}>Fisici</ListSubheader>]
             .concat(physicals)
-            .concat([<ListSubheader key={2}>Socials</ListSubheader>])
+            .concat([<ListSubheader key={2}>Sociali</ListSubheader>])
             .concat(socials)
-            .concat([<ListSubheader key={3}>Mentals</ListSubheader>])
+            .concat([<ListSubheader key={3}>Mentali</ListSubheader>])
             .concat(mentals);
+    };
+
+    const buildSelectItemsForDiscipline = () =>
+        filterAttribute("Discipline", "")?.map(mapAttributeToMenuItem);
+
+    const getSelectItemsForDropdown = items => [(<MenuItem key={0} value="">None</MenuItem>)].concat(items);
+
+    const getFirstDropdownItems = () => getSelectItemsForDropdown(buildSelectItems("Attribute"));
+
+    const getSecondDropdownItems = () => {
+        const items =
+            [<ListSubheader key={1000}>Attributi</ListSubheader>]
+                .concat(buildSelectItems("Attribute"))
+                .concat([<ListSubheader key={2000}>Abilit&agrave;</ListSubheader>])
+                .concat(buildSelectItems("Ability"))
+                .concat([<ListSubheader key={2000}>Discipline</ListSubheader>])
+                .concat(buildSelectItemsForDiscipline());
+
+        return getSelectItemsForDropdown(items);
     }
 
     const freeThrowItems = () =>
@@ -110,7 +131,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
         setSkill("");
         setFreeThrow(0);
         setDifficulty(2);
-    }
+    };
 
     const handleThrow = () => {
         const request: ChatDiceRequest = {
@@ -127,7 +148,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
 
         resetForm();
         handleClose();
-    }
+    };
 
     const masterChecker = () => {
         if (isUserMaster(user)) {
@@ -145,7 +166,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
         }
 
         return <></>;
-    }
+    };
 
     const attributeAndSkill = () =>
         !masterThrow
@@ -161,7 +182,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                                     value={attribute}
                                     label="Attributo"
                                     onChange={onAttributeChanged}>
-                                    {buildSelectItems("Attribute")}
+                                {getFirstDropdownItems()}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -175,7 +196,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                                     value={skill}
                                     label="Abilità"
                                     onChange={onSkillChanged}>
-                                    {buildSelectItems("Ability")}
+                                {getSecondDropdownItems()}
                             </Select>
                         </FormControl>
                     </Grid>

@@ -50,6 +50,7 @@ type Attribute implements Node {
   """The ID of an object"""
   id: ID!
   name: String
+  order: Int
 }
 
 type AttributeType implements Node {

@@ -8,6 +8,7 @@ export const attributesCompleteQuery: GraphQLTaggedNode = graphql`
         attributes {
             id
             name
+            order
             description
             attributeType {
                 id

@@ -58,7 +58,7 @@ const Chat = ({id}: ChatProps): any => {
 
     useEffect(() => {
         updateSessionMap(environment, id)
-            // .then(r => console.log("Received response while attempting updating the session", r))
+            // .then(r => console.debug("Received response while attempting updating the session", r))
             .catch(e => console.error("Error while updating session map", e));
     }, [environment, id]);
 
@@ -86,7 +86,7 @@ const Chat = ({id}: ChatProps): any => {
     const createEntry = (action: (string, string) => Promise<any>) => {
         if (character?.id != null && map?.id != null) {
             action(character.id, map.id)
-                // .then(result => console.log("result", result))
+                // .then(result => console.debug("result", result))
                 .catch(error => showUserNotification({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
         }
 

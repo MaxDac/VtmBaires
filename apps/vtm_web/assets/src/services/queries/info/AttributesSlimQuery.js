@@ -15,6 +15,7 @@ export const attributesSlimQuery: GraphQLTaggedNode = graphql`
         attributes {
             id
             name
+            order
             attributeType {
                 name
                 section

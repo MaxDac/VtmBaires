@@ -65,7 +65,7 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toU
 
     const inGameOrCharacterNotNull = toCharacterId != null ? true : onGame;
 
-    console.log("inGameOrCharacterNotNull", inGameOrCharacterNotNull);
+    console.debug("inGameOrCharacterNotNull", inGameOrCharacterNotNull);
 
     const formik = useFormik({
         validationSchema: MessageSchema,

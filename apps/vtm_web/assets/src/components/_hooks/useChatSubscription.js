@@ -36,7 +36,7 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
             });
 
         if (chatToken != null && chatToken !== "") {
-            console.log("subscribing");
+            console.debug("subscribing");
             const subscription = performSubscription(chatToken);
             return () => {
                 console.info("unsubscribing");
