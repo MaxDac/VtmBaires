@@ -2,7 +2,9 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { guideStyle, liStyle, titleStyle } from "../../GuidesStyles";
+import {Link} from "react-router-dom";
+import {guideStyle, liStyle, titleStyle} from "../../GuidesStyles";
+import {GuideRoutes} from "../../GuidesMain";
 
 type Props = {
 
@@ -32,23 +34,66 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                 <ul>
                     <li style={liStyle}><b>Animalità</b>: i poteri di Animalit&agrave; hanno a che fare con la Bestia interiore, del personaggio e altrui.
                         <ul>
-                            <li><b>Legare il <i>Famulus</i></b> (&#9679;): crea un legame mentale con un animale legato di Sangue.</li>
-                            <li><b>Percepire la Bestia</b> (&#9679;): il vampiro riesce a percepire la Bestia negli altri, intuendo se si tratta di una Bestia soprannaturale (cainiti o lupini) o meno.</li>
-                            <li><b>Sussurri Ferali</b> (&#9679;&#9679;): il vampiro pu&ograve; entrare in contatto con un animale, scambiando informazioni basiche (carenza di prede). Il vampiro pu&ograve;
-                                anche tentare di chiamare un gruppo di un preciso animale.</li>
-                            <li><b>Succulenza animale</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; soddisfare la sua Fame con un animale come se fosse sangue umano, riducendo enormemente le controindicazioni.</li>
-                            <li><b>Domare la Bestia</b> (&#9679;&#9679;&#9679;): calma la Bestia in un umano, riducendolo ad uno stato semi letargico, o un vampiro, limitandone i poteri e, possibilmente, facendolo uscire dalla Frenesia.</li>
-                            <li><b>Sciame non-morto</b> (&#9679;&#9679;&#9679; - Amalgama con Oscurazione &#9679;&#9679;): (Nosfeatu) il vampiro riesce ad estendere il proprio controllo ad uno sciame di insetti.</li>
-                            <li><b>Sottomettere lo spirito</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro trasferisce la sua mente in un animale, prendendone completamente il possesso (mentre il corpo del vampiro rimane indifeso, in uno stato simile al Torpore).</li>
-                            <li><b>Dominio Animale</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il controllo del vampiro sul Regno Animale &egrave; cos&igrave; grande che ora riesce a compandare interi stormi, o branchi di animali, che possono arrivare
-                                a lanciarsi in spregio della propria vita per proteggere il Cainita.</li>
-                            <li><b>Scacciare la Bestia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): quando il vampiro sta per perdere il controllo alla Bestia per paura o per rabbia, pu&ograve; scacciare la sua Bestia, inviandola in un mortale o un
-                                vampiro nelle vicinanze, e quest'ultimo sperimenter&agrave; la Frenesia al posto del vampiro.</li>
+                            <li style={liStyle}>
+                                <b>Legare il <i>Famulus</i></b> (&#9679;): crea un legame mentale con un animale legato di Sangue.<br />
+                                <b>Sistema</b>: tiro di Carisma + Affinit&agrave; animale Diff. 2 per ordini semplici, maggiore per pi&ugrave; complessi.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Percepire la Bestia</b> (&#9679;): il vampiro riesce a percepire la Bestia negli altri, intuendo se si tratta di una Bestia soprannaturale (cainiti o lupini) o meno.<br />
+                                <b>Sistema</b>: tiro contrastato di Fermezza + Animalit&agrave; del Cainita contro Autocontrollo + Sotterfugio del bersaglio.
+                            </li>
+                            
+                            <li style={liStyle}>
+                                <b>Sussurri Ferali</b> (&#9679;&#9679;): il vampiro pu&ograve; entrare in contatto con un animale, scambiando informazioni basiche (carenza di prede). Il vampiro pu&ograve;
+                                anche tentare di chiamare un gruppo di un preciso animale.<br />
+                                <b>Sistema</b>: 1 Rouse Check, poi tiro di Manipolazione + Animalit&agrave; (convincere un animale) o Carisma + Animalit&agrave; (richiamare un animale), 
+                                Diff. 3 per ordini semplici, 6 per ordini di vita o morte; 2 per richiamare animali presenti nei dintori, 6 per richiamarne da lontano.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Succulenza animale</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; soddisfare la sua Fame con un animale come se fosse sangue umano, riducendo enormemente le controindicazioni.<br />
+                                <b>Sistema</b>: il vampiro riesce a soddisfare la sua Fame con animali, indipendentemente dalla Potenza del Sangue. Se inoltre consuma un Famulus, raggiunge automaticamente Fame 1.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Domare la Bestia</b> (&#9679;&#9679;&#9679;): calma la Bestia in un umano, riducendolo ad uno stato semi letargico, o un vampiro, limitandone i poteri e, possibilmente, facendolo uscire dalla Frenesia.<br />
+                                <b>Sistema</b>: 1 Rouse Check, tiro contrastato di Carisma + Animalit&agrave; contro Costituzione + Fermezza. Se la vittima &egrave; umana, cadr&agrave; in uno stato letargico. Se &egrave; un vampiro,
+                                non potr&agrave; aumentare i propri Attributi col Sangue, e durer&agrave; un numero di turni pari ai successi supplementari + 1. Se il vampiro ottiene un successo critico, la vittima
+                                uscir&agrave; dalla Frenesia.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Sciame non-morto</b> (&#9679;&#9679;&#9679; - Amalgama con Oscurazione &#9679;&#9679;): (Nosfeatu) il vampiro riesce ad estendere il proprio controllo ad uno sciame di insetti.
+                                <b>Sistema</b>: i poteri che precedentemente potevano prendere di mira solo i vertebrati, adesso si possono usare con sciami di insetti, che possono anche vivere nelle cavit&agrave; interne del vampiro.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Sottomettere lo spirito</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro trasferisce la sua mente in un animale, prendendone completamente il possesso (mentre il corpo del vampiro rimane indifeso, in uno stato simile al Torpore).
+                                <b>Sistema</b>: 1 Rouse Check, 0 se la vittima &egrave; il <i>famulus</i>, poi Manipolazione + Animalit&agrave; Difficolt&agrave; 4. Se il corpo del vampiro subisce danni, o se l'animale muore, la trance finisce e il vampiro perde 
+                                1 punto di Forza di Volont&agrave;.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Dominio Animale</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il controllo del vampiro sul Regno Animale &egrave; cos&igrave; grande che ora riesce a compandare interi stormi, o branchi di animali, che possono arrivare
+                                a lanciarsi in spregio della propria vita per proteggere il Cainita.<br />
+                                <b>Sistema</b>: 2 Rouse Checks, poi Carisma + Animalit&agrave;, Difficolt&agrave; 3 per ordini semplici, Diff. 5 per ordini che possono costare la vita al branco o allo stormo.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Scacciare la Bestia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): quando il vampiro sta per perdere il controllo alla Bestia per paura o per rabbia, pu&ograve; scacciare la sua Bestia, inviandola in un mortale o un
+                                vampiro nelle vicinanze, e quest'ultimo sperimenter&agrave; la Frenesia al posto del vampiro.<br />
+                                <b>Sistema</b>: 1 Rouse Check, quindi tiro contrastato di Prontezza + Animalit&agrave; contro Autocontrollo + Fermezza. Se il tiro fallisce, il vampiro entra in Frenesia automaticamente. Se riesce, la vittima entra in Frenesia al suo posto.<br />
+                                Non sar&agrave; possibile trasferire Frenesia di Fame, e successivamente il vampiro potr&agrave; ancora entrare in Frenesia se sottoposto ad altri stimoli.
+                            </li>
                         </ul>
                     </li>
                     <li style={liStyle}><b>Ascendente</b>: aumenta il naturale charme del Cainita.
                         <ul>
-                            <li><b>Soggezione</b> (&#9679;): la presenza del vampiro diventa immediatamente un punto di riferimento, quasi impossibile da ignorare. Non ispira infatuazioni, ma sicuramente riesce a catturare l'attenzione sul vampiro..</li>
+                            <li style={liStyle}>
+                                <b>Soggezione</b> (&#9679;): la presenza del vampiro diventa immediatamente un punto di riferimento, quasi impossibile da ignorare. Non ispira infatuazioni, ma sicuramente riesce a catturare l'attenzione sul vampiro.
+                                <b>Sistema</b>: 
+                            </li>
                             <li><b>Intimidazione</b> (&#9679;): il vampiro, invece di attirare su di s&eacute; l'attenzione, usa il potere per intimidire, minacciare quelli che gli stanno attorno. I mortali eviteranno immediatamente di dare attenzione al vampiro, e anche i vampiri avranno remore ad interfacciarsi col Cainita.</li>
                             <li><b>Bacio Persistente</b> (&#9679;&#9679;): il Bacio del vampiro, il suo morso, induce un'estasi molto superiore a quella di un normale Bacio, tanto che i mortali vittime di questo potere ne diventano dipendenti, con conseguente anemia o anche morte.</li>
                             <li><b>Sguardo Terribile</b> (&#9679;&#9679;&#9679;): il vampiro riesce a condensare la sua natura soprannaturale in un singolo, terribile sguardo, che blocca i mortali di terrore, costringendoli a fuggire o a rimanere bloccati dalla paura, e nei vampiri arriva a causare R&ouml;tschreck.</li>
@@ -62,15 +107,55 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
                     <li style={liStyle}><b>Auspex</b>: la Disciplina sensoriale per eccellenza, ha a che fare con la Percezione soprannaturale dei vampiri
                         <ul>
-                            <li><b>Sensi sviluppati</b> (&#9679;): i sensi del vampiro si amplificano a dismisura, dandogli la possibilit&agrave; di vedere nella quasi oscurit&agrave;, percepire ultrasuoni o l'odore del sangue a distanza.</li>
-                            <li><b>Vedere l'Invisibile</b> (&#9679;): il vampiro riesce ad individuare presenze celate in modo soprannaturale, come vampiri che stanno usando Oscurazione, o spiriti.</li>
-                            <li><b>Premonizione</b> (&#9679;&#9679;): questo potere fornisce al vampiro dei lampi di intuizione. Il vampiro riesce a ricordare un dettaglio prima ritenuto insignificante, o a captare i segnali di una imboscata.</li>
-                            <li><b>Scrutare l'Anima</b> (&#9679;&#9679;&#9679;): il vampiro riesce a captare l'aura di una persona, individuandone i sentimenti e le caratteristiche.</li>
-                            <li><b>Condivisione dei Sensi</b> (&#9679;&#9679;&#9679;): il vampiro riesce a percepire informazioni sensoriali di qualcuno in linea visuale, oppure, a lunga distanza, di qualcuno che ha ancora qualche goccia del suo sangue.</li>
-                            <li><b>Tocco degli Spiriti</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a percepire residui di emozione o altri indizi impossibili da decifrare con mezzi tradizionali toccando un oggetto inanimato.</li>
-                            <li><b>Chiaroveggenza</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): entrando in un leggero stato di <i>trance</i>, il vampiro riesce a percepire qualsiasi cosa fuori dall'ordinario in un quartiere o, se all'esterno o in un'area scarsamente popolata, in un'area di svariati chilometri.</li>
-                            <li><b>Possessione</b> (&#9679;&#9679;&#9679;&#9679;&#9679; - Amalgama con Dominazione &#9679;&#9679;&#9679;): il vampiro acquisisce il controllo completo del corpo di un mortale.</li>
-                            <li><b>Telepatia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a leggere la mente di mortali o vampiri (anche se questi ultimi con un po' pi&ugrave; di fatica). Riesce anche ad impiantare pensieri nella mente della vittima.</li>
+                            <li style={liStyle}>
+                                <b>Sensi sviluppati</b> (&#9679;): i sensi del vampiro si amplificano a dismisura, dandogli la possibilit&agrave; di vedere nella quasi oscurit&agrave;, percepire ultrasuoni o l'odore del sangue a distanza.<br />
+                                <b>Sistema</b>: automatico. Il vampiro aggiunge il suo punteggio di Auspex a tutti i tiri basati sulla percezione. Se esposto a violenti stimoli sensoriali, come esplosioni o flash, deve tirare Prontezza + Fermezza Diff. 3 per non venire
+                                confusi; in caso di fallimento, il vampiro sperimenter&agrave; una penalit&agrave; a tutti i tiri basati sulla percezione di -3 per il resto della Scena.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Vedere l'Invisibile</b> (&#9679;): il vampiro riesce ad individuare presenze celate in modo soprannaturale, come vampiri che stanno usando Oscurazione, o spiriti.<br />
+                                <b>Sistema</b>: automatico, le creature che si potranno vedere saranno a discrezione del Narratore.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Premonizione</b> (&#9679;&#9679;): questo potere fornisce al vampiro dei lampi di intuizione. Il vampiro riesce a ricordare un dettaglio prima ritenuto insignificante, o a captare i segnali di una imboscata.<br />
+                                <b>Sistema</b>: se non scatenata dal Narratore, il personaggio dovr&agrave; concentrarsi su un oggetto, effettuare 1 Rouse Check e tirare Fermezza + Auspex: il numero di successi determiner&agrave; la quantit&agrave;
+                                di informazioni che il personaggio intuir&agrave;.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Scrutare l'Anima</b> (&#9679;&#9679;&#9679;): il vampiro riesce a captare l'aura di una persona, individuandone i sentimenti e le caratteristiche.<br />
+                                <b>Sistema</b>: il personaggio effettua 1 Rouse Check, quindi tira Intelligenza + Auspex contro Autocontrollo + Sotterfugio della vittima. Il numero di successi supplementari indicher&agrave; quante informazioni il vampiro riuscir&agrave; 
+                                ad ottenere dalla vittima. In caso di giocata libera, il personaggio potr&agrave; fare tre domande sullo stato emotivo del bersaglio. Il potere ha effetto anche sulle folle, ma in quel caso sar&agrave; necessaria la presenza
+                                del Narratore.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Condivisione dei Sensi</b> (&#9679;&#9679;&#9679;): il vampiro riesce a percepire informazioni sensoriali di qualcuno in linea visuale, oppure, a lunga distanza, di qualcuno che ha ancora qualche goccia del suo sangue.<br />
+                                <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Fermezza + Auspex a Difficolt&agrave; 3, o pi&ugrave; se il bersaglio &egrave; distante. &Egrave; impossibile accorgersi della condivisione senza usare Vedere l'Invisibile,
+                                ma se la vittima si accorge dell'intrusione, dovr&agrave; riuscire in un tiro di Prontezza + Fermezza contro Prontezza + Fermezza del perpetratore: se il tiro riesce, il vampiro non potr&agrave; condividere i sensi per il resto
+                                della notte.
+                            </li>
+                            <li style={liStyle}>
+                                <b>Tocco degli Spiriti</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a percepire residui di emozione o altri indizi impossibili da decifrare con mezzi tradizionali toccando un oggetto inanimato.<br />
+                                <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Intelligenza + Auspex a Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in una giocata libera.
+                            </li>
+                            <li style={liStyle}>
+                                <b>Chiaroveggenza</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): entrando in un leggero stato di <i>trance</i>, il vampiro riesce a percepire qualsiasi cosa fuori dall'ordinario in un quartiere o, se all'esterno o in un'area scarsamente popolata, in un'area di svariati chilometri.<br />
+                                <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Intelligenza + Auspex ad una Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in giocate libere.
+                            </li>
+                            <li style={liStyle}>
+                                <b>Possessione</b> (&#9679;&#9679;&#9679;&#9679;&#9679; - Amalgama con Dominazione &#9679;&#9679;&#9679;): il vampiro acquisisce il controllo completo del corpo di un mortale.<br />
+                                <b>Sistema</b>: questo potere ha effetto solo su mortali. Effettuare 2 Rouse Checks, quindi tirare Fermezza + Auspex contro Fermezza + Intelligenza della vittima. Se il tiro finisce in pareggio, pu&ograve; 
+                                essere ritentato, in quanto la Possessione &egrave; una Disciplina che implica una lotta di volont&agrave; tra il vampiro e la sua vittima. Se il vampiro fallisce totalmente, non potr&agrave; pi&ugrave; 
+                                possedere il mortale per il resto della scena.
+                            </li>
+                            <li style={liStyle}>
+                                <b>Telepatia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a leggere la mente di mortali o vampiri (anche se questi ultimi con un po' pi&ugrave; di fatica). Riesce anche ad impiantare pensieri nella mente della vittima.
+                                <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Fermezza + Auspex contro Prontezza + Sotterfugio della vittima. Se la vittima &egrave; consenziente, o se il vampiro vuole semplicemente trasmettere un pensiero alla vittima,
+                                sia essa mortale o Cainita, non dovr&agrave; effettuare nessun tiro.
+                            </li>
                         </ul>
                     </li>
                     <li style={liStyle}><b>Blood Sorcery</b>: questa Disciplina &egrave; a met&agrave; tra magia e poteri della vitae.
@@ -215,14 +300,58 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}><b>Thin-Blood Alchemy</b>: <i>Under Construction</i></li>
                     <li style={liStyle}><b>Velocità</b>: questa Disciplina aumenta la naturale grazie e la velocit&agrave; di movimento di un vampiro
                         <ul>
-                            <li><b>Grazie Felina</b> (&#9679;): il vampiro assume la grazia e la destrezza di un ginnasta olimpico.</li>
-                            <li><b>Riflessi Rapidi</b> (&#9679;): questo potere (passivo) del vampiro gli consente di percepire ad una velocit&agrave; incredibile pericoli altrimenti letali. Pu&ograve; arrivare anche ad evitare frecce, o a scansare pallottole senza copertura.</li>
-                            <li><b>Leggerezza</b> (&#9679;&#9679;): il vampiro a questo livello si muove con una velocit&agrave; incredibile. Aggiunge il valore di Velocit&agrave; all'ammontare di Destrezza, anche per difesa nei combattimenti.</li>
-                            <li><b>Battito di Ciglia</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; ingaggiare subito battaglia dopo aver percorso fino ad una cinquantina di metri (avendo a disposizione ancora un'azione), o fuggire immediatamente dalla scena.</li>
-                            <li><b>Attraversamento</b> (&#9679;&#9679;&#9679;): il vampiro riesce a scalare pareti verticali per una buona distanza, o addirittura riesce a correre sull'acqua, con la dovuta rincorsa.</li>
-                            <li><b>Pozione di Velocit&agrave;</b> (&#9679;&#9679;&#9679;&#9679;): il Sangue del vampiro riesce a trasmettere la met&agrave; dei pallini per difetto a chiunque beva il suo sangue.</li>
-                            <li><b>Colpo Fulmineo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a colpire un bersaglio in mischia senza che questi possa difendersi (Diff. 1), a meno che anche il bersaglio possegga Velocit&agrave; 5.</li>
-                            <li><b>Frazione di Secondo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro &egrave; cos&igrave; veloce che riesce ad agire in base ai suoi riflessi soprannaturali. Pu&ograve; passare attraverso una porta che si sta chiudendo, o apparire dietro un nemico in procinto di effettuare un'imboscata.</li>
+                            <li style={liStyle}>
+                                <b>Grazie Felina</b> (&#9679;): il vampiro assume la grazia e la destrezza di un ginnasta olimpico.<br />
+                                <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Rouse Check, il vampiro riesce a camminare e tenersi in equilibrio su qualsiasi supporto, a patto che siano in grado di sostenere il suo peso.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Riflessi Rapidi</b> (&#9679;): questo potere (passivo) del vampiro gli consente di percepire ad una velocit&agrave; incredibile pericoli altrimenti letali. Pu&ograve; arrivare anche ad evitare frecce, o a scansare pallottole senza copertura.<br />
+                                <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Rouse Check, il vampiro non subisce nessuna penalit&agrave; per la mancanza di copertura sotto attacco di armi da fuoco, e ha anche a disposizione una 
+                                azione supplementare del valore massimo di 2 dadi per ricaricare l'arma, per esempio.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Leggerezza</b> (&#9679;&#9679;): il vampiro a questo livello si muove con una velocit&agrave; incredibile. Aggiunge il valore di Velocit&agrave; all'ammontare di Destrezza, anche per difesa nei combattimenti.<br />
+                                <b>Sistema</b>: effettuando 1 Rouse Check per scena, il vampiro pu&ograve; aggiungere il suo punteggio di Velocit&agrave; ad ogni tiro di Destrezza fuori dal combattimento, al massimo per schivare con Destrezza + Atletica.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Battito di Ciglia</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; ingaggiare subito battaglia dopo aver percorso fino ad una cinquantina di metri (avendo a disposizione ancora un'azione), o fuggire immediatamente dalla scena.<br />
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro raggiunge il bersaglio e ha ancora a disposizione un'azione, quindi &egrave; come se fosse gi&agrave; nella mischia all'inizio del turno, per la determinazione 
+                                dell'<Link to={GuideRoutes.mechanics}>Iniziativa</Link>. Dipendendo dal terreno, il Narratore potr&agrave; chiedere un tiro di Destrezza + Atletica. Nel caso in cui l'avversario voglia usare un'arma da fuoco, il vampiro
+                                dovr&agrave; tirare Destrezza + Atletica contro Destrezza + Armi da Fuoco dell'attaccante: se il vampiro riesce, potr&agrave; agire prima dell'attaccante, viceversa l'attaccante avr&agrave; a disposizione un'azione per sparare
+                                contro il vampiro.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Attraversamento</b> (&#9679;&#9679;&#9679;): il vampiro riesce a scalare pareti verticali per una buona distanza, o addirittura riesce a correre sull'acqua, con la dovuta rincorsa.<br />
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Destrezza + Atletica, con una Difficolt&agrave; dipendente dal tipo di superficie. Ogni successo avviciner&agrave; il vampiro al traguardo.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Pozione di Velocit&agrave;</b> (&#9679;&#9679;&#9679;&#9679;): il Sangue del vampiro riesce a trasmettere la met&agrave; dei pallini per difetto a chiunque beva il suo sangue.<br />
+                                <b>Sistema</b>: chi beve l'equivalente di un Rouse Check di Vitae del Cainita, acquisisce un livello di Velocit&agrave; pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Colpo Infallibile</b> (&#9679;&#9679;&#9679;&#9679; Amalgama: Auspex &#9679;&#9679;): il mondo per il Cainita pare fermarsi per qualche istante, in cui riesce a prendere la mira come se fosse un tiro stazionario, anche se
+                                attorno a lui pu&ograve; succedere qualsiasi cosa.<br />
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il potere &egrave; automatico. Il vampiro potr&agrave; attaccare un altro personaggio con Armi da Fuoco tirando a Difficolt&agrave; 1, e quest'ultimo non potr&agrave; difendersi, a meno
+                                che non possieda Velocit&agrave; 5: in quel caso, potr&agrave; difendersi facendo un Rouse Check.
+                            </li>
+
+                            <li style={liStyle}>
+                                <b>Colpo Fulmineo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a colpire un bersaglio in mischia senza che questi possa difendersi (Diff. 1), a meno che anche il bersaglio possegga Velocit&agrave; 5.<br />
+                                <b>Sistema</b>: il personaggio effettua 1 Rouse Check, e per un solo attacco di rissa o mischia il bersaglio non potr&agrave; difendersi. Il tiro di attacco avr&agrave; difficolt&agrave; 1.
+                                Un personaggio con Velocit&agrave; 5 potr&agrave; effettuare 1 Rouse Check e difendersi normalmente.
+                            </li>
+                            
+                            <li style={liStyle}>
+                                <b>Frazione di Secondo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro &egrave; cos&igrave; veloce che riesce ad agire in base ai suoi riflessi soprannaturali. 
+                                Pu&ograve; passare attraverso una porta che si sta chiudendo, o apparire dietro un nemico in procinto di effettuare un'imboscata.<br />
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il personaggio potr&agrave;, sempre ragionevolmente, anticipare qualsiasi cosa il Narratore stia preparando; non sono necessari tiri.
+                            </li>
                         </ul>
                     </li>
                 </ul>

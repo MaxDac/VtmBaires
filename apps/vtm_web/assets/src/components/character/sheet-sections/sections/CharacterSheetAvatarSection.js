@@ -20,8 +20,6 @@ const CharacterSheetAvatarSection = ({characterQuery, sx}: Props): any => {
         characterSheetFragment,
         characterQuery);
 
-    console.log("avatar", sheet);
-
     return (
         <Paper component="div" sx={{
             width: `${avatarWidth + 10}px`,
