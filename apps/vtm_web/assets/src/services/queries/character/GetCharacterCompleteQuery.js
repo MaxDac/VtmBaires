@@ -42,6 +42,8 @@ export type Character = {|
     +isNpc: ?boolean,
     +advantages: ?string,
     +notes: ?string,
+    +disciplinePowers: ?string,
+    +objects: ?string,
     +lastHunt: ?any,
     +lastResonance: ?string,
     +lastResonanceIntensity: ?number,
