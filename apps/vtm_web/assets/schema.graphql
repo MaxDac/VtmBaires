@@ -82,7 +82,9 @@ type ChangeCharacterExperiencePayload {
 input ChangeCharacterNotesInput {
   advantages: String!
   characterId: ID!
+  disciplinePowers: String
   notes: String!
+  objects: String
 }
 
 type ChangeCharacterNotesPayload {
@@ -105,7 +107,9 @@ type ChangeCharacterOtherStatsPayload {
 input ChangeCharacterStatusInput {
   advantages: String!
   characterId: ID!
+  disciplinePowers: String
   notes: String!
+  objects: String
 }
 
 type ChangeCharacterStatusPayload {
@@ -141,6 +145,7 @@ type Character implements Node {
   damage: Int
   dead: Boolean
   description: String
+  disciplinePowers: String
   experience: Int
   generation: Int
   health: Int
@@ -156,6 +161,7 @@ type Character implements Node {
   lastResonanceIntensity: Int
   name: String
   notes: String
+  objects: String
   off: String
   predatorType: PredatorType
   soundtrack: String
@@ -216,6 +222,7 @@ input CharacterCreationRequest {
 
 input CharacterFinalizationRequest {
   advantages: String!
+  disciplinePowers: String
   notes: String
   predatorTypeId: ID
 }

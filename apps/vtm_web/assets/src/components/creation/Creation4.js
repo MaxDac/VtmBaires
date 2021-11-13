@@ -60,6 +60,7 @@ const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) =
     if (hasDiscplines) {
         shape = {
             ...shape,
+            disciplinePowers: string("Scrivi quali poteri di Disciplina vuoi acquisire").required("Required"),
             discipline1: string("Select your character first discipline").required("Required"),
             discipline2: string("Select your character second discipline").required("Required")
         }
@@ -84,6 +85,7 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
     if (hasDisciplines) {
         initialValue = {
             ...initialValue,
+            disciplinePowers: "",
             discipline1: "",
             discipline2: ""
         }
@@ -99,13 +101,13 @@ const Creation4 = (): any => {
     const environment = useRelayEnvironment();
 
     const submit = (character: CharacterFragments_characterConcealedInfo) => ({
+        disciplinePowers,
         discipline1,
         discipline2,
         predatorType,
         advantages,
         notes
     }) => {
-
         const disciplinesOk = !characterHasDisciplines(character) ||
             (discipline1 &&
             discipline2);
@@ -130,6 +132,10 @@ const Creation4 = (): any => {
                 if (characterHasDisciplines(character)) {
                     request = {
                         ...request,
+                        request: {
+                            ...request.request,
+                            disciplinePowers: disciplinePowers
+                        },
                         attributes: [{
                             attributeId: discipline1,
                             characterId: String(character?.id),
@@ -191,10 +197,13 @@ const Creation4 = (): any => {
                                         classes={classes}
                                         firstDiscipline={formik.values["discipline1"]}
                                         secondDiscipline={formik.values["discipline2"]}
+                                        disciplinePowers={formik.values["disciplinePowers"]}
                                         firstError={formik.touched["discipline1"] && Boolean(formik.errors["discipline1"])}
                                         secondError={formik.touched["discipline2"] && Boolean(formik.errors["discipline2"])}
+                                        disciplinePowersErrors={formik.touched["disciplinePowers"] && Boolean(formik.errors["disciplinePowers"])}
                                         onFirstDisciplineChange={formik.handleChange}
-                                        onSecondDisciplineChange={formik.handleChange} />
+                                        onSecondDisciplineChange={formik.handleChange}
+                                        onDisciplinePowersChange={formik.handleChange} />
                     <PredatorTypeControl characterInfo={characterInfo}
                                          classes={classes}
                                          value={formik.values["predatorType"]}

@@ -39,6 +39,7 @@ const ModifyCharacterValidationSchema = object().shape({
     description: string("Descrizione del personaggio").required(),
     avatar: string("Il tuo avatar").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
     biography: string("Biografia del personaggio").required(),
+    objects: string("Oggetti posseduti dal personaggio").notRequired(),
     soundtrack: string("Soundtrack").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
     off: string("Off").nullable().notRequired()
 });
@@ -98,6 +99,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
         initialValues: {
             description: sheet?.description,
             biography: concealedSheetInfo?.biography,
+            objects: concealedSheetInfo?.objects,
             avatar: sheet?.avatar,
             soundtrack: offSheet?.soundtrack,
             off: offSheet?.off

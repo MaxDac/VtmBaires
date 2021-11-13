@@ -66,6 +66,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :dead, :boolean
     field :advantages, :string
     field :notes, :string
+    field :discipline_powers, :string
+    field :objects, :string
     field :clan, :clan
     field :predator_type, :predator_type
     field :last_resonance, :string
@@ -109,8 +111,10 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
   input_object :character_finalization_request do
     field :predator_type_id, :id
+    field :discipline_powers, :string
     field :advantages, non_null(:string)
     field :notes, :string
+    field :discipline_powers, :string
   end
 
   input_object :change_sheet_info_request do
@@ -118,6 +122,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :chat_avatar, :string
     field :description, :string
     field :biography, :string
+    field :objects, :string
     field :soundtrack, :string
     field :off, :string
   end
@@ -410,6 +415,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
         field :character_id, non_null(:id)
         field :notes, non_null(:string)
         field :advantages, non_null(:string)
+        field :discipline_powers, :string
+        field :objects, :string
       end
 
       output do
@@ -426,6 +433,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
         field :character_id, non_null(:id)
         field :notes, non_null(:string)
         field :advantages, non_null(:string)
+        field :discipline_powers, :string
+        field :objects, :string
       end
 
       output do

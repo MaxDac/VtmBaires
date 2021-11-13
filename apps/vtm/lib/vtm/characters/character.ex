@@ -39,6 +39,8 @@ defmodule Vtm.Characters.Character do
     field :approved, :boolean
     field :advantages, :string
     field :notes, :string
+    field :discipline_powers, :string
+    field :objects, :string
 
     belongs_to :user, User
     belongs_to :clan, Clan
@@ -49,7 +51,7 @@ defmodule Vtm.Characters.Character do
 
   def complete_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :notes, :predator_type_id, :is_complete])
+    |> cast(attrs, [:advantages, :discipline_powers, :notes, :predator_type_id, :is_complete])
     |> foreign_key_constraint(:clan_id)
     |> foreign_key_constraint(:predator_type_id)
     |> validate_required([:advantages, :notes, :predator_type_id])
@@ -63,7 +65,7 @@ defmodule Vtm.Characters.Character do
 
   def add_advantages_character_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :notes, :predator_type_id])
+    |> cast(attrs, [:advantages, :discipline_powers, :notes, :predator_type_id])
     |> foreign_key_constraint(:predator_type_id)
     |> validate_required([:advantages, :predator_type_id])
   end
@@ -97,6 +99,8 @@ defmodule Vtm.Characters.Character do
       :stains,
       :advantages,
       :notes,
+      :discipline_powers,
+      :objects,
       :stage,
       :approved,
       :predator_type_id,
@@ -139,6 +143,8 @@ defmodule Vtm.Characters.Character do
       :predator_type_id,
       :advantages,
       :notes,
+      :discipline_powers,
+      :objects,
       :blood_potency,
       :last_resonance,
       :last_resonance_intensity,

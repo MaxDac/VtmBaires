@@ -14,16 +14,20 @@ import { characterHasDisciplines } from "../../../_base/utils";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import TextField from "@mui/material/TextField";
 
 type Props = {
     characterInfo: CharacterFragments_characterConcealedInfo;
     classes: any;
     onFirstDisciplineChange?: ?(Event) => void;
     onSecondDisciplineChange?: ?(Event) => void;
+    onDisciplinePowersChange?: ?(Event) => void;
     firstDiscipline: string;
     secondDiscipline: string;
+    disciplinePowers: string;
     firstError?: boolean;
     secondError?: boolean;
+    disciplinePowersErrors?: boolean;
 }
 
 const DisciplinesControl = ({
@@ -31,10 +35,13 @@ const DisciplinesControl = ({
                                 classes,
                                 onFirstDisciplineChange,
                                 onSecondDisciplineChange,
+                                onDisciplinePowersChange,
                                 firstDiscipline,
                                 secondDiscipline,
+                                disciplinePowers,
                                 firstError,
-                                secondError
+                                secondError,
+                                disciplinePowersErrors
 }: Props): any => {
     const { clanDisciplines }: ClanDisciplinesQueryResponse =
         useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: characterInfo.clan?.id });
@@ -57,12 +64,7 @@ const DisciplinesControl = ({
                         <Typography paragraph className={classes.defaultParagraph}>
                             Siccome hai scelto un personaggio vampiro, dovrai ora impostare la disposizione delle
                             Discipline del tuo personaggio. In creazione, hai a disposizione tre differenti poteri,
-                            due poteri di una Disciplina e uno di una seconda Disciplina di clan. Ricorda che
-                            dovrai specificare quali poteri hai intenzione di associare al tuo personaggio nelle Note.
-                            Puoi trovare l'elenco completo delle Discipline nella sezione apposita
-                            nella <Link to={GuideRoutes.attributes}
-                                        target="_blank"
-                                        rel="noreferrer">Guida</Link>.
+                            due poteri di una Disciplina e uno di una seconda Disciplina di clan.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} style={{textAlign: "center"}}>
@@ -94,6 +96,35 @@ const DisciplinesControl = ({
                                 {showDisciplines()}
                             </Select>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography paragraph sx={{marginTop: "1.5rem"}}>
+                            Di seguito dovrai specificare quali poteri hai intenzione di associare al tuo personaggio
+                            nelle Note. Puoi trovare l'elenco completo delle Discipline nella sezione apposita
+                            nella <Link to={GuideRoutes.attributes}
+                                        target="_blank"
+                                        rel="noreferrer">Guida</Link>, e la spiegazione di come riempire questa sezione
+                            nella <Link to={GuideRoutes.creation}
+                                        target="_blank"
+                                        rel="noreferrer">Guida di creazione</Link>. Ricorda che hai diritto a <b>due</b>
+                            poteri della prima Disciplina che hai scelto, e <b>uno</b> per la seconda.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            label="Poteri selezionati"
+                            type="text"
+                            id="disciplinePowers"
+                            name="disciplinePowers"
+                            multiline={true}
+                            rows={5}
+                            value={disciplinePowers}
+                            onChange={onDisciplinePowersChange}
+                            error={disciplinePowersErrors}
+                            helperText={disciplinePowersErrors} />
                     </Grid>
                 </>);
         }

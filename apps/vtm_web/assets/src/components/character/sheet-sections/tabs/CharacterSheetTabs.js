@@ -35,8 +35,8 @@ const CharacterSheetTabs = ({characterQuery}: Props): any => {
                       onChange={handleChange}
                       aria-label="basic tabs example">
                     <Tab label="Info" {...a11yProps(0)} sx={mainFontFamily} />
-                    <Tab label="Stats" {...a11yProps(1)} sx={mainFontFamily} />
-                    <Tab label="Data" {...a11yProps(2)} sx={mainFontFamily} />
+                    <Tab label="Scheda" {...a11yProps(1)} sx={mainFontFamily} />
+                    <Tab label="Dati del Personaggio" {...a11yProps(2)} sx={mainFontFamily} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>

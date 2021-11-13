@@ -84,8 +84,24 @@ const GuidesCreation = (): any => {
                 selezionare le due Discipline che potranno avere in fase di creazione. Dato che ogni Disciplina, con il nuovo regolamento
                 pu&ograve; avere pi&ugrave; di un potere per livello, <b>sar&agrave; necessario indicare nelle note al master, quali 
                 poteri per ogni livello di Disciplina selezionato volete prendere</b>, dato che sar&agrave; possibile selezionare un
-                solo potere per livello di Disciplina. Potrete trovare le Discipline&nbsp;
-                <Link to={GuideRoutes.attributes}>nell'apposita sezione della guida</Link>.
+                solo potere per livello di Disciplina.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                <b>Nota</b>: col nuovo regolamento, la scelta dei poteri delle Discipline &egrave; differente da quello normalmente
+                utilizzato nelle precedenti versioni di Vampiri: la Masquerade&trade;. Per ogni livello di punto Disciplina acquisito,
+                sar&agrave; necessario indicare quale potere il Cainita conosce. La scelta, ad ogni livello, pu&ograve; ricadere su un 
+                potere dello stesso livello acquisito, <b>o uno inferiore</b>. Esempio: un personaggio acquisisce il potere di 
+                Ascendente a livello 1, e sceglie di prendere <b>Soggezione</b>. In seguito, decide di comprare con punti esperienza
+                il secondo livello: in questo caso, pu&ograve; scegliere il potere di secondo livello, come <b>Bacio Persistente</b>, 
+                oppure pu&ograve; scegliere di acquistare il secondo potere di primo livello, <b>Intimidire</b>. Nel caso in cui scelga 
+                di prendere <b>Bacio Persistente</b>, e acquisti il terzo livello della Disciplina, anche in quel caso potr&agrave;
+                scegliere di prendere un potere di terzo livello, oppure di acquistare <b>Intimidire</b>, nonostante sia 2 livelli 
+                inferiore.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Potrete trovare le Discipline <Link to={GuideRoutes.attributes}>nell'apposita sezione della guida</Link>.
             </Typography>
 
             <Typography paragraph>

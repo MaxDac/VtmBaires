@@ -62,38 +62,57 @@ const Experience = ({sheet}) => (
     </>
 );
 
-const Biography = ({sheet}) => (
+type InfoElementProps = {
+    title: string;
+    text: ?string;
+    titleSx?: any;
+    textSx?: any;
+}
+
+const InfoElement = ({title, text, titleSx, textSx}: InfoElementProps) => (
     <>
         <Typography sx={{
             ...sectionTitleStyle,
-            fontSize: "2rem",
-            marginTop: "1rem"
+            ...titleSx
         }}>
-            Biografia
+            {title}
         </Typography>
-        <ParsedText text={sheet?.biography} sx={mainFontFamily} />
-    </>
-);
-
-const Advantages = ({sheet}) => (
-    <>
-        <Typography sx={sectionTitleStyle}>
-            Vantaggi
-        </Typography>
-        <ParsedText text={sheet?.advantages} sx={{
+        <ParsedText text={text ?? ""} sx={{
             ...mainFontFamily,
-            marginBottom: "10px"
+            ...textSx
         }} />
     </>
 );
 
+const Biography = ({sheet}) => (
+    <InfoElement title="Biografia" text={sheet?.biography} titleSx={{
+        fontSize: "2rem",
+        marginTop: "1rem"
+    }} />
+);
+
+const DisciplinePowers = ({sheet}) => (
+    <InfoElement title="Poteri" text={sheet?.disciplinePowers} textSx={{
+        marginBottom: "10px"
+    }} />
+);
+
+const Advantages = ({sheet}) => (
+    <InfoElement title="Vantaggi" text={sheet?.advantages} textSx={{
+        marginBottom: "10px"
+    }} />
+);
+
+const Objects = ({sheet}) => (
+    <InfoElement title="Oggetti posseduti" text={sheet?.objects} textSx={{
+        marginBottom: "10px"
+    }} />
+);
+
 const Notes = ({sheet}) => (
-    <>
-        <Typography sx={sectionTitleStyle}>
-            Note
-        </Typography>
-        <ParsedText text={sheet?.notes} sx={mainFontFamily} />
-    </>
+    <InfoElement title="Note" text={sheet?.notes} textSx={{
+        marginBottom: "10px"
+    }} />
 );
 
 const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
@@ -107,7 +126,9 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             <Experience sheet={sheet} />
             <PredatorType sheet={sheet} />
             <Biography sheet={sheet} />
+            <DisciplinePowers sheet={sheet} />
             <Advantages sheet={sheet} />
+            <Objects sheet={sheet} />
             <Notes sheet={sheet} />
         </>
     );

@@ -15,6 +15,8 @@ export const characterConcealedInfoFragment: any = graphql`
         id
         name
         biography
+        disciplinePowers
+        objects
         clan {
             id
             name
@@ -65,6 +67,8 @@ export const characterStateFragment: any = graphql`
         biography
         advantages
         notes
+        disciplinePowers
+        objects
         predatorType {
             id
             name
