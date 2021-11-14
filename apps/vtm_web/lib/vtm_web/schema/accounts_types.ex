@@ -139,6 +139,7 @@ defmodule VtmWeb.Schema.AccountTypes do
       arg :map_id, :id
 
       middleware Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
       resolve parsing_node_ids(&AccountsResolvers.update_session_map/2, map_id: :chat_location)
       middleware Middlewares.ChangesetErrors
     end
