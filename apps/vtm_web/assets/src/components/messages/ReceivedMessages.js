@@ -14,7 +14,7 @@ import {UtilityContext} from "../../contexts";
 import {handleMutation} from "../../_base/utils";
 import DeleteAllReceivedMessagesMutation from "../../services/mutations/messages/DeleteAllReceivedMessagesMutation";
 import {useRelayEnvironment} from "react-relay";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 
 const ReceivedMessages = (): any => {

@@ -3,7 +3,7 @@
 import React, {useContext, useState} from "react";
 import Grid from "@mui/material/Grid";
 import {mainFontFamily} from "../../Main.Layout.Style";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {
   characterAttributeSorter,
   useCharacterStatsQuery,

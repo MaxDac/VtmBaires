@@ -10,7 +10,7 @@ import useAttributesSlimQuery from "../../services/queries/info/AttributesSlimQu
 import switchCharacterAttributeMutation from "../../services/mutations/characters/SwitchCharacterAttributeMutation";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import type {RefreshedQueryOption} from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import FinalizeCharacterMutation from "../../services/mutations/characters/FinalizeCharacterMutation";

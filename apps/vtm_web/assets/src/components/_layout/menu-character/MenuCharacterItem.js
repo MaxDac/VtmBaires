@@ -8,14 +8,12 @@ import ListItemText from "@mui/material/ListItemText";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import type {UserCharacter} from "../../../services/queries/accounts/UserCharactersQuery";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {useSession} from "../../../services/session-service";
 import IconButton from "@mui/material/IconButton";
 import {menuIconStyle, menuTextStyle, menuTextStyleHover} from "../Menu";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 
 type Props = {
     character: UserCharacter;

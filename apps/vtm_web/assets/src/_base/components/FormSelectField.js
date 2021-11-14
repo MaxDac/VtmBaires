@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import type { Formik } from "./FormTypes";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 
 export type SelectInputProps = {
     formik: Formik;

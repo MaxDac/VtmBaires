@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {GetCreationTemplateQuery} from "../../../services/queries/character/__generated__/GetCreationTemplateQuery.graphql";
 import {getCreationTemplateQuery} from "../../../services/queries/character/GetCreationTemplateQuery";

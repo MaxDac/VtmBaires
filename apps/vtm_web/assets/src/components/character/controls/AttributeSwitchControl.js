@@ -6,7 +6,7 @@ import {object, ref, string} from "yup";
 import {useFormik} from "formik";
 import FormSelectField from "../../../_base/components/FormSelectField";
 import Button from "@mui/material/Button";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {Box} from "@mui/material";
 
 type Props = {

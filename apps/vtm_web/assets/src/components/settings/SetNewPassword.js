@@ -7,7 +7,7 @@ import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import ChangeUserPasswordMutation from "../../services/mutations/sessions/ChangeUserPasswordMutation";
 
 const SignUpSchema = object().shape({

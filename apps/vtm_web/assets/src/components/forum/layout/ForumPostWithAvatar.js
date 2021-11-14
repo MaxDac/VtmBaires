@@ -12,7 +12,7 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
 import type { GetCharacterAvatarQuery } from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 import {useMediaQuery} from "@mui/material";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import type {GetCharacterChatAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterChatAvatarQuery.graphql";
 import {getCharacterChatAvatarQuery} from "../../../services/queries/character/GetCharacterChatAvatarQuery";
 import Avatar from "@mui/material/Avatar";

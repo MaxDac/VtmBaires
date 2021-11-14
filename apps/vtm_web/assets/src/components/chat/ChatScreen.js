@@ -8,7 +8,7 @@ import ChatEntryComponent from "./ChatEntryComponent";
 import {emptyArray} from "../../_base/utils";
 import {useChatEntriesForSubscriptions} from "./hooks/ChatEntryFromSubscriptionHook";
 import {useMediaQuery} from "@mui/material";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {add, compareAsc} from "date-fns";
 import { parseUTC } from "../../_base/date-utils";
 

@@ -25,6 +25,8 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
 
     const isText = () => Boolean(entry.text);
 
+    const isResult = () => Boolean(entry.result)
+
     const isMaster = () => entry.master;
 
     const isOffGame = () => entry?.offGame === true;
@@ -33,7 +35,15 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
         color: "primary.light",
         ...sx,
         fontFamily: 'Chat'
-    }
+    };
+
+    const nameStyle = {
+        ...commonStyle,
+        color: {
+            xs: "primary.light",
+            md: "secondary.light"
+        }
+    };
 
     const masterPhraseStyle = {
         ...commonStyle,
@@ -46,23 +56,18 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const avatarStyle = {
         width: "3rem",
         height: "3rem"
-    }
+    };
 
-    const primaryText = () => {
-        const text = isText()
-            ? entry.character.name
-            : `${entry.character.name} (tiro di dadi)`;
+    const characterNameWithTime = () => `${entry.character.name} ${defaultFormatTime(entry?.insertedAt) ?? ""}`;
 
-        return (
-            <Box component="div" sx={{
-                ...commonStyle,
-                color: "secondary.light",
-                textShadow: "2px 2px 5px black"
-            }}>
-                {`${text} ${defaultFormatTime(entry?.insertedAt) ?? ""}`}
-            </Box>
-        );
-    }
+    const primaryText = () => (
+        <Box component="div" sx={{
+            ...nameStyle,
+            textShadow: "2px 2px 5px black"
+        }}>
+            {characterNameWithTime()}
+        </Box>
+    );
 
     const parseChatEntryText = () =>
         <Typography component="div" sx={{
@@ -76,7 +81,15 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
     const parseChatEntryResult = () =>
         <Typography component="div" sx={{
             ...commonStyle,
+            display: "inline-flex",
+            fontSize: "1rem"
         }}>
+            <Typography component="div" sx={{
+                ...nameStyle,
+                fontSize: "1rem"
+            }}>
+                {characterNameWithTime()}:&nbsp;
+            </Typography>
             <ReactMarkdown components={markdownComponents} className="no-padding-paragraph">
                 {entry.result}
             </ReactMarkdown>
@@ -118,20 +131,26 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
         }} />
     );
 
-    const getChatEntry = () => (
+    const getResultEntry = () => (
         <>
-            <ListItemAvatar>
-                <Avatar alt="Remy Sharp"
-                        src={entry.character.chatAvatar}
-                        sx={avatarStyle} />
-            </ListItemAvatar>
-            <ListItemText primary={primaryText()} secondary={secondaryText()} />
+            <ListItemText secondary={secondaryText()} />
         </>
     );
 
     const getOffGameEntry = () => (
         <>
             <ListItemText secondary={secondaryOffText()} />
+        </>
+    );
+
+    const getChatEntry = () => (
+        <>
+            <ListItemAvatar>
+                <Avatar alt="Remy Sharp"
+                        src={entry.character.chatAvatar}
+                        sx={{avatarStyle}} />
+            </ListItemAvatar>
+            <ListItemText primary={primaryText()} secondary={secondaryText()} />
         </>
     );
 
@@ -142,6 +161,10 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
 
         if (isMaster()) {
             return getMasterEntry();
+        }
+
+        if (isResult()) {
+            return getResultEntry();
         }
 
         return getChatEntry();

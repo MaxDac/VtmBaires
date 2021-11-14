@@ -50,8 +50,6 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
     const [freeThrow, setFreeThrow] = useState(0);
     const [difficulty, setDifficulty] = useState(2);
 
-    console.debug("Attributes", attributes);
-
     const attributeOrSkillSelected = (): boolean => 
         attribute !== "" || skill !== "";
 
@@ -95,10 +93,10 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
 
     const getSecondDropdownItems = () => {
         const items =
-            [<ListSubheader key={1000}>Attributi</ListSubheader>]
-                .concat(buildSelectItems("Attribute"))
-                .concat([<ListSubheader key={2000}>Abilit&agrave;</ListSubheader>])
+            [<ListSubheader key={2000}>Abilit&agrave;</ListSubheader>]
                 .concat(buildSelectItems("Ability"))
+                .concat([<ListSubheader key={1000}>Attributi</ListSubheader>])
+                .concat(buildSelectItems("Attribute"))
                 .concat([<ListSubheader key={2000}>Discipline</ListSubheader>])
                 .concat(buildSelectItemsForDiscipline());
 

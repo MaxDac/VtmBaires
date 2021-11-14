@@ -4,7 +4,7 @@ import React from "react";
 import ForumFormLayout from "../layout/ForumFormLayout";
 import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 
 type Props = {
     title: string;

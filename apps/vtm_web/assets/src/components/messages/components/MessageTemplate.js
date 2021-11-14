@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useMemo} from "react";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {AllUsersQuery} from "../../../services/queries/accounts/__generated__/AllUsersQuery.graphql";
 import {allUsersQuery} from "../../../services/queries/accounts/AllUsersQuery";

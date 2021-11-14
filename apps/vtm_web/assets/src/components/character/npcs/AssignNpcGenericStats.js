@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import FormTextField from "../../../_base/components/FormTextField";
 import FormSelectField from "../../../_base/components/FormSelectField";
 import Button from "@mui/material/Button";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import {
     useCharacterStatsQuery
 } from "../../../services/queries/character/GetCharacterStatsQuery";

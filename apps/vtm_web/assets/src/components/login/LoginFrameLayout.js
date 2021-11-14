@@ -5,7 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Copyright from "../../_base/components/Copyrights";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@mui/material/styles";
 import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import {useMediaQuery} from "@mui/material";
 import AppVersion from "../../_base/components/AppVersion";
