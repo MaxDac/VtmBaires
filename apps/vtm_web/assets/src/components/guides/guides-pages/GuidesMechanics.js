@@ -446,6 +446,21 @@ const GuidesMechanics = (): any => {
 
             <Typography paragraph>
                 <h4 style={titleStyle}>
+                    Avversari multipli
+                </h4>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                In caso di avversari multipli, si seguiranno due regole differenti per la difesa e per l'attacco. Se il giocatore vuole difendersi
+                da avversari multipli (con Destrezza + Atletica se vuole schivare, o Forza + Rissa se vuole parare), col primo attacco avr&agrave; 
+                a disposizione il massimo dei dadi, col secondo avversario dovr&agrave; sottrarre un dado all'ammontare, 2 col col terzo e cos&igrave; via.
+                Se invece il personaggio vuole attaccare, dovr&agrave; dividere il proprio ammontare di dadi. Se per esempio il personaggio ha a 
+                disposizione 7 dadi, e vorr&agrave; attaccare 2 avversari, avr&agrave; 4 dadi a disposizione contro il primo avversario, e 3 dadi
+                per il secondo.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
                     Modificatore di copertura
                 </h4>
             </Typography>
