@@ -5,21 +5,18 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
-import Avatar from "@mui/material/Avatar";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import {useSession} from "../../services/session-service";
 import GroupsIcon from '@mui/icons-material/Groups';
-import { SessionContext, UtilityContext } from "../../contexts";
+import {SessionContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
 import List from "@mui/material/List";
-import {useTheme} from "@mui/styles";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
 import {menuIconStyle, MenuSecondaryText} from "./Menu";
+import MenuCharacterItem from "./menu-character/MenuCharacterItem";
+import type { UserCharacter } from "../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
     pushHistory: string => void;
@@ -29,28 +26,29 @@ type Props = {
 
 const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
     const history = useHistory();
-    const theme = useTheme();
     const [expand, setExpand] = useState(false);
-    const [,currentCharacter] = useSession();
     const {setCurrentCharacter} = useContext(SessionContext);
-    const {openDialog} = useContext(UtilityContext);
-
-    const handleNpcSelection = (info: any) =>
+    
+    const handleSheetSelection = (info: UserCharacter) =>
         _ => {
-            setCurrentCharacter(info);
+            pushHistory(MainRoutes.sheet(info.id));
+            onUpdate();
+        };
 
-            if (info.isComplete) {
-                openDialog(
-                    "Selezione personaggio", 
-                    "Il personaggio è stato selezionato, vuoi vedere la sua scheda?", 
-                    () => pushHistory(MainRoutes.sheet(info?.id)));
-            }
-            else {
-                pushHistory(MainRoutes.defineNpc(info?.id));
-            }
+    const handleCharacterSelection = (info: UserCharacter) =>
+        _ => {
+            setCurrentCharacter({
+                id: info.id,
+                name: info.name,
+                approved: info.approved,
+                clan: {
+                    name: info.clan?.name
+                }
+            });
 
             onUpdate();
-        }
+            document.location.reload(false);
+        };
 
     const showNpcs = () => {
         const rows = [];
@@ -60,27 +58,25 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                 npcs
                     .filter(o => o !== null)
                     .map(o => {
-                        const npcSecondaryAction = () =>
-                            o?.id === currentCharacter?.id
-                                ? <RadioButtonCheckedIcon sx={menuIconStyle} />
-                                : <RadioButtonUncheckedIcon sx={menuIconStyle} />
+                        const c: UserCharacter = {
+                            id: o?.id,
+                            name: o?.name ?? "",
+                            stage: 5,
+                            approved: true,
+                            isComplete: true,
+                            chatAvatar: o?.chatAvatar,
+                            clan: {
+                                name: o?.clan?.name ?? ""
+                            }
+                        };
 
-                        return (
-                            <ListItem key={o?.id}
-                                      button
-                                      sx={{ pl: 4 }}
-                                      onClick={handleNpcSelection(o)}
-                                      secondaryAction={npcSecondaryAction()}>
-                                <ListItemIcon>
-                                    <Avatar src={o?.chatAvatar} sx={{
-                                        width: theme.spacing(3),
-                                        height: theme.spacing(3)
-                                    }} />
-                                </ListItemIcon>
-                                <ListItemText secondary={<MenuSecondaryText text={o?.name} />} />
-                            </ListItem>
-                        )
+                        return c;
                     })
+                    .map(o => (
+                        <MenuCharacterItem character={o} 
+                                           handleSheetSelection={handleSheetSelection}
+                                           handleCharacterSelection={handleCharacterSelection} />
+                    ))
             );
         }
 

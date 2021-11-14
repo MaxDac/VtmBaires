@@ -41,6 +41,7 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
                 }
             });
 
+            onUpdate();
             document.location.reload(false);
         };
 

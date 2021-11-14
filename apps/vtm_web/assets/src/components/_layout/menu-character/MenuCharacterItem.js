@@ -52,10 +52,16 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
             : (<></>);
     };
 
+    const isButton = handleCharacterSelection == null;
+
+    const onClick = isButton
+        ? handleSheetSelection(character)
+        : () => {};
+
     return (
         <ListItem key={character?.id}
-                  button={handleCharacterSelection == null}
-                  onClick={handleSheetSelection(character)}
+                  button={isButton}
+                  onClick={onClick}
                   // sx={{ pl: 4 }}
                   secondaryAction={actions()}>
             <ListItemIcon>
