@@ -68,7 +68,7 @@ export const MenuSecondaryText = ({text, hover}: MenuSecondaryTypeProps): any =>
     <Typography component="span" sx={!!hover ? menuTextStyleHover : menuTextStyle}>
         {text ?? ""}
     </Typography>
-)
+);
 
 export const MainListItems = ({drawerDone, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();

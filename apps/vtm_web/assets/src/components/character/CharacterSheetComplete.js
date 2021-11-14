@@ -24,7 +24,7 @@ const CharacterSheetComplete = (props: Props): any => {
     const userCharacters = useUserCharactersQuery();
     const [user,] = useSession();
 
-    const canModify = character => user?.role === "master" || userCharacters.some(c => c.id === character?.id);
+    const canModify = character => user?.role === "MASTER" || userCharacters.some(c => c.id === character?.id);
 
     const modifySheetLink = character => {
         if (canModify(character) && character?.id != null) {

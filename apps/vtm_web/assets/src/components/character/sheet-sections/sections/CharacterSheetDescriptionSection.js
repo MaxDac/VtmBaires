@@ -13,9 +13,6 @@ import {mainFontFamily} from "../../../Main.Layout.Style";
 import ParsedText from "../../../../_base/components/ParsedText";
 import Box from "@mui/material/Box";
 
-export const avatarWidth: number = 270;
-export const avatarHeight: number = 470;
-
 type Props = {
     characterQuery: any
 }

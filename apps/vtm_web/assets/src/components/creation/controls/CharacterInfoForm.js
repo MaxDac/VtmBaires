@@ -17,7 +17,7 @@ import {creationClansQuery} from "../../../services/queries/info/CreationClansQu
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import {getUrlValidationMatchString} from "../../../_base/utils";
-import {avatarHeight, avatarWidth} from "../../character/sheet-sections/sections/CharacterSheetDescriptionSection";
+import {avatarHeight, avatarWidth} from "../../character/sheet-sections/sections/CharacterSheetAvatarSection";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;

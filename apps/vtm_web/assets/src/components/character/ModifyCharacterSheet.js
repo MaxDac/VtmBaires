@@ -28,6 +28,7 @@ import { MainRoutes } from "../MainRouter";
 import type {CharacterFragments_characterOff$key} from "../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 import {getUrlValidationMatchString} from "../../_base/utils";
 import type {CharacterFragments_characterConcealedInfo$key} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import {avatarHeight, avatarWidth} from "./sheet-sections/sections/CharacterSheetAvatarSection";
 
 type Props = {
     id: string;
@@ -39,7 +40,7 @@ const ModifyCharacterValidationSchema = object().shape({
     description: string("Descrizione del personaggio").required(),
     avatar: string("Il tuo avatar").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
     biography: string("Biografia del personaggio").required(),
-    objects: string("Oggetti posseduti dal personaggio").notRequired(),
+    objects: string("Oggetti posseduti dal personaggio").nullable().notRequired(),
     soundtrack: string("Soundtrack").nullable().matches(getUrlValidationMatchString(), urlNotMatchingErrorMessage).notRequired(),
     off: string("Off").nullable().notRequired()
 });
@@ -139,7 +140,7 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                                    showLargePreview={false} />
             </Grid>
             <Grid item xs={12}>
-                <FormTextField formik={formik} fieldName="avatar" label="URL Avatar Scheda (270 * 400)" autoComplete="Avatar URL" />
+                <FormTextField formik={formik} fieldName="avatar" label={`URL Avatar Scheda (${avatarWidth} * ${avatarHeight})`} autoComplete="Avatar URL" />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
                 <FormTextField formik={formik} fieldName="description" label="Descrizione" autoComplete="Descrizione" rows={5} />
