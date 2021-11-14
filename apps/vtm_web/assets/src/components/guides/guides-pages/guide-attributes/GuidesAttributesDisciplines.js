@@ -850,7 +850,8 @@ const GuidesAttributesDisciplines = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                <i>Under construction</i>
+                In fase di creazione, il giocatore dovr&agrave; scegliere quale dei tre metodi user&agrave; il Sangue Debole. Apprendere un nuovo metodo sar&agrave; equivalente
+                ad apprendere una nuova Disciplina, come se partisse da 0. Per la discussione dei rituali disponibili per l'Alchimia di Sangue Debole, contattare un Narratore.
             </Typography>
 
             <Typography paragraph>

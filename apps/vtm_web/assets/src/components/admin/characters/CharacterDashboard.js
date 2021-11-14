@@ -89,13 +89,13 @@ const CharacterDashboard = ({characterId}: Props): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ApproveCharacterForm character={character} />
+                            <ResetHuntForm character={character}
+                                           onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ResetHuntForm character={character}
-                                           onUpdate={onUpdate} />
+                            <ApproveCharacterForm character={character} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>

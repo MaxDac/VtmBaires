@@ -17,6 +17,8 @@ defmodule Vtm.Characters do
   def all() do
     query =
       from c in Character,
+        where: c.is_complete == true,
+        where: c.approved == true,
         order_by: c.name,
         select: {c.id, c.name}
 

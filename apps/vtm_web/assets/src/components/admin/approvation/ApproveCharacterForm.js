@@ -54,7 +54,7 @@ const ApproveCharacterForm = ({character}: Props): any => {
         }
     };
 
-    if (character?.approved !== true) {
+    if (character?.approved !== true && character?.isComplete === true) {
         return (
             <Grid item xs={12}>
                 <Box sx={{

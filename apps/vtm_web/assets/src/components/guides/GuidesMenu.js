@@ -25,29 +25,42 @@ import {GuideRoutes} from "./GuidesMain";
 import {LoginRoutes} from "../login/LoginRouter";
 import {menuIconStyle} from "../_layout/Menu";
 
-const GuidesMenu = (): any => {
+type GuidesMenuProps = {
+    onSelected?: () => void;
+};
+
+const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
     const history = useHistory();
     const [environmentOpen, setEnvironmentOpen] = useState(true);
     const [rulesOpen, setRulesOpen] = useState(false);
+
+    const onMenuItemSelected = (route: string) => 
+        _ => {
+            if (onSelected != null) {
+                onSelected();
+            }
+
+            history.push(route);
+        };
 
     return (
         <div>
             <Toolbar />
             <Divider />
             <List>
-                <ListItem button onClick={_ => history.push(LoginRoutes.login)}>
+                <ListItem button onClick={onMenuItemSelected(LoginRoutes.login)}>
                     <ListItemIcon>
                         <LockOutlinedIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Torna al Login" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.home)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.home)}>
                     <ListItemIcon>
                         <HomeIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.generalRules)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.generalRules)}>
                     <ListItemIcon>
                         <AssignmentLateIcon sx={menuIconStyle} />
                     </ListItemIcon>
@@ -66,19 +79,19 @@ const GuidesMenu = (): any => {
                 </ListItem>
                 <Collapse in={environmentOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.introduction)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.introduction)}>
                             <ListItemText primary="Introduzione" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.glossary)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.glossary)}>
                             <ListItemText primary="Glossario" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.environment)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environment)}>
                             <ListItemText primary="Globale" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.environmentBaires)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentBaires)}>
                             <ListItemText primary="Buenos Aires" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.environmentSects)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentSects)}>
                             <ListItemText primary="Sette" />
                         </ListItem>
                     </List>
@@ -96,55 +109,58 @@ const GuidesMenu = (): any => {
                 </ListItem>
                 <Collapse in={rulesOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.clans)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.clans)}>
                             <ListItemText primary="Clans" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.attributes)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.attributes)}>
                             <ListItemText primary="Attributi" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.mechanics)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.mechanics)}>
                             <ListItemText primary="Meccaniche" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.creation)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.creation)}>
                             <ListItemText primary="Creazione personaggio" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={_ => history.push(GuideRoutes.homeRules)}>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.homeRules)}>
                             <ListItemText primary="Stati di Esistenza & Adattamenti" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.experience)}>
+                            <ListItemText primary="Gestione dell'Esperienza" />
                         </ListItem>
                     </List>
                 </Collapse>
-                <ListItem button onClick={_ => history.push(GuideRoutes.npcs)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.npcs)}>
                     <ListItemIcon>
                         <SupervisedUserCircleIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Personaggi" />
                 </ListItem>
                 <Divider />
-                <ListItem button onClick={_ => history.push(GuideRoutes.places)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.places)}>
                     <ListItemIcon>
                         <LocationCityIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Luoghi" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.sayings)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.sayings)}>
                     <ListItemIcon>
                         <TranslateIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Modi di dire" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.siteHelp)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.siteHelp)}>
                     <ListItemIcon>
                         <HelpIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Help del Sito" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.faqs)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.faqs)}>
                     <ListItemIcon>
                         <QuestionAnswerIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="FAQ" />
                 </ListItem>
-                <ListItem button onClick={_ => history.push(GuideRoutes.credits)}>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.credits)}>
                     <ListItemIcon>
                         <BookmarkIcon sx={menuIconStyle} />
                     </ListItemIcon>

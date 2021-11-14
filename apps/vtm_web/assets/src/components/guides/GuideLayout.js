@@ -67,7 +67,7 @@ const GuideLayout = ({children}: Props): any => {
                             display: { xs: 'block', sm: 'none' },
                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}>
-                    <GuidesMenu />
+                    <GuidesMenu onSelected={handleDrawerToggle} />
                 </Drawer>
                 <Drawer variant="permanent"
                         sx={{
