@@ -16,7 +16,7 @@ import {MainRoutes} from "../MainRouter";
 import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
 import {menuIconStyle, MenuSecondaryText} from "./Menu";
 import MenuCharacterItem from "./menu-character/MenuCharacterItem";
-import type { UserCharacter } from "../../services/queries/accounts/UserCharactersQuery";
+import type {UserCharacter} from "../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
     pushHistory: string => void;
@@ -32,7 +32,6 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
     const handleSheetSelection = (info: UserCharacter) =>
         _ => {
             pushHistory(MainRoutes.sheet(info.id));
-            onUpdate();
         };
 
     const handleCharacterSelection = (info: UserCharacter) =>
@@ -47,7 +46,6 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
             });
 
             onUpdate();
-            document.location.reload(false);
         };
 
     const showNpcs = () => {

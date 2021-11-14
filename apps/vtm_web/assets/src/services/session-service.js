@@ -18,8 +18,9 @@ const storageUserInfoKey = "vtm-baires-session-info";
 const getStorage = (): Storage => localStorage;
 
 export const storeSession = (response: Session) => {
+    const newSession = JSON.stringify(response);
     getStorage().removeItem(storageUserInfoKey);
-    getStorage().setItem(storageUserInfoKey, JSON.stringify(response));
+    getStorage().setItem(storageUserInfoKey, newSession);
 };
 
 const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
@@ -162,34 +163,33 @@ export function getSessionHookValue(environment: IEnvironment): SessionInfo {
 }
 
 /**
- * This method gets the session (user and character)
- * @param sync If True, the method will return what is currently saved in the browser storage,
- * if false, and if the browser does not retain any information about the character, the method
- * will fetch the back-end information.
+ * This method gets the session (user and character) in a synchronous manner, i.e., without calling the
+ * back end.
  * @returns {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
  */
-export const useSession = (sync?: boolean): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
+export const useSession = (): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
+    const session = getSessionSync();
+    return [session?.user, session?.character, session?.location, session];
+};
+
+/**
+ * This method gets the session (user and character), checking whether the session exists in the client,
+ * otherwise calling the back end.
+ * @returns {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
+ */
+export const useSessionAsync = (): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
     const sessionContext = useContext(SessionContext);
     const [session,] = useState(getSessionSync());
     const [sessionCharacter, setSessionCharacter] = useState<?SessionCharacter>(null);
     const [sessionUser, setSessionUser] = useState<?User>(null);
 
     useEffect(() => {
-        const existent = session;
+        sessionContext.getCurrentCharacter()
+            .then(x => setSessionCharacter(_ => x));
 
-        if (sync === true || (existent?.user != null && existent?.character != null)) {
-            setSessionUser(existent?.user);
-            setSessionCharacter(existent?.character);
-            // setSessionLocation(existent?.location);
-        }
-        else {
-            sessionContext.getCurrentCharacter()
-                .then(x => setSessionCharacter(_ => x));
-
-            sessionContext.getUser()
-                .then(x => setSessionUser(_ => x))
-        }
-    }, [session, sessionContext, sync]);
+        sessionContext.getUser()
+            .then(x => setSessionUser(_ => x));
+    }, [sessionContext]);
 
     return [sessionUser, sessionCharacter, getSessionSync()?.location, session];
 };

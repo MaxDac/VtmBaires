@@ -39,7 +39,7 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
             console.debug("subscribing");
             const subscription = performSubscription(chatToken);
             return () => {
-                console.info("unsubscribing");
+                console.debug("unsubscribing");
                 window.removeEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
                 subscription.unsubscribe();
             };

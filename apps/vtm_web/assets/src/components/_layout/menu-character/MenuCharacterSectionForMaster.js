@@ -26,8 +26,6 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
             else {
                 pushHistory(MainRoutes.sheet(info.id));
             }
-
-            onUpdate();
         };
 
     const handleCharacterSelection = (info: UserCharacter) =>
@@ -42,7 +40,6 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
             });
 
             onUpdate();
-            document.location.reload(false);
         };
 
     const showCharacters = () => {

@@ -23,9 +23,9 @@ type Props = {
 
 const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSelection}: Props): any => {
     const theme = useTheme();
-    const [,currentCharacter] = useSession(true);
+    const [,currentCharacter] = useSession();
 
-    const MenuCharacterItemMenuSecondaryText = ({hover}): any => (
+    const MenuCharacterItemMenuSecondaryText = ({hover}: any): any => (
         <Typography component="span" sx={{
             ...(!!hover ? menuTextStyleHover : menuTextStyle),
             cursor: "pointer"
@@ -41,7 +41,7 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
                     <IconButton edge="end"
                                 onClick={handleCharacterSelection(character)}
                                 aria-label="select">
-                        {character?.id === currentCharacter?.id
+                        {character?.id != null && currentCharacter?.id != null && character.id === currentCharacter.id
                             ? <RadioButtonCheckedIcon sx={menuIconStyle} />
                             : <RadioButtonUncheckedIcon sx={menuIconStyle} />
                         }
@@ -61,7 +61,6 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
         <ListItem key={character?.id}
                   button={isButton}
                   onClick={onClick}
-                  // sx={{ pl: 4 }}
                   secondaryAction={actions()}>
             <ListItemIcon>
                 <Avatar src={character?.chatAvatar} sx={{

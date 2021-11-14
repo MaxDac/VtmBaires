@@ -18,19 +18,18 @@ type ChatInputProps = {
     newDiceEntry: ChatDiceRequest => void;
 }
 
-const ChatInput = ({ newChatEntry, newDiceEntry }: ChatInputProps): any => {
+const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const theme = useTheme();
     const [value, setValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inDices, setInDices] = useState(true);
     const [charactersCount, setCharactersCount] = useState(0);
 
-    // TODO - set the dimensions of the thing based on the dimension of the screen
-    const textboxRows = 4; // isSmall ? 2 : 4;
-    const maxCharacters = 500;
-
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
+
+    const maxCharacters = 500;
     const fontSize = showMiniFont ? "16px" : "18px";
+    const textboxRows = showMiniFont ? 3 : 4;
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);

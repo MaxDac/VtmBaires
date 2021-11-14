@@ -25,7 +25,7 @@ export const CharacterSheetSuspenseFallback = (): any => {
 }
 
 const CharacterSheet = (props: Props): any => {
-    const [user,character] = useSession();
+    const [user, character] = useSession();
 
     const characterOfUser = () =>
         character?.id != null &&

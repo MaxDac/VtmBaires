@@ -16,7 +16,7 @@ import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./controls/ChatControls";
 import {SessionContext, UtilityContext} from "../../contexts";
-import {useSession} from "../../services/session-service";
+import {getSessionSync, useSession} from "../../services/session-service";
 import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 import {Typography} from "@mui/material";
 import ChatMasterModal from "./modals/ChatMasterModal";
@@ -58,7 +58,6 @@ const Chat = ({id}: ChatProps): any => {
 
     useEffect(() => {
         updateSessionMap(environment, id)
-            // .then(r => console.debug("Received response while attempting updating the session", r))
             .catch(e => console.error("Error while updating session map", e));
     }, [environment, id]);
 
@@ -84,13 +83,17 @@ const Chat = ({id}: ChatProps): any => {
     };
 
     const createEntry = (action: (string, string) => Promise<any>) => {
-        if (character?.id != null && map?.id != null) {
-            action(character.id, map.id)
-                // .then(result => console.debug("result", result))
+        // Bug
+        // If the master changes the character in the left hand side menu, being in the chat doesn't update the
+        // character in session directly, because here it's a closure.
+        const ch = getSessionSync().character;
+
+        if (ch?.id != null && map?.id != null) {
+            action(ch.id, map.id)
                 .catch(error => showUserNotification({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
         }
 
-        if (!character?.id) {
+        if (!ch?.id) {
             showUserNotification({ type: 'error', message: "You must select a character to play."});
         }
 
@@ -140,7 +143,8 @@ const Chat = ({id}: ChatProps): any => {
     const showChatInput = () => {
         if (character?.approved) {
             return (
-                <ChatInput newChatEntry={onNewEntry} newDiceEntry={onNewDiceEntry} />
+                <ChatInput newChatEntry={onNewEntry}
+                           newDiceEntry={onNewDiceEntry} />
             );
         }
 
