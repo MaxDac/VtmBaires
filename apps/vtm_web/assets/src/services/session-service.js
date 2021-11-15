@@ -79,6 +79,7 @@ export const getSession = (environment: IEnvironment): Promise<?Session> => {
         return checkCharacter(environment, JSON.parse(inStorage));
     }
 
+    // TODO getting the user session
     return new Promise((resolve, _) => resolve(null));
 };
 

@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
 import {Link} from "react-router-dom";
-import {guideStyle, titleStyle} from "../GuidesStyles";
+import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 import {GuideRoutes} from "../GuidesMain";
 
 const GuidesMechanics = (): any => {
@@ -536,6 +536,12 @@ const GuidesMechanics = (): any => {
                 successi supplementari, e chi ha perso non infligge danni.
             </Typography>
 
+            <Typography paragraph>
+                <h5 style={titleStyle}>
+                    Home Rule: Danni arma
+                </h5>
+            </Typography>
+
             <Typography paragraph style={guideStyle}>
                 Se il personaggio avr&agrave; successo nel tiro contrastato, ai danni che gi&agrave; ha ottenuto sottraendo i
                 successi dell'avversario potr&agrave; aggiungere i danni inferti con l'arma utilizzata. In assenza di un 
@@ -586,31 +592,91 @@ const GuidesMechanics = (): any => {
                                 <StyledTableCell component="th" scope="row">
                                     3
                                 </StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
+                                <StyledTableCell>3</StyledTableCell>
                                 <StyledTableCell>2</StyledTableCell>
-                                <StyledTableCell>2</StyledTableCell>
-                                <StyledTableCell>1</StyledTableCell>
                             </StyledTableRow>
 
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     4
                                 </StyledTableCell>
-                                <StyledTableCell>3</StyledTableCell>
-                                <StyledTableCell>3</StyledTableCell>
-                                <StyledTableCell>1</StyledTableCell>
+                                <StyledTableCell>4</StyledTableCell>
+                                <StyledTableCell>4</StyledTableCell>
+                                <StyledTableCell>2</StyledTableCell>
                             </StyledTableRow>
 
                             <StyledTableRow>
                                 <StyledTableCell component="th" scope="row">
                                     5
                                 </StyledTableCell>
+                                <StyledTableCell>5</StyledTableCell>
+                                <StyledTableCell>5</StyledTableCell>
                                 <StyledTableCell>3</StyledTableCell>
-                                <StyledTableCell>3</StyledTableCell>
-                                <StyledTableCell>1</StyledTableCell>
                             </StyledTableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </Typography>
+
+            <Typography paragraph>
+                <h5 style={titleStyle}>
+                    Home Rule: Nascondibilit&agrave;
+                </h5>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Ogni arma avr&agrave; anche una <b>Nascondibilit&agrave;</b>, direttamente dipendente dal massimo 
+                danno dell'arma. La Nascondibilit&agrave; corrisponder&agrave; alla Difficolt&agrave; al tiro di
+                Intelligenza + Investigazione o Allerta di un personaggio per capire se un altro ha l'arma 
+                equipaggiata ma nascosta. Si seguiranno queste regole, per semplicit&agrave;:
+
+                <ul>
+                    <li style={liStyle}>
+                        Ogni arma avr&agrave; un punteggio di Nascondibilit&agrave; da 0 (impossibile da nascondere),
+                        a 4 (perfettamente nascondibile).
+                    </li>
+
+                    <li style={liStyle}>
+                        Un'arma di danno 1 avr&agrave; sempre Nascondibilit&agrave; pari a Risorse + 1, fino al massimo
+                        di 4.
+                    </li>
+
+                    <li style={liStyle}>
+                        La Nascondibilit&agrave; dell'arma dipende anch'essa dalle Risorse: un personaggio potr&agrave;
+                        possedere un'arma il cui Danno sommato alla Nascondibilit&agrave; sia al massimo uguale al
+                        punteggio di Risorse.
+                    </li>
+                </ul>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Di seguito, sono elencati alcuni esempi per chiarire meglio come calcolare la Nascondibilit&agrave;.
+                Consigliamo comunque di discutere con un master quali armi avete intenzione di usare.
+
+                <ul>
+                    <li style={liStyle}>
+                        <b>Esempio 1</b>: se un personaggio ha Risorse 1, potr&agrave; acquistare armi semplici di danno
+                        1 e Nascondibilit&agrave; 3.
+                    </li>
+
+                    <li style={liStyle}>
+                        <b>Esempio 2</b>: se un personaggio ha Risorse 2, potr&agrave; acquistare armi semplici di danno
+                        1 e Nascondibilit&agrave; 2, oppure un'arma di danno 2, ma talmente grossolana che occuper&agrave;
+                        troppo spazio per poterla nascondere efficacemente (Nascondibilit&agrave; 0).
+                    </li>
+
+                    <li style={liStyle}>
+                        <b>Esempio 3</b>: se un personaggio ha Risorse 4, le sue possibilit&agrave; potranno consentirgli 
+                        armi pi&ugrave; sofisticate (Danno 2 e Nascondibilit&agrave; 2 per esempio), oppure armi che 
+                        provocano un danno superiore, ma troppo grosse per poterle nascondere (Danno 4, Nascondibilit&agrave; 0).
+                    </li>
+                </ul>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Potrete descrivere liberamente la natura dell'arma, tenendo presente sia il Danno che la Nascondibilit&agrave;
+                data dalle regole scritte precedentemente.
             </Typography>
 
             <Typography paragraph style={guideStyle}>
@@ -620,6 +686,12 @@ const GuidesMechanics = (): any => {
                 senza possedere un'arma.<br />
                 Se il personaggio acquisisce l'arma in gioco, un Narratore aggiorner&agrave; le note del personaggio, 
                 aggiungendo l'arma che, da quel momento, potr&agrave; essere dichiarata normalmente all'inizio dell'azione.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Tipi di Danno
+                </h3>
             </Typography>
 
             <Typography paragraph style={guideStyle}>
@@ -723,12 +795,6 @@ const GuidesMechanics = (): any => {
                 contatore di Salute segner&agrave; 3 danni di tipi Aggravato e 3 di tipo Superficiale. I danni aggravati si 
                 aggiungeranno direttamente al conteggio degli Aggravati, quindi se, oltre ai 9 danni superficiali, subir&agrave; 
                 anche 2 danni Aggravati, il suo totalizzatore segner&agrave; 5 danni Aggravati e 1 Superficiale.
-            </Typography>
-
-            <Typography paragraph>
-                <h4 style={titleStyle}>
-                    Tipi di danno
-                </h4>
             </Typography>
 
             <Typography paragraph style={guideStyle}>

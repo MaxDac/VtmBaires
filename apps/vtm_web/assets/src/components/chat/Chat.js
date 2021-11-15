@@ -86,7 +86,7 @@ const Chat = ({id}: ChatProps): any => {
         // Bug
         // If the master changes the character in the left hand side menu, being in the chat doesn't update the
         // character in session directly, because here it's a closure.
-        const ch = getSessionSync().character;
+        const ch = getSessionSync()?.character;
 
         if (ch?.id != null && map?.id != null) {
             action(ch.id, map.id)

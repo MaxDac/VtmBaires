@@ -457,48 +457,6 @@ const GuidesHomeRules = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Umanit&agrave; e Macchie
-                </h3>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                La discesa nell'Oscurit&agrave; tra le grinfie della Bestia &egrave; un percorso che 
-                ogni Cainita percorre, indipendentemente dal fatto che lo voglia o meno. Col passare della
-                non-vita, la parvenza di umanit&agrave; che conservava dall'Abbraccio si incrina, si 
-                macchia sempre di pi&ugrave; di peccati ispirati dalla <b>Fame</b> e dalla <b>Bestia</b>.<br />
-                Non &egrave; un problema di <b>se</b>, ma di <b>quando</b> il Cainita perder&agrave; il
-                controllo, e far&agrave; qualcusa di cui, alla fine della Notte, non riuscir&agrave; 
-                pi&ugrave; a pentirsi.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                La gestione dell'Umanit&agrave; &egrave; un'altra delle cose che i nuovi manuali
-                affrontano in modo differente dai precedenti. Non ci sar&agrave; pi&ugrave; la possibilit&agrave;
-                di intraprendere Sentieri differenti dall'Umanit&agrave;, ma sar&agrave; possibile 
-                definire una gerarchia di <Link to={GuideRoutes.creation}>Convinzioni</Link> del personaggio.
-                Se il personaggio contravverr&agrave; ad una di queste Convinzioni durante una 
-                giocata, acquisir&agrave; una macchia a discrezione del Narratore. Alla fine della giocata,
-                il personaggio dovr&agrave; tirare con un ammontare pary a <b>10 - Umanit&agrave; - Macchie</b>, 
-                per un minimo di 1. Se, per esempio, il personaggio ha Umanit&agrave; 6 e ha ricevuto 
-                due Macchie durante la giocata, avr&agrave; a disposizione 2 dadi.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Se il tiro ha successo, il personaggio sentir&agrave; rimorso, e potr&agrave; mantenere
-                il suo punteggio di Umanit&agrave;. In caso contrario, perder&agrave; un punto di 
-                Umanit&agrave;.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Nel caso in cui, durante una giocata, il personaggio "riempir&agrave;" tutte le caselle
-                vuote di Umanit&agrave; (3 Macchie ad Umanit&agrave; 7, 4 a Umanit&agrave; 6 e cos&igrave;
-                via), ogni azione che and&agrave; contro le Convinzioni del personaggio comporter&agrave;
-                un tiro di Frenesia a Difficolt&agrave; 4 prima di essere effettuata, e se riuscir&agrave;
-                comporter&agrave; la perdita di un punto, o danno, alla Forza di Volont&agrave;.
-            </Typography>
-
-            <Typography paragraph>
-                <h3 style={titleStyle}>
                     Frenesia
                 </h3>
             </Typography>
@@ -707,6 +665,211 @@ const GuidesHomeRules = (): any => {
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         4
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Umanit&agrave; e Macchie
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La discesa nell'Oscurit&agrave; tra le grinfie della Bestia &egrave; un percorso che 
+                ogni Cainita percorre, indipendentemente dal fatto che lo voglia o meno. Col passare della
+                non-vita, la parvenza di umanit&agrave; che conservava dall'Abbraccio si incrina, si 
+                macchia sempre di pi&ugrave; di peccati ispirati dalla <b>Fame</b> e dalla <b>Bestia</b>.<br />
+                Non &egrave; un problema di <b>se</b>, ma di <b>quando</b> il Cainita perder&agrave; il
+                controllo, e far&agrave; qualcusa di cui, alla fine della Notte, non riuscir&agrave; 
+                pi&ugrave; a pentirsi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La gestione dell'Umanit&agrave; &egrave; un'altra delle cose che i nuovi manuali
+                affrontano in modo differente dai precedenti. Non ci sar&agrave; pi&ugrave; la possibilit&agrave;
+                di intraprendere Sentieri differenti dall'Umanit&agrave;, ma sar&agrave; possibile 
+                definire una gerarchia di <Link to={GuideRoutes.creation}>Convinzioni</Link> del personaggio.
+                Se il personaggio contravverr&agrave; ad una di queste Convinzioni durante una 
+                giocata, acquisir&agrave; una macchia a discrezione del Narratore. Alla fine della giocata,
+                il personaggio dovr&agrave; tirare con un ammontare pary a <b>10 - Umanit&agrave; - Macchie</b>, 
+                per un minimo di 1. Se, per esempio, il personaggio ha Umanit&agrave; 6 e ha ricevuto 
+                due Macchie durante la giocata, avr&agrave; a disposizione 2 dadi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Se il tiro ha successo, il personaggio sentir&agrave; rimorso, e potr&agrave; mantenere
+                il suo punteggio di Umanit&agrave;. In caso contrario, perder&agrave; un punto di 
+                Umanit&agrave;.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Nel caso in cui, durante una giocata, il personaggio "riempir&agrave;" tutte le caselle
+                vuote di Umanit&agrave; (3 Macchie ad Umanit&agrave; 7, 4 a Umanit&agrave; 6 e cos&igrave;
+                via), ogni azione che and&agrave; contro le Convinzioni del personaggio comporter&agrave;
+                un tiro di Frenesia a Difficolt&agrave; 4 prima di essere effettuata, e se riuscir&agrave;
+                comporter&agrave; la perdita di un punto, o danno, alla Forza di Volont&agrave;.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Risveglio
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un vampiro di giorno entra in torpore: il suo sangue diventa gelido, il suo corpo assume
+                le fattezze, la temperatura e tutte le caratteristiche di un cadavere fresco. Risvegliarsi
+                per un vampiro &egrave; estremamente difficile, e dipende fortemente dal punteggio di 
+                Umanit&agrave; del Cainita. Per svegliarsi, il Cainita dovr&agrave; infatti effettuare
+                un tiro con un'ammontare pari al suo livello di Umanit&agrave;, ad una Difficolt&agrave;
+                variabile in base al tipo di stimolo: una questione di vita o di morte (incendio) avr&agrave;
+                una Difficolt&agrave; di 3, la ricezione di un messaggio particolarmente importante 
+                avr&agrave; una Difficolt&agrave; pari a 4, un'inezia 5. Un successo garantir&agrave;
+                al vampiro di rimanere sveglio per una scena, un successo critico per tutto il giorno.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Effetti dell'Umanit&agrave;
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                L'Umanit&agrave; determina anche altre condizioni del vampiro, quali i bonus per resistere
+                alla Frenesia (l'Umanit&agrave; &egrave; tutto ci&ograve; che si frappone tra il vampiro e
+                la sua coscienza, e la Bestia che ruggisce dentro di lui) e la lunghezza del Torpore. Tutti
+                questi valori sono riassunti di seguito:
+
+                <Box sx={{padding: "10px"}}>
+                    <TableContainer component={Paper} sx={{
+                        width: "60%", 
+                        margin: "0 auto" 
+                    }}>
+                        <Table aria-label="Effetti dell'Umanità">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Livello di Umanit&agrave;</StyledTableCell>
+                                    <StyledTableCell>
+                                        Dadi da aggiungere al tiro <br />
+                                        per resistere alla Frenesia
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        Lunghezza del Torpore<br />
+                                        <b>Home Rule</b>
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 9
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1 giorno
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 8
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3 giorni
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 7
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1 settimana
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 6
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        2 settimane
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 5
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3 settimane
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 4
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1 mese
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 3
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1 anno
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 2
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        0
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        1 secolo
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                        Umanit&agrave; 1
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        0
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        5 secoli
                                     </StyledTableCell>
                                 </StyledTableRow>
                             </TableBody>
