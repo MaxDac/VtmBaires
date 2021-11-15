@@ -64,8 +64,8 @@ const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSele
                   secondaryAction={actions()}>
             <ListItemIcon>
                 <Avatar src={character?.chatAvatar} sx={{
-                    width: theme.spacing(3),
-                    height: theme.spacing(3)
+                    width: theme.spacing(5),
+                    height: theme.spacing(5)
                 }} />
             </ListItemIcon>
             <ListItemText secondary={<MenuCharacterItemMenuSecondaryText />} />

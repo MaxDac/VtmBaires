@@ -27,7 +27,7 @@ const CharacterInfoFormValidationSchema = object().shape({
     name: string("Enter your character name").required("Required"),
     description: string("Enter your character description").required("Required"),
     biography: string("Enter your character biography").required("Required"),
-    avatar: string("Il tuo avatar").matches(getUrlValidationMatchString())
+    avatar: string("Il tuo avatar").nullable().matches(getUrlValidationMatchString())
 });
 
 const CharacterInfoForm = ({onSubmit}: Props): any => {

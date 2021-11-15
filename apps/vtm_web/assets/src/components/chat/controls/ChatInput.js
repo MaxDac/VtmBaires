@@ -12,6 +12,8 @@ import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
 import {Typography, useMediaQuery} from "@mui/material";
 import {menuIconStyle} from "../../_layout/Menu";
+import {isUserMaster} from "../../../services/base-types";
+import {useSession} from "../../../services/session-service";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -20,6 +22,7 @@ type ChatInputProps = {
 
 const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const theme = useTheme();
+    const [user,] = useSession();
     const [value, setValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inDices, setInDices] = useState(true);
@@ -52,8 +55,10 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
         setIsModalOpen(_ => true);
     };
 
+    const isMasterPhrase = () => isUserMaster(user) && value.substring(0, 3) === "***";
+
     const sendInputEntry = () => {
-        newChatEntry(value.substring(0, maxCharacters));
+        newChatEntry(isMasterPhrase() ? value : value.substring(0, maxCharacters));
         setValue(_ => "");
     };
 
