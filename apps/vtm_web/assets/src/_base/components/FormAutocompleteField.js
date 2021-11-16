@@ -17,7 +17,7 @@ type Props = {
 const FormAutocompleteField = (props: Props): any => {
     const theme = useTheme();
 
-    function onChanged(e) {
+    const onChanged = (e) => {
         const {target: {textContent}} = e;
         const values = props.values.filter(([_, text]) => text === textContent);
 

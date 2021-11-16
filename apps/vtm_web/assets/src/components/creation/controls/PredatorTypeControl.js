@@ -42,7 +42,7 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                     <Grid item xs={12}>
                         <Typography paragraph sx={{marginTop: "1.5rem", marginBottom: "1.5rem"}}>
                             Il Tipo di Predatore &egrave; una nuova caratteristica
-                            del personaggio che interessa il modo in cui caccia il Sangue dei mortali (o dei cainiti).
+                            del personaggio che interessa il modo in cui caccia il Sangue dei mortali (o dei Cainiti).
                             Puoi trovare pi&ugrave; informazioni riguardo il significato e i vari tipi tra i quali
                             puoi scegliere nella <Link to={GuideRoutes.creation}
                                                        target="_blank"

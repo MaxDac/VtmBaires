@@ -264,7 +264,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 La Seconda Inquisizione &egrave;, da almeno una decina di anni, la vera spina
-                nel fianco della Camarilla, e in generale dei cainiti, in quasi tutto il 
+                nel fianco della Camarilla, e in generale dei Cainiti, in quasi tutto il 
                 mondo occidentale. Incalcolabili sono le perdite di potere, possedimento, 
                 ma prestigio ed in termini di non-vite che la società dei Fratelli ha
                 dovuto pagare prima di raggiungere una sorta di equilibrio.
@@ -273,7 +273,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
             <Typography paragraph sx={guideStyle}>
                 Le organizzazioni segrete che la compongono per&ograve; non sembrano 
                 aver dato problemi nel Dominio di Buenos Aires ai <i>Blank Bodies</i>,
-                come vengono chiamati da queste organizzazioni di cacciatori i cainiti.
+                come vengono chiamati da queste organizzazioni di cacciatori i Cainiti.
                 Il motivo &egrave; del tutto fortuito: il governo filo-<i>peronista</i> attualmente
                 in carica, come molti altri governi di sinistra del continente 
                 sudamericano, osteggia attivamente la presenza di agenzie segrete 
@@ -282,7 +282,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I cainiti del Dominio sono coscienti del fatto che non conviene 
+                I Cainiti del Dominio sono coscienti del fatto che non conviene 
                 comunque rilassare troppo l'attenzione sul rispetto delle Tradizioni,
                 perch&egrave; le cose potrebbero radicalmente cambiare nel giro di
                 mesi, ma le pesanti restrizioni sulla tecnologia imposte dai pochi 

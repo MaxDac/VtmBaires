@@ -44,7 +44,7 @@ const Internal = ({env}: { env: IEnvironment}) => {
         </ErrorBoundaryWithRetry>);
 }
 
-function App(): Node {
+const App = (): Node => {
     const darkState = useState(true);
     const paletteType = darkState ? "dark" : "light";
     const environment = useEnv();

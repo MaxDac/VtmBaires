@@ -40,7 +40,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Percepire la Bestia</b> (&#9679;): il vampiro riesce a percepire la Bestia negli altri, intuendo se si tratta di una Bestia soprannaturale (cainiti o lupini) o meno.<br />
+                        <b>Percepire la Bestia</b> (&#9679;): il vampiro riesce a percepire la Bestia negli altri, intuendo se si tratta di una Bestia soprannaturale (Cainiti o lupini) o meno.<br />
                         <b>Sistema</b>: tiro contrastato di Fermezza + Animalit&agrave; del Cainita contro Autocontrollo + Sotterfugio del bersaglio.
                     </li>
                     
@@ -151,7 +151,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Maest&agrave;</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro, a questo livello, diventa una vera e proprio immagine angelica o mostruosamente infernale, lasciando mortali e cainiti attorno senza parole, senza la possibilit&agrave; di agire, se non continuando a guardare il Cainita.<br />
+                        <b>Maest&agrave;</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro, a questo livello, diventa una vera e proprio immagine angelica o mostruosamente infernale, lasciando mortali e Cainiti attorno senza parole, senza la possibilit&agrave; di agire, se non continuando a guardare il Cainita.<br />
                         <b>Sistema</b>: effettuando 2 Rouse Checks, e il potere avr&agrave; effetto. Tutti gli astanti dovranno osservare in adorazione in terrore reverenziale il Cainita, e chi vorr&agrave; opporsi anche solo per un turno
                         all'effetto del potere dovr&agrave; tirare Autocontrollo + Fermezza contro Carisma + Ascendente: un successo garantir&agrave; libert&agrave; d'azione per un turno, mentre un successo critico render&agrave; la vittima
                         immune dal potere per il resto della scena.
@@ -274,7 +274,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             </li>
 
                             <li style={liStyle}>
-                                <b>Calderone di Sangue</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): attraverso questo terribile potere, il vampiro fa bollire letteralmente il sangue nelle vene della vittima, mortale o Cainita, provocando la morte quasi certa del mortale, e danni Aggravati per i cainiti.<br />
+                                <b>Calderone di Sangue</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): attraverso questo terribile potere, il vampiro fa bollire letteralmente il sangue nelle vene della vittima, mortale o Cainita, provocando la morte quasi certa del mortale, e danni Aggravati per i Cainiti.<br />
                                 <b>Sistema</b>: il vampiro dovr&agrave; toccare la vittima, tirando Destrezza + Atletica se in combattimento. Se riesce a toccarla, effettuando 1 Rouse Check, tirer&agrave; in seguito Fermezza + Blood Sorcery contro Autocontrollo + Occulto (o Robustezza se pi&ugrave; alta).
                                 Ogni successo supplementare ottenuto dal Cainita attaccante si tradurr&agrave; in un danno Aggravato per la vittima. Se la vittima &egrave; un umano, morir&agrave; immediatamente gridando di dolore, e il Cainita aggiunger&agrave; automaticamente una Macchia all'Umanit&agrave;.
                                 Se invece la vittima &egrave; Cainita, dovr&agrave; aggiungere anche un livello di Fame per ogni danno Aggravato subito.
@@ -291,7 +291,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             </li>
 
                             <li style={liStyle}>
-                                <b>Tocco dello Scorpione</b> (&#9679;&#9679;&#9679;): la vitae del vampiro diventa un icore velenoso che incapacita mortali e cainiti, e pu&ograve; essere sputato, o impresso su lame ed agire per contatto.
+                                <b>Tocco dello Scorpione</b> (&#9679;&#9679;&#9679;): la vitae del vampiro diventa un icore velenoso che incapacita mortali e Cainiti, e pu&ograve; essere sputato, o impresso su lame ed agire per contatto.
                                 A parte alcune tecniche praticate da alcune Societ&agrave; Segrete umane, e Robustezza, c'&egrave; poco da fare contro questo potere.<br />
                                 <b>Sistema</b>: ogni oncia di Vitae trasformata in icore velenoso richiede 1 Rouse Check, dopo essersi concentrato per un turno. Ogni Rouse Check di Vitae richieder&agrave; un turno per essere trasformata. 
                                 La Vitae trasformata dovr&agrave; uscire da una ferita del Cainita. Ogni Rouse Check di Vitae potr&agrave; essere disposto su una lama, o conservato per poter essere sputato. Sputare la quantit&agrave; di sangue
@@ -305,7 +305,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             </li>
 
                             <li style={liStyle}>
-                                <b>Carezza di Baal</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro trasmuta la sua Vitae in un veleno pericolosissimo sia per i cainiti che per i mortali.<br />
+                                <b>Carezza di Baal</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro trasmuta la sua Vitae in un veleno pericolosissimo sia per i Cainiti che per i mortali.<br />
                                 <b>Sistema</b>: questo potere segue le stesse regole del <b>Tocco dello Scorpione</b>, ma la potenza del veleno aumenta, e riesce a fare danni Aggravati sia ad umani che a Cainiti. Se un umano subisce anche solo un danno
                                 Aggravato dal contatto col veleno, morir&agrave; sul colpo. Se la vittima &egrave; un Cainita, e subisce danni Aggravati dal veleno, l'utilizzatore potr&agrave; tirare nuovamente Forza + Blood Sorcery contro Costituzione
                                 + Occulto o Robustezza: se il tiro ha successo, la vittima entrer&agrave; automaticamente in torpore la prossima volta che si riposer&agrave; per il giorno.
@@ -370,7 +370,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Manipolazione di Massa</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita pu&ograve; ora usare i poteri di dominazione su un'intera folla di mortali, o anche su un gruppo di altri cainiti.<br />
+                        <b>Manipolazione di Massa</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita pu&ograve; ora usare i poteri di dominazione su un'intera folla di mortali, o anche su un gruppo di altri Cainiti.<br />
                         <b>Sistema</b>: 1 Rouse Check aggiuntivo rispetto al potere che si intende utilizzare sulla folla. Tutti quanti presenti nella folla dovranno osservare negli occhi il vampiro.
                     </li>
 
@@ -508,7 +508,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Tramite questa Disciplina, il vampiro riesce a rendersi invisibile agli occhi dei mortali e della maggior parte dei cainiti. Il potere si basa su un'illusione, sulla manipolazione delle menti, non su un effetto fisico,
+                Tramite questa Disciplina, il vampiro riesce a rendersi invisibile agli occhi dei mortali e della maggior parte dei Cainiti. Il potere si basa su un'illusione, sulla manipolazione delle menti, non su un effetto fisico,
                 quindi per attivarlo il vampiro non deve essere visto da nessuno, altrimenti il potere non funzioner&agrave; su chiunque lo abbia visto mentre l'attivava.
                 Per tenere la manipolazione mentale indotta da Oscurazione attiva, il vampiro non potr&agrave; fare eccessivo rumore, o attirare su di s&eacute; l'attenzione, n&eacute; ostacolare attivamente il cammino di una persona, ad esempio attraverso una porta, anche se
                 i sussurri non rompono l'illusione. Se il vampiro rischia di essere percepito, la vittima di Oscurazione potr&agrave; tirare Prontezza + Allerta contro Prontezza + Furtivit&agrave; del vampiro.
@@ -639,7 +639,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Pugno di Caino</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita riesce ad infliggere danni Aggravati con le sue nude mani, sia a cainiti che mortali.<br />
+                        <b>Pugno di Caino</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita riesce ad infliggere danni Aggravati con le sue nude mani, sia a Cainiti che mortali.<br />
                         <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro per il resto della scena pu&ograve; infliggere danni aggravati con le sue nude mani, a vampiri e mortali.
                     </li>
                 </ul>
@@ -789,7 +789,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                 nel nuovo millennio. Impossibilitati ad usare la loro Vitae per le Discipline, i Sangue Debole sperimentano e sviluppano delle formule che hanno la loro Vitae come ingrediente principale, e altri come
                 catalizzatori per la produzione di elisir che garantiscono determinati poteri all'utilizzatore. Sono molte le voci che girano in tutte i Domini o le comuni anarchiche; si vocifera che alcuni di questi 
                 utilizzatori abbia dei veri e propri laboratori, e trascrive le formule frutto di sperimentazione in codice, per non divulgarle, proprio come gli alchimisti medievali; altri dicono, invece, che questi
-                alchimisti del nuovo millennio sappiano addirittura mimare i poteri dei cainiti, e si sa per certo che alcuni si fanno pagare in Vitae cainita.<br />
+                alchimisti del nuovo millennio sappiano addirittura mimare i poteri dei Cainiti, e si sa per certo che alcuni si fanno pagare in Vitae cainita.<br />
                 La Camarilla tiene un atteggiamento di pacata indifferenza nei confronti di questi sviluppi: ha altri problemi a cui pensare. Alcuni Anarchici, ma anche alcuni Fratelli Neonati, ha pagato il loro supporto
                 per alcuni di questi elisir.
             </Typography>

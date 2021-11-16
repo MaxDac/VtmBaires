@@ -15,6 +15,5 @@ export const clanDisciplinesQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-export function useClanDisciplines(clanId: string): ?ClanDisciplinesQueryResponse {
-    return useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId });
-}
+export const useClanDisciplines = (clanId: string): ?ClanDisciplinesQueryResponse =>
+    useCustomLazyLoadQuery(clanDisciplinesQuery, {clanId});

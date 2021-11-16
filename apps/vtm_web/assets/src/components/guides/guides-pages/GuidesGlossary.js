@@ -47,7 +47,7 @@ const GuidesGlossary = (props: Props): any => {
                         Camarilla in termini strettamente gerarchici.
                     </li>
                     <li style={liStyle}>
-                        <b>Antidiluviani</b>: col termine Antidiluviani si intendono i tredici cainiti, nipoti di Caino, che
+                        <b>Antidiluviani</b>: col termine Antidiluviani si intendono i tredici Cainiti, nipoti di Caino, che
                         furono Abbracciati dai tre vampiri di seconda generazione prima del Diluvio biblico. Le loro figure 
                         appartengono ormai alla leggenda, ma risalgono a loro le caratteristiche che ancora oggi sono riconoscibili 
                         nei diversi clan.
@@ -68,11 +68,11 @@ const GuidesGlossary = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Camarilla</b>: l'organizzazione politica Cainita un tempo pi&ugrave; diffusa ed importante a livello
                         globale. Nacque nel periodo Rinascimentale per controbattere alla minaccia dell'Inquisizione
-                        e delle prime Diablerie sofferte dai cainiti di Terza Generazione, e per questa ragione
+                        e delle prime Diablerie sofferte dai Cainiti di Terza Generazione, e per questa ragione
                         introdusse la Tradizione pi&ugrave; importante di tutte: la <b>Masquerade</b>.
                     </li>
                     <li style={liStyle}>
-                        <b>Clan</b>: le diverse "famiglie", unite da vincoli di sangue, in cui si dividono i cainiti.
+                        <b>Clan</b>: le diverse "famiglie", unite da vincoli di sangue, in cui si dividono i Cainiti.
                         Leggenda vuole che i tredici grandi clan siano originati da altrettanti matusalemme, Terza
                         Generazione (da intendere come progenie della progenie, "nipoti" di Caino). Durante la storia
                         i clan hanno cambiato consuetudini, facce, e a volte sono stati persino completamente trasformati
@@ -90,7 +90,7 @@ const GuidesGlossary = (props: Props): any => {
                         la commette su un vampiro anche solo di Tredicesima generazione, lui stesso diventer&agrave; di Tredicesima generazione.
                     </li>
                     <li style={liStyle}>
-                        <b>Discipline</b>: i poteri dei cainiti, esercitati "bruciando" o utilizzando una variabile
+                        <b>Discipline</b>: i poteri dei Cainiti, esercitati "bruciando" o utilizzando una variabile
                         quantit&agrave; di <i>vitae</i> (vedi voce di glossario).
                     </li>
                     <li style={liStyle}>
@@ -113,10 +113,10 @@ const GuidesGlossary = (props: Props): any => {
                         &egrave; un fatto dimostrato che pi&ugrave; ci si "allontana" dalla prima generazione, meno potere
                         il sangue ritiene. L'Infante avr&agrave; meno potere del Sire, e così via fino ai Sangue Debole,
                         il cui sangue &egrave;, appunto, cos&igrave; debole da non manifestare pi&ugrave; n&eacute; le 
-                        caratteristiche del clan, e nemmeno dei cainiti in generale.<br />
+                        caratteristiche del clan, e nemmeno dei Cainiti in generale.<br />
                         La generazione di un Cainita esprime quindi la sua lontananza dal progenitore: la tredicesima
                         generazione &egrave; ritenuta l'ultima generazione in cui il sangue ritiene ancora le caratteristiche
-                        dei cainiti.
+                        dei Cainiti.
                     </li>
                     <li style={liStyle}>
                         <b>Masquerade</b>: il nome di una delle sei Tradizioni, o regole fondamentali, della Camarilla.
@@ -127,22 +127,22 @@ const GuidesGlossary = (props: Props): any => {
                         <b>Sangue Debole</b>: sono i vampiri la cui generazione &egrave; troppo bassa per manifestare
                         appieno le caratteristiche tipiche del vampirismo, nel bene e nel male. Questo vuol dire che,
                         nonostante debbano incorrere in numerose difficolt&agrave; per poter anche solo simulare
-                        i poteri dei cainiti (la loro Alchimia del Sangue), non soffrono i raggi del Sole come i Fratelli
+                        i poteri dei Cainiti (la loro Alchimia del Sangue), non soffrono i raggi del Sole come i Fratelli
                         di generazione superiore. Sono stati, e sono tutt'ora, oggetto di scherno o di attiva
-                        persecuzione da parte dei cainiti, in quanto ritenuti segno della fine dei tempi della Gehenna.
+                        persecuzione da parte dei Cainiti, in quanto ritenuti segno della fine dei tempi della Gehenna.
                     </li>
                     <li style={liStyle}>
                         <b>Sabbat</b>: per secoli, sicuramente a partire dalla scoperta e successiva colonizzazione
                         del Nuovo Mondo, &egrave; stata la reale antagonista, nonch&eacute; spina nel fianco della
                         Camarilla. Basata su una serie di consuetudini volte a rafforzare (o depennare uccidendo)
-                        i cainiti che ne facevano parte, ha nel 2005 intrapreso la Guerra della Gehenna contro gli
+                        i Cainiti che ne facevano parte, ha nel 2005 intrapreso la Guerra della Gehenna contro gli
                         Antidiluviani e i Matusalemme, per liberarsi dalle catene del sangue che li tenevano
                         a loro imprigionati.
                     </li>
                     <li style={liStyle}>
                         <b>Seconda Inquisizione</b>: a seguito di un piano molto ottimista della Camarilla fallito
                         miseramente (o riuscito troppo bene, dipendendo dal punto di vista), diverse organizzazioni
-                        governative, ed alcuni servizi segreti, sono entrati a conoscenza dell'esistenza dei cainiti.
+                        governative, ed alcuni servizi segreti, sono entrati a conoscenza dell'esistenza dei Cainiti.
                         L'attacco che ha scosso maggiormente la comunit&agrave; Cainita, e che l'ha costretta ad un
                         ritorno graduale a forme di comunicazione e di spostamento quasi medievali, &egrave; stato
                         quello mascherato da attentato terroristico al quartier generale a Vienna del clan Tremere,
@@ -151,7 +151,7 @@ const GuidesGlossary = (props: Props): any => {
                     </li>
                     <li style={liStyle}>
                         <b>Vitae</b>: sostanza soprannaturale sublimata a partire dal sangue dei mortali, dalla fisiologia
-                        dei cainiti. In parole povere, quando i vampiri suggono il sangue dei mortali per cibarsi,
+                        dei Cainiti. In parole povere, quando i vampiri suggono il sangue dei mortali per cibarsi,
                         trasformano il sangue in una sostanza soprannaturale in grado di sostenere i loro corpi non morti,
                         e di dare sostanza ai poteri che esercitano, le Discipline.
                     </li>

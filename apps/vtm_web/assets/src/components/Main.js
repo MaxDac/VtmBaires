@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import CenteredBox from "../_base/components/CenteredBox";
 import Typography from '@mui/material/Typography';
 
-export default function Main(): any {
+const Main = (): any => {
     const [firstPhrase, setFirstPhrase] = useState("");
     const [secondPhrase, setSecondPhrase] = useState("");
     const [thirdPhrase, setThirdPhrase] = useState("");
@@ -92,4 +92,6 @@ export default function Main(): any {
             </CenteredBox>
         </Box>
     )
-}
+};
+
+export default Main;

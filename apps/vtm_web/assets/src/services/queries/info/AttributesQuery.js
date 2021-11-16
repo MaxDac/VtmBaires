@@ -76,18 +76,18 @@ export const attributesDefaultSortFunction = (first: Attribute, second: Attribut
     return result;
 };
 
-export default function useAttributesQuery(): ?Array<Attribute> {
-    return useCustomLazyLoadQuery<AttributesQuery>(attributesQuery, {})
-        ?.attributes
-        ?.map(a => ({
-            id: a?.id ?? "",
-            name: a?.name ?? "",
-            order: a?.order ?? 0,
-            attributeType: {
-                id: a?.attributeType?.id ?? "",
-                name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
-                section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
-            }
-        }))
-        ?.sort((a, b) => attributesDefaultSortFunction(a, b));
-}
+const useAttributesQuery = (): ?Array<Attribute> => useCustomLazyLoadQuery<AttributesQuery>(attributesQuery, {})
+    ?.attributes
+    ?.map(a => ({
+        id: a?.id ?? "",
+        name: a?.name ?? "",
+        order: a?.order ?? 0,
+        attributeType: {
+            id: a?.attributeType?.id ?? "",
+            name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
+            section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
+        }
+    }))
+    ?.sort((a, b) => attributesDefaultSortFunction(a, b))
+
+export default useAttributesQuery;

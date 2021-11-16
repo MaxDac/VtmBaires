@@ -16,9 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "./Menu";
 import OnlineControlDialog from "./OnlineControlDialog";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Fade ref={ref} {...props} />
-});
+const Transition = React.forwardRef((props, ref) =>
+    <Fade ref={ref} {...props} />);
 
 const OnlineControl = (): any => {
     const [open, setOpen] = React.useState(false);

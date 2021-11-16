@@ -246,7 +246,7 @@ const GuidesHomeRules = (): any => {
                 <Link to={GuideRoutes.clans}>sezione della guida</Link>.<br />
                 I vampiri che non presentano nessuna caratteristica non solo di clan, ma addirittura vampirica, i <b>Sangue Debole</b>,
                 non avranno Potenza del Sangue, e non potranno acquistarne. Il lato positivo di questo &egrave; che non soffriranno
-                nemmeno delle maledizioni dei cainiti normali: la luce solare infligger&agrave; danni superficiali, cos&igrave; come il 
+                nemmeno delle maledizioni dei Cainiti normali: la luce solare infligger&agrave; danni superficiali, cos&igrave; come il 
                 Fuoco, ma subiranno i danni come normali esseri umani, non avendo la resistenza dei Cainiti.
             </Typography>
 

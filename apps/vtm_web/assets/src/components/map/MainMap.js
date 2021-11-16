@@ -10,7 +10,7 @@ import {useMediaQuery, useTheme} from '@mui/material';
 import MainMapResponsive from './MainMapResponsive';
 import type {MainMapsQuery} from "../../services/queries/map/__generated__/MainMapsQuery.graphql";
 
-export default function MainMap(): any {
+const MainMap = (): any => {
     const theme = useTheme();
     const history = useHistory();
     const ret = useCustomLazyLoadQuery<MainMapsQuery>(mainMapsQuery, {});
@@ -28,3 +28,5 @@ export default function MainMap(): any {
         <MainMapWide maps={maps} onMapSelected={onMapSelected} />
     );
 };
+
+export default MainMap;

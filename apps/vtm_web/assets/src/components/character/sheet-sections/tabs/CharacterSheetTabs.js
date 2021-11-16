@@ -14,12 +14,10 @@ type Props = {
     characterQuery: {id: string}
 }
 
-function a11yProps(index) {
-    return {
-        id: `scrollable-force-tab-${index}`,
-        'aria-controls': `scrollable-force-tabpanel-${index}`,
-    };
-}
+const a11yProps = index => ({
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
+});
 
 const CharacterSheetTabs = ({characterQuery}: Props): any => {
     const [value, setValue] = useState(0);

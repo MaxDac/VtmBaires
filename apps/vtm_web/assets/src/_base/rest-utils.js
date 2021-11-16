@@ -1,7 +1,7 @@
 // @flow
 
-export function post<TResponse>(url: string, body: any): Promise<TResponse> {
-    return new Promise<TResponse>((res, rej) => {
+export const post = <TResponse>(url: string, body: any): Promise<TResponse> =>
+    new Promise<TResponse>((res, rej) => {
         fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
@@ -22,4 +22,3 @@ export function post<TResponse>(url: string, body: any): Promise<TResponse> {
             rej(err);
         })
     });
-}
