@@ -72,17 +72,20 @@ const GuidesGeneralRules = (props: Props): any => {
 
                 <ul>
                     <li style={liStyle}>
-                        Consigliamo, e stimoliamo, la capacit&agrave; di <b><u>sunto</u></b>. Le frasi in chat dovranno
-                        essere stringate, veloci, asciutte, rapide, in modo da garantire il fluire della narrazione.
-                        Mediamente, una frase di chat si pu&ograve; aggirare attorno ai 100-300 caratteri,
-                        ed impiegare pi&ugrave; di tre minuti di tempo per scrivere l'equivalente di un turno &egrave;
-                        scoraggiato.
+                        Consigliamo, e stimoliamo, soprattutto in giocate in presenza di master, la capacit&agrave; di 
+                        <b><u>sunto</u></b>. Le frasi in chat dovranno essere per quanto possibile stringate, veloci, 
+                        asciutte, rapide, in modo da garantire il fluire della narrazione. Il limite massimo consentito 
+                        in chat &egrave; di 1200 caratteri, ma mediamente, una frase di chat si dovrebbe aggirare attorno 
+                        ai 500-700 caratteri, ed impiegare pi&ugrave; di cinque-sei minuti di tempo per scrivere l'equivalente 
+                        di un turno &egrave; scoraggiato.<br />
+                        Le regole nelle giocate libere possono considerarsi pi&ugrave; rilassate, e i giocatori potranno
+                        impiegare anche pi&ugrave; caratteri per descrivere le proprie azioni.
                     </li>
 
                     <li style={liStyle}>
                         &Egrave; assolutamente <b>vietato</b> arricchire le frasi in gioco con i <b>pensieri</b> dei
                         personaggi. Le frasi in gioco dovranno descrivere ci&ograve; che tutti hanno la possibilit&agrave;
-                        di vedere nello scenario. Frasi come le seguenti sono ritenute non adeguate, non verranno premiate
+                        di vedere in scena. Frasi come le seguenti sono ritenute non adeguate, non verranno premiate
                         con punti esperienza e vi verr&agrave; chiesto di cancellarle e ripetere l'azione:
                         <ul>
                             <li style={liStyle}>
@@ -126,7 +129,7 @@ const GuidesGeneralRules = (props: Props): any => {
                         ha da offrire. In gioco, saranno concesse azioni anche nefande, che possono urtare l'altrui
                         sensibilit&agrave;.
                         <ul>
-                            <li>
+                            <li style={liStyle}>
                                 A tutti, ricordiamo che le cupe e terrificanti tematiche espresse dai personaggi 
                                 <b>non sono</b> e <b>non devono essere</b> le stesse dei giocatori. L'orrore,
                                 la tragedia e la nefandezza delle giocate deve servire ad <b>esorcizzare</b> queste 
@@ -137,14 +140,14 @@ const GuidesGeneralRules = (props: Props): any => {
                                 "spostare" i punti esperienza gudagnati con un personaggio, a quello successivo.
                                 Non affezionatevi ai vostri personaggi!
                             </li>
-                            <li>
+                            <li style={liStyle}>
                                 Da un lato, consigliamo i giocatori ad avvisare prontamente un narratore
                                 e gli altri giocatori se i temi delineati dalla giocata risultano disturbanti, ingestibili,
                                 indigeribili o addirittura traumatici: sappiate che fuori dal gioco non ci sar&agrave; nessun
                                 giudizio, ma vi avvisiamo che il personaggio, in caso di giocate non finite, sar&agrave;
                                 interpretato da un narratore per il resto della scena.
                             </li>
-                            <li>
+                            <li style={liStyle}>
                                 Dall'altro lato, consigliamo i giocatori di misurare le loro intenzioni, e la loro giocata,
                                 in base anche agli altri giocatori che partecipano. &Egrave; vero che le tematiche
                                 affrontate sono oscure per usare un eufemismo, ma &egrave; anche vero che il senso

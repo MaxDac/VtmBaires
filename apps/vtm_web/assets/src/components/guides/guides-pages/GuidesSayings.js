@@ -41,10 +41,22 @@ const GuidesSayings = (): any => {
                         anche come insulto.
                     </li>
                     <li style={liStyle}>
+                        <b>Carajo</b>: imprecazione (<i>me importan tres carajos</i>)
+                    </li>
+                    <li style={liStyle}>
                         <b>Che</b>: usato per richiamare l'attenzione (tipo "Hey tu")
                     </li>
                     <li style={liStyle}>
                         <b>Chorro</b>: ladrone
+                    </li>
+                    <li style={liStyle}>
+                        <b>Concha</b>: organiro riproduttivo femminile. In generale utilizzato in congiunzione con altro come forma
+                        di imprecazione piuttosto diffusa.
+
+                        <ul>
+                            <li>La concha de la lora (essendo <i>lora</i> la femmina del pappagallo)</li>
+                            <li>La concha de tu madre / de tu hermana</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Laburar</b>: lavorare
@@ -65,6 +77,9 @@ const GuidesSayings = (): any => {
                     </li>
                     <li style={liStyle}>
                         <b>Pibe</b>: giovane
+                    </li>
+                    <li style={liStyle}>
+                        <b>Puta madre</b>: imprecazione del tutto generica, equivalente a <i>porca puttana</i> in italiano.
                     </li>
                     <li style={liStyle}>
                         <b>Quilombo</b>: casino, situazione caotica

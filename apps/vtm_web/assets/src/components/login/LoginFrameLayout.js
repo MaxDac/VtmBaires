@@ -9,6 +9,7 @@ import {useTheme} from "@mui/material/styles";
 import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import {useMediaQuery} from "@mui/material";
 import AppVersion from "../../_base/components/AppVersion";
+import Pegi from "../../_base/components/Pegi";
 
 type Props = {
     icon: any;
@@ -51,6 +52,9 @@ const LoginFrameLayout = (props: Props): any => {
                 background: loginFrameBackgroundColor
             }}>
                 {props.children}
+            </Box>
+            <Box mt={logosDistancing}>
+                <Pegi />
             </Box>
             <Box mt={logosDistancing}>
                 <a href="https://www.digitalocean.com/?refcode=26dfc8b090af&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
