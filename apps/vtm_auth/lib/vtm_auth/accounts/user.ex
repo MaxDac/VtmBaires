@@ -1,4 +1,6 @@
 defmodule VtmAuth.Accounts.User do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -8,6 +10,9 @@ defmodule VtmAuth.Accounts.User do
     field :password, Comeonin.Ecto.Password
     field :role, :string
     field :needs_new_password, :boolean
+    field :banned, :boolean
+    field :last_login, :naive_datetime
+    field :relogin_token, :string
 
     timestamps()
   end
@@ -23,6 +28,6 @@ defmodule VtmAuth.Accounts.User do
 
   def update_changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password, :role, :needs_new_password])
+    |> cast(attrs, [:email, :password, :role, :needs_new_password, :banned, :last_login, :relogin_token])
   end
 end

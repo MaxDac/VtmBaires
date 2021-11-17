@@ -3,12 +3,12 @@
 import React, {useContext} from "react";
 import {useHistory} from "react-router-dom";
 import {updateCurrentCharacter} from "../../../services/session-service";
-import {Routes} from "../../../AppRouter";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "../../creation/controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
 import {MainRoutes} from "../../MainRouter";
+import {Routes} from "../../../AppRouter";
 
 const CreateNewNpc = (): any => {
     const history = useHistory();

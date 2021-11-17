@@ -6,8 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
-import {LoginRoutes} from "../components/login/LoginRouter";
 import type { CharacterFragments_characterConcealedInfo } from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import {Routes} from "../AppRouter";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -28,7 +28,7 @@ export const log = (message: string, obj?: any, type?: LogType): void => {
 export const handleAuthorizedRejection = ({ push }: History): (any => void) =>
     (rejection: any) => {
         console.error("unauthorized by the back end", rejection);
-        push(LoginRoutes.login);
+        push(Routes.sessionExpired);
     };
 
 export const emptyReadOnlyArray = <T>(): $ReadOnlyArray<T> => [];

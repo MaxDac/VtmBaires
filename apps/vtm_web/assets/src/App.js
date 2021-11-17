@@ -4,7 +4,7 @@ import React, {useState, Suspense, useContext, createRef} from "react";
 import { RelayEnvironmentProvider } from 'react-relay';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AlertLayout from './_base/components/AlertLayout';
-import AppRouter from "./AppRouter";
+import AppRouter, {Routes} from "./AppRouter";
 import {SnackbarProvider} from "notistack";
 import type { Node } from 'react';
 import {ErrorBoundaryWithRetry} from "./_base/components/ErrorBoundaryWithRetry";
@@ -17,7 +17,6 @@ import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
 import MainSuspenseFallback from "./MainSuspenseFallback";
 import { performLogout } from "./services/logout-service";
-import {LoginRoutes} from "./components/login/LoginRouter";
 
 const Internal = ({env}: { env: IEnvironment}) => {
     const { showUserNotification } = useContext(UtilityContext);
@@ -37,7 +36,7 @@ const Internal = ({env}: { env: IEnvironment}) => {
 
     return (
         <ErrorBoundaryWithRetry fallback={fallback}
-                                onUnauthorized={() => performLogout(() => history.push(LoginRoutes.login))}>
+                                onUnauthorized={() => performLogout(() => history.push(Routes.sessionExpired))}>
             <RelayEnvironmentProvider environment={env}>
                 <AppRouter />
             </RelayEnvironmentProvider>

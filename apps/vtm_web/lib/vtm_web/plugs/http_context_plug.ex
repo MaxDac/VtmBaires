@@ -9,14 +9,14 @@ defmodule VtmWeb.HttpContextPlug do
   def init(opts), do: opts
 
   def call(conn, _) do
-    context = build_context(conn)
+    {conn, context} = build_context(conn)
     conn |> assign(:current_user, context)
   end
 
   defp build_context(conn) do
     case VtmWeb.Authentication.check_request_cookie(conn) do
-      {:ok, data} -> data
-      _           -> nil
+      {:ok, {conn, data}} -> {conn, data}
+      _                   -> {conn, nil}
     end
   end
 

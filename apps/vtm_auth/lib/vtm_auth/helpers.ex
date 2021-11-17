@@ -1,7 +1,8 @@
 defmodule VtmAuth.Helpers do
-  @doc """
+  @moduledoc """
   Converts a map to a map with only atom keys.
   """
+
   @spec map_to_atom_map(Map.t()) :: Map.t()
   def map_to_atom_map(map) do
     map
@@ -35,4 +36,6 @@ defmodule VtmAuth.Helpers do
     |> Base.url_encode64
     |> binary_part(0, length)
   end
+
+  def get_uuid(), do: Ecto.UUID.generate()
 end

@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import AttributeSelectionField from "../controls/AttributeSelectionField";
 import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
-import {Routes} from "../../../AppRouter";
 import type { AttributeTypeNames } from "../../../services/queries/info/AttributesQuery";
 import type {CharacterAttributeRequest} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
 import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
@@ -41,7 +40,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     if (character?.stage != null) {
         if (character.stage > props.currentStage) {
-            history.push(Routes[`creation${props.currentStage + 1}`]);
+            history.push(MainRoutes[`creation${props.currentStage + 1}`]);
         }
     }
 

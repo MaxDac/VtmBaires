@@ -1,6 +1,7 @@
 defmodule VtmWeb.Resolvers.AccountsResolvers do
   @moduledoc false
 
+  alias VtmWeb.Authentication
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.SessionInfo
@@ -24,21 +25,26 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, nil}
   end
 
-  def login(_, %{email: email, password: password, remember: remember}, context) do
-    with {:ok, %{id: id, role: role} = user}  <- Accounts.authenticate(email, password, remember, context),
-         character                            <- get_user_first_character(user),
-         {:ok, _}                             <- Characters.update_character_in_session(user, character) do
-      token = VtmWeb.Authentication.sign_token(%{id: id, role: parse_role(role, nil)})
-
-      {:ok, %{
-        token: token,
-        # Passing the id in this field to allow queries (for adding host and IP to the session)
-        user: user |> Map.put(:original_id, user.id),
-        character: character
-      }}
-    else
+  def login(_, request, context) do
+    case Authentication.login(request, context) do
+      {:ok, login_response} ->
+        manage_session_character(login_response)
       _ ->
         {:error, "incorrect username or password"}
+    end
+  end
+
+  defp manage_session_character(login_response = %{user: user, relogin_id: relogin_id}) do
+    with {:ok, _} <- Accounts.update_user_relogin_id(user, relogin_id) do
+      case Characters.has_character_in_session?(user) do
+        true  ->
+          {:ok, login_response}
+        false ->
+          with character  <- get_user_first_character(user),
+              {:ok, _}   <- Characters.update_character_in_session(user, character) do
+            {:ok, login_response |> Map.put(:character, character)}
+          end
+      end
     end
   end
 

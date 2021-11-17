@@ -3,7 +3,7 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {getSessionSync} from "../../services/session-service";
-import {LoginRoutes} from "../login/LoginRouter";
+import {Routes} from "../../AppRouter";
 
 type Props = {
     component?: (...any) => any;
@@ -14,7 +14,7 @@ const AuthRoute = ({ children, component, ...rest }: Props): any => {
     const user = getSessionSync()?.user;
 
     const loginRedirection = location => ({
-        pathname: LoginRoutes.login,
+        pathname: Routes.sessionExpired,
         state: { from: location }
     });
 

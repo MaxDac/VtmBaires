@@ -43,6 +43,7 @@ defmodule VtmWeb.Schema.AccountTypes do
 
   object :login_response do
     field :token, :string
+    field :relogin_token, :string
     field :user, :user
     field :character, :character
   end

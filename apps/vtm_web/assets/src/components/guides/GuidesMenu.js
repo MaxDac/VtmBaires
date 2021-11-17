@@ -20,10 +20,12 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import CasinoIcon from '@mui/icons-material/Casino';
 import TranslateIcon from '@mui/icons-material/Translate';
+import WebIcon from '@mui/icons-material/Web';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
-import {LoginRoutes} from "../login/LoginRouter";
 import {menuIconStyle} from "../_layout/Menu";
+import {Routes} from "../../AppRouter";
+import {useSession} from "../../services/session-service";
 
 type GuidesMenuProps = {
     onSelected?: () => void;
@@ -31,6 +33,7 @@ type GuidesMenuProps = {
 
 const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
     const history = useHistory();
+    const [user,] = useSession();
     const [environmentOpen, setEnvironmentOpen] = useState(true);
     const [rulesOpen, setRulesOpen] = useState(false);
 
@@ -48,11 +51,15 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem button onClick={onMenuItemSelected(LoginRoutes.login)}>
+                <ListItem button onClick={onMenuItemSelected(Routes.splashScreen)}>
                     <ListItemIcon>
-                        <LockOutlinedIcon sx={menuIconStyle} />
+                        {
+                            user?.id != null
+                                ? (<WebIcon sx={menuIconStyle} />)
+                                : (<LockOutlinedIcon sx={menuIconStyle} />)
+                        }
                     </ListItemIcon>
-                    <ListItemText primary="Torna al Login" />
+                    <ListItemText primary={user?.id != null ? "Torna al sito" : "Torna al Login"} />
                 </ListItem>
                 <ListItem button onClick={onMenuItemSelected(GuideRoutes.home)}>
                     <ListItemIcon>
