@@ -7,8 +7,8 @@ import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
 import {performLogout} from "../../services/logout-service";
 import Tooltip from '@mui/material/Tooltip';
-import {LoginRoutes} from "../login/LoginRouter";
 import {menuIconStyle} from "./Menu";
+import {Routes} from "../../AppRouter";
 
 const LogoutControl = (): any => {
     const history = useHistory();
@@ -16,7 +16,7 @@ const LogoutControl = (): any => {
 
     const logoutClick = _ => {
         openDialog("Logout", "Do you want to log out?", () =>
-            performLogout(() => history.push(LoginRoutes.login)));
+            performLogout(() => history.push(Routes.logout)));
     }
 
     return (

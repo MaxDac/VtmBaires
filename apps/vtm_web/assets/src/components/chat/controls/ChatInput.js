@@ -20,6 +20,10 @@ type ChatInputProps = {
     newDiceEntry: ChatDiceRequest => void;
 }
 
+const maxCharacters = 1200;
+const warningCharacters = 1000;
+const preferredCharacters = 700;
+
 const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const theme = useTheme();
     const [user,] = useSession();
@@ -30,7 +34,6 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
 
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
 
-    const maxCharacters = 500;
     const fontSize = showMiniFont ? "16px" : "18px";
     const textboxRows = showMiniFont ? 3 : 4;
 
@@ -85,12 +88,30 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
         }
     };
 
+    const remainingCharacterDescription = () =>
+        `Numero di caratteri rimanenti: ${maxCharacters - charactersCount}, consigliati ${preferredCharacters - charactersCount}`;
+
+    const CountCharacterMessageWrapper = ({message, color}) => (
+        <Box component="span" sx={{color}}>{message}</Box>
+    );
+
     const countCharacterMessage = () => {
         if (charactersCount > maxCharacters) {
-            return "Numero di caratteri utilizzati eccessivo. La frase sarà tagliata a 500 caratteri.";
+            return (<CountCharacterMessageWrapper message={`Numero di caratteri utilizzati eccessivo. La frase sarà tagliata a ${maxCharacters} caratteri.`}
+                                                  color="red" />);
         }
 
-        return `Numero di caratteri rimanenti: ${maxCharacters - charactersCount}`;
+        if (charactersCount > warningCharacters) {
+            return (<CountCharacterMessageWrapper message={`${remainingCharacterDescription()}, riduci la frase`}
+                                                  color="red"/>);
+        }
+
+        if (charactersCount > preferredCharacters) {
+            return (<CountCharacterMessageWrapper message={`${remainingCharacterDescription()}, fuori limite consigliato`}
+                                                  color="orange" />);
+        }
+
+        return remainingCharacterDescription();
     };
 
     return (

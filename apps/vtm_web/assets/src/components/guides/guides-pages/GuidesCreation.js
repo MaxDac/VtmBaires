@@ -80,7 +80,7 @@ const GuidesCreation = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                La parte successiva della creazione riguarda le ultime caratteristiche del personaggio. I personaggi cainiti dovranno
+                La parte successiva della creazione riguarda le ultime caratteristiche del personaggio. I personaggi Cainiti dovranno
                 selezionare le due Discipline che potranno avere in fase di creazione. Dato che ogni Disciplina, con il nuovo regolamento
                 pu&ograve; avere pi&ugrave; di un potere per livello, <b>sar&agrave; necessario indicare nelle note al master, quali 
                 poteri per ogni livello di Disciplina selezionato volete prendere</b>, dato che sar&agrave; possibile selezionare un
@@ -111,7 +111,7 @@ const GuidesCreation = (): any => {
             </Typography>
                 
             <Typography paragraph style={guideStyle}>
-                Per cainiti e personaggi di Sangue Debole, si dovr&agrave; anche scegliere il Tipo di Predatore. 
+                Per Cainiti e personaggi di Sangue Debole, si dovr&agrave; anche scegliere il Tipo di Predatore. 
                 Potrete scegliere tra questi:
 
                 <ul>

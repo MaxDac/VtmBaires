@@ -37,8 +37,8 @@ const GuidesEnvironment = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Il gioco &egrave; incentrato sulle vicende dei cainiti, o Fratelli, una razza immortale generata, almeno stando
-                alle loro leggende, dal <b>Peccato di Caino</b> (da qui la parola cainiti), il primo omicida della storia. Da allora, 
+                Il gioco &egrave; incentrato sulle vicende dei Cainiti, o Fratelli, una razza immortale generata, almeno stando
+                alle loro leggende, dal <b>Peccato di Caino</b> (da qui la parola Cainiti), il primo omicida della storia. Da allora, 
                 Caino &egrave; costretto a vagare per la Terra, di notte, dato che i raggi del Sole avrebbero bruciato le sue carni,
                 n&eacute; vivo n&eacute; morto, cibandosi della sola cosa che lo pu&ograve; sostenere: il sangue degli esseri umani.<br />
                 Sempre secondo la leggenda, nel suo vagabondare Caino incontr&ograve; <b>Lilith</b>, la prima moglie di Adamo, che lo 
@@ -51,14 +51,14 @@ const GuidesEnvironment = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Caino fin&iacute; poi per allontanare Lilith e, preda della solitudine e della disperazione, commise il <b>secondo peccato</b>:
-                Abbracci&ograve; tre umani, rendendoli cainiti di Seconda Generazione. Partecip&ograve; anche alla costruzione di una citt&agrave;, 
-                la pi&ugrave; grande, si dice, dell'antichit&agrave;, ancora oggetto di studi archeologici da parte di rispettati cainiti, la 
+                Abbracci&ograve; tre umani, rendendoli Cainiti di Seconda Generazione. Partecip&ograve; anche alla costruzione di una citt&agrave;, 
+                la pi&ugrave; grande, si dice, dell'antichit&agrave;, ancora oggetto di studi archeologici da parte di rispettati Cainiti, la 
                 citt&agrave; di <b>Enoch</b>.<br />
                 I suoi Infanti Abbracciarono altri tredici umani, la Terza Generazione. Questi, per&ograve;, diedero origine alla Jihad, alla guerra 
-                che imperversa e flagella cainiti, e i loro servi mortali, da tutta la storia registrata.<br />
-                Sire contro Infante, clan contro clan, da quando la Terza Generazione uccise la Seconda per prenderne il potere, tutti i cainiti
+                che imperversa e flagella Cainiti, e i loro servi mortali, da tutta la storia registrata.<br />
+                Sire contro Infante, clan contro clan, da quando la Terza Generazione uccise la Seconda per prenderne il potere, tutti i Cainiti
                 sono vittime inconsapevole di questa grande guerra, in cui gli Anziani influenzano ed orchestrano dall'ombra le mosse dei Neonati,
-                e i Neonati cercano di prendere il posto dei loro Sire, ed anche cainiti di clan diversi si scontrano ed ordiscono l'uno 
+                e i Neonati cercano di prendere il posto dei loro Sire, ed anche Cainiti di clan diversi si scontrano ed ordiscono l'uno 
                 contro l'altro, mettendo in mezzo vittime mortali.<br />
                 Venne poi il biblico <b>Diluvio</b> a spazzare via la Prima Citt&agrave;, e Caino cap&igrave; che, assieme al suo sangue, aveva
                 trasmesso anche il suo Peccato agli Infanti. Decise di abbandonarli al loro destino, mentre questi costruirono una <b>Seconda Citt&agrave;</b>&nbsp;
@@ -66,19 +66,19 @@ const GuidesEnvironment = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Caino spar&igrave; di fatto dalla storia registrata. I tredici cainiti sopravvissuti a loro volta Abbracciarono Infanti, dando
-                origine a tredici clan differenti, cainiti con alcune caratteristiche (e maledizioni) in comune che li differenziavano dai cainiti
+                Caino spar&igrave; di fatto dalla storia registrata. I tredici Cainiti sopravvissuti a loro volta Abbracciarono Infanti, dando
+                origine a tredici clan differenti, Cainiti con alcune caratteristiche (e maledizioni) in comune che li differenziavano dai Cainiti
                 degli altri clan, e ne influenzavano il comportamento e il rapporto con gli umani.
-                E cos&igrave;, ad esempio, i cainiti del clan Nosferatu persero il loro aspetto umano, divenendo mostri orribili; i Lasombra videro
+                E cos&igrave;, ad esempio, i Cainiti del clan Nosferatu persero il loro aspetto umano, divenendo mostri orribili; i Lasombra videro
                 la loro immagine in ogni specchio distorta, e cos&igrave; via. Assieme alla maledizione caratteristica del clan, grazie alla 
                 condivisione della Vitae col proprio Sire, gli Infanti acquisivano anche la conoscenza delle Discipline di clan, i poteri
-                soprannaturali dei cainiti.
+                soprannaturali dei Cainiti.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Da allora, la storia dei cainiti s'&egrave; intessuta a quella mortale, sempre rimanendo nell'ombra ed orchestrando le politiche
+                Da allora, la storia dei Cainiti s'&egrave; intessuta a quella mortale, sempre rimanendo nell'ombra ed orchestrando le politiche
                 degli umani cos&igrave; come quelle dei vari clan. Numerose furono le guerre, le lotte intestine e i confronti tra fazioni differenti
-                di cainiti.<br />
+                di Cainiti.<br />
                 Le <b>guerre puniche</b>, ad esempio, furono guidate da Ventrue e Malkavian romani per rompere e debellare l'idillio dei filosofi Brujah con gli 
                 umani, che a Cartagine riuscivano a vivere in armonia. Ci&ograve; che rimase del sogno dei Brujah fu cenere, e il sale che i
                 Romani sparsero su Cartagine per non far nascere (o uscire) pi&ugrave; nulla da quella terra.
@@ -91,9 +91,9 @@ const GuidesEnvironment = (props: Props): any => {
                 <ul>
                     <li style={liStyle}>
                         Un mago mortale, leader di una setta ermetica, <b>Tremere</b>, dopo aver usato in vari modi la <i>vitae</i> di altri 
-                        cainiti, individu&ograve; il corpo indifeso dell'Antidiluviano del clan Salubri, <b>Saulot</b>, e riusc&igrave; a
+                        Cainiti, individu&ograve; il corpo indifeso dell'Antidiluviano del clan Salubri, <b>Saulot</b>, e riusc&igrave; a
                         commettere Diablerie su di lui, creando di fatto quello che fu da allora uno dei clan pi&ugrave; potenti ed organzzati:
-                        il clan Tremere. Furono addirittura in grado di combattere Tzimisce e altri cainiti su pi&ugrave; fronti, subito dopo la loro 
+                        il clan Tremere. Furono addirittura in grado di combattere Tzimisce e altri Cainiti su pi&ugrave; fronti, subito dopo la loro 
                         creazione.
                     </li>
 
@@ -104,9 +104,9 @@ const GuidesEnvironment = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        Due Diablerie di Antidiluviani scatenarono poi una serie di eventi che disegnarono la storia dei cainiti fino ai
+                        Due Diablerie di Antidiluviani scatenarono poi una serie di eventi che disegnarono la storia dei Cainiti fino ai
                         primi anni 2000: la diablerie, a distanza di pochi anni, dell'Antidiluviano <b>Tzimisce</b> e di quello <b>Lasombra</b>,
-                        rispettivamente per mano di due cainiti del clan, <b>Lugoj lo Spezza Sangue</b> e <b>Gratiano de Veronesi</b>. Gli Tzimisce 
+                        rispettivamente per mano di due Cainiti del clan, <b>Lugoj lo Spezza Sangue</b> e <b>Gratiano de Veronesi</b>. Gli Tzimisce 
                         che si ribellarono ai loro Anziani, puntarono poi alla Diablerie dell'Antidiluviano: riuscirono nel loro intento, dopo aver 
                         perfezionato un rituale in grado di spezzare i legami di sangue con i Sire, dando origine alla rivolta anarchica, che in seguito 
                         si sarebbe condensata nella setta del <b>Sabbat</b>.
@@ -143,7 +143,7 @@ const GuidesEnvironment = (props: Props): any => {
                     <li style={liStyle}>
                         Il <b>Beckoning</b>, il richiamo percepito degli Anziani di tutto il mondo a partecipare alla Guerra della
                         Gehenna iniziata dal Sabbat circa nella met&agrave; del primo decennio di questo secolo, &egrave;
-                        avvenuta. Cainiti dalla nona generazione in gi&ugrave; hanno trovato impossibile resistervi, ed hanno dovuto 
+                        avvenuto. Cainiti dalla nona generazione in gi&ugrave; hanno trovato impossibile resistervi, ed hanno dovuto 
                         abbandonare posizioni di potere costruite in secoli. Questo vuol dire che l'ambientazione per ora <b>non prevede 
                         l'introduzione del Sabbat</b>.<br />
                         Una delle conseguenze del <i>Beckoning</i> &egrave; che il gioco politico della Camarilla &egrave; reso 

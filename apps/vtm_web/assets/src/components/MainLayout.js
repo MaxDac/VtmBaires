@@ -26,7 +26,7 @@ import ReturnToChatControl from "./_layout/ReturnToChatControl";
 
 const drawerWidth = 300;
 
-export default function MiniDrawer({children}: {children: any}): any {
+const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
@@ -203,4 +203,6 @@ export default function MiniDrawer({children}: {children: any}): any {
             </Box>
         </Box>
     );
-}
+};
+
+export default MiniDrawer;

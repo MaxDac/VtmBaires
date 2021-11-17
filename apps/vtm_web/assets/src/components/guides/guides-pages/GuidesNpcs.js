@@ -374,7 +374,7 @@ const GuidesNpcs = (props: Props): any => {
                         <Typography paragraph sx={guideStyle}>
                             Rodrigo era il reticente Ductus del branco de <i>Las Calaveras</i> quando
                             Buenos Aires era ancora saldamente in mano al Sabbat. Fece parte della prima 
-                            ondata di cainiti partiti alla volta del Medio Oriente per partecipare alla
+                            ondata di Cainiti partiti alla volta del Medio Oriente per partecipare alla
                             Guerra della Gehenna. Di comune accordo col suo branco, decise che partecipare
                             alla grande guerra che si preannunciava in Medio Oriente non era qualcosa 
                             di produttivo, e decise di tornare sui suoi passi, approfittando delle lacune 
@@ -383,7 +383,7 @@ const GuidesNpcs = (props: Props): any => {
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
                             Estendendo il suo controllo alla Provincia di Buenos Aires, strinse accordi
-                            coi cainiti del Ministero di Set, rifiutati ufficilamente dalla Camarilla.
+                            coi Cainiti del Ministero di Set, rifiutati ufficilamente dalla Camarilla.
                             Pur non volendo ricoprire ufficilamente il ruolo di <b>Barone Anarchico</b>,
                             anche perch&eacute; tali consuetudini sono estranee e distanti alle abitudini 
                             della capitale argentina, lui e il suo branco rimangono i punti di riferimento

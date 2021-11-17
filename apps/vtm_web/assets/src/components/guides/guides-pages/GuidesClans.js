@@ -34,7 +34,7 @@ const GuidesAttributes = (): any => {
                 i <b>Caitiff</b>, o Vili, che, pur essendo vampiri a tutti gli effetti, non mostrano i segni
                 caratteristici dell'appartenenza ad un clan, e i <b>Sangue Debole</b>, o Thin-Blood, ovvero
                 vampiri la cui Generazione, o lontananza in Abbracci dai mitici progenitori, &egrave; cos&igrave;
-                grande che il loro sangue ha perso molte delle caratteristiche tipiche dei cainiti, come la
+                grande che il loro sangue ha perso molte delle caratteristiche tipiche dei Cainiti, come la
                 debolezza ai raggi solari, il pallore cadaverico, o l'impossibilit&agrave; di mangiare cibo.
             </Typography>
 
@@ -71,7 +71,7 @@ const GuidesAttributes = (): any => {
                 come anche di maghi sapienti e di dotti diplomatici. La loro struttura &egrave; sempre stata
                 indipendente, e il loro quartier generale arroccato ad <b>Alamut</b>, in Medio Oriente.<br />
                 Sono stati recentemente accettati nella Camarilla. La loro debolezza &egrave; una strana 
-                dipendenza dal sangue degli altri cainiti, e la difficolt&agrave; che dimostrano nel resistere
+                dipendenza dal sangue degli altri Cainiti, e la difficolt&agrave; che dimostrano nel resistere
                 alla tentazione della Diablerie.<br />
                 <b>Maledizione</b>: da tempo immemore, i Banu Haqim hanno un debole per il sangue Cainita. Se 
                 assumono l'equivalente di un punto di Fame in Sangue, dovranno testare per la Frenesia di Rabbia
@@ -93,9 +93,9 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I cainiti del clan Brujah sono notoriamente scelti tra iconoclasti, idealisti, ribelli. Il loro
+                I Cainiti del clan Brujah sono notoriamente scelti tra iconoclasti, idealisti, ribelli. Il loro
                 sangue &egrave; naturalmente portato all'ira, e questa tendenza si &egrave; esplicitata col
-                recente abbandono di massa del clan dalla Camarilla. Alcuni cainiti <br />
+                recente abbandono di massa del clan dalla Camarilla. Alcuni Cainiti <br />
                 La maledizione del loro sangue &egrave; la tendenza alla frenesia, sull'onda dell'ira che 
                 esprime il loro Sangue.<br /> 
                 <b>Maledizione</b>: i Cainiti del clan Brujah soffrono la Bestia molto pi&ugrave; degli altri clan, e tendono a 
@@ -107,7 +107,7 @@ const GuidesAttributes = (): any => {
                 rifiutarsi apertamente di eseguire un ordine, oppure trasgredendo volontariamente l'etichetta di un luogo, ad 
                 esempio l'Elysium. Finch&eacute; non avr&agrave; ottemperato a questo dettame del Sangue, l'ammontare di ogni 
                 suo tiro di dado sar&agrave; ridotto di 2.<br />
-                <b>Affiliazioni</b>: Anarchici, pochi cainiti hanno deciso di rimanere nella Camarilla.<br />
+                <b>Affiliazioni</b>: Anarchici, pochi Cainiti hanno deciso di rimanere nella Camarilla.<br />
                 <b>Discipline</b>: Ascendente, Potenza, Velocit&agrave;.
             </Typography>
 
@@ -138,7 +138,7 @@ const GuidesAttributes = (): any => {
                 e trova anche che il modo migliore per risolvere conflitti sia l'uso della forza. Per una scena,
                 ogni tiro che richiede gli Attributi di Manipolazione e Intelligenza subiranno una penalit&agrave;
                 di 3.<br />
-                <b>Affiliazioni</b>: Anarchici o Indipendenti, pochi cainiti hanno deciso di rimanere nella Camarilla.<br />
+                <b>Affiliazioni</b>: Anarchici o Indipendenti, pochi Cainiti hanno deciso di rimanere nella Camarilla.<br />
                 <b>Discipline</b>: Ascendente, Potenza, Velocit&agrave;.
             </Typography>
 
@@ -149,7 +149,7 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I Lasombra sono cainiti noti per la loro brutalit&agrave; e mancanza di scrupoli, oltre che per la loro connessione
+                I Lasombra sono Cainiti noti per la loro brutalit&agrave; e mancanza di scrupoli, oltre che per la loro connessione
                 che sfocia in feticismo con le Ombre, che controllano grazie al potere della loro Vitae. La loro tendenza &egrave; 
                 quella di dominare soggiogando, in maniera pi&ugrave; o meno plateale, dipendendo dal contesto. Hanno recentemente
                 stretto un accordo con la Camarilla per garantirsi l'affiliazione alla Setta, ma alcuni ribelli Sabbat possono 
@@ -159,7 +159,7 @@ const GuidesAttributes = (): any => {
                 difetto influenza curiosamente anche tutta la tecnologia moderna: non possono essere registrati da telecamere, o 
                 da microfoni, e tutta la tecnologia attorno a loro tende a non funzionare correttamente, o affatto. Nonostante questo,
                 o proprio per l'effetto che fanno alla tecnologia, la Seconda Inquisizione riesce a capire immediatamente che ha a che 
-                fare con cainiti di questo clan.<br /> 
+                fare con Cainiti di questo clan.<br /> 
                 <b>Maledizione</b>: la Maledizione del clan Lasombra aveva a che fare con gli specchi, che distorcevano la loro 
                 immagine in modo quasi irriconoscibile, e col passare del tempo non la riflettevano affatto. Ora, questo difetto 
                 &egrave; diventato doppiamente pericoloso: ogni registrazione di un Lasombra apparir&agrave; distorta, rivelando 
@@ -215,7 +215,7 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Se il Sangue Malkavian rovina la mente dei cainiti, il Sangue Nosferatu ne rovina le fattezze. Chiunque venga
+                Se il Sangue Malkavian rovina la mente dei Cainiti, il Sangue Nosferatu ne rovina le fattezze. Chiunque venga
                 Abbracciato da un Nosferatu, finisce irrimediabilmente per diventare un orrore deambulante. Questo difetto ha
                 ovviamente influenzato la storia del clan: un clan di spie, di sopravvissuti, di hacker formidabili e soprattutto
                 unito al loro interno.<br />
@@ -241,7 +241,7 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I Toreador sono da sempre considerati gli artisti tra i cainiti, i Fratelli con pi&ugrave; sensibilit&agrave; e pi&ugrave; connessione
+                I Toreador sono da sempre considerati gli artisti tra i Cainiti, i Fratelli con pi&ugrave; sensibilit&agrave; e pi&ugrave; connessione
                 con gli umani e l'umanit&agrave;. Ed &egrave; vero, nel bene e nel male. Maestri diplomatici, li si pu&ograve; trovare a loro agio
                 tanto in Elysium come Arpie, tanto in mostre d'arte, come artisti o mecenati. Questo clan disprezza la volgarit&agrave; e la bruttezza,
                 ed apprezza la bellezza: vien da s&eacute; che i personaggi Toreador sono mediamente artisti, o... semplicemente affascinanti.<br />
@@ -329,7 +329,7 @@ const GuidesAttributes = (): any => {
                 Cainiti di questo tipo sono notoriamente stati sempre ostracizzati e esiliati dal clan, e addirittura dalla Camarilla, considerati poco 
                 meglio dei Sangue Debole. Il loro numero adesso &egrave; per&ograve; aumentato, e costituiscono una forza notevole, da non ignorare.<br />
                 I Vili non soffrono nessuna maledizione di clan, anche se soffrono normalmente della maledizione del Sangue Cainita, e quindi raggi del Sole
-                e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" cainiti.<br /> 
+                e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" Cainiti.<br /> 
                 <b>Affiliazioni</b>: Anarchici, in rari casi nei bassi ranghi della Camarilla, ma non potranno assumere Status.<br />
                 <b>Discipline</b>: i Vili manifestano la loro duttilit&agrave; riuscendo ad apprendere qualsiasi Disciplina non rara (non potranno apprendere
                 Blood Sorcery o Oblivion, per esempio).
@@ -344,12 +344,12 @@ const GuidesAttributes = (): any => {
             <Typography paragraph sx={guideStyle}>
                 Nelle Ultime Notti, molti Abbracci di tredicesime generazioni hanno generato dei vampiri con un Sangue cos&igrave; debole e diluito da non 
                 riuscire nemmeno, in alcuni casi, a sostenere i loro corpi non morti, e a soffrire molto di meno le maledizioni ancestrali del Sangue di 
-                Caino. Alcuni di questi cainiti possono addirittura camminare al Sole, mangiare cibo umano senza vomitarlo, altri hanno addirittura
+                Caino. Alcuni di questi Cainiti possono addirittura camminare al Sole, mangiare cibo umano senza vomitarlo, altri hanno addirittura
                 battito e sono indistinguibili da altri umani. In ogni caso, i Sangue Debole sono generalmente cacciati e sterminati senza piet&agrave;
                 dalla Camarilla quando non possono essere usati, ignorati nel migliore dei casi, attivamente esiliati o uccisi nel peggiore dagli Anarchici, 
-                in quanto secondo le leggende la loro apparizione &egrave; un segno dell'arrivo della Gehenna, la fine dei tempi per i cainiti.<br />
+                in quanto secondo le leggende la loro apparizione &egrave; un segno dell'arrivo della Gehenna, la fine dei tempi per i Cainiti.<br />
                 I Sangue Debole soffrono di una serie di Pregi e Difetti caratteristici del loro "clan", che dovranno essere specificati in creazione.<br />
-                <b>Affiliazioni</b>: Nessuna, sono generalmente cacciati a vista da tutti gli altri cainiti.<br />
+                <b>Affiliazioni</b>: Nessuna, sono generalmente cacciati a vista da tutti gli altri Cainiti.<br />
                 <b>Discipline</b>: &egrave; possibile per loro apprendere l'Alchimia del Sangue.
             </Typography>
 
@@ -367,7 +367,7 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Originariamente Cappadoci, poi Giovanni, in seguito alla Diablerie operata da Augustus Giovanni, poi Hecata,
-                in seguito all'attacco finanziario della Seconda Inquisizione, gli Hecata sono un variegato gruppo di cainiti 
+                in seguito all'attacco finanziario della Seconda Inquisizione, gli Hecata sono un variegato gruppo di Cainiti 
                 dediti alla Necromanzia. Data la complessit&agrave; della storia di questo clan, &egrave; consigliato a giocatori 
                 pi&ugrave; esperti.<br />
                 La maledizione del loro sangue si manifesta nel Bacio: invece di portare sensazioni di estasi, trasmette un dolore
@@ -415,7 +415,7 @@ const GuidesAttributes = (): any => {
                 Questo clan &egrave; avvolto nel mistero, nelle Notti Moderne, e sono ancora pi&ugrave; rari dei Ravnos, motivo per cui 
                 i Narratori si riservano di non accettare nemmeno questi personaggi.<br />
                 La maledizione del loro sangue li costringe a potersi nutrire solo di vittime consenzienti. Inoltre, la loro Vitae sembra
-                essere molto pi&ugrave; dolce di quella degli altri cainiti, e per questo motivo sono costantemente cacciati dagli altri clan.<br /> 
+                essere molto pi&ugrave; dolce di quella degli altri Cainiti, e per questo motivo sono costantemente cacciati dagli altri clan.<br /> 
                 <b>Affiliazioni</b>: Indipendenti o Anarchici.<br />
                 <b>Discipline</b>: Auspex, Dominazione, Robustezza.
             </Typography>
@@ -427,7 +427,7 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I Dragoni, gli appartenenti del clan Tzimisce, sono tra i cainiti pi&ugrave; inumani, ed orgogliosi di esserlo. Un tempo signori dei
+                I Dragoni, gli appartenenti del clan Tzimisce, sono tra i Cainiti pi&ugrave; inumani, ed orgogliosi di esserlo. Un tempo signori dei
                 Carpazi, alla loro abilit&agrave; di modellare carne e ossa a loro piacimento, si &egrave; aggiunta, nella rivolta Anarchica, la 
                 capacit&agrave; di spezzare i legami di sangue tramite il rituale che in seguito sarebbe stato conosciuto come Vaulderie. Da sempre
                 affiliati del Sabbat, la stragrande maggioranza di loro &egrave; partita per la Guerra di Gehenna, ed allo stato attuale sono 

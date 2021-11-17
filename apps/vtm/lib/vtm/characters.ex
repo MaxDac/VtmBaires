@@ -12,6 +12,7 @@ defmodule Vtm.Characters do
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.CharacterAttribute
   alias Vtm.Characters.AttributeType
+  alias VtmAuth.Accounts.SessionInfo
 
   @spec all() :: [%Character{}]
   def all() do
@@ -468,6 +469,14 @@ defmodule Vtm.Characters do
       character
       |> Character.update_changeset(attrs)
       |> Repo.update()
+    end
+  end
+
+  @spec has_character_in_session?(%{:id => integer(), optional(any) => any}) :: boolean()
+  def has_character_in_session?(%{id: id}) do
+    case VtmAuth.Accounts.get_character_session_by_user_id(id) do
+      {:ok, %SessionInfo{character_id: c_id}} when not is_nil(c_id) -> true
+      _                                                             -> false
     end
   end
 

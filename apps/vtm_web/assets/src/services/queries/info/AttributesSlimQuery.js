@@ -24,16 +24,16 @@ export const attributesSlimQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-export default function useAttributesSlimQuery(): ?Array<Attribute> {
-    return useCustomLazyLoadQuery(attributesSlimQuery, {})
-        ?.attributes
-        ?.map(a => ({
-            id: a?.id ?? "",
-            name: a?.name ?? "",
-            attributeType: {
-                name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
-                section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
-            }
-        }))
-        ?.sort((a, b) => attributesDefaultSortFunction(a, b));
-}
+const useAttributesSlimQuery = (): ?Array<Attribute> => useCustomLazyLoadQuery(attributesSlimQuery, {})
+    ?.attributes
+    ?.map(a => ({
+        id: a?.id ?? "",
+        name: a?.name ?? "",
+        attributeType: {
+            name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
+            section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
+        }
+    }))
+    ?.sort((a, b) => attributesDefaultSortFunction(a, b));
+
+export default useAttributesSlimQuery;

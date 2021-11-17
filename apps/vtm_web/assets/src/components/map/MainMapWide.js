@@ -47,11 +47,13 @@ const MainMapWide = ({maps, onMapSelected}: Props): any => {
                 textAlign: "center"
             }}>
                 <Stack>
-                    <ImageMapper src="main-map.webp"
-                                 map={map}
-                                 onClick={onMapSelectedInternal}
-                                 onMouseEnter={onMouseEnter}
-                                 onMouseLeave={onMouseLeave} />
+                    <Box sx={{cursor: "pointer"}}>
+                        <ImageMapper src="main-map.webp"
+                                     map={map}
+                                     onClick={onMapSelectedInternal}
+                                     onMouseEnter={onMouseEnter}
+                                     onMouseLeave={onMouseLeave} />
+                    </Box>
                     <Typography sx={{
                         fontFamily: "Disturbed",
                         fontSize: "2rem",

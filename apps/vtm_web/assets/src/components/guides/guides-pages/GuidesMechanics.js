@@ -814,7 +814,7 @@ const GuidesMechanics = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                I cainiti non avranno pi&ugrave; Punti Sangue a disposizione, ma un punteggio di <b>Fame</b>&nbsp;
+                I Cainiti non avranno pi&ugrave; Punti Sangue a disposizione, ma un punteggio di <b>Fame</b>&nbsp;
                 variabile da 1 a 5. Ogni volta che un Cainita vorr&agrave; spendere sangue, dovr&agrave;
                 tirare un dado d10. Se otterr&agrave; pi&ugrave; di 6, non subir&agrave; nessuna penalit&agrave;.
                 Un fallimento indicher&agrave; l'aumento della <b>Fame</b>. A livello 5, il Cainita sar&agrave;
@@ -834,7 +834,7 @@ const GuidesMechanics = (): any => {
                 Ogni Cainita, dal momento dell'Abbraccio, eredita, assieme ai poteri e alle maledizioni del Sangue,
                 anche la <b>Bestia</b>. La Bestia &egrave; un'entit&agrave; di vita propria che si muove nei meandri
                 della mente del Cainita, spingendolo sempre agli atti pi&ugrave; nefandi e orribili in nome di ci&ograve;
-                che per i cainiti &egrave; assieme nutrimento, droga e elisir di vita eterna: il <b>Sangue</b>.
+                che per i Cainiti &egrave; assieme nutrimento, droga e elisir di vita eterna: il <b>Sangue</b>.
                 Oltre alla Fame, descritta precedentemente, la Bestia si adopera per distruggere i frammenti di 
                 umanit&agrave; che il Cainita ancora segue nella non vita, costringendolo a contravvenire alle
                 <b>Convinzioni</b>, da definire in fase di creazione del personaggio.

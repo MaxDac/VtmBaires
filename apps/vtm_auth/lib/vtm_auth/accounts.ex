@@ -49,6 +49,15 @@ defmodule VtmAuth.Accounts do
     |> nil_to_result()
   end
 
+  def get_not_banned_user_by_email(email) do
+    User
+    |> from()
+    |> where([u], u.email == ^email)
+    |> where([u], u.banned == false)
+    |> Repo.one()
+    |> nil_to_result()
+  end
+
   @spec user_name_exists?(String.t()) :: boolean()
   def user_name_exists?(name) do
     query = from u in User, where: u.name == ^name
@@ -208,8 +217,9 @@ defmodule VtmAuth.Accounts do
   end
 
   def authenticate(email, password, remember, _context) do
-    with {:ok, user = %User{password: digest}}  <- get_user_by_email(email),
-         true                                   <- Password.valid?(password, digest) do
+    with {:ok, user = %User{password: digest}}  <- get_not_banned_user_by_email(email),
+         true                                   <- Password.valid?(password, digest),
+         {:ok, user}                            <- update_last_login_date(user) do
       update_session(user, %{remember: remember})
       {:ok, user}
     else
@@ -218,9 +228,46 @@ defmodule VtmAuth.Accounts do
     end
   end
 
+  @spec update_last_login_date(User.t()) :: User.t()
+  defp update_last_login_date(user) do
+    user
+    |> User.update_changeset(%{last_login: NaiveDateTime.utc_now()})
+    |> Repo.update()
+  end
+
+  @spec update_user_relogin_id(User.t(), binary()) :: {:ok, User.t()} | {:error, any()}
+  def update_user_relogin_id(user, relogin_id) do
+    user
+    |> User.update_changeset(%{relogin_token: relogin_id})
+    |> Repo.update()
+  end
+
+  @spec user_has_relogin_token?(User.t(), binary()) :: :ok | {:error, :not_found}
+  def user_has_relogin_token?(%{id: id}, relogin_token) do
+    query =
+      from u in User,
+        where: u.id == ^id,
+        where: u.relogin_token == ^relogin_token,
+        where: u.banned == false,
+        select: count(u.id)
+
+    case Repo.one(query) do
+      0 -> {:error, :not_found}
+      _ -> :ok
+    end
+  end
+
   def create_new_password_request(attrs) do
     %ResetPasswordRequest{}
     |> ResetPasswordRequest.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @spec ban_user?(integer(), boolean()) :: User.t()
+  def ban_user?(user_id, ban) do
+    User
+    |> Repo.get(user_id)
+    |> User.update_changeset(%{banned: ban})
+    |> Repo.update()
   end
 end

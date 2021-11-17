@@ -134,7 +134,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 citt&agrave; di Montevideo e Buenos Aires, nel disperato tentativo di attenuare la stretta
                 morsa che il Sabbat manteneva nell'intero continente sudamericano.<br />
                 Il dispendio fu enorme, e incluse anche una serie di accordi col clan Giovanni, secondo cui 
-                questi ultimi si impegnava a gestire il trasporto di risorse e cainiti dal Vecchio 
+                questi ultimi si impegnava a gestire il trasporto di risorse e Cainiti dal Vecchio 
                 Continente al Nuovo in tutta sicurezza, in cambio di maggiore influenza negli stabili 
                 Domini europei.
             </Typography>
@@ -176,7 +176,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 l'influenza che i contratti con la Camarilla portarono per la violenta opposizione dei 
                 Seguaci di Set, che, intuendo il cambio nella politica porteña, vollero concorrere coi 
                 Giovanni per l'appoggio della Camarilla - cosa che alla Camarilla andava pi&ugrave; che bene.<br />
-                Il successo della campagna fu cos&igrave; imporante che gli Anziani in Europa
+                Il successo della campagna fu cos&igrave; importante che gli Anziani in Europa
                 vollero influire nelle decisioni politiche del Dominio: ancora una volta, 
                 le Ancillae, a cui andava tutto il merito dell'impresa, correvano il rischio
                 di venir private del loro premio.
@@ -185,7 +185,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
             <Typography paragraph sx={guideStyle}>
                 Due furono gli accadimenti che avrebbero potuto cementare la situazione politica,
                 e rendere stabile la presenza della Camarilla nell'America del Sud.<br />
-                Buenos Aires non fu l'unica citt&agrave; su cui la Camarilla invest&igrave; le proprie risores. 
+                Buenos Aires non fu l'unica citt&agrave; su cui la Camarilla invest&igrave; le proprie risorse. 
                 Venne costituito un Principato in piena regola, appoggiato dalle forze degli 
                 Anziani, a <b>Montevideo</b>: venne scelta <b>Maria Augusta Carvalho Sforza</b>, componente
                 in vita della nobilt&agrave; portoghese di stanza in Brasile, Abbracciata
@@ -367,7 +367,7 @@ const GuidesEnvironmentBaires = (props: Props): any => {
                 Continente rendono improponibile l'espansione.<br />
                 In questo contesto, sia il Dominio che l'organizzazione Anarchica stanno
                 reclutando Fratelli di ritorno dalla disastrosa esperienza di Montevideo,
-                e nuovi "coloni" europei, cainiti in grado di approfittare delle numerose
+                e nuovi "coloni" europei, Cainiti in grado di approfittare delle numerose
                 posizioni di potere ancora vacanti.
             </Typography>
         </>

@@ -12,6 +12,7 @@ defmodule VtmWeb.SessionController do
   mutation ($email: String!, $password: String!, $remember: Boolean!) {
     login(email: $email, password: $password, remember: $remember) {
       token
+      reloginToken
       user {
         id
         originalId
@@ -25,10 +26,15 @@ defmodule VtmWeb.SessionController do
   """
   def create(conn, graphql_response) do
     with %{data: %{"login" => result}} when not is_nil(result)  <- graphql_response,
-         %{"token" => token, "user" => user}                    <- result,
+         %{
+           "token" => token,
+           "reloginToken" => relogin_token,
+           "user" => user
+          }                                                     <- result,
          {:ok, _}                                               <- update_session(conn, %{user | "id" => user["originalId"]}) do
       conn
-      |> Authentication.put_token(token)
+      |> Authentication.put_session_token(token)
+      |> Authentication.put_relogin_token(relogin_token)
       |> render("ok.json", %{user: user})
     else
       e ->
@@ -74,14 +80,14 @@ defmodule VtmWeb.SessionController do
   end
 
   def check(conn, _) do
-    with {:ok, user} <- Authentication.check_request_cookie(conn) do
+    with {:ok, {conn, user}} <- Authentication.check_request_cookie(conn) do
       conn
       |> render("ok-keys.json", user: user)
     end
   end
 
   def check_master(conn, _) do
-    with {:ok, user = %{role: :master} } <- Authentication.check_request_cookie(conn) do
+    with {:ok, {conn, user = %{role: :master}}} <- Authentication.check_request_cookie(conn) do
       conn
       |> render("ok-keys.json", user: user)
     end
@@ -94,7 +100,8 @@ defmodule VtmWeb.SessionController do
   """
   def logout(conn, _) do
     conn
-    |> Authentication.put_token("")
+    |> Authentication.put_session_token("")
+    |> Authentication.put_relogin_token("")
     |> render("logout-ok.json")
   end
 

@@ -153,15 +153,13 @@ export type SessionInfo = {
  * This custom hook retrieves the session information.
  * @returns {SessionInfo} The session info.
  */
-export function getSessionHookValue(environment: IEnvironment): SessionInfo {
-    return {
-        getUser: () => getSession(environment).then(x => x?.user),
-        getCurrentCharacter: () => getSession(environment).then(x => x?.character),
-        setCurrentCharacter: updateCurrentCharacter,
-        getCurrentLocation: () => new Promise((r, _) => r(getSessionSync()?.location)),
-        setCurrentLocation: updateCurrentLocation
-    };
-}
+export const getSessionHookValue = (environment: IEnvironment): SessionInfo => ({
+    getUser: () => getSession(environment).then(x => x?.user),
+    getCurrentCharacter: () => getSession(environment).then(x => x?.character),
+    setCurrentCharacter: updateCurrentCharacter,
+    getCurrentLocation: () => new Promise((r, _) => r(getSessionSync()?.location)),
+    setCurrentLocation: updateCurrentLocation
+});
 
 /**
  * This method gets the session (user and character) in a synchronous manner, i.e., without calling the

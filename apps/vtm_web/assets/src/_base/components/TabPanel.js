@@ -9,7 +9,7 @@ export type TabPanelProps = {
     index: number;
 }
 
-export default function TabPanel({ children, value, index }: TabPanelProps): any {
+const TabPanel = ({ children, value, index }: TabPanelProps): any => {
     return (
         <div role="tabpanel"
              hidden={value !== index}
@@ -22,4 +22,6 @@ export default function TabPanel({ children, value, index }: TabPanelProps): any
             )}
         </div>
     );
-}
+};
+
+export default TabPanel

@@ -6,8 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
-import {LoginRoutes} from "../components/login/LoginRouter";
 import type { CharacterFragments_characterConcealedInfo } from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import {Routes} from "../AppRouter";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -25,28 +25,23 @@ export const log = (message: string, obj?: any, type?: LogType): void => {
     }
 }
 
-export function handleAuthorizedRejection({ push }: History): any => void {
-    return (rejection: any) => {
+export const handleAuthorizedRejection = ({ push }: History): (any => void) =>
+    (rejection: any) => {
         console.error("unauthorized by the back end", rejection);
-        push(LoginRoutes.login);
-    }
-}
+        push(Routes.sessionExpired);
+    };
 
-export function emptyReadOnlyArray<T>(): $ReadOnlyArray<T> {
-    return [];
-}
+export const emptyReadOnlyArray = <T>(): $ReadOnlyArray<T> => [];
 
-export function emptyArray<T>(): Array<T> {
-    return [];
-}
+export const emptyArray = <T>(): Array<T> => [];
 
-export function toArray<T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<?T> {
+export const toArray = <T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<?T> => {
     if (readOnlyArray != null) {
         return ((readOnlyArray: any): Array<?T>);
     }
 
     return emptyArray<?T>();
-}
+};
 
 export const uniques = <T>(arr: Array<T>): Array<T> => [...new Set(arr)];
 
@@ -63,31 +58,27 @@ export const toMap = <TKey, TValue>(arr: ?Array<?[?TKey, ?TValue]>): ?Map<TKey, 
         return map;
     }, new Map<TKey, TValue>());
 
-export function filterNulls<T>(arr: Array<?T>): Array<T> {
-    return arr?.reduce((acc, p) => {
+export const filterNulls = <T>(arr: Array<?T>): Array<T> =>
+    arr?.reduce((acc, p) => {
         if (p != null) {
             return [...acc, p];
         }
 
         return acc;
     }, []);
-}
 
-export function toNotNullArray<T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<T> {
-    return filterNulls(toArray(readOnlyArray));
-}
+export const toNotNullArray = <T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<T> =>
+    filterNulls(toArray(readOnlyArray));
 
-export function firstOrDefault<T>(a: ?Array<T>): ?T {
+export const firstOrDefault = <T>(a: ?Array<T>): ?T => {
     if (a != null && a.length > 0) {
         return a[0];
     }
-    
-    return null;
-}
 
-export function castNotNull<T>(item: ?T): T {
-    return ((item: any): T);
-}
+    return null;
+};
+
+export const castNotNull = <T>(item: ?T): T => ((item: any): T);
 
 /**
  * Returns a range between the two specified number (included).
@@ -95,7 +86,7 @@ export function castNotNull<T>(item: ?T): T {
  * @param to The highest boundary.
  * @returns {Generator<number, void, number>} The generator.
  */
-export function* range(from: number, to: number): Generator<number, void, number> {
+export const range = function*(from: number, to: number): Generator<number, void, number> {
     if (from > to) {
         [from, to] = [to, from];
     }
@@ -103,9 +94,9 @@ export function* range(from: number, to: number): Generator<number, void, number
     for (let i = from; i <= to; i++) {
         yield i;
     }
-}
+};
 
-export function baseMenuItems(min: number, max: number): any {
+export const baseMenuItems = (min: number, max: number): any => {
     const values = [];
 
     for (const v of range(min, max)) {
@@ -113,17 +104,19 @@ export function baseMenuItems(min: number, max: number): any {
     }
 
     return values;
-}
+};
 
-export function materialize<T>(generator: Generator<T, void, T>): T[] {
+export const materialize = <T>(generator: Generator<T, void, T>): T[] => {
     const ret = [];
+
     for (const val of generator) {
         ret.push(val);
     }
-    return ret;
-}
 
-export function getInitials(name: string): string {
+    return ret;
+};
+
+export const getInitials = (name: string): string => {
     if (!name) {
         return "NF";
     }
@@ -136,13 +129,13 @@ export function getInitials(name: string): string {
             .map(([f,]) => f.toUpperCase())
             .join("");
     }
-}
+};
 
-export function handleMutation<T>(mutation: () => Promise<T>, showNotification: AlertInfo => void, args?: ?{
+export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: AlertInfo => void, args?: ?{
     successMessage?: string,
     errorMessage?: string,
     onCompleted?: () => void
-}) {
+}) => {
     mutation()
         .then(result => {
             showNotification({
@@ -162,7 +155,7 @@ export function handleMutation<T>(mutation: () => Promise<T>, showNotification: 
                 args.onCompleted();
             }
         });
-}
+};
 
 /**
  * Determines whether the caracter is a vampire or not based on the clan.

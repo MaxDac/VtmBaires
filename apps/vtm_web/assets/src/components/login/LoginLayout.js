@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import { useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import type { Node } from "react";
-import { performLogout } from "../../services/logout-service";
 import NoCookieBar from "../../_base/components/NoCookieBar";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
@@ -33,13 +31,6 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
         // : "linear-gradient(to right, #191919EE, #191919)"
         : "transparent"
     ;
-
-    useEffect(() => {
-        // Invoking the logout service to delete all the cached information
-        performLogout(() => {
-            console.debug("cached information erased.");
-        });
-    }, []);
 
     return (
         <Grid container component="main" sx={{

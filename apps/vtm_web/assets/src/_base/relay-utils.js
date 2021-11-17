@@ -1,6 +1,5 @@
 // @flow
 
-// import environment from "./relay-environment";
 import subscriptionEnvironment from "./relay-socket-environment";
 import {Observable} from "relay-runtime";
 import type {
@@ -13,7 +12,7 @@ import type {
     IEnvironment
 } from "relay-runtime";
 import type {Sink} from "relay-runtime/network/RelayObservable";
-import type { PayloadError } from "relay-runtime";
+import type {PayloadError} from "relay-runtime";
 import type {Subscription} from "relay-runtime/network/RelayObservable";
 
 import {
@@ -37,7 +36,7 @@ export type GraphqlErrorMessage = {
     errors: GraphqlError[];
 }
 
-export function parseGraphqlMessage(error: GraphqlErrorMessage, defaultError?: ?string): string {
+export const parseGraphqlMessage = (error: GraphqlErrorMessage, defaultError?: ?string): string => {
     if (error && error.errors && error.errors.map) {
         return error?.errors
             .map(({ message }) => message)
@@ -47,7 +46,7 @@ export function parseGraphqlMessage(error: GraphqlErrorMessage, defaultError?: ?
     return defaultError ?? "An error happened in the back end";
 }
 
-function parseResponse<T>(res: T => void, rej: any => void, extractor?: any => T) {
+const parseResponse = <T>(res: T => void, rej: any => void, extractor?: any => T) => {
     return (response: any, errors: ?Array<PayloadError>) => {
         if (errors) { 
             rej({
@@ -65,7 +64,7 @@ function parseResponse<T>(res: T => void, rej: any => void, extractor?: any => T
     };
 }
 
-export function wrapQuery<T>(environment: IEnvironment, operation: GraphQLTaggedNode, variables: any, extractor?: any => T): Promise<T> {
+export const wrapQuery = <T>(environment: IEnvironment, operation: GraphQLTaggedNode, variables: any, extractor?: any => T): Promise<T> => {
     return new Promise((res, rej) => {
         fetchQuery(
             environment,
@@ -81,35 +80,9 @@ export function wrapQuery<T>(environment: IEnvironment, operation: GraphQLTagged
             }
         })
     });
-}
-//
-// export const useWrappedQuery = <T>(environment: IEnvironment, query: GraphQLTaggedNode, variables: any, config?: {
-//     extractor?: any => T,
-//     effectDependencies?: Array<any>
-// } ): ?T => {
-//     const [result, setResult] = useState<?T>(null);
-//     const { setError } = useContext(UtilityContext);
-//     const dependencies = config?.effectDependencies ?? [];
-//
-//     useEffect(() => {
-//         wrapQuery(environment, query, variables, config?.extractor)
-//             .then(ls => setResult(ls))
-//             .catch(e => setError({
-//                 type: "error",
-//                 graphqlError: e,
-//                 message: "An error happened while trying to contact the back end."
-//             }));
-//     }, [...dependencies, config?.extractor, environment, query, setError, variables]);
-//
-//     return result;
-// }
+};
 
-// export function wrapQueryAuthorized<T>(operation: any, variables: any, extractor?: any => T): Promise<T> {
-//     return getLoginInformation()
-//         .then(_ => wrapQuery(operation, variables, extractor));
-// }
-
-export function wrapMutation<T>(environment: IEnvironment, operation: any, variables: any, extractor?: any => T): Promise<T> {
+export const wrapMutation = <T>(environment: IEnvironment, operation: any, variables: any, extractor?: any => T): Promise<T> => {
     return new Promise((res, rej) => {
         commitMutation(
             environment,
@@ -127,8 +100,6 @@ export function wrapMutation<T>(environment: IEnvironment, operation: any, varia
 }
 
 const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: any => T) => {
-    // console.debug("requesting subscription with these variables", variables);
-
     requestSubscription(
         subscriptionEnvironment,
         {
@@ -152,9 +123,8 @@ const request = <T>(sink: Sink<T>, operation: any, variables: any, extractor?: a
     );
 };
 
-export function wrapSubscription<T>(operation: any, variables: any, extractor?: any => T): Observable<T> {
-    return Observable.create((sink: Sink<T>) => request(sink, operation, variables, extractor));
-}
+export const wrapSubscription = <T>(operation: any, variables: any, extractor?: any => T): Observable<T> =>
+    Observable.create((sink: Sink<T>) => request(sink, operation, variables, extractor));
 
 /**
  * Subscribes to the given observable.
@@ -184,7 +154,7 @@ export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onErr
  * @param arr The Relay array.
  * @returns {T[]} The javascript array.
  */
-export function convertToJavascriptArray<T>(arr: ?$ReadOnlyArray<T>): T[] {
+export const convertToJavascriptArray = <T>(arr: ?$ReadOnlyArray<T>): T[] => {
     const result = [];
 
     for (const element of arr ?? []) {
@@ -192,7 +162,7 @@ export function convertToJavascriptArray<T>(arr: ?$ReadOnlyArray<T>): T[] {
     }
 
     return result;
-}
+};
 
 /**
  * Custom implementation of the Relay lazy load query.
@@ -201,7 +171,7 @@ export function convertToJavascriptArray<T>(arr: ?$ReadOnlyArray<T>): T[] {
  * @param options The call options.
  * @returns {*} The query response.
  */
-export function useCustomLazyLoadQuery<TQuery: OperationType>(
+export const useCustomLazyLoadQuery = <TQuery: OperationType>(
     gqlQuery: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>,
     options?: {|
@@ -210,24 +180,21 @@ export function useCustomLazyLoadQuery<TQuery: OperationType>(
         networkCacheConfig?: CacheConfig,
         UNSTABLE_renderPolicy?: RenderPolicy,
     |},
-): $ElementType<TQuery, 'response'> {
-    return useLazyLoadQuery(gqlQuery, variables, options);
-}
+): $ElementType<TQuery, 'response'> =>
+    useLazyLoadQuery(gqlQuery, variables, options);
 
-export function useStoreFirstQuery<TQuery: OperationType>(
+export const useStoreFirstQuery = <TQuery: OperationType>(
     gqlQuery: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>
-): $ElementType<TQuery, 'response'> {
-    return useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
+): $ElementType<TQuery, 'response'> =>
+    useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
         fetchPolicy: "store-or-network"
-    })
-}
+    });
 
-export function useForceReloadFirstQuery<TQuery: OperationType>(
+export const useForceReloadFirstQuery = <TQuery: OperationType>(
     gqlQuery: GraphQLTaggedNode,
     variables: VariablesOf<TQuery>
-): $ElementType<TQuery, 'response'> {
-    return useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
+): $ElementType<TQuery, 'response'> =>
+    useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
         fetchPolicy: "store-and-network"
-    })
-}
+    });
