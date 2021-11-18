@@ -139,7 +139,7 @@ const GuidesAttributes = (): any => {
                 ogni tiro che richiede gli Attributi di Manipolazione e Intelligenza subiranno una penalit&agrave;
                 di 3.<br />
                 <b>Affiliazioni</b>: Anarchici o Indipendenti, pochi Cainiti hanno deciso di rimanere nella Camarilla.<br />
-                <b>Discipline</b>: Ascendente, Potenza, Velocit&agrave;.
+                <b>Discipline</b>: Animalit&agrave;, Proteide, Robustezza.
             </Typography>
 
             <Typography paragraph>
@@ -400,7 +400,7 @@ const GuidesAttributes = (): any => {
                 La maledizione del loro sangue &egrave; la tendenza al vizio: ogni Ravnos ha un vizio, ed &egrave; quasi impossibile
                 resistervi quando l'occasione si presenta.<br /> 
                 <b>Affiliazioni</b>: Indipendenti o Anarchici.<br />
-                <b>Discipline</b>: Animalit&agrave;, Ascendente, Robustezza.
+                <b>Discipline</b>: Animalit&agrave;, Oscurazione, Ascendente.
             </Typography>
 
             <Typography paragraph>

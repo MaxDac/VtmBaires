@@ -107,6 +107,10 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
         materialize(range(freeThrowMinimumAmount(), 10))
             .map(i => <MenuItem key={i} value={i}>{i === 0 ? "None" : String(i)}</MenuItem>);
 
+    const difficultyItems = () =>
+        materialize(range(0, 10))
+            .map(i => <MenuItem key={i} value={i}>{i === 0 ? "Contrastato" : String(i)}</MenuItem>);
+
     useEffect(() => {
         setOpen(_ => props.isOpen);
     }, [props.isOpen]);
@@ -237,7 +241,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
                                 value={difficulty}
                                 label="Difficoltà"
                                 onChange={onDifficultyChanged}>
-                                {freeThrowItems()}
+                                {difficultyItems()}
                         </Select>
                     </FormControl>
                 </Grid>

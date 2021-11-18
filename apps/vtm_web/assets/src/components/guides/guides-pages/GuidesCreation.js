@@ -141,9 +141,9 @@ const GuidesCreation = (): any => {
                         se non si svegliano quando si nutre, non potranno mai sapere che il personaggio &egrave; stato l&igrave;).
                     </li>
                     <li style={liStyle}>
-                        <b>Sanguisuga</b>: il personaggio si nutre di altri vampiri. Li pu&ograve; cacciare, li pu&ograve; costringere, o 
-                        pu&ograve; pretendere sangue come pagamento. Giocare un personaggio sanguisuga pu&ograve; essere estremamente
-                        pericolos, in quanto questa pratica &egrave; proibita nella comunit&agrave; Cainita.
+                        <b>Sanguisuga (non disponibile in creazione)</b>: il personaggio si nutre di altri vampiri. Li pu&ograve; cacciare, 
+                        li pu&ograve; costringere, o pu&ograve; pretendere sangue come pagamento. Giocare un personaggio sanguisuga 
+                        pu&ograve; essere estremamente pericoloso, in quanto questa pratica &egrave; proibita nella comunit&agrave; Cainita.
                     </li>
                     <li style={liStyle}>
                         <b>Scene Queen</b>: il personaggio Scene Queen gode di popolarit&agrave; in una subcultura, sia essa <i>underground</i>, 

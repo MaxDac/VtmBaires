@@ -162,13 +162,13 @@ defmodule Vtm.Chats do
         dices = get_dices_result(dice_thrower, amount, hunger)
 
         # Computing the throw result agains the difficulty
-        dice_throw_result = get_dice_throw_results(dices, difficulty)
+        {successes, dice_throw_result} = get_dice_throw_results(dices, difficulty)
 
         # Transforming the dices roll as a string
         dices_as_string = dices_to_string(dices, difficulty)
 
         # Parsing the result
-        parse_result(dice_throw_result, throw_description, dices_as_string)
+        parse_result(dice_throw_result, throw_description, dices_as_string, difficulty, successes)
     end
   end
 
@@ -283,6 +283,9 @@ defmodule Vtm.Chats do
     end)
   end
 
+  defp difficulty_as_string(0), do: "tiro contrastato"
+  defp difficulty_as_string(difficulty), do: "difficoltà: #{difficulty}"
+
   defp dices_to_string(dices, difficulty) do
     visual =
       dices
@@ -292,11 +295,25 @@ defmodule Vtm.Chats do
       end)
       |> Enum.join(", ")
 
-    "(#{visual}, difficoltà: #{difficulty})"
+    difficulty_string = difficulty_as_string(difficulty)
+
+    "(#{visual}, #{difficulty_string})"
   end
 
-  @spec parse_result(atom(), binary(), binary()) :: binary()
-  defp parse_result(result, throw_description, dices_as_string) do
+  @spec parse_result(atom(), binary(), binary(), integer(), integer()) :: binary()
+  defp parse_result(result, throw_description, dices_as_string, 0, successes) do
+    result_desc =
+      case result do
+        :bestial_failure  -> "*Il personaggio sperimenta un fallimento bestiale!* #{dices_as_string}."
+        :total_failure    -> "Il personaggio fallisce totalmente! #{dices_as_string}."
+        :messy_contrasted -> "Il personaggio potrebbe ottenere un successo caotico con #{successes} successi #{dices_as_string}."
+        :contrasted       -> "Il personaggio ottiene #{successes} successi #{dices_as_string}."
+      end
+
+    "#{throw_description}: #{result_desc}"
+  end
+
+  defp parse_result(result, throw_description, dices_as_string, _, _) do
     result_desc =
       case result do
         :bestial_failure    -> "*Il personaggio sperimenta un fallimento bestiale!* #{dices_as_string}."
@@ -310,13 +327,33 @@ defmodule Vtm.Chats do
     "#{throw_description}: #{result_desc}"
   end
 
-  @spec get_dice_throw_results([{boolean(), number()}], number()) ::
+  @spec get_dice_throw_results([{boolean(), number()}], number()) :: {integer(),
           :bestial_failure
           | :total_failure
           | :critical_success
           | :failure
           | :messy_critical
           | :success
+          | :contrasted
+          | :messy_contrasted}
+  def get_dice_throw_results(dices, 0) do
+    with tens         <- dices |> Enum.count(fn {_, x} -> x == 10 end),
+         hunger_tens  <- dices |> Enum.count(fn {h, x} -> h && x == 10 end),
+         hunger_ones  <- dices |> Enum.count(fn {h, x} -> h && x == 1 end),
+         successes    <- (dices |> Enum.count(fn {_, x} -> x >= 6 end)) + div(tens, 2) do
+
+      result =
+        case {successes, hunger_ones, hunger_tens} do
+          {0, ho, _} when ho > 0          -> :bestial_failure
+          {0, _, _}                       -> :total_failure
+          {_, _, ht} when div(ht, 2) > 0  -> :messy_contrasted
+          {_, _, _}                       -> :contrasted
+        end
+
+      {successes, result}
+    end
+  end
+
   def get_dice_throw_results(dices, difficulty) do
     with tens         <- dices |> Enum.count(fn {_, x} -> x == 10 end),
          hunger_tens  <- dices |> Enum.count(fn {h, x} -> h && x == 10 end),
@@ -331,12 +368,15 @@ defmodule Vtm.Chats do
           _                                              -> :failure
         end
 
-      case {result, hunger_ones, hunger_tens, tens} do
-        {:critical_success, _, ht, t} when ht > 0 and rem(t, 2) == 0  -> :messy_critical
-        {:total_failure, o, _, _} when o > 0                          -> :bestial_failure
-        {:failure, o, _, _} when o > 0                                -> :bestial_failure
-        {res, _, _, _}                                                -> res
-      end
+      result =
+        case {result, hunger_ones, hunger_tens, tens} do
+          {:critical_success, _, ht, t} when ht > 0 and rem(t, 2) == 0  -> :messy_critical
+          {:total_failure, o, _, _} when o > 0                          -> :bestial_failure
+          {:failure, o, _, _} when o > 0                                -> :bestial_failure
+          {res, _, _, _}                                                -> res
+        end
+
+      {successes, result}
     end
   end
 end
