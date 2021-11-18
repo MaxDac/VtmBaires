@@ -321,7 +321,7 @@ defmodule Vtm.Chats do
     with tens         <- dices |> Enum.count(fn {_, x} -> x == 10 end),
          hunger_tens  <- dices |> Enum.count(fn {h, x} -> h && x == 10 end),
          hunger_ones  <- dices |> Enum.count(fn {h, x} -> h && x == 1 end),
-         successes    <- (dices |> Enum.count(fn {_, x} -> x > 6 end)) + div(tens, 2) do
+         successes    <- (dices |> Enum.count(fn {_, x} -> x >= 6 end)) + div(tens, 2) do
 
       result =
         case {successes, tens} do
