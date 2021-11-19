@@ -126,8 +126,8 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li>Un fallimento comporta che i mortali siano incapacitati ad agire contro il vampiro per un turno, se non per autodifesa, mentre un Cainita rimane indifferente al potere.</li>
                             <li>Un successo riesce a far scappare via un mortale in preda al panico, e comporta che un Cainita sia incapacitato ad agire contro il vampiro per un turno, se non per autodifesa.</li>
-                            <li>Un successo critico comporta che i mortali rimangano pietrificati dal terrore, in posizione fetale. I personaggi vampiri dovranno effettuare un test sul <Link to={GuideRoutes.homeRules}>R&ouml;tschreck</Link> 
-                            a Difficolt&agrave; 3: anche se hanno successo sul tiro, subiranno comunque gli effetti del successo come da punto precedente.</li>
+                            <li>Un successo critico comporta che i mortali rimangano pietrificati dal terrore, in posizione fetale. I personaggi vampiri dovranno effettuare un test sul <Link to={GuideRoutes.homeRules}>R&ouml;tschreck</Link> a 
+                            Difficolt&agrave; 3: anche se hanno successo sul tiro, subiranno comunque gli effetti del successo come da punto precedente.</li>
                         </ul>
                     </li>
 
@@ -230,13 +230,16 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Blood Sorcery
+                    Stregoneria del Sangue
                 </h3>
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
                 Questa Disciplina &egrave; a met&agrave; tra magia e poteri della vitae. Ogni livello acquisito di questa Disciplina garantisce anche un Rituale dello stesso livello.
-                Per aggiungere un rituale al personaggio, contattare un Narratore.
+                Per aggiungere un rituale al personaggio, contattare un Narratore.<br />
+                <b>Home Rule</b>: i personaggi di Tremere e Banu Haqim avranno a disposizione differenti "rami" di discipline, con solo alcuni poteri condivisi. Ad esempio, un personaggio
+                Tremere non potr&agrave; apprendere il potere <b>Vitae Corrosiva</b>, cos&igrave; come un personaggio Banu Haqim non potr&agrave; apprendere <b>Assaggio di Sangue</b>.
+                Entrambi, per&ograve;, potranno apprendere <b>Estinzione di Vitae</b>.
 
                 <ul>
                     <li>
@@ -244,7 +247,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li style={liStyle}>
                                 <b>Estinzione di Vitae</b> (&#9679;&#9679;): il vampiro, concentrandosi su un altro vampiro in vista ed eseguendo una serie di gesti, riesce a rendere infruibile la vitae della vittima, innalzando la sua Fame.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Intelligenza + Blood Sorcery contro Costituzione + Autocontrollo della vittima, mentre esegue delle sottili movenze particolari richieste dal potere ed ha la sua vittima nella sua linea di visuale.
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Intelligenza + Stregoneria del Sangue contro Costituzione + Autocontrollo della vittima, mentre esegue delle sottili movenze particolari richieste dal potere ed ha la sua vittima nella sua linea di visuale.
                                 La vittima vedr&agrave; alzare la sua Fame di 1 se il tiro ha successo, di 2 se il tiro &egrave; un successo critico. Potr&agrave; per&ograve; riconoscere chi gli ha inflitto questa penalit&agrave; se riesce a vedere il cainita, effettuando un tiro di 
                                 Intelligenza + Occulto contro Prontezza + Sotterfugio del Cainita.
                             </li>
@@ -252,7 +255,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Ladro di Sangue</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro, concentrandosi, riesce ad aprire una ferita in un'arteria di un umano, ed a far levitare il sangue in aria, fino alla sua bocca. L'umano non si accorger&agrave; di nulla,
                                 come se fosse soggetto al Bacio del vampiro, la sua ferita si richiuder&agrave; una volta finito l'effetto del potere, ma il potere in s&eacute; &egrave; abbastanza evidente, ed &egrave; considerato un grande rischio di infrazione della <b>Masquerade</b>.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il Cainita dovr&agrave; richiamare l'attenzione di un mortale, ed effettuare un tiro di Prontezza + Blood Sorcery contro Prontezza + Occulto della vittima. Se il tiro ha successo, il Cainita non potr&agrave; fare
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il Cainita dovr&agrave; richiamare l'attenzione di un mortale, ed effettuare un tiro di Prontezza + Stregoneria del Sangue contro Prontezza + Occulto della vittima. Se il tiro ha successo, il Cainita non potr&agrave; fare
                                 nulla durante l'operazione, ma si nutrir&agrave; al doppio della velocit&agrave; normale con un successo, al triplo con un successo critico.
                             </li>
                         </ul>
@@ -262,20 +265,20 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li style={liStyle}>
                                 <b>Assaggio del Sangue</b> (&#9679;): tramite un sorso di sangue, il Vampiro riesce a discernere i tratti basici dell'entit&agrave; a cui appartiene.<br />
-                                <b>Sistema</b>: il potere &egrave; gratuito, ma richiede un tiro di attivazione di Fermezza + Blood Sorcery a Difficolt&agrave; 3. Con un successo, il vampiro riesce a capire se il sangue assaggiato appartiene ad un mortale (nel qual caso capir&agrave;
+                                <b>Sistema</b>: il potere &egrave; gratuito, ma richiede un tiro di attivazione di Fermezza + Stregoneria del Sangue a Difficolt&agrave; 3. Con un successo, il vampiro riesce a capire se il sangue assaggiato appartiene ad un mortale (nel qual caso capir&agrave;
                                 anche la Risonanza del Sangue), o di un cainita, o di un'altra creatura soprannaturale. Un successo critico dir&agrave; al vampiro se il Cainita la cui Vitae sta assaggiando ha commesso Diablerie, e se ha una generazione maggiore o minore della sua,
                                 determinando la generazione esatta se entro 1 livello dalla sua. Altre informazioni apprese saranno a discrezione del Narratore.                                    
                             </li>
 
                             <li style={liStyle}>
                                 <b>Potenza nel Sangue</b> (&#9679;&#9679;&#9679;): il vampiro, concentrandosi sul proprio sangue, riesce ad aumentarne la Potenza.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Fermezza + Blood Sorcery a Difficolt&agrave; 2 pi&ugrave; al sua attale Potenza di Sangue. Con un successo, il vampiro aumenta la propria Potenza del Sangue di 1, mentre un successo critico garantisce
+                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Fermezza + Stregoneria del Sangue a Difficolt&agrave; 2 pi&ugrave; al sua attale Potenza di Sangue. Con un successo, il vampiro aumenta la propria Potenza del Sangue di 1, mentre un successo critico garantisce
                                 l'aumento di 2 livelli di Potenza del Sangue. Il potere dura una scena, e il Cainita pu&ograve; aumentare la Potenza del Sangue ignorando il limite generazionale, usando questo potere.
                             </li>
 
                             <li style={liStyle}>
                                 <b>Calderone di Sangue</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): attraverso questo terribile potere, il vampiro fa bollire letteralmente il sangue nelle vene della vittima, mortale o Cainita, provocando la morte quasi certa del mortale, e danni Aggravati per i Cainiti.<br />
-                                <b>Sistema</b>: il vampiro dovr&agrave; toccare la vittima, tirando Destrezza + Atletica se in combattimento. Se riesce a toccarla, effettuando 1 Rouse Check, tirer&agrave; in seguito Fermezza + Blood Sorcery contro Autocontrollo + Occulto (o Robustezza se pi&ugrave; alta).
+                                <b>Sistema</b>: il vampiro dovr&agrave; toccare la vittima, tirando Destrezza + Atletica se in combattimento. Se riesce a toccarla, effettuando 1 Rouse Check, tirer&agrave; in seguito Fermezza + Stregoneria del Sangue contro Autocontrollo + Occulto (o Robustezza se pi&ugrave; alta).
                                 Ogni successo supplementare ottenuto dal Cainita attaccante si tradurr&agrave; in un danno Aggravato per la vittima. Se la vittima &egrave; un umano, morir&agrave; immediatamente gridando di dolore, e il Cainita aggiunger&agrave; automaticamente una Macchia all'Umanit&agrave;.
                                 Se invece la vittima &egrave; Cainita, dovr&agrave; aggiungere anche un livello di Fame per ogni danno Aggravato subito.
                             </li>
@@ -298,7 +301,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                                 richieder&agrave; un tiro di attacco di Destrezza + Atletica, che dovr&agrave; essere schivato come un qualsiasi attacco con arma a distanza. Se usato con una lama, invece, si seguiranno le normali regole del
                                 combattimento in mischia. Il sangue potr&agrave; essere anche ingerito da chi sta tentando di diablerizzare l'utilizzatore, ma non potr&agrave; essere usato durante il Morso, non potr&agrave; essere disposto su
                                 frecce o pallottole, o iniettato tramite siringhe, o diluito in acqua.<br />
-                                Quando il Cainita riesce a far entrare in contatto l'icore velenoso con la vittima, dovr&agrave; tirare Forza + Blood Sorcery contro Costituzione + Occulto (chi possiede Robustezza con un grado maggiore di Occulto, 
+                                Quando il Cainita riesce a far entrare in contatto l'icore velenoso con la vittima, dovr&agrave; tirare Forza + Stregoneria del Sangue contro Costituzione + Occulto (chi possiede Robustezza con un grado maggiore di Occulto, 
                                 potr&agrave; usarla al suo posto): la vittima subir&agrave; un danno per successo supplementare del Cainita sul tiro. I mortali subiranno danni Aggravati, e anche ne subiranno solo uno, cadranno a terra privi di sensi.
                                 I Cainiti invece subiranno danni Superficiali senza poterli dimezzare.<br />
                                 Il veleno conserver&agrave; la sua potenza per un turno.
@@ -307,7 +310,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Carezza di Baal</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro trasmuta la sua Vitae in un veleno pericolosissimo sia per i Cainiti che per i mortali.<br />
                                 <b>Sistema</b>: questo potere segue le stesse regole del <b>Tocco dello Scorpione</b>, ma la potenza del veleno aumenta, e riesce a fare danni Aggravati sia ad umani che a Cainiti. Se un umano subisce anche solo un danno
-                                Aggravato dal contatto col veleno, morir&agrave; sul colpo. Se la vittima &egrave; un Cainita, e subisce danni Aggravati dal veleno, l'utilizzatore potr&agrave; tirare nuovamente Forza + Blood Sorcery contro Costituzione
+                                Aggravato dal contatto col veleno, morir&agrave; sul colpo. Se la vittima &egrave; un Cainita, e subisce danni Aggravati dal veleno, l'utilizzatore potr&agrave; tirare nuovamente Forza + Stregoneria del Sangue contro Costituzione
                                 + Occulto o Robustezza: se il tiro ha successo, la vittima entrer&agrave; automaticamente in torpore la prossima volta che si riposer&agrave; per il giorno.
                             </li>
                         </ul>
@@ -478,26 +481,26 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    {/* <li>
                         <b>Hecata</b>
                         <ul>
-                            <li><b>Cenere alla Cenere</b> (&#9679;): infondendo la propria vitae all'interno di un cadavere non animato, il cadavere si disintegra completamente in tre turni.</li>
-                            <li><b>Il Fetter Vincolante</b> (&#9679;): il vampiro riesce a percepire, concentrandosi, ci&ograve; che &egrave; importante per un fantasma, riuscendo a percepire i suoi dintorni proprio come li percepisce un fantasma. Tale oggetto &egrave; il Fetter,
+                            <li style={liStyle}><b>Cenere alla Cenere</b> (&#9679;): infondendo la propria vitae all'interno di un cadavere non animato, il cadavere si disintegra completamente in tre turni.</li>
+                            <li style={liStyle}><b>Il Fetter Vincolante</b> (&#9679;): il vampiro riesce a percepire, concentrandosi, ci&ograve; che &egrave; importante per un fantasma, riuscendo a percepire i suoi dintorni proprio come li percepisce un fantasma. Tale oggetto &egrave; il Fetter,
                                 l'oggetto in cui i Fantasmi "riposano".</li>
-                            <li><b>Precognizione Fatale</b> (&#9679;&#9679; - Amalgama: Auspex &#9679;&#9679;): il vampiro riesce a percepire il momento della morte di un mortale su cui posa lo sugardo, dopo essersi concentrato, e i suoi occhi diventati completamente neri.</li>
-                            <li><b>Dove il Velo si Dissolve</b> (&#9679;&#9679;): il vampiro riesce a percepire dove il Velo che separa il mondo dei vivi da quello di morti &egrave; pi&ugrave; spesso o quasi inesistente, nel primo caso se il luogo &egrave; consacrato o non sono avvenute
+                            <li style={liStyle}><b>Precognizione Fatale</b> (&#9679;&#9679; - Amalgama: Auspex &#9679;&#9679;): il vampiro riesce a percepire il momento della morte di un mortale su cui posa lo sugardo, dopo essersi concentrato, e i suoi occhi diventati completamente neri.</li>
+                            <li style={liStyle}><b>Dove il Velo si Dissolve</b> (&#9679;&#9679;): il vampiro riesce a percepire dove il Velo che separa il mondo dei vivi da quello di morti &egrave; pi&ugrave; spesso o quasi inesistente, nel primo caso se il luogo &egrave; consacrato o non sono avvenute
                                 morti, nel secondo se un evento terribile che &egrave; costato molte vite ha avuto luogo, o se un Necromante ha officiato un rituale per diminuire artificialmente il Velo.</li>
-                            <li><b>Aura di Decadimento</b> (&#9679;&#9679;&#9679;): l'aura del vampiro cos&igrave; percettivo nei confronti del Sudario, o Velo, accelera attorno a lui il decadimento di ci&ograve; che &egrave; vivo, spargendo malattie e facendo marcire il cibo. Con questo potere
+                            <li style={liStyle}><b>Aura di Decadimento</b> (&#9679;&#9679;&#9679;): l'aura del vampiro cos&igrave; percettivo nei confronti del Sudario, o Velo, accelera attorno a lui il decadimento di ci&ograve; che &egrave; vivo, spargendo malattie e facendo marcire il cibo. Con questo potere
                                 il vampiro pu&ograve; scientemente accelerare questo processo, che per&ograve; non accelera il decadimento dei cadaveri.</li>
-                            <li><b>Festa di Passioni</b> (&#9679;&#9679;&#9679;): il vampiro riesce a trarre nutrimento dalle emozioni che affliggono uno spettro o uno spirito, riuscendo a non-vivere pi&ugrave; tempo senza la necessit&agrave; di nutrirsi di sangue.</li>
-                            <li><b>Piaga Necrotica</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro, sfruttando la sua vicinanza al Sudario, instilla una malattia nei mortali, malattia che pu&ograve; rischiare di essere contagiosa. Pi&ugrave; il vampiro &egrave; versato in medicina, pi&ugrave; potr&agrave;
+                            <li style={liStyle}><b>Festa di Passioni</b> (&#9679;&#9679;&#9679;): il vampiro riesce a trarre nutrimento dalle emozioni che affliggono uno spettro o uno spirito, riuscendo a non-vivere pi&ugrave; tempo senza la necessit&agrave; di nutrirsi di sangue.</li>
+                            <li style={liStyle}><b>Piaga Necrotica</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro, sfruttando la sua vicinanza al Sudario, instilla una malattia nei mortali, malattia che pu&ograve; rischiare di essere contagiosa. Pi&ugrave; il vampiro &egrave; versato in medicina, pi&ugrave; potr&agrave;
                                 imprimere una particolare caratteristica o simulare una malattia esistente quando usa questo potere.</li>
-                            <li><b>Soddisfare il Fato</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita sovverte una condizione artificiale che ha a sua volta sovvertito il fato, facendo riapparire una malattia in una persona guarita, rompendo un osso che si era riformato, o imprimendo gli anni guadagnati
+                            <li style={liStyle}><b>Soddisfare il Fato</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita sovverte una condizione artificiale che ha a sua volta sovvertito il fato, facendo riapparire una malattia in una persona guarita, rompendo un osso che si era riformato, o imprimendo gli anni guadagnati
                                 da un ghoul asservito ad un vampiro che, grazie alla vitae del Sire, non ha sofferto il passaggio del tempo.</li>
-                            <li><b>Appassire lo spirito</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): questo terribile potere offre al vampiro la capacit&agrave; di disintegrare lo spirito di un mortale o di un Cainita, rischiando anche che non si ripresenti come spirito o spettro dopo la morte, lasciando sul posto
+                            <li style={liStyle}><b>Appassire lo spirito</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): questo terribile potere offre al vampiro la capacit&agrave; di disintegrare lo spirito di un mortale o di un Cainita, rischiando anche che non si ripresenti come spirito o spettro dopo la morte, lasciando sul posto
                                 un guscio vuoto. Questo potere ha delle severe ripercussioni sull'Umanit&agrave; del vampiro, e rischia di collezionare "Macchie" all'umanit&agrave;.</li>
                         </ul>
-                    </li>
+                    </li> */}
                 </ul>
             </Typography>
 
@@ -694,7 +697,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Forma di Nebbia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro si trasforma in nebbia, e pu&ograve; soffrire danni solo da fuoco, Sole o altri rituali magici soprannaturali. Solo forti folate di vento potranno far sobbalzare la coltre di nebbia.<br />
                         <b>Sistema</b>: per trasformarsi, il vampiro pu&ograve; decidere di effettuare 1 Rouse Check e metterci tre turni, oppure effettuare 1 Rouse Check supplementare per ogni turno che desiderano velocizzare, per un minimo di uno (quindi, al massimo, 3 Rouse Checks).
-                        In questo stato, il cainita pu&ograve; muoversi come nube a passo d'uomo, le Discipline che potr&agrave; usare saranno a discrezione del Narratore, e potr&agrave; subire danni solo da Fuoco, Sole o da mezzi soprannaturali, come Blood Sorcery.<br />
+                        In questo stato, il cainita pu&ograve; muoversi come nube a passo d'uomo, le Discipline che potr&agrave; usare saranno a discrezione del Narratore, e potr&agrave; subire danni solo da Fuoco, Sole o da mezzi soprannaturali, come Stregoneria del Sangue.<br />
                         La ritrasformazione in forma normale impiegher&agrave; gli stessi tre turni.
                     </li>
 

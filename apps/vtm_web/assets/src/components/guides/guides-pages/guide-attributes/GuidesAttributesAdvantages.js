@@ -27,6 +27,98 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
+                    Difetti di Background
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un personaggio potrebbe possedere anche livelli <b>negativi</b> di un particolare Background. Ad esempio,
+                invece di essere famoso per qualcosa di positivo in un particolare circolo, potrebbe avere un oscuro segreto
+                od essere addirittura famoso per qualcosa di <b>negativo</b>. Per la natura stessa del gioco via chat, non 
+                sar&agrave; possibile acquisire tutti i Difetti di Background elencati nei manuali (sarebbe impossibile giocare,
+                ad esempio, le difficolt&agrave; di doversi arrangiare ogni notte per trovare un rifugio improvvisato, dato che
+                la maggior parte dei personaggi non possiede il terzo potere di Proteide).
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                I difetti ai Background dovranno essere <b>ampiamente giustificati nel Background o nelle Note in creazione</b>,
+                altrimenti non saranno considerati validi; i Narratori si riservano il diritto di modificare la scheda, sottraendo
+                il difetto selezionato se non correttamente giustificato.<br />
+                Non sar&agrave; generalmente consentito investire punti ed allo stesso tempo avere un Difetto in uno stesso Background,
+                a meno che tale scelta non sia giustificata nel Background o nelle Note del personaggio. Anche in questo caso, se la 
+                motivazione non convincer&agrave; il Narratore che accetta la scheda, ci riserviamo la facolt&agrave; di modificare
+                la scheda, per poi contattare i giocatori in un secondo momento per sistemarla.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+
+                <ul>
+                    <li style={liStyle}>
+                        <b>Fama</b>
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;) Segreto Oscuro (Home Rule)</b>: il Cainita ha un segreto che, se rivelato, ne
+                                metterebbe seriamente in pericolo la non-vita. Sar&agrave; necessario scrivere nel Background 
+                                o nelle note del personaggio qual è il suo segreto oscuro.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Infamia</b>: il personaggio &egrave; molto famoso, ma per qualcosa di 
+                                assolutamente orribile. Il motivo dell'infamia dovr&agrave; essere scritto chiaramente nel Background
+                                o nelle Note del personaggio. A discrezione del Narratore, la difficolt&agrave; o l'ammontare dei 
+                                tiri sociali nei confronti di chi &egrave; a conoscenza del motivo dell'infamia possono diminuire.
+                                Se il segreto &egrave; noto alle autorit&agrave;, queste ad esempio potrebbero attivamente cercare
+                                di arrestarlo od ucciderlo.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li style={liStyle}>
+                        <b>Influenza</b>
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;) Malvisto</b>: il personaggio subir&agrave; una penalit&agrave; di un dado
+                                all'ammontare dei tiri Sociali che coinvolgono qualsiasi gruppo di potere all'interno della citt&agrave;,
+                                tranne Alleati e Contatti.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Disprezzato</b>: un gruppo o un centro di potere vive per ostacolare 
+                                il Cainita in ogni sua mossa. Il personaggio subir&agrave; una penalit&agrave; di due dadi ad ogni 
+                                ammontare su tiri sociali contro attori terzi rispetto al gruppo nemico.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li style={liStyle}>
+                        <b>Maschera</b>
+
+                        <ul>
+                            <li>
+                                <b>Difetto: (&#9679;) Noto Defunto</b>: la "morte" del personaggio &egrave; nota a vari
+                                livelli, e i mortali potrebbero non prendere benissimo la sua riapparizione. Il difetto si 
+                                applica a qualsiasi ricerca sulla sua identit&agrave; nelle banche dati.
+                            </li>
+                            <li>
+                                <b>Difetto: (&#9679;&#9679;) Noto <i>BlankBody</i></b>: il personaggio &egrave; stato schedato in un 
+                                database di un servizio segreto o dal servizio immigrazione di un particolare stato, che ha 
+                                trasmesso l'informazione ad altre agenzie amiche. La schedatura potrebbe riguardare
+                                traccia biometrica, nome, storia o frequentazioni. Generalmente, la Seconda Inquisizione 
+                                trasmetter&agrave; ai servizi di immigrazione informazioni volte a renderlo un potenziale
+                                terrorista.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
                     Pregi e Difetti
                 </h3>
             </Typography>

@@ -437,7 +437,7 @@ const GuidesHomeRules = (): any => {
                                         Sanguigna
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        Ascendente, Blood Sorcery
+                                        Ascendente, Stregoneria del Sangue
                                     </StyledTableCell>
                                 </StyledTableRow>
 

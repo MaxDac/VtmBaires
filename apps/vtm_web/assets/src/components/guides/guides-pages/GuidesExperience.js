@@ -125,7 +125,7 @@ const GuidesExperience = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Nuovo rituale di Blood Sorcery
+                                        Nuovo rituale di Stregoneria del Sangue
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Nuovo livello x 3

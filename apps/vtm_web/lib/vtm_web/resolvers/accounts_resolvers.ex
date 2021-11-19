@@ -209,13 +209,13 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
-  def update_user_password(x, %{
+  def update_user_password(_, %{
     old_password: old,
     new_password: new,
     repeat_password: new
   }, context = %{context: %{current_user: %{id: id}}}) do
     with {:ok, user}  <- Accounts.get_user(id),
-         {:ok, _}     <- login(x, %{email: user.email, password: old, remember: false}, context),
+         {:ok, _}     <- Accounts.authenticate(user.email, old, false, context),
          {:ok, _}     <- user |> Accounts.update_user(%{password: new}) do
       {:ok, true}
     end

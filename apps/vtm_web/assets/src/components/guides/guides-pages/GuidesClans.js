@@ -83,7 +83,7 @@ const GuidesAttributes = (): any => {
                 Ovviamente, se riesce nel suo intento, potr&agrave; subire anche la Maledizione di Clan se la vittima 
                 &egrave; un Cainita a sua volta.<br />
                 <b>Affiliazioni</b>: Camarilla, o Indipendenti.<br />
-                <b>Discipline</b>: Oscurazione, Blood Sorcery, Velocit&agrave;.
+                <b>Discipline</b>: Oscurazione, Stregoneria del Sangue, Velocit&agrave;.
             </Typography>
 
             <Typography paragraph>
@@ -95,7 +95,9 @@ const GuidesAttributes = (): any => {
             <Typography paragraph sx={guideStyle}>
                 I Cainiti del clan Brujah sono notoriamente scelti tra iconoclasti, idealisti, ribelli. Il loro
                 sangue &egrave; naturalmente portato all'ira, e questa tendenza si &egrave; esplicitata col
-                recente abbandono di massa del clan dalla Camarilla. Alcuni Cainiti <br />
+                recente abbandono di massa del clan dalla Camarilla. Alcuni Cainiti hanno comunque deciso di rimanere
+                all'interno della Torre d'Avorio, come gi&agrave; successe con i Gangrel che si rifiutarono di uscire
+                quando Xaviar lo impose.<br />
                 La maledizione del loro sangue &egrave; la tendenza alla frenesia, sull'onda dell'ira che 
                 esprime il loro Sangue.<br /> 
                 <b>Maledizione</b>: i Cainiti del clan Brujah soffrono la Bestia molto pi&ugrave; degli altri clan, e tendono a 
@@ -288,7 +290,7 @@ const GuidesAttributes = (): any => {
                 all'ammontare si ridurr&agrave; a 0, ma solo per quella particolare azione ripetuta: per tutto il resto, rimarr&agrave; la 
                 penalit&agrave; di 2 dadi.<br />
                 <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
-                <b>Discipline</b>: Auspex, Blood Sorcery, Dominazione.
+                <b>Discipline</b>: Auspex, Stregoneria del Sangue, Dominazione.
             </Typography>
 
             <Typography paragraph>
@@ -332,7 +334,7 @@ const GuidesAttributes = (): any => {
                 e fuoco hanno lo stesso effetto su di loro, e la loro Bestia non ha nulla da invidiare a quella dei "normali" Cainiti.<br /> 
                 <b>Affiliazioni</b>: Anarchici, in rari casi nei bassi ranghi della Camarilla, ma non potranno assumere Status.<br />
                 <b>Discipline</b>: i Vili manifestano la loro duttilit&agrave; riuscendo ad apprendere qualsiasi Disciplina non rara (non potranno apprendere
-                Blood Sorcery o Oblivion, per esempio).
+                Stregoneria del Sangue o Oblivion, per esempio).
             </Typography>
 
             <Typography paragraph>
