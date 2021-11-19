@@ -1,9 +1,9 @@
 // @flow
 
 import React from "react";
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-import {Tooltip} from "@mui/material";
+// import Stack from "@mui/material/Stack";
+// import Avatar from "@mui/material/Avatar";
+// import {Tooltip} from "@mui/material";
 
 const Pegi = (): any => {
     return (<></>);
