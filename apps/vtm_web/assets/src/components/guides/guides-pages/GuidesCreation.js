@@ -54,7 +54,7 @@ const GuidesCreation = (): any => {
 
             <Typography paragraph style={guideStyle}>
                 Questa &egrave; la sezione pi&ugrave; importante della scheda. In questa sezione, dovrete definire il nome del 
-                personaggio, il suo <Link to={GuideRoutes.clans}>clan</Link>, il suo avatar,
+                personaggio, il suo <Link to={GuideRoutes.clans}>Clan</Link>, il suo avatar,
                 la sua descrizione, ma soprattutto la sua biografia, la storia della non vita (ed eventualmente dell'Abbraccio)
                 del personaggio. La biografia dovr&agrave; essere credibile, e dovr&agrave; adattarsi all'ambientazione
                 di Buenos Aires by Night. Una biografia priva di contenuti potr&agrave; determinare il rifiuto e la
@@ -62,8 +62,8 @@ const GuidesCreation = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Ai giocatori non esperti nell'ambientazione di Vampiri: la Masquerade&trade; consigliamo di creare personaggi
-                <b>Infanti</b>, appena trasformati in vampiri (<b>Abbracciati</b>, nella terminologia dei <b>Fratelli</b>).
+                Ai giocatori non esperti nell'ambientazione di Vampiri: la Masquerade&trade; consigliamo di creare 
+                personaggi <b>Infanti</b>, appena trasformati in vampiri (<b>Abbracciati</b>, nella terminologia dei <b>Fratelli</b>).
                 Questo vi consentir&agrave; di concentrarvi sulla storia del vostro personaggio quando ancora era in vita.
                 Di seguito, forniamo alcuni spunti per descrivere come, quando e perch&egrave; il vostro personaggio &egrave;
                 stato trasformato in vampiro:
@@ -76,7 +76,7 @@ const GuidesCreation = (): any => {
                         Se optate per questa decisione, vi consigliamo di leggere la relativa <Link to={GuideRoutes.environmentBaires}>guida</Link>.
                     </li>
                     <li style={liStyle}>
-                        Nel caso in cui scegliate di interpretare un personaggio <b>Sangue Debole</b> o <b>Caitiff</b>, potrete 
+                        Nel caso in cui scegliate di interpretare un personaggio <b>Sangue Debole</b> o <b>Vili</b>, potrete 
                         considerare che il vostro Sire vi abbia abbandonato una volta capito cosa eravate.
                     </li>
                     <li style={liStyle}>
@@ -143,7 +143,9 @@ const GuidesCreation = (): any => {
             </Typography>
                 
             <Typography paragraph style={guideStyle}>
-                Per Cainiti e personaggi di Sangue Debole, si dovr&agrave; anche scegliere il Tipo di Predatore. 
+                Per Cainiti e personaggi di Sangue Debole, si dovr&agrave; anche scegliere il Tipo di Predatore. La scelta di
+                Tipo di Predatore garantir&agrave; anche attributi aggiuntivi alla scheda, come 
+                le <Link to={GuideRoutes.attributes} id="specialties"><b>Specialit&agrave;</b></Link> del personaggio.
                 Potrete scegliere tra questi:
 
                 <ul>
@@ -222,7 +224,7 @@ const GuidesCreation = (): any => {
                 Sangue Debole dovr&agrave; essere uguale</b>.
             </Typography>
 
-            <Typography paragraph style={guideStyle}>
+            <Typography paragraph style={guideStyle} id="convictions">
                 Nell'apposita sezione, invece, dovrete scegliere tre <b>Convinzioni</b>.<br />
                 Le Convinzioni riassumono le regole morali che il personaggio seguiva in vita, e che lo mantengono umano. Questo &egrave;
                 un aspetto <b>importantissimo</b> per il personaggio, in quanto le convinzioni lo aiutano a resistere alle lusinghe della 

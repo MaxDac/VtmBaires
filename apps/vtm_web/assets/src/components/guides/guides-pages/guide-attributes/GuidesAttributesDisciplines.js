@@ -126,8 +126,9 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li>Un fallimento comporta che i mortali siano incapacitati ad agire contro il vampiro per un turno, se non per autodifesa, mentre un Cainita rimane indifferente al potere.</li>
                             <li>Un successo riesce a far scappare via un mortale in preda al panico, e comporta che un Cainita sia incapacitato ad agire contro il vampiro per un turno, se non per autodifesa.</li>
-                            <li>Un successo critico comporta che i mortali rimangano pietrificati dal terrore, in posizione fetale. I personaggi vampiri dovranno effettuare un test sul <Link to={GuideRoutes.homeRules}>R&ouml;tschreck</Link> a 
-                            Difficolt&agrave; 3: anche se hanno successo sul tiro, subiranno comunque gli effetti del successo come da punto precedente.</li>
+                            <li>Un successo critico comporta che i mortali rimangano pietrificati dal terrore, in posizione fetale. I personaggi vampiri dovranno effettuare un test 
+                                sul <Link to={GuideRoutes.homeRules} id="frenzy-types">R&ouml;tschreck</Link> a Difficolt&agrave; 3: anche se hanno successo sul tiro, subiranno comunque gli effetti del 
+                                successo come da punto precedente.</li>
                         </ul>
                     </li>
 
@@ -427,7 +428,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                                 potere <b>Proiettare l'Ombra</b>. Durante l'evocazione, e per tutta la durata del potere, il vampiro non potr&agrave; fare altro che controllare le braccia. Il braccio avr&agrave; 
                                 una lunghezza di due volte il punteggio di Oblivion in metri, e un ammontare di dadi per attaccare (percuotendo o stritolando) e difendersi pari a Prontezza + Oblivion del Lasombra, 
                                 ma potr&agrave; muoversi solamente lungo le superfici, non nell'aria. Il braccio potr&agrave; dividersi in pi&ugrave; tentacoli e dedicarsi a pi&ugrave; avversari, seguendo le regole 
-                                per avversari multipli descritte nelle <Link to={GuideRoutes.mechanics}>meccaniche di gioco</Link>.<br />
+                                per avversari multipli descritte nelle <Link to={GuideRoutes.mechanics} id="multiple-foes">meccaniche di gioco</Link>.<br />
                                 I tentacoli infliggono danni magici, aggiungeranno la met&agrave; arrotondata per eccesso del punteggio di Potenza del vampiro, e sottrarsi al loro giogo sar&agrave; uno sforzo di
                                 volont&agrave;, non fisico: la vittima dovr&agrave; avere successo in un tiro di Fermezza + Autocontrollo contro Prontezza + Oblivion dell'evocatore per poter passare oltre il 
                                 tentacolo senza subire danni, anche se il tentacolo potr&agrave; attaccare nuovamente.<br />
@@ -618,7 +619,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <b>Scintilla di Rabbia</b> (&#9679;&#9679;&#9679; - Amalgama: Ascendente &#9679;&#9679;&#9679;): il vampiro riesce ad ispirare rabbia ferale o addirittura frenesia negli astanti.<br />
                         <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro pu&ograve; aggiungere il suo punteggio di Potenza a qualsiasi tentativo di incitare una persona, o una folla, ad atti di rabbia. 
                         Il vampiro potr&agrave; anche ispirare rabbia ad un altro vampiro attivando il potere e tirando Manipolazione + Potenza contro Autocontrollo + Intelligenza della vittima. Se il tiro riesce,
-                        la vittima dovr&agrave; testare il personaggio per <Link to={GuideRoutes.homeRules}>Frenesia di Furia</Link> a Difficolt&agrave; 3.
+                        la vittima dovr&agrave; testare il personaggio per <Link to={GuideRoutes.homeRules} id="frenzy-types">Frenesia di Furia</Link> a Difficolt&agrave; 3.
                     </li>
 
                     <li style={liStyle}>
@@ -886,7 +887,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Battito di Ciglia</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; ingaggiare subito battaglia dopo aver percorso fino ad una cinquantina di metri (avendo a disposizione ancora un'azione), o fuggire immediatamente dalla scena.<br />
                         <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro raggiunge il bersaglio e ha ancora a disposizione un'azione, quindi &egrave; come se fosse gi&agrave; nella mischia all'inizio del turno, per la determinazione 
-                        dell'<Link to={GuideRoutes.mechanics}>Iniziativa</Link>. Dipendendo dal terreno, il Narratore potr&agrave; chiedere un tiro di Destrezza + Atletica. Nel caso in cui l'avversario voglia usare un'arma da fuoco, il vampiro
+                        dell'<Link to={GuideRoutes.mechanics} id="initiative">Iniziativa</Link>. Dipendendo dal terreno, il Narratore potr&agrave; chiedere un tiro di Destrezza + Atletica. Nel caso in cui l'avversario voglia usare un'arma da fuoco, il vampiro
                         dovr&agrave; tirare Destrezza + Atletica contro Destrezza + Armi da Fuoco dell'attaccante: se il vampiro riesce, potr&agrave; agire prima dell'attaccante, viceversa l'attaccante avr&agrave; a disposizione un'azione per sparare
                         contro il vampiro.
                     </li>

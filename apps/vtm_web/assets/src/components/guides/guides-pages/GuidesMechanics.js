@@ -158,13 +158,13 @@ const GuidesMechanics = (): any => {
             <Typography paragraph style={guideStyle}>
                 Nella versione 5, oltre a cambiare la meccanica del tiro di dado e la determinazione dei successi, anche i possibili esiti
                 di un tiro sono cambiati, ed esprimono la complessit&agrave; dell'interazione col successo o l'insuccesso di un 
-                vampiro che deve sempre confrontarsi con la sua Bestia. In particolare, la <Link to={GuideRoutes.homeRules}>Fame</Link> ora
+                vampiro che deve sempre confrontarsi con la sua Bestia. In particolare, la <Link to={GuideRoutes.homeRules} id="hunger">Fame</Link> ora
                 ha un influsso potente sulle azioni del Cainita: pi&ugrave; aumenta, pi&ugrave; le azioni del vampiro rischieranno di
                 essere dettate dalla Bestia. Quando un personaggio tira un dado, alcuni dadi appariranno in rosso: il numero di 
                 questi dadi dipende dal livello di Fame del personaggio, e possono condurre a differenti esiti.
             </Typography>
 
-            <Typography paragraph style={guideStyle}>
+            <Typography paragraph style={guideStyle} id="dice-results">
                 Gli esiti dei dadi saranno calcolati automaticamente dal sistema di gioco, ma &egrave; necessario sapere quali sono 
                 poich&eacute; il personaggio dovr&agrave; basare almeno parte della sua interpretazione su questi.
 
@@ -268,7 +268,7 @@ const GuidesMechanics = (): any => {
                                         Fallimento Bestiale portano molto spesso all'<b>insorgere della Compulsione
                                         di Clan</b> come un atteggiamento che il vampiro considerer&agrave; del tutto
                                         naturale e normale. In Giocate Libere si potr&agrave; interpretare la 
-                                        Compulsione di Clan (per Caitiff, o Vili, e Sangue Debole, aumenter&agrave;
+                                        Compulsione di Clan (per Vili e Sangue Debole, aumenter&agrave;
                                         di un livello la Fame), mentre gli effetti in una giocata gestita saranno 
                                         a discrezione del Narratore.
                                     </StyledTableCell>
@@ -329,7 +329,7 @@ const GuidesMechanics = (): any => {
                 ogni azione. L'ordine di dichiarazione e risoluzione delle azioni viene determinato dalla <b>Iniziativa</b>.
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph id="initiative">
                 <h4 style={titleStyle}>
                     Iniziativa
                 </h4>
@@ -444,7 +444,7 @@ const GuidesMechanics = (): any => {
                 </Box>
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph id="multiple-foes">
                 <h4 style={titleStyle}>
                     Avversari multipli
                 </h4>
@@ -779,7 +779,7 @@ const GuidesMechanics = (): any => {
                                 <StyledTableCell>Nessun danno</StyledTableCell>
                                 <StyledTableCell>1 danno superficiale per turno,<br />ogni 3 turni se coperti o con cielo nuvoloso</StyledTableCell>
                                 <StyledTableCell>Danni aggravati pari alla Severit&agrave;<br />
-                                della Maledizione (vedi <Link to={GuideRoutes.homeRules}>Potenza del sangue</Link>)<br />
+                                della Maledizione (vedi <Link to={GuideRoutes.homeRules} id="blood-potency">Potenza del sangue</Link>)<br />
                                 per turno</StyledTableCell>
                             </StyledTableRow>
                         </TableBody>

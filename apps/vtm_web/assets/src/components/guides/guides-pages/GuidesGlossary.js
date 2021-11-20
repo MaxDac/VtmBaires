@@ -56,7 +56,7 @@ const GuidesGlossary = (props: Props): any => {
                         <b>Bestia</b>: la Bestia &egrave; un'entit&agrave; indipendente dal vampiro, che dimora nella sua mente, 
                         e che lo spinge costantemente ad atti nefandi per poter procacciare l'unica sostanza che pu&ograve; 
                         soddisfarlo: il Sangue. La Bestia &egrave; una costante minaccia, e tenter&agrave; sempre di prendere
-                        il controllo del Cainita. Se il livello di <Link to={GuideRoutes.homeRules}>Fame</Link> aumenta
+                        il controllo del Cainita. Se il livello di <Link to={GuideRoutes.homeRules} id="hunger">Fame</Link> aumenta
                         fino a 5, di fronte a pesanti umiliazioni o se confrontato a grandi pericoli, il Cainita rischia
                         di perdere il controllo in favore della Bestia, uno stato che viene chiamato <b>Frenesia</b>.
                     </li>
@@ -97,7 +97,7 @@ const GuidesGlossary = (props: Props): any => {
                         <b>Fratelli</b>: altro termine utilizzato per riferirsi ai vampiri, il pi&ugrave; utilizzato,
                         almeno all'interno della Camarilla.
                     </li>
-                    <li style={liStyle}>
+                    <li style={liStyle} id="frenzy">
                         <b>Frenesia</b>: la Frenesia &egrave; uno stato in cui le azioni del vampiro non sono sue
                         proprie, ma viene come posseduto dall'entit&agrave; soprannaturale che abita la sua mente 
                         dall'Abbraccio: la <b>Bestia</b>. Il vampiro, quando confrontato con il pericolo di essere

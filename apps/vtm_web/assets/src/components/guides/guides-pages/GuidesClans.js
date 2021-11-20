@@ -31,7 +31,7 @@ const GuidesAttributes = (): any => {
                 Nella leggenda Cainita, i clan hanno avuto origine dai mitici Antidiluviani, esseri dai poteri
                 leggendari che infestano la terra da migliaia di anni. Qualunque sia la loro origine, &egrave; 
                 indubbio che i differenti clan hanno delle caratteristiche differenti tra di loro. Esistono poi
-                i <b>Caitiff</b>, o Vili, che, pur essendo vampiri a tutti gli effetti, non mostrano i segni
+                i <b>Vili</b> che, pur essendo vampiri a tutti gli effetti, non mostrano i segni
                 caratteristici dell'appartenenza ad un clan, e i <b>Sangue Debole</b>, o Thin-Blood, ovvero
                 vampiri la cui Generazione, o lontananza in Abbracci dai mitici progenitori, &egrave; cos&igrave;
                 grande che il loro sangue ha perso molte delle caratteristiche tipiche dei Cainiti, come la
@@ -46,12 +46,12 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph sx={guideStyle}>
                 Il Sangue del Clan influenza in maniera a volte sottile, a volte tragicamente evidente la non-vita
-                e il comportamento di un vampiro. Solo <b>Caitiff</b>, i Vili senza Clan, e i Sangue Debole 
+                e il comportamento di un vampiro. Solo <b>Vili</b>, senza Clan, e i Sangue Debole 
                 non soffrono di queste condizioni, e questo &egrave; in parte la ragione della loro 
                 ostracizzazione da parte degli altri Clan.<br />
                 Mentre la Maledizione ha un effetto permanente, la Compulsione &egrave; pi&ugrave; sottile.
                 Influenza in modo lieve qualsiasi azione del personaggio, e si manifesta in modo prepotente
-                quando il tiro di un dado risulta in un <Link to={GuideRoutes.mechanics}>Fallimento Bestiale</Link>.
+                quando il tiro di un dado risulta in un <Link to={GuideRoutes.mechanics} id="dice-results">Fallimento Bestiale</Link>.
             </Typography>
 
             <Typography paragraph>
@@ -131,7 +131,7 @@ const GuidesAttributes = (): any => {
                 (orecchie da pipistrello, occhi da gatto, tic animali, visione di serpente) per ogni livello di
                 Severit&agrave; della Maledizione per una notte dopo la Frenesia. Ogni tratto bestiale sottrae 1
                 all'ammontare di un Attributo. Se il Gangrel decide di "cavalcare" la Bestia (vedi la voce Frenesia
-                nel <Link to={GuideRoutes.glossary}>Glossario</Link>) acquisiranno solo un tratto animale,
+                nel <Link to={GuideRoutes.glossary} id="frenzy">Glossario</Link>) acquisiranno solo un tratto animale,
                 indipendentemente dalla Severit&agrave; della Maledizione. L'Attributo penalizzato dal tratto animale
                 sar&agrave; deciso dal Narratore.<br />
                 <b>Compulsione</b>: la comunione con la Bestia per il Gangrel rende molto difficile, a volte, la 
@@ -175,7 +175,7 @@ const GuidesAttributes = (): any => {
                 ottenere quello che vogliono. Per questo motivo sono estremamente influenzati da qualsiasi azione che compiono senza 
                 successo, o che non ha l'esito da loro prospettato. Finch&eacute; non hanno successo tentando nuovamente la stessa 
                 azione, perdono 2 dadi ad ogni ammontare per tutte le altre azioni. Se la Compulsione ha origine dopo un 
-                Fallimento Bestiale (vedi <Link to={GuideRoutes.mechanics}>meccaniche di gioco</Link>), quell'azione fallita 
+                Fallimento Bestiale (vedi <Link to={GuideRoutes.mechanics} id="dice-results">meccaniche di gioco</Link>), quell'azione fallita 
                 sar&agrave; l'origine del loro malessere, e subiranno la penalit&agrave; finch&eacute; non l'avranno ritentata
                 con successo.<br />
                 <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />
@@ -321,12 +321,12 @@ const GuidesAttributes = (): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Caitiff
+                    Vili
                 </h3>
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                I Caitiff, o Vili, sono vampiri in tutto e per tutto, tranne che per il clan. Dopo l'Abbraccio, non hanno presentato nessuna caratteristica
+                I Vili sono vampiri in tutto e per tutto, tranne che per il clan. Dopo l'Abbraccio, non hanno presentato nessuna caratteristica
                 tipica del clan: Nosferatu con aspetto normale, Malkavian sani di mente, o Ventrue in grado di cibarsi di qualsiasi forma di Sangue. 
                 Cainiti di questo tipo sono notoriamente stati sempre ostracizzati e esiliati dal clan, e addirittura dalla Camarilla, considerati poco 
                 meglio dei Sangue Debole. Il loro numero adesso &egrave; per&ograve; aumentato, e costituiscono una forza notevole, da non ignorare.<br />

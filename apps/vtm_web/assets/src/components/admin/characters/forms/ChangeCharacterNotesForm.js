@@ -22,7 +22,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
     const [advantages, setAdvantages] = useState(character?.advantages ?? "");
     const [notes, setNotes] = useState(character?.notes ?? "");
     const [disciplinePowers, setDisciplinePowers] = useState(character?.disciplinePowers ?? "");
-    const [convinctions, setConvinctions] = useState(character?.convinctions ?? "");
+    const [convictions, setConvictions] = useState(character?.convictions ?? "");
 
     const onAdvantagesChanged = ({target: {value}}) => {
         setAdvantages(_ => value);
@@ -36,8 +36,8 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
         setDisciplinePowers(_ => value);
     }
 
-    const onConvinctionsChanged = ({target: {value}}) => {
-        setConvinctions(_ => value);
+    const onConvictionsChanged = ({target: {value}}) => {
+        setConvictions(_ => value);
     }
 
     const changeCharacterNotes = _ => {
@@ -50,7 +50,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                     advantages,
                     notes,
                     disciplinePowers,
-                    convinctions
+                    convictions
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
@@ -94,13 +94,13 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                                variant="filled" />
                 </Grid>
                 <Grid item xs={12} sx={{margin: "10px"}}>
-                    <TextField id="convinctions"
+                    <TextField id="convictions"
                                label="Convinzioni"
                                fullWidth
                                multiline
                                rows={3}
-                               defaultValue={convinctions}
-                               onChange={onConvinctionsChanged}
+                               defaultValue={convictions}
+                               onChange={onConvictionsChanged}
                                variant="filled" />
                 </Grid>
                 <Grid item xs={12} sx={{

@@ -75,6 +75,17 @@ const GuidesExperience = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
+                                        Specialit&agrave;
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        3
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+
+                                <StyledTableRow>
+                                    <StyledTableCell component="th" scope="row">
                                         Disciplina di Clan
                                     </StyledTableCell>
                                     <StyledTableCell>
@@ -93,21 +104,21 @@ const GuidesExperience = (): any => {
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Per apprendere una Disciplina non di clan, il Cainita dovr&agrave;
-                                        bere la Vitae di un Cainita che conosce la Disciplina (anche un Caitiff).<br />
+                                        bere la Vitae di un Cainita che conosce la Disciplina (anche un Vile).<br />
                                         Questo vale solo per acquistare il primo livello.
                                     </StyledTableCell>
                                 </StyledTableRow>
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Disciplina per Caitiff (Vili)
+                                        Disciplina per Vili
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Nuovo livello x 6
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Per apprendere una nuova Disciplina, il Cainita dovr&agrave;
-                                        bere la Vitae di un Cainita che conosce la Disciplina (anche un Caitiff).<br />
+                                        bere la Vitae di un Cainita che conosce la Disciplina (anche un Vile).<br />
                                         Questo vale solo per acquistare il primo livello.
                                     </StyledTableCell>
                                 </StyledTableRow>

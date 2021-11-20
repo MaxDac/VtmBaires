@@ -1,9 +1,9 @@
-defmodule Vtm.Repo.Migrations.AddConvinctionToCharacters do
+defmodule Vtm.Repo.Migrations.AddconvictionToCharacters do
   use Ecto.Migration
 
   def change do
     alter table(:characters) do
-      add :convinctions, :text
+      add :convictions, :text
     end
   end
 end

@@ -174,7 +174,7 @@ export const characterIsVampire = (character: ?CharacterFragments_characterConce
  */
 export const characterHasDisciplines = (character: ?CharacterFragments_characterConcealedInfo): boolean => {
     const clanName = character?.clan?.name;
-    return !(clanName === "Umano" || clanName === "Thin Blood");
+    return !(clanName === "Umano" || clanName === "Sangue Debole");
 }
 
 /**

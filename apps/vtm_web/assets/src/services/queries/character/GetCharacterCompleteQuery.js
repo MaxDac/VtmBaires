@@ -42,7 +42,7 @@ export type Character = {|
     +isNpc: ?boolean,
     +advantages: ?string,
     +notes: ?string,
-    +convinctions: ?string,
+    +convictions: ?string,
     +disciplinePowers: ?string,
     +objects: ?string,
     +lastHunt: ?any,

@@ -59,7 +59,7 @@ const GuidesHomeRules = (): any => {
                 nella <Link to={GuideRoutes.mechanics}>sezione apposita</Link>.
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph id="hunger">
                 <h3 style={titleStyle}>
                     Fame
                 </h3>
@@ -213,7 +213,7 @@ const GuidesHomeRules = (): any => {
                 cos'&egrave; la Fame).
             </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph id="blood-potency">
                 <h3 style={titleStyle}>
                     Potenza del Sangue
                 </h3>
@@ -242,8 +242,8 @@ const GuidesHomeRules = (): any => {
             <Typography paragraph sx={guideStyle}>
                 Un'altra caratteristica della Potenza del Sangue &egrave; anche l'aggravarsi della difficolt&agrave; nel cacciare,
                 e la gravit&agrave; del Difetto di Clan, cos&igrave; come della sua Compulsione. Vi invitiamo a rileggere, se 
-                non l'avete ancora fatto, la lista dei clan di Vampiri: la Masquerade&trade; nella 
-                <Link to={GuideRoutes.clans}>sezione della guida</Link>.<br />
+                non l'avete ancora fatto, la lista dei clan di Vampiri: la Masquerade&trade; 
+                nella <Link to={GuideRoutes.clans}>sezione della guida</Link>.<br />
                 I vampiri che non presentano nessuna caratteristica non solo di clan, ma addirittura vampirica, i <b>Sangue Debole</b>,
                 non avranno Potenza del Sangue, e non potranno acquistarne. Il lato positivo di questo &egrave; che non soffriranno
                 nemmeno delle maledizioni dei Cainiti normali: la luce solare infligger&agrave; danni superficiali, cos&igrave; come il 
@@ -461,7 +461,7 @@ const GuidesHomeRules = (): any => {
                 </h3>
             </Typography>
 
-            <Typography paragraph sx={guideStyle}>
+            <Typography paragraph sx={guideStyle} id="frenzy-types">
                 La Frenesia &egrave; l'espressione della Bestia, che prende il controllo del corpo del
                 Cainita finch&eacute; la causa scatenante non svanisce. La Frenesia pu&ograve; essere
                 di tre tipi: 
@@ -693,7 +693,7 @@ const GuidesHomeRules = (): any => {
                 La gestione dell'Umanit&agrave; &egrave; un'altra delle cose che i nuovi manuali
                 affrontano in modo differente dai precedenti. Non ci sar&agrave; pi&ugrave; la possibilit&agrave;
                 di intraprendere Sentieri differenti dall'Umanit&agrave;, ma sar&agrave; possibile 
-                definire una gerarchia di <Link to={GuideRoutes.creation}>Convinzioni</Link> del personaggio.
+                definire una gerarchia di <Link to={GuideRoutes.creation} id="convictions">Convinzioni</Link> del personaggio.
                 Se il personaggio contravverr&agrave; ad una di queste Convinzioni durante una 
                 giocata, acquisir&agrave; una macchia a discrezione del Narratore. Alla fine della giocata,
                 il personaggio dovr&agrave; tirare con un ammontare pary a <b>10 - Umanit&agrave; - Macchie</b>, 

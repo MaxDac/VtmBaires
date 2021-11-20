@@ -5,29 +5,91 @@ import {object, string} from "yup";
 import useStyles from "../../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useFormik} from "formik";
-import FormSelectField from "../../../_base/components/FormSelectField";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FormTextField from "../../../_base/components/FormTextField";
 import FormFileDropField from "../../../_base/components/FormFileDropField";
 import Button from "@mui/material/Button";
-import type { CharacterCreationRequest } from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import type {CharacterCreationRequest} from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 import type {CreationClansQuery} from "../../../services/queries/info/__generated__/CreationClansQuery.graphql";
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import {getUrlValidationMatchString} from "../../../_base/utils";
 import {avatarHeight, avatarWidth} from "../../character/sheet-sections/sections/CharacterSheetAvatarSection";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import {useTheme} from "@mui/material/styles";
+import ListSubheader from "@mui/material/ListSubheader";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
 }
 
+const easyClanNames = ["Sangue Debole", "Vili"];
+
+const normalClanNames = ["Brujah", "Toreador", "Gangrel"];
+
+const notHardClanNames = easyClanNames.concat(normalClanNames);
+
+const ClanSelect = ({formik, clans}) => {
+    const theme = useTheme();
+    
+    const easyClans = cs => cs.filter(c => easyClanNames.some(n => c?.name === n));
+
+    const normalClans = cs => cs.filter(c => normalClanNames.some(n => c?.name === n));
+
+    const expertClans = cs => cs.filter(c => notHardClanNames.every(n => c?.name !== n));
+
+    const clanMapper = c => (<MenuItem key={c?.id ?? "is-null"} value={c?.id}>{c?.name}</MenuItem>);
+
+    const items = cs => {
+        const easy = easyClans(cs);
+        const normal = normalClans(cs);
+        const expert = expertClans(cs);
+
+        return [<ListSubheader key={-1}>Accessibili</ListSubheader>]
+            .concat(easy.map(clanMapper))
+            .concat([<ListSubheader key={-1}>Moderati</ListSubheader>])
+            .concat(normal.map(clanMapper))
+            .concat([<ListSubheader key={-1}>Esperti</ListSubheader>])
+            .concat(expert.map(clanMapper));
+    }
+    
+    if (clans?.map != null) {
+        return (
+            <FormControl sx={{
+                margin: theme.spacing(1),
+                minWidth: 150,
+            }}>
+                <InputLabel id="select-label">Clan</InputLabel>
+                <Select labelId="select-label"
+                        id="clanId"
+                        name="clanId"
+                        fullWidth
+                        sx={{minWidth: theme.spacing(10)}}
+                        label="Clan"
+                        value={formik.values["clanId"]}
+                        onChange={formik.handleChange}
+                        error={formik.touched["clanId"] && Boolean(formik.errors["clanId"])}
+                        helperText={formik.touched["clanId"] && formik.errors["clanId"]}>
+                    {items(clans)}
+                </Select>
+            </FormControl>
+        );
+    }
+
+    return (<></>);
+}
+
 const CharacterInfoFormValidationSchema = object().shape({
-    name: string("Enter your character name").required("Required"),
-    description: string("Enter your character description").required("Required"),
-    biography: string("Enter your character biography").required("Required"),
-    avatar: string("Il tuo avatar").nullable().matches(getUrlValidationMatchString())
+    clanId: string("Select the clan").required("Devi selezionare il clan del personaggio"),
+    name: string("Enter your character name").required("Devi selezionare il nome"),
+    description: string("Enter your character description").required("Devi inserire la descrizione").min(200, "La descrizione deve avere almeno 200 caratteri"),
+    biography: string("Enter your character biography").required("Devi inserire la biografia").min(200, "La biografia deve avere almeno 200 caratteri"),
+    avatar: string("Il tuo avatar").nullable().notRequired().matches(getUrlValidationMatchString())
 });
 
 const CharacterInfoForm = ({onSubmit}: Props): any => {
@@ -49,18 +111,6 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
         validationSchema: CharacterInfoFormValidationSchema,
         onSubmit: v => onSubmitInternal(v)
     });
-
-    const clanSelect = () => {
-        if (clans != null && clans.length > 0) {
-            const values = clans.map(clan => [clan?.id ?? "", clan?.name ?? ""]);
-            return <FormSelectField formik={formik}
-                                    fieldName="clanId"
-                                    label="Clan"
-                                    values={values} />
-        }
-
-        return <></>
-    }
 
     const avatarChanged = (_a, ca) => {
         setChatAvatar(ca);
@@ -93,7 +143,7 @@ const CharacterInfoForm = ({onSubmit}: Props): any => {
                         <FormTextField formik={formik} fieldName="name" label="Nome" autoComplete="Nome" fullWidth={false} className="form-control" />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        {clanSelect()}
+                        <ClanSelect formik={formik} clans={clans} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography paragraph>

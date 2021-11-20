@@ -82,7 +82,7 @@ type ChangeCharacterExperiencePayload {
 input ChangeCharacterNotesInput {
   advantages: String!
   characterId: ID!
-  convinctions: String
+  convictions: String
   disciplinePowers: String
   notes: String!
   objects: String
@@ -108,7 +108,7 @@ type ChangeCharacterOtherStatsPayload {
 input ChangeCharacterStatusInput {
   advantages: String!
   characterId: ID!
-  convinctions: String
+  convictions: String
   disciplinePowers: String
   notes: String!
   objects: String
@@ -145,7 +145,7 @@ type Character implements Node {
   biography: String
   bloodPotency: Int
   clan: Clan
-  convinctions: String
+  convictions: String
   damage: Int
   dead: Boolean
   description: String
@@ -226,7 +226,7 @@ input CharacterCreationRequest {
 
 input CharacterFinalizationRequest {
   advantages: String!
-  convinctions: String
+  convictions: String
   disciplinePowers: String
   notes: String
   predatorTypeId: ID

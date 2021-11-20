@@ -301,7 +301,7 @@ computer, telefoni cellulari, ecc.
 
 {:ok, animalism} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Animalità", description: "Animalità"})
 {:ok, auspex} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Auspex", description: "Auspex"})
-{:ok, blood_sorcery} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Blood Sorcery", description: "Blood Sorcery"})
+{:ok, blood_sorcery} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Stregoneria del Sangue", description: "Stregoneria del Sangue"})
 {:ok, celerity} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Velocità", description: "Velocità"})
 {:ok, dominate} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Dominazione", description: "Dominazione"})
 {:ok, fortitude} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Robustezza", description: "Robustezza"})
@@ -378,8 +378,8 @@ per gli Anarchici l'influenza che il vampiro possiede sugli altri, quanto cioè 
 
 # Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Umano"})
 Vtm.SeedsHelpers.create_or_update_humans_clan()
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Thin Blood", selectable: true, attributes: [alchemy]})
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Caitiff", selectable: true, attributes: [auspex, celerity, fortitude, obfuscate, potence, presence]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Sangue Debole", selectable: true, attributes: [alchemy]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Vili", selectable: true, attributes: [auspex, celerity, fortitude, obfuscate, potence, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Banu Haqim", selectable: true, attributes: [blood_sorcery, celerity, obfuscate]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Brujah", selectable: true, attributes: [celerity, potence, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Gangrel", selectable: true, attributes: [animalism, fortitude, protean]})
@@ -395,8 +395,8 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tremere", selectable: t
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Tzimisce", selectable: false, attributes: [auspex, dominate, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ventrue", selectable: true, attributes: [dominate, fortitude, presence]})
 
-Vtm.SeedsHelpers.set_selectable_clans(["Thin Blood",
-                                       "Caitiff",
+Vtm.SeedsHelpers.set_selectable_clans(["Sangue Debole",
+                                       "Vili",
                                        "Banu Haqim",
                                        "Brujah",
                                        "Gangrel",

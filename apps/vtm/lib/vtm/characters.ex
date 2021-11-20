@@ -205,7 +205,7 @@ defmodule Vtm.Characters do
 
   def is_character_thin_blood?(character_id) do
     case get_charater_clan(character_id) do
-      %{name: "Thin Blood"} -> true
+      %{name: "Sangue Debole"} -> true
       _                     -> false
     end
   end

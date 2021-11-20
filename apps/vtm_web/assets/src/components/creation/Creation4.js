@@ -49,9 +49,9 @@ const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) =
     let shape = {
         advantages: string("Please, write your character advantages").required("Devi aggiungere almeno 5 punti di Vantaggi per il tuo personaggio"),
         notes: string("Add the notes you want to communicate to the masters").nullable().notRequired(),
-        firstConvinction: string("Add the first convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
-        secondConvinction: string("Add the second convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
-        thirdConvinction: string("Add the third convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio")
+        firstConviction: string("Add the first convictions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
+        secondConviction: string("Add the second convictions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
+        thirdConviction: string("Add the third convictions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio")
     };
 
     if (isVampire) {
@@ -77,9 +77,9 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
     let initialValue = {
         advantages: "",
         notes: "",
-        firstConvinction: "",
-        secondConvinction: "",
-        thirdConvinction: ""
+        firstConviction: "",
+        secondConviction: "",
+        thirdConviction: ""
     };
 
     if (isVampire) {
@@ -88,6 +88,8 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
             predatorType: ""
         };
     }
+
+    console.debug("hasDisciplines", hasDisciplines);
 
     if (hasDisciplines) {
         initialValue = {
@@ -103,7 +105,7 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
 
 const capitalizeFirst = (s: string): string => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
 
-const buildConvinctions = (first: string, second: string, third: string): string => 
+const buildConvictions = (first: string, second: string, third: string): string => 
     `- ${capitalizeFirst(first)}\n- ${capitalizeFirst(second)}\n- ${capitalizeFirst(third)}`;
 
 const Creation4 = (): any => {
@@ -118,9 +120,9 @@ const Creation4 = (): any => {
         discipline2,
         predatorType,
         advantages,
-        firstConvinction,
-        secondConvinction,
-        thirdConvinction,
+        firstConviction,
+        secondConviction,
+        thirdConviction,
         notes
     }) => {
         const disciplinesOk = !characterHasDisciplines(character) ||
@@ -132,9 +134,9 @@ const Creation4 = (): any => {
         if (disciplinesOk &&
             predatorTypeOk &&
             advantages &&
-            firstConvinction &&
-            secondConvinction &&
-            thirdConvinction) {
+            firstConviction &&
+            secondConviction &&
+            thirdConviction) {
 
                 let request = {
                     newStage: 4,
@@ -143,7 +145,7 @@ const Creation4 = (): any => {
                         predatorTypeId: predatorType,
                         advantages: advantages,
                         notes: notes,
-                        convinctions: buildConvinctions(firstConvinction, secondConvinction, thirdConvinction)
+                        convictions: buildConvictions(firstConviction, secondConviction, thirdConviction)
                     }
                 };
 
@@ -236,7 +238,7 @@ const Creation4 = (): any => {
                             al tuo personaggio, consulta invece questa <Link to={GuideRoutes.creation}
                                                                              target="_blank"
                                                                              rel="noreferrer">sezione</Link>,
-                            ricorda in breve che hai <b>sette punti a disposizione</b> da assegnare.
+                            ricorda in breve che hai normalmente <b>cinque punti a disposizione</b> da assegnare.
                             Scrivi nel controllo di seguito tutti i vantaggi che vuoi assegnare al tuo personaggio, e
                             ricorda che se ti trovi in difficolt&agrave;, puoi sempre contattare un master via messaggio
                             o via Discord, tramite il link che puoi trovare nel menu a sinistra: la procedura di
@@ -278,12 +280,12 @@ const Creation4 = (): any => {
                             fullWidth
                             label="Prima Convinzione"
                             type="text"
-                            id="firstConvinction"
-                            name="firstConvinction"
-                            value={formik.values["firstConvinction"]}
+                            id="firstConviction"
+                            name="firstConviction"
+                            value={formik.values["firstConviction"]}
                             onChange={formik.handleChange}
-                            error={formik.touched["firstConvinction"] && Boolean(formik.errors["firstConvinction"])}
-                            helperText={formik.touched["firstConvinction"] && formik.errors["firstConvinction"]} />
+                            error={formik.touched["firstConviction"] && Boolean(formik.errors["firstConviction"])}
+                            helperText={formik.touched["firstConviction"] && formik.errors["firstConviction"]} />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -292,12 +294,12 @@ const Creation4 = (): any => {
                             fullWidth
                             label="Seconda Convinzione"
                             type="text"
-                            id="secondConvinction"
-                            name="secondConvinction"
-                            value={formik.values["secondConvinction"]}
+                            id="secondConviction"
+                            name="secondConviction"
+                            value={formik.values["secondConviction"]}
                             onChange={formik.handleChange}
-                            error={formik.touched["secondConvinction"] && Boolean(formik.errors["secondConvinction"])}
-                            helperText={formik.touched["secondConvinction"] && formik.errors["secondConvinction"]} />
+                            error={formik.touched["secondConviction"] && Boolean(formik.errors["secondConviction"])}
+                            helperText={formik.touched["secondConviction"] && formik.errors["secondConviction"]} />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -306,12 +308,12 @@ const Creation4 = (): any => {
                             fullWidth
                             label="Terza Convinzione"
                             type="text"
-                            id="secondConvinction"
-                            name="thirdConvinction"
-                            value={formik.values["thirdConvinction"]}
+                            id="secondConviction"
+                            name="thirdConviction"
+                            value={formik.values["thirdConviction"]}
                             onChange={formik.handleChange}
-                            error={formik.touched["thirdConvinction"] && Boolean(formik.errors["thirdConvinction"])}
-                            helperText={formik.touched["thirdConvinction"] && formik.errors["thirdConvinction"]} />
+                            error={formik.touched["thirdConviction"] && Boolean(formik.errors["thirdConviction"])}
+                            helperText={formik.touched["thirdConviction"] && formik.errors["thirdConviction"]} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
