@@ -68,6 +68,7 @@ export const characterStateFragment: any = graphql`
         advantages
         notes
         disciplinePowers
+        convinctions
         objects
         predatorType {
             id

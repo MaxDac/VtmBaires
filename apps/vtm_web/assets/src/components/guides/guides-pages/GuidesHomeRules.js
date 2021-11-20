@@ -548,7 +548,7 @@ const GuidesHomeRules = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Danno ad un'Ancora o ad un amato
+                                        Danno ad un personaggio amato
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Furia
@@ -560,7 +560,7 @@ const GuidesHomeRules = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Uccisione di un'Ancora o ad un amato
+                                        Uccisione di un personaggio amato
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Furia

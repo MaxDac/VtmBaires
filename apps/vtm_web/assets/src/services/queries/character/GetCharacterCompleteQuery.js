@@ -42,6 +42,7 @@ export type Character = {|
     +isNpc: ?boolean,
     +advantages: ?string,
     +notes: ?string,
+    +convinctions: ?string,
     +disciplinePowers: ?string,
     +objects: ?string,
     +lastHunt: ?any,
@@ -54,7 +55,7 @@ export type Character = {|
     |}
 |};
 
-export function useCharacterCompleteQuery(characterId: string): ?Character {
+export const useCharacterCompleteQuery = (characterId: string): ?Character => {
     return useCustomLazyLoadQuery(getCharacterCompleteQuery, { id: characterId })?.getCharacter;
 }
 

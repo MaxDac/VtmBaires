@@ -40,6 +40,7 @@ defmodule Vtm.Characters.Character do
     field :advantages, :string
     field :notes, :string
     field :discipline_powers, :string
+    field :convinctions, :string
     field :objects, :string
 
     belongs_to :user, User
@@ -51,10 +52,10 @@ defmodule Vtm.Characters.Character do
 
   def complete_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :discipline_powers, :notes, :predator_type_id, :is_complete])
+    |> cast(attrs, [:advantages, :discipline_powers, :convinctions, :notes, :predator_type_id, :is_complete])
     |> foreign_key_constraint(:clan_id)
     |> foreign_key_constraint(:predator_type_id)
-    |> validate_required([:advantages, :notes, :predator_type_id])
+    |> validate_required([:advantages, :discipline_powers, :convinctions, :notes, :predator_type_id])
   end
 
   def add_human_advantages_character_changeset(character, attrs) do
@@ -65,9 +66,9 @@ defmodule Vtm.Characters.Character do
 
   def add_advantages_character_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :discipline_powers, :notes, :predator_type_id])
+    |> cast(attrs, [:advantages, :discipline_powers, :convinctions, :notes, :predator_type_id])
     |> foreign_key_constraint(:predator_type_id)
-    |> validate_required([:advantages, :predator_type_id])
+    |> validate_required([:advantages, :discipline_powers, :convinctions, :predator_type_id])
   end
 
   def finalize_character_changeset(character, attrs) do
@@ -100,6 +101,7 @@ defmodule Vtm.Characters.Character do
       :advantages,
       :notes,
       :discipline_powers,
+      :convinctions,
       :objects,
       :stage,
       :approved,
@@ -144,6 +146,7 @@ defmodule Vtm.Characters.Character do
       :advantages,
       :notes,
       :discipline_powers,
+      :convinctions,
       :objects,
       :blood_potency,
       :last_resonance,

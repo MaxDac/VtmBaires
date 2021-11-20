@@ -67,6 +67,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :advantages, :string
     field :notes, :string
     field :discipline_powers, :string
+    field :convinctions, :string
     field :objects, :string
     field :clan, :clan
     field :predator_type, :predator_type
@@ -112,6 +113,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   input_object :character_finalization_request do
     field :predator_type_id, :id
     field :discipline_powers, :string
+    field :convinctions, :string
     field :advantages, non_null(:string)
     field :notes, :string
   end
@@ -415,6 +417,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
         field :notes, non_null(:string)
         field :advantages, non_null(:string)
         field :discipline_powers, :string
+        field :convinctions, :string
         field :objects, :string
       end
 
@@ -433,6 +436,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
         field :notes, non_null(:string)
         field :advantages, non_null(:string)
         field :discipline_powers, :string
+        field :convinctions, :string
         field :objects, :string
       end
 

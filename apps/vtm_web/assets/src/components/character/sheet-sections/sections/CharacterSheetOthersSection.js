@@ -103,6 +103,12 @@ const Advantages = ({sheet}) => (
     }} />
 );
 
+const Convinctions = ({sheet}) => (
+    <InfoElement title="Convinzioni" text={sheet?.convinctions} textSx={{
+        marginBottom: "10px"
+    }} />
+);
+
 const Objects = ({sheet}) => (
     <InfoElement title="Oggetti posseduti" text={sheet?.objects} textSx={{
         marginBottom: "10px"
@@ -128,6 +134,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             <Biography sheet={sheet} />
             <DisciplinePowers sheet={sheet} />
             <Advantages sheet={sheet} />
+            <Convinctions sheet={sheet} />
             <Objects sheet={sheet} />
             <Notes sheet={sheet} />
         </>

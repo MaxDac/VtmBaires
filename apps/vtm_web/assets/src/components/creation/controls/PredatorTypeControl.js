@@ -18,15 +18,14 @@ import type { CharacterFragments_characterConcealedInfo } from "../../../service
 type Props = {
     characterInfo: CharacterFragments_characterConcealedInfo;
     classes: any;
-    value: string;
-    onChange?: ?(Event => void);
+    formik: any;
 }
 
-const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props): any => {
+const PredatorTypeControl = ({characterInfo, classes, formik}: Props): any => {
     const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(predatorTypesQuery, {});
 
     const showPredatorTypes = () => {
-        const options = [<MenuItem key="None" value=" ">None</MenuItem>];
+        const options = [<MenuItem key="None" value="">None</MenuItem>];
 
         if (predatorTypes && predatorTypes.length > 0) {
             return [...options, ...predatorTypes.map(d => <MenuItem key={d?.id} value={d?.id}>{d?.name}</MenuItem>)];
@@ -56,9 +55,10 @@ const PredatorTypeControl = ({ characterInfo, classes, value, onChange }: Props)
                             <Select labelId="predator-type-label"
                                     id="predatorType"
                                     name="predatorType"
-                                    value={value}
+                                    value={formik.values["predatorType"]}
                                     label="Tipo di Predatore"
-                                    onChange={onChange}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched["predatorType"] && Boolean(formik.errors["predatorType"])}
                                     style={{width: "200px"}}>
                                 {showPredatorTypes()}
                             </Select>

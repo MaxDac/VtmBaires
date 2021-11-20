@@ -22,6 +22,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
     const [advantages, setAdvantages] = useState(character?.advantages ?? "");
     const [notes, setNotes] = useState(character?.notes ?? "");
     const [disciplinePowers, setDisciplinePowers] = useState(character?.disciplinePowers ?? "");
+    const [convinctions, setConvinctions] = useState(character?.convinctions ?? "");
 
     const onAdvantagesChanged = ({target: {value}}) => {
         setAdvantages(_ => value);
@@ -35,6 +36,10 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
         setDisciplinePowers(_ => value);
     }
 
+    const onConvinctionsChanged = ({target: {value}}) => {
+        setConvinctions(_ => value);
+    }
+
     const changeCharacterNotes = _ => {
         openDialog(
             `Cambio di status per ${character.name ?? ""}`,
@@ -44,7 +49,8 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                     characterId: character.id,
                     advantages,
                     notes,
-                    disciplinePowers
+                    disciplinePowers,
+                    convinctions
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
@@ -85,6 +91,16 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                                rows={3}
                                defaultValue={disciplinePowers}
                                onChange={onDisciplinePowersChanged}
+                               variant="filled" />
+                </Grid>
+                <Grid item xs={12} sx={{margin: "10px"}}>
+                    <TextField id="convinctions"
+                               label="Convinzioni"
+                               fullWidth
+                               multiline
+                               rows={3}
+                               defaultValue={convinctions}
+                               onChange={onConvinctionsChanged}
                                variant="filled" />
                 </Grid>
                 <Grid item xs={12} sx={{

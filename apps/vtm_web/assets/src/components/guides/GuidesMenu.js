@@ -116,6 +116,9 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                 </ListItem>
                 <Collapse in={rulesOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.creation)}>
+                            <ListItemText primary="Creazione personaggio" />
+                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.clans)}>
                             <ListItemText primary="Clans" />
                         </ListItem>
@@ -124,9 +127,6 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.mechanics)}>
                             <ListItemText primary="Meccaniche" />
-                        </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.creation)}>
-                            <ListItemText primary="Creazione personaggio" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.homeRules)}>
                             <ListItemText primary="Stati di Esistenza & Adattamenti" />

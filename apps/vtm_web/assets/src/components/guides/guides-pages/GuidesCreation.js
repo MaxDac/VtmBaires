@@ -30,10 +30,16 @@ const GuidesCreation = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Un'altra caratteristica della scheda che dovrete indicare saranno le <b>Convinzioni</b> e le <b>Ancore</b>,
-                ovvero il credo fondamentale che segue il personaggio, e ne determina la sua umanit&agrave;, e le persone
-                che hanno significato molto per lui nella sua vita mortale, e che ancora rivestono un punto di riferimento,
-                un'ancora per resistere alla Bestia, quando minaccia di conquistare definitivamente la mente e il cuore del Cainita.
+                Un'altra caratteristica della scheda che dovrete indicare saranno le <b>Convinzioni</b>
+                ovvero il credo fondamentale che segue il personaggio, e ne determina la sua umanit&agrave;.
+                Le convinzioni saranno fondamentali per determinare cosa lo tiene aggrappato alla sua Umanit&agrave;,
+                un codice (seppur minimo) di condotta al quale si rifaceva intimamente per poter giustificare le 
+                proprie azioni. Non si devono confondere le convinzioni con il credo religioso, o per qualcosa di
+                "buonista": il personaggio sar&agrave; un vampiro, e c'&egrave; una buona probabilit&agrave;
+                che in vita non sia stato uno stinco di santo. In questo senso, le Convinzioni non dovranno
+                corrispondere a buone intenzioni, ma semplicemente a dei minimi dettami morali che il 
+                personaggio, intimamente, segue o seguiva per giustificare ci&ograve; che era, &egrave; 
+                diventato e ci&ograve; che ha intenzione di fare.
             </Typography>
 
             <Typography paragraph style={guideStyle}>
@@ -53,6 +59,32 @@ const GuidesCreation = (): any => {
                 del personaggio. La biografia dovr&agrave; essere credibile, e dovr&agrave; adattarsi all'ambientazione
                 di Buenos Aires by Night. Una biografia priva di contenuti potr&agrave; determinare il rifiuto e la
                 successiva cancellazione del personaggio.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Ai giocatori non esperti nell'ambientazione di Vampiri: la Masquerade&trade; consigliamo di creare personaggi
+                <b>Infanti</b>, appena trasformati in vampiri (<b>Abbracciati</b>, nella terminologia dei <b>Fratelli</b>).
+                Questo vi consentir&agrave; di concentrarvi sulla storia del vostro personaggio quando ancora era in vita.
+                Di seguito, forniamo alcuni spunti per descrivere come, quando e perch&egrave; il vostro personaggio &egrave;
+                stato trasformato in vampiro:
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                <ul>
+                    <li style={liStyle}>
+                        Il personaggio &egrave; stato Abbracciato da un vampiro nell'ormani distrutto Dominio di Montevideo. 
+                        Se optate per questa decisione, vi consigliamo di leggere la relativa <Link to={GuideRoutes.environmentBaires}>guida</Link>.
+                    </li>
+                    <li style={liStyle}>
+                        Nel caso in cui scegliate di interpretare un personaggio <b>Sangue Debole</b> o <b>Caitiff</b>, potrete 
+                        considerare che il vostro Sire vi abbia abbandonato una volta capito cosa eravate.
+                    </li>
+                    <li style={liStyle}>
+                        Il personaggio &egrave; stato Abbracciato a Buenos Aires da uno dei <Link to={GuideRoutes.npcs}>personaggi 
+                        non giocanti dell'Ambientazione</Link>. Consigliamo di condividere questa decisione coi master, che 
+                        potranno guidare la vostra scelta con maggior informazioni.
+                    </li>
+                </ul>
             </Typography>
 
             <Typography paragraph>
@@ -191,7 +223,7 @@ const GuidesCreation = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Nelle note del master invece, dovrete scegliere tre <b>Convinzioni</b> e tre <b>Ancore</b>.<br />
+                Nell'apposita sezione, invece, dovrete scegliere tre <b>Convinzioni</b>.<br />
                 Le Convinzioni riassumono le regole morali che il personaggio seguiva in vita, e che lo mantengono umano. Questo &egrave;
                 un aspetto <b>importantissimo</b> per il personaggio, in quanto le convinzioni lo aiutano a resistere alle lusinghe della 
                 Bestia. Potrete scegliere <b>tre</b> tra le seguenti Convinzioni, proposte dal <b>Corebook</b>, oppure proporne alcune vostre:
@@ -222,14 +254,6 @@ const GuidesCreation = (): any => {
                     <li>Rispetta (inserisci religione) come sacra e rispettane le leggi morali</li>
                 </ul>
 
-            </Typography>
-
-            <Typography paragraph style={guideStyle}>
-                Come accennato precedentemente, le <b>Ancore</b> sono mortali che, nella vita, ma anche nella
-                non-vita del personaggio, sono state dei punti di riferimento importanti, e continuano ad essere
-                il motivo per resistere alla Bestia, e custodire gelosamente i frammenti di umanit&agrave; 
-                rimasta notte dopo notte. Le Ancore dovranno trovare riscontro nel vostro background,
-                e dovrete considerarle come un completamento dello stesso. Avrete a disposizione <b>tre</b> ancore.
             </Typography>
 
             <Typography paragraph>

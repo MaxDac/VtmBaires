@@ -47,22 +47,26 @@ const InternalElement = ({character, children}: InternalElementProps): any => {
 
 const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) => {
     let shape = {
-        advantages: string("Please, write your character advantages").required("Required"),
-        notes: string("Add the notes you want to communicate to the masters").required("Required")
+        advantages: string("Please, write your character advantages").required("Devi aggiungere almeno 5 punti di Vantaggi per il tuo personaggio"),
+        notes: string("Add the notes you want to communicate to the masters").nullable().notRequired(),
+        firstConvinction: string("Add the first convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
+        secondConvinction: string("Add the second convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
+        thirdConvinction: string("Add the third convinctions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio")
     };
 
     if (isVampire) {
         shape = {
-            predatorType: string("Please select your character predator type").required("Required")
+            ...shape,
+            predatorType: string("Please select your character predator type").required("Il tuo personaggio deve essere di un tipo di predatore particolare")
         };
     }
 
     if (hasDiscplines) {
         shape = {
             ...shape,
-            disciplinePowers: string("Scrivi quali poteri di Disciplina vuoi acquisire").required("Required"),
-            discipline1: string("Select your character first discipline").required("Required"),
-            discipline2: string("Select your character second discipline").required("Required")
+            disciplinePowers: string("Scrivi quali poteri di Disciplina vuoi acquisire").required("Devi specificare i poteri di Disciplina del tuo personaggio"),
+            discipline1: string("Select your character first discipline").required("Devi specificare il primo potere di Disciplina del tuo personaggio"),
+            discipline2: string("Select your character second discipline").required("Devi specificare il secondo potere di Disciplina del tuo personaggio")
         }
     }
 
@@ -73,6 +77,9 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
     let initialValue = {
         advantages: "",
         notes: "",
+        firstConvinction: "",
+        secondConvinction: "",
+        thirdConvinction: ""
     };
 
     if (isVampire) {
@@ -92,7 +99,12 @@ const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
     }
 
     return initialValue;
-}
+};
+
+const capitalizeFirst = (s: string): string => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
+
+const buildConvinctions = (first: string, second: string, third: string): string => 
+    `- ${capitalizeFirst(first)}\n- ${capitalizeFirst(second)}\n- ${capitalizeFirst(third)}`;
 
 const Creation4 = (): any => {
     const {showUserNotification} = useContext(UtilityContext);
@@ -106,6 +118,9 @@ const Creation4 = (): any => {
         discipline2,
         predatorType,
         advantages,
+        firstConvinction,
+        secondConvinction,
+        thirdConvinction,
         notes
     }) => {
         const disciplinesOk = !characterHasDisciplines(character) ||
@@ -117,7 +132,9 @@ const Creation4 = (): any => {
         if (disciplinesOk &&
             predatorTypeOk &&
             advantages &&
-            notes) {
+            firstConvinction &&
+            secondConvinction &&
+            thirdConvinction) {
 
                 let request = {
                     newStage: 4,
@@ -125,7 +142,8 @@ const Creation4 = (): any => {
                     request: {
                         predatorTypeId: predatorType,
                         advantages: advantages,
-                        notes: notes
+                        notes: notes,
+                        convinctions: buildConvinctions(firstConvinction, secondConvinction, thirdConvinction)
                     }
                 };
 
@@ -206,9 +224,7 @@ const Creation4 = (): any => {
                                         onDisciplinePowersChange={formik.handleChange} />
                     <PredatorTypeControl characterInfo={characterInfo}
                                          classes={classes}
-                                         value={formik.values["predatorType"]}
-                                         onChange={formik.handleChange}
-                                         error={formik.touched["predatorType"] && Boolean(formik.errors["predatorType"])} />
+                                         formik={formik} />
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
                             I vantaggi non possono essere selezionati automaticamente, poich&eacute; dovranno essere
@@ -245,7 +261,7 @@ const Creation4 = (): any => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
-                            In questa sezione dovrai inserire le tre <b>Convinzioni</b> e le <b>Ancore</b> del tuo
+                            In questa sezione dovrai inserire le tre <b>Convinzioni</b> del tuo
                             personaggio. Puoi sceglierle tra quelle proposte nella&nbsp;
                             <Link to={GuideRoutes.creation} 
                                   target="_blank" 
@@ -253,6 +269,54 @@ const Creation4 = (): any => {
                                   style={{color: "#C92929"}}>guida</Link>.
                             Se hai delle richieste particolari per il tuo personaggio, aggiungile alla definizione
                             delle Convinzioni, saranno vagliate dal master che controller&agrave; la tua scheda.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            label="Prima Convinzione"
+                            type="text"
+                            id="firstConvinction"
+                            name="firstConvinction"
+                            value={formik.values["firstConvinction"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["firstConvinction"] && Boolean(formik.errors["firstConvinction"])}
+                            helperText={formik.touched["firstConvinction"] && formik.errors["firstConvinction"]} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            label="Seconda Convinzione"
+                            type="text"
+                            id="secondConvinction"
+                            name="secondConvinction"
+                            value={formik.values["secondConvinction"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["secondConvinction"] && Boolean(formik.errors["secondConvinction"])}
+                            helperText={formik.touched["secondConvinction"] && formik.errors["secondConvinction"]} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            label="Terza Convinzione"
+                            type="text"
+                            id="secondConvinction"
+                            name="thirdConvinction"
+                            value={formik.values["thirdConvinction"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["thirdConvinction"] && Boolean(formik.errors["thirdConvinction"])}
+                            helperText={formik.touched["thirdConvinction"] && formik.errors["thirdConvinction"]} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography className={classes.defaultParagraph}>
+                            Infine, se hai delle richieste particolari per i master che dovranno visionare
+                            la tua scheda, puoi inserirle in questa sezione.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
