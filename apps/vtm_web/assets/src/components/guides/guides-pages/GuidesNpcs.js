@@ -355,6 +355,40 @@ const GuidesNpcs = (props: Props): any => {
                 </Box>
             </Box>
 
+            <Box sx={characterBox}>
+                <Typography paragraph sx={guideStyle}>
+                    <h3 style={titleStyle}>
+                        Salom&oacute;n Riario - La Fiscal&iacute;a
+                    </h3>
+                </Typography>
+
+                <Box sx={sheetBoxStyle}>
+                    <img src="/SalomonRiario.webp"
+                            align="left"
+                            alt="Sardaukar"
+                            hspace="10px"
+                            vspace="10px" />
+                    <Box>
+                        <Typography paragraph sx={guideStyle}>
+                            Le voci che circondano Riario sono tante, e tutte differenti. Alcuni lo 
+                            vogliono come uno degli Assassini che, si vocifera, abbia fatto saltare
+                            l'accordo tra la Camarilla e i Ministri di Set. Altri affermano che abbia
+                            fatto parte della spedizione di Fatima al-Faqadi nella roccaforte spagnola
+                            di Monçada. Ovviamente ognuna di queste &egrave; falsa, ma tutte nascondono
+                            un rispetto che a sua volta maschera terrore.
+                        </Typography>
+                        <Typography paragraph sx={guideStyle}>
+                            La verit&agrave; &egrave; che lo Sceriffo &egrave; arrivato da troppo poco
+                            nel Dominio di Buenos Aires, seguendo l'onda dei vari Banu Haqim che hanno 
+                            popolato gli Elysium dopo l'abbandono della maggior parte dei Brujah, e nessuno
+                            ha fatto troppe domande: le sue capacit&agrave; sono eterogenee e perfette
+                            per interpretare al meglio il ruolo di protettore delle Tradizioni della
+                            Camarilla.
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+
             <hr />
 
             <Box sx={characterBox}>
@@ -366,7 +400,7 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/RodrigoManoukian.webp"
-                            align="left"
+                            align="right"
                             alt="RodrigoManoukian"
                             hspace="10px"
                             vspace="10px" />
@@ -403,7 +437,7 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/RocioFernandez.webp"
-                            align="right"
+                            align="left"
                             alt="RocioFernandez"
                             hspace="10px"
                             vspace="10px" />
@@ -440,7 +474,7 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/ErnestoHerrera.webp"
-                            align="left"
+                            align="right"
                             alt="ErnestoHerrera"
                             hspace="10px"
                             vspace="10px" />
@@ -474,8 +508,8 @@ const GuidesNpcs = (props: Props): any => {
                 </Typography>
 
                 <Box sx={sheetBoxStyle}>
-                    <img src="/Javier.webp"
-                            align="right"
+                    <img src="/JavierDArienzo.webp"
+                            align="left"
                             alt="Javier"
                             hspace="10px"
                             vspace="10px" />
@@ -497,30 +531,6 @@ const GuidesNpcs = (props: Props): any => {
                             della Diocesi osavano dar seguito alla richiesta, indebitati com'erano.<br />
                             Prosegue la sua azione anche nel neonato Dominio della Camarilla: per lui &egrave; cambiato poco,
                             Buenos Aires &egrave; sempre la sua citt&agrave;.
-                        </Typography>
-                    </Box>
-                </Box>
-            </Box>
-
-            <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
-                    <h3 style={titleStyle}>
-                        Sardaukar - El Chino
-                    </h3>
-                </Typography>
-
-                <Box sx={sheetBoxStyle}>
-                    <img src="/Sardaukar.webp"
-                            align="left"
-                            alt="Sardaukar"
-                            hspace="10px"
-                            vspace="10px" />
-                    <Box>
-                        <Typography paragraph sx={guideStyle}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </Typography>
-                        <Typography paragraph sx={guideStyle}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </Typography>
                     </Box>
                 </Box>
