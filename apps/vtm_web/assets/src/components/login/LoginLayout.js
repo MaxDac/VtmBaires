@@ -54,7 +54,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                 <Box sx={{
                     position: "absolute",
                     zIndex: "3",
-                    bottom: "2rem",
+                    bottom: "3rem",
                     width: "100%"
                 }}>
                     <Grid item xs={false} md={12} lg={7}>
