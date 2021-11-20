@@ -53,6 +53,7 @@ export const characterSheetFragment: any = graphql`
         id
         avatar
         description
+        isNpc
     }
 `;
 

@@ -20,10 +20,12 @@ const CharacterSheetAvatarSection = ({characterQuery, sx}: Props): any => {
         characterSheetFragment,
         characterQuery);
 
+    const realAvatarHeight = sheet?.isNpc === true ? avatarWidth : avatarHeight
+
     return (
         <Paper component="div" sx={{
             width: `${avatarWidth + 10}px`,
-            height: `${avatarHeight + 10}px`,
+            height: `${realAvatarHeight + 10}px`,
             display: "inline-flex",
             textAlign: "center",
             margin: "1rem",
@@ -38,7 +40,7 @@ const CharacterSheetAvatarSection = ({characterQuery, sx}: Props): any => {
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "contain",
                 width: `${avatarWidth}px`,
-                height: `${avatarHeight}px`,
+                height: `${realAvatarHeight}px`,
             }} />
         </Paper>
     )
