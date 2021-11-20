@@ -54,7 +54,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                 <Box sx={{
                     position: "absolute",
                     zIndex: "3",
-                    bottom: "3rem",
+                    bottom: "2rem",
                     width: "100%"
                 }}>
                     <Grid item xs={false} md={12} lg={7}>
@@ -83,7 +83,7 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                     <Grid item xs={false} md={12} lg={7}>
                         <Typography sx={{
                             fontFamily: "Disturbed",
-                            fontSize: "3rem",
+                            fontSize: "3.5rem",
                             color: "secondary.main",
                             textShadow: "1px 1px #590000",
                             textAlign: "center",

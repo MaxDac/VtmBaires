@@ -310,7 +310,7 @@ computer, telefoni cellulari, ecc.
 {:ok, potence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Potenza", description: "Potenza"})
 {:ok, presence} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Ascendente", description: "Ascendente"})
 {:ok, protean} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Proteide", description: "Proteide"})
-{:ok, alchemy} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Thin-Blood Alchemy", description: "Thin-Blood Alchemy"})
+{:ok, alchemy} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Alchimia dei Sangue Debole", description: "Alchimia dei Sangue Debole"})
 
 Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Alleati", description: """
 Gli alleati sono personaggi, umani o cainiti, che supportano il personaggio: famiglia, amici, o gli elementi dell'organizzazione di cui il personaggio fa parte.

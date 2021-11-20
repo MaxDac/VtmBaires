@@ -32,7 +32,7 @@ const GuidesAttributes = (): any => {
                 leggendari che infestano la terra da migliaia di anni. Qualunque sia la loro origine, &egrave; 
                 indubbio che i differenti clan hanno delle caratteristiche differenti tra di loro. Esistono poi
                 i <b>Vili</b> che, pur essendo vampiri a tutti gli effetti, non mostrano i segni
-                caratteristici dell'appartenenza ad un clan, e i <b>Sangue Debole</b>, o Thin-Blood, ovvero
+                caratteristici dell'appartenenza ad un clan, e i <b>Sangue Debole</b>, ovvero
                 vampiri la cui Generazione, o lontananza in Abbracci dai mitici progenitori, &egrave; cos&igrave;
                 grande che il loro sangue ha perso molte delle caratteristiche tipiche dei Cainiti, come la
                 debolezza ai raggi solari, il pallore cadaverico, o l'impossibilit&agrave; di mangiare cibo.

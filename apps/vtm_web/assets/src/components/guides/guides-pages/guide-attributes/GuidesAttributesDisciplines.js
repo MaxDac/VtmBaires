@@ -784,7 +784,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
-                    Thin-Blood Alchemy
+                    Alchimia dei Sangue Debole
                 </h3>
             </Typography>
 

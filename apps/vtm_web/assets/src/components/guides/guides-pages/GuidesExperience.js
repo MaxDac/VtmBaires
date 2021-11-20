@@ -125,7 +125,7 @@ const GuidesExperience = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Nuovo livello di Alchimia Thin-Blood
+                                        Nuovo livello di Alchimia dei Sangue Debole
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Nuovo livello x 5
@@ -147,7 +147,7 @@ const GuidesExperience = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Nuova formula Alchimia Thin-Blood
+                                        Nuova formula Alchimia dei Sangue Debole
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         Nuovo livello x 3
