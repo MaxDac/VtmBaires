@@ -22,7 +22,7 @@ ENV MAIL_PASS=$mail_pass
 
 WORKDIR /build
 
-COPY mix.exs mix.lock config/ ./
+COPY mix.exs config/ ./
 COPY apps/vtm_web/mix.exs ./apps/vtm_web/
 COPY apps/vtm/mix.exs ./apps/vtm/
 COPY apps/vtm_auth/mix.exs ./apps/vtm_auth/

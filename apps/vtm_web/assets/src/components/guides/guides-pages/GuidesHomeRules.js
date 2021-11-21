@@ -597,7 +597,7 @@ const GuidesHomeRules = (): any => {
 
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row">
-                                        Fallimento del <i>Rouse Check</i> <br />
+                                        Fallimento del <i>Prova di Risveglio</i> <br />
                                         con Fame 4 o 5
                                     </StyledTableCell>
                                     <StyledTableCell>

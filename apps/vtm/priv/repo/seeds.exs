@@ -348,7 +348,7 @@ organizzazione mortale o cainita, dal governo del comune o di uno stato, alla st
 cainiti. Ogni pallino potrà rappresentare sia un'area differente di influenza, oppure un grado di influenza maggiore in una particolare area di interesse. In entrambi i casi,
 dovranno essere indicate in fase di creazione le aree di influenza del personaggio.
 """})
-Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Grimori", description: """
+Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: advantage_id, name: "Sapienza di Tenebra", description: """
 Rappresenta la Conoscenza su di un'area particolarmente difficile da apprendere di un personaggio. Che sia un segreto noddista, o la conoscenza di un segreto,
 o di particolari rituali dell'Oblivion proibiti, il personaggio possiede questa Conoscenza. Non sarà possibile acquisire in fase di creazione questo Vantaggio,
 ma sarà possibile acquisirlo in gioco.

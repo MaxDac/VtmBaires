@@ -24,3 +24,7 @@ apps/vtm_web/assets/yarn.lock
 database.env
 mix.lock
 mix.lock
+
+**/.ionide
+**/.idea
+**/.vscode

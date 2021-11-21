@@ -47,7 +47,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Sussurri Ferali</b> (&#9679;&#9679;): il vampiro pu&ograve; entrare in contatto con un animale, scambiando informazioni basiche (carenza di prede). Il vampiro pu&ograve;
                         anche tentare di chiamare un gruppo di un preciso animale.<br />
-                        <b>Sistema</b>: 1 Rouse Check, poi tiro di Manipolazione + Animalit&agrave; (convincere un animale) o Carisma + Animalit&agrave; (richiamare un animale), 
+                        <b>Sistema</b>: 1 Prova di Risveglio, poi tiro di Manipolazione + Animalit&agrave; (convincere un animale) o Carisma + Animalit&agrave; (richiamare un animale), 
                         Diff. 3 per ordini semplici, 6 per ordini di vita o morte; 2 per richiamare animali presenti nei dintori, 6 per richiamarne da lontano.
                     </li>
 
@@ -58,7 +58,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Domare la Bestia</b> (&#9679;&#9679;&#9679;): calma la Bestia in un umano, riducendolo ad uno stato semi letargico, o un vampiro, limitandone i poteri e, possibilmente, facendolo uscire dalla Frenesia.<br />
-                        <b>Sistema</b>: 1 Rouse Check, tiro contrastato di Carisma + Animalit&agrave; contro Costituzione + Fermezza. Se la vittima &egrave; umana, cadr&agrave; in uno stato letargico. Se &egrave; un vampiro,
+                        <b>Sistema</b>: 1 Prova di Risveglio, tiro contrastato di Carisma + Animalit&agrave; contro Costituzione + Fermezza. Se la vittima &egrave; umana, cadr&agrave; in uno stato letargico. Se &egrave; un vampiro,
                         non potr&agrave; aumentare i propri Attributi col Sangue, e durer&agrave; un numero di turni pari ai successi supplementari + 1. Se il vampiro ottiene un successo critico, la vittima
                         uscir&agrave; dalla Frenesia.
                     </li>
@@ -70,20 +70,20 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Sottomettere lo spirito</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro trasferisce la sua mente in un animale, prendendone completamente il possesso (mentre il corpo del vampiro rimane indifeso, in uno stato simile al Torpore).<br />
-                        <b>Sistema</b>: 1 Rouse Check, 0 se la vittima &egrave; il <i>famulus</i>, poi Manipolazione + Animalit&agrave; Difficolt&agrave; 4. Se il corpo del vampiro subisce danni, o se l'animale muore, la trance finisce e il vampiro perde 
+                        <b>Sistema</b>: 1 Prova di Risveglio, 0 se la vittima &egrave; il <i>famulus</i>, poi Manipolazione + Animalit&agrave; Difficolt&agrave; 4. Se il corpo del vampiro subisce danni, o se l'animale muore, la trance finisce e il vampiro perde 
                         1 punto di Forza di Volont&agrave;.
                     </li>
 
                     <li style={liStyle}>
                         <b>Dominio Animale</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il controllo del vampiro sul Regno Animale &egrave; cos&igrave; grande che ora riesce a compandare interi stormi, o branchi di animali, che possono arrivare
                         a lanciarsi in spregio della propria vita per proteggere il Cainita.<br />
-                        <b>Sistema</b>: 2 Rouse Checks, poi Carisma + Animalit&agrave;, Difficolt&agrave; 3 per ordini semplici, Diff. 5 per ordini che possono costare la vita al branco o allo stormo.
+                        <b>Sistema</b>: 2 Prove di Risveglio, poi Carisma + Animalit&agrave;, Difficolt&agrave; 3 per ordini semplici, Diff. 5 per ordini che possono costare la vita al branco o allo stormo.
                     </li>
 
                     <li style={liStyle}>
                         <b>Scacciare la Bestia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): quando il vampiro sta per perdere il controllo alla Bestia per paura o per rabbia, pu&ograve; scacciare la sua Bestia, inviandola in un mortale o un
                         vampiro nelle vicinanze, e quest'ultimo sperimenter&agrave; la Frenesia al posto del vampiro.<br />
-                        <b>Sistema</b>: 1 Rouse Check, quindi tiro contrastato di Prontezza + Animalit&agrave; contro Autocontrollo + Fermezza. Se il tiro fallisce, il vampiro entra in Frenesia automaticamente. Se riesce, la vittima entra in Frenesia al suo posto.<br />
+                        <b>Sistema</b>: 1 Prova di Risveglio, quindi tiro contrastato di Prontezza + Animalit&agrave; contro Autocontrollo + Fermezza. Se il tiro fallisce, il vampiro entra in Frenesia automaticamente. Se riesce, la vittima entra in Frenesia al suo posto.<br />
                         Non sar&agrave; possibile trasferire Frenesia di Fame, e successivamente il vampiro potr&agrave; ancora entrare in Frenesia se sottoposto ad altri stimoli.
                     </li>
                 </ul>
@@ -122,7 +122,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Sguardo Terribile</b> (&#9679;&#9679;&#9679;): il vampiro riesce a condensare la sua natura soprannaturale in un singolo, terribile sguardo, che blocca i mortali di terrore, costringendoli a fuggire o a rimanere bloccati dalla paura, e nei vampiri arriva a causare R&ouml;tschreck.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Carisma + Ascendente contro Autocontrollo + Fermezza della vittima.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro tira Carisma + Ascendente contro Autocontrollo + Fermezza della vittima.
                         <ul>
                             <li>Un fallimento comporta che i mortali siano incapacitati ad agire contro il vampiro per un turno, se non per autodifesa, mentre un Cainita rimane indifferente al potere.</li>
                             <li>Un successo riesce a far scappare via un mortale in preda al panico, e comporta che un Cainita sia incapacitato ad agire contro il vampiro per un turno, se non per autodifesa.</li>
@@ -134,7 +134,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Ammaliamento</b> (&#9679;&#9679;&#9679;): il vampiro instilla meraviglia e infatuazione ai massimi livelli in una singola vittima, che tratter&agrave; il vampiro come il suo idolo.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro deve catturare l'attenzione della vittima, e avere successo in un tiro conteso tra Carisma + Ascendente contro Autocontrollo + Prontezza della vittima.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro deve catturare l'attenzione della vittima, e avere successo in un tiro conteso tra Carisma + Ascendente contro Autocontrollo + Prontezza della vittima.
                         Il potere ha effetto per un'ora, pi&ograve; un'ulteriore ora per successo supplementare al tiro contrastato. Durante l'effetto del potere, il vampiro potr&agrave; aggiungere il suo livello di Ascendente a 
                         tutti i tiri Sociali verso la vittima. Il potere potr&agrave; essere rinnovato alla fine dello stesso, ma un fallimento comporter&agrave; la fine dell'effetto.
                     </li>
@@ -147,13 +147,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Convocazione</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro pu&ograve; convocare qualsiasi mortale o Cainita su cui abbia precedentemente usato Soggezione, Ammaliamento o Maest&agrave;, oppure che abbia assaggiato una volta il suo sangue.
                         La vittima non metter&agrave; in pericolo la sua vita n&eacute; far&agrave; follie per raggiungere il Cainita, ma si prodigher&agrave; comunque per raggiungerlo. La vittima sapr&agrave; chi lo sta chiamando e la sua posizione.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il Cainita pensa intensamente alla persona da convocare per cinque minuti, quindi tira Manipolazione + Ascendente contro Autocontrollo + Intelligenza della vittima.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Cainita pensa intensamente alla persona da convocare per cinque minuti, quindi tira Manipolazione + Ascendente contro Autocontrollo + Intelligenza della vittima.
                         Se il tiro riesce, la vittima sentir&agrave; il bisogno di recarsi dal Cainita. Se il tiro totalizza un successo critico, la vittima metter&agrave; a rischio addirittura la sua vita per raggiungere il chiamante.
                     </li>
 
                     <li style={liStyle}>
                         <b>Maest&agrave;</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro, a questo livello, diventa una vera e proprio immagine angelica o mostruosamente infernale, lasciando mortali e Cainiti attorno senza parole, senza la possibilit&agrave; di agire, se non continuando a guardare il Cainita.<br />
-                        <b>Sistema</b>: effettuando 2 Rouse Checks, e il potere avr&agrave; effetto. Tutti gli astanti dovranno osservare in adorazione in terrore reverenziale il Cainita, e chi vorr&agrave; opporsi anche solo per un turno
+                        <b>Sistema</b>: effettuando 2 Prove di Risveglio, e il potere avr&agrave; effetto. Tutti gli astanti dovranno osservare in adorazione in terrore reverenziale il Cainita, e chi vorr&agrave; opporsi anche solo per un turno
                         all'effetto del potere dovr&agrave; tirare Autocontrollo + Fermezza contro Carisma + Ascendente: un successo garantir&agrave; libert&agrave; d'azione per un turno, mentre un successo critico render&agrave; la vittima
                         immune dal potere per il resto della scena.
                     </li>
@@ -190,40 +190,40 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Premonizione</b> (&#9679;&#9679;): questo potere fornisce al vampiro dei lampi di intuizione. Il vampiro riesce a ricordare un dettaglio prima ritenuto insignificante, o a captare i segnali di una imboscata.<br />
-                        <b>Sistema</b>: se non scatenata dal Narratore, il personaggio dovr&agrave; concentrarsi su un oggetto, effettuare 1 Rouse Check e tirare Fermezza + Auspex: il numero di successi determiner&agrave; la quantit&agrave;
+                        <b>Sistema</b>: se non scatenata dal Narratore, il personaggio dovr&agrave; concentrarsi su un oggetto, effettuare 1 Prova di Risveglio e tirare Fermezza + Auspex: il numero di successi determiner&agrave; la quantit&agrave;
                         di informazioni che il personaggio intuir&agrave;.
                     </li>
 
                     <li style={liStyle}>
                         <b>Scrutare l'Anima</b> (&#9679;&#9679;&#9679;): il vampiro riesce a captare l'aura di una persona, individuandone i sentimenti e le caratteristiche.<br />
-                        <b>Sistema</b>: il personaggio effettua 1 Rouse Check, quindi tira Intelligenza + Auspex contro Autocontrollo + Sotterfugio della vittima. Il numero di successi supplementari indicher&agrave; quante informazioni il vampiro riuscir&agrave; 
+                        <b>Sistema</b>: il personaggio effettua 1 Prova di Risveglio, quindi tira Intelligenza + Auspex contro Autocontrollo + Sotterfugio della vittima. Il numero di successi supplementari indicher&agrave; quante informazioni il vampiro riuscir&agrave; 
                         ad ottenere dalla vittima. In caso di giocata libera, il personaggio potr&agrave; fare tre domande sullo stato emotivo del bersaglio. Il potere ha effetto anche sulle folle, ma in quel caso sar&agrave; necessaria la presenza
                         del Narratore.
                     </li>
 
                     <li style={liStyle}>
                         <b>Condivisione dei Sensi</b> (&#9679;&#9679;&#9679;): il vampiro riesce a percepire informazioni sensoriali di qualcuno in linea visuale, oppure, a lunga distanza, di qualcuno che ha ancora qualche goccia del suo sangue.<br />
-                        <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Fermezza + Auspex a Difficolt&agrave; 3, o pi&ugrave; se il bersaglio &egrave; distante. &Egrave; impossibile accorgersi della condivisione senza usare Percepire l'Invisibile,
+                        <b>Sistema</b>: effettuare 1 Prova di Risveglio, quindi tirare Fermezza + Auspex a Difficolt&agrave; 3, o pi&ugrave; se il bersaglio &egrave; distante. &Egrave; impossibile accorgersi della condivisione senza usare Percepire l'Invisibile,
                         ma se la vittima si accorge dell'intrusione, dovr&agrave; riuscire in un tiro di Prontezza + Fermezza contro Prontezza + Fermezza del perpetratore: se il tiro riesce, il vampiro non potr&agrave; condividere i sensi per il resto
                         della notte.
                     </li>
                     <li style={liStyle}>
                         <b>Tocco degli Spiriti</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a percepire residui di emozione o altri indizi impossibili da decifrare con mezzi tradizionali toccando un oggetto inanimato.<br />
-                        <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Intelligenza + Auspex a Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in una giocata libera.
+                        <b>Sistema</b>: effettuare 1 Prova di Risveglio, quindi tirare Intelligenza + Auspex a Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in una giocata libera.
                     </li>
                     <li style={liStyle}>
                         <b>Chiaroveggenza</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): entrando in un leggero stato di <i>trance</i>, il vampiro riesce a percepire qualsiasi cosa fuori dall'ordinario in un quartiere o, se all'esterno o in un'area scarsamente popolata, in un'area di svariati chilometri.<br />
-                        <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Intelligenza + Auspex ad una Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in giocate libere.
+                        <b>Sistema</b>: effettuare 1 Prova di Risveglio, quindi tirare Intelligenza + Auspex ad una Difficolt&agrave; determinata dal Narratore. Questo potere non potr&agrave; essere usato in giocate libere.
                     </li>
                     <li style={liStyle}>
                         <b>Possessione</b> (&#9679;&#9679;&#9679;&#9679;&#9679; - Amalgama con Dominazione &#9679;&#9679;&#9679;): il vampiro acquisisce il controllo completo del corpo di un mortale.<br />
-                        <b>Sistema</b>: questo potere ha effetto solo su mortali. Effettuare 2 Rouse Checks, quindi tirare Fermezza + Auspex contro Fermezza + Intelligenza della vittima. Se il tiro finisce in pareggio, pu&ograve; 
+                        <b>Sistema</b>: questo potere ha effetto solo su mortali. Effettuare 2 Prove di Risveglio, quindi tirare Fermezza + Auspex contro Fermezza + Intelligenza della vittima. Se il tiro finisce in pareggio, pu&ograve; 
                         essere ritentato, in quanto la Possessione &egrave; una Disciplina che implica una lotta di volont&agrave; tra il vampiro e la sua vittima. Se il vampiro fallisce totalmente, non potr&agrave; pi&ugrave; 
                         possedere il mortale per il resto della scena.
                     </li>
                     <li style={liStyle}>
                         <b>Telepatia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a leggere la mente di mortali o vampiri (anche se questi ultimi con un po' pi&ugrave; di fatica). Riesce anche ad impiantare pensieri nella mente della vittima.<br />
-                        <b>Sistema</b>: effettuare 1 Rouse Check, quindi tirare Fermezza + Auspex contro Prontezza + Sotterfugio della vittima. Se la vittima &egrave; consenziente, o se il vampiro vuole semplicemente trasmettere un pensiero alla vittima,
+                        <b>Sistema</b>: effettuare 1 Prova di Risveglio, quindi tirare Fermezza + Auspex contro Prontezza + Sotterfugio della vittima. Se la vittima &egrave; consenziente, o se il vampiro vuole semplicemente trasmettere un pensiero alla vittima,
                         sia essa mortale o Cainita, non dovr&agrave; effettuare nessun tiro.
                     </li>
                 </ul>
@@ -248,7 +248,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li style={liStyle}>
                                 <b>Estinzione di Vitae</b> (&#9679;&#9679;): il vampiro, concentrandosi su un altro vampiro in vista ed eseguendo una serie di gesti, riesce a rendere infruibile la vitae della vittima, innalzando la sua Fame.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Intelligenza + Stregoneria del Sangue contro Costituzione + Autocontrollo della vittima, mentre esegue delle sottili movenze particolari richieste dal potere ed ha la sua vittima nella sua linea di visuale.
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro tira Intelligenza + Stregoneria del Sangue contro Costituzione + Autocontrollo della vittima, mentre esegue delle sottili movenze particolari richieste dal potere ed ha la sua vittima nella sua linea di visuale.
                                 La vittima vedr&agrave; alzare la sua Fame di 1 se il tiro ha successo, di 2 se il tiro &egrave; un successo critico. Potr&agrave; per&ograve; riconoscere chi gli ha inflitto questa penalit&agrave; se riesce a vedere il cainita, effettuando un tiro di 
                                 Intelligenza + Occulto contro Prontezza + Sotterfugio del Cainita.
                             </li>
@@ -256,7 +256,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Ladro di Sangue</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro, concentrandosi, riesce ad aprire una ferita in un'arteria di un umano, ed a far levitare il sangue in aria, fino alla sua bocca. L'umano non si accorger&agrave; di nulla,
                                 come se fosse soggetto al Bacio del vampiro, la sua ferita si richiuder&agrave; una volta finito l'effetto del potere, ma il potere in s&eacute; &egrave; abbastanza evidente, ed &egrave; considerato un grande rischio di infrazione della <b>Masquerade</b>.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il Cainita dovr&agrave; richiamare l'attenzione di un mortale, ed effettuare un tiro di Prontezza + Stregoneria del Sangue contro Prontezza + Occulto della vittima. Se il tiro ha successo, il Cainita non potr&agrave; fare
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Cainita dovr&agrave; richiamare l'attenzione di un mortale, ed effettuare un tiro di Prontezza + Stregoneria del Sangue contro Prontezza + Occulto della vittima. Se il tiro ha successo, il Cainita non potr&agrave; fare
                                 nulla durante l'operazione, ma si nutrir&agrave; al doppio della velocit&agrave; normale con un successo, al triplo con un successo critico.
                             </li>
                         </ul>
@@ -273,13 +273,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                             <li style={liStyle}>
                                 <b>Potenza nel Sangue</b> (&#9679;&#9679;&#9679;): il vampiro, concentrandosi sul proprio sangue, riesce ad aumentarne la Potenza.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Fermezza + Stregoneria del Sangue a Difficolt&agrave; 2 pi&ugrave; al sua attale Potenza di Sangue. Con un successo, il vampiro aumenta la propria Potenza del Sangue di 1, mentre un successo critico garantisce
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro tira Fermezza + Stregoneria del Sangue a Difficolt&agrave; 2 pi&ugrave; al sua attale Potenza di Sangue. Con un successo, il vampiro aumenta la propria Potenza del Sangue di 1, mentre un successo critico garantisce
                                 l'aumento di 2 livelli di Potenza del Sangue. Il potere dura una scena, e il Cainita pu&ograve; aumentare la Potenza del Sangue ignorando il limite generazionale, usando questo potere.
                             </li>
 
                             <li style={liStyle}>
                                 <b>Calderone di Sangue</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): attraverso questo terribile potere, il vampiro fa bollire letteralmente il sangue nelle vene della vittima, mortale o Cainita, provocando la morte quasi certa del mortale, e danni Aggravati per i Cainiti.<br />
-                                <b>Sistema</b>: il vampiro dovr&agrave; toccare la vittima, tirando Destrezza + Atletica se in combattimento. Se riesce a toccarla, effettuando 1 Rouse Check, tirer&agrave; in seguito Fermezza + Stregoneria del Sangue contro Autocontrollo + Occulto (o Robustezza se pi&ugrave; alta).
+                                <b>Sistema</b>: il vampiro dovr&agrave; toccare la vittima, tirando Destrezza + Atletica se in combattimento. Se riesce a toccarla, effettuando 1 Prova di Risveglio, tirer&agrave; in seguito Fermezza + Stregoneria del Sangue contro Autocontrollo + Occulto (o Robustezza se pi&ugrave; alta).
                                 Ogni successo supplementare ottenuto dal Cainita attaccante si tradurr&agrave; in un danno Aggravato per la vittima. Se la vittima &egrave; un umano, morir&agrave; immediatamente gridando di dolore, e il Cainita aggiunger&agrave; automaticamente una Macchia all'Umanit&agrave;.
                                 Se invece la vittima &egrave; Cainita, dovr&agrave; aggiungere anche un livello di Fame per ogni danno Aggravato subito.
                             </li>
@@ -290,15 +290,15 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                         <ul>
                             <li style={liStyle}>
                                 <b>Vitae Corrosiva</b> (&#9679;): il vampiro riesce a convertire la sua vitae in una sostanza altamente corrosiva.<br />
-                                <b>Sistema</b>: la Vitae del vampiro diventa corrosiva. La Vitae deve scorrere da una ferita (molto spesso auto-inflitta), e la quantit&agrave; di Vitae equivalente a 1 Rouse Check pu&ograve; sciogliere approssimativamente 35 cm di materiale,
+                                <b>Sistema</b>: la Vitae del vampiro diventa corrosiva. La Vitae deve scorrere da una ferita (molto spesso auto-inflitta), e la quantit&agrave; di Vitae equivalente a 1 Prova di Risveglio pu&ograve; sciogliere approssimativamente 35 cm di materiale,
                                 a meno che non sia una lega super resistente (particolari acciai, titanio), nel qual caso riuscir&agrave; solo a scalfire la superficie.
                             </li>
 
                             <li style={liStyle}>
                                 <b>Tocco dello Scorpione</b> (&#9679;&#9679;&#9679;): la vitae del vampiro diventa un icore velenoso che incapacita mortali e Cainiti, e pu&ograve; essere sputato, o impresso su lame ed agire per contatto.
                                 A parte alcune tecniche praticate da alcune Societ&agrave; Segrete umane, e Robustezza, c'&egrave; poco da fare contro questo potere.<br />
-                                <b>Sistema</b>: ogni oncia di Vitae trasformata in icore velenoso richiede 1 Rouse Check, dopo essersi concentrato per un turno. Ogni Rouse Check di Vitae richieder&agrave; un turno per essere trasformata. 
-                                La Vitae trasformata dovr&agrave; uscire da una ferita del Cainita. Ogni Rouse Check di Vitae potr&agrave; essere disposto su una lama, o conservato per poter essere sputato. Sputare la quantit&agrave; di sangue
+                                <b>Sistema</b>: ogni oncia di Vitae trasformata in icore velenoso richiede 1 Prova di Risveglio, dopo essersi concentrato per un turno. Ogni Prova di Risveglio di Vitae richieder&agrave; un turno per essere trasformata. 
+                                La Vitae trasformata dovr&agrave; uscire da una ferita del Cainita. Ogni Prova di Risveglio di Vitae potr&agrave; essere disposto su una lama, o conservato per poter essere sputato. Sputare la quantit&agrave; di sangue
                                 richieder&agrave; un tiro di attacco di Destrezza + Atletica, che dovr&agrave; essere schivato come un qualsiasi attacco con arma a distanza. Se usato con una lama, invece, si seguiranno le normali regole del
                                 combattimento in mischia. Il sangue potr&agrave; essere anche ingerito da chi sta tentando di diablerizzare l'utilizzatore, ma non potr&agrave; essere usato durante il Morso, non potr&agrave; essere disposto su
                                 frecce o pallottole, o iniettato tramite siringhe, o diluito in acqua.<br />
@@ -332,31 +332,31 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                 <ul>
                     <li style={liStyle}>
                         <b>Confondere la Memoria</b> (&#9679;): pronunciando le parole "<b>Dimentica!</b>", (<i>Olvida!</i> in spagnolo) il vampiro riesce a far dimenticare gli ultimi cinque minuti alla vittima. La vittima non ricorder&agrave; nulla, e al massimo si accorger&agrave; del fatto che mancano cinque minuti dalla sua memoria.<br />
-                        <b>Sistema</b>: non richiede Rouse Check. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, o se &egrave; un Cainita, il dominatore dovr&agrave; tirare Carisma + Dominazione contro Prontezza + Fermezza della vittima.
+                        <b>Sistema</b>: non richiede Prova di Risveglio. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, o se &egrave; un Cainita, il dominatore dovr&agrave; tirare Carisma + Dominazione contro Prontezza + Fermezza della vittima.
                     </li>
 
                     <li style={liStyle}>
                         <b>Costringere</b> (&#9679;): il vampiro impone alla vittima l'esecuzione di un semplice comando, come "<b>Corri!</b>" o "<b>Fermo!</b>". Il comando deve essere chiaro e verr&agrave; eseguito alla lettera.<br />
-                        <b>Sistema</b>: non richiede Rouse Check. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, se &egrave; stato precedentemente Dominato nella scena o se &egrave; un Cainita, 
+                        <b>Sistema</b>: non richiede Prova di Risveglio. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, se &egrave; stato precedentemente Dominato nella scena o se &egrave; un Cainita, 
                         il dominatore dovr&agrave; tirare Carisma + Dominazione contro Prontezza + Fermezza della vittima. Il potere non ha effetto se il comando mette in pericolo la vita della vittima.
                     </li>
 
                     <li style={liStyle}>
                         <b>Mesmerismo</b> (&#9679;&#9679;): il vampiro riesce ad imprimere comandi complessi, fintanto che la vittima continua ad osservare il vampiro negli occhi. Gli ordini non devono contenere ordini condizionali (tipo "<b>Dai i documenti solo se vedi Tizio"</b>), altrimenti falliranno.
                         L'ordine verr&agrave; eseguito immediatamente, e non potr&agrave; contenere condizioni, ovvero una condizione per la quale il comando varr&agrave; in futuro.<br />
-                        <b>Sistema</b>: il potere costa 1 Rouse Check. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, se &egrave; stato precedentemente Dominato nella scena o se &egrave; un Cainita, 
+                        <b>Sistema</b>: il potere costa 1 Prova di Risveglio. Non richiede nemmeno un tiro se la vittima &egrave; un mortale impreparato; se invece la vittima sta opponendo attivamente resistenza, se &egrave; stato precedentemente Dominato nella scena o se &egrave; un Cainita, 
                         il dominatore dovr&agrave; tirare Carisma + Dominazione contro Prontezza + Fermezza della vittima. Il potere non ha effetto se il comando mette in pericolo la vita della vittima.
                     </li>
 
                     <li style={liStyle}>
                         <b>Demenza (Malkavian)</b> (&#9679;&#9679; - Amalgama con Oscurazione &#9679;&#9679;): nel corso di una conversazione normale, il vampiro riesce ad ispirare tra le righe delle sue frasi la sua influenza, agitando la vittima e riuscendo a far emergere i suoi demoni interiori, facendogli perdere temporaneamente la ragione.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro deve vincere un confronto sociale contro la vittima, tirando Manipolazione + Dominazione contro Autocontrollo + Intelligenza. Ogni successo sottrae un punto di Forza di Volont&agrave;.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro deve vincere un confronto sociale contro la vittima, tirando Manipolazione + Dominazione contro Autocontrollo + Intelligenza. Ogni successo sottrae un punto di Forza di Volont&agrave;.
                         Quando tutti i punti di Forza di Volont&agrave; della vittima saranno stati sottratti, se la vittima &egrave; un umano, subir&agrave; un esaurimento nervoso, se &egrave; un vampiro sar&agrave; soggetto ad una Compulsione.
                     </li>
 
                     <li style={liStyle}>
                         <b>La Mente Immemore</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; riscrivere interi brani della memoria della sua vittima, descrivendo nei minimi particolari quello che la mente ricorder&agrave;.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro potr&agrave; tirare tiri ripetuti di Manipolazione + Dominazione contro Intelligenza + Fermezza della vittima. Ogni successo supplementare consentir&agrave;
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro potr&agrave; tirare tiri ripetuti di Manipolazione + Dominazione contro Intelligenza + Fermezza della vittima. Ogni successo supplementare consentir&agrave;
                         al vampiro di rimuovere o aggiungere un ricordo. Un successo critico creera un imprinting perfetto, simulando un'intera memoria, o sostituendone una. (<b>Home Rule</b>) Un fallimento totale invece annuller&agrave; 
                         tutti i progressi fatti, e la vittima non potr&agrave; essere pi&ugrave; dominata per il resto della scena.
                     </li>
@@ -375,12 +375,12 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Manipolazione di Massa</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita pu&ograve; ora usare i poteri di dominazione su un'intera folla di mortali, o anche su un gruppo di altri Cainiti.<br />
-                        <b>Sistema</b>: 1 Rouse Check aggiuntivo rispetto al potere che si intende utilizzare sulla folla. Tutti quanti presenti nella folla dovranno osservare negli occhi il vampiro.
+                        <b>Sistema</b>: 1 Prova di Risveglio aggiuntivo rispetto al potere che si intende utilizzare sulla folla. Tutti quanti presenti nella folla dovranno osservare negli occhi il vampiro.
                     </li>
 
                     <li style={liStyle}>
                         <b>Decreto Finale</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): i comandi dati con Dominazione adesso vengono eseguiti anche se la vittima percepisce chiaramente che questi gli faranno attivamente danno, o la porteranno alla morte (o alla Morte Ultima, nel caso dei vampiri).<br />
-                        <b>Sistema</b>: nessun Rouse Check supplementare, ma a discrezione del Narratore le conseguenze sull'Umanit&agrave; del personaggio possono essere gravi. Il tiro dovr&agrave; essere resistito per forza, non potr&agrave; avere
+                        <b>Sistema</b>: nessun Prova di Risveglio supplementare, ma a discrezione del Narratore le conseguenze sull'Umanit&agrave; del personaggio possono essere gravi. Il tiro dovr&agrave; essere resistito per forza, non potr&agrave; avere
                         automaticamente successo nemmeno sui mortali.
                     </li>
                 </ul>
@@ -417,14 +417,14 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Proiettare l'Ombra</b> (&#9679;&#9679;): i poteri di Oblivion spesso falliscono per via della mancanza di ombre. Questo potere consente all'utilizzatore di far sgorgare l'ombra interna del vampiro. Questa ombra seguir&agrave; le movenze del vampiro, proiettandone la figura,
                                 anche se a volte potr&agrave; assumere contorni inquietanti, riflettendo la propensione e l'umore del vampiro che le ha evocate.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il Cainita riesce a proiettare un'Ombra soprannaturale dalla quale possono essere evocate altre Ombre dell'Oblivion. L'Ombra potrebbe vivere di vita propria a discrezione del Narratore.
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Cainita riesce a proiettare un'Ombra soprannaturale dalla quale possono essere evocate altre Ombre dell'Oblivion. L'Ombra potrebbe vivere di vita propria a discrezione del Narratore.
                                 Nei confronti sociali, l'Ombra garantisce 1 danno alla Forza di Volont&agrave; in pi&ugrave;.
                             </li>
 
                             <li style={liStyle}>
                                 <b>Braccia di Ahriman</b> (&#9679;&#9679; - Amalgama: Potenza &#9679;&#9679;): il vampiro riesce ad evocare lingue d'ombra che si dipanano da zone di oscurit&agrave; ambientale, scorrendo sulle superfici e percorrendo la vittima, tentando di stritolarla.
                                 Il vampiro non potr&agrave; fare nulla finch&eacute; controlla le propaggini di Abisso.<br />
-                                <b>Sistema</b>: evocare le Braccia di Ahriman necessita di 1 Rouse Check. Il braccio, come tutte le Ombre evocate con Oblivion, necessiter&agrave; di una zona d'ombra, o del 
+                                <b>Sistema</b>: evocare le Braccia di Ahriman necessita di 1 Prova di Risveglio. Il braccio, come tutte le Ombre evocate con Oblivion, necessiter&agrave; di una zona d'ombra, o del 
                                 potere <b>Proiettare l'Ombra</b>. Durante l'evocazione, e per tutta la durata del potere, il vampiro non potr&agrave; fare altro che controllare le braccia. Il braccio avr&agrave; 
                                 una lunghezza di due volte il punteggio di Oblivion in metri, e un ammontare di dadi per attaccare (percuotendo o stritolando) e difendersi pari a Prontezza + Oblivion del Lasombra, 
                                 ma potr&agrave; muoversi solamente lungo le superfici, non nell'aria. Il braccio potr&agrave; dividersi in pi&ugrave; tentacoli e dedicarsi a pi&ugrave; avversari, seguendo le regole 
@@ -442,13 +442,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Prospettiva d'Ombra</b> (&#9679;&#9679;&#9679;): il vampiro riesce a proiettare i suoi sensi in una zona d'ombra in linea di vista, sentendo e vedendo come se fosse 
                                 nascosto proprio in quella zona d'ombra.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, i sensi del vampiro sono proiettati sulla zona d'ombra, e sar&agrave; capace di percepire tutto come se fosse presente.
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, i sensi del vampiro sono proiettati sulla zona d'ombra, e sar&agrave; capace di percepire tutto come se fosse presente.
                                 L'unico modo per poter percepire la presenza del vampiro nella zona d'ombra sar&agrave; tramite mezzi soprannaturali, come <b>Percepire l'Invisibile</b>.
                             </li>
                             <li style={liStyle}>
                                 <b>Tocco dell'Oblivion</b> (&#9679;&#9679;&#9679;): il vampiro, riuscendo a toccare e fare presa sulla vittima, trasferisce parte dell'Oblivion al suo interno nella vittima, 
                                 di fatto "invecchiando" la parte che tocca, infliggendo danni Aggravati alla parte coinvolta.<br />
-                                <b>Sistema</b>: il vampiro effettuer&agrave; 1 Rouse Check, quindi dovr&agrave; toccare la vittima, con un tiro di Forza + Rissa se la vittima si ribella. Una volta avuto il contatto, 
+                                <b>Sistema</b>: il vampiro effettuer&agrave; 1 Prova di Risveglio, quindi dovr&agrave; toccare la vittima, con un tiro di Forza + Rissa se la vittima si ribella. Una volta avuto il contatto, 
                                 il potere si attiva automaticamente, "trasmettendo" la corruzione dell'ombra nella materia viva dell'avversario, infliggendo automaticamente 2 danni Aggravati, ed infliggendo 
                                 una ferita o una frattura immediata: se il tocco avviene a braccia o gambe, potrebbe essere una frattura che lasci la vittima zoppicante o senza l'uso del braccio, se avviene
                                 sugli occhi la vittima sar&agrave; accecata, e cos&igrave; via. Una vittima potrebbe essere resa temporaneamente sorda, cieca o muta. Guarire questo tipo di ferite per un mortale
@@ -458,7 +458,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                                 <b>Sudario dello Stige</b> (&#9679;&#9679;&#9679;&#9679;): ombre vengono vomitate da una zona d'ombra vicino al comando del Cainita, che ingloba una porzione di spazio attorno 
                                 alla zona d'ombra che avvolge qualsiasi cosa attorno, scorrendo attraverso le superfici e chi ha la sfortuna di trovarsi vicino. Tutti quelli travolti dall'Ombra, tranne l'invocatore, 
                                 soffrono di soffocamento e non riusciranno a vedere nulla, se non con mezzi soprannaturali.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il Lasombra si concentra per un turno, e l'Ombra evocata da ogni zona oscura dell'ambiente prorompe nella realt&agrave; per un raggio di
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Lasombra si concentra per un turno, e l'Ombra evocata da ogni zona oscura dell'ambiente prorompe nella realt&agrave; per un raggio di
                                 due volte il punteggio di Oblivion in metri, coprendo tutto con un'oscurit&agrave; come in una notte senza luna n&eacute; stelle. Chiunque si trovi all'interno della zona d'ombra, 
                                 a meno che non abbia una Disciplina che gli consenta di vedere anche nella Tenebra soprannaturale (come <b>Occhio della Bestia</b> o <b>Sensi Sviluppati</b>), subisce una penalit&agrave;
                                 di 3 dadi a tutti gli ammontare, e i mortali subiscono 1 danno Superficiale per soffocamento.
@@ -467,7 +467,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                                 <b>Passo d'Ombra</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita entra in una zona d'ombra, e riesce ad emergere in un'altra zona d'ombra poco distante. Questo potere all'apparenza 
                                 innocuo, nasconde una terribile verit&agrave;, palesata dalle vittime di chi, dal vampiro, viene costretto all'interno di una di queste zone d'ombra, anche solo per un breve periodo: 
                                 che navighino il Labirinto solo superficialmente o se vi finiscano dentro, ci&ograve; che emerge non &egrave; pi&ugrave; lo stesso, e rischia di subire "Macchie" all'umanit&agrave;.<br />
-                                <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro pu&ograve; entrare in una zona d'ombra sufficientemente grande per contenerlo, ed uscire in un'altra. Il vampiro pu&ograve; 
+                                <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro pu&ograve; entrare in una zona d'ombra sufficientemente grande per contenerlo, ed uscire in un'altra. Il vampiro pu&ograve; 
                                 portare con s&eacute; un'altra persona: se questa non vorr&agrave; seguire il vampiro, questi dovr&agrave; costringerla con un tiro di Forza + Rissa.<br />
                                 L'attraversamento avviene in una zona non bene identificata, almeno al di fuori dei mistici Lasombra, chiamata Labirinto: il rischio, quando si usa questo potere, &egrave; quello di 
                                 venire corrotti dal contatto con questo luogo: a discrezione del Narratore, il personaggio (o i personaggi, se il vampiro ne costringe un altro a seguirlo) subir&agrave; delle
@@ -476,7 +476,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                             <li style={liStyle}>
                                 <b>Avatar di Tenebra</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): tramite questo potere, il vampiro riesce a tramutarsi in tenebra viva, dalle stesse caratteristiche del Sudario dello Stige. 
                                 Pu&ograve; soffocare vittime, oppure scorrere sulle pareti a velocit&agrave; d'uomo e passare attraverso le pi&ugrave; microscopiche fessure.<br />
-                                <b>Sistema</b>: effettuando 2 Rouse Checks, il vampiro impiega 1 turno per convertirsi in una sostanza d'ombra simile a quella prodotta dal <b>Sudario dello Stige</b>, e sortisce
+                                <b>Sistema</b>: effettuando 2 Prove di Risveglio, il vampiro impiega 1 turno per convertirsi in una sostanza d'ombra simile a quella prodotta dal <b>Sudario dello Stige</b>, e sortisce
                                 gli stessi effetti. Il vampiro potr&agrave; passare per qualsiasi superficie, tranne quelle chiuse ermeticamente, e potr&agrave; anche nutrirsi dei mortali all'interno della sua
                                 essenza anche senza affondare le zanne. A discrezione del Narratore, potr&agrave; usare Discipline di tipo mentale.
                             </li>
@@ -535,7 +535,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Passaggio Invisibile</b> (&#9679;&#9679;): il vampiro ora pu&ograve; muoversi, e se non emette suoni dirompenti, pu&ograve; rimanere invisibile.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro pu&ograve; muoversi sotto l'effetto di Oscurazione. Varranno sempre i limiti imposti dall'Oscurazione descritti precedentemente. Dura una scena, o finch&egrave; scoperto.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro pu&ograve; muoversi sotto l'effetto di Oscurazione. Varranno sempre i limiti imposti dall'Oscurazione descritti precedentemente. Dura una scena, o finch&egrave; scoperto.
                     </li>
 
                     <li style={liStyle}>
@@ -546,13 +546,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Maschera delle Mille Facce</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; assumere l'aspetto di un'altra persona qualunque, invece di sparire. L'identit&agrave; della persona sar&agrave; inerente al contesto, e il vampiro non potr&agrave; copiare l'aspetto di una persona nello specifico.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro assume delle sembianze di una persona qualunque, assolutamente ininfluente, del suo stesso sesso e pi&ugrave; o meno delle sue stesse fattezze. Anche i vestiti 
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro assume delle sembianze di una persona qualunque, assolutamente ininfluente, del suo stesso sesso e pi&ugrave; o meno delle sue stesse fattezze. Anche i vestiti 
                         appaiono come perfettamente normali, privi di risalto. Come al solito, il potere di <b>Percepire l'Invisibile</b> potr&agrave; vedere attraverso l'illusione.
                     </li>
 
                     <li style={liStyle}>
                         <b>Nascondere</b> (&#9679;&#9679;&#9679;&#9679; - Amalgama Auspex &#9679;&#9679;&#9679;): il vampiro riesce ad imprimere la suggestione ipnotica che ispira con Oscurazione sulla sua persona ad un oggetto inanimato, che adesso rimarr&agrave; invisibile agli sguardi altrui.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tocca l'oggetto che vuole nascondere e tira Intelligenza + Oscurazione con Difficolt&agrave; variabile (2 per piccoli oggetti, 6 per una casa in mezzo ad uno spazio aperto).
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro tocca l'oggetto che vuole nascondere e tira Intelligenza + Oscurazione con Difficolt&agrave; variabile (2 per piccoli oggetti, 6 per una casa in mezzo ad uno spazio aperto).
                         Il potere durer&agrave; per una notte, pi&ugrave; la differenza tra i successi e la Difficolt&agrave; al tiro di attivazione. Il potere ha effetto per qualsasi oggetto che non si muove di moto proprio (auto in movimento), e 
                         avr&agrave; effetto anche per qualsiasi cosa stia dentro l'oggetto (persone in un'auto). Chi possiede <b>Percepire l'Invisibile</b> potr&agrave; vedere oltre l'illusione effettuando un tiro di 
                         Prontezza + Auspex contro Intelligenza + Oscurazione del vampiro.
@@ -568,14 +568,14 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Ammantare le Masse</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro ora riesce a coprire anche altri compagni dietro la coltre di Oscurazione, attivando anche per loro i poteri di Cappa d'Ombra o di Passaggio Invisibile.<br />
-                        <b>Sistema</b>: il vampiro dovr&agrave; effettuare 1 Rouse Check supplementare rispetto al potere che verr&agrave; aumentato. Il vampiro potr&agrave; estendere il potere ad un numero di persone pari al suo punteggio di Prontezza; ogni persona
-                        oltre quel numero, coster&agrave; 1 Rouse Check. Ogni persona sar&agrave; sotto l'effetto del potere come se possedesse il livello di Oscurazione del cainita, ma tutti quelli interessati dal potere potranno vedersi tra di loro.
+                        <b>Sistema</b>: il vampiro dovr&agrave; effettuare 1 Prova di Risveglio supplementare rispetto al potere che verr&agrave; aumentato. Il vampiro potr&agrave; estendere il potere ad un numero di persone pari al suo punteggio di Prontezza; ogni persona
+                        oltre quel numero, coster&agrave; 1 Prova di Risveglio. Ogni persona sar&agrave; sotto l'effetto del potere come se possedesse il livello di Oscurazione del cainita, ma tutti quelli interessati dal potere potranno vedersi tra di loro.
                         Se uno dei personaggi interessati viene scoperto, gli altri continueranno a rimaere sotto l'effetto di Oscurazione. Se il vampiro che ha attivato il potere viene scoperto, invece, l'illusione svanisce per tutti.
                     </li>
 
                     <li style={liStyle}>
                         <b>Guisa dell'Impostore</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita dopo aver studiato una persona, riesce a replicarne in tutto e per tutto l'aspetto e i comportamenti, apparendo praticamente come lei.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il Narratore tirer&agrave; senza che il giocatore sappia il risultato un tiro di Prontezza + Oscurazione a Difficolt&agrave; 4. Un fallimento a questo tiro significher&agrave; che il Cainita 
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Narratore tirer&agrave; senza che il giocatore sappia il risultato un tiro di Prontezza + Oscurazione a Difficolt&agrave; 4. Un fallimento a questo tiro significher&agrave; che il Cainita 
                         non ha creato un'illusione tale da convincere chi conosce l'impersonato. Se, inoltre, il Cainita vorr&agrave; imitare il modo di muoversi e di parlare della persona, dovr&agrave; tirare Manipolazione + Espressivit&agrave;;
                         un successo critico in questo tiro render&agrave; non necessari altri tiri per il resto della scena. Anche questo potere potr&agrave; essere identificato tramite <b>Percepire l'Invisibile</b>
                     </li>
@@ -604,7 +604,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Prodezza</b> (&#9679;&#9679;): il vampiro, spendendo sangue, riesce ad aggiungere il proprio punteggio di Potenza alla Forza in combattimento senza armi, o in generale in test sulla forza.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro potr&agrave; aggiungere il suo punteggio di Potenza ad ogni danno a mani nude, e ad ogni impresa che si basi sulla Forza.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro potr&agrave; aggiungere il suo punteggio di Potenza ad ogni danno a mani nude, e ad ogni impresa che si basi sulla Forza.
                     </li>
 
                     <li style={liStyle}>
@@ -617,34 +617,34 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Scintilla di Rabbia</b> (&#9679;&#9679;&#9679; - Amalgama: Ascendente &#9679;&#9679;&#9679;): il vampiro riesce ad ispirare rabbia ferale o addirittura frenesia negli astanti.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro pu&ograve; aggiungere il suo punteggio di Potenza a qualsiasi tentativo di incitare una persona, o una folla, ad atti di rabbia. 
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro pu&ograve; aggiungere il suo punteggio di Potenza a qualsiasi tentativo di incitare una persona, o una folla, ad atti di rabbia. 
                         Il vampiro potr&agrave; anche ispirare rabbia ad un altro vampiro attivando il potere e tirando Manipolazione + Potenza contro Autocontrollo + Intelligenza della vittima. Se il tiro riesce,
                         la vittima dovr&agrave; testare il personaggio per <Link to={GuideRoutes.homeRules} id="frenzy-types">Frenesia di Furia</Link> a Difficolt&agrave; 3.
                     </li>
 
                     <li style={liStyle}>
                         <b>Presa Sconcertante</b> (&#9679;&#9679;&#9679;): il vampiro riesce ad arrampicarsi senza difficolt&agrave;, usando le proprie dita per penetrare la dura pietra di una parete.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro non dovr&agrave; effettuare nessun test per arrampicarsi su superfici non metalliche. Alcuni vetri potranno non sopportare lo stress, comunque.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro non dovr&agrave; effettuare nessun test per arrampicarsi su superfici non metalliche. Alcuni vetri potranno non sopportare lo stress, comunque.
                         L'arrampicata &egrave; effettuata rompendo le superfici, quindi chiunque osservi la superficie interessata, potr&agrave; identificare l'utilizzo di questa Disciplina con un tiro di 
                         Intelligenza + Investigazione a Difficolt&agrave; 2; gli effetti sui vetri di questa Disciplina non dovranno nemmeno essere testati.
                     </li>
 
                     <li style={liStyle}>
                         <b>Pozione di Potenza</b> (&#9679;&#9679;&#9679;&#9679;): chiunque beva il Sangue del Cainita acqusisce un numero di pallini di potenza pari alla met&agrave; per difetto di quelli che possiede il Cainita.<br />
-                        <b>Sistema</b>: chi beve l'equivalente di un Rouse Check di Vitae del Cainita, acquisisce un livello di Potenza pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
+                        <b>Sistema</b>: chi beve l'equivalente di un Prova di Risveglio di Vitae del Cainita, acquisisce un livello di Potenza pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
                         o fino a quando il cainita non raggiunge un livello di Fame pari a 5.
                     </li>
 
                     <li style={liStyle}>
                         <b>Terremoto</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro, dando un pugno o un calcio al pavimento, riesce a provocare increspature nel terreno che fanno immediatamente cadere gli avversari, ma potrebbero anche far cadere case addosso all'utilizzatore.<br />
-                        <b>Sistema</b>: effettuando 2 Rouse Checks, il vampiro attiva il potere senza nessun altro test. Se usato sul pavimento, si formeranno delle crepe, se usato su altre superfici verticali, mobilia e specchi si romperanno
+                        <b>Sistema</b>: effettuando 2 Prove di Risveglio, il vampiro attiva il potere senza nessun altro test. Se usato sul pavimento, si formeranno delle crepe, se usato su altre superfici verticali, mobilia e specchi si romperanno
                         e si rischier&agrave; anche di rompere la parete. Chiunque sia interessato dal raggio d'azione dovr&agrave; tirare Destrezza + Atletica Difficolt&agrave; 3. Un successo indica che perderanno l'azione, un successo
                         critico consentir&agrave; di mantenere l'equilibrio senza perdere il turno, mentre un fallimento comporter&agrave; la caduta, e il successivo turno dovr&agrave; essere speso per alzarsi.
                     </li>
 
                     <li style={liStyle}>
                         <b>Pugno di Caino</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita riesce ad infliggere danni Aggravati con le sue nude mani, sia a Cainiti che mortali.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro per il resto della scena pu&ograve; infliggere danni aggravati con le sue nude mani, a vampiri e mortali.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro per il resto della scena pu&ograve; infliggere danni aggravati con le sue nude mani, a vampiri e mortali.
                     </li>
                 </ul>
             </Typography>
@@ -673,20 +673,20 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Armi Ferali</b> (&#9679;&#9679;): le armi naturali del vampiro si allungano mostruosamente, diventando artigli o denti da serpente. Gli artigli e i denti causano danni aggravati ai mortali, e i danni superficiali causati ai vampiri non potranno essere dimezzati come normalmente avviene.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro riesce ad attivare il potere. Con le propaggini acquisite grazie a questo potere, il vampiro ottiene un bonus di +2 a tutti gli ammontare sui tiri di Rissa, potr&agrave; fare danni Aggravati
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro riesce ad attivare il potere. Con le propaggini acquisite grazie a questo potere, il vampiro ottiene un bonus di +2 a tutti gli ammontare sui tiri di Rissa, potr&agrave; fare danni Aggravati
                         agli umani, e i danni Superficiali inflitti agli altri Cainiti tramite questo potere non potranno essere dimezzati, come normalmente succede.
                     </li>
 
                     <li style={liStyle}>
                         <b>Fondersi con la Terra</b> (&#9679;&#9679;&#9679;): il vampiro riesce a fondersi con la terra sottostante, posto che la terra sia naturale. A meno che non sia in torpore, il vampiro riuscir&agrave; a risvegliarsi la notte successiva se non in torpore.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro riesce a fondersi con terreni naturali, come roccia, terra o manto erboso. Il potere non funziona su superfici artificiali come cemento. Il vampiro non potr&agrave; fondere oggetti personali
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro riesce a fondersi con terreni naturali, come roccia, terra o manto erboso. Il potere non funziona su superfici artificiali come cemento. Il vampiro non potr&agrave; fondere oggetti personali
                         n&eacute; vestiti, che rimarranno sulla superficie del terreno dove si &egrave; fuso. Il potere richiede un turno per completarsi, e durante la notte sar&agrave; consapevole di quello che succede nei dintorni, mentre di giorno &egrave; soggetto
                         alle stesse regole degli altri vampiri in caso di disturbi (scavi, o altro).
                     </li>
 
                     <li style={liStyle}>
                         <b>Cambio di Forma</b> (&#9679;&#9679;&#9679;): il vampiro riesce a trasformarsi in un animale pi&ugrave; o meno del suo stesso peso, con nessuna parvenza soprannaturale.<br />
-                        <b>Sistema</b>: per attivare il potere &egrave; necessario solo 1 Rouse Check, il vampiro impiegher&agrave; un turno a trasformarsi, durante il quale dovr&agrave; considerarsi inerme. Il Cainita non potr&agrave; trasformare oggetti o vestiti, e
+                        <b>Sistema</b>: per attivare il potere &egrave; necessario solo 1 Prova di Risveglio, il vampiro impiegher&agrave; un turno a trasformarsi, durante il quale dovr&agrave; considerarsi inerme. Il Cainita non potr&agrave; trasformare oggetti o vestiti, e
                         la capacit&agrave; di trasporto &egrave; limitata a quella dell'animale. Il Cainita potr&agrave; usare le Discipline di Auspex, Animalit&agrave;, Velocit&agrave;, Robustezza, Potenza e Proteide.
                     </li>
 
@@ -697,7 +697,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Forma di Nebbia</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro si trasforma in nebbia, e pu&ograve; soffrire danni solo da fuoco, Sole o altri rituali magici soprannaturali. Solo forti folate di vento potranno far sobbalzare la coltre di nebbia.<br />
-                        <b>Sistema</b>: per trasformarsi, il vampiro pu&ograve; decidere di effettuare 1 Rouse Check e metterci tre turni, oppure effettuare 1 Rouse Check supplementare per ogni turno che desiderano velocizzare, per un minimo di uno (quindi, al massimo, 3 Rouse Checks).
+                        <b>Sistema</b>: per trasformarsi, il vampiro pu&ograve; decidere di effettuare 1 Prova di Risveglio e metterci tre turni, oppure effettuare 1 Prova di Risveglio supplementare per ogni turno che desiderano velocizzare, per un minimo di uno (quindi, al massimo, 3 Prove di Risveglio).
                         In questo stato, il cainita pu&ograve; muoversi come nube a passo d'uomo, le Discipline che potr&agrave; usare saranno a discrezione del Narratore, e potr&agrave; subire danni solo da Fuoco, Sole o da mezzi soprannaturali, come Stregoneria del Sangue.<br />
                         La ritrasformazione in forma normale impiegher&agrave; gli stessi tre turni.
                     </li>
@@ -705,7 +705,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Cuore senza Restrizioni</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro controlla la sua forma anche interiormente, riuscendo a spostare il cuore dalla sua posizione originale, rendendolo incredibilmente difficile da bloccare con paletti.<br />
                         <b>Sistema</b>: il potere &egrave; gratuito, e aumenta la Difficolt&agrave; per azioni non in combattimento per porre un paletto nel cuore del Cainita di 3. Durante un combattimento, sar&agrave; possibile impalettare il Cainita con un successo critico,
-                        e comunque anche con un paletto nel cuore, il Cainita potr&agrave; effettuare 1 Rouse Check e tirare Forza + Fermezza a Difficolt&agrave; 5 per liberarsi (nel qual caso, il paletto sar&agrave; espulso dal loro petto): questo tentativo non sar&agrave; possibile
+                        e comunque anche con un paletto nel cuore, il Cainita potr&agrave; effettuare 1 Prova di Risveglio e tirare Forza + Fermezza a Difficolt&agrave; 5 per liberarsi (nel qual caso, il paletto sar&agrave; espulso dal loro petto): questo tentativo non sar&agrave; possibile
                         se il vmapiro ha un livello di Fame 5.
                     </li>
                 </ul>
@@ -734,13 +734,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Durezza</b> (&#9679;&#9679;): il vampiro riesce ad usare il suo punteggio di Robustezza per sottrarre i danni superficiali inflitti dai nemici.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, per il resto della scena il vampiro sottrae il proprio punteggio di Robustezza a tutti i danni <b>superficiali</b>, prima del dimezzamento.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, per il resto della scena il vampiro sottrae il proprio punteggio di Robustezza a tutti i danni <b>superficiali</b>, prima del dimezzamento.
                         I danni effettivamente subiti non potranno scendere comunque al di sotto di 1.
                     </li>
 
                     <li style={liStyle}>
                         <b>Bestie Resilienti</b> (&#9679;&#9679; - Amalgama con Animalismo &#9679;): il vampiro condivide la sua resilienza innaturale con gli animali che controlla, garantendogli alcuni dei benefici di Robustezza.<br />
-                        <b>Sistema</b>: il potere &egrave; gratuito per <b>Famulus</b>, mentre si dovr&agrave; spendere 1 Rouse Check e tirare Costituzione + Robustezza a Difficolt&agrave; 3 per altri animali; ogni successo 
+                        <b>Sistema</b>: il potere &egrave; gratuito per <b>Famulus</b>, mentre si dovr&agrave; spendere 1 Prova di Risveglio e tirare Costituzione + Robustezza a Difficolt&agrave; 3 per altri animali; ogni successo 
                         corrisponder&agrave; ad un animale imbevuto con questo potere. Gli animali dovranno essere inoltre sotto l'effetto di Animalit&agrave; del vampiro. A questo punto, gli animali acquisiranno un numero di punti
                         Salute pari al livello di Robustezza del vampiro. Quando il potere finisce, si dovranno togliere punti pari alla Robustezza del personaggio, cominciando da quelli non marcati come danni subiti: questo potrebbe
                         risultare nella morte dell'animale.
@@ -748,9 +748,9 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Sfidare la Maledizione</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; convertire danni aggravati in una scena in danni superficiali, fino ad un massimo del suo punteggio di Robustezza, e non potr&agrave; guarire questi danni per il resto della scena.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro potr&agrave; convertire un numero di danni Aggravati pari al suo punteggio di Robustezza in danni Superficiali. Il numero totale di danni convertiti vale 
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro potr&agrave; convertire un numero di danni Aggravati pari al suo punteggio di Robustezza in danni Superficiali. Il numero totale di danni convertiti vale 
                         per l'intera scena, non per un singolo attacco. Per attivare il potere istintivamente, quando subisce l'attacco il vampiro tirer&agrave; Prontezza + Sopravvivenza Difficolt&agrave; 3: se il tiro fallisce, il potere
-                        non si attiver&agrave;, altrimenti il vampiro dovr&agrave; effettuare 1 Rouse Check il turno successivo. Esempio: se il vampiro possiede Robustezza 3, e subisce 2 danni Aggravati in un turno, pu&ograve; decidere 
+                        non si attiver&agrave;, altrimenti il vampiro dovr&agrave; effettuare 1 Prova di Risveglio il turno successivo. Esempio: se il vampiro possiede Robustezza 3, e subisce 2 danni Aggravati in un turno, pu&ograve; decidere 
                         di convertire questi in danni Superficiali, lasciando il terzo danno a disposizione per il prossimo turno, ma non potr&agrave; convertirne pi&ugrave; di 3 per scena. I danni Superficiali cos&igrave; convertiti
                         non potranno essere curati fino alla fine della scena.
                     </li>
@@ -764,19 +764,19 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Pozione di Robustezza</b> (&#9679;&#9679;&#9679;&#9679;): la vittima condensa il potere di Robustezza nel suo sangue, infondendolo a chiunque lo beva.<br />
-                        <b>Sistema</b>: chi beve l'equivalente di un Rouse Check di Vitae del Cainita, acquisisce un livello di Robustezza pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
+                        <b>Sistema</b>: chi beve l'equivalente di un Prova di Risveglio di Vitae del Cainita, acquisisce un livello di Robustezza pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
                         o fino a quando il cainita non raggiunge un livello di Fame pari a 5.
                     </li>
 
                     <li style={liStyle}>
                         <b>Carne di Marmo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): la pelle del Cainita diventa di marmo, riuscendo a deviare uno degli attacchi che, per turno, gli vengono inferti.<br />
-                        <b>Sistema</b>: effettuando 2 Rouse Checks, per tutto il resto della scena il vampiro pu&ograve; ignorare il primo danno per turno, includendo danni da combattimento, da fuoco, ma non da raggi solari.
+                        <b>Sistema</b>: effettuando 2 Prove di Risveglio, per tutto il resto della scena il vampiro pu&ograve; ignorare il primo danno per turno, includendo danni da combattimento, da fuoco, ma non da raggi solari.
                         Per "primo" si intende il danno pi&ugrave; grave subito in un turno. Se un tiro di attacco totalizza un successo critico, questo attacco andr&agrave; a segno indipendentemente dall'attivazione del potere.
                     </li>
                     
                     <li style={liStyle}>
                         <b>Prodezza dal Dolore</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita non soffre pi&ugrave; gli impedimenti dati dalla perdita di punti salute, fino al torpore. Riesce ad agire normalmente anche se incapacitato.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro ignora tutti gli effetti negativi dati dalla perdita di punti Salute. Aumenta inoltre di un punto un attributo Fisico per ogni punto di danno, sia esso Superficiale
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro ignora tutti gli effetti negativi dati dalla perdita di punti Salute. Aumenta inoltre di un punto un attributo Fisico per ogni punto di danno, sia esso Superficiale
                         o Aggravato, fino ad un punteggio massimo di 7.
                     </li>
                 </ul>
@@ -870,23 +870,23 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                 <ul>
                     <li style={liStyle}>
                         <b>Grazie Felina</b> (&#9679;): il vampiro assume la grazia e la destrezza di un ginnasta olimpico.<br />
-                        <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Rouse Check, il vampiro riesce a camminare e tenersi in equilibrio su qualsiasi supporto, a patto che siano in grado di sostenere il suo peso.
+                        <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Prova di Risveglio, il vampiro riesce a camminare e tenersi in equilibrio su qualsiasi supporto, a patto che siano in grado di sostenere il suo peso.
                     </li>
 
                     <li style={liStyle}>
                         <b>Riflessi Rapidi</b> (&#9679;): questo potere (passivo) del vampiro gli consente di percepire ad una velocit&agrave; incredibile pericoli altrimenti letali. Pu&ograve; arrivare anche ad evitare frecce, o a scansare pallottole senza copertura.<br />
-                        <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Rouse Check, il vampiro non subisce nessuna penalit&agrave; per la mancanza di copertura sotto attacco di armi da fuoco, e ha anche a disposizione una 
+                        <b>Sistema</b>: non &egrave; necessario nessun tiro, n&eacute; Prova di Risveglio, il vampiro non subisce nessuna penalit&agrave; per la mancanza di copertura sotto attacco di armi da fuoco, e ha anche a disposizione una 
                         azione supplementare del valore massimo di 2 dadi per ricaricare l'arma, per esempio.
                     </li>
 
                     <li style={liStyle}>
                         <b>Leggerezza</b> (&#9679;&#9679;): il vampiro a questo livello si muove con una velocit&agrave; incredibile. Aggiunge il valore di Velocit&agrave; all'ammontare di Destrezza, anche per difesa nei combattimenti.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check per scena, il vampiro pu&ograve; aggiungere il suo punteggio di Velocit&agrave; ad ogni tiro di Destrezza fuori dal combattimento, al massimo per schivare con Destrezza + Atletica.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio per scena, il vampiro pu&ograve; aggiungere il suo punteggio di Velocit&agrave; ad ogni tiro di Destrezza fuori dal combattimento, al massimo per schivare con Destrezza + Atletica.
                     </li>
 
                     <li style={liStyle}>
                         <b>Battito di Ciglia</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; ingaggiare subito battaglia dopo aver percorso fino ad una cinquantina di metri (avendo a disposizione ancora un'azione), o fuggire immediatamente dalla scena.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro raggiunge il bersaglio e ha ancora a disposizione un'azione, quindi &egrave; come se fosse gi&agrave; nella mischia all'inizio del turno, per la determinazione 
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro raggiunge il bersaglio e ha ancora a disposizione un'azione, quindi &egrave; come se fosse gi&agrave; nella mischia all'inizio del turno, per la determinazione 
                         dell'<Link to={GuideRoutes.mechanics} id="initiative">Iniziativa</Link>. Dipendendo dal terreno, il Narratore potr&agrave; chiedere un tiro di Destrezza + Atletica. Nel caso in cui l'avversario voglia usare un'arma da fuoco, il vampiro
                         dovr&agrave; tirare Destrezza + Atletica contro Destrezza + Armi da Fuoco dell'attaccante: se il vampiro riesce, potr&agrave; agire prima dell'attaccante, viceversa l'attaccante avr&agrave; a disposizione un'azione per sparare
                         contro il vampiro.
@@ -894,32 +894,32 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Attraversamento</b> (&#9679;&#9679;&#9679;): il vampiro riesce a scalare pareti verticali per una buona distanza, o addirittura riesce a correre sull'acqua, con la dovuta rincorsa.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il vampiro tira Destrezza + Atletica, con una Difficolt&agrave; dipendente dal tipo di superficie. Ogni successo avviciner&agrave; il vampiro al traguardo.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro tira Destrezza + Atletica, con una Difficolt&agrave; dipendente dal tipo di superficie. Ogni successo avviciner&agrave; il vampiro al traguardo.
                     </li>
 
                     <li style={liStyle}>
                         <b>Pozione di Velocit&agrave;</b> (&#9679;&#9679;&#9679;&#9679;): il Sangue del vampiro riesce a trasmettere la met&agrave; dei pallini per difetto a chiunque beva il suo sangue.<br />
-                        <b>Sistema</b>: chi beve l'equivalente di un Rouse Check di Vitae del Cainita, acquisisce un livello di Velocit&agrave; pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
+                        <b>Sistema</b>: chi beve l'equivalente di un Prova di Risveglio di Vitae del Cainita, acquisisce un livello di Velocit&agrave; pari alla met&agrave; di quelli del Cainita, arrotondato per difetto (quindi 2). Dura per una notte,
                         o fino a quando il cainita non raggiunge un livello di Fame pari a 5.
                     </li>
 
                     <li style={liStyle}>
                         <b>Colpo Infallibile</b> (&#9679;&#9679;&#9679;&#9679; Amalgama: Auspex &#9679;&#9679;): il mondo per il Cainita pare fermarsi per qualche istante, in cui riesce a prendere la mira come se fosse un tiro stazionario, anche se
                         attorno a lui pu&ograve; succedere qualsiasi cosa.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il potere &egrave; automatico. Il vampiro potr&agrave; attaccare un altro personaggio con Armi da Fuoco tirando a Difficolt&agrave; 1, e quest'ultimo non potr&agrave; difendersi, a meno
-                        che non possieda Velocit&agrave; 5: in quel caso, potr&agrave; difendersi facendo un Rouse Check.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il potere &egrave; automatico. Il vampiro potr&agrave; attaccare un altro personaggio con Armi da Fuoco tirando a Difficolt&agrave; 1, e quest'ultimo non potr&agrave; difendersi, a meno
+                        che non possieda Velocit&agrave; 5: in quel caso, potr&agrave; difendersi facendo un Prova di Risveglio.
                     </li>
 
                     <li style={liStyle}>
                         <b>Colpo Fulmineo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro riesce a colpire un bersaglio in mischia senza che questi possa difendersi (Diff. 1), a meno che anche il bersaglio possegga Velocit&agrave; 5.<br />
-                        <b>Sistema</b>: il personaggio effettua 1 Rouse Check, e per un solo attacco di rissa o mischia il bersaglio non potr&agrave; difendersi. Il tiro di attacco avr&agrave; difficolt&agrave; 1.
-                        Un personaggio con Velocit&agrave; 5 potr&agrave; effettuare 1 Rouse Check e difendersi normalmente.
+                        <b>Sistema</b>: il personaggio effettua 1 Prova di Risveglio, e per un solo attacco di rissa o mischia il bersaglio non potr&agrave; difendersi. Il tiro di attacco avr&agrave; difficolt&agrave; 1.
+                        Un personaggio con Velocit&agrave; 5 potr&agrave; effettuare 1 Prova di Risveglio e difendersi normalmente.
                     </li>
                     
                     <li style={liStyle}>
                         <b>Frazione di Secondo</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il vampiro &egrave; cos&igrave; veloce che riesce ad agire in base ai suoi riflessi soprannaturali. 
                         Pu&ograve; passare attraverso una porta che si sta chiudendo, o apparire dietro un nemico in procinto di effettuare un'imboscata.<br />
-                        <b>Sistema</b>: effettuando 1 Rouse Check, il personaggio potr&agrave;, sempre ragionevolmente, anticipare qualsiasi cosa il Narratore stia preparando; non sono necessari tiri.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il personaggio potr&agrave;, sempre ragionevolmente, anticipare qualsiasi cosa il Narratore stia preparando; non sono necessari tiri.
                     </li>
                 </ul>
             </Typography>
