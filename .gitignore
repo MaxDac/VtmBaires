@@ -23,7 +23,6 @@ apps/vtm_web/assets/yarn.lock
 **/.elixir_ls
 database.env
 mix.lock
-mix.lock
 
 **/.ionide
 **/.idea
