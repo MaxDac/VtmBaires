@@ -41,6 +41,7 @@ defmodule VtmWeb.MixProject do
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_view, "~> 0.16.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
