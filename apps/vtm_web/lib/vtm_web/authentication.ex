@@ -141,7 +141,7 @@ defmodule VtmWeb.Authentication do
              %{
                relogin_token: binary(),
                relogin_id: binary(),
-               token: nonempty_binary(),
+               token: binary(),
                user: User.t()
              }}
   def login(%{email: email, password: password, remember: remember}, context) do
