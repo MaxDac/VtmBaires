@@ -145,34 +145,92 @@ const GuidesCreation = (): any => {
             <Typography paragraph style={guideStyle}>
                 Per Cainiti e personaggi di Sangue Debole, si dovr&agrave; anche scegliere il Tipo di Predatore. La scelta di
                 Tipo di Predatore garantir&agrave; anche attributi aggiuntivi alla scheda, come 
-                le <Link to={GuideRoutes.attributes} id="specialties"><b>Specialit&agrave;</b></Link> del personaggio.
+                le <Link to={GuideRoutes.attributes} id="specialties"><b>Specialit&agrave;</b></Link> del personaggio e <b>un 
+                    solo</b> pallino di Disciplina a scelta tra quelle indicate. Ovviamente, sar&agrave; privilegiata la 
+                    Disciplina di clan rispetto ad una non di clan. Ad esempio: se un <b>Brujah</b> ha intenzione di prendere
+                    il Tipo di Predatore Sirena, avr&agrave; un punto gratuito in <b>Ascendente</b> e non potr&agrave;
+                    quindi prendere il pallino in <b>Robustezza</b>.<br />
+                Il Tipo di Predatore &egrave; estremamente indicativo del personaggio che vorrete interpretare, e i 
+                Narratori potranno cambiarlo in base al vostro background: &egrave; infatti inverosimile per un Gangrel
+                abituato alla vita solitaria nella natura, poter essere un Tipo di Predatore <b>Osiride</b>.<br />
                 Potrete scegliere tra questi:
 
                 <ul>
                     <li style={liStyle}>
                         <b>Accattone</b>: l'accattone preferisce procurarsi sangue senza cacciare, acquistando sacche di sangue, rubandole
                         o acquisendole con altri mezzi. Il personaggio potrebbe ancora lavorare il turno di notte in Ospedale.
-                        I <b>Ventrue</b> non potranno acquisire questo tipo di predatore.
+                        I <b>Ventrue</b> non potranno acquisire questo tipo di predatore.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Bassifondi (Mercato nero) e Criminalit&agrave; (Scassinare)</li>
+                            <li><b>Disciplina</b>: Oscurazione o Stregoneria del Sangue (solo Tremere)</li>
+                            <li><b>Pregio</b>: Stomaco di Ferro (&#9679;&#9679;&#9679;)</li>
+                            <li><b>Difetto</b>: Nemico (&#9679;&#9679;) (ha un creditore, o un'altra ragione per cui 
+                                il personaggio si tiene lontano dalle strade)</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Allevatore</b>: l'Allevatore non si nutre di esseri umani, ma solamente di animali. Normalmente, questo tipo
                         di Cainita in vita era una persona con fortissimi principi morali, che ha trasposto anche nella non vita.
                         Il fatto di nutrirsi di animali rischia per&ograve; di aumentare la <b>Fame</b>, quindi vivono sempre col
-                        pericolo della Frenesia.
+                        pericolo della Frenesia.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Affinit&agrave; Animale (specificare animale) e Sopravvivenza (Caccia)</li>
+                            <li><b>Disciplina</b>: Animalit&agrave; o Proteide</li>
+                            <li><b>Pregio</b>: riceve un pallino di Umanit&agrave;</li>
+                            <li><b>Difetto</b>: Vegano (&#9679;&#9679;)</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Consensualista</b>: il personaggio pu&ograve; nutrirsi solo di mortali consenzienti. Questo tipo di Cainita 
                         potrebbe correre il costante rischio di infrangere la Masquerade, dato che la vittima rischia di poter capire
-                        cosa &egrave; realmente il Cainita.
+                        cosa &egrave; realmente il Cainita.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Convincere (Vittime) e Medicina (Flebotomia)</li>
+                            <li><b>Disciplina</b>: Auspex o Robustezza</li>
+                            <li><b>Pregio</b>: riceve un pallino di Umanit&agrave;</li>
+                            <li><b>Difetto</b>: Segreto Oscuro (&#9679;) per aver trasgredito la Masquerade e 
+                                Esclusione di Preda (&#9679;) non consenzienti</li>
+                        </ul>
+                    </li>
+                    <li style={liStyle}>
+                        <b>Osiride</b>: il personaggio durante la vita era un guru, un personaggio famoso o comunque
+                        molto seguito, come un DJ, uno scrittore, o un predicatore. Ha sempre accesso a Sangue facile,
+                        ma il culto che lo segue gli provoca molto spesso problemi con le autorit&agrave;, o perfino
+                        con la Camarilla.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Espressivit&agrave; (intrattenimento specifico riferito alla
+                            professione seguita in vita) e Occulto (specifica tradizione)</li>
+                            <li><b>Disciplina</b>: Ascendente o Stregoneria del Sangue (solo Tremere)</li>
+                            <li><b>Pregio</b>: deve spendere (quindi <b>non saranno gratuiti</b>) tre pallini nei Background
+                                <b>Fama</b> e/o <b>Gregge</b>.</li>
+                            <li><b>Difetto</b>: deve spendere due pallini a piacere nei Difetti <b>Nemico</b> o mitici.</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Randagio</b>: il personaggio caccia e si nutre di qualsiasi cosa si muova, ogni volta che pu&ograve;. Il personaggio
-                        si nasconde, tende agguati, si nutre e poi scappa, il pi&ugrave; velocemente possibile.
+                        si nasconde, tende agguati, si nutre e poi scappa, il pi&ugrave; velocemente possibile.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Intimidire (Rapina) e Rissa (Lotta)</li>
+                            <li><b>Disciplina</b>: Potenza o Velocit&agrave;</li>
+                            <li><b>Pregio</b>: tre pallini di <b>Conoscenze</b></li>
+                            <li><b>Difetto</b>: sottrae un pallino di Umanit&agrave;</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Sandman</b>: il vampiro Sandman si nutre di vittime addormentate, sfruttando la sua Furtivit&agrave;. Il tipico
                         personaggio Sandman potrebbe essere un anti-sociale, o qualcuno particolarmente attento alla Masquerade (d'altronde 
-                        se non si svegliano quando si nutre, non potranno mai sapere che il personaggio &egrave; stato l&igrave;).
+                        se non si svegliano quando si nutre, non potranno mai sapere che il personaggio &egrave; stato l&igrave;).<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Furtivit&agrave; (Effrazione) e Medicina (Anestesia)</li>
+                            <li><b>Disciplina</b>: Auspex o Oscurazione</li>
+                            <li><b>Pregio</b>: un pallino in Risorse</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Sanguisuga (non disponibile in creazione)</b>: il personaggio si nutre di altri vampiri. Li pu&ograve; cacciare, 
@@ -183,19 +241,41 @@ const GuidesCreation = (): any => {
                         <b>Scene Queen</b>: il personaggio Scene Queen gode di popolarit&agrave; in una subcultura, sia essa <i>underground</i>, 
                         nelle strade o qualche altolocato circolo culturale, e sfrutta popolarit&agrave; e status per cibarsi di chi la 
                         considera un esempio da seguire in quella comunit&agrave;. Probabilmente, il vampiro era gi&agrave; una star
-                        in quel particolare gruppo.
+                        in quel particolare gruppo.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Autorit&agrave; (limitato ad una specifica "scena"), e a scelta una tra
+                            Bassifondi (per la stessa "scena") o Galateo (per la stessa "scena")</li>
+                            <li><b>Disciplina</b>: Dominazione o Potenza</li>
+                            <li><b>Pregio</b>: un pallino in Fama e uno in Contatti</li>
+                            <li><b>Difetto</b>: Esclusione di Preda (&#9679;) per sottoculture o scene differenti dalla sua</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Simulante</b>: il Simulante ha ancora una famiglia mortale (oppure si &egrave; impossessato di una non sua), e 
                         continua ad avere contatti con essa anche nella non-morte. Alcuni Simulanti addirittura si sposano, o adottano figli.
                         Ovviamente questo per la Camarilla &egrave; un atteggiamento ritenuto pericoloso, e potrebbe prendere seri provvedimenti,
-                        arrivando fino ad uccidere la famiglia mortale del Cainita.
+                        arrivando fino ad uccidere la famiglia mortale del Cainita.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Convincere (Disorientare) e Sotterfugio (Insabbiare)</li>
+                            <li><b>Disciplina</b>: Animalit&agrave; o Dominazione</li>
+                            <li><b>Pregio</b>: due pallini di Gregge</li>
+                            <li><b>Difetto</b>: Segreto Oscuro (&#9679;) Simulante</li>
+                        </ul>
                     </li>
                     <li style={liStyle}>
                         <b>Sirena</b>: il personaggio Sirena si nutre solamente durante un amplesso simulato. Sfrutta le sue capacit&agrave;
                         seduttive, il suo sex appeal, o... altro, per intraprendere una relazione sessuale di una notte, nutrirsi, e 
                         quindi abbandonare la preda per non rivederla mai pi&ugrave;. Potrebbero essere avventori o dipendenti di Night Club,
-                        o semplicemente essere molto attivi su Tinder.
+                        o semplicemente essere molto attivi su Tinder.<br />
+
+                        <ul>
+                            <li><b>Specialit&agrave;</b>: Convincere (Seduzione) e Sotterfugio (Seduzione)</li>
+                            <li><b>Disciplina</b>: Ascendente o Robustezza</li>
+                            <li><b>Pregio</b>: Aspetto: Attraente (&#9679;&#9679;)</li>
+                            <li><b>Difetto</b>: Nemico (&#9679;): un amante rifiutato, o un amante geloso</li>
+                        </ul>
                     </li>
                 </ul>
 

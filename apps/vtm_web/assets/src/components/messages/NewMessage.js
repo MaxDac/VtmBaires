@@ -25,12 +25,6 @@ type Props = {
     toCharacterId?: string;
 }
 
-const BrandNewMessage = (onSubmit, toUserId, toCharacterId) => {
-    return (
-        <MessageTemplate submitted={onSubmit} toUserId={toUserId} toCharacterId={toCharacterId} isReply={false} />
-    );
-}
-
 const NewMessage = (props: Props): any => {
     const environment = useRelayEnvironment();
     const history = useHistory();
@@ -65,7 +59,10 @@ const NewMessage = (props: Props): any => {
                                onSubmit={onSubmit}
                                toUserId={props.toUserId}
                                toCharacterId={props.toCharacterId} />)
-            : BrandNewMessage(onSubmit, props.toUserId, props.toCharacterId);
+            : (<MessageTemplate submitted={onSubmit} 
+                                toUserId={props.toUserId} 
+                                toCharacterId={props.toCharacterId}
+                                isReply={false} />);
 
     return (
         <ReturnToMessagesControl>
