@@ -33,6 +33,7 @@ export const characterStatsFragment: any = graphql`
         }
         humanity
         experience
+        totalExperience
         generation
         hunger
         health
@@ -65,6 +66,7 @@ export const characterStateFragment: any = graphql`
         isComplete
         isNpc
         experience
+        totalExperience
         biography
         advantages
         notes

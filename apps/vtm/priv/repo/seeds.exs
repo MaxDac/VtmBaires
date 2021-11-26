@@ -20,14 +20,14 @@ defmodule Vtm.SeedsHelpers do
     end
   end
 
-  def get_or_insert_attr_type(name, section) do
+  def get_or_insert_attr_type(name, section, experience_cost) do
     query =
       from at in Vtm.Characters.AttributeType,
         where: at.name == ^name,
         where: at.section == ^section
 
     case Vtm.Repo.one(query) do
-      nil -> Vtm.Repo.insert(%Vtm.Characters.AttributeType{name: name, section: section})
+      nil -> Vtm.Repo.insert(%Vtm.Characters.AttributeType{name: name, section: section, experience_cost: experience_cost})
       at  -> {:ok, at}
     end
   end
@@ -143,14 +143,14 @@ defmodule Vtm.SeedsHelpers do
   end
 end
 
-{:ok, %{id: phisical_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Physical")
-{:ok, %{id: social_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Social")
-{:ok, %{id: mental_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Mental")
-{:ok, %{id: phisical_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Physical")
-{:ok, %{id: social_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Social")
-{:ok, %{id: mental_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Mental")
-{:ok, %{id: advantage_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Advantage", "")
-{:ok, %{id: discipline_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Discipline", "")
+{:ok, %{id: phisical_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Physical", 5)
+{:ok, %{id: social_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Social", 5)
+{:ok, %{id: mental_attribute_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Attribute", "Mental", 5)
+{:ok, %{id: phisical_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Physical", 3)
+{:ok, %{id: social_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Social", 3)
+{:ok, %{id: mental_ability_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Ability", "Mental", 3)
+{:ok, %{id: advantage_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Advantage", "", 3)
+{:ok, %{id: discipline_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Discipline", "", 7)
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Forza", description: """
 La Forza governa quanto è possibile sollevare, quanto duramente il personaggio può colpire e quanta forza il personaggio può esercitare.

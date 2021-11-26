@@ -50,6 +50,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :is_npc, :boolean
     field :is_complete, :boolean
     field :experience, :integer
+    field :total_experience, :integer
     field :humanity, :integer
     field :generation, :integer
     field :stage, :integer
@@ -408,6 +409,22 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve parsing_node_ids(&CharacterResolvers.update_character_experience/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :spend_character_experience do
+      input do
+        field :character_id, non_null(:id)
+        field :attribute_id, :id
+        field :custom_experience_expenditure, :integer
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.spend_character_experience/2, character_id: :character, attribute_id: :attribute)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

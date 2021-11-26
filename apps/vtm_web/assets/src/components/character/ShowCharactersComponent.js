@@ -12,6 +12,9 @@ import Stack from "@mui/material/Stack";
 import ShowCharacterSheet from "../_layout/button-links/ShowCharacterSheet";
 import ShowCharacterDashboard from "../_layout/button-links/ShowCharacterDashboard";
 import List from "@mui/material/List";
+import {useTheme} from "@mui/material/styles";
+import {useMediaQuery} from "@mui/material";
+import MenuLayout from "../../_base/components/MenuLayout";
 
 type Props = {
     characters: Array<{|
@@ -20,23 +23,49 @@ type Props = {
     |}>;
 };
 
-const ShowCharactersComponent = ({characters}: Props): any => {
-    const [filteredCharacter, setFilteredCharacter] = useState(characters);
+const CharacterActions = ({characterId}) => {
+    const theme = useTheme();
 
-    const characterActions = characterId => (
-        <Stack direction="row">
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+    if (isSmallScreen) {
+        return (
+            <MenuLayout>
+                { onItemSelected =>
+                    <>
+                        <ShowCharacterSheet characterId={characterId}
+                                            onSelected={onItemSelected}
+                                            asMenuItem />
+                        <SendMessageToCharacter characterId={characterId}
+                                                onSelected={onItemSelected}
+                                                asMenuItem />
+                        <ShowCharacterDashboard characterId={characterId}
+                                                onSelected={onItemSelected}
+                                                asMenuItem />
+                    </>
+                }
+            </MenuLayout>
+        );
+    }
+
+    return (
+        <Stack direction="row" spacing={false}>
             <SendMessageToCharacter characterId={characterId} />
             <ShowCharacterSheet characterId={characterId} />
             <ShowCharacterDashboard characterId={characterId} />
         </Stack>
-    )
+    );
+}
+
+const ShowCharactersComponent = ({characters}: Props): any => {
+    const [filteredCharacter, setFilteredCharacter] = useState(characters);
 
     const characterLine = ({id, name}) => {
         return (
             <>
                 <Divider />
                 <ListItem key={id}
-                          secondaryAction={characterActions(id)}>
+                          secondaryAction={<CharacterActions characterId={id} />}>
                     <ListItemText primary={name} />
                 </ListItem>
             </>

@@ -19,6 +19,7 @@ defmodule Vtm.Characters.Character do
     field :is_npc, :boolean
     field :is_complete, :boolean
     field :experience, :integer
+    field :total_experience, :integer
     field :humanity, :integer
     field :generation, :integer
     field :hunger, :integer
@@ -89,6 +90,7 @@ defmodule Vtm.Characters.Character do
       :is_npc,
       :is_complete,
       :experience,
+      :total_experience,
       :humanity,
       :generation,
       :hunger,
@@ -129,6 +131,7 @@ defmodule Vtm.Characters.Character do
       :is_npc,
       :is_complete,
       :experience,
+      :total_experience,
       :humanity,
       :generation,
       :hunger,

@@ -1,7 +1,18 @@
 defmodule Vtm.Helpers do
+  @moduledoc false
+
+  @spec nil_or_value_to_error_tuple(nil | any()) :: {:ok, any()} | {:error, :not_found}
+  def nil_or_value_to_error_tuple(value) do
+    case value do
+      nil -> {:error, :not_found}
+      v   -> {:ok, v}
+    end
+  end
+
   defp key_tuple_to_atom({key, value}) when is_binary(key), do: {String.to_atom(key), value}
   defp key_tuple_to_atom(t), do: t
 
+  @spec map_to_atom_map(map()) :: map()
   def map_to_atom_map(map) do
     map
     |> Map.new(&key_tuple_to_atom/1)

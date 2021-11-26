@@ -7,13 +7,17 @@ import ContactPageIcon from "@mui/icons-material/ContactPage";
 import {menuIconStyle} from "../Menu";
 import {MainRoutes} from "../../MainRouter";
 import {useHistory} from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {iconButtonSize} from "./constants";
 
 type Props = {
     characterId: ?string;
     onSelected?: () => void;
+    asMenuItem?: boolean;
 }
 
-const ShowCharacterSheet = ({characterId, onSelected}: Props): any => {
+const ShowCharacterSheet = ({characterId, onSelected, asMenuItem}: Props): any => {
     const history = useHistory();
 
     const tryVisualizeCharacterSheet = characterId =>
@@ -26,10 +30,21 @@ const ShowCharacterSheet = ({characterId, onSelected}: Props): any => {
         }
 
     if (characterId != null) {
+        if (asMenuItem === true) {
+            return (
+                <MenuItem onClick={tryVisualizeCharacterSheet(characterId)}>
+                    <ListItemIcon>
+                        <ContactPageIcon />
+                    </ListItemIcon>
+                    Mostra scheda
+                </MenuItem>
+            );
+        }
+
         return (
             <Tooltip title="Visualizza scheda">
                 <IconButton aria-label="Messaggio"
-                            size="large"
+                            size={iconButtonSize}
                             onClick={tryVisualizeCharacterSheet(characterId)}>
                     <ContactPageIcon sx={menuIconStyle} />
                 </IconButton>

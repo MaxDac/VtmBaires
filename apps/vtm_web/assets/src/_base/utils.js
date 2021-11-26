@@ -147,7 +147,8 @@ export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: 
             console.error("An error occoured while performing the mutation: ", error);
             showNotification({
                 type: "error",
-                message: args?.errorMessage ?? "La modifica non ha avuto successo, contatta un master per ulteriori informazioni."
+                message: args?.errorMessage ?? "La modifica non ha avuto successo, contatta un master per ulteriori informazioni.",
+                graphqlError: error
             });
         })
         .finally(() => {

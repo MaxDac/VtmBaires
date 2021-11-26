@@ -57,7 +57,7 @@ const Experience = ({sheet}) => (
             ...mainFontFamily,
             marginBottom: "10px"
         }}>
-            {sheet?.experience} punti esperienza
+            <b>{sheet?.experience}</b> punti esperienza disponibili su <b>{sheet?.totalExperience}</b>
         </Typography>
     </>
 );

@@ -15,17 +15,69 @@ import ShowCharacterSheet from "./button-links/ShowCharacterSheet";
 import SendMessageToUser from "./button-links/SendMessageToUser";
 import GoToMapLocation from "./button-links/GoToMapLocation";
 import SendMessageToCharacter from "./button-links/SendMessageToCharacter";
+import {useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
+import MenuLayout from "../../_base/components/MenuLayout";
 
 type Props = {
     closePopup: () => void;
 }
 
+const OnlineControlActionsBigScreen = ({o, closePopup}) => (
+    <Stack direction="row">
+        <ShowCharacterSheet characterId={o?.character?.id} onSelected={closePopup} />
+        <SendMessageToUser userId={o?.user?.id} onSelected={closePopup} />
+        {
+            o?.character != null
+                ? (<SendMessageToCharacter characterId={o?.character?.id} onSelected={closePopup} />)
+                : (<></>)
+        }
+        <GoToMapLocation location={o?.location} onSelected={closePopup} />
+    </Stack>
+);
+
+const OnlineControlActionsSmallScreen = ({o, closePopup}) => {
+    const onSelected = onItemSelected =>
+        () => {
+            onItemSelected();
+            closePopup();
+        };
+
+    return (
+        <MenuLayout>
+            { onItemSelected =>
+                <>
+                    <ShowCharacterSheet characterId={o?.character?.id}
+                                        onSelected={onSelected(onItemSelected)}
+                                        asMenuItem />
+                    <SendMessageToUser userId={o?.user?.id}
+                                       onSelected={onSelected(onItemSelected)}
+                                       asMenuItem />
+                    {
+                        o?.character != null
+                            ? (<SendMessageToCharacter characterId={o?.character?.id}
+                                                       onSelected={onSelected(onItemSelected)}
+                                                       asMenuItem />)
+                            : (<></>)
+                    }
+                    <GoToMapLocation location={o?.location}
+                                     onSelected={onSelected(onItemSelected)}
+                                     asMenuItem />
+                </>
+            }
+        </MenuLayout>
+    );
+}
+
 const OnlineControlDialog = ({closePopup}: Props): any => {
+    const theme = useTheme();
     const online = useCustomLazyLoadQuery<SessionQuery>(listSessionQuery, {}, {
         fetchPolicy: "network-only"
     })?.sessionsList ?? [];
 
     const isUserMaster = user => user?.role != null && user.role === "MASTER";
+
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const userMasterIcon = user =>
         isUserMaster(user)
@@ -38,18 +90,10 @@ const OnlineControlDialog = ({closePopup}: Props): any => {
             )
             : (<></>);
 
-    const secondaryActions = o => (
-        <Stack direction="row">
-            <ShowCharacterSheet characterId={o?.character?.id} onSelected={closePopup} />
-            <SendMessageToUser userId={o?.user?.id} onSelected={closePopup} />
-            {
-                o?.character != null
-                    ? (<SendMessageToCharacter characterId={o?.character?.id} onSelected={closePopup} />)
-                    : (<></>)
-            }
-            <GoToMapLocation location={o?.location} onSelected={closePopup} />
-        </Stack>
-    );
+    const secondaryActions = o =>
+        isSmallScreen
+            ? (<OnlineControlActionsSmallScreen o={o} closePopup={closePopup} />)
+            : (<OnlineControlActionsBigScreen o={o} closePopup={closePopup} />);
 
     const onlineRow = o => (
         <ListItem key={o?.user?.id}

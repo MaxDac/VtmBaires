@@ -7,13 +7,17 @@ import EmailIcon from '@mui/icons-material/Email';
 import {menuIconStyle} from "../Menu";
 import {MainRoutes} from "../../MainRouter";
 import {useHistory} from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {iconButtonSize} from "./constants";
 
 type Props = {
     characterId: ?string;
     onSelected?: () => void;
+    asMenuItem?: boolean;
 }
 
-const SendMessageToCharacter = ({characterId, onSelected}: Props): any => {
+const SendMessageToCharacter = ({characterId, onSelected, asMenuItem}: Props): any => {
     const history = useHistory();
 
     const trySendMessageToCharacter = _ => {
@@ -29,10 +33,21 @@ const SendMessageToCharacter = ({characterId, onSelected}: Props): any => {
         }
     };
 
+    if (asMenuItem === true) {
+        return (
+            <MenuItem onClick={trySendMessageToCharacter}>
+                <ListItemIcon>
+                    <EmailIcon />
+                </ListItemIcon>
+                Inva messaggio al personaggio
+            </MenuItem>
+        );
+    }
+
     return (
         <Tooltip title="Invia messaggio al personaggio">
             <IconButton aria-label="Messaggio"
-                        size="large"
+                        size={iconButtonSize}
                         onClick={trySendMessageToCharacter}>
                 <EmailIcon sx={menuIconStyle} />
             </IconButton>

@@ -3,6 +3,11 @@ defmodule VtmWeb.Resolvers.Helpers do
 
   import Absinthe.Relay.Node
 
+  @spec parsed_id_to_string?(any()) :: integer() | nil
+  def parsed_id_to_string?(parsed_id) when is_binary(parsed_id), do: parsed_id |> String.to_integer()
+  def parsed_id_to_string?(parsed_id) when is_integer(parsed_id), do: parsed_id
+  def parsed_id_to_string?(_), do: nil
+
   def parse_changeset_errors(%Ecto.Changeset{errors: errors}, _) do
     errors
     |> Enum.map(fn

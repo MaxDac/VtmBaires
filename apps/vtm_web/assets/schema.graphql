@@ -172,6 +172,7 @@ type Character implements Node {
   stage: Int
   stains: Int
   torpor: Boolean
+  totalExperience: Int
   willpower: Int
   willpowerDamage: Int
 }
@@ -607,6 +608,7 @@ type RootMutationType {
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
   setMessageRead(messageId: ID): Message
+  spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
   updateSessionMap(mapId: ID): ID
@@ -701,6 +703,16 @@ input SetCharacterStatusRequest {
   hunger: Int
   stains: Int
   willpowerDamage: Int
+}
+
+input SpendCharacterExperienceInput {
+  attributeId: ID
+  characterId: ID!
+  customExperienceExpenditure: Int
+}
+
+type SpendCharacterExperiencePayload {
+  result: Character
 }
 
 type User implements Node {

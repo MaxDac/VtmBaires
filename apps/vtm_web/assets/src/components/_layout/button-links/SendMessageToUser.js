@@ -7,13 +7,17 @@ import MessageIcon from "@mui/icons-material/Message";
 import {menuIconStyle} from "../Menu";
 import {MainRoutes} from "../../MainRouter";
 import {useHistory} from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {iconButtonSize} from "./constants";
 
 type Props = {
     userId: ?string;
     onSelected?: () => void;
+    asMenuItem?: boolean;
 }
 
-const SendMessageToUser = ({userId, onSelected}: Props): any => {
+const SendMessageToUser = ({userId, onSelected, asMenuItem}: Props): any => {
     const history = useHistory();
 
     const trySendMessageToUser = _ => {
@@ -29,10 +33,21 @@ const SendMessageToUser = ({userId, onSelected}: Props): any => {
         }
     };
 
+    if (asMenuItem === true) {
+        return (
+            <MenuItem onClick={trySendMessageToUser}>
+                <ListItemIcon>
+                    <MessageIcon />
+                </ListItemIcon>
+                Inva messaggio all'utente
+            </MenuItem>
+        );
+    }
+
     return (
         <Tooltip title="Invia messaggio all'utente">
             <IconButton aria-label="Messaggio"
-                        size="large"
+                        size={iconButtonSize}
                         onClick={trySendMessageToUser}>
                 <MessageIcon sx={menuIconStyle} />
             </IconButton>

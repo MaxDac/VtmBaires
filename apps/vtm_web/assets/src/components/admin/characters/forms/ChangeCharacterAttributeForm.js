@@ -2,11 +2,9 @@
 
 import React, {useContext, useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
-import useAttributesSlimQuery from "../../../../services/queries/info/AttributesSlimQuery";
 import Grid from "@mui/material/Grid";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import ListSubheader from '@mui/material/ListSubheader';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from "@mui/material/Button";
@@ -14,6 +12,7 @@ import {handleMutation, range} from "../../../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../../contexts";
 import ChangeCharacterAttributeMutation from "../../../../services/mutations/admin/ChangeCharacterAttributeMutation";
+import {UseAttributeSelectOptions} from "./hooks";
 
 type Props = {
     character: Character;
@@ -23,7 +22,7 @@ type Props = {
 const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const attributes = useAttributesSlimQuery() ?? [];
+    const [attributes, attributeSelectOptions] = UseAttributeSelectOptions();
 
     const [attributeId, setAttributeId] = useState<?string>(null);
     const [newValue, setNewValue] = useState(0);
@@ -56,27 +55,6 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
         );
     }
 
-    const newAttributeSection = sectionName =>
-        (<ListSubheader key={sectionName}>{sectionName}</ListSubheader>);
-
-    const attributeSelector = (id, name) =>
-        (<MenuItem key={id} value={id}>{name}</MenuItem>);
-
-    const attributesValues = () => attributes
-        .reduce(([acc, previousTypeName], a) => {
-            if (a?.id != null && a?.name != null && a?.attributeType?.name != null) {
-                const {id, name, attributeType: {name: typeName}} = a;
-                const newAcc =
-                    typeName !== previousTypeName
-                        ? [...acc, newAttributeSection(typeName)]
-                        : acc;
-    
-                return [[...newAcc, attributeSelector(id, name)], typeName];
-            }
-
-            return [acc, previousTypeName];
-        }, [[], ""]);
-
     const possibleValuesOptions = () => {
         const options = [];
 
@@ -105,7 +83,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
                                 id="attribute-select"
                                 label="Attributo"
                                 onChange={attributeSelected}>
-                            {attributesValues()}
+                            {attributeSelectOptions()}
                         </Select>
                     </FormControl>
                 </Grid>

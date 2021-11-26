@@ -15,6 +15,7 @@ import ChangeCharacterNotesForm from "./forms/ChangeCharacterNotesForm";
 import AddCharacterExperienceForm from "./forms/AddCharacterExperienceForm";
 import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
 import ResetHuntForm from "./forms/ResetHuntForm";
+import SpendCharacterExperienceForm from "./forms/SpendCharacterExperienceForm";
 
 type Props = {
     characterId: string;
@@ -85,6 +86,12 @@ const CharacterDashboard = ({characterId}: Props): any => {
                         <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
                             <AddCharacterExperienceForm character={character}
                                                         onUpdate={onUpdate} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                            <SpendCharacterExperienceForm character={character}
+                                                          onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>

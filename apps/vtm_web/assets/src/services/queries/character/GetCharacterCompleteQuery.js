@@ -28,6 +28,7 @@ export type Character = {|
     +description: ?string,
     +humanity: ?number,
     +experience: ?number,
+    +totalExperience: ?number,
     +generation: ?number,
     +hunger: ?number,
     +health: ?number,

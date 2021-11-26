@@ -9,13 +9,17 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import {menuIconStyle} from "../Menu";
 import {useSession} from "../../../services/session-service";
 import {isUserMaster} from "../../../services/base-types";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {iconButtonSize} from "./constants";
 
 type Props = {
     characterId: ?string;
     onSelected?: () => void;
+    asMenuItem?: boolean;
 }
 
-const ShowCharacterDashboard = ({characterId, onSelected}: Props): any => {
+const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): any => {
     const [user,] = useSession();
     const history = useHistory();
 
@@ -29,10 +33,21 @@ const ShowCharacterDashboard = ({characterId, onSelected}: Props): any => {
         }
 
     if (isUserMaster(user) && characterId != null) {
+        if (asMenuItem === true) {
+            return (
+                <MenuItem onClick={tryVisualizeCharacterDashboard(characterId)}>
+                    <ListItemIcon>
+                        <DashboardIcon />
+                    </ListItemIcon>
+                    Dashboard personaggio
+                </MenuItem>
+            );
+        }
+
         return (
             <Tooltip title="Visualizza Dashboard personaggio">
                 <IconButton aria-label="Messaggio"
-                            size="large"
+                            size={iconButtonSize}
                             onClick={tryVisualizeCharacterDashboard(characterId)}>
                     <DashboardIcon sx={menuIconStyle} />
                 </IconButton>

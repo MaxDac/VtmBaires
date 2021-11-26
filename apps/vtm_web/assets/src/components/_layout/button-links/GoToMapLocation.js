@@ -8,6 +8,9 @@ import {menuIconStyle} from "../Menu";
 import {useHistory} from "react-router-dom";
 import {goToChatAndUpdateSession} from "../../chat/chat-helpers";
 import {SessionContext} from "../../../contexts";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {iconButtonSize} from "./constants";
 
 type Props = {
     location: ?{
@@ -15,9 +18,10 @@ type Props = {
         +name?: ?string;
     };
     onSelected?: () => void;
+    asMenuItem?: boolean;
 }
 
-const GoToMapLocation = ({location, onSelected}: Props): any => {
+const GoToMapLocation = ({location, onSelected, asMenuItem}: Props): any => {
     const sessionUtils = useContext(SessionContext);
     const history = useHistory();
 
@@ -33,11 +37,22 @@ const GoToMapLocation = ({location, onSelected}: Props): any => {
         };
 
     if (location?.id != null) {
+        if (asMenuItem === true) {
+            return (
+                <MenuItem onClick={tryGoToLocation(location)}>
+                    <ListItemIcon>
+                        <RoomIcon />
+                    </ListItemIcon>
+                    Vai alla chat
+                </MenuItem>
+            );
+        }
+
         return (
             <Tooltip title="Vai alla chat">
                 <IconButton edge="end"
                             aria-label="Chat"
-                            size="large"
+                            size={iconButtonSize}
                             onClick={tryGoToLocation(location)}>
                     <RoomIcon sx={menuIconStyle}/>
                 </IconButton>

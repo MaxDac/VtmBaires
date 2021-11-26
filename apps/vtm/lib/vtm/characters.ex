@@ -155,6 +155,13 @@ defmodule Vtm.Characters do
     not is_nil(Repo.one(query))
   end
 
+  def character_exists?(character_id) do
+    Character
+    |> from()
+    |> where([c], c.id == ^character_id)
+    |> Repo.exists?()
+  end
+
   def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
@@ -318,7 +325,20 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec get_character_attribute(Integer.t(), String.t()) :: CharacterAttribute.t()
+  @spec get_character_attribute_by_id(integer(), integer()) :: CharacterAttribute.t()
+  def get_character_attribute_by_id(character_id, attribute_id) do
+    CharacterAttribute
+    |> Repo.get_by(character_id: character_id, attribute_id: attribute_id)
+    |> Repo.one()
+  end
+
+  @spec get_character_attribute_value_by_id(integer(), integer()) :: CharacterAttribute.t() | nil
+  def get_character_attribute_value_by_id(character_id, attribute_id) do
+    CharacterAttribute
+    |> Repo.get_by(character_id: character_id, attribute_id: attribute_id)
+  end
+
+  @spec get_character_attribute(integer(), binary()) :: CharacterAttribute.t()
   def get_character_attribute(character_id, attribute_name) do
     # Performance: a direct query is preferred instead of filtering all the character attributes
     query =

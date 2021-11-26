@@ -60,9 +60,10 @@ const GuidesEnvironment = (props: Props): any => {
                 sono vittime inconsapevole di questa grande guerra, in cui gli Anziani influenzano ed orchestrano dall'ombra le mosse dei Neonati,
                 e i Neonati cercano di prendere il posto dei loro Sire, ed anche Cainiti di clan diversi si scontrano ed ordiscono l'uno 
                 contro l'altro, mettendo in mezzo vittime mortali.<br />
-                Venne poi il biblico <b>Diluvio</b> a spazzare via la Prima Citt&agrave;, e Caino cap&igrave; che, assieme al suo sangue, aveva
-                trasmesso anche il suo Peccato agli Infanti. Decise di abbandonarli al loro destino, mentre questi costruirono una <b>Seconda Citt&agrave;</b>&nbsp;
-                sulle ceneri della prima.
+                Il primo atto di questa Jihad fu il parricidio della Terza Generazione contro la Seconda, che venne consumata. La punizione 
+                per questi atti nefandi fu il biblico <b>Diluvio</b>, che spazz&ograve; via la Prima Citt&agrave;, e Caino cap&igrave; che, assieme al suo sangue, aveva
+                trasmesso anche il suo Peccato agli Infanti. Decise di abbandonarli al loro destino, mentre questi costruivano una <b>Seconda Citt&agrave;</b>&nbsp;
+                sulle ceneri della prima ed a sua imitazione, ma che non ebbe destino migliore.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
