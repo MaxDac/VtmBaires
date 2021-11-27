@@ -32,8 +32,9 @@ RUN HEX_HTTP_CONCURRENCY=4 HEX_HTTP_TIMEOUT=10000 mix deps.get --only prod && \
 
 COPY . .
 
-RUN yarn --cwd apps/vtm_web/assets install --pure-lockfile && \
-    yarn --cwd apps/vtm_web/assets build && \
+RUN yarn --cwd apps/vtm_web/assets install --pure-lockfile
+
+RUN yarn --cwd apps/vtm_web/assets build && \
     cd apps/vtm_web && mix phx.digest
 
 WORKDIR /build/apps/vtm_web
