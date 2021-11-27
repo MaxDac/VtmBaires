@@ -11,6 +11,7 @@ import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {MainRoutes} from "../MainRouter";
 import { ForumSectionDescription } from "./layout/ForumListItem";
+import Box from "@mui/material/Box";
 
 const ForumSections = (): any => {
     const history = useHistory();
@@ -25,12 +26,12 @@ const ForumSections = (): any => {
 
     const showForumSections = () => forumSections
         ?.map(s => (
-            <>
+            <Box component="div" key={s?.id}>
                 <Divider />
-                <ListItem key={s?.id}
-                        alignItems="flex-start"
-                        button
-                        onClick={_ => toSection(s?.id)}>
+                <ListItem
+                          alignItems="flex-start"
+                          button
+                          onClick={_ => toSection(s?.id)}>
                     <ListItemText primary={s?.title}
                                   secondary={<ForumSectionDescription description={s?.description}
                                                                       insertedAt={s?.insertedAt} />}
@@ -42,7 +43,7 @@ const ForumSections = (): any => {
                                   }} />
                 </ListItem>
                 <Divider />
-            </>
+            </Box>
         ));
         
         

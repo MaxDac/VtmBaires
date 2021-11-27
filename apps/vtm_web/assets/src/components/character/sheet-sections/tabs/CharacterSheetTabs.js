@@ -15,12 +15,12 @@ type Props = {
 }
 
 const a11yProps = index => ({
-    id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
+    id: `scrollable-force-tab-${index - 1}`,
+    'aria-controls': `scrollable-force-tabpanel-${index - 1}`,
 });
 
 const CharacterSheetTabs = ({characterQuery}: Props): any => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(1);
 
     const handleChange = (_, newValue) => {
         setValue(newValue);

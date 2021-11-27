@@ -31,7 +31,7 @@ defmodule Vtm.TemplateSeedsHelpers do
       Vtm.Characters.Attribute
       |> Repo.get_by(name: a_name)
 
-    case Vtm.Creation.TemplateAttribute |> Vtm.Repo.get_by(attribute_id: 1, template_id: 4) do
+    case Vtm.Creation.TemplateAttribute |> Vtm.Repo.get_by(attribute_id: a_id, template_id: t_id) do
       nil ->
         attrs =
           attrs

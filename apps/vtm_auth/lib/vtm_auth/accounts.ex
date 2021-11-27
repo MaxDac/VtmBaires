@@ -125,6 +125,7 @@ defmodule VtmAuth.Accounts do
   #   "approved" => approved
   # }}
 
+  @spec get_character_session_by_user_id(integer()) :: {:ok, %SessionInfo{}} | {:error, :not_found}
   def get_character_session_by_user_id(user_id) do
     user_id
     |> get_session_by_user_id()
@@ -189,8 +190,9 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
-  def complete_session(user) do
-    with {:ok, s} <- clear_session_dynamic_field(user) do
+  def complete_session(%{id: user_id} = user) do
+    with u when not is_nil(u) <- get_session_by_user_id(user_id),
+         {:ok, s}             <- clear_session_dynamic_field(user) do
       s
       |> Session.changeset(%{completed: true})
       |> Repo.update()

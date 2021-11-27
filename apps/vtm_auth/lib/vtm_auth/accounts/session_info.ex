@@ -1,4 +1,6 @@
 defmodule VtmAuth.Accounts.SessionInfo do
+  @moduledoc false
+
   defstruct map_id: 0, map_name: "", character_id: 0, approved: false, character_name: ""
 
   alias VtmAuth.Accounts.Session

@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
-import {useSession} from "../services/session-service";
+import {useSession, useSessionAsync} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
@@ -23,18 +23,61 @@ import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 import ReturnToChatControl from "./_layout/ReturnToChatControl";
+import {useRelayEnvironment} from "react-relay";
 
 const drawerWidth = 300;
 
+const SwipeableDrawer = React.lazy(() => import("@mui/material/SwipeableDrawer"));
+
+const PageDrawer = ({open, setOpen, children}) => {
+    const theme = useTheme();
+    const container = window !== undefined ? () => window.document.body : undefined;
+    const fullScreen = useMediaQuery(theme.breakpoints.up('md'));
+
+    if (fullScreen) {
+        return (
+            <Drawer variant="permanent"
+                    sx={{
+                        display: { xs: 'none', md: 'block' },
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box',
+                            width: drawerWidth,
+                            background: "transparent"
+                        },
+                    }}
+                    open>
+                {children}
+            </Drawer>
+        );
+    }
+
+    return (
+        <SwipeableDrawer container={container}
+                         variant="temporary"
+                         open={open}
+                         onOpen={_ => setOpen(p => !p)}
+                         onClose={_ => setOpen(p => !p)}
+                         ModalProps={{
+                             keepMounted: true, // Better open performance on mobile.
+                         }}
+                         sx={{
+                             display: { xs: 'block', md: 'none' },
+                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                         }}>
+            {children}
+        </SwipeableDrawer>
+    );
+};
+
 const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [user,] = useSession();
+    const [open, setOpen] = React.useState(true);
+    const [user,] = useSessionAsync();
     const numberOfMessages = useMessageSubscription();
 
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     const showCompressedTitle = useMediaQuery(theme.breakpoints.down('sm'));
     const showPartialTitle = useMediaQuery(theme.breakpoints.down('lg'));
 
@@ -47,7 +90,7 @@ const MiniDrawer = ({children}: {children: any}): any => {
     };
 
     const closeOnSelected = () => {
-        if (fullScreen) {
+        if (isSmallScreen) {
             handleDrawerClose();
         }
     }
@@ -101,40 +144,6 @@ const MiniDrawer = ({children}: {children: any}): any => {
         </Box>
     );
 
-    const drawer = () => {
-        const container = window !== undefined ? () => window.document.body : undefined;
-
-        return (
-            <>
-                <Drawer container={container}
-                        variant="temporary"
-                        open={open}
-                        onClose={_ => setOpen(p => !p)}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                        sx={{
-                            display: { xs: 'block', md: 'none' },
-                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                        }}>
-                    {drawerContent()}
-                </Drawer>
-                <Drawer variant="permanent"
-                        sx={{
-                            display: { xs: 'none', md: 'block' },
-                            '& .MuiDrawer-paper': {
-                                boxSizing: 'border-box',
-                                width: drawerWidth,
-                                background: "transparent"
-                            },
-                        }}
-                        open>
-                    {drawerContent()}
-                </Drawer>
-            </>
-        );
-    };
-
     return (
         <Box sx={{
             display: 'flex',
@@ -187,7 +196,9 @@ const MiniDrawer = ({children}: {children: any}): any => {
             <Box component="nav"
                  sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                  aria-label="mailbox folders">
-                {drawer()}
+                <PageDrawer open={open} setOpen={setOpen}>
+                    {drawerContent()}
+                </PageDrawer>
             </Box>
             <Box component="main" sx={{
                 flexGrow: 1,

@@ -5,7 +5,6 @@ import React, {useState} from "react";
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,19 +20,24 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import type {GetAdminChatEntriesQuery} from "../../../services/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
-import { getAdminChatEntriesQuery } from "../../../services/queries/chat/GetAdminChatEntriesQuery";
+import {getAdminChatEntriesQuery} from "../../../services/queries/chat/GetAdminChatEntriesQuery";
+import {yesterday, defaultFormatDateAndTimeForControl, parseISO} from "../../../_base/date-utils";
 
 type ChatViewerInternalProps = {
     from: any,
     to: any,
-    mapId: string
+    mapId: string,
+    fetchKey: number
 }
 
-const ChatViewerInternal = ({from, to, mapId}: ChatViewerInternalProps) => {
+const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps) => {
     const entries = useCustomLazyLoadQuery<GetAdminChatEntriesQuery>(getAdminChatEntriesQuery, {
         mapId: mapId, 
         fromDate: from, 
         toDate: to
+    }, {
+        fetchPolicy: "network-only",
+        fetchKey: fetchKey
     });
 
     const rows = () => entries
@@ -75,12 +79,16 @@ const ChatViewer = (): any => {
     const chatRooms = useCustomLazyLoadQuery<GetAllChatLocationsQuery>(getAllChatLocationsQuery, {})
         ?.allChatLocations;
 
-    const [from, setFrom] = useState(new Date());
+    const [from, setFrom] = useState(yesterday(new Date()));
     const [to, setTo] = useState(new Date());
-    const [selectedChatId, setSelectedChatId] = useState<?string>(null);
+    const [selectedChatId, setSelectedChatId] = useState("");
+    const [fetchKey, setFetchKey] = useState(0);
+
+    const formattedFromDate = () => defaultFormatDateAndTimeForControl(from);
+    const formattedToDate = () => defaultFormatDateAndTimeForControl(to);
 
     const showAllChatRooms = () => {
-        const def = [<MenuItem key={-1} id={null}>{" "}</MenuItem>];
+        const def = [<MenuItem key={-1} id="">None</MenuItem>];
 
         if (chatRooms != null && chatRooms.length > 0) {
             const roomItems = chatRooms
@@ -92,46 +100,56 @@ const ChatViewer = (): any => {
         return def;
     }
 
-    const handleFromChange = newValue => {
-        setFrom(_ => newValue);
+    const handleFromChange = ({target: {value: newValue}}) => {
+        setFrom(_ => parseISO(newValue));
+        setFetchKey(k => k + 1);
     };
 
-    const handleToChange = newValue => {
-        setTo(_ => newValue);
+    const handleToChange = ({target: {value: newValue}}) => {
+        setTo(_ => parseISO(newValue));
+        setFetchKey(k => k + 1);
     };
 
     const handleChatRoomChange = ({target: {value}}) => {
         setSelectedChatId(_ => value);
-    }
+        setFetchKey(k => k + 1);
+    };
 
     const showRows = () => {
-        if (selectedChatId != null) {
+        if (selectedChatId != null && selectedChatId !== "") {
             return (<ChatViewerInternal mapId={selectedChatId}
                                         from={from}
-                                        to={to} />);
+                                        to={to}
+                                        fetchKey={fetchKey} />);
         }
 
         return (<></>);
-    }
+    };
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Grid container>
                 <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
-                    <DateTimePicker
-                        label="A partire da"
-                        value={from}
-                        date={from}
-                        onChange={handleFromChange}
-                        renderInput={(params) => <TextField {...params} />} />
+                    <TextField id="from"
+                               label="Da"
+                               type="datetime-local"
+                               defaultValue={formattedFromDate()}
+                               onChange={handleFromChange}
+                               sx={{ width: 250 }}
+                               InputLabelProps={{
+                                   shrink: true,
+                               }} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} sx={{textAlign: "center"}}>
-                    <DateTimePicker
-                        label="Fino a"
-                        value={to}
-                        date={to}
-                        onChange={handleToChange}
-                        renderInput={(params) => <TextField {...params} />} />
+                    <TextField id="to"
+                               label="Fino a"
+                               type="datetime-local"
+                               defaultValue={formattedToDate()}
+                               onChange={handleToChange}
+                               sx={{ width: 250 }}
+                               InputLabelProps={{
+                                   shrink: true,
+                               }} />
                 </Grid>
                 <Grid item xs={12} md={4} sx={{textAlign: "center"}}>
                     <FormControl fullWidth>

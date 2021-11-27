@@ -9,16 +9,16 @@ import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
-import {storeSession} from "../../services/session-service";
+import {checkCharacter, getSessionSync, storeSession} from "../../services/session-service";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
-// import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/Menu";
+import {useRelayEnvironment} from "react-relay";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -29,6 +29,7 @@ const SignInSchema = object().shape({
 });
 
 const LoginComponent = (): Node => {
+    const environment = useRelayEnvironment();
     const history = useHistory();
     const theme = useTheme();
 
@@ -69,7 +70,10 @@ const LoginComponent = (): Node => {
                 setTimeout(() => {
                     history.push(Routes.main);
                 }, 200);
+                return res;
             })
+            // This call is to pre-populate the cache
+            .then(_ => checkCharacter(environment, getSessionSync()))
             .catch(errors => {
                 setWait(false);
                 showUserNotification({type: 'error', graphqlErrors: errors, message: "Username or password invalid."});

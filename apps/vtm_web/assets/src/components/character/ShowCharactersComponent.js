@@ -49,7 +49,7 @@ const CharacterActions = ({characterId}) => {
     }
 
     return (
-        <Stack direction="row" spacing={false}>
+        <Stack direction="row" spacing={0}>
             <SendMessageToCharacter characterId={characterId} />
             <ShowCharacterSheet characterId={characterId} />
             <ShowCharacterDashboard characterId={characterId} />
@@ -62,13 +62,13 @@ const ShowCharactersComponent = ({characters}: Props): any => {
 
     const characterLine = ({id, name}) => {
         return (
-            <>
+            <Box component="div" key={id}>
                 <Divider />
                 <ListItem key={id}
                           secondaryAction={<CharacterActions characterId={id} />}>
                     <ListItemText primary={name} />
                 </ListItem>
-            </>
+            </Box>
         );
     }
 

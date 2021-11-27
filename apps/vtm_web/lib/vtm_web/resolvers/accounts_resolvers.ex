@@ -35,16 +35,10 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   defp manage_session_character(login_response = %{user: user, relogin_id: relogin_id}) do
-    with {:ok, _} <- Accounts.update_user_relogin_id(user, relogin_id) do
-      case Characters.has_character_in_session?(user) do
-        true  ->
-          {:ok, login_response}
-        false ->
-          with character  <- get_user_first_character(user),
-              {:ok, _}   <- Characters.update_character_in_session(user, character) do
-            {:ok, login_response |> Map.put(:character, character)}
-          end
-      end
+    with {:ok, _}   <- Accounts.update_user_relogin_id(user, relogin_id),
+         character  <- get_user_first_character(user),
+         {:ok, _}   <- Characters.update_character_in_session(user, character) do
+      {:ok, login_response |> Map.put(:character, character)}
     end
   end
 
@@ -204,9 +198,9 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   end
 
   def logout(_, _, %{context: %{current_user: user}}) do
-    with {:ok, _} <- Accounts.complete_session(user) do
-      {:ok, true}
-    end
+    # The function has to return ok even if something went wrong
+    _ = Accounts.complete_session(user)
+    {:ok, true}
   end
 
   def update_user_password(_, %{

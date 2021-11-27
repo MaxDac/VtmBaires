@@ -17,7 +17,7 @@ const format = (
         return DateFns.format(date, format, options);
     }
     catch (e) {
-        console.error("Error while formatting expression", {
+        console.debug("Error while formatting expression", {
             error: e,
             argument: date,
             format
@@ -26,7 +26,13 @@ const format = (
     }
 };
 
-const parseISO = (
+/**
+ * Parses an ISO date.
+ * @param argument The argument.
+ * @param options The options
+ * @return {null|Date} The date, if formatted correctly, otherwise null.
+ */
+export const parseISO = (
     argument: string,
     options?: {
         additionalDigits?: 0 | 1 | 2
@@ -36,7 +42,7 @@ const parseISO = (
         return DateFns.parseISO(argument, options);
     }
     catch (e) {
-        console.error("Error while formatting expression", {
+        console.debug("Error while formatting expression", {
             argument,
             error: e
         });
@@ -65,15 +71,19 @@ export const parseUTC = (date: string): ?Date => {
  */
 export const defaultFormatWithStringFormat = (date: ?any, formatString: string): ?string => {
     if (date != null) {
-        const utcDate = parseUTC(date);
-        
-        if (utcDate != null) {
-            return format(utcDate, formatString);
+        if (typeof date === "string") {
+            const utcDate = parseUTC(date);
+
+            if (utcDate != null) {
+                return format(utcDate, formatString);
+            }
         }
+
+        return format(date, formatString);
     }
 
     return null;
-}
+};
 
 /**
  * Formats the given Date or string in the default date and time representation
@@ -98,3 +108,19 @@ export const defaultFormatDate = (date: ?any): ?string =>
  */
 export const defaultFormatTime = (date: ?any): ?string =>
     defaultFormatWithStringFormat(date, "HH:mm");
+
+/**
+ * Formats the date to be interpreted by the default date control.
+ * @param date The date.
+ * @return {?string} The formatted date.
+ */
+export const defaultFormatDateAndTimeForControl = (date: ?any): ?string =>
+    defaultFormatWithStringFormat(date, "yyyy-LL-dd HH:mm")
+        ?.replace(" ", "T");
+
+/**
+ * Returns the date at one day before the given date.
+ * @param date The original date.
+ * @return {Date} The date of the day before the given date.
+ */
+export const yesterday = (date: Date): Date => DateFns.addDays(date, -1);

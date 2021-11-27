@@ -71,7 +71,8 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
                         return c;
                     })
                     .map(o => (
-                        <MenuCharacterItem character={o} 
+                        <MenuCharacterItem character={o}
+                                           key={o?.id}
                                            handleSheetSelection={handleSheetSelection}
                                            handleCharacterSelection={handleCharacterSelection} />
                     ))

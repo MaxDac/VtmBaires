@@ -10,7 +10,7 @@ defmodule VtmWeb.Resolvers.ChatHelpers do
     chat_map_id: map_id
   }) do
     entry
-    |> Map.put(:character, %{
+    |> Map.put_new(:character, %{
       id: c_id,
       name: c_name
       # chat_avatar: c_avatar

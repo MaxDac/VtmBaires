@@ -50,7 +50,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
         }
     };
 
-    const handleCntrolKeyUp = ({target: {value}}) => {
+    const handleControlKeyUp = ({target: {value}}) => {
         setCharactersCount(_ => (value: string).length);
     };
 
@@ -136,7 +136,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
                            }}
                            inputProps={{ 'aria-label': 'naked' }}
                            onKeyDown={handleControlKeyDown}
-                           onKeyUp={handleCntrolKeyUp}
+                           onKeyUp={handleControlKeyUp}
                            onChange={onControlChanged} />
                 <Typography sx={{
                     fontSize: "13px"

@@ -23,7 +23,7 @@ export const storeSession = (response: Session) => {
     getStorage().setItem(storageUserInfoKey, newSession);
 };
 
-const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
+export const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
     new Promise((resolve, _) => {
         if (session?.character != null) {
             resolve(session);

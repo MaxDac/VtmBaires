@@ -34,13 +34,13 @@ const ParsedText = ({text, sx, components, ignoreDefaultComponents, useDivsInste
         return markdownComponents;
     };
 
-    const paragraphMapper = (children) => (
-        <Typography paragraph sx={sx}>
+    const ParagraphMapper = ({children}) => (
+        <Typography component="div" paragraph sx={sx}>
             {children}
         </Typography>
     );
 
-    const divMapper = (children) => (
+    const DivMapper = ({children}) => (
         <Box component="div" sx={sx}>
             {children}
         </Box>
@@ -53,14 +53,14 @@ const ParsedText = ({text, sx, components, ignoreDefaultComponents, useDivsInste
                 .filter(f => f != null && f !== "")
                 .map((f, index) => {
                     const markdown = (
-                        <ReactMarkdown key={index} components={parseComponents()}>
+                        <ReactMarkdown components={parseComponents()}>
                             {f}
                         </ReactMarkdown>
                     );
 
                     return useDivsInsteadOfParagraphs
-                        ? divMapper(markdown)
-                        : paragraphMapper(markdown)
+                        ? (<DivMapper key={index}>{markdown}</DivMapper>)
+                        : (<ParagraphMapper key={index}>{markdown}</ParagraphMapper>)
                 });
 
         return (

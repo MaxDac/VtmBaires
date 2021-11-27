@@ -98,12 +98,12 @@ const ModifyCharacterSheet = ({id}: Props): any => {
     const formik = useFormik({
         validationSchema: ModifyCharacterValidationSchema,
         initialValues: {
-            description: sheet?.description,
-            biography: concealedSheetInfo?.biography,
-            objects: concealedSheetInfo?.objects,
-            avatar: sheet?.avatar,
-            soundtrack: offSheet?.soundtrack,
-            off: offSheet?.off
+            description: sheet?.description ?? "",
+            biography: concealedSheetInfo?.biography ?? "",
+            objects: concealedSheetInfo?.objects ?? "",
+            avatar: sheet?.avatar ?? "",
+            soundtrack: offSheet?.soundtrack ?? "",
+            off: offSheet?.off ?? ""
         },
         onSubmit
     });
