@@ -83,7 +83,6 @@ const ShowCharactersComponent = ({characters}: Props): any => {
         <Box sx={{
             margin: "0 auto",
             maxWidth: "550px",
-            minWidth: "400px",
             bgcolor: 'background.paper'
         }}>
             <Grid container>

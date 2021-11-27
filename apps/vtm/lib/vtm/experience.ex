@@ -8,11 +8,16 @@ defmodule Vtm.Experience do
   alias Vtm.Repo
   alias Vtm.Characters
   alias Vtm.Characters.Character
+  alias Vtm.Characters.Clan
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.AttributeType
   alias Vtm.Characters.CharacterAttribute
 
   alias Vtm.Experience.ExperienceLog
+
+  @caitiff_clan_name "Vili"
+  @thin_blood_clan_name "Sangue Debole"
+  @discipline_type_name "Discipline"
 
   def get_chracter_experience_info(character_id) do
     Character
@@ -28,29 +33,73 @@ defmodule Vtm.Experience do
 
   @spec get_discipline_attribute_type() :: integer()
   defp get_discipline_attribute_type() do
-    with %{id: id} <- AttributeType |> Repo.get_by(name: "Discipline") do
+    with %{id: id} <- AttributeType |> Repo.get_by(name: @discipline_type_name) do
       id
     end
   end
 
-  @spec get_experience_cost_by_attribute(integer(), integer()) :: integer()
-  def get_experience_cost_by_attribute(attribute_id, custom_expenditure) do
-    discipline_id = get_discipline_attribute_type()
+  defp get_clan_id(clan_name) do
+    Clan
+    |> from()
+    |> where([c], c.name == ^clan_name)
+    |> select([c], c.id)
+    |> Repo.one()
+  end
 
-    case Attribute |> preload(:attribute_type) |> Repo.get(attribute_id) do
-      nil -> {:error, :not_found}
-      %{attribute_type: %{
-        id: ^discipline_id,
-        experience_cost: ec
-      }}  ->
-        case custom_expenditure do
-          nil -> ec
-          0   -> ec
-          ce  -> ce
+  defp get_caitiff_clan_id() do
+    get_clan_id(@caitiff_clan_name)
+  end
+
+  defp get_thin_blood_clan_id() do
+    get_clan_id(@thin_blood_clan_name)
+  end
+
+  @spec get_character_clan_and_disciplines(integer()) :: Clan.t() | nil
+  defp get_character_clan_and_disciplines(character_id) do
+    query =
+      from cl in Clan,
+        join: c in Character, on: cl.id == c.clan_id,
+        where: c.id == ^character_id,
+        preload: :attributes,
+        select: cl
+
+    Repo.one(query)
+  end
+
+  @spec determine_discipline_cost(integer(), integer()) :: integer()
+  def determine_discipline_cost(character_id, attribute_id) do
+    character_clan = get_character_clan_and_disciplines(character_id)
+    caitiff_clan_id = get_caitiff_clan_id()
+    thin_blood_clan_id = get_thin_blood_clan_id()
+
+    is_attribute_id = fn %{id: d_id} -> d_id == attribute_id end
+
+    case {caitiff_clan_id, thin_blood_clan_id, character_clan} do
+      {cc_id, _, %Clan{id: cc_id}}  -> 6
+      {_, tb_id, %Clan{id: tb_id}}  -> 7
+      {_, _, %Clan{attributes: as}} ->
+        if as |> Enum.any?(is_attribute_id) do
+          5
+        else
+          7
         end
-      %{attribute_type: %{
+    end
+  end
+
+  @spec get_experience_cost_by_attribute(integer(), integer()) :: integer()
+  def get_experience_cost_by_attribute(character_id, attribute_id) do
+    discipline_type_id = get_discipline_attribute_type()
+    attribute = Attribute |> preload(:attribute_type) |> Repo.get(attribute_id)
+
+    case {discipline_type_id, attribute} do
+      {_, nil} -> {:error, :not_found}
+      {dt_id, %{attribute_type: %{
+        id: dt_id
+      }}}  ->
+        determine_discipline_cost(character_id, attribute_id)
+      {_, %{attribute_type: %{
         experience_cost: ec
-      }}   ->
+      }}}  ->
         ec
     end
   end
@@ -97,10 +146,9 @@ defmodule Vtm.Experience do
       id: character_id,
       experience: current_exp
     },
-    attribute_id: attribute_id,
-    custom_experience_expenditure: custom_experience_expenditure
+    attribute_id: attribute_id
   }) do
-    expenditure = get_experience_cost_by_attribute(attribute_id, custom_experience_expenditure)
+    expenditure = get_experience_cost_by_attribute(character_id, attribute_id)
 
     current_character_attribute =
       case Characters.get_character_attribute_value_by_id(character_id, attribute_id) do
