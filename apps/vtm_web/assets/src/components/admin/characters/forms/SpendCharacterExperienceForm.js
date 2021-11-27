@@ -55,7 +55,7 @@ const SpendCharacterExperienceForm = ({character, onUpdate}: Props): any => {
                 ? customCost === 1 ? ` ${customCost} punto esperienza` : ` ${customCost} punti esperienza`
                 : " punti esperienza";
 
-        const [{name: attributeLabel} = {},] = attributes?.filter(x => x.id === attributeId);
+        const [{name: attributeLabel} = {},] = attributes?.filter(x => x.id === attributeId) ?? [];
 
         const attributeDialogLabel =
             attributeLabel != null

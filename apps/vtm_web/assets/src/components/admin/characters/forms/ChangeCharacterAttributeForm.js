@@ -36,7 +36,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
             return;
         }
 
-        const attributeName = attributes.filter(x => x?.id === attributeId)[0]?.name;
+        const attributeName = attributes?.filter(x => x?.id === attributeId)[0]?.name;
 
         openDialog(
             `Cambio di attributo per ${character.name ?? ""}`,

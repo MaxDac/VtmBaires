@@ -3,16 +3,16 @@
 import React, {useContext} from "react";
 import Button from "@mui/material/Button";
 import { login } from "../../services/login-service";
-import type { Node } from "react";
+import type {Node} from "react";
 import {useHistory} from "react-router-dom";
-import {bool, object, string} from 'yup';
-import { useFormik } from "formik";
+import {object, string} from 'yup';
+import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
 import {storeSession} from "../../services/session-service";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
-import FormCheckboxField from "../../_base/components/FormCheckboxField";
+// import FormCheckboxField from "../../_base/components/FormCheckboxField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
@@ -25,7 +25,7 @@ const SignInSchema = object().shape({
         .email("Invalid name")
         .required("Required"),
     password: string("Enter your password").required("Required"),
-    remember: bool("Remember me")
+    // remember: bool("Remember me")
 });
 
 const LoginComponent = (): Node => {
@@ -41,7 +41,7 @@ const LoginComponent = (): Node => {
         initialValues: {
             email: "",
             password: "",
-            remember: true
+            // remember: true
         },
         validationSchema: SignInSchema,
         onSubmit: v => onSubmit(v)
@@ -50,7 +50,7 @@ const LoginComponent = (): Node => {
     const onSubmit = ({
         email,
         password,
-        remember
+        // remember
     }) => {
         setWait(true);
 
@@ -62,7 +62,7 @@ const LoginComponent = (): Node => {
 
         window.addEventListener("unhandledrejection", handleUnhandledExceptionAtLogin);
 
-        login(email, password, remember)
+        login(email, password, true)
             .then(res => {
                 setWait(false);
                 storeSession(res.data);
@@ -87,7 +87,7 @@ const LoginComponent = (): Node => {
             }} noValidate onSubmit={formik.handleSubmit}>
                 <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
                 <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
-                <FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />
+                {/*<FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />*/}
                 <Button
                     type="submit"
                     fullWidth
