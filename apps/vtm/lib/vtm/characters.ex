@@ -192,8 +192,10 @@ defmodule Vtm.Characters do
     |> select([c], %Character{
       id: c.id,
       name: c.name,
+      avatar: c.avatar,
       description: c.description,
       soundtrack: c.soundtrack,
+      is_npc: c.is_npc,
       off: c.off
     })
     |> Repo.one()
