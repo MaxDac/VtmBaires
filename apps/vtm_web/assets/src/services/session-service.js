@@ -13,6 +13,7 @@ import {useContext, useEffect, useState} from "react";
 import {SessionContext} from "../contexts";
 import ClearSessionMutation from "./mutations/sessions/ClearSessionMutation";
 import {cache} from "../_base/relay-environment";
+import {updateSessionCharacter} from "./mutations/sessions/UpdateSessionCharacterMutation";
 
 const storageUserInfoKey = "vtm-baires-session-info";
 const getStorage = (): Storage => localStorage;
@@ -113,16 +114,21 @@ export const updateSession = (info: Session): ?Session => {
     return getSessionSync();
 };
 
-export const updateCurrentCharacter = (character: SessionCharacter): ?Session => {
-    const currentSession = getSessionSync();
+export const updateCurrentCharacter = (environment: IEnvironment) =>
+    (character: ?SessionCharacter): Promise<?Session> => {
+        if (character?.id != null) {
+            const currentSession = getSessionSync();
 
-    if (currentSession) {
-        updateSession({
-            ...currentSession,
-            character
-        });
-    }
-};
+            if (currentSession) {
+                updateSession({
+                    ...currentSession,
+                    character
+                });
+            }
+
+            return updateSessionCharacter(environment, character.id);
+        }
+    };
 
 export const updateCurrentLocation = (location: SessionLocation): ?Session => {
     const currentSession = getSessionSync();
@@ -160,7 +166,7 @@ export type SessionInfo = {
 export const getSessionHookValue = (environment: IEnvironment): SessionInfo => ({
     getUser: () => getSession(environment).then(x => x?.user),
     getCurrentCharacter: () => getSession(environment).then(x => x?.character),
-    setCurrentCharacter: updateCurrentCharacter,
+    setCurrentCharacter: updateCurrentCharacter(environment),
     getCurrentLocation: () => new Promise((r, _) => r(getSessionSync()?.location)),
     setCurrentLocation: updateCurrentLocation
 });

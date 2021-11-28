@@ -19,13 +19,13 @@ const CreateNewNpc = (): any => {
         CreateNewNpcMutation(environment, values)
             .then(response => {
                 if (response?.createNpc?.character?.id != null) {
-                    updateCurrentCharacter({
+                    updateCurrentCharacter(environment)({
                         id: response.createNpc.character.id,
                         name: response?.createNpc?.character?.id ?? "No name available",
                         clan: {
                             ...response?.createNpc?.character?.clan
                         }
-                    });
+                    }).catch(e => console.error("Error while updating session character", e));
 
                     // Forcing the cast after having checked the id for nulls
                     const characterId: string = (response?.createNpc?.character?.id: any);

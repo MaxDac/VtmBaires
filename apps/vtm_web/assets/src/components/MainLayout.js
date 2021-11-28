@@ -70,7 +70,7 @@ const PageDrawer = ({open, setOpen, children}) => {
 
 const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
     const numberOfMessages = useMessageSubscription();
 

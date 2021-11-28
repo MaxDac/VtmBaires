@@ -19,13 +19,13 @@ const Creation1 = (): any => {
         createCharacter(environment, values)
             .then(response => {
                 if (response?.createCharacter != null) {
-                    updateCurrentCharacter({
+                    updateCurrentCharacter(environment)({
                         id: response.createCharacter.id,
                         name: response.createCharacter.name ?? "No name available",
                         clan: {
                             ...response.createCharacter?.clan?.name
                         } 
-                    });
+                    }).catch(e => console.error("Error while updating session character", e));
 
                     history.push(MainRoutes.creation2);
                 }
