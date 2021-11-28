@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
-import {useSessionAsync} from "../services/session-service";
+import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
@@ -71,7 +71,7 @@ const PageDrawer = ({open, setOpen, children}) => {
 const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
-    const [user,] = useSessionAsync();
+    const [user,] = useSession();
     const numberOfMessages = useMessageSubscription();
 
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
