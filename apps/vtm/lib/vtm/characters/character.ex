@@ -41,6 +41,7 @@ defmodule Vtm.Characters.Character do
     field :advantages, :string
     field :notes, :string
     field :discipline_powers, :string
+    field :specialties, :string
     field :convictions, :string
     field :objects, :string
 
@@ -53,7 +54,7 @@ defmodule Vtm.Characters.Character do
 
   def complete_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :discipline_powers, :convictions, :notes, :predator_type_id, :is_complete])
+    |> cast(attrs, [:advantages, :discipline_powers, :specialties, :convictions, :notes, :predator_type_id, :is_complete])
     |> foreign_key_constraint(:clan_id)
     |> foreign_key_constraint(:predator_type_id)
     |> validate_required([:advantages, :convictions, :notes, :predator_type_id])
@@ -67,7 +68,7 @@ defmodule Vtm.Characters.Character do
 
   def add_advantages_character_changeset(character, attrs) do
     character
-    |> cast(attrs, [:advantages, :discipline_powers, :convictions, :notes, :predator_type_id])
+    |> cast(attrs, [:advantages, :discipline_powers, :specialties, :convictions, :notes, :predator_type_id])
     |> foreign_key_constraint(:predator_type_id)
     |> validate_required([:advantages, :convictions, :predator_type_id])
   end
@@ -103,6 +104,7 @@ defmodule Vtm.Characters.Character do
       :advantages,
       :notes,
       :discipline_powers,
+      :specialties,
       :convictions,
       :objects,
       :stage,
@@ -149,6 +151,7 @@ defmodule Vtm.Characters.Character do
       :advantages,
       :notes,
       :discipline_powers,
+      :specialties,
       :convictions,
       :objects,
       :blood_potency,

@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/Menu";
 import {isUserMaster} from "../services/base-types";
-import {useSession, useSessionAsync} from "../services/session-service";
+import {useSessionAsync} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
 import MessageControl from "./_layout/MessageControl";
 import OnlineControl from "./_layout/OnlineControl";
@@ -23,7 +23,6 @@ import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 import ReturnToChatControl from "./_layout/ReturnToChatControl";
-import {useRelayEnvironment} from "react-relay";
 
 const drawerWidth = 300;
 

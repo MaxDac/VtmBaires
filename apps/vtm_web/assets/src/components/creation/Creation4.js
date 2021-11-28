@@ -47,6 +47,7 @@ const InternalElement = ({character, children}: InternalElementProps): any => {
 
 const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) => {
     let shape = {
+        specialties: string("Inserire le specialità").required("Devi aggiungere le specialità del personaggio"),
         advantages: string("Please, write your character advantages").required("Devi aggiungere almeno 5 punti di Vantaggi per il tuo personaggio"),
         notes: string("Add the notes you want to communicate to the masters").nullable().notRequired(),
         firstConviction: string("Add the first convictions").required("Devi aggiungere tutte e tre le Convinzioni del tuo personaggio"),
@@ -75,6 +76,7 @@ const Creation4ValidationSchema = (isVampire: boolean, hasDiscplines: boolean) =
 
 const Creation4EmptyObject = (isVampire: boolean, hasDisciplines: boolean) => {
     let initialValue = {
+        specialties: "",
         advantages: "",
         notes: "",
         firstConviction: "",
@@ -119,6 +121,7 @@ const Creation4 = (): any => {
         discipline1,
         discipline2,
         predatorType,
+        specialties,
         advantages,
         firstConviction,
         secondConviction,
@@ -133,6 +136,7 @@ const Creation4 = (): any => {
 
         if (disciplinesOk &&
             predatorTypeOk &&
+            specialties &&
             advantages &&
             firstConviction &&
             secondConviction &&
@@ -143,6 +147,7 @@ const Creation4 = (): any => {
                     characterId: String(character?.id),
                     request: {
                         predatorTypeId: predatorType,
+                        specialties: specialties,
                         advantages: advantages,
                         notes: notes,
                         convictions: buildConvictions(firstConviction, secondConviction, thirdConviction)
@@ -227,6 +232,43 @@ const Creation4 = (): any => {
                     <PredatorTypeControl characterInfo={characterInfo}
                                          classes={classes}
                                          formik={formik} />
+                    <Grid item xs={12}>
+                        <Typography className={classes.defaultParagraph}>
+                            Di seguito, dovrai definire le specialit&agrave; del personaggio. Per maggior informazioni,
+                            puoi consultare la <Link to={GuideRoutes.attributes}
+                                                     target="_blank"
+                                                     rel="noreferrer">guida</Link>. In breve, dovrai indicare:
+                            <ul>
+                                <li>Una specialit&agrave; relazionata al <b>Tipo di Predatore</b> selezionato.</li>
+                                <li>Una specialit&agrave; per una Abilit&agrave; a piacere.</li>
+                                <li>Una specialit&agrave; relazionata alle seguenti Abilit&agrave; se si ha
+                                    almeno un pallino in esse:
+                                    <ul>
+                                        <li>Accademiche</li>
+                                        <li>Espressivit&agrave;</li>
+                                        <li>Manualit&agrave;</li>
+                                        <li>Scienze</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            label="Specialità"
+                            type="text"
+                            id="specialties"
+                            name="specialties"
+                            multiline={true}
+                            rows={5}
+                            value={formik.values["specialties"]}
+                            onChange={formik.handleChange}
+                            error={formik.touched["specialties"] && Boolean(formik.errors["specialties"])}
+                            helperText={formik.touched["specialties"] && formik.errors["specialties"]} />
+                    </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.defaultParagraph}>
                             I vantaggi non possono essere selezionati automaticamente, poich&eacute; dovranno essere

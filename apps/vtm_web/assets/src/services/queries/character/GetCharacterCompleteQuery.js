@@ -45,6 +45,7 @@ export type Character = {|
     +notes: ?string,
     +convictions: ?string,
     +disciplinePowers: ?string,
+    +specialties: ?string,
     +objects: ?string,
     +lastHunt: ?any,
     +lastResonance: ?string,

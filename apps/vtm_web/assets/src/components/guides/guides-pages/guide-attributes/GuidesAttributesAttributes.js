@@ -90,9 +90,7 @@ const GuidesAttributesAttributes = ({showAttributes}: Props): any => {
                     </Typography>
 
                     <Typography paragraph style={guideStyle}>
-                        (<b>Home Rule</b>) Ogni personaggio acquisir&agrave; automaticamente entrambe le Specialit&agrave; in funzione 
-                        del Tipo di Predatore selezionato, e potr&agrave; acquistarne altre con Punti Esperienza, a patto che abbia 
-                        <b>almeno 3 pallini</b> in quella Abilit&agrave;. Ogni specialit&agrave; garantir&agrave; un dado supplementare 
+                        Ogni specialit&agrave; garantir&agrave; un dado supplementare 
                         all'ammontare dei dadi applicato ai tiri per la specialit&agrave; del personaggio, e si potr&agrave; usare una sola 
                         specialit&agrave; per tiro.
                     </Typography>

@@ -23,7 +23,7 @@ export const storeSession = (response: Session) => {
     getStorage().setItem(storageUserInfoKey, newSession);
 };
 
-export const checkCharacter = (environment: IEnvironment, session: Session): Promise<?Session> =>
+export const checkCharacter = (environment: IEnvironment, session?: Session): Promise<?Session> =>
     new Promise((resolve, _) => {
         if (session?.character != null) {
             resolve(session);
@@ -32,15 +32,22 @@ export const checkCharacter = (environment: IEnvironment, session: Session): Pro
 
         getSessionCharacter(environment)
             .then(response => {
-                const newSession = {
-                    ...session,
+                const newSession: Session = {
+                    ...session ?? {
+                        user: {
+                            id: "",
+                            name: "",
+                            email: "",
+                            role: 'PLAYER'
+                        }
+                    },
                     character: {
                         ...response?.getSessionCharacter,
                         clan: {
                             name: response?.getSessionCharacter?.clan?.name
                         }
                     }
-                }
+                };
 
                 updateSession(newSession);
                 resolve(newSession);

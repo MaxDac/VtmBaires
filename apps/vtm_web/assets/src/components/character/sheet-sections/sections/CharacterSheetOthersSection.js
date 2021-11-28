@@ -97,6 +97,12 @@ const DisciplinePowers = ({sheet}) => (
     }} />
 );
 
+const Specialties = ({sheet}) => (
+    <InfoElement title="Specialità" text={sheet?.specialties} textSx={{
+        marginBottom: "10px"
+    }} />
+);
+
 const Advantages = ({sheet}) => (
     <InfoElement title="Vantaggi" text={sheet?.advantages} textSx={{
         marginBottom: "10px"
@@ -133,6 +139,7 @@ const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
             <PredatorType sheet={sheet} />
             <Biography sheet={sheet} />
             <DisciplinePowers sheet={sheet} />
+            <Specialties sheet={sheet} />
             <Advantages sheet={sheet} />
             <Convictions sheet={sheet} />
             <Objects sheet={sheet} />

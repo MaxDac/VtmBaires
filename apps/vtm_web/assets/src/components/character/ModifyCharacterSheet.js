@@ -127,10 +127,21 @@ const ModifyCharacterSheet = ({id}: Props): any => {
             <Grid item xs={12} sx={formSectionStyle}>
                 <Typography sx={{
                     ...mainFontFamily,
-                    fontSize: "24px",
+                    fontSize: "2rem",
                     margin: "20px"
                 }}>
                     Modifica il tuo personaggio
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sx={formSectionStyle}>
+                <Typography sx={{
+                    ...mainFontFamily,
+                    fontSize: "0.9rem",
+                    color: "primary.light",
+                    margin: "20px"
+                }}>
+                    Puoi specificare un'immagine per rappresentare il tuo personaggio in chat. L'immagine deve essere
+                    quadrata, e sar&agrave; automaticamente ridimensionata ad una dimensione di 50x50.
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>

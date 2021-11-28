@@ -9,7 +9,7 @@ import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Routes} from "../../AppRouter";
-import {checkCharacter, getSessionSync, storeSession} from "../../services/session-service";
+import {checkCharacter, storeSession} from "../../services/session-service";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -73,7 +73,7 @@ const LoginComponent = (): Node => {
                 return res;
             })
             // This call is to pre-populate the cache
-            .then(_ => checkCharacter(environment, getSessionSync()))
+            .then(_ => checkCharacter(environment))
             .catch(errors => {
                 setWait(false);
                 showUserNotification({type: 'error', graphqlErrors: errors, message: "Username or password invalid."});

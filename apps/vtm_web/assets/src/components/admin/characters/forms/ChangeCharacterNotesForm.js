@@ -22,6 +22,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
     const [advantages, setAdvantages] = useState(character?.advantages ?? "");
     const [notes, setNotes] = useState(character?.notes ?? "");
     const [disciplinePowers, setDisciplinePowers] = useState(character?.disciplinePowers ?? "");
+    const [specialties, setSpecialties] = useState(character?.specialties ?? "");
     const [convictions, setConvictions] = useState(character?.convictions ?? "");
 
     const onAdvantagesChanged = ({target: {value}}) => {
@@ -34,11 +35,15 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
 
     const onDisciplinePowersChanged = ({target: {value}}) => {
         setDisciplinePowers(_ => value);
+    };
+
+    const onSpecialtiesChanged = ({target: {value}}) => {
+        setSpecialties(_ => value);
     }
 
     const onConvictionsChanged = ({target: {value}}) => {
         setConvictions(_ => value);
-    }
+    };
 
     const changeCharacterNotes = _ => {
         openDialog(
@@ -50,6 +55,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                     advantages,
                     notes,
                     disciplinePowers,
+                    specialties,
                     convictions
                 }), showUserNotification, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
@@ -91,6 +97,16 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
                                rows={3}
                                defaultValue={disciplinePowers}
                                onChange={onDisciplinePowersChanged}
+                               variant="filled" />
+                </Grid>
+                <Grid item xs={12} sx={{margin: "10px"}}>
+                    <TextField id="specialties"
+                               label="Specialità"
+                               fullWidth
+                               multiline
+                               rows={3}
+                               defaultValue={specialties}
+                               onChange={onSpecialtiesChanged}
                                variant="filled" />
                 </Grid>
                 <Grid item xs={12} sx={{margin: "10px"}}>

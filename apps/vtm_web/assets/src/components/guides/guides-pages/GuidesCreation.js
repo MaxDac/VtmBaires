@@ -304,6 +304,47 @@ const GuidesCreation = (): any => {
                 Sangue Debole dovr&agrave; essere uguale</b>.
             </Typography>
 
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Specialit&agrave;
+                </h4>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Ogni personaggio acquisir&agrave; automaticamente entrambe le Specialit&agrave; in funzione 
+                del Tipo di Predatore selezionato, una riferita ad una Abilit&agrave; a piacere, e una per ciascuna delle 
+                seguenti Abilit&agrave;, se il personaggio possiede almeno un pallino:
+
+                <ul>
+                    <li style={liStyle}>
+                        Accademiche
+                    </li>
+
+                    <li style={liStyle}>
+                        Espressivit&agrave;
+                    </li>
+
+                    <li style={liStyle}>
+                        Manualit&agrave;
+                    </li>
+
+                    <li style={liStyle}>
+                        Scienze
+                    </li>
+                </ul>
+
+                Una specialit&agrave; dovr&agrave; essere riferita ad un campo specifico dell'Abilit&agrave;. I 
+                narratori potranno modificare o specificare meglio il settore di una particolare Specialit&agrave;.<br />
+                Per avere maggiori informazioni riguardo la Specialit&agrave;, controllare
+                la <Link to={GuideRoutes.attributes}>guida</Link>.
+            </Typography>
+
+            <Typography paragraph>
+                <h4 style={titleStyle}>
+                    Convinzioni
+                </h4>
+            </Typography>
+
             <Typography paragraph style={guideStyle} id="convictions">
                 Nell'apposita sezione, invece, dovrete scegliere tre <b>Convinzioni</b>.<br />
                 Le Convinzioni riassumono le regole morali che il personaggio seguiva in vita, e che lo mantengono umano. Questo &egrave;

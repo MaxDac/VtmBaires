@@ -86,6 +86,7 @@ input ChangeCharacterNotesInput {
   disciplinePowers: String
   notes: String!
   objects: String
+  specialties: String
 }
 
 type ChangeCharacterNotesPayload {
@@ -112,6 +113,7 @@ input ChangeCharacterStatusInput {
   disciplinePowers: String
   notes: String!
   objects: String
+  specialties: String
 }
 
 type ChangeCharacterStatusPayload {
@@ -169,6 +171,7 @@ type Character implements Node {
   off: String
   predatorType: PredatorType
   soundtrack: String
+  specialties: String
   stage: Int
   stains: Int
   torpor: Boolean
@@ -231,6 +234,7 @@ input CharacterFinalizationRequest {
   disciplinePowers: String
   notes: String
   predatorTypeId: ID
+  specialties: String
 }
 
 type CharacterStats {

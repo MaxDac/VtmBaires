@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 export type FormFileDropFieldProps = {
     changed: (?string, ?string) => void;
     fieldName: string;
+    description?: string;
     acceptedFiles?: ?string[];
     showLargePreview?: ?boolean;
     showChatPreviews?: ?boolean;
@@ -145,13 +146,19 @@ const FormFileDropField = (props: FormFileDropFieldProps): any => {
         else {
             return <></>
         }
-    }
+    };
+
+    const getDescription = () =>
+        props.description != null
+            ? (<p>{props.description}</p>)
+            : (<></>);
 
     return (
         <>
             <section className="container">
                 <div {...getRootProps({style})}>
                     <input {...getInputProps()} />
+                    {getDescription()}
                     <p>Trascina un file su questa area, o clicca per aggiungere un'immagine.</p>
                     <em>(Saranno accettati solo file png)</em>
                 </div>
