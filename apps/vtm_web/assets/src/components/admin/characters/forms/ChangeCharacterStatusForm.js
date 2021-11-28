@@ -47,7 +47,7 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
         );
     };
 
-    const menuItems = (max: number) => baseMenuItems(1, max);
+    const menuItems = (max: number) => baseMenuItems(0, max);
 
     const stainsItems = () => baseMenuItems(0, 10 - (character?.humanity ?? 0));
 
