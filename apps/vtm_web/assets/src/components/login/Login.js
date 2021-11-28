@@ -66,6 +66,7 @@ const LoginComponent = (): Node => {
         login(email, password, true)
             .then(res => {
                 setWait(false);
+                console.debug("loading user", res);
                 storeSession(res.data);
                 setTimeout(() => {
                     history.push(Routes.main);

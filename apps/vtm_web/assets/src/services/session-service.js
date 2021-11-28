@@ -30,27 +30,24 @@ export const checkCharacter = (environment: IEnvironment, session?: Session): Pr
             return;
         }
 
+        const oldSession = session != null ? session : getSessionSync();
+
         getSessionCharacter(environment)
             .then(response => {
-                const newSession: Session = {
-                    ...session ?? {
-                        user: {
-                            id: "",
-                            name: "",
-                            email: "",
-                            role: 'PLAYER'
+                if (oldSession?.user != null) {
+                    const newSession: Session = {
+                        ...oldSession,
+                        character: {
+                            ...response?.getSessionCharacter,
+                            clan: {
+                                name: response?.getSessionCharacter?.clan?.name
+                            }
                         }
-                    },
-                    character: {
-                        ...response?.getSessionCharacter,
-                        clan: {
-                            name: response?.getSessionCharacter?.clan?.name
-                        }
-                    }
-                };
+                    };
 
-                updateSession(newSession);
-                resolve(newSession);
+                    updateSession(newSession);
+                    resolve(newSession);
+                }
             })
             .catch(e => {
                 console.error("Error while trying to fetch the session character", e);

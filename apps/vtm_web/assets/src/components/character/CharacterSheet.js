@@ -2,6 +2,7 @@
 
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 import {useSession} from "../../services/session-service";
 import {isUserMaster} from "../../services/base-types";
 import CharacterSheetPublic from "./CharacterSheetPublic";
@@ -17,7 +18,10 @@ type Props = {
 export const CharacterSheetSuspenseFallback = (): any => {
     return (
         <>
-            <Skeleton variant="text" />
+            <Box component="div" style={{textAlign: "center"}}>
+                <Skeleton variant="text" height={20} width={40} />
+            </Box>
+            
             <Skeleton variant="circle" width={40} height={40} />
             <Skeleton variant="rect" width={210} height={118} />
         </>
