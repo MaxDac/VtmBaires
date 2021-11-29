@@ -27,6 +27,7 @@ import ChatScreen from "./ChatScreen";
 import type { ChatEntry } from "../../services/base-types";
 import DefaultFallback from "../../_base/components/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";
+import {showDesktopNotification} from "../../_base/notification-utils";
 
 type ChatProps = {
     id: string;
@@ -114,6 +115,7 @@ const Chat = ({id}: ChatProps): any => {
 
     const onNewEntry = (entry: string) => {
         if (entry != null && entry !== "") {
+            showDesktopNotification("Chat", "Hai ricevuto un nuovo messaggio");
             const [offGame, parsedEntry] = parseEntry(entry);
 
             createEntry((characterId, mapId) =>

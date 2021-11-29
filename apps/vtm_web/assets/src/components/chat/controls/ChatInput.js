@@ -10,10 +10,12 @@ import Fab from "@mui/material/Fab";
 import CasinoIcon from "@mui/icons-material/Casino";
 import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
-import {Typography, useMediaQuery} from "@mui/material";
+import {useMediaQuery} from "@mui/material";
 import {menuIconStyle} from "../../_layout/Menu";
 import {isUserMaster} from "../../../services/base-types";
 import {useSession} from "../../../services/session-service";
+import Typography from "@mui/material/Typography";
+import ChatInputHelp from "./ChatInputHelp";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -142,8 +144,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
                     fontSize: "13px"
                 }}>
                     {countCharacterMessage()}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Anteponi un <b>+</b> alla frase per poter comunicare con gli altri giocatori off game
+                    <ChatInputHelp />
                 </Typography>
             </Box>
 

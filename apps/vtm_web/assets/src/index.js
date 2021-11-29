@@ -6,6 +6,7 @@ import App from './App';
 import {HashRouter} from "react-router-dom";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import {requestDesktopNotificationPermission} from "./_base/notification-utils";
 
 // <React.StrictMode>
 
@@ -27,3 +28,5 @@ serviceWorkerRegistration.register();
 // to log results (for example: reportWebVitals(console.debug))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+document.addEventListener("DOMContentLoaded", requestDesktopNotificationPermission, false);
