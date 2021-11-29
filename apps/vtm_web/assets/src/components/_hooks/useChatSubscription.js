@@ -5,8 +5,11 @@ import {subscribe} from "../../_base/relay-utils";
 import subscriptionObservable from "../../services/subscriptions/ChatSubscription";
 import type {ChatEntry} from "../../services/base-types";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
+import {showDesktopNotification} from "../../_base/notification-utils";
+import {useSession} from "../../services/session-service";
 
 const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>) => void): any => {
+    const [,character] = useSession();
     const chatToken = useSubscriptionTokenQuery();
 
     const setAdditionalEntriesRef = useRef(setAdditionalEntries);
@@ -22,7 +25,13 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
 
         window.addEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
 
-        const showNewChatEntry = entry => setAdditionalEntriesRef.current(es => [...es, entry]);
+        const showNewChatEntry = (entry: ChatEntry) => {
+            if (entry?.character?.id !== character?.id) {
+                showDesktopNotification("Chat", "Hai ricevuto un nuovo messaggio");
+            }
+
+            setAdditionalEntriesRef.current(es => [...es, entry]);
+        }
 
         const performSubscription = token =>
             subscribe(subscriptionObservable(id, token), showNewChatEntry, (e, _) => {

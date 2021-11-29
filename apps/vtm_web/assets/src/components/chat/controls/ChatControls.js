@@ -146,7 +146,7 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogR
                              tooltipTitle="Location"
                              onClick={onMapClicked} />
             <SpeedDialAction icon={<DownloadIcon sx={menuIconStyle} />}
-                             tooltipTitle="Location"
+                             tooltipTitle="Download Chat"
                              onClick={onChatLogRequestedHandler} />
             <SpeedDialAction icon={<AssignmentIndIcon sx={menuIconStyle} />}
                              tooltipTitle="Status"
