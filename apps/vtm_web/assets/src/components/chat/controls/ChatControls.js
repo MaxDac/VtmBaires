@@ -21,14 +21,16 @@ import {
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
 import HealMutation from "../../../services/mutations/chat/HealMutation";
 import {menuIconStyle} from "../../_layout/Menu";
+import DownloadIcon from '@mui/icons-material/Download';
 
 type Props = {
     openMapModal: () => void;
     openCharacterStatusPopup: () => void;
     mapId: string;
+    onChatLogRequested: () => void;
 };
 
-const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): any => {
+const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogRequested}: Props): any => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
@@ -40,7 +42,12 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
     const onMapClicked = _ => {
         openMapModal();
         handleClose();
-    }
+    };
+
+    const onChatLogRequestedHandler = _ => {
+        onChatLogRequested();
+        handleClose();
+    };
 
     const showSelectCharacterNotification = () => 
         showUserNotification({
@@ -54,21 +61,18 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
         }
 
         return [
-            <SpeedDialAction
-                key={1}
-                icon={<BloodtypeIcon sx={menuIconStyle} />}
-                tooltipTitle="Spendi vitae"
-                onClick={requestRouseCheck} />,
-            <SpeedDialAction
-                key={2}
-                icon={<FlashOnOutlinedIcon sx={menuIconStyle} />}
-                tooltipTitle="Spendi WP"
-                onClick={requestWillpowerUse} />,
-            <SpeedDialAction
-                key={3}
-                icon={<HealingIcon sx={menuIconStyle} />}
-                tooltipTitle="Guarisci"
-                onClick={requestHeal} />
+            <SpeedDialAction key={1}
+                             icon={<BloodtypeIcon sx={menuIconStyle} />}
+                             tooltipTitle="Spendi vitae"
+                             onClick={requestRouseCheck} />,
+            <SpeedDialAction key={2}
+                             icon={<FlashOnOutlinedIcon sx={menuIconStyle} />}
+                             tooltipTitle="Spendi WP"
+                             onClick={requestWillpowerUse} />,
+            <SpeedDialAction key={3}
+                             icon={<HealingIcon sx={menuIconStyle} />}
+                             tooltipTitle="Guarisci"
+                             onClick={requestHeal} />
         ];
     }
 
@@ -127,26 +131,26 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId}: Props): a
     };
 
     return (
-        <SpeedDial
-            ariaLabel="Azioni chat"
-            sx={{
-                position: 'absolute',
-                top: theme.spacing(10),
-                right: theme.spacing(3)
-            }}
-            icon={<SpeedDialIcon sx={menuIconStyle} />}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            direction="down"
-            open={open}>
-            <SpeedDialAction
-                icon={<RoomIcon sx={menuIconStyle} />}
-                tooltipTitle="Location"
-                onClick={onMapClicked} />
-            <SpeedDialAction
-                icon={<AssignmentIndIcon sx={menuIconStyle} />}
-                tooltipTitle="Status"
-                onClick={_ => openCharacterStatusPopup()} />
+        <SpeedDial ariaLabel="Azioni chat"
+                   sx={{
+                       position: 'absolute',
+                       top: theme.spacing(10),
+                       right: theme.spacing(3)
+                   }}
+                   icon={<SpeedDialIcon sx={menuIconStyle} />}
+                   onClose={handleClose}
+                   onOpen={handleOpen}
+                   direction="down"
+                   open={open}>
+            <SpeedDialAction icon={<RoomIcon sx={menuIconStyle} />}
+                             tooltipTitle="Location"
+                             onClick={onMapClicked} />
+            <SpeedDialAction icon={<DownloadIcon sx={menuIconStyle} />}
+                             tooltipTitle="Location"
+                             onClick={onChatLogRequestedHandler} />
+            <SpeedDialAction icon={<AssignmentIndIcon sx={menuIconStyle} />}
+                             tooltipTitle="Status"
+                             onClick={_ => openCharacterStatusPopup()} />
             {vampireReservedActions()}
         </SpeedDial>
     )

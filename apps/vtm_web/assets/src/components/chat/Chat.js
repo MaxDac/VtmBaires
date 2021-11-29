@@ -28,6 +28,8 @@ import type { ChatEntry } from "../../services/base-types";
 import DefaultFallback from "../../_base/components/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";
 import {showDesktopNotification} from "../../_base/notification-utils";
+import {getFileTextFromChatEntries} from "./chat-helpers";
+import {downloadFile} from "../../_base/file-utils";
 
 type ChatProps = {
     id: string;
@@ -128,7 +130,9 @@ const Chat = ({id}: ChatProps): any => {
         }
     };
 
-    const onNewDiceEntry = (request: ChatDiceRequest) =>
+    const onNewDiceEntry = (request: ChatDiceRequest) => {
+        showDesktopNotification("Chat", "Hai ricevuto un nuovo messaggio");
+
         createEntry((characterId, mapId) =>
             chatDiceEntryMutationPromise(environment, {
                 abilityId: request.abilityId,
@@ -141,6 +145,12 @@ const Chat = ({id}: ChatProps): any => {
                 characterId: characterId,
                 chatMapId: mapId
             }));
+    };
+
+    const downloadChat = () => {
+        const fileText = getFileTextFromChatEntries(initialEntries.concat(additionalEntries));
+        downloadFile("chat.txt", fileText);
+    };
 
     const showChatInput = () => {
         if (character?.approved) {
@@ -214,8 +224,9 @@ const Chat = ({id}: ChatProps): any => {
                 overflow: "hidden"
             }} id="chat-entries">
                 <ChatControls openMapModal={() => showMapDescription()}
-                                openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
-                                mapId={id} />
+                              openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
+                              mapId={id}
+                              onChatLogRequested={downloadChat} />
                 <Suspense fallback={<DefaultFallback />}>
                     <ChatScreen entries={initialEntries}
                                 additionalEntries={additionalEntries}
