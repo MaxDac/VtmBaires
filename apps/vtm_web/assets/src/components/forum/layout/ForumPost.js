@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
+import ParsedText from "../../../_base/components/ParsedText";
 
 type Props = {
     onGame: boolean;
@@ -46,12 +47,10 @@ const ForumPost = ({post, onGame}: Props): any => {
             </Grid>
             <Grid item xs={12}>
                 <Paper component="div" variant="outlined">
-                    <Typography sx={{
+                    <ParsedText text={post?.text} sx={{
                         ...style(),
                         padding: "10px"
-                    }}>
-                        {post?.text}
-                    </Typography>
+                    }} />
                 </Paper>
             </Grid>
         </Grid>

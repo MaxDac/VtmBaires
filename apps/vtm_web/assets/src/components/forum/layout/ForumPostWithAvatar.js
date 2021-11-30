@@ -17,6 +17,7 @@ import type {GetCharacterChatAvatarQuery} from "../../../services/queries/charac
 import {getCharacterChatAvatarQuery} from "../../../services/queries/character/GetCharacterChatAvatarQuery";
 import Avatar from "@mui/material/Avatar";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
+import ParsedText from "../../../_base/components/ParsedText";
 
 type Props = {
     onGame: boolean;
@@ -99,9 +100,7 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
                                         minHeight: "90px",
                                         padding: "10px"
                                     }}>
-                                        <Typography sx={style()}>
-                                            {post?.text}
-                                        </Typography>
+                                        <ParsedText text={post?.text} sx={style()} />
                                     </Paper>
                                 </Grid>
                             </Grid>
