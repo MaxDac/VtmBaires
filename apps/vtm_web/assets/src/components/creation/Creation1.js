@@ -20,8 +20,8 @@ const Creation1 = (): any => {
             .then(response => {
                 if (response?.createCharacter != null) {
                     updateCurrentCharacter(environment)({
-                        id: response.createCharacter.id,
-                        name: response.createCharacter.name ?? "No name available",
+                        id: response.createCharacter?.id,
+                        name: response.createCharacter?.name ?? "No name available",
                         clan: {
                             ...response.createCharacter?.clan?.name
                         } 

@@ -120,6 +120,19 @@ const GuidesCredits = (props: Props): any => {
                     offrono un'ampio spettro di esperienze e <i>lore</i> che vi sar&agrave; sicuramente utile
                     per approfondire ulteriormente l'ambientazione.
                 </Typography>
+
+                <Typography paragraph sx={guideStyle}>
+                    <h2 style={titleStyle}>
+                        La Sfinge di Quarzo Nero (blog)
+                    </h2>
+                </Typography>
+
+                <Typography paragraph sx={guideStyle}>
+                    Blog molto interessante, con ottimi spunti per organizzare e gestire un sito di Play by Chat
+                    online. Accessibile a <a href="https://quartzilnero.blogspot.com/" target="_blank" rel="noreferrer">
+                        questo link
+                    </a>.
+                </Typography>
             </Box>
         </>
     );

@@ -59,7 +59,7 @@ export const checkCharacter = (environment: IEnvironment, session?: Session): Pr
 /**
  * Retrieve the session from the browser storage.
  * This method doesn't try to retrieve the character from the remote session.
- * @returns {Session} The session saved in the browser.
+ * @return {Session} The session saved in the browser.
  */
 export const getSessionSync = (): ?Session => {
     const inStorage = getStorage().getItem(storageUserInfoKey);
@@ -75,7 +75,7 @@ export const getSessionSync = (): ?Session => {
  * Gets the current login information. It tries to retrieve the character from the remote session
  * if it doesn't find it in the browser session.
  * @param environment: the Relay Environment, used for the query.
- * @returns {?SessionCharacter} The user.
+ * @return {?SessionCharacter} The user.
  */
 export const getSession = (environment: IEnvironment): Promise<?Session> => {
     const inStorage = getStorage().getItem(storageUserInfoKey);
@@ -90,7 +90,7 @@ export const getSession = (environment: IEnvironment): Promise<?Session> => {
 
 /**
  * Determines whether the user is a master or not.
- * @returns {Promise<bool>|Promise<bool|boolean>|*} True if the user is a master, False otherwise.
+ * @return {Promise<bool>|Promise<bool|boolean>|*} True if the user is a master, False otherwise.
  */
 export const isMaster = (): Promise<boolean> =>
     checkMaster()
@@ -100,7 +100,7 @@ export const isMaster = (): Promise<boolean> =>
 /**
  * Merges the current session info with the ones that are already stored.
  * @param info The session info.
- * @returns {Session} The new session info.
+ * @return {Session} The new session info.
  */
 export const updateSession = (info: Session): ?Session => {
     const olderSession = getSessionSync();
@@ -114,9 +114,10 @@ export const updateSession = (info: Session): ?Session => {
     return getSessionSync();
 };
 
-export const updateCurrentCharacter = (environment: IEnvironment) =>
-    (character: ?SessionCharacter): Promise<?Session> => {
+export const updateCurrentCharacter = (environment: IEnvironment): (?SessionCharacter => Promise<?Session>) =>
+    (character: ?SessionCharacter): Promise<?Session> => new Promise((resolve, reject) => {
         if (character?.id != null) {
+            const characterId = character.id;
             const currentSession = getSessionSync();
 
             if (currentSession) {
@@ -126,9 +127,16 @@ export const updateCurrentCharacter = (environment: IEnvironment) =>
                 });
             }
 
-            return updateSessionCharacter(environment, character.id);
+            updateSessionCharacter(environment, characterId)
+                .then(_ => getSession(environment))
+                .then(s => resolve(s))
+                .catch(e => reject(e));
         }
-    };
+
+        getSession(environment)
+            .then(s => resolve(s))
+            .catch(e => reject(e));
+    });
 
 export const updateCurrentLocation = (location: SessionLocation): ?Session => {
     const currentSession = getSessionSync();
@@ -154,14 +162,14 @@ export const destroySession = (): Promise<boolean> => {
 export type SessionInfo = {
     getUser: () => Promise<?User>;
     getCurrentCharacter: () => Promise<?SessionCharacter>;
-    setCurrentCharacter: SessionCharacter => ?Session;
+    setCurrentCharacter: SessionCharacter => Promise<?Session>;
     getCurrentLocation: () => Promise<?SessionLocation>;
     setCurrentLocation: SessionLocation => ?Session;
 };
 
 /**
  * This custom hook retrieves the session information.
- * @returns {SessionInfo} The session info.
+ * @return {SessionInfo} The session info.
  */
 export const getSessionHookValue = (environment: IEnvironment): SessionInfo => ({
     getUser: () => getSession(environment).then(x => x?.user),
@@ -174,7 +182,7 @@ export const getSessionHookValue = (environment: IEnvironment): SessionInfo => (
 /**
  * This method gets the session (user and character) in a synchronous manner, i.e., without calling the
  * back end.
- * @returns {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
+ * @return {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
  */
 export const useSession = (): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
     const session = getSessionSync();
@@ -184,7 +192,7 @@ export const useSession = (): [?User, ?SessionCharacter, ?SessionLocation, ?Sess
 /**
  * This method gets the session (user and character), checking whether the session exists in the client,
  * otherwise calling the back end.
- * @returns {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
+ * @return {[User, SessionCharacter, SessionLocation, Session]} The user and the character in the session.
  */
 export const useSessionAsync = (): [?User, ?SessionCharacter, ?SessionLocation, ?Session] => {
     const sessionContext = useContext(SessionContext);

@@ -16,6 +16,7 @@ import AddCharacterExperienceForm from "./forms/AddCharacterExperienceForm";
 import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
 import ResetHuntForm from "./forms/ResetHuntForm";
 import SpendCharacterExperienceForm from "./forms/SpendCharacterExperienceForm";
+import SendMessageToUserOrCharacter from "./forms/SendMessageToUserOrCharacter";
 
 type Props = {
     characterId: string;
@@ -59,50 +60,51 @@ const CharacterDashboard = ({characterId}: Props): any => {
             return (
                 <Grid container>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ChangeCharacterAttributeForm character={character}
                                                           onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ChangeCharacterOtherStatsForm character={character}
                                                            onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
-                    <Grid xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                    <Grid item xs={12}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ChangeCharacterStatusForm character={character}
                                                        onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ChangeCharacterNotesForm character={character}
                                                       onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <AddCharacterExperienceForm character={character}
                                                         onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <SpendCharacterExperienceForm character={character}
                                                           onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ResetHuntForm character={character}
                                            onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
+                    <ApproveCharacterForm character={character} />
                     <Grid item xs={12}>
-                        <Paper elevation={12} variant="outlined" sx={{margin: "10px"}}>
-                            <ApproveCharacterForm character={character} />
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
+                            <SendMessageToUserOrCharacter character={character} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>

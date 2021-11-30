@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
 import ApproveCharacterMutation from "../../../services/mutations/characters/ApproveCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
@@ -57,32 +58,36 @@ const ApproveCharacterForm = ({character}: Props): any => {
     if (character?.approved !== true && character?.isComplete === true) {
         return (
             <Grid item xs={12}>
-                <Box sx={{
-                    margin: "20px",
-                    textAlign: "center"
-                }}>
-                    <Grid container>
-                        <Grid item xs={6}>
-                            <Button variant="outlined"
-                                    onClick={rejectCharacter}>Rifiuta personaggio</Button>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="outlined"
-                                    onClick={approveCharacter}>Approva personaggio</Button>
-                        </Grid>
-                        <Grid item xs={12} sx={{
-                            paddingTop: "15px",
-                            paddingLeft: "10px", 
-                            paddingRight: "10px"
+                <Paper variant="outlined" sx={{margin: "10px"}}>
+                    <Grid item xs={12}>
+                        <Box sx={{
+                            margin: "20px",
+                            textAlign: "center"
                         }}>
-                            <TextField id="filled-basic" 
-                                       label="Ragione" 
-                                       variant="filled" 
-                                       onChange={({target: {value}}) => setReason(_ => value)}
-                                       fullWidth />
-                        </Grid>
+                            <Grid container>
+                                <Grid item xs={6}>
+                                    <Button variant="outlined"
+                                            onClick={rejectCharacter}>Rifiuta personaggio</Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button variant="outlined"
+                                            onClick={approveCharacter}>Approva personaggio</Button>
+                                </Grid>
+                                <Grid item xs={12} sx={{
+                                    paddingTop: "15px",
+                                    paddingLeft: "10px", 
+                                    paddingRight: "10px"
+                                }}>
+                                    <TextField id="filled-basic" 
+                                            label="Ragione" 
+                                            variant="filled" 
+                                            onChange={({target: {value}}) => setReason(_ => value)}
+                                            fullWidth />
+                                </Grid>
+                            </Grid>
+                        </Box>
                     </Grid>
-                </Box>
+                </Paper>
             </Grid>
         );
     }

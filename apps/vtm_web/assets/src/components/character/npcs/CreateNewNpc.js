@@ -20,7 +20,7 @@ const CreateNewNpc = (): any => {
             .then(response => {
                 if (response?.createNpc?.character?.id != null) {
                     updateCurrentCharacter(environment)({
-                        id: response.createNpc.character.id,
+                        id: response.createNpc?.character?.id,
                         name: response?.createNpc?.character?.id ?? "No name available",
                         clan: {
                             ...response?.createNpc?.character?.clan

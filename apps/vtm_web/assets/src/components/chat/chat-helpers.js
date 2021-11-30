@@ -22,7 +22,7 @@ export const goToChatAndUpdateSession = (session: SessionInfo, history: any, cha
 /**
  * Generates a file content from the chat entries.
  * @param entries The chat entries.
- * @returns The chat entries
+ * @return The chat entries
  */
 export const getFileTextFromChatEntries = (entries: Array<ChatEntry>): string => {
     const parseText = e =>
@@ -33,7 +33,7 @@ export const getFileTextFromChatEntries = (entries: Array<ChatEntry>): string =>
             "*", "");
 
     const getFileTextFromChatEntry = ({text, result, master, character, insertedAt}: ChatEntry): string => {
-        const formattedDate = defaultFormatDateAndTime(insertedAt);
+        const formattedDate = defaultFormatDateAndTime(insertedAt) ?? "";
 
         const getMasterRow = () => `${formattedDate} - ${parseText(text)}`;
 

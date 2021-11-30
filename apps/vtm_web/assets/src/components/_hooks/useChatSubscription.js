@@ -53,8 +53,7 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
                 subscription.unsubscribe();
             };
         }
-    }, [id, chatToken]);
-
+    }, [id, chatToken, character?.id]);
 }
 
 export default useChatSubscription;

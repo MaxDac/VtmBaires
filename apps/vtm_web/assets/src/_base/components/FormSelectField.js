@@ -46,8 +46,7 @@ const FormSelectField = (props: SelectInputProps): any => {
                     label={props.label}
                     value={props.formik.values[props.fieldName]}
                     onChange={props.formik.handleChange}
-                    error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}
-                    helperText={props.formik.touched[props.fieldName] && props.formik.errors[props.fieldName]}>
+                    error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
                 {items()}
             </Select>
         </FormControl>

@@ -131,7 +131,7 @@ export const wrapSubscription = <T>(operation: any, variables: any, extractor?: 
  * @param observable The Observable.
  * @param onNext The next value handler.
  * @param onError The error handler.
- * @returns {Subscription} The subscription info.
+ * @return {Subscription} The subscription info.
  */
 export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onError?: ((any, ?boolean) => void)): Subscription => {
     const handleError = onError ?? ((e, _) => console.error("Error in subscription!", e));
@@ -152,7 +152,7 @@ export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onErr
 /**
  * Converts a Relay readonly array to a plain Javascript array.
  * @param arr The Relay array.
- * @returns {T[]} The javascript array.
+ * @return {T[]} The javascript array.
  */
 export const convertToJavascriptArray = <T>(arr: ?$ReadOnlyArray<T>): T[] => {
     const result = [];
@@ -169,7 +169,7 @@ export const convertToJavascriptArray = <T>(arr: ?$ReadOnlyArray<T>): T[] => {
  * @param gqlQuery The GraphQL query.
  * @param variables The query variables.
  * @param options The call options.
- * @returns {*} The query response.
+ * @return {*} The query response.
  */
 export const useCustomLazyLoadQuery = <TQuery: OperationType>(
     gqlQuery: GraphQLTaggedNode,

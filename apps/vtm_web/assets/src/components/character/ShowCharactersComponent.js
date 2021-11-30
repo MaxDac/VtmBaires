@@ -15,6 +15,7 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import MenuLayout from "../../_base/components/MenuLayout";
+import { matchNames } from "../../_base/utils";
 
 type Props = {
     characters: Array<{|
@@ -76,8 +77,9 @@ const ShowCharactersComponent = ({characters}: Props): any => {
         filteredCharacter.map(characterLine);
 
     const filter = ({target: {value}}) => {
-        setFilteredCharacter(_ => characters.filter(c => c.name?.indexOf(value) !== -1));
-    }
+        const filtered = characters.filter(c => matchNames(c.name, value));
+        setFilteredCharacter(_ => filtered);
+    };
 
     return (
         <Box sx={{

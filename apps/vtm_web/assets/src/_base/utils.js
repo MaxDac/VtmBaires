@@ -84,7 +84,7 @@ export const castNotNull = <T>(item: ?T): T => ((item: any): T);
  * Returns a range between the two specified number (included).
  * @param from The lower boundary.
  * @param to The highest boundary.
- * @returns {Generator<number, void, number>} The generator.
+ * @return {Generator<number, void, number>} The generator.
  */
 export const range = function*(from: number, to: number): Generator<number, void, number> {
     if (from > to) {
@@ -202,3 +202,42 @@ export const getUrlValidationMatchString = (): RegExp =>
  * @return {number} The random number.
  */
 export const randomFetchKey = (): number => Math.round(Math.random() * 100);
+
+export type ComparisonOptions = 
+    | "CaseSensitive"
+    | "CaseInsensitive";
+
+const parseComparisonStrings = (first: ?string, second: ?string, options: ?ComparisonOptions): [string, string] => {
+    const [f, s] = options === "CaseSensitive"
+        ? [first ?? "", second ?? ""]
+        : [first ?? "", second ?? ""].map(s => s.toLowerCase());
+
+    return [f, s];
+}
+
+/**
+ * Delegate that orders two strings alphabetically.
+ * @param first The first string
+ * @param second The second string
+ * @param options The comparison options
+ * @return {number} 1 if the first string is "greater" than the second, 0 if it's equal, -1 if it's less than the second.
+ */
+export const orderAlphabetically = (first: ?string, second: ?string, options: ?ComparisonOptions): number => {
+    const [f, s] = parseComparisonStrings(first, second, options);
+
+    return f > s 
+        ? 1
+        : f === s ? 0 : -1;
+};
+
+/**
+ * Checkes whether the search and the match string are equal.
+ * @param first The search string
+ * @param second The match string
+ * @param options The comparison options
+ * @return {boolean} True if the two strings are equal, False otherwise.
+ */
+export const matchNames = (name: ?string, match: ?string, options: ?ComparisonOptions): boolean => {
+    const [n, m] = parseComparisonStrings(name, match, options);
+    return n.indexOf(m) !== -1;
+};

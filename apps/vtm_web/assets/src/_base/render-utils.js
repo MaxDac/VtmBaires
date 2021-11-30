@@ -6,7 +6,7 @@ import React from "react";
  * Renders conditionally an object, rendering nothing if the given condition is false.
  * @param condition The condition.
  * @param render The render component.
- * @returns {JSX.Element|*} The render element to return.
+ * @return {JSX.Element|*} The render element to return.
  */
 export const conditionalRendering = (condition: () => boolean, render: () => any): any => {
     if (condition()) {
@@ -21,7 +21,7 @@ export const conditionalRendering = (condition: () => boolean, render: () => any
  * returns an empty Fragment otherwise.
  * @param propGetter The property getter.
  * @param render The render function.
- * @returns {JSX.Element|*} The render component.
+ * @return {JSX.Element|*} The render component.
  */
 export const propNotNullRendering = <T>(propGetter: () => ?T, render: T => any): any => {
     const property = propGetter();

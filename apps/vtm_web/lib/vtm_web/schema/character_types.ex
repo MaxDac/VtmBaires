@@ -197,7 +197,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
-      resolve parsing_node_ids(&CharacterResolvers.get_character_user/2, id: :character)
+      resolve parsing_node_ids(&CharacterResolvers.get_character_user/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

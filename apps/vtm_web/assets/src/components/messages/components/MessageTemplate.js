@@ -15,6 +15,7 @@ import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {bool, object, string} from "yup";
 import type {SubmitProperties} from "../NewMessage";
+import { orderAlphabetically } from "../../../_base/utils";
 
 const MessageSchema = object().shape({
     subject: string("Subject: ").required("Required"),
@@ -40,7 +41,7 @@ type Props = {
     onGame?: boolean,
     toUserId?: ?string,
     toCharacterId?: ?string
-}
+};
 
 const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, toCharacterId = null, onGame = false}: Props): any => {
     const theme = useTheme();
@@ -79,16 +80,16 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toU
 
     const userValues = useMemo((): Array<[string, string]> => {
         const values: Array<[string, string]> = allUsers
-            // $FlowFixMe
-            ?.map(v => [v.id, v.name]) ?? [];
+            ?.map(v => [v?.id ?? "", v?.name ?? ""])
+            ?.sort(([_aId, aName], [_bId, bName]) => orderAlphabetically(aName, bName)) ?? [];
 
         return [["", "None"]].concat(values);
     }, [allUsers]);
 
     const characterValues = useMemo((): Array<[string, string]> => {
         const values: Array<[string, string]> = allCharacters
-            // $FlowFixMe
-            ?.map(v => [v.id, v.name]) ?? [];
+            ?.map(v => [v?.id ?? "", v?.name ?? ""])
+            ?.sort(([_aId, aName], [_bId, bName]) => orderAlphabetically(aName, bName)) ?? [];
 
         return [["", "None"]].concat(values);
     }, [allCharacters]);

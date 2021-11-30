@@ -8,7 +8,7 @@ const AppVersion = (): any => {
         <Typography sx={{
             fontSize: "13px"
         }}>
-            App Version: 0.2.2.23.21112902
+            App Version: 0.2.2.24.21113001
         </Typography>
     );
 }

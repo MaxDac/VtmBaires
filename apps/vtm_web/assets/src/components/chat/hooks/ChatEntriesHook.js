@@ -32,7 +32,7 @@ export const useChatEntriesQuery = (mapId: string): Array<ChatEntry> => {
  * Gets the chat entries, and enriches it with the character avatar, that instead will be taken from the cache
  * if not existent, using Relay configuration.
  * @param mapId The map id
- * @returns The chat entries.
+ * @return The chat entries.
  */
 export const useChatEntries = (mapId: string): Array<ChatEntry> => {
     const entries = useChatEntriesQuery(mapId);

@@ -36,7 +36,7 @@ export const CharacterSheetStatsTabSuspenseFallback = (): any => {
 
         for (let i = 0; i < rowCount; i++) {
             rows.push(
-                <Grid container>
+                <Grid container key={i}>
                     <Grid item xs={6}>
                         <Skeleton variant="text" sx={{margin: "2px"}} />
                     </Grid>
@@ -52,13 +52,13 @@ export const CharacterSheetStatsTabSuspenseFallback = (): any => {
 
     const ListGroup = ({rowCount}) => (
         <Grid container>
-            <Grid xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4}>
                 {listRows(rowCount)}
             </Grid>
-            <Grid xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4}>
                 {listRows(rowCount)}
             </Grid>
-            <Grid xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4}>
                 {listRows(rowCount)}
             </Grid>
         </Grid>

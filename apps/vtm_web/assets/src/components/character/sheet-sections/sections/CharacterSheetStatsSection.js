@@ -150,7 +150,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
     const advantages = () =>
         stats?.advantages
             ?.map(d => (
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid key={d.id} item xs={12} sm={6} md={4}>
                     <AttributeStat stat={d} />
                 </Grid>
             ));
