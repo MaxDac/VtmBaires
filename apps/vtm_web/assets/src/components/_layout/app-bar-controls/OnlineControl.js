@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React, {Suspense} from "react";
 import IconButton from "@mui/material/IconButton";
 import PeopleIcon from "@mui/icons-material/People";
 import {useTheme} from "@mui/material/styles";
@@ -15,6 +15,9 @@ import {useMediaQuery} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import OnlineControlDialog from "./OnlineControlDialog";
+import Skeleton from "@mui/material/Skeleton";
+
+const SuspenseFallback = () => (<Skeleton variant="circle" width={40} height={40} />);
 
 const Transition = React.forwardRef((props, ref) =>
     <Fade ref={ref} {...props} />);
@@ -27,7 +30,7 @@ const OnlineControl = (): any => {
     const handleClose = () => setOpen(_ => false);
 
     return (
-        <>
+        <Suspense fallback={SuspenseFallback}>
             <Tooltip title="Online" placement="bottom">
                 <IconButton aria-label="Online" onClick={_ => setOpen(_ => true)}>
                     <PeopleIcon sx={menuIconStyle} />
@@ -57,7 +60,7 @@ const OnlineControl = (): any => {
                     <OnlineControlDialog closePopup={_ => setOpen(_ => false)} />
                 </List>
             </Dialog>
-        </>
+        </Suspense>
     );
 }
 

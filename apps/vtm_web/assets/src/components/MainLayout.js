@@ -25,6 +25,7 @@ import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 import ReturnToChatControl from "./_layout/app-bar-controls/ReturnToChatControl";
 import SecondaryListItems from "./_layout/menu/SecondaryListItems";
 import MainListItems from "./_layout/menu/MainListItems";
+import CommonListItems from "./_layout/menu/CommonListItems";
 
 const drawerWidth = 300;
 
@@ -69,10 +70,6 @@ const PageDrawer = ({open, setOpen, children}) => {
         </SwipeableDrawer>
     );
 };
-
-function CommonListItem() {
-    return null;
-}
 
 const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();
@@ -145,7 +142,7 @@ const MiniDrawer = ({children}: {children: any}): any => {
             <Divider />
             {masterMenu()}
             <Divider />
-            <CommonListItem />
+            <CommonListItems />
         </Box>
     );
 
