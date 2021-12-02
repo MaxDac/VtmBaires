@@ -156,14 +156,16 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   def get_session_character(_, _, %{context: %{current_user: user}}) do
     with {:ok, %SessionInfo{
-      character_id: id,
-      character_name: name,
-      approved: approved
-    }} <- Accounts.get_character_session_by_user_id(user.id) do
+           character_id: id,
+           character_name: name,
+           approved: approved
+         }} <- Accounts.get_character_session_by_user_id(user.id),
+         clan  <- Characters.get_character_clan(id) do
       {:ok, %{
         id: id,
         name: name,
-        approved: approved
+        approved: approved,
+        clan: clan
       }}
     end
   end

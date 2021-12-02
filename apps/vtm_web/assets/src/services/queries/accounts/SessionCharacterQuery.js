@@ -12,6 +12,7 @@ const sessionCharacterQuery = graphql`
             name
             approved
             clan {
+                id
                 name
             }
         }

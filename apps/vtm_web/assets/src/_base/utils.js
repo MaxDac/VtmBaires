@@ -8,6 +8,7 @@ import type { Character } from "../services/queries/character/GetCharacterComple
 import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import type { CharacterFragments_characterConcealedInfo } from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import {Routes} from "../AppRouter";
+import type {SessionCharacter} from "../services/base-types";
 
 export type LogType = "log" | "info" | "warning" | "error";
 
@@ -163,7 +164,7 @@ export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: 
  * @param character The character.
  * @return True if the character is a vampire, False otherwise
  */
-export const characterIsVampire = (character: ?CharacterFragments_characterConcealedInfo | ?Character | ?CharacterFragments_characterStats): boolean => {
+export const characterIsVampire = (character: ?CharacterFragments_characterConcealedInfo | ?Character | ?CharacterFragments_characterStats | ?SessionCharacter): boolean => {
     return character?.clan?.name !== "Umano";
 }
 

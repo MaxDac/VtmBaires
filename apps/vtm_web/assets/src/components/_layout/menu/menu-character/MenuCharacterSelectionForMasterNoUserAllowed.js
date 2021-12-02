@@ -60,8 +60,10 @@ const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): any
         return (<Internal pushHistory={pushHistory} character={{
             id: character.id,
             name: character.name
-        }} />)
+        }} />);
     }
+
+    return (<></>);
 };
 
 export default MenuCharacterSelectionForMasterNoUserAllowed;

@@ -10,23 +10,18 @@ import HuntMutation from "../../../../services/mutations/characters/HuntMutation
 import {useRelayEnvironment} from "react-relay";
 import {useSession} from "../../../../services/session-service";
 import type {HuntMutationResponse} from "../../../../services/mutations/characters/__generated__/HuntMutation.graphql";
-import CharacterFragmentProvider from "../../../_data/CharacterFragmentProvider";
-import { useFragment } from "react-relay/hooks";
-import type { CharacterFragments_characterStats$key } from "../../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
-import { characterStatsFragment } from "../../../../services/queries/character/CharacterFragments";
 import { characterIsVampire } from "../../../../_base/utils";
 import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 
 type MenuHuntSectionInternalProps = {
-    characterQuery: any;
     huntRequest: any => void;
 };
 
-const MenuHuntSectionInternal = ({characterQuery, huntRequest}: MenuHuntSectionInternalProps): any => {
-    const characterInfo = useFragment<CharacterFragments_characterStats$key>(characterStatsFragment, characterQuery);
+const MenuHuntSectionInternal = ({huntRequest}: MenuHuntSectionInternalProps): any => {
+    const [,character] = useSession();
 
     const showHuntMenu = () => {
-        if (characterIsVampire(characterInfo)) {
+        if (characterIsVampire(character)) {
             return (
                 <ListItem button onClick={huntRequest}>
                     <ListItemIcon>
@@ -98,13 +93,7 @@ const MenuHuntSection = (): any => {
         }
     }
 
-    return (
-        <CharacterFragmentProvider showWarningWhenNoCharacterSelected={false}>
-            { character => 
-                <MenuHuntSectionInternal characterQuery={character} huntRequest={huntRequest} />
-            }
-        </CharacterFragmentProvider>
-    );
+    return (<MenuHuntSectionInternal huntRequest={huntRequest} />);
 }
 
 export default MenuHuntSection;

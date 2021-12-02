@@ -392,6 +392,15 @@ defmodule Vtm.Characters do
     Repo.one(query)
   end
 
+  def get_character_clan(character_id) do
+    Character
+    |> from()
+    |> where([c], c.id == ^character_id)
+    |> join(:inner, [c], cl in Clan, on: c.clan_id == cl.id)
+    |> select([_, cl], cl)
+    |> Repo.one()
+  end
+
   @spec get_character_blood_potency(integer()) :: integer() | nil
   def get_character_blood_potency(character_id) do
     query =
