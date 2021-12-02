@@ -7,7 +7,7 @@ import {listSessionQuery} from "../../../services/queries/accounts/SessionQuery"
 import Tooltip from "@mui/material/Tooltip";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import AttributionIcon from "@mui/icons-material/Attribution";
-import {menuIconStyle} from "../menu/Menu";
+import {menuIconStyle} from "../menu/menu-base-utils";
 import Stack from "@mui/material/Stack";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";

@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/menu/Menu";
+import {menuIconStyle} from "./_layout/menu/menu-base-utils";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
@@ -23,6 +23,8 @@ import DefaultFallback from "../_base/components/DefaultFallback";
 import ReloadControl from "./_layout/app-bar-controls/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 import ReturnToChatControl from "./_layout/app-bar-controls/ReturnToChatControl";
+import SecondaryListItems from "./_layout/menu/SecondaryListItems";
+import MainListItems from "./_layout/menu/MainListItems";
 
 const drawerWidth = 300;
 
@@ -67,6 +69,10 @@ const PageDrawer = ({open, setOpen, children}) => {
         </SwipeableDrawer>
     );
 };
+
+function CommonListItem() {
+    return null;
+}
 
 const MiniDrawer = ({children}: {children: any}): any => {
     const theme = useTheme();

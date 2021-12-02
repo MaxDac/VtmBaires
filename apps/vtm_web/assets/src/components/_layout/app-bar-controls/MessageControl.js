@@ -7,7 +7,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "../menu/Menu";
+import {menuIconStyle} from "../menu/menu-base-utils";
 
 type Props = {
     numberOfMessages: number;

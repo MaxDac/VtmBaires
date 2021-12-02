@@ -16,7 +16,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import {MainRoutes} from "../MainRouter";
 import {useMediaQuery, useTheme} from '@mui/material';
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {goToChatAndUpdateSession} from "../chat/chat-helpers";
 import {SessionContext} from "../../contexts";
 

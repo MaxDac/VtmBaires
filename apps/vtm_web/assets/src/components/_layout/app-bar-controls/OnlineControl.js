@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Fade from "@mui/material/Fade";
 import {useMediaQuery} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "../menu/Menu";
+import {menuIconStyle} from "../menu/menu-base-utils";
 import OnlineControlDialog from "./OnlineControlDialog";
 
 const Transition = React.forwardRef((props, ref) =>
@@ -33,13 +33,12 @@ const OnlineControl = (): any => {
                     <PeopleIcon sx={menuIconStyle} />
                 </IconButton>
             </Tooltip>
-            <Dialog
-                fullScreen={fullScreen}
-                fullWidth
-                maxWidth="sm"
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Transition}>
+            <Dialog fullScreen={fullScreen}
+                    fullWidth
+                    maxWidth="sm"
+                    open={open}
+                    onClose={handleClose}
+                    TransitionComponent={Transition}>
                 <AppBar sx={{ position: 'relative' }}>
                     <Toolbar>
                         <IconButton

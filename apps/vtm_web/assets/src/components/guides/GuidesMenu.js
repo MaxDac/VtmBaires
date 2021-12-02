@@ -23,7 +23,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import WebIcon from '@mui/icons-material/Web';
 import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {Routes} from "../../AppRouter";
 import {useSession} from "../../services/session-service";
 

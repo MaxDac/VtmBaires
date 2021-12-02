@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
 import LoginFrameLayout from "./LoginFrameLayout";
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 
 type Props = {
 

@@ -6,7 +6,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecordOutlined";
 import type {Attribute} from "../../../services/queries/character/GetCharacterStatsQuery";
 import Grid from "@mui/material/Grid";
-import {menuIconStyle} from "../../_layout/menu/Menu";
+import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 
 type Props = {
     characterId: string;

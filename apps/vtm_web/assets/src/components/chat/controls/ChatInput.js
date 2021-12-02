@@ -11,7 +11,7 @@ import CasinoIcon from "@mui/icons-material/Casino";
 import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
-import {menuIconStyle} from "../../_layout/menu/Menu";
+import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import {isUserMaster} from "../../../services/base-types";
 import {useSession} from "../../../services/session-service";
 import Typography from "@mui/material/Typography";
@@ -74,10 +74,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
 
     const floatingButtonStyle = {
         position: 'absolute',
-        bottom: {
-            xs: theme.spacing(1),
-            sm: theme.spacing(7)
-        },
+        bottom: theme.spacing(7),
         right: theme.spacing(3)
     };
 

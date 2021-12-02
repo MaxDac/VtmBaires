@@ -27,7 +27,7 @@ const CharacterSheetComplete = (props: Props): any => {
     const canModify = character => user?.role === "MASTER" || userCharacters.some(c => c.id === character?.id);
 
     const modifySheetLink = character => {
-        if (canModify(character) && character?.id != null) {
+        if (!(props.contained === true) && canModify(character) && character?.id != null) {
             return (
                 <div style={{
                     margin: "20px",
@@ -49,7 +49,7 @@ const CharacterSheetComplete = (props: Props): any => {
                                    reload={props.reload}
                                    fetchKey={props.fetchKey}>
             { character =>
-                <ResponsiveInnerContainer contained={props.contained}>
+                <ResponsiveInnerContainer>
                     <Paper variant="outlined" sx={{backgroundColor: "background.paper"}}>
                         <Suspense fallback={<CharacterSheetSuspenseFallback />}>
                             {modifySheetLink(character)}

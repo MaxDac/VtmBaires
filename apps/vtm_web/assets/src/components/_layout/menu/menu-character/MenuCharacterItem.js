@@ -11,7 +11,7 @@ import type {UserCharacter} from "../../../../services/queries/accounts/UserChar
 import {useTheme} from "@mui/material/styles";
 import {useSession} from "../../../../services/session-service";
 import IconButton from "@mui/material/IconButton";
-import {menuIconStyle, menuTextStyle, menuTextStyleHover} from "../Menu";
+import {menuIconStyle, menuTextStyle, menuTextStyleHover} from "../menu-base-utils";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 

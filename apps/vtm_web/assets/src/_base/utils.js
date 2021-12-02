@@ -31,7 +31,7 @@ export const handleAuthorizedRejection = ({ push }: History): (any => void) =>
         push(Routes.sessionExpired);
     };
 
-export const emptyReadOnlyArray = <T>(): $ReadOnlyArray<T> => [];
+// export const emptyReadOnlyArray = <T>(): $ReadOnlyArray<T> => [];
 
 export const emptyArray = <T>(): Array<T> => [];
 
@@ -137,7 +137,7 @@ export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: 
     onCompleted?: () => void
 }) => {
     mutation()
-        .then(result => {
+        .then(_result => {
             showNotification({
                 type: "success",
                 message: args?.successMessage ?? "La modifica è stata effettuata con successo"
@@ -232,8 +232,8 @@ export const orderAlphabetically = (first: ?string, second: ?string, options: ?C
 
 /**
  * Checkes whether the search and the match string are equal.
- * @param first The search string
- * @param second The match string
+ * @param name The search string
+ * @param match The match string
  * @param options The comparison options
  * @return {boolean} True if the two strings are equal, False otherwise.
  */

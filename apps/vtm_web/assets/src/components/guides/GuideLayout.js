@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import GuidesMenu from "./GuidesMenu";
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 
 type Props = {
     children: any;

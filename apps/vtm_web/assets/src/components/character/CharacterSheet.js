@@ -42,6 +42,9 @@ const CharacterSheet = (props: Props): any => {
     else if (props.id != null) {
         return (<CharacterSheetPublic id={props.id} {...props} />);
     }
+    else if (character?.id != null) {
+        return (<CharacterSheetComplete {...props} id={character.id} />);
+    }
     else {
         return (<></>);
     }

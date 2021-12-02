@@ -17,7 +17,7 @@ import {UtilityContext} from "../../../contexts";
 import DeletePostMutation from "../../../services/mutations/forum/DeletePostMutation";
 import {useRelayEnvironment} from "react-relay";
 import {handleMutation} from "../../../_base/utils";
-import {menuIconStyle} from "../../_layout/menu/Menu";
+import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 
 type Props = {
     threadId: string;

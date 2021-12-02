@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from "@mui/icons-material/Home";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 
 type Props = {
     threadId: string;

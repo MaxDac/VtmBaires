@@ -5,7 +5,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import {menuIconStyle, MenuSecondaryText} from "../Menu";
+import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 
 type Props = {
     onClick: () => void;

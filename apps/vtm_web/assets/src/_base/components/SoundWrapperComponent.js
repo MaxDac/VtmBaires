@@ -4,7 +4,7 @@ import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
-import {menuIconStyle} from "../../components/_layout/menu/Menu";
+import {menuIconStyle} from "../../components/_layout/menu/menu-base-utils";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import Slider from '@mui/material/Slider';

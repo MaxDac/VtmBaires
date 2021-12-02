@@ -15,7 +15,7 @@ import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {Routes} from "../../AppRouter";
 import Box from "@mui/material/Box";
-import {menuIconStyle} from "../_layout/menu/Menu";
+import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")

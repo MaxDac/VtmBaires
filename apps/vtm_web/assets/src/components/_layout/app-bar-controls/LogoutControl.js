@@ -7,7 +7,7 @@ import {UtilityContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
 import {performLogout} from "../../../services/logout-service";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "../menu/Menu";
+import {menuIconStyle} from "../menu/menu-base-utils";
 import {Routes} from "../../../AppRouter";
 
 const LogoutControl = (): any => {
