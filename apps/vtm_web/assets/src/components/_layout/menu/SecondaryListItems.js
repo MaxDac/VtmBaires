@@ -2,8 +2,6 @@
 
 import React from "react";
 import {useHistory} from "react-router-dom";
-import {useNpcsQuery} from "../../../services/queries/npcs/GetAllNpcsQuery";
-import {useMenuCharactersAvatar} from "./menu-character/MenuCharactersAvatarHook";
 import MenuNpcSection from "./sections/MenuNpcSection";
 import ListItem from "@mui/material/ListItem";
 import {MainRoutes} from "../../MainRouter";
@@ -16,8 +14,6 @@ import type {MenuProps} from "./menu-base-utils";
 
 const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
     const history = useHistory();
-    const npcs = useNpcsQuery(reloadCount);
-    const npcsWithAvatar = useMenuCharactersAvatar(npcs);
 
     const pushHistory = (route: string) => {
         drawerDone();
@@ -27,7 +23,7 @@ const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any
     return (
         <>
             <MenuNpcSection pushHistory={pushHistory}
-                            npcs={npcsWithAvatar}
+                            reloadCount={reloadCount}
                             onUpdate={onUpdate} />
             <ListItem button onClick={_ => pushHistory(MainRoutes.unapprovedCharacters)}>
                 <ListItemIcon>

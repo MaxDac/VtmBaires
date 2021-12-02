@@ -55,6 +55,6 @@ const MenuCharacterSectionForUser = ({pushHistory, characters, onUpdate}: Props)
             {showCharacters()}
         </>
     );
-}
+};
 
 export default MenuCharacterSectionForUser;

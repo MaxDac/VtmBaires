@@ -13,47 +13,29 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
 import List from "@mui/material/List";
 import {MainRoutes} from "../../../MainRouter";
-import type {Npc} from "../../../../services/queries/npcs/GetAllNpcsQuery";
 import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 import MenuCharacterItem from "../menu-character/MenuCharacterItem";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
+import {useNpcsQuery} from "../../../../services/queries/npcs/GetAllNpcsQuery";
+import {useMenuCharactersAvatar} from "../menu-character/MenuCharactersAvatarHook";
 
 type Props = {
     pushHistory: string => void;
-    npcs: Array<Npc>;
+    reloadCount: number;
     onUpdate: () => void;
 }
 
-const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
+const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}) => {
     const history = useHistory();
-    const [expand, setExpand] = useState(false);
-    const {setCurrentCharacter} = useContext(SessionContext);
-    
-    const handleSheetSelection = (info: UserCharacter) =>
-        _ => {
-            pushHistory(MainRoutes.sheet(info.id));
-        };
-
-    const handleCharacterSelection = (info: UserCharacter) =>
-        _ => {
-            setCurrentCharacter({
-                id: info.id,
-                name: info.name,
-                approved: info.approved,
-                clan: {
-                    name: info.clan?.name
-                }
-            });
-
-            onUpdate();
-        };
+    const npcs = useNpcsQuery(reloadCount);
+    const npcsWithAvatar = useMenuCharactersAvatar(npcs);
 
     const showNpcs = () => {
         const rows = [];
 
-        if (npcs != null && npcs.length > 0) {
+        if (npcsWithAvatar != null && npcsWithAvatar.length > 0) {
             rows.push(
-                npcs
+                npcsWithAvatar
                     .filter(o => o !== null)
                     .map(o => {
                         const c: UserCharacter = {
@@ -81,21 +63,69 @@ const MenuNpcSection = ({pushHistory, npcs, onUpdate}: Props): any => {
 
         rows.push(<MenuItem key={"0"} onClick={_ => history.push(MainRoutes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
         return rows;
-    }
+    };
 
     return (
         <>
-            <ListItem button onClick={_ => setExpand(p => !p)}>
+            {showNpcs()}
+        </>
+    )
+};
+
+const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
+    const [expand, setExpand] = useState(false);
+    const [hasBeenExpanded, setHasBeenExpanded] = useState(false);
+    const {setCurrentCharacter} = useContext(SessionContext);
+
+    const toggleNpcsSelectionMenuExpansion = _ => {
+        setHasBeenExpanded(_ => true);
+        setExpand(p => !p);
+    }
+    
+    const handleSheetSelection = (info: UserCharacter) =>
+        _ => {
+            pushHistory(MainRoutes.sheet(info.id));
+        };
+
+    const handleCharacterSelection = (info: UserCharacter) =>
+        _ => {
+            setCurrentCharacter({
+                id: info.id,
+                name: info.name,
+                approved: info.approved,
+                clan: {
+                    name: info.clan?.name
+                }
+            });
+
+            onUpdate();
+        };
+
+    const expandedMenu = () =>
+        hasBeenExpanded
+            ? (
+                <List component="div" disablePadding>
+                    {expand
+                        ? (<MenuNpcSectionItems reloadCount={reloadCount}
+                                                handleSheetSelection={handleSheetSelection}
+                                                handleCharacterSelection={handleCharacterSelection} />)
+                        : (<></>)
+                    }
+                </List>
+            )
+            : (<></>);
+
+    return (
+        <>
+            <ListItem button onClick={toggleNpcsSelectionMenuExpansion}>
                 <ListItemIcon>
                     <GroupsIcon sx={menuIconStyle} />
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="NPGs" />} />
                 {expand ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={expand} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    {expand ? showNpcs() : <></>}
-                </List>
+            <Collapse in={expand} timeout="auto">
+                {expandedMenu()}
             </Collapse>
         </>
     );

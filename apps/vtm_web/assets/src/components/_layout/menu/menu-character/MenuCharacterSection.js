@@ -3,9 +3,9 @@
 import React from "react";
 import {useSession} from "../../../../services/session-service";
 import {isUserMaster} from "../../../../services/base-types";
-import MenuCharacterSectionForMaster from "./MenuCharacterSectionForMaster";
 import MenuCharacterSectionForUser from "./MenuCharacterSectionForUser";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
+import MenuCharacterSelectionForMasterNoUserAllowed from "./MenuCharacterSelectionForMasterNoUserAllowed";
 
 type Props = {
     pushHistory: string => void;
@@ -18,9 +18,7 @@ const MenuCharacterSection = ({pushHistory, characters, onUpdate}: Props): any =
 
     if (characters != null) {
         if (isUserMaster(user)) {
-            return <MenuCharacterSectionForMaster pushHistory={pushHistory}
-                                                  characters={characters}
-                                                  onUpdate={onUpdate} />
+            return <MenuCharacterSelectionForMasterNoUserAllowed pushHistory={pushHistory} />
         }
         else {
             return <MenuCharacterSectionForUser pushHistory={pushHistory}
