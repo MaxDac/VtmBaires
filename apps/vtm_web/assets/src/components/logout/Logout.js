@@ -3,7 +3,7 @@
 import React, {useEffect} from "react";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../Main.Layout.Style";
-import {menuTextStyle} from "../_layout/Menu";
+import {menuTextStyle} from "../_layout/menu/Menu";
 import {useHistory} from "react-router-dom";
 import Box from "@mui/material/Box";
 import {performLogout} from "../../services/logout-service";

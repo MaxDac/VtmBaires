@@ -4,7 +4,7 @@ import React from "react";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import {menuIconStyle} from "./Menu";
+import {menuIconStyle} from "../menu/Menu";
 
 const ReloadControl = (): any => {
     return (

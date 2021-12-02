@@ -5,9 +5,9 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import ForumIcon from "@mui/icons-material/Forum";
 import {useHistory} from "react-router-dom";
-import {MainRoutes} from "../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "./Menu";
+import {menuIconStyle} from "../menu/Menu";
 
 type Props = {
     numberOfMessages: number;

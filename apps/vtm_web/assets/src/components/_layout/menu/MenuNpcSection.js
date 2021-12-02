@@ -6,17 +6,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import GroupsIcon from '@mui/icons-material/Groups';
-import {SessionContext} from "../../contexts";
+import {SessionContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
 import List from "@mui/material/List";
-import {MainRoutes} from "../MainRouter";
-import type {Npc} from "../../services/queries/npcs/GetAllNpcsQuery";
+import {MainRoutes} from "../../MainRouter";
+import type {Npc} from "../../../services/queries/npcs/GetAllNpcsQuery";
 import {menuIconStyle, MenuSecondaryText} from "./Menu";
 import MenuCharacterItem from "./menu-character/MenuCharacterItem";
-import type {UserCharacter} from "../../services/queries/accounts/UserCharactersQuery";
+import type {UserCharacter} from "../../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
     pushHistory: string => void;

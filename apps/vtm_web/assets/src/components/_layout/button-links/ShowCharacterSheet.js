@@ -4,7 +4,7 @@ import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
-import {menuIconStyle} from "../Menu";
+import {menuIconStyle} from "../menu/Menu";
 import {MainRoutes} from "../../MainRouter";
 import {useHistory} from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";

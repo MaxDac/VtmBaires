@@ -22,7 +22,7 @@ import Box from "@mui/material/Box";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {menuIconStyle} from "../_layout/Menu";
+import {menuIconStyle} from "../_layout/menu/Menu";
 
 type CheckerFunction = string => Promise<boolean>;
 

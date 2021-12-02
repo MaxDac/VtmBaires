@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CookieFreePolicy from "./CookieFreePolicy";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {menuIconStyle} from "../../components/_layout/Menu";
+import {menuIconStyle} from "../../components/_layout/menu/Menu";
 
 const NoCookieBar = (): any => {
     const theme = useTheme();

@@ -1,23 +1,23 @@
 // @flow
 
 import React from "react";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {SessionQuery} from "../../services/queries/accounts/__generated__/SessionQuery.graphql";
-import {listSessionQuery} from "../../services/queries/accounts/SessionQuery";
+import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {SessionQuery} from "../../../services/queries/accounts/__generated__/SessionQuery.graphql";
+import {listSessionQuery} from "../../../services/queries/accounts/SessionQuery";
 import Tooltip from "@mui/material/Tooltip";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import AttributionIcon from "@mui/icons-material/Attribution";
-import {menuIconStyle} from "./Menu";
+import {menuIconStyle} from "../menu/Menu";
 import Stack from "@mui/material/Stack";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ShowCharacterSheet from "./button-links/ShowCharacterSheet";
-import SendMessageToUser from "./button-links/SendMessageToUser";
-import GoToMapLocation from "./button-links/GoToMapLocation";
-import SendMessageToCharacter from "./button-links/SendMessageToCharacter";
+import ShowCharacterSheet from "../button-links/ShowCharacterSheet";
+import SendMessageToUser from "../button-links/SendMessageToUser";
+import GoToMapLocation from "../button-links/GoToMapLocation";
+import SendMessageToCharacter from "../button-links/SendMessageToCharacter";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import MenuLayout from "../../_base/components/MenuLayout";
+import MenuLayout from "../../../_base/components/MenuLayout";
 
 type Props = {
     closePopup: () => void;

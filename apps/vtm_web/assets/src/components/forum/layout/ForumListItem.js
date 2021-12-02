@@ -20,7 +20,7 @@ import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
-import {menuIconStyle} from "../../_layout/Menu";
+import {menuIconStyle} from "../../_layout/menu/Menu";
 
 type ForumSectionDescriptionProps = {
     description: ?string;

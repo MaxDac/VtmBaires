@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Fade from "@mui/material/Fade";
 import {useMediaQuery} from "@mui/material";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "./Menu";
+import {menuIconStyle} from "../menu/Menu";
 import OnlineControlDialog from "./OnlineControlDialog";
 
 const Transition = React.forwardRef((props, ref) =>

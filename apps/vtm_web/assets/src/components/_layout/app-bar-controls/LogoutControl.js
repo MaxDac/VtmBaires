@@ -3,12 +3,12 @@
 import React, {useContext} from "react";
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {UtilityContext} from "../../contexts";
+import {UtilityContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
-import {performLogout} from "../../services/logout-service";
+import {performLogout} from "../../../services/logout-service";
 import Tooltip from '@mui/material/Tooltip';
-import {menuIconStyle} from "./Menu";
-import {Routes} from "../../AppRouter";
+import {menuIconStyle} from "../menu/Menu";
+import {Routes} from "../../../AppRouter";
 
 const LogoutControl = (): any => {
     const history = useHistory();

@@ -1,7 +1,7 @@
 // @flow
 
-import {uniques} from "../../_base/utils";
-import {useCharactersChatAvatar} from "../../services/queries/character/GetCharactersChatAvatarQuery";
+import {uniques} from "../../../_base/utils";
+import {useCharactersChatAvatar} from "../../../services/queries/character/GetCharactersChatAvatarQuery";
 
 export type MenuCharacter = {
     id: string;

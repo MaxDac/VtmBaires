@@ -1,11 +1,11 @@
 // @flow
 
 import React from "react";
-import {useSession} from "../../../services/session-service";
-import {isUserMaster} from "../../../services/base-types";
+import {useSession} from "../../../../services/session-service";
+import {isUserMaster} from "../../../../services/base-types";
 import MenuCharacterSectionForMaster from "./MenuCharacterSectionForMaster";
 import MenuCharacterSectionForUser from "./MenuCharacterSectionForUser";
-import type {UserCharacter} from "../../../services/queries/accounts/UserCharactersQuery";
+import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
 
 type Props = {
     pushHistory: string => void;

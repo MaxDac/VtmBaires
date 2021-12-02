@@ -12,17 +12,17 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/Menu";
+import {CommonListItem, MainListItems, menuIconStyle, SecondaryListItems} from "./_layout/menu/Menu";
 import {isUserMaster} from "../services/base-types";
 import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
-import MessageControl from "./_layout/MessageControl";
-import OnlineControl from "./_layout/OnlineControl";
-import LogoutControl from "./_layout/LogoutControl";
+import MessageControl from "./_layout/app-bar-controls/MessageControl";
+import OnlineControl from "./_layout/app-bar-controls/OnlineControl";
+import LogoutControl from "./_layout/app-bar-controls/LogoutControl";
 import DefaultFallback from "../_base/components/DefaultFallback";
-import ReloadControl from "./_layout/ReloadControl";
+import ReloadControl from "./_layout/app-bar-controls/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
-import ReturnToChatControl from "./_layout/ReturnToChatControl";
+import ReturnToChatControl from "./_layout/app-bar-controls/ReturnToChatControl";
 
 const drawerWidth = 300;
 

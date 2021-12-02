@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
 import {useSession} from "../../../services/session-service";
 import CharacterChatDashboard from "../../admin/characters/CharacterChatDashboard";
-import {menuIconStyle} from "../../_layout/Menu";
+import {menuIconStyle} from "../../_layout/menu/Menu";
 
 type InternalProps = {
     mapId: string;

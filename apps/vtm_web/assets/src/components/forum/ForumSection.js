@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from '@mui/icons-material/Home';
-import {menuIconStyle} from "../_layout/Menu";
+import {menuIconStyle} from "../_layout/menu/Menu";
 
 type Props = {
     sectionId: string;

@@ -1,11 +1,11 @@
 // @flow
 
 import React, {useContext} from "react";
-import {SessionContext} from "../../../contexts";
+import {SessionContext} from "../../../../contexts";
 import {useHistory} from "react-router-dom";
 import MenuCharacterItem from "./MenuCharacterItem";
-import type { UserCharacter } from "../../../services/queries/accounts/UserCharactersQuery";
-import { MainRoutes } from "../../MainRouter";
+import type { UserCharacter } from "../../../../services/queries/accounts/UserCharactersQuery";
+import { MainRoutes } from "../../../MainRouter";
 import CreateNewCharacterMenuItem from "./CreateNewCharacterMenuItem";
 
 type Props = {

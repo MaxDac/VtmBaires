@@ -1,13 +1,13 @@
 // @flow
 
 import React from "react";
-import {useSession} from "../../services/session-service";
+import {useSession} from "../../../services/session-service";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RoomIcon from '@mui/icons-material/Room';
-import {menuIconStyle} from "./Menu";
+import {menuIconStyle} from "../menu/Menu";
 import {useHistory} from "react-router-dom";
-import {MainRoutes} from "../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 
 const ReturnToChatControl = (): any => {
     const history = useHistory();

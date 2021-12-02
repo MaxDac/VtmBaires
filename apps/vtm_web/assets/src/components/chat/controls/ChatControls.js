@@ -20,7 +20,7 @@ import {
 } from "../../../_base/utils";
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
 import HealMutation from "../../../services/mutations/chat/HealMutation";
-import {menuIconStyle} from "../../_layout/Menu";
+import {menuIconStyle} from "../../_layout/menu/Menu";
 import DownloadIcon from '@mui/icons-material/Download';
 
 type Props = {
