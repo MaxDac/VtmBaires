@@ -101,11 +101,10 @@ const AlertLayout = (props: Props): any => {
             <Backdrop className={classes.backdrop} open={backdropOpen}>
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <Dialog
-                open={dialogOpen}
-                onClose={handleDialogClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description">
+            <Dialog open={dialogOpen}
+                    onClose={handleDialogClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description">
                 <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">

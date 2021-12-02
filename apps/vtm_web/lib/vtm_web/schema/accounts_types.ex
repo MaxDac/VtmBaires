@@ -145,6 +145,13 @@ defmodule VtmWeb.Schema.AccountTypes do
       middleware Middlewares.ChangesetErrors
     end
 
+    field :reset_session_map, :boolean do
+      middleware Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
+      resolve &AccountsResolvers.reset_session_map/3
+      middleware Middlewares.ChangesetErrors
+    end
+
     field :reset_session, :boolean do
       middleware Middlewares.Authorize, :any
       resolve &AccountsResolvers.clear_session/3

@@ -608,6 +608,7 @@ type RootMutationType {
   requestNewPassword(userEmail: String!): Boolean
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
   resetSession: Boolean
+  resetSessionMap: Boolean
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload

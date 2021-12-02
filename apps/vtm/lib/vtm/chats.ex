@@ -43,7 +43,7 @@ defmodule Vtm.Chats do
   @spec enrich_map_id_for_session(Integer.t()) :: {:ok, Map.t()} | {:error, :not_found}
   def enrich_map_id_for_session(map_id) do
     case get_map(map_id) do
-      nil -> {:error, :not_found}
+      nil                   -> {:error, :not_found}
       %{id: id, name: name} ->
         {:ok,
           %{

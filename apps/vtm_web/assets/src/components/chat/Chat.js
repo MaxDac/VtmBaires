@@ -17,7 +17,6 @@ import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateCh
 import ChatControls from "./controls/ChatControls";
 import {SessionContext, UtilityContext} from "../../contexts";
 import {getSessionSync, useSession} from "../../services/session-service";
-import {updateSessionMap} from "../../services/mutations/sessions/UpdateSessionMapMutation";
 import {Typography} from "@mui/material";
 import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
@@ -29,6 +28,7 @@ import DefaultFallback from "../../_base/components/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";
 import {getFileTextFromChatEntries} from "./chat-helpers";
 import {downloadFile} from "../../_base/file-utils";
+import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 
 type ChatProps = {
     id: string;
@@ -56,12 +56,9 @@ const Chat = ({id}: ChatProps): any => {
 
     const initialEntries = useChatEntries(id);
     const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
-    useChatSubscription(id, setAdditionalEntries);
 
-    useEffect(() => {
-        updateSessionMap(environment, id)
-            .catch(e => console.error("Error while updating session map", e));
-    }, [environment, id]);
+    useChatSubscription(id, setAdditionalEntries);
+    useUpdateSessionMap(id);
 
     useEffect(() => {
         if (map?.id != null) {

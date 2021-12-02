@@ -191,6 +191,16 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
+  def reset_session_map(_, _, %{context: %{current_user: user}}) do
+    case Accounts.has_session_dynamic_fields?(user) do
+      true ->
+        Accounts.clear_map_from_session_dynamic_field(user)
+        {:ok, true}
+      false ->
+        {:error, :not_found}
+    end
+  end
+
   def clear_session(_, _, %{context: %{current_user: user}}) do
     with {:ok, _} <- Accounts.clear_session_dynamic_field(user) do
       {:ok, true}

@@ -190,6 +190,23 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
+  @spec clear_map_from_session_dynamic_field(%{id: integer()}) :: Map.t() | nil
+  def clear_map_from_session_dynamic_field(%{id: id}) do
+    case get_last_session_by_user_query(id) |> Repo.one() do
+      session = %{session_info: info} ->
+        new_values =
+          (info || %{})
+          |> Map.delete("map_id")
+          |> Map.delete("map_name")
+
+        session
+        |> Session.changeset(%{session_info: new_values})
+        |> Repo.update()
+      _ ->
+        nil
+    end
+  end
+
   def complete_session(%{id: user_id} = user) do
     with u when not is_nil(u) <- get_session_by_user_id(user_id),
          {:ok, s}             <- clear_session_dynamic_field(user) do

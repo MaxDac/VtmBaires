@@ -6,12 +6,15 @@ import useSectionMaps from "../../services/queries/map/SectionMapsQuery";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {mainMapsQuery} from "../../services/queries/map/MainMapsQuery";
 import type {MainMapsQuery} from "../../services/queries/map/__generated__/MainMapsQuery.graphql";
+import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 
 type MapProps = {
     id: string;
 }
 
 const Map = ({ id }: MapProps): any => {
+    useUpdateSessionMap(id);
+
     const [map,] = useCustomLazyLoadQuery<MainMapsQuery>(mainMapsQuery, {})
         ?.mainMaps
         ?.filter(m => m?.id === id) ?? [];
