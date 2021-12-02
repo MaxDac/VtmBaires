@@ -30,7 +30,7 @@ const MovableDialog = ({open, handleClose, children}: Props): any => {
                 fullWidth
                 maxWidth="lg"
                 fullScreen={fullScreen}
-                PaperComponent={props => <DraggablePaper {...props} handleId="draggable-main-dialog" />}
+                PaperComponent={props => <DraggablePaper {...props} handleid="draggable-main-dialog" />}
                 keepMounted
                 aria-labelledby="draggable-main-dialog">
             <AppBar sx={{ position: 'relative', cursor: "move" }} id="draggable-main-dialog">

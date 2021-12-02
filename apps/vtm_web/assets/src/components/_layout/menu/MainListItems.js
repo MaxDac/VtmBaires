@@ -20,15 +20,15 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import useIsChatRoute from "../../_hooks/useIsChatRoute";
-import MovableDialog from "./dialog/MovableDialog";
 
-const CharacterSheet = React.lazy(() => import('../../character/CharacterSheet'));
+const CharacterSheetModal = React.lazy(() => import('./dialog/SheetDialog'));
 
 const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
     const charactersWithAvatars = useMenuCharactersAvatar(characters);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [requested, setRequested] = useState(false);
     const isChatRoute = useIsChatRoute();
 
     const pushHistory = (route: string) => {
@@ -53,14 +53,19 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
     const handlePopupClose = () => setPopupOpen(_ => false);
 
     const pushComponentOnPopup = () => {
+        setRequested(_ => true);
         handlePopupOpen();
     };
 
+    const characterSheetModal = () =>
+        // Performance - opening and rendering the popup only when needed
+        isChatRoute && requested
+            ? (<CharacterSheetModal open={popupOpen} handleClose={handlePopupClose} />)
+            : (<></>);
+
     return (
         <>
-            <MovableDialog open={popupOpen} handleClose={handlePopupClose}>
-                <CharacterSheet contained />
-            </MovableDialog>
+            {characterSheetModal()}
             <ListItem button onClick={_ => pushHistory(Routes.main)}>
                 <ListItemIcon>
                     <HomeIcon sx={menuIconStyle} />

@@ -5,12 +5,12 @@ import Draggable from "react-draggable";
 import Paper from "@mui/material/Paper";
 
 type Props = {
-    handleId: string;
+    handleid: string;
 };
 
 const DraggablePaper = (props: Props): any => {
     return (
-        <Draggable handle={`#${props.handleId}`}
+        <Draggable handle={`#${props.handleid}`}
                    cancel={'[class*="MuiDialogContent-root"]'}>
             <Paper {...props} />
         </Draggable>
