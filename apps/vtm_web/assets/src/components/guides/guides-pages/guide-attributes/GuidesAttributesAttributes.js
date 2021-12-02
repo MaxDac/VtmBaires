@@ -16,17 +16,17 @@ const GuidesAttributesAttributes = ({showAttributes}: Props): any => {
         <>
             <Grid item xs={12}>
                 <Typography paragraph>
-                    <h3 style={titleStyle}>
+                    <h2 style={titleStyle}>
                         {title}
-                    </h3>
+                    </h2>
                 </Typography>
             </Grid>
 
             <Grid item xs={12} md={4}>
                 <Typography paragraph sx={{ textAlign: "center" }}>
-                    <h4 style={titleStyle}>
+                    <h3 style={titleStyle}>
                         Fisici
-                    </h4>
+                    </h3>
                 </Typography>
 
                 <Typography paragraph sx={guideStyle}>
@@ -38,9 +38,9 @@ const GuidesAttributesAttributes = ({showAttributes}: Props): any => {
 
             <Grid item xs={12} md={4}>
                 <Typography paragraph sx={{ textAlign: "center" }}>
-                    <h4 style={titleStyle}>
+                    <h3 style={titleStyle}>
                         Sociali
-                    </h4>
+                    </h3>
                 </Typography>
 
                 <Typography paragraph sx={guideStyle}>
@@ -52,9 +52,9 @@ const GuidesAttributesAttributes = ({showAttributes}: Props): any => {
 
             <Grid item xs={12} md={4}>
                 <Typography paragraph sx={{ textAlign: "center" }}>
-                    <h4 style={titleStyle}>
+                    <h3 style={titleStyle}>
                         Mentali
-                    </h4>
+                    </h3>
                 </Typography>
 
                 <Typography paragraph sx={guideStyle}>

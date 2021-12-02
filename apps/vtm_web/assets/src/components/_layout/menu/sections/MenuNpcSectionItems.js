@@ -15,7 +15,7 @@ type Props = {
     handleCharacterSelection?: UserCharacter => any => void;
 }
 
-const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}: Props) => {
+const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}: Props): any => {
     const history = useHistory();
     const npcs = useNpcsQuery(reloadCount);
     const npcsWithAvatar = useMenuCharactersAvatar(npcs);

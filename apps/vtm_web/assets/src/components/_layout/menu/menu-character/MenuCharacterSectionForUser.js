@@ -4,18 +4,21 @@ import React, {useContext} from "react";
 import {SessionContext} from "../../../../contexts";
 import {useHistory} from "react-router-dom";
 import MenuCharacterItem from "./MenuCharacterItem";
-import type { UserCharacter } from "../../../../services/queries/accounts/UserCharactersQuery";
 import { MainRoutes } from "../../../MainRouter";
 import CreateNewCharacterMenuItem from "./CreateNewCharacterMenuItem";
+import {useUserCharactersQuery} from "../../../../services/queries/accounts/UserCharactersQuery";
+import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
 
 type Props = {
     pushHistory: string => void;
-    characters: Array<UserCharacter>;
+    reloadCount: number;
     onUpdate: () => void;
 }
 
-const MenuCharacterSectionForUser = ({pushHistory, characters, onUpdate}: Props): any => {
+const MenuCharacterSectionForUser = ({pushHistory, reloadCount, onUpdate}: Props): any => {
     const history = useHistory();
+    const characters = useUserCharactersQuery(reloadCount);
+    const charactersWithAvatars = useMenuCharactersAvatar(characters);
 
     const {setCurrentCharacter} = useContext(SessionContext);
     
@@ -34,8 +37,8 @@ const MenuCharacterSectionForUser = ({pushHistory, characters, onUpdate}: Props)
         }
 
     const showCharacters = () => {
-        if (characters != null && characters.length > 0) {
-            return characters
+        if (charactersWithAvatars != null && charactersWithAvatars.length > 0) {
+            return charactersWithAvatars
                 .filter(o => o !== null)
                 .map(o => {
                     return (

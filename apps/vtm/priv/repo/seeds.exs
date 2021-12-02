@@ -163,140 +163,134 @@ La Costituzione rappresenta la resistenza fisica del personaggio, intesa come ca
 """})
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Carisma", description: """
-Il Carisma misura il naturale charme, la grazia e il sex appeal del personaggio. Più alto sarà il punteggio di Carisma, più le persone saranno attirate dal personaggio.
-Il Carisma non è da confondere con l'aspetto fisico del personaggio.
+Il Carisma misura il naturale charme, la grazia e il sex appeal del personaggio. Più alto sarà il punteggio di Carisma, più le persone saranno attirate dal personaggio. Il Carisma non è da confondere con l'aspetto fisico del personaggio.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Persuasione", description: """
 La Manipolazione è l'abilità del personaggio di convincere altri del proprio punto di vista, e mentire in modo convincente.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Autocontrollo", description: """
-L'Autocontrollo consente di mantenere la calma, di comandare le proprie emozioni, e di mettere gli altri a proprio agio nonostante le loro ansietà.
-Rappresenta anche la capacità di rimanere freddo di fronte alle situazioni più stressanti.
+L'Autocontrollo consente di mantenere la calma, di comandare le proprie emozioni, e di mettere gli altri a proprio agio nonostante le loro ansietà. Rappresenta anche la capacità di rimanere freddo di fronte alle situazioni più stressanti.
 """})
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Intelligenza", description: """
 L'Intelligenza misura l'abilità di ragionare, ricercare, e applicare logica. Si possono ricordare informazion da libri e dai propri sensi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Prontezza", description: """
-La Prontezza è la capacità di pensare velocemente e reagire correttamente con poche informazioni o nulla. "Senti due guardie arrivare" è Intelligenza.
-Prontezza consente al personaggio di subodorare un'imboscata, o di intuire la risposta giusta al momento giusto ad una Arpia, e non la notte seguente.
+La Prontezza è la capacità di pensare velocemente e reagire correttamente con poche informazioni o nulla. "Senti due guardie arrivare" è Intelligenza. Prontezza consente al personaggio di subodorare un'imboscata, o di intuire la risposta giusta al momento giusto ad una Arpia, e non la notte seguente.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Fermezza", description: """
-La Fermezza fornisce fuoco e determinazione, misura al concentrazione e la forza mentale. La Fermezza rende possibile ronde di una notte intera, blocca
-qualsiasi distrazione.
+La Fermezza fornisce fuoco e determinazione, misura al concentrazione e la forza mentale. La Fermezza rende possibile ronde di una notte intera, blocca qualsiasi distrazione.
 """})
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Atletica", description: """
-L'Atletica consente di correre più veloce in un inseguimento, di saltare via da una macchina in corsa, e di correre, e nuotare, come una sana e robusta persona.
-È possibile usare Atletica al posto di una qualsiasi altra abilità specifica di combattimento, ma se si usa questa Abilità non sarà possibile colpire gli avversari in nessun modo.
+L'Atletica consente di correre più veloce in un inseguimento, di saltare via da una macchina in corsa, e di correre, e nuotare, come una sana e robusta persona. È possibile usare Atletica al posto di una qualsiasi altra abilità specifica di combattimento, ma se si usa questa Abilità non sarà possibile colpire gli avversari in nessun modo.
+**Specialità**: Acrobazia, Alpinismo, Lanciare, Nuoto, Parkour, Resistenza, Saltare, Tiro con l’Arco.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Criminalità", description: """
-Questa Abilità dona familiarità al personaggio in ambiti poco legali quali scassinare serrature, piantare cimici, disattivare allarmi, contraffazione,
-apertura di cassaforti e altre attività più o meno illecite. Dato che i moderni sistemi di sicurezza fanno molto spesso uso di dispositivi elettronici,
-potrebbe essere usata anche in corrispondenza dell'Abilità Tecnologia.
+Questa Abilità dona familiarità al personaggio in ambiti poco legali quali scassinare serrature, piantare cimici, disattivare allarmi, contraffazione, apertura di cassaforti e altre attività più o meno illecite. Dato che i moderni sistemi di sicurezza fanno molto spesso uso di dispositivi elettronici, potrebbe essere usata anche in corrispondenza dell'Abilità Tecnologia.
+**Specialità**: Analisi di Sicurezza, Allarmi, Borseggiare, Effrazione, Falsificare, Grande Furto d’Auto, Scassinare Casseforti, Scassinare Serrature.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Manualità", description: """
-Manualità è un'Abilità ad ampio spettro che racchiude esecuzione artistica, crezione di utensili, fino al miglioramento del proprio Rifugio.
-Si possono possedere più specializzazioni in Manualità che punteggio.
+Manualità è un'Abilità ad ampio spettro che racchiude esecuzione artistica, crezione di utensili, fino al miglioramento del proprio Rifugio. Si possono possedere più specializzazioni in Manualità che punteggio.
+**Specialità**: Armaiolo, Falegnameria, Intaglio, Pittura, Progettazione, Sartoria, Scultura.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Guidare", description: """
-Questa Abilità consente al personaggio di poter guidare veicoli a motore. Più avanzata la conoscenza del personaggio in questa Abilità, maggiore
-sarà la cilindrata e la grandezza dei veicoli che potrà guidare.
+Questa Abilità consente al personaggio di poter guidare veicoli a motore. Più avanzata la conoscenza del personaggio in questa Abilità, maggiore sarà la cilindrata e la grandezza dei veicoli che potrà guidare.
+**Specialità**: Acrobazie Automobilistiche, Autocarri, Gare di Velocità, Manovre Evasive, Modelli d'Epoca, Motociclette, Pedinamenti, Veicoli Fuoristrada.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Armi da Fuoco", description: """
 L'Abilità consente al personaggio di usare, manutenere e ricaricare velocemente armi da fuoco di vario calibro, dipendendo dal livello che si ha.
+**Specialità**: Armaiolo, Balestre, Estrazione Rapida, Ricarica Manuale, Tiratore Scelto, Tiri Impossibili, Rivendere Armi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: """
-Rissa consente al personaggio di colpire i propri avversari con pugni, calci, o artigli. Finché non si hanno armi in mano, si dovrà usare Rissa per colpire
-gli avversari.
+Rissa consente al personaggio di colpire i propri avversari con pugni, calci, o artigli. Finché non si hanno armi in mano, si dovrà usare Rissa per colpire gli avversari.
+**Specialità**: Animali, Combattimento Sportivo, Fratelli, In Forma Bestiale di Proteide, Lupi Mannari, Mortali Armati, Mortali Disarmati, Prese di Lotta, Zuffe da Bar.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Mischia", description: """
-Con questa Abilità, il personaggio riesce ad utilizzare armi da mischia quali coltelli, catene, bastoni o mazze da baseball. Anche i paletti di legno,
-una delle armi preferite dalla Seconda Inquisizione, sono da considerarsi armi da mischia.
+Con questa Abilità, il personaggio riesce ad utilizzare armi da mischia quali coltelli, catene, bastoni o mazze da baseball. Anche i paletti di legno, una delle armi preferite dalla Seconda Inquisizione, sono da considerarsi armi da mischia.
+**Specialità**: Armi Improvvisate, Asce, Catene, Colpi Disarmanti, Coltelli, Garrota, Paletti, Randelli, Scherma, Spade.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: """
-Un personaggio con questa Abilità riesce facilmente a spiare, nascondersi e mimetizzarsi facilmente in una folla. Possedere alti livelli di questa
-Abilità aiuta anche la Caccia per i vampiri.
+Un personaggio con questa Abilità riesce facilmente a spiare, nascondersi e mimetizzarsi facilmente in una folla. Possedere alti livelli di questa Abilità aiuta anche la Caccia per i vampiri.
+**Specialità**: Ambienti Naturali, Folle, Imboscate, Movimento Silenzioso, Nascondersi, Pedinamenti, Travestimenti, Urbana.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Sopravvivenza", description: """
-La Sopravvivenza trasmette l'abilità di resistere in territori serlvaggi, e ritornare subito dopo alla civilizzazione: navigare usando la posizione delle stelle,
-costruire un rifugio improvvisato, o notare tracce di Lupini prima che sia troppo tardi: tutte queste abilità rientrano nel novero di Sopravvivenza.
-La Sopravvivenza è tra l'altro una Abilità importante per la caccia.
+La Sopravvivenza trasmette l'abilità di resistere in territori serlvaggi, e ritornare subito dopo alla civilizzazione: navigare usando la posizione delle stelle, costruire un rifugio improvvisato, o notare tracce di Lupini prima che sia troppo tardi: tutte queste abilità rientrano nel novero di Sopravvivenza. La Sopravvivenza è tra l'altro una Abilità importante per la caccia.
+**Specialità**: Boschi, Caccia, Deserto, Esplorazione Urbana, Giungla, Ripari, Seguire Tracce, Trappole.
 """})
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Affinità Animale", description: """
-Rappresenta la capacità del personaggio di ammansire ed addestrare animali, e di predirne i comportamenti. I personaggi vampiri sprovvisti di questa Abilità
-avranno serie difficoltà con gli animali, dato che questi eviteranno o saranno aggressivi naturalmente nei loro confronti.
+Rappresenta la capacità del personaggio di ammansire ed addestrare animali, e di predirne i comportamenti. I personaggi vampiri sprovvisti di questa Abilità avranno serie difficoltà con gli animali, dato che questi eviteranno o saranno aggressivi naturalmente nei loro confronti.
+**Specialità**: Acrobazie, Attaccare, Cani, Cavalli, Gatti, Falconeria, Lupi, Pacificare, Serpenti, Topi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Galateo", description: """
 Il Galateo è la capacità del personaggio di rispondere e identificare le convenzioni sociali di una determinata congregazione, conoscerne i protocolli.
+**Specialità**: Anarchici, Aziende, Camarilla, Celebrità, Elysium, Feudale, Ricconi, Società Segreta.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intuito", description: """
-L'Intuito si applica principalmente alla lettura del linguaggio del corpo degli interlocutori, alle loro espressioni ed al tono della loro voce.
-Tramite questa Abilità si può capire se l'interlocutore sta mentendo, ed entro certi limiti intuire quali possono essere i motivi dietro le azioni di altri personaggi.
+L'Intuito si applica principalmente alla lettura del linguaggio del corpo degli interlocutori, alle loro espressioni ed al tono della loro voce. Tramite questa Abilità si può capire se l'interlocutore sta mentendo, ed entro certi limiti intuire quali possono essere i motivi dietro le azioni di altri personaggi.
+**Specialità**: Ambizioni, Desideri, Emozioni, Empatia, Fobie, Interrogare, Motivazioni, Scoprire Bugie, Vizi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Intimidire", description: """
-Intimidire è il potere di spaventare, inquietare o costringere gli avversari verso una vittoria sociale. Intimidire può essere associata sia alla Forza
-che ad altri Attributi sociali, se il personaggio preferisce una coercizione fisica o sociale.
+Intimidire è il potere di spaventare, inquietare o costringere gli avversari verso una vittoria sociale. Intimidire può essere associata sia alla Forza che ad altri Attributi sociali, se il personaggio preferisce una coercizione fisica o sociale.
+**Specialità**: Coercizione Fisica, Estorsione, Insulti, Interrogare, Lotta di Sguardi, Minacce Velate.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Autorità", description: """
-Con questa Abilità il personaggio riesce a controllare una folla, o una truppa, innalzare il morale o placare una rivolta. È l'Abilità caratteristica di
-Principi e Baroni.
+Con questa Abilità il personaggio riesce a controllare una folla, o una truppa, innalzare il morale o placare una rivolta. È l'Abilità caratteristica di Principi e Baroni.
+**Specialità**: Branco da Guerra, Comando, Dinamiche di Squadra, Ispirazione, Oratoria, Praxis.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Espressività", description: """
-L'Espressività è l'Abilità con la quale il personaggio riesce ad esprimere sé stesso, molto spesso in modo artistico. Rappresenta anche la proprietà di linguaggio,
-sia verbale che artistico: il personaggio sarà in grado di dipingere un quadro, o di articolare saggiamente un discorso. Acquisendo questa Abilità, si guadagna
-una Specializzazione (da indicare in fase di creazione in scheda).
+L'Espressività è l'Abilità con la quale il personaggio riesce ad esprimere sé stesso, molto spesso in modo artistico. Rappresenta anche la proprietà di linguaggio, sia verbale che artistico: il personaggio sarà in grado di dipingere un quadro, o di articolare saggiamente un discorso. Acquisendo questa Abilità, si guadagna una Specializzazione (da indicare in fase di creazione in scheda).
+**Specialità**: Batteria, Canto, Chitarra, Commedia, Declamazione, Danza, Poesia, Rap, Strumenti a Fiato, Tastiere, Teatro, Violino.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Convincere", description: """
-La Persuasione è l'Abilità con cui un personaggio riesce a convincerne altri che sa cos'è meglio per loro. I maestri persuasori sanno come giocare con le emozioni
-delle loro vittime, o appellarsi alla loro ragione. Da non confondere con la Manipolazione, che è una capacità innata ed istintiva del personaggio, la Persuasione
-ha a che fare con lo studio e la conoscenza di arti quali la retorica.
+La Persuasione è l'Abilità con cui un personaggio riesce a convincerne altri che sa cos'è meglio per loro. I maestri persuasori sanno come giocare con le emozioni delle loro vittime, o appellarsi alla loro ragione. Da non confondere con la Manipolazione, che è una capacità innata ed istintiva del personaggio, la Persuasione ha a che fare con lo studio e la conoscenza di arti quali la retorica.
+**Specialità**: Contrattare, Dibattimento, Interrogare, Negoziati, Raggirare, Retorica.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Bassifondi", description: """
-Questa Abilità garantisce al personaggio l'abilità di parlare la stessa lingua dei bassifondi, riuscendoa mimetizzarcisi senza dare troppo nell'occhio.
-Un personaggio con questa Abilità riesce anche ad interpretare lo slang, o i simboli e i graffiti sui muri di determinati quartieri.
+Questa Abilità garantisce al personaggio l'abilità di parlare la stessa lingua dei bassifondi, riuscendoa mimetizzarcisi senza dare troppo nell'occhio. Un personaggio con questa Abilità riesce anche ad interpretare lo slang, o i simboli e i graffiti sui muri di determinati quartieri.
+**Specialità**: Corruzione, Droghe, Fama Personale, Gang, Graffiti, Mercato Nero, Prostituzione, Ricettazione, Sopravvivenza Urbana, Traffico d’Armi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Sotterfugio", description: """
-Il Sotterfugio è l'arte di ingannare in modo convincente, per evitare situazioni spiacevoli a seguito di cattive azioni, o convincere fornendo scuse convincenti.
-Questa Abilità ha a che fare con l'intrigo, i segreti e il doppio gioco. Può essere anche utilizzata per sedurre, o imitare il comportamento di un mortale nel caso
-dei vampiri.
+Il Sotterfugio è l'arte di ingannare in modo convincente, per evitare situazioni spiacevoli a seguito di cattive azioni, o convincere fornendo scuse convincenti. Questa Abilità ha a che fare con l'intrigo, i segreti e il doppio gioco. Può essere anche utilizzata per sedurre, o imitare il comportamento di un mortale nel caso dei vampiri.
+**Specialità**: Bluff, Bugie Impeccabili, Fingere Mortalità, Innocenza, Lungo Raggiro, Seduzione.
 """})
 
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Accademiche", description: """
-L'Abilità rappresenta la conoscenza, l'alta educazione, e l'abilità di ricercare informazioni in contesti umanisti o delle arti liberali. Storia, filosofia, fanno
-tutte parte di questa Abilità. Acquisendo questa Abilità si dovrà scegliere la specializzazione del personaggio (in quale branca della conoscenza è esperto).
+L'Abilità rappresenta la conoscenza, l'alta educazione, e l'abilità di ricercare informazioni in contesti umanisti o delle arti liberali. Storia, filosofia, fanno tutte parte di questa Abilità. Acquisendo questa Abilità si dovrà scegliere la specializzazione del personaggio (in quale branca della conoscenza è esperto).
+**Specialità**: Architettura, Giornalismo, Filosofia, Letteratura Inglese, Insegnamento, Ricerca, Storia dell’Arte, Storia (specificare Campo o Periodo), Teologia.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Allerta", description: """
 Allerta ha a che fare coi sensi. Con alti livelli di questa Abilità il personaggio riesce a notare dettagli apparentemente insignificanti, o a percepire un attacco.
+**Specialità**: Ambienti Naturali, Imboscate, Istinto, Mimetismo, Oggetti Nascosti, Olfatto, Vista, Trappole, Udito.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Finanza", description: """
-Con questa Abilità è possibile identificare andamenti e manipolare il mercato azionario, o investire. Garantisce anche l'abilità di "seguire il denaro", identificando
-l'origine delle risorse finanziarie di un altro personaggio.
+Con questa Abilità è possibile identificare andamenti e manipolare il mercato azionario, o investire. Garantisce anche l'abilità di "seguire il denaro", identificando l'origine delle risorse finanziarie di un altro personaggio.
+**Specialità**: Belle Arti, Borsa, Cambio di Valuta, Contabilità Forense, Banking, Mercati Neri, Riciclaggio, Valutazioni.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Investigazione", description: """
 L'Abilità dei detective: il personaggio sarà in grado di risolvere casi o dipanare segreti, identificare indizi, interpretarli, o trovare persone scomparse.
+**Specialità**: Analisi del Traffico, Criminologia, Deduzione, Medicina Legale, Omicidi, Misteri Paranormali, Persone Scomparse.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Medicina", description: """
-La Medicina ha a che fare con la cura del corpo umano e delle sue ferite. Garantisce anche la conoscenza su patologie di vario tipo, e la capacità di usare equipaggiamento
-medico.
+La Medicina ha a che fare con la cura del corpo umano e delle sue ferite. Garantisce anche la conoscenza su patologie di vario tipo, e la capacità di usare equipaggiamento medico.
+**Specialità**: Chirurgia, Traumatologia, Ematologia, Farmacologia, Flebotomia, Patologia, Pronto Soccorso, Veterinaria.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Occulto", description: """
-Occulto rappresenta la conoscenza del mondo mistico, dalle pratiche e rituali di Massoni o Rosacroce, fino alle conoscenze Noddistiche e magiche. Il personaggio sarà in grado
-di riconoscere segni magici, siano essi efficaci o meno.
+Occulto rappresenta la conoscenza del mondo mistico, dalle pratiche e rituali di Massoni o Rosacroce, fino alle conoscenze Noddistiche e magiche. Il personaggio sarà in grado di riconoscere segni magici, siano essi efficaci o meno.
+**Specialità**: Alchimia, Fantasmi, Fate, Grimori, Infernalismo, Lupi Mannari, Magia del Sangue, Maghi, Necromanzia, Noddismo, Parapsicologia, Vudù.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Politica", description: """
-La Politica si occupa della burocrazia e della diplomazia, sia mortale che cainita. Il personaggio potrà lavorare, o anche pressionare, la politica di una circoscrizione, o di
-un Comune, o anche più in su. Un cainita potrà sapere quale Setta domina, e dove.
+La Politica si occupa della burocrazia e della diplomazia, sia mortale che cainita. Il personaggio potrà lavorare, o anche pressionare, la politica di una circoscrizione, o di un Comune, o anche più in su. Un cainita potrà sapere quale Setta domina, e dove.
+**Specialità**: Anarchici, Camarilla, Clan (specifico), Diplomazia, Governo Cittadino, Media, Politica Nazionale, Politica Statale/Provinciale.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Scienza", description: """
-La Scienza è un'Abilità con uno spettro molto ampio, che accomuna la conoscenza della biologia della vita e le leggi dell'entropia universale. Ha molto a che vedere con le
-conoscenze Accademiche, ma mentre queste sono focalizzate su conoscenze umanistiche, le Scienze sono focalizzate su materie scientifiche e ingegneristiche. Anche per Scienze,
-così come per Accademiche, in fase di creazione sarà necessario identificare quale specializzazione il personaggio avrà.
+La Scienza è un'Abilità con uno spettro molto ampio, che accomuna la conoscenza della biologia della vita e le leggi dell'entropia universale. Ha molto a che vedere con le conoscenze Accademiche, ma mentre queste sono focalizzate su conoscenze umanistiche, le Scienze sono focalizzate su materie scientifiche e ingegneristiche. Anche per Scienze, così come per Accademiche, in fase di creazione sarà necessario identificare quale specializzazione il personaggio avrà.
+**Specialità**: Astronomia, Biologia, Chimica, Demolizioni, Fisica, Genetica, Geologia, Ingegneria, Matematica.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_ability_id, name: "Tecnologia", description: """
-La Tecnologia è una materia sempre in movimento: nel XIX secolo riguardava lo studio di motori a vapore, adesso riguarda tutto ciò che ha a che fare con calcolatori, quali
-computer, telefoni cellulari, ecc.
+La Tecnologia è una materia sempre in movimento: nel XIX secolo riguardava lo studio di motori a vapore, adesso riguarda tutto ciò che ha a che fare con calcolatori, quali computer, telefoni cellulari, ecc.
+**Specialità**: Artiglieria, Assemblare Computer, Data Mining, Hackeraggio, Programmazione, Reti Informatiche, Sistemi di Sorveglianza, Telefonia.
 """})
 
 {:ok, animalism} = Vtm.SeedsHelpers.get_or_insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: discipline_id, name: "Animalità", description: "Animalità"})
@@ -402,7 +396,6 @@ Vtm.SeedsHelpers.set_selectable_clans(["Sangue Debole",
                                        "Gangrel",
                                        "Malkavian",
                                        "Nosferatu",
-                                       "Lasombra",
                                        "Toreador",
                                        "Tremere",
                                        "Ventrue"])

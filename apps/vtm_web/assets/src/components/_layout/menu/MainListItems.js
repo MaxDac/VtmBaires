@@ -2,8 +2,6 @@
 
 import React, {useState, Suspense} from "react";
 import {useHistory} from "react-router-dom";
-import {useUserCharactersQuery} from "../../../services/queries/accounts/UserCharactersQuery";
-import {useMenuCharactersAvatar} from "./menu-character/MenuCharactersAvatarHook";
 import ListItem from "@mui/material/ListItem";
 import {Routes} from "../../../AppRouter";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -29,8 +27,6 @@ const SuspenseFallback = () => (<Typography variant="h3"><Skeleton /></Typograph
 
 const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
     const history = useHistory();
-    const characters = useUserCharactersQuery(reloadCount);
-    const charactersWithAvatars = useMenuCharactersAvatar(characters);
     const [popupOpen, setPopupOpen] = useState(false);
     const [requested, setRequested] = useState(false);
     const isChatRoute = useIsChatRoute();
@@ -69,7 +65,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
 
     return (
         <>
-            <Suspense fallback={SuspenseFallback}>
+            <Suspense fallback={<SuspenseFallback />}>
                 {characterSheetModal()}
             </Suspense>
             <ListItem button onClick={_ => pushHistory(Routes.main)}>
@@ -84,9 +80,9 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Mappa" />} />
             </ListItem>
-            <Suspense fallback={SuspenseFallback}>
+            <Suspense fallback={<SuspenseFallback />}>
                 <MenuCharacterSection pushHistory={pushHistory}
-                                      characters={charactersWithAvatars}
+                                      reloadCount={reloadCount}
                                       onUpdate={onUpdate} />
             </Suspense>
             <MenuHuntSection />

@@ -339,6 +339,34 @@ const GuidesCreation = (): any => {
                 la <Link to={GuideRoutes.attributes}>guida</Link>.
             </Typography>
 
+            <Typography paragraph style={guideStyle}>
+                <b>Nota</b>: per i giocatori che hanno scelto di disporre i punteggi di Attributi e Abilit&agrave; con 
+                i template, dovrete fornire le seguenti Specialità in base al template da voi scelto:
+
+                <ul>
+                    <li style={liStyle}>
+                        <b>Studioso</b>;
+                        <ul>
+                            <li>Accademiche</li>
+                            <li>Espressivit&agrave;</li>
+                            <li>Scienza</li>
+                        </ul>
+                    </li>
+                    
+                    <li style={liStyle}>
+                        <b>Lottatore</b>; <i>nessuna</i>
+                    </li>
+
+                    <li style={liStyle}>
+                        <b>Leader</b>;
+                        <ul>
+                            <li>Accademiche</li>
+                            <li>Espressivit&agrave;</li>
+                        </ul>
+                    </li>
+                </ul>
+            </Typography>
+
             <Typography paragraph>
                 <h4 style={titleStyle}>
                     Convinzioni

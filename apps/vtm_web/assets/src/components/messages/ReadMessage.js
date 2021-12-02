@@ -52,16 +52,16 @@ const ReadMessage = ({messageId}: Props): any => {
         message?.senderCharacter?.name ?? message?.senderUser?.name;
 
     const getReceiverName = () =>
-        message?.receiverCharacter?.name ?? message?.receiverCharacter?.name;
+        message?.receiverCharacter?.name ?? message?.receiverUser?.name;
 
     const getAvatarSrc = () => {
         if (message?.senderCharacter?.id != null) {
-            return <ReadMessageAvatar characterId={message.senderCharacter.id}
-                                      avatarStyle={avatarStyle} />
-        };
+            return (<ReadMessageAvatar characterId={message.senderCharacter.id}
+                                      avatarStyle={avatarStyle} />);
+        }
 
-        return <Avatar sx={avatarStyle}>{getInitials(getSenderName() ?? "")}</Avatar>
-    }
+        return (<Avatar sx={avatarStyle}>{getInitials(getSenderName() ?? "")}</Avatar>);
+    };
 
     const deleteMessage = _ =>
         openDialog("Cancella messaggio", "Sei sicuro di voler cancellare il messaggio?", () => {
@@ -87,13 +87,13 @@ const ReadMessage = ({messageId}: Props): any => {
                         </Grid>
                         <Grid item xs={9} sm={10} md={11}>
                             <Typography>
-                                <b>From: </b> {getSenderName()}
+                                <b>Da: </b> {getSenderName()}
                             </Typography>
                             <Typography>
-                                <b>To: </b> {getReceiverName()}
+                                <b>A: </b> {getReceiverName()}
                             </Typography>
                             <Typography>
-                                <b>Subject: </b> {message?.subject}
+                                <b>Oggetto: </b> {message?.subject}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>

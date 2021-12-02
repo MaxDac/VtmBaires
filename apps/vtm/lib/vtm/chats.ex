@@ -114,6 +114,7 @@ defmodule Vtm.Chats do
       where: fragment("? BETWEEN ? AND ?", c.inserted_at, ^from, ^to),
       join: ch in Character,
       on: c.character_id == ch.id,
+      order_by: c.inserted_at,
       select: %ChatEntry{c | character: %{
         id: ch.id,
         name: ch.name

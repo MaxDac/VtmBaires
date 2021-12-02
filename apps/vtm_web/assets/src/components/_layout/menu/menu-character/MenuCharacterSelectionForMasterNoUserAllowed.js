@@ -14,26 +14,32 @@ import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
 
 type Props = {
     pushHistory: string => void;
-}
+};
 
-const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): any => {
+type InternalProps = Props & {
+    character: {
+        id: string;
+        name: ?string;
+    }
+};
+
+const Internal = ({pushHistory, character: {id: characterId, name: characterName}}: InternalProps) => {
     const theme = useTheme();
-    const [,character] = useSession();
-    const [characterWithAvatar,] = useMenuCharactersAvatar([character]);
+    const [characterWithAvatar,] = useMenuCharactersAvatar([{id: characterId}]);
 
-    const onSheetSelected = () => pushHistory(MainRoutes.sheet(character.id));
+    const onSheetSelected = () => pushHistory(MainRoutes.sheet(characterId));
 
     const MenuCharacterItemMenuSecondaryText = ({hover}: any): any => (
         <Typography component="span" sx={{
             ...(!!hover ? menuTextStyleHover : menuTextStyle),
             cursor: "pointer"
         }} onClick={onSheetSelected}>
-            {character?.name}
+            {characterName}
         </Typography>
     );
 
     return (
-        <ListItem key={character?.id}
+        <ListItem key={characterId}
                   button
                   onClick={onSheetSelected}>
             <ListItemIcon>
@@ -45,6 +51,17 @@ const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): any
             <ListItemText secondary={<MenuCharacterItemMenuSecondaryText />} />
         </ListItem>
     );
+}
+
+const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): any => {
+    const [,character] = useSession();
+
+    if (character?.id != null) {
+        return (<Internal pushHistory={pushHistory} character={{
+            id: character.id,
+            name: character.name
+        }} />)
+    }
 };
 
 export default MenuCharacterSelectionForMasterNoUserAllowed;

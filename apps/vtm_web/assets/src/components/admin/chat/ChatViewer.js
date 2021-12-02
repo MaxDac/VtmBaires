@@ -22,6 +22,7 @@ import Paper from '@mui/material/Paper';
 import type {GetAdminChatEntriesQuery} from "../../../services/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
 import {getAdminChatEntriesQuery} from "../../../services/queries/chat/GetAdminChatEntriesQuery";
 import {yesterday, defaultFormatDateAndTimeForControl, parseISO} from "../../../_base/date-utils";
+import ParsedText from "../../../_base/components/ParsedText";
 
 type ChatViewerInternalProps = {
     from: any,
@@ -49,11 +50,21 @@ const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps
                               border: 0
                           }
                       }}>
-                <TableCell component="th" scope="row">
-                    {entry?.insertedAt}
+                <TableCell component="th" scope="row" sx={{verticalAlign: "top"}}>
+                    <ParsedText text={entry?.insertedAt} sx={{
+                        fontSize: "0.9rem"
+                    }} />
                 </TableCell>
-                <TableCell>{entry?.character?.name}</TableCell>
-                <TableCell>{entry?.text}</TableCell>
+                <TableCell sx={{verticalAlign: "top"}}>
+                    <ParsedText text={entry?.character?.name} sx={{
+                        fontSize: "0.9rem"
+                    }} />
+                </TableCell>
+                <TableCell>
+                    <ParsedText text={entry?.text ?? entry?.result} sx={{
+                        fontSize: "0.9rem"
+                    }} />
+                </TableCell>
             </TableRow>
         ));
 

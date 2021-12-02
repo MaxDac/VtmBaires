@@ -2,7 +2,7 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
+import {guideStyle, titleStyle} from "../GuidesStyles";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {AttributesCompleteQuery} from "../../../services/queries/info/__generated__/AttributesCompleteQuery.graphql";
 import {attributesCompleteQuery} from "../../../services/queries/info/AttributesCompleteQuery";
@@ -13,6 +13,7 @@ import TabPanel from "../../../_base/components/TabPanel";
 import GuidesAttributesAttributes from "./guide-attributes/GuidesAttributesAttributes";
 import GuidesAttributesDisciplines from "./guide-attributes/GuidesAttributesDisciplines";
 import GuidesAttributesAdvantages from "./guide-attributes/GuidesAttributesAdvantages";
+import ParsedText from "../../../_base/components/ParsedText";
 
 const a11yProps = index => {
     return {
@@ -48,14 +49,21 @@ const GuidesAttributes = (): any => {
             }
         };
 
+    const ShowAttribute = ({name, description}) => (
+        <>
+            <h3 style={titleStyle}>{name}</h3>
+            <ParsedText text={description} sx={{fontSize: "0.9rem"}} />
+        </>
+    );
+
     const showAttributes = (name: string, section?: string) =>
         attributes
             .filter(a => a?.attributeType?.name === name)
             .filter(a => section == null || a?.attributeType?.section === section)
             .sort((a, b) => sortAttributes(name)(a, b))
-            .map(a => (
-                <li style={liStyle} key={a?.id}><b>{a?.name}</b>: {a?.description}</li>
-            ));
+            .map(a => (<ShowAttribute key={a?.id} 
+                                      name={a?.name} 
+                                      description={a?.description} />));
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -66,7 +74,7 @@ const GuidesAttributes = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Proponiamo di seguito una lista di Attributi, Abilit&agrave;, Discipline e Vantaggi disponibili in fase di creazione,
+                Si propongono di seguito una lista di Attributi, Abilit&agrave;, Discipline e Vantaggi disponibili in fase di creazione,
                 con relativa descrizione.
             </Typography>
 

@@ -30,7 +30,7 @@ const OnlineControl = (): any => {
     const handleClose = () => setOpen(_ => false);
 
     return (
-        <Suspense fallback={SuspenseFallback}>
+        <Suspense fallback={<SuspenseFallback />}>
             <Tooltip title="Online" placement="bottom">
                 <IconButton aria-label="Online" onClick={_ => setOpen(_ => true)}>
                     <PeopleIcon sx={menuIconStyle} />

@@ -62,7 +62,7 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
         };
 
     const sectionItems = () => (
-        <Suspense fallback={MenuNpcSectionFallback}>
+        <Suspense fallback={<MenuNpcSectionFallback />}>
             <List component="div" disablePadding>
                 {expand
                     ? (<MenuNpcSectionItems reloadCount={reloadCount}
