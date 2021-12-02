@@ -14,23 +14,13 @@ import {MainRoutes} from "../../../MainRouter";
 import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
 import MenuNpcSectionItems from "./MenuNpcSectionItems";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Skeleton from "@mui/material/Skeleton";
+import MenuItemSuspenseFallback from "../MenuItemSuspenseFallback";
 
 type Props = {
     pushHistory: string => void;
     reloadCount: number;
     onUpdate: () => void;
 };
-
-const MenuNpcSectionFallback = () => (
-    <Stack>
-        <Typography variant="h3"><Skeleton /></Typography>
-        <Typography variant="h3"><Skeleton /></Typography>
-        <Typography variant="h3"><Skeleton /></Typography>
-    </Stack>
-);
 
 const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
     const [expand, setExpand] = useState(false);
@@ -43,9 +33,7 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
     }
     
     const handleSheetSelection = (info: UserCharacter) =>
-        _ => {
-            pushHistory(MainRoutes.sheet(info.id));
-        };
+        _ => pushHistory(MainRoutes.sheet(info.id));
 
     const handleCharacterSelection = (info: UserCharacter) =>
         _ => {
@@ -62,7 +50,7 @@ const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
         };
 
     const sectionItems = () => (
-        <Suspense fallback={<MenuNpcSectionFallback />}>
+        <Suspense fallback={<MenuItemSuspenseFallback items={3} />}>
             <List component="div" disablePadding>
                 {expand
                     ? (<MenuNpcSectionItems reloadCount={reloadCount}

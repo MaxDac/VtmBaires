@@ -97,6 +97,16 @@ export const range = function*(from: number, to: number): Generator<number, void
     }
 };
 
+export const rangeArray = (from: number, to: number): Array<number> => {
+    const ret = [];
+
+    for (const i of range(from, to)) {
+        ret.push(i);
+    }
+
+    return ret;
+};
+
 export const baseMenuItems = (min: number, max: number): any => {
     const values = [];
 

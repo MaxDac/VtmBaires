@@ -17,7 +17,7 @@ import {menuIconStyle} from "../menu/menu-base-utils";
 import OnlineControlDialog from "./OnlineControlDialog";
 import Skeleton from "@mui/material/Skeleton";
 
-const SuspenseFallback = () => (<Skeleton variant="circle" width={40} height={40} />);
+const SuspenseFallback = () => (<Skeleton variant="circular" width={40} height={40} />);
 
 const Transition = React.forwardRef((props, ref) =>
     <Fade ref={ref} {...props} />);

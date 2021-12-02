@@ -18,12 +18,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import useIsChatRoute from "../../_hooks/useIsChatRoute";
-import Typography from "@mui/material/Typography";
-import Skeleton from "@mui/material/Skeleton";
 
 const CharacterSheetModal = React.lazy(() => import('./dialog/SheetDialog'));
-
-const SuspenseFallback = () => (<Typography variant="h3"><Skeleton /></Typography>);
 
 const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
     const history = useHistory();
@@ -65,9 +61,6 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
 
     return (
         <>
-            <Suspense fallback={<SuspenseFallback />}>
-                {characterSheetModal()}
-            </Suspense>
             <ListItem button onClick={_ => pushHistory(Routes.main)}>
                 <ListItemIcon>
                     <HomeIcon sx={menuIconStyle} />
@@ -80,11 +73,12 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Mappa" />} />
             </ListItem>
-            <Suspense fallback={<SuspenseFallback />}>
-                <MenuCharacterSection pushHistory={pushHistory}
-                                      reloadCount={reloadCount}
-                                      onUpdate={onUpdate} />
+            <Suspense fallback={<></>}>
+                {characterSheetModal()}
             </Suspense>
+            <MenuCharacterSection pushHistory={pushHistory}
+                                  reloadCount={reloadCount}
+                                  onUpdate={onUpdate} />
             <MenuHuntSection />
             <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>

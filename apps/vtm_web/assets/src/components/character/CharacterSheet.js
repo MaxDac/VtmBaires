@@ -22,7 +22,7 @@ export const CharacterSheetSuspenseFallback = (): any => {
                 <Skeleton variant="text" height={20} width={40} />
             </Box>
             
-            <Skeleton variant="circle" width={40} height={40} />
+            <Skeleton variant="circular" width={40} height={40} />
             <Skeleton variant="rect" width={210} height={118} />
         </>
     );
