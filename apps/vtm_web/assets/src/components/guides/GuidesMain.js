@@ -13,6 +13,7 @@ type Props = {
 export const GuideRoutes = {
     home: "/guides",
     generalRules: "/guides/general-rules",
+    roles: "/guides/roles",
     introduction: "/guides/introduction",
     glossary: "/guides/glossary",
     environment: "/guides/environment",
@@ -34,6 +35,7 @@ export const GuideRoutes = {
 
 const GuidesHome = React.lazy(() => import("./guides-pages/GuidesHome"));
 const GuidesIntroduction = React.lazy(() => import("./guides-pages/GuidesIntroduction"));
+const GuidesRoles = React.lazy(() => import("./guides-pages/GuidesRoles"));
 const GuidesEnvironment = React.lazy(() => import("./guides-pages/GuidesEnvironment"));
 const GuidesGeneralRules = React.lazy(() => import("./guides-pages/GuidesGeneralRules"));
 const GuidesEnvironmentBaires = React.lazy(() => import("./guides-pages/GuidesEnvironmentBaires"));
@@ -67,6 +69,7 @@ const GuidesMain = ({match}: Props): any => {
                 <div>
                     <Route exact path={match.url} component={GuidesHome} />
                     <Route exact path={`${match.url}/general-rules`} component={GuidesGeneralRules} />
+                    <Route exact path={`${match.url}/roles`} component={GuidesRoles} />
                     <Route exact path={`${match.url}/introduction`} component={GuidesIntroduction} />
                     <Route exact path={`${match.url}/glossary`} component={GuidesGlossary} />
                     <Route exact path={`${match.url}/environment`} component={GuidesEnvironment} />

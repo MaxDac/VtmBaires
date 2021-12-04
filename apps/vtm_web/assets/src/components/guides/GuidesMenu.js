@@ -11,6 +11,7 @@ import Collapse from '@mui/material/Collapse';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import HomeIcon from '@mui/icons-material/Home';
 import ListItemText from "@mui/material/ListItemText";
+import GavelIcon from '@mui/icons-material/Gavel';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
@@ -72,6 +73,12 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                         <AssignmentLateIcon sx={menuIconStyle} />
                     </ListItemIcon>
                     <ListItemText primary="Regole generali" />
+                </ListItem>
+                <ListItem button onClick={onMenuItemSelected(GuideRoutes.roles)}>
+                    <ListItemIcon>
+                        <GavelIcon sx={menuIconStyle} />
+                    </ListItemIcon>
+                    <ListItemText primary="Ruoli" />
                 </ListItem>
                 <ListItem button onClick={_ => {
                     setEnvironmentOpen(p => {
