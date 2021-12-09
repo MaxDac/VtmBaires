@@ -2,14 +2,10 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { guideStyle, storyStyle, titleStyle } from "../GuidesStyles";
-import { Box } from "@mui/system";
+import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
+import Box from "@mui/material/Box";
 
-type Props = {
-
-}
-
-const GuidesNpcs = (props: Props): any => {
+const GuidesNpcs = (): any => {
     const sheetBoxStyle = {
         marginLeft: "30px",
         marginRight: "30px"
@@ -21,7 +17,7 @@ const GuidesNpcs = (props: Props): any => {
 
     return (
         <>
-            <Typography paragraph>
+            <Typography component="div">
                 <h1 style={titleStyle}>
                     Personaggi non Giocanti
                 </h1>
@@ -137,7 +133,7 @@ const GuidesNpcs = (props: Props): any => {
             </Typography>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Isabela Ruiz Diaz - La Reina
                     </h3>
@@ -158,19 +154,35 @@ const GuidesNpcs = (props: Props): any => {
                             presenza non lascia comunque dubbi sulla temibilit&agrave; della sua persona, del 
                             suo status.
                         </Typography>
+
                         <Typography paragraph sx={guideStyle}>
                             Ci&ograve; che si vocifera su di lei &egrave; che sia lei la reale manovratrice
                             per il clan Ventrue dietro la costituzione di un Dominio stabile della Camarilla
                             nell'America del Sud. Sia come sia, svolge il suo ruolo di Primogenito al meglio
                             delle sue possibilit&agrave;, occupandosi anche di parte delle mansioni legate
-                            alla protezione della Masquerade, in attesa dell'assegnazione dello Sceriffato.
+                            alla protezione della Masquerade.
+                        </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che sia la reale forza propulsiva e organizzativa del Dominio.</li>
+                                <li>Che sia la reale manipolatrice dietro il Principe.</li>
+                                <li>Che abbia l'ambizione di estendere il Dominio di Buenos Aires a tutta la zona del
+                                Rio del Plata, e anche oltre.</li>
+                            </ul>
                         </Typography>
                     </Box>
                 </Box>
             </Box>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Maria Augusta Carvalho Sforza - La Florecita
                     </h3>
@@ -192,6 +204,7 @@ const GuidesNpcs = (props: Props): any => {
                             che mai, forse, nella vita di Elysium, si &egrave; vista una Ventrue 
                             comportarsi come una Toreador come lei.
                         </Typography>
+
                         <Typography paragraph sx={guideStyle}>
                             Ci&ograve; per cui ha indefessamente speso le sue energie in Sud America &egrave;
                             stato la creazione di un Elysium, del centro nevralgico di un Dominio, nella
@@ -201,12 +214,28 @@ const GuidesNpcs = (props: Props): any => {
                             e questo l'ha resa il perfetto candidato al Principato di quello che, a conti fatti,
                             &egrave; stato uno sforzo operato quasi interamente dal <b>Clan dei Re</b>.
                         </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che in realt&agrave; sia una Toreador.</li>
+                                <li>Che in realt&agrave; sia una Malkavian.</li>
+                                <li>Che abbia contratto un Matrimonio di Sangue con un potente Cainita europeo, ed 
+                                    &egrave; per questo che &egrave; stata sempre spinta alle cariche pi&ugrave; alte
+                                    del Dominio.</li>
+                            </ul>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Heinrich H&uuml;nger - El Traidor
                     </h3>
@@ -238,86 +267,28 @@ const GuidesNpcs = (props: Props): any => {
                             discreto Vescovo H&uuml;nger, a parte il fatto che fu Abbracciato poco dopo la
                             sua fuga dalla Germania post bellica dopo la sconfitta nella Grande Guerra.
                         </Typography>
-                    </Box>
-                </Box>
-            </Box>
 
-            <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
-                    <h3 style={titleStyle}>
-                        Santiago Rinaldi - El Profesor
-                    </h3>
-                </Typography>
-
-                <Box sx={sheetBoxStyle}>
-                    <img src="/SantiagoRinaldi.webp"
-                            align="right"
-                            alt="SantiagoRinaldi"
-                            hspace="10px"
-                            vspace="10px" />
-                    <Box>
-                        <Typography paragraph sx={guideStyle}>
-                            Santiago Rinaldi non &egrave; nuovo alla citt&agrave; di Buenos Aires. Si 
-                            possono ancora trovare, nei polverosi archivi della Universidad de Buenos
-                            Aires, alcuni dei suoi trattati medici risalenti al diciannovesimo secolo.
-                            Rinaldi &egrave; un sopravvissuto al Sabbat: fece parte del tradimento
-                            di Milano, quando Gian Galeazzo Visconti si convert&igrave; in Principe 
-                            della Camarilla, ma &egrave; l'unica cosa degna di nota di questo Cainita
-                            estremamente discreto.
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lui
+                            </h4>
                         </Typography>
-                        <Typography paragraph sx={guideStyle}>
-                            Fece parte della prima spedizione della Camarilla a Montevideo, e non si 
-                            lasci&ograve; pregare nel trasferirsi a Buenos Aires. Fece il suo, nella
-                            conquista e nella stabilizzazione del Dominio, dopodich&eacute; si insedi&ograve;
-                            nel Sanatorio abbandonato in cui operava da mortale.<br />
-                            Ha assunto il ruolo di Primogenito Malkavian, ma raramente si vede in 
-                            Elysium, e non sembra molto incline a conservarne la carica. Con grande
-                            inquietudine dell'establishment Ventrue.
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Essendo l'unico Cainita affiliato alla Camarilla con un passato nel Sabbat nel 
+                                    Dominio di Buenos Aires, gli viene attribuita praticamente qualsiasi nefandezza
+                                    che la fantasia di un Neonato possa immaginare.</li>
+                                <li>Che in vita sia stato un gerarca nazista che ha trovato rifugio in Sud America.</li>
+                                <li>Che non goda della piena fiducia del suo clan.</li>
+                            </ul>
                         </Typography>
                     </Box>
                 </Box>
             </Box>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
-                    <h3 style={titleStyle}>
-                        Fabiana Rodriguez - El Castillo
-                    </h3>
-                </Typography>
-
-                <Box sx={sheetBoxStyle}>
-                    <img src="/FabianaRodriguez.webp"
-                            align="left"
-                            alt="FabianaRodriguez"
-                            hspace="10px"
-                            vspace="10px" />
-                    <Box>
-                        <Typography paragraph sx={guideStyle}>
-                            Uno degli effetti della disperazione della Camarilla porteña &egrave;
-                            stato sicuramente l'elezione di Fabiana Rodriguez alla carica di <b>Primogenito
-                            del clan Tremere</b>. Non si sono nemmeno curati di capire a quale fazione
-                            appartenesse prima di nominarla, probabilmente perch&eacute;, data la 
-                            difficolt&agrave; nelle comunicazioni imposta dal rigore dopo gli attacchi
-                            della Seconda Inquisizione, i Ventrue non riuscirono nemmeno a sapere che 
-                            i Tremere si erano scissi in quattro fazioni.
-                        </Typography>
-                        <Typography paragraph sx={guideStyle}>
-                            Fabiana Rodriguez &egrave; stata una ricercatrice di talento argentina assunta
-                            in piena onda hippie in un laboratorio di Pasadena per lo studio di sostanze 
-                            psicotrope. Una volta Abbracciata, diede ascolto alla sua volont&agrave; interiore
-                            troppo tempo repressa, e prese parte al <b>Movimento di Carna</b> dopo l'esplosione
-                            della Chantry Tremere a Vienna. Non si conoscono i dettagli del suo arrivo
-                            a Buenos Aires dopo la creazione del Dominio, ma poco import&ograve; al Principe
-                            Sforza. Non fece troppe domande quando, ansiosa di garantirsi l'aiuto Tremere
-                            a scapito degli Anarchici, le concesse di installare una Chantry in piena
-                            Capital Federal.
-                        </Typography>
-                    </Box>
-                </Box>
-            </Box>
-
-            <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Lucrezia Duval - La Obispa
                     </h3>
@@ -351,12 +322,82 @@ const GuidesNpcs = (props: Props): any => {
                             da Parigi, e pretese, in cambio della sua permanenza, di poter
                             continuare ad interpretare la carica di Arpia nell'Elysium.
                         </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che non saprebbe riconoscere un Van Gogh da un acquarello di un principiante.</li>
+                                <li>Che non abbia avuto abbastanza coraggio da assumere la Primogenitura, e che abbia
+                                    sempre la valigia pronta per scappare dal Dominio.</li>
+                                <li>Che in realt&agrave; sia successo qualcosa in Europa, un'onta nel suo passato che 
+                                    l'ha costretta a riparare in un Dominio semisconosciuto.</li>
+                            </ul>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
+                    <h3 style={titleStyle}>
+                        Fabiana Rodriguez - El Castillo
+                    </h3>
+                </Typography>
+
+                <Box sx={sheetBoxStyle}>
+                    <img src="/FabianaRodriguez.webp"
+                         align="left"
+                         alt="FabianaRodriguez"
+                         hspace="10px"
+                         vspace="10px" />
+                    <Box>
+                        <Typography paragraph sx={guideStyle}>
+                            Uno degli effetti della disperazione della Camarilla porteña &egrave;
+                            stato sicuramente l'elezione di Fabiana Rodriguez alla carica di <b>Primogenito
+                            del clan Tremere</b>. Non si sono nemmeno curati di capire a quale fazione
+                            appartenesse prima di nominarla, probabilmente perch&eacute;, data la
+                            difficolt&agrave; nelle comunicazioni imposta dal rigore dopo gli attacchi
+                            della Seconda Inquisizione, i Ventrue non riuscirono nemmeno a sapere che
+                            i Tremere si erano scissi in quattro fazioni.
+                        </Typography>
+                        <Typography paragraph sx={guideStyle}>
+                            Fabiana Rodriguez &egrave; stata una ricercatrice di talento argentina assunta
+                            in piena onda hippie in un laboratorio di Pasadena per lo studio di sostanze
+                            psicotrope. Una volta Abbracciata, diede ascolto alla sua volont&agrave; interiore
+                            troppo tempo repressa, e prese parte al <b>Movimento di Carna</b> dopo l'esplosione
+                            della Chantry Tremere a Vienna. Non si conoscono i dettagli del suo arrivo
+                            a Buenos Aires dopo la creazione del Dominio, ma poco import&ograve; al Principe
+                            Sforza. Non fece troppe domande quando, ansiosa di garantirsi l'aiuto Tremere
+                            a scapito degli Anarchici, le concesse di installare una Chantry in piena
+                            Capital Federal.
+                        </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che abbia completamente sposato la causa di Carna all'interno del clan Tremere.</li>
+                                <li>Che non sappia concludere nemmeno i rituali pi&ugrave; semplici...</li>
+                                <li>... ed &egrave; per questo che nessuno del clan si sia preoccupato di 
+                                    controllarne le mosse, anche in un Dominio lontano dall'Europa come quello di 
+                                    Buenos Aires.</li>
+                            </ul>
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box sx={characterBox}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Salom&oacute;n Riario - La Fiscal&iacute;a
                     </h3>
@@ -364,13 +405,13 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/SalomonRiario.webp"
-                            align="left"
+                            align="right"
                             alt="Sardaukar"
                             hspace="10px"
                             vspace="10px" />
                     <Box>
                         <Typography paragraph sx={guideStyle}>
-                            Le voci che circondano Riario sono tante, e tutte differenti. Alcuni lo 
+                            Le voci che circondano Riario sono tante, e tutte differenti. Alcuni lo
                             vogliono come uno degli Assassini che, si vocifera, abbia fatto saltare
                             l'accordo tra la Camarilla e i Ministri di Set. Altri affermano che abbia
                             fatto parte della spedizione di Fatima al-Faqadi nella roccaforte spagnola
@@ -379,11 +420,27 @@ const GuidesNpcs = (props: Props): any => {
                         </Typography>
                         <Typography paragraph sx={guideStyle}>
                             La verit&agrave; &egrave; che lo Sceriffo &egrave; arrivato da troppo poco
-                            nel Dominio di Buenos Aires, seguendo l'onda dei vari Banu Haqim che hanno 
+                            nel Dominio di Buenos Aires, seguendo l'onda dei vari Banu Haqim che hanno
                             popolato gli Elysium dopo l'abbandono della maggior parte dei Brujah, e nessuno
                             ha fatto troppe domande: le sue capacit&agrave; sono eterogenee e perfette
                             per interpretare al meglio il ruolo di protettore delle Tradizioni della
                             Camarilla.
+                        </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lui
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che non sia realmente un Banu Haqim, ma un Brujah precedentemente sconosciuto
+                                    e in completo disaccordo con il suo clan.</li>
+                                <li>Che sia effettivamente un Banu Haqim senza la briglia del clan a controllarlo,
+                                    e che quindi potrebbe improvvisamente saltare alla gola di qualsiasi Neonato
+                                    in preda alla frenesia</li>
+                            </ul>
                         </Typography>
                     </Box>
                 </Box>
@@ -392,7 +449,7 @@ const GuidesNpcs = (props: Props): any => {
             <hr />
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Rodrigo Manoukian - El Comandante
                     </h3>
@@ -400,7 +457,7 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/RodrigoManoukian.webp"
-                            align="right"
+                            align="left"
                             alt="RodrigoManoukian"
                             hspace="10px"
                             vspace="10px" />
@@ -424,12 +481,30 @@ const GuidesNpcs = (props: Props): any => {
                             per altri ribelli Sabbatici poco inclini a partecipare alla grande guerra,
                             e per i delusi della Camarilla dopo il fallito tentativo di Montevideo.
                         </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lui
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che si dimostri estremamente disponibile con chiunque voglia affiliarsi alla causa
+                                    dell'Anarchia, dai Neonati della Camarilla ai Sangue Debole.</li>
+                                <li>Che il suo locale sia la base di ogni genere di traffico illegale dalla Provincia,
+                                    e che abbia il pieno controllo di ogni linea di comunicazione dalla Capital Federal
+                                    al resto dell'Argentina.</li>
+                                <li>Che non sia un reduce del Sabbat in realt&agrave;, ma che finga di esserlo solo per
+                                    proiettare un'aura minacciosa negli interlocutori.</li>
+                            </ul>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Rocio Fernandez - La Oficiante
                     </h3>
@@ -437,7 +512,7 @@ const GuidesNpcs = (props: Props): any => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/RocioFernandez.webp"
-                            align="left"
+                            align="right"
                             alt="RocioFernandez"
                             hspace="10px"
                             vspace="10px" />
@@ -461,38 +536,21 @@ const GuidesNpcs = (props: Props): any => {
                             La Gangrel continua a presiedere il rituale della Vaulderie, su preciso
                             ordine di Rodrigo.
                         </Typography>
-                    </Box>
-                </Box>
-            </Box>
 
-            <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
-                    <h3 style={titleStyle}>
-                        Ernesto Herrera - El Tractor
-                    </h3>
-                </Typography>
-
-                <Box sx={sheetBoxStyle}>
-                    <img src="/ErnestoHerrera.webp"
-                            align="right"
-                            alt="ErnestoHerrera"
-                            hspace="10px"
-                            vspace="10px" />
-                    <Box>
-                        <Typography paragraph sx={guideStyle}>
-                            Essere parte di un branco Sabbat, per Ernesto, non fece una grande
-                            differenza in termini di morale o di legalit&agrave;. Un trafficante
-                            di droga mancato, per via di grandi problemi di dipendenza dalle stesse,
-                            nella non-vita continu&ograve; il suo lavoro, non smettendo per&ograve; di 
-                            consumare sostanze stupefacienti attraverso la vitae delle sue vittime.<br />
-                            Fu rifiutato e accolto nuovamente in diversi branchi, prima di finire 
-                            in quello di Manoukian.
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
                         </Typography>
-                        <Typography paragraph sx={guideStyle}>
-                            Fu uno dei promotori, nel branco, per il ritorno a Buenos Aires, e il
-                            rifiuto di una guerra che non capiva e a cui non voleva partecipare.<br />
-                            Da allora supporta il branco nell'unico modo che conosce, fornendo 
-                            liquidit&agrave; attraverso lo spaccio nel loro locale.
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che sia stata una degli elementi pi&ugrave; ortodossi e selvaggi del Sabbat di
+                                    Buenos Aires.</li>
+                                <li>Che la sua fedelt&agrave; per Manukian sia totale, ma non ricambiata.</li>
+                                <li>Che la gelosia per il leader abbia fatto fallire sul nascere numerosi accordi
+                                    tra gli anarchici e altre organizzazioni indipendenti.</li>
+                            </ul>
                         </Typography>
                     </Box>
                 </Box>
@@ -501,7 +559,7 @@ const GuidesNpcs = (props: Props): any => {
             <hr />
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Javier - El Chorro
                     </h3>
@@ -532,6 +590,22 @@ const GuidesNpcs = (props: Props): any => {
                             Prosegue la sua azione anche nel neonato Dominio della Camarilla: per lui &egrave; cambiato poco,
                             Buenos Aires &egrave; sempre la sua citt&agrave;.
                         </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lui
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che non esista veramente, o che non sia una sola persona.</li>
+                                <li>Che &egrave; il Cainita pi&uagrave; antico attualmente in circolazione nel Dominio.</li>
+                                <li>Che anche il Principe sia in fortissimo debito con lui.</li>
+                                <li>Che sia a conoscenza dei profondi e incoffesabili segreti di qualsiasi Cainita di 
+                                    Buenos Aires, che abbia occhi e orecchie ovunque.</li>
+                            </ul>
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
@@ -539,7 +613,7 @@ const GuidesNpcs = (props: Props): any => {
             <hr />
 
             <Box sx={characterBox}>
-                <Typography paragraph sx={guideStyle}>
+                <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
                         Mercedes Pisanob - La Tana
                     </h3>
@@ -578,6 +652,77 @@ const GuidesNpcs = (props: Props): any => {
                             con i Ministri, e con la Camarilla fece valere l'<b>Accordo siglato dal
                             suo Antidiluviano</b>, di fatto reinstaurando l'accordo che port&ograve;
                             la Camarilla a Buenos Aires.
+                        </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lei
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che sia mal sopportata dal resto del clan.</li>
+                                <li>Che sia debole, e solo una figura di facciata, un fantoccio, la maschera del
+                                    clan Giovanni.</li>
+                            </ul>
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+
+            <hr />
+
+            <Box sx={characterBox}>
+                <Typography component="div" sx={guideStyle}>
+                    <h3 style={titleStyle}>
+                        Santiago Rinaldi - El Intruso
+                    </h3>
+                </Typography>
+
+                <Box sx={sheetBoxStyle}>
+                    <img src="/SantiagoRinaldi.webp"
+                            align="left"
+                            alt="SantiagoRinaldi"
+                            hspace="10px"
+                            vspace="10px" />
+                    <Box>
+                        <Typography paragraph sx={guideStyle}>
+                            Non si sa bene chi abbia tentato di Abbracciarlo. Si vocifera che sia stato un Ventrue, con 
+                            l'ambizione di poter approfittare della sua enorme ricchezza, altri dicono sia stato un
+                            Malkavian, per dispetto al Ventrue di cui sopra. Non lo sa nemmeno Santiago Rinaldi, in vita
+                            uno dei grandi magnati Argentini. Si sa praticamente tutto della sua vita: il padre aveva
+                            contatti con i militari durante la dittatura, e ha rischiato pi&ugrave; volte di diventare
+                            presidente, lui ha ereditato la sua fortuna, e ha portato l'azienda di famiglia nel nuovo
+                            millennio, investendo pesantemente in tecnologia, big data e intelligenza artificiale.
+                        </Typography>
+                        <Typography paragraph sx={guideStyle}>
+                            Poi, venne Abbracciato, ed evidentemente quello che divent&ograve; non piacque al Sire: un
+                            Sangue Debole &egrave; difficile da giustificare dinanzi all'Elysium, anche con la fortuna
+                            che si portava appresso. Non &egrave; noto il nome del Sire, dato che venne preceduto nella
+                            sentenza di Morte Ultima dal proprio Infante, che riusc&igrave; ad ucciderlo in una 
+                            imprevedibile successione di eventi. Ora, ritirato dalla scena pubblica, continua a gestire
+                            il suo patrimonio, grazie alla notevole sopportazione dei raggi solari propria della sua 
+                            specie, che tende a rendergli la non-vita pi&ugrave; facile, mal sopportato dalla 
+                            Camarilla, che non riesce a liberarsene senza minacciare la Masquerade.
+                        </Typography>
+
+                        <Typography component="div">
+                            <h4 style={titleStyle}>
+                                Si dice di lui
+                            </h4>
+                        </Typography>
+
+                        <Typography component="div" sx={guideStyle}>
+                            <ul>
+                                <li>Che abbia una quantit&agrave; di informazioni e di potere tali da poter 
+                                    minacciare qualunque politico di rilievo in Argentina.</li>
+                                <li>Che non sia in realt&agrave; un Sangue Debole, ma si serva di cloni per poter 
+                                    apparire in pubblico.</li>
+                                <li>Che stia organizzando un movimento di Sangue Debole, attraendo altri della sua 
+                                    razza per poter diventare una forza politica autorevole nella societ&agrave; dei
+                                    Fratelli.</li>
+                            </ul>
                         </Typography>
                     </Box>
                 </Box>

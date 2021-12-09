@@ -2,15 +2,11 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { GuideRoutes } from "../GuidesMain";
+import {GuideRoutes} from "../GuidesMain";
 import {Link} from 'react-router-dom';
-import { guideStyle, storyStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
 
-type Props = {
-
-}
-
-const GuidesEnvironmentBaires = (props: Props): any => {
+const GuidesEnvironmentBaires = (): any => {
     return (
         <>
             <Typography paragraph>

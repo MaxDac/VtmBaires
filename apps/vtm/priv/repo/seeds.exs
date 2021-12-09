@@ -381,7 +381,7 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Hecata", selectable: tr
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Malkavian", selectable: true, attributes: [auspex, dominate, obfuscate]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ministry", selectable: true, attributes: [obfuscate, presence, protean]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Nosferatu", selectable: true, attributes: [animalism, obfuscate, potence]})
-Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Lasombra", selectable: false, attributes: [dominate, oblivion, potence]})
+Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Lasombra", selectable: true, attributes: [dominate, oblivion, potence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ravnos", selectable: false, attributes: [animalism, fortitude, presence]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Salubri", selectable: false, attributes: [auspex, dominate, fortitude]})
 Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Toreador", selectable: true, attributes: [auspex, celerity, presence]})
@@ -394,6 +394,7 @@ Vtm.SeedsHelpers.set_selectable_clans(["Sangue Debole",
                                        "Banu Haqim",
                                        "Brujah",
                                        "Gangrel",
+                                       "Lasombra",
                                        "Malkavian",
                                        "Nosferatu",
                                        "Toreador",

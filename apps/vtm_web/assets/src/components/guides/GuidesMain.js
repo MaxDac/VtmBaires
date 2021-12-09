@@ -18,8 +18,10 @@ export const GuideRoutes = {
     glossary: "/guides/glossary",
     environment: "/guides/environment",
     environmentBaires: "/guides/environment-baires",
+    camarilla: "/guides/camarilla",
     environmentSects: "/guides/environment-sects",
     npcs: "/guides/npcs",
+    currentSituation: "/guides/current-situation",
     clans: "/guides/clans",
     attributes: "/guides/attributes",
     mechanics: "/guides/mechanics",
@@ -39,8 +41,10 @@ const GuidesRoles = React.lazy(() => import("./guides-pages/GuidesRoles"));
 const GuidesEnvironment = React.lazy(() => import("./guides-pages/GuidesEnvironment"));
 const GuidesGeneralRules = React.lazy(() => import("./guides-pages/GuidesGeneralRules"));
 const GuidesEnvironmentBaires = React.lazy(() => import("./guides-pages/GuidesEnvironmentBaires"));
+const GuidesCamarilla = React.lazy(() => import("./guides-pages/GuidesCamarilla"));
 const GuidesEnvironmentSects = React.lazy(() => import("./guides-pages/GuidesEnvironmentSects"));
 const GuidesNpcs = React.lazy(() => import("./guides-pages/GuidesNpcs"));
+const GuidesCurrentSituation = React.lazy(() => import("./guides-pages/GuidesCurrentSituation"));
 const GuidesFaq = React.lazy(() => import("./guides-pages/GuidesFaq"));
 const GuidesPlaces = React.lazy(() => import("./guides-pages/GuidesPlaces"));
 const GuidesCredits = React.lazy(() => import("./guides-pages/GuidesCredits"));
@@ -74,7 +78,9 @@ const GuidesMain = ({match}: Props): any => {
                     <Route exact path={`${match.url}/glossary`} component={GuidesGlossary} />
                     <Route exact path={`${match.url}/environment`} component={GuidesEnvironment} />
                     <Route exact path={`${match.url}/environment-baires`} component={GuidesEnvironmentBaires} />
+                    <Route exact path={`${match.url}/camarilla`} component={GuidesCamarilla} />
                     <Route exact path={`${match.url}/environment-sects`} component={GuidesEnvironmentSects} />
+                    <Route exact path={`${match.url}/current-situation`} component={GuidesCurrentSituation} />
                     <Route exact path={`${match.url}/clans`} component={GuidesClans} />
                     <Route exact path={`${match.url}/attributes`} component={GuidesAttributes} />
                     <Route exact path={`${match.url}/mechanics`} component={GuidesMechanics} />

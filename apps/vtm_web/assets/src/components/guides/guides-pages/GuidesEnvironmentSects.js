@@ -15,7 +15,7 @@ const GuidesEnvironmentSects = (props: Props): any => {
         <>
             <Typography paragraph>
                 <h1 style={titleStyle}>
-                    Clan e Sette
+                    Antagonisti, Clan e altre Sette
                 </h1>
             </Typography>
 
@@ -169,26 +169,8 @@ const GuidesEnvironmentSects = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                In seguito, saranno esposte le situazioni attuali delle varie Sette e Congreghe.
-            </Typography>
-
-            <Typography paragraph>
-                <h2 style={titleStyle}>
-                    Camarilla
-                </h2>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Dopo l'accordo concluso col portavoce degli <i>Amici Noctis</i>,
-                di cui si parla nella&nbsp;
-                <Link to={GuideRoutes.environmentBaires}>sezione di Ambientazione</Link>, 
-                la Camarilla ha ottenuto tutto quello di cui aveva bisogno 
-                per poter organizzare il Dominio di Buenos Aires, dopo aver perso
-                quello di Montevideo. Ha il suo Principe nella persona di&nbsp;
-                <b>Maria Augusta Carvalho Sforza</b>, supportata dall'Ancillae&nbsp;
-                <b>Isabela Ruiz Diaz</b>, Primogenito Ventrue Il resto dei personaggi
-                non giocanti saranno descritti nella&nbsp;
-                <Link to={GuideRoutes.npcs}>sezione dei Personaggi non giocanti</Link>.
+                In seguito, saranno esposte le situazioni attuali di Sette e Congreghe alternative, se non antagoniste,
+                alla <Link to={GuideRoutes.camarilla}>Camarilla</Link>.
             </Typography>
 
             <Typography paragraph>
@@ -199,8 +181,8 @@ const GuidesEnvironmentSects = (props: Props): any => {
 
             <Typography paragraph sx={guideStyle}>
                 L'abbandono da parte del Sabbat dei territori, e la successiva partenza
-                verso il Medio Oriente, non ha lasciato spazio solamente alla Camarilla.
-                <b>Rodrigo Manoukian</b>, un Ravnos Anticlan, ha rifiutato di asservirsi
+                verso il Medio Oriente, non ha lasciato spazio solamente alla Camarilla. <b>Rodrigo Manoukian</b>, 
+                un Ravnos Anticlan, ha rifiutato di asservirsi
                 alla Guerra della Gehenna imposta dal suo clan, e col suo branco ha raggiunto
                 un accordo di mutua protezione con i Ministri per la protezione dei territori
                 della Provincia dalla morsa della Camarilla, che ha rifiutato proprio 

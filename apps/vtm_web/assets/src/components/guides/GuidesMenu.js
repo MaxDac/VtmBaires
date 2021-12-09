@@ -14,7 +14,6 @@ import ListItemText from "@mui/material/ListItemText";
 import GavelIcon from '@mui/icons-material/Gavel';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import HelpIcon from '@mui/icons-material/Help';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
@@ -105,8 +104,17 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentBaires)}>
                             <ListItemText primary="Buenos Aires" />
                         </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.camarilla)}>
+                            <ListItemText primary="Camarilla" />
+                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentSects)}>
-                            <ListItemText primary="Sette" />
+                            <ListItemText primary="Antagonisti e altre Sette" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.npcs)}>
+                            <ListItemText primary="Personaggi" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.currentSituation)}>
+                            <ListItemText primary="Situazione Attuale" />
                         </ListItem>
                     </List>
                 </Collapse>
@@ -143,12 +151,6 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                         </ListItem>
                     </List>
                 </Collapse>
-                <ListItem button onClick={onMenuItemSelected(GuideRoutes.npcs)}>
-                    <ListItemIcon>
-                        <SupervisedUserCircleIcon sx={menuIconStyle} />
-                    </ListItemIcon>
-                    <ListItemText primary="Personaggi" />
-                </ListItem>
                 <Divider />
                 <ListItem button onClick={onMenuItemSelected(GuideRoutes.places)}>
                     <ListItemIcon>
