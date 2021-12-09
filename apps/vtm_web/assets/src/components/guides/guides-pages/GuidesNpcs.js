@@ -345,7 +345,7 @@ const GuidesNpcs = (): any => {
             <Box sx={characterBox}>
                 <Typography component="div" sx={guideStyle}>
                     <h3 style={titleStyle}>
-                        Fabiana Rodriguez - El Castillo
+                        Fabiana Rodriguez - La Loca
                     </h3>
                 </Typography>
 
@@ -358,10 +358,9 @@ const GuidesNpcs = (): any => {
                     <Box>
                         <Typography paragraph sx={guideStyle}>
                             Uno degli effetti della disperazione della Camarilla porteña &egrave;
-                            stato sicuramente l'elezione di Fabiana Rodriguez alla carica di <b>Primogenito
-                            del clan Tremere</b>. Non si sono nemmeno curati di capire a quale fazione
-                            appartenesse prima di nominarla, probabilmente perch&eacute;, data la
-                            difficolt&agrave; nelle comunicazioni imposta dal rigore dopo gli attacchi
+                            stato sicuramente l'acquisizione di Fabiana Rodriguez . Non si sono nemmeno curati di
+                            capire a quale fazione appartenesse prima di accoglierla, probabilmente perch&eacute;,
+                            data la difficolt&agrave; nelle comunicazioni imposta dal rigore dopo gli attacchi
                             della Seconda Inquisizione, i Ventrue non riuscirono nemmeno a sapere che
                             i Tremere si erano scissi in quattro fazioni.
                         </Typography>
@@ -374,7 +373,7 @@ const GuidesNpcs = (): any => {
                             a Buenos Aires dopo la creazione del Dominio, ma poco import&ograve; al Principe
                             Sforza. Non fece troppe domande quando, ansiosa di garantirsi l'aiuto Tremere
                             a scapito degli Anarchici, le concesse di installare una Chantry in piena
-                            Capital Federal.
+                            Capital Federal, diventando di fatto la <b>Reggente del clan</b>.
                         </Typography>
 
                         <Typography component="div">
