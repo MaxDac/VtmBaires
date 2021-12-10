@@ -343,6 +343,95 @@ const GuidesCamarilla = (): any => {
                 pervasiva, questa Tradizione &egrave; considerata ancora pi&ugrave; importante, e i trasgressori 
                 anche minimi vengono puniti senza piet&agrave;.
             </Typography>
+
+            <Typography component="div">
+                <h2 style={titleStyle}>
+                    Favori
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Una delle consuetudini che hanno retto la Camarilla per secoli &egrave; stata la politica dei Favori. I
+                vampiri, per certi versi, rappresentano, incarnano ed amplificano le pi&ugrave; nascoste perversioni 
+                dell'uomo, ed egoismo, arroganza e prevaricazione sono solo alcune delle caratteristiche che li 
+                contraddistinguono, e che interpretano splendidamente. Per regolamentare e controllare ufficialmente le
+                azioni che i Fratelli compiono in aiuto di altri Fratelli, esiste l'istituzione dei <b>Favori</b>, che
+                altro non sono che una moneta di scambio riconosciuta ufficialmente dalla Setta.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il loro funzionamento &egrave; semplice: quando un Fratello necessita dell'aiuto di un altro (ad esempio
+                per usufruire delle sue influenze nel mondo mortale, per fargli da scorta durante un incontro 
+                pericoloso, o anche solo semplicemente per soldi), i due possono contrattare un tipo di Favore che il 
+                primo dovr&agrave; al secondo. Il Favore, una volta accordato, dovr&agrave; essere formalizzato <b>in
+                    presenza di un'Arpia</b>. In un qualsiasi momento futuro, quindi, il Fratello creditore nei 
+                confronti dell'altro potr&agrave; esigere il pagamento del Favore, che dovr&agrave; essere garantito 
+                senza opposizione, se non si vuole incorrere nelle ire del Principe, o dello Sceriffo per interposta
+                persona.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Esistono diversi tipi di favori, in base alla gravit&agrave; e all'importanza della prestazione. 
+                Ovviamente, se un Fratello si indebita per un Favore Minore, non potr&agrave; essere costretto a 
+                sdebitarsi per un'azione considerata come un Favore Maggiore, per esempio: in questi 
+                casi, <b>sar&agrave; l'Arpia ad avere l'ultima parola sul valore di un Favore</b>, se i Fratelli non si
+                mettono d'accordo, determinando pubblicamente a quale tipo di favore una determinata azione corrisponde.
+                Nella politica dei Favori, le Arpie sono giudici ed esecutrici indiscusse.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                <b>Nota</b>: per la registrazione di Favori in fase di contrattazione (che dovrebbe avvenire sempre <b>
+                prima</b> dell'esecuzione del Favore), a meno che non la si voglia contattare per dirimere sulla
+                entit&agrave; del Favore stesso, non &egrave; necessario giocare la discussione con l'Arpia per la
+                registrazione. L'unico caso in cui l'Arpia &egrave; necessaria, se non esplicitamente richiesto dal 
+                Narratore, &egrave; nel caso in cui, per ripagare un Favore, i personaggi non riescono a mettersi 
+                d'accordo sull'entit&agrave; del Favore di ritorno.
+            </Typography>
+
+            <Typography component="div">
+                <h4 style={titleStyle}>
+                    Favore Minore
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il tipo di Favore pi&ugrave; comunemente scambiato tra Fratelli. Un favore minore portebbe essere ad
+                esempio la richiesta di utilizzare un Alleato, un Contatto o una Influenza di un altro Fratello, uno 
+                scambio di informazioni di ordinaria amministrazione, il deposito di una somma di denaro o una 
+                intercessione presso un altro Fratello. A discrezione dei giocatori, o dell'Arpia, un Favore Minore
+                potr&agrave; anche essere ripagato con un <b>Legame di Sangue di primo livello</b>.
+            </Typography>
+
+            <Typography component="div">
+                <h4 style={titleStyle}>
+                    Favore Maggiore
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un Favore Maggiore &egrave; considerato un impegno estremamente serio da parte di un Fratello, e 
+                l'azione con cui deve essere ripagato potrebbe arrivare a compromettere seriamente il debitore. Alcuni
+                esempi di un Favore Maggiore sono un Legame di Sangue fino al secondo livello, un voto nel Consiglio
+                dei Primogeniti, la cessione di un Dominio o un servizio prolungato nel tempo, a discrezione dei 
+                giocatori.
+            </Typography>
+
+            <Typography component="div">
+                <h4 style={titleStyle}>
+                    Debito di Vita
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il Debito di Vita &egrave; il Favore dal valore pi&ugrave; grande, ed &egrave; da considerarsi come un 
+                Favore che garantisce potere di vita o di morte su un Fratello. Data l'entit&agrave; del Favore, deve
+                essere chiaro che le condizioni per concederlo devono veramente essere di vita o di morte: un Fratello
+                pu&ograve; pretendere un Debito di Vita da un altro se, appunto, gli ha salvato la non-vita in una
+                occasione, muovendo le sue influenze, o intercedendo per suo conto con un Anziano, o direttamente, 
+                sventando un potenziale attentato. Se un Fratello ha un credito di questo tipo, pu&ograve; richiedere
+                praticamente qualsiasi cosa come pagamento, <b>tranne la Morte Ultima</b>, potere che &egrave; solo 
+                appannaggio dei Principi e dei Sire.
+            </Typography>
         </>
     );
 }

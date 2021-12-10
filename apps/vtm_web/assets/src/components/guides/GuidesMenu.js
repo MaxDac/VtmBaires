@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -111,7 +111,7 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                             <ListItemText primary="Antagonisti e altre Sette" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.npcs)}>
-                            <ListItemText primary="Personaggi" />
+                            <ListItemText primary="Cainiti di Buenos Aires" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.currentSituation)}>
                             <ListItemText primary="Situazione Attuale" />

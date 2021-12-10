@@ -144,6 +144,32 @@ const GuidesPlaces = (props: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
+                <h4 style={titleStyle}>
+                    Hollywood
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il quartiere chiamato "Hollywood" si estende per una decina di <i>quadras</i> a Palermo, ed &egrave;
+                una delle mete predilette per la vita notturna di Buenos Aires. Dedicato a chi vuole passare una 
+                serata tranquilla, tra ristoranti, librerie e piccoli teatri aperti fino a tardi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                <h4 style={titleStyle}>
+                    Barracas
+                </h4>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Un po' pi&ugrave; a sud, sempre in Capital Federal, si trova il quartiere chiamato <b>Barracas</b>, che
+                nonostante il suo nome, vanta oggi una quantit&agrave; di locali notturni ineguagliato in tutta Buenos
+                Aires. L'area &egrave; stata recentemente ripulita dallo stato di abbandono e degrado che gli abitanti
+                hanno sempre condannato, ma ancora adesso, nel transito tra un bar e l'altro, c'&egrave; sempre il 
+                pericolo di venire derubati. O peggio.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
                 <h2 style={titleStyle}>
                     Provincia Norte
                 </h2>

@@ -192,17 +192,7 @@ const GuidesEnvironment = (props: Props): any => {
 
                     <li style={liStyle}>
                         In questo contesto, si immerge l'ambientazione della citt&agrave; di Buenos Aires, descritta in
-                        seguito. Non verr&agrave; considerato, nello stilare l'ambientazione iniziale, nessun manuale
-                        particolare, al di fuori dei seguenti:
-
-                        <ul>
-                            <li>Corebook v5</li>
-                            <li>Chicago by Night</li>
-                            <li>I Culti del Sangue</li>
-                        </ul>
-
-                        Considerare troppi manuali sarebbe controproducente, in quanto giocatori meno esperti verrebbero
-                        penalizzati, e l'ambientazione verrebbe limitata dalla grande mole di informazioni.
+                        seguito.
                     </li>
                 </ul>
             </Typography>

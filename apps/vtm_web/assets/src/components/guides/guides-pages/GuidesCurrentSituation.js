@@ -1,8 +1,10 @@
 // @flow
 
 import React from "react";
+import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
+import {GuideRoutes} from "../GuidesMain";
 
 const GuidesCurrentSituation = (): any => {
     return (
@@ -125,6 +127,43 @@ const GuidesCurrentSituation = (): any => {
 
             <Typography component="div">
                 <h3 style={titleStyle}>
+                    L'Infante
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                (Consigliato per chi per la prima volta si approccia a Vampiri: la Masquerade&trade;) Abbracciato 
+                solamente di recente da un Fratello, per l'Infante il mondo dei Fratelli &egrave; del tutto nuovo:
+                la terminologia, le cariche, la burocrazia e il potere di stampo feudale sembrano cos&igrave; 
+                anacronistici, ma sta scoperndo quanto possono essere reali, e <b>letali</b>. L'Infante non &egrave;
+                ancora stato ufficialmente presentato in Elysium, quindi non pu&ograve; acquisire Status in fase di
+                creazione, ed &egrave; veramente difficile che possa acquisire il background di <b>Generazione</b>,
+                anzi, pu&ograve; gi&agrave; ritenersi fortunato a non essere un Sangue Debole.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                <b>Nota</b>: nel caso in cui scegliate come Sire uno dei personaggi non giocanti esposti in
+                questa <Link to={GuideRoutes.npcs}>Sezione</Link>, <b>&egrave; indispensabile contattare un narratore
+                    prima di mandare il background</b>. Chi non contatter&agrave; un narratore, potr&agrave; vedere
+                    il proprio personaggio <b>rifiutato</b>.
+            </Typography>
+
+            <Typography component="div">
+                <h3 style={titleStyle}>
+                    Il Prescelto
+                </h3>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Una variante dell'Infante, il Prescelto &egrave; stato Abbracciato da uno dei cainiti di Buenos Aires,
+                ma &egrave; gi&agrave; stato presentato, in quanto ritenuto precocemente pronto per rappresentare la
+                Camarilla e per preservare la Masquerade. Ovviamente, questo prototipo di personaggio &egrave; adatto
+                a giocatori pi&ugrave; navigati. <b>Vale inoltre la stessa limitazione dell'Infante per la selezione
+                    di un personaggio non giocante come Sire.</b>
+            </Typography>
+
+            <Typography component="div">
+                <h3 style={titleStyle}>
                     Il Sangue Debole
                 </h3>
             </Typography>
@@ -159,6 +198,10 @@ const GuidesCurrentSituation = (): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
+                Buenos Aires &egrave; per la Camarilla assieme una speranza, un costoso investimento e un avamposto in
+                un Continente dominato da altre forze: per questo motivo, data anche la particolare congiuntura 
+                politica che tiene per ora lontana la Seconda Inquisizione dal territorio Argentino, &egrave; 
+                necessario fortificare il Dominio, ed <b>espanderlo</b>.
                 Il fronte aperto per eccellenza in citt&agrave; &egrave; quello tra la Camarilla e la Fazione Anarchica.
                 Da una parte, <i>los conquistadores</i>, gli Europei venuti in citt&agrave; per occuparla e per 
                 imprigionarla nelle sue regole, nei suoi protocolli e nella sua burocrazia, dall'altra i traditori 

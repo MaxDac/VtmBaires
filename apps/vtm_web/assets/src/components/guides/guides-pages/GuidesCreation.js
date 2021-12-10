@@ -62,29 +62,8 @@ const GuidesCreation = (): any => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Ai giocatori non esperti nell'ambientazione di Vampiri: la Masquerade&trade; consigliamo di creare 
-                personaggi <b>Infanti</b>, appena trasformati in vampiri (<b>Abbracciati</b>, nella terminologia dei <b>Fratelli</b>).
-                Questo vi consentir&agrave; di concentrarvi sulla storia del vostro personaggio quando ancora era in vita.
-                Di seguito, forniamo alcuni spunti per descrivere come, quando e perch&egrave; il vostro personaggio &egrave;
-                stato trasformato in vampiro:
-            </Typography>
-
-            <Typography paragraph style={guideStyle}>
-                <ul>
-                    <li style={liStyle}>
-                        Il personaggio &egrave; stato Abbracciato da un vampiro nell'ormani distrutto Dominio di Montevideo. 
-                        Se optate per questa decisione, vi consigliamo di leggere la relativa <Link to={GuideRoutes.environmentBaires}>guida</Link>.
-                    </li>
-                    <li style={liStyle}>
-                        Nel caso in cui scegliate di interpretare un personaggio <b>Sangue Debole</b> o <b>Vili</b>, potrete 
-                        considerare che il vostro Sire vi abbia abbandonato una volta capito cosa eravate.
-                    </li>
-                    <li style={liStyle}>
-                        Il personaggio &egrave; stato Abbracciato a Buenos Aires da uno dei <Link to={GuideRoutes.npcs}>personaggi 
-                        non giocanti dell'Ambientazione</Link>. Consigliamo di condividere questa decisione coi master, che 
-                        potranno guidare la vostra scelta con maggior informazioni.
-                    </li>
-                </ul>
+                Potete trovare una serie di tipi di personaggio che ben si adattano all'Ambientazione di Buenos Aires 
+                nella <Link to={GuideRoutes.currentSituation}>Situazione Attuale</Link>.
             </Typography>
 
             <Typography paragraph>
