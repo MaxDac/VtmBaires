@@ -3,10 +3,9 @@
 import React from 'react';
 import SubMap from "./SubMap";
 import useSectionMaps from "../../services/queries/map/SectionMapsQuery";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import {mainMapsQuery} from "../../services/queries/map/MainMapsQuery";
-import type {MainMapsQuery} from "../../services/queries/map/__generated__/MainMapsQuery.graphql";
 import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
+import useMap from "../../services/queries/map/MapQuery";
+import {replaceAll, stripAccents} from "../../_base/utils";
 
 type MapProps = {
     id: string;
@@ -15,14 +14,12 @@ type MapProps = {
 const Map = ({ id }: MapProps): any => {
     useUpdateSessionMap(id);
 
-    const [map,] = useCustomLazyLoadQuery<MainMapsQuery>(mainMapsQuery, {})
-        ?.mainMaps
-        ?.filter(m => m?.id === id) ?? [];
+    const map = useMap(id);
 
     const maps = useSectionMaps(id);
 
     const getImageUrlName = name => {
-        const fileName = name.toLowerCase().replace(" ", "-");
+        const fileName = stripAccents(replaceAll(name.toLowerCase(), " ", "-"));
         return `/${fileName}.webp`;
     };
 

@@ -202,6 +202,14 @@ export const replaceAll = (text: string, what: string, withWhat: string): string
 }
 
 /**
+ * Strips the accent from the string.
+ * @param text The string with accents.
+ * @return {string} The string without accents.
+ */
+export const stripAccents = (text: string): string =>
+    text.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+/**
  * Gets the RegEx validation string for an url.
  * @return {string} The URL RegEx validation string.
  */

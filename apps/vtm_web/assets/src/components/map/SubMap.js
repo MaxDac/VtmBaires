@@ -19,6 +19,7 @@ import {useMediaQuery, useTheme} from '@mui/material';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {goToChatAndUpdateSession} from "../chat/chat-helpers";
 import {SessionContext} from "../../contexts";
+import {orderAlphabetically} from "../../_base/utils";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -103,7 +104,7 @@ const SubMap = ({maps, imageUrl}: SubMapProps): any => {
             </ListItem>;
 
         if (maps && maps.map) {
-            return maps.map(mapLink);
+            return maps.sort((a, b) => orderAlphabetically(a.id, b.id)).map(mapLink);
         }
 
         return [];
