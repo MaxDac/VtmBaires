@@ -1,4 +1,6 @@
 defmodule Vtm.Forum.ForumSection do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

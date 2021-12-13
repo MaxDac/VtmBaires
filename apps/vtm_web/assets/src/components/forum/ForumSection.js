@@ -33,7 +33,7 @@ const ForumSection = ({sectionId}: Props): any => {
 
     const section = firstOrDefault(useForumSections()
         ?.getForumSections
-        ?.filter(s => s?.id === sectionId));
+        ?.filter(s => s?.section?.id === sectionId));
 
     const response = useCustomLazyLoadQuery<GetForumThreadsQuery>(
         getForumThreadsQuery,
@@ -55,8 +55,8 @@ const ForumSection = ({sectionId}: Props): any => {
     const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => response?.threads
-        ?.map(s => <ForumItemSelector key={s?.id}
-                                      item={s}
+        ?.map(s => <ForumItemSelector key={s?.thread?.id}
+                                      item={s?.thread}
                                       internal={true}
                                       onClick={toFormThread}
                                       onUpdate={onUpdate} />);
@@ -71,7 +71,7 @@ const ForumSection = ({sectionId}: Props): any => {
 
     const forumControls = () => {
         const createNewThreadControl = () => {
-            if (section?.onGame === false || character != null) {
+            if (section?.section?.onGame === false || character != null) {
                 return (
                     <Tooltip title="Crea nuovo thread">
                         <IconButton aria-label="Messaggio"
@@ -118,7 +118,7 @@ const ForumSection = ({sectionId}: Props): any => {
     };
 
     return (
-        <ForumLayout title={section?.title ?? "Section"} controls={forumControls()}>
+        <ForumLayout title={section?.section?.title ?? "Section"} controls={forumControls()}>
             <Grid container>
                 <Grid item xs={12}>
                     {showForumThreads()}

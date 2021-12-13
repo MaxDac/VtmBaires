@@ -124,3 +124,22 @@ export const defaultFormatDateAndTimeForControl = (date: ?any): ?string =>
  * @return {Date} The date of the day before the given date.
  */
 export const yesterday = (date: Date): Date => DateFns.addDays(date, -1);
+
+/**
+ * Sorts two dates in ascending or descending order.
+ * @param date1 The first date as string.
+ * @param date2 The second date as string.
+ * @param desc Whether to sort in descending order. Will be sorted in ascending order if not specified.
+ * @return {number} The comparison result.
+ */
+export const sortByDate = (date1: string, date2: string, desc?: boolean): number => {
+    const [parsed1, parsed2] = [date1, date2].map(s => parseISO(s));
+
+    if (parsed1 != null && parsed2 != null) {
+        return desc != null && desc === true
+            ? DateFns.compareDesc(parsed1, parsed2)
+            : DateFns.compareAsc(parsed1, parsed2);
+    }
+
+    return 0;
+};

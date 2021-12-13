@@ -16,7 +16,8 @@ import Box from "@mui/material/Box";
 const ForumSections = (): any => {
     const history = useHistory();
 
-    const forumSections = useForumSections()?.getForumSections;
+    const forumSections = useForumSections()
+        ?.getForumSections;
 
     const toSection = sectionId => {
         if (sectionId != null) {
@@ -26,15 +27,17 @@ const ForumSections = (): any => {
 
     const showForumSections = () => forumSections
         ?.map(s => (
-            <Box component="div" key={s?.id}>
+            <Box component="div" key={s?.section?.id}>
                 <Divider />
                 <ListItem
                           alignItems="flex-start"
                           button
-                          onClick={_ => toSection(s?.id)}>
-                    <ListItemText primary={s?.title}
-                                  secondary={<ForumSectionDescription description={s?.description}
-                                                                      insertedAt={s?.insertedAt} />}
+                          onClick={_ => toSection(s?.section?.id)}>
+                    <ListItemText primary={s?.section?.title}
+                                  secondary={<ForumSectionDescription description={s?.section?.description}
+                                                                      lastThreadId={s?.lastThread?.id}
+                                                                      lastThreadTitle={s?.lastThread?.title}
+                                                                      lastThreadUpdatedAt={s?.lastThread?.updatedAt} />}
                                   sx={{
                                       color: "white",
                                       fontFamily: 'DefaultTypewriter',

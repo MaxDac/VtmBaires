@@ -30,6 +30,12 @@ defmodule Vtm.Messages do
     aggregate_user(attrs)
   end
 
+  defp aggregate_user_if_inexistent(attrs = %{
+    receiver_character_id: c_id
+  }) when not is_nil(c_id) do
+    aggregate_user(attrs)
+  end
+
   defp aggregate_user_if_inexistent(attrs) do
     attrs
   end

@@ -17,6 +17,11 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :updated_at, :date_time
   end
 
+  object :forum_section_info do
+    field :section, :forum_section
+    field :last_thread, :forum_thread
+  end
+
   node object :forum_thread do
     field :title, :string
     field :description, :string
@@ -27,6 +32,11 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :post_count, :integer
     field :inserted_at, :date_time
     field :updated_at, :date_time
+  end
+
+  object :forum_thread_info do
+    field :thread, :forum_thread
+    field :last_post_updated_at, :date_time
   end
 
   node object :forum_post do
@@ -42,11 +52,11 @@ defmodule VtmWeb.Schema.ForumTypes do
 
   object :get_threads_response do
     field :thread_count, :integer
-    field :threads, list_of(:forum_thread)
+    field :threads, list_of(:forum_thread_info)
   end
 
   object :forum_queries do
-    field :get_forum_sections, list_of(:forum_section) do
+    field :get_forum_sections, list_of(:forum_section_info) do
       middleware Middlewares.Authorize, :any
       resolve &ForumResolvers.get_forum_sections/3
       middleware Middlewares.ChangesetErrors
@@ -139,7 +149,7 @@ defmodule VtmWeb.Schema.ForumTypes do
       input do
         field :thread_id, non_null(:id)
         field :title, non_null(:string)
-        field :text, non_null(:string)
+        field :description, non_null(:string)
       end
 
       output do

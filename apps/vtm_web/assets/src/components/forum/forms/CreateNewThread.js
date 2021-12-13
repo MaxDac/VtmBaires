@@ -27,7 +27,7 @@ const CreateNewThread = ({sectionId}: Props): any => {
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
     const [user, character] = useSession();
-    const section = firstOrDefault(useForumSections()?.getForumSections?.filter(s => s?.id === sectionId));
+    const section = firstOrDefault(useForumSections()?.getForumSections?.filter(s => s?.section?.id === sectionId));
 
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
@@ -35,7 +35,7 @@ const CreateNewThread = ({sectionId}: Props): any => {
         CreateNewThreadMutation(environment, {
             sectionId: sectionId,
             creatorUserId: user?.id ?? "",
-            creatorCharacterId: section?.onGame === true ? character?.id : null,
+            creatorCharacterId: section?.section?.onGame === true ? character?.id : null,
             title: title,
             description: description
         }).then(id => {
@@ -71,8 +71,8 @@ const CreateNewThread = ({sectionId}: Props): any => {
         onSubmit
     });
 
-    const getTitle = () => section?.title != null
-        ? `Nuovo thread in ${section.title}`
+    const getTitle = () => section?.section?.title != null
+        ? `Nuovo thread in ${section.section.title}`
         : "Nuovo thread";
 
     const getDescription = () =>

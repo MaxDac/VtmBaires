@@ -4,9 +4,47 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Forum
+  alias Vtm.Forum.ForumSectionInfo
 
+  @spec map_forum_section_info(list(ForumSectionInfo.t())) :: list(ForumSection.t())
+  defp map_forum_section_info(sections) do
+    sections
+    |> Enum.map(fn
+      s = %{
+        last_thread_id: lt_id,
+        last_thread_title: last_thread_title,
+        last_thread_updated_at: last_thread_updated_at
+      } when not is_nil(lt_id) ->
+        %{
+          section: s,
+          last_thread: %{
+            id: lt_id,
+            title: last_thread_title,
+            updated_at: last_thread_updated_at
+          }
+        }
+      s -> s
+    end)
+  end
+
+  @spec get_forum_sections(any, any, %{
+          :context => %{:current_user => map, optional(any) => any},
+          optional(any) => any
+        }) :: {:ok, list}
   def get_forum_sections(_, _, %{context: %{current_user: user}}) do
-    {:ok, Forum.get_forum_sections(user)}
+    result =
+      Forum.get_forum_sections(user)
+      |> map_forum_section_info()
+      |> Enum.sort(fn a, b -> a.section.id <= b.section.id end)
+
+    {:ok, result}
+  end
+
+  defp datetime_compare_desc(date1, date2) do
+    case NaiveDateTime.compare(date1, date2) do
+      :lt -> false
+      _   -> true
+    end
   end
 
   def get_forum_threads(%{
@@ -29,10 +67,36 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
       {:ok, %{
         thread_count: thread_count,
         threads: threads
+          |> Enum.map(fn
+            t = %{last_post_updated_at: lup} -> %{
+              thread: t,
+              last_post_updated_at: lup
+            }
+            t -> %{thread: t}
+          end)
+          |> Enum.sort(fn
+            %{last_post_updated_at: up1}, %{last_post_updated_at: up2}    ->
+              datetime_compare_desc(up1, up2)
+            %{thread: %{updated_at: up1}}, %{thread: %{updated_at: up2}}  ->
+              datetime_compare_desc(up1, up2)
+          end)
       }}
     end
   end
 
+  @spec get_forum_thread(%{:id => integer, optional(any) => any}, %{
+          :context => %{:current_user => any, optional(any) => any},
+          optional(any) => any
+        }) ::
+          {:error, :illegal_access | :not_found}
+          | {:ok,
+             %{
+               :forum_section => %{id: any},
+               :forum_section_id => any,
+               :on_game => boolean,
+               :post_count => integer,
+               optional(any) => any
+             }}
   def get_forum_thread(%{id: id}, %{context: %{current_user: user}}) do
     with {:ok, on_game} <- Forum.get_thread_section_on_game(id),
          {:ok, thread}  <- Forum.get_forum_thread(user, id),

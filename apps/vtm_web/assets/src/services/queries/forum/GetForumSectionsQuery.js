@@ -8,14 +8,21 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
     query GetForumSectionsQuery {
         getForumSections {
-            id
-            title
-            description
-            onGame
-            canView
-            canEdit
-            insertedAt
-            updatedAt
+            section {
+                id
+                title
+                description
+                onGame
+                canView
+                canEdit
+                insertedAt
+                updatedAt
+            }
+            lastThread {
+                id
+                title
+                updatedAt
+            }
         }
     }
 `;

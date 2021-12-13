@@ -8,22 +8,25 @@ export const getForumThreadsQuery: GraphQLTaggedNode = graphql`
         getForumThreads(forumSectionId: $forumSectionId, pageSize: $pageSize, page: $page) {
             threadCount
             threads {
-                id
-                forumSection {
+                thread {
                     id
+                    forumSection {
+                        id
+                    }
+                    creatorUser {
+                        id
+                        name
+                    }
+                    creatorCharacter {
+                        id
+                        name
+                    }
+                    title
+                    description
+                    insertedAt
+                    updatedAt
                 }
-                creatorUser {
-                    id
-                    name
-                }
-                creatorCharacter {
-                    id
-                    name
-                }
-                title
-                description
-                insertedAt
-                updatedAt
+                lastPostUpdatedAt
             }
         }
     }

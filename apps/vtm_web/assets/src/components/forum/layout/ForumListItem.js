@@ -24,24 +24,38 @@ import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 
 type ForumSectionDescriptionProps = {
     description: ?string;
-    insertedAt: ?string;
+    lastThreadId: ?string;
+    lastThreadTitle: ?string;
+    lastThreadUpdatedAt: ?string;
 }
 
-export const ForumSectionDescription = ({description, insertedAt}: ForumSectionDescriptionProps): any => (
-    <Typography component="span" sx={{
-        display: "inline",
-        fontFamily: 'DefaultTypewriter',
-        padding: "5px",
-        color: "white"
-    }} variant="body2">
-        {defaultFormatDateAndTime(insertedAt)}
-
-        <span style={{
-            color: "grey"
-        }}>
-            &nbsp;-&nbsp;{description}
-        </span>
-    </Typography>
+export const ForumSectionDescription = ({
+                                            description,
+                                            lastThreadId,
+                                            lastThreadTitle,
+                                            lastThreadUpdatedAt
+}: ForumSectionDescriptionProps): any => (
+    <Stack direction="row" justifyContent="space-between" sx={{width: "calc(100% - 80px)"}}>
+        <Typography sx={{
+            fontFamily: 'DefaultTypewriter',
+            padding: "5px",
+            color: "white"
+        }} variant="body2">
+            {description}
+        </Typography>
+        { lastThreadId != null
+            ? (
+                    <Typography sx={{
+                        fontFamily: 'DefaultTypewriter',
+                        padding: "5px",
+                        color: "gray"
+                    }} variant="body2">
+                        Ultimo thread: {defaultFormatDateAndTime(lastThreadUpdatedAt)} - {lastThreadTitle}
+                    </Typography>
+            )
+            : (<></>)
+        }
+    </Stack>
 );
 
 export type ForumItemProps = {
@@ -53,6 +67,11 @@ export type ForumItemProps = {
         +creatorUser: ?{|
             +id: string,
             +name: ?string,
+        |},
+        +lastThread?: ?{|
+            +id: string,
+            +title: ?string,
+            +updated_at: ?any
         |},
         +creatorCharacter: ?{|
             +id: string,
@@ -174,8 +193,10 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                       onClick={goToThread()}
                       secondaryAction={actions()}>
                 <ListItemText primary={item?.title}
-                              secondary={<ForumSectionDescription description={item?.description} 
-                                                                  insertedAt={item?.insertedAt} />}
+                              secondary={<ForumSectionDescription description={item?.description}
+                                                                  lastThreadId={item?.lastThread?.id}
+                                                                  lastThreadTitle={item?.lastThread?.title}
+                                                                  lastThreadUpdatedAt={item?.lastThread?.updated_at} />}
                               sx={{
                                   color: "white",
                                   fontFamily: 'DefaultTypewriter',

@@ -391,6 +391,11 @@ type ForumSection implements Node {
   updatedAt: DateTime
 }
 
+type ForumSectionInfo {
+  lastThread: ForumThread
+  section: ForumSection
+}
+
 type ForumThread implements Node {
   creatorCharacter: Character
   creatorUser: User
@@ -406,9 +411,14 @@ type ForumThread implements Node {
   updatedAt: DateTime
 }
 
+type ForumThreadInfo {
+  lastPostUpdatedAt: DateTime
+  thread: ForumThread
+}
+
 type GetThreadsResponse {
   threadCount: Int
-  threads: [ForumThread]
+  threads: [ForumThreadInfo]
 }
 
 input HealInput {
@@ -498,7 +508,7 @@ type ModifyForumPostPayload {
 }
 
 input ModifyForumThreadInput {
-  text: String!
+  description: String!
   threadId: ID!
   title: String!
 }
@@ -642,7 +652,7 @@ type RootQueryType {
   getCharactersChatAvatar(characterIds: [ID!]): [CharacterChatAvatarResponse]
   getCreationTemplates: [CreationTemplate]
   getForumPost(id: ID!): ForumPost
-  getForumSections: [ForumSection]
+  getForumSections: [ForumSectionInfo]
   getForumThread(id: ID!): ForumThread
   getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]
   getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse

@@ -10,6 +10,8 @@ defmodule Vtm.Forum do
   alias Vtm.Forum.ForumSection
   alias Vtm.Forum.ForumThread
   alias Vtm.Forum.ForumPost
+  alias Vtm.Forum.ForumSectionInfo
+  alias Vtm.Forum.ForumThreadInfo
 
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts.User
@@ -55,12 +57,24 @@ defmodule Vtm.Forum do
     end
   end
 
-  def get_forum_sections(%{role: :master}) do
-    Repo.all(ForumSection)
+  @spec get_forum_sections(%{:id => integer, optional(any) => any}) :: any
+  def get_forum_sections(%{id: user_id, role: :master}) do
+    # Repo.all(ForumSection)
+    ForumSectionInfo
+    |> from()
+    |> where([s], s.viewer_id == ^user_id)
+    |> or_where([s], is_nil(s.viewer_id))
+    |> Repo.all()
   end
 
-  def get_forum_sections(_) do
-    Repo.all(from s in ForumSection, where: s.can_view == true)
+  def get_forum_sections(%{id: user_id}) do
+    # Repo.all(from s in ForumSection, where: s.can_view == true)
+    ForumSectionInfo
+    |> from()
+    |> where([s], s.can_view == true)
+    |> where([s], s.viewer_id == ^user_id)
+    |> or_where([s], is_nil(s.user_id))
+    |> Repo.all()
   end
 
   @spec get_section_thread_count(integer) :: integer
@@ -93,10 +107,10 @@ defmodule Vtm.Forum do
   def get_forum_threads(user, section_id, page_size, page) do
     with :ok <- check_section(user, section_id) do
       query =
-        ForumThread
+        ForumThreadInfo
         |> from()
         |> where([t], t.forum_section_id == ^section_id)
-        |> order_by([t], [desc: t.inserted_at])
+        |> order_by([t], [desc: t.last_post_updated_at])
         |> Pagination.as_paged_query(page_size, page)
 
       query =
@@ -259,6 +273,12 @@ defmodule Vtm.Forum do
             |> Map.drop([:creator_character_id])
         end
 
+      # Updating only the updated_at date of the related thread
+      ForumThread
+      |> Repo.get(thread_id)
+      |> ForumThread.changeset(%{})
+      |> Repo.update(force: true)
+
       %ForumPost{}
       |> ForumPost.changeset(attrs |> Map.put_new(:forum_section_id, section_id))
       |> Repo.insert()
@@ -280,6 +300,12 @@ defmodule Vtm.Forum do
 
   def modify_thread(user, id, attrs) do
     with {:ok, item} <- can_modify?(user, ForumThread, id) do
+      # Updating only the updated_at date of the related thread
+      ForumThread
+      |> Repo.get(item.forum_thread_id)
+      |> ForumThread.changeset(%{})
+      |> Repo.update(force: true)
+
       item
       |> ForumThread.update_changeset(attrs)
       |> Repo.update()

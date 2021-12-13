@@ -39,7 +39,7 @@ const ModifyThread = ({sectionId, threadId}: Props): any => {
             ModifyThreadMutation(environment, {
                 threadId: threadId,
                 title: title,
-                text: description
+                description: description
             }), showUserNotification, {
                 successMessage: "Thread modificato.",
                 onCompleted: () => {
