@@ -302,7 +302,7 @@ defmodule Vtm.Forum do
     with {:ok, item} <- can_modify?(user, ForumThread, id) do
       # Updating only the updated_at date of the related thread
       ForumThread
-      |> Repo.get(item.forum_thread_id)
+      |> Repo.get(item.id)
       |> ForumThread.changeset(%{})
       |> Repo.update(force: true)
 

@@ -23,7 +23,7 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
             updated_at: last_thread_updated_at
           }
         }
-      s -> s
+      s -> %{section: s}
     end)
   end
 
