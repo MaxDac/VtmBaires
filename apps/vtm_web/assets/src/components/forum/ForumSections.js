@@ -29,12 +29,13 @@ const ForumSections = (): any => {
         ?.map(s => (
             <Box component="div" key={s?.section?.id}>
                 <Divider />
-                <ListItem
-                          alignItems="flex-start"
+                <ListItem alignItems="flex-start"
                           button
                           onClick={_ => toSection(s?.section?.id)}>
-                    <ListItemText primary={s?.section?.title}
+                    <ListItemText inset={!s?.hasNewPosts}
+                                  primary={s?.section?.title}
                                   secondary={<ForumSectionDescription description={s?.section?.description}
+                                                                      newMessages={s?.hasNewPosts}
                                                                       lastThreadId={s?.lastThread?.id}
                                                                       lastThreadTitle={s?.lastThread?.title}
                                                                       lastThreadUpdatedAt={s?.lastThread?.updatedAt} />}

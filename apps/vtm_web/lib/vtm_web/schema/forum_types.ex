@@ -20,6 +20,7 @@ defmodule VtmWeb.Schema.ForumTypes do
   object :forum_section_info do
     field :section, :forum_section
     field :last_thread, :forum_thread
+    field :has_new_posts, :boolean
   end
 
   node object :forum_thread do
@@ -37,6 +38,7 @@ defmodule VtmWeb.Schema.ForumTypes do
   object :forum_thread_info do
     field :thread, :forum_thread
     field :last_post_updated_at, :date_time
+    field :has_new_posts, :boolean
   end
 
   node object :forum_post do
@@ -115,6 +117,21 @@ defmodule VtmWeb.Schema.ForumTypes do
   end
 
   object :forum_mutations do
+    payload field :set_forum_thread_read do
+      input do
+        field :thread_id, non_null(:id)
+      end
+
+      output do
+        field :result, :boolean
+      end
+
+      middleware Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
+      resolve &ForumResolvers.set_forum_thread_read/3
+      middleware Middlewares.ChangesetErrors
+    end
+
     payload field :new_forum_thread do
       input do
         field :request, non_null(:create_new_thread_request)

@@ -5,25 +5,48 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
 
   alias Vtm.Forum
   alias Vtm.Forum.ForumSectionInfo
+  alias Vtm.Forum.UserForumNotification
 
-  @spec map_forum_section_info(list(ForumSectionInfo.t())) :: list(ForumSection.t())
+  @spec map_forum_section_info(list({ForumSectionInfo.t(), UserForumNotification.t()})) :: list(any())
   defp map_forum_section_info(sections) do
     sections
     |> Enum.map(fn
-      s = %{
-        last_thread_id: lt_id,
-        last_thread_title: last_thread_title,
-        last_thread_updated_at: last_thread_updated_at
+      {
+        s = %{
+          last_thread_id: lt_id,
+          last_thread_title: last_thread_title,
+          last_thread_updated_at: last_thread_updated_at
+        },
+        notification
       } when not is_nil(lt_id) ->
-        %{
-          section: s,
-          last_thread: %{
-            id: lt_id,
-            title: last_thread_title,
-            updated_at: last_thread_updated_at
-          }
-        }
-      s -> %{section: s}
+        case notification do
+          %{
+            last_checked_date: last_checked_date
+          } ->
+            %{
+              section: s,
+              last_thread: %{
+                id: lt_id,
+                title: last_thread_title,
+                updated_at: last_thread_updated_at
+              },
+              has_new_posts: NaiveDateTime.compare(last_checked_date, last_thread_updated_at) == :lt
+            }
+          _ ->
+            %{
+              section: s,
+              last_thread: %{
+                id: lt_id,
+                title: last_thread_title,
+                updated_at: last_thread_updated_at
+              },
+              has_new_posts: true
+            }
+        end
+      {s, _} -> %{
+        has_new_posts: false,
+        section: s
+      }
     end)
   end
 
@@ -35,7 +58,9 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
     result =
       Forum.get_forum_sections(user)
       |> map_forum_section_info()
-      |> Enum.sort(fn a, b -> a.section.id <= b.section.id end)
+      |> Enum.sort(fn
+        %{section: %{id: id1}}, %{section: %{id: id2}} -> id1 <= id2
+      end)
 
     {:ok, result}
   end
@@ -58,28 +83,37 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
       threads =
         threads
         |> Enum.map(fn
-          t = %{forum_section_id: section_id} ->
-            t
-            |> Map.put(:forum_section, %{id: section_id})
-            |> Map.put(:thread_count, thread_count)
+          {t = %{forum_section_id: section_id}, n} ->
+            {
+              t
+              |> Map.put(:forum_section, %{id: section_id})
+              |> Map.put(:thread_count, thread_count),
+              n
+            }
+        end)
+        |> Enum.map(fn
+          {t = %{last_post_updated_at: last_post_updated_at}, %{last_checked_date: last_checked_date}} ->
+            %{
+              thread: t,
+              last_post_updated_at: last_post_updated_at,
+              has_new_posts: NaiveDateTime.compare(last_checked_date, last_post_updated_at) == :lt
+            }
+          {t, _} ->
+            %{
+              thread: t,
+              has_new_posts: true
+            }
+        end)
+        |> Enum.sort(fn
+          %{last_post_updated_at: up1}, %{last_post_updated_at: up2}    ->
+            datetime_compare_desc(up1, up2)
+          %{thread: %{updated_at: up1}}, %{thread: %{updated_at: up2}}  ->
+            datetime_compare_desc(up1, up2)
         end)
 
       {:ok, %{
         thread_count: thread_count,
         threads: threads
-          |> Enum.map(fn
-            t = %{last_post_updated_at: lup} -> %{
-              thread: t,
-              last_post_updated_at: lup
-            }
-            t -> %{thread: t}
-          end)
-          |> Enum.sort(fn
-            %{last_post_updated_at: up1}, %{last_post_updated_at: up2}    ->
-              datetime_compare_desc(up1, up2)
-            %{thread: %{updated_at: up1}}, %{thread: %{updated_at: up2}}  ->
-              datetime_compare_desc(up1, up2)
-          end)
       }}
     end
   end
@@ -136,6 +170,13 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
         |> Map.put(:user, c_user)
         |> Map.put(:character, c_character)
       {:ok, character}
+    end
+  end
+
+  def set_forum_thread_read(_, %{thread_id: id}, %{context: %{current_user: %{id: user_id}}}) do
+    with {:ok, t_id}  <- from_global_id?(id),
+         {:ok, _}     <- Forum.set_forum_thread_read(t_id, user_id) do
+      {:ok, %{result: true}}
     end
   end
 

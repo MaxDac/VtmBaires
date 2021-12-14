@@ -23,13 +23,15 @@ export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
                 title
                 updatedAt
             }
+            hasNewPosts
         }
     }
 `;
 
 const useForumSections = (): GetForumSectionsQueryResponse =>
     useCustomLazyLoadQuery<GetForumSectionsQuery>(getForumSectionsQuery, {}, {
-        fetchPolicy: "store-or-network"
+        // store and network for checking new messages notifications
+        fetchPolicy: "store-and-network"
     });
 
 export default useForumSections;

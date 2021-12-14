@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
 import ForumLayout from "./layout/ForumLayout";
@@ -17,6 +17,8 @@ import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from "@mui/icons-material/Home";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import {useRelayEnvironment} from "react-relay";
+import SetForumThreadReadMutation from "../../services/mutations/forum/SetForumThreadReadMutation";
 
 type Props = {
     threadId: string;
@@ -25,6 +27,7 @@ type Props = {
 export const DefaultPageSize = 10;
 
 const ForumThread = ({threadId}: Props): any => {
+    const environment = useRelayEnvironment();
     const history = useHistory();
 
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
@@ -32,6 +35,13 @@ const ForumThread = ({threadId}: Props): any => {
     }, {
         fetchPolicy: "store-and-network"
     })?.getForumThread;
+
+    useEffect(() => {
+        // Throw and forget
+        SetForumThreadReadMutation(environment, threadId)
+            .then(r => console.debug("Set Thread read successful", r))
+            .catch(e => console.error(e));
+    }, [environment, threadId]);
 
     const [,character] = useSession();
     const [currentPage, setCurrentPage] = useState(1);

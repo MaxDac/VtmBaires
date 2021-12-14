@@ -24,6 +24,7 @@ import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 
 type ForumSectionDescriptionProps = {
     description: ?string;
+    newMessages: ?boolean;
     lastThreadId: ?string;
     lastThreadTitle: ?string;
     lastThreadUpdatedAt: ?string;
@@ -31,6 +32,7 @@ type ForumSectionDescriptionProps = {
 
 export const ForumSectionDescription = ({
                                             description,
+                                            //newMessages,
                                             lastThreadId,
                                             lastThreadTitle,
                                             lastThreadUpdatedAt
@@ -41,7 +43,7 @@ export const ForumSectionDescription = ({
             padding: "5px",
             color: "white"
         }} variant="body2">
-            {description}
+            {description} {/* TODO - Fix the notification from the back end before showing it - newMessages ? (<b><span style={{color: "#C31313"}}>(Nuovi Messaggi)</span></b>) : (<></>)*/}
         </Typography>
         { lastThreadId != null
             ? (
@@ -73,6 +75,7 @@ export type ForumItemProps = {
             +title: ?string,
             +updated_at: ?any
         |},
+        +hasNewPosts?: ?boolean,
         +creatorCharacter: ?{|
             +id: string,
             +name: ?string,
@@ -82,12 +85,13 @@ export type ForumItemProps = {
         +insertedAt: ?any,
         +updatedAt: ?any,
     |};
+    hasNewPosts?: ?boolean;
     internal?: boolean;
     onClick: ?string => void;
     onUpdate?: () => void;
 }
 
-const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any => {
+const ForumListItem = ({item, hasNewPosts, internal, onClick, onUpdate}: ForumItemProps): any => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const [user,] = useSession();
@@ -184,6 +188,11 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
         return undefined;
     }
 
+    const hasNewPostsComplete = () =>
+        hasNewPosts != null
+            ? hasNewPosts
+            : item?.hasNewPosts;
+
     return (
         <>
             <Divider />
@@ -193,7 +202,8 @@ const ForumListItem = ({item, internal, onClick, onUpdate}: ForumItemProps): any
                       onClick={goToThread()}
                       secondaryAction={actions()}>
                 <ListItemText primary={item?.title}
-                              secondary={<ForumSectionDescription description={item?.description}
+                              secondary={<ForumSectionDescription newMessages={hasNewPostsComplete()}
+                                                                  description={item?.description}
                                                                   lastThreadId={item?.lastThread?.id}
                                                                   lastThreadTitle={item?.lastThread?.title}
                                                                   lastThreadUpdatedAt={item?.lastThread?.updated_at} />}

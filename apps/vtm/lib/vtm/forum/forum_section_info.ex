@@ -9,11 +9,9 @@ defmodule Vtm.Forum.ForumSectionInfo do
     field :on_game, :boolean, default: false
     field :can_view, :boolean, default: false
     field :can_edit, :boolean, default: false
-    field :last_checked_date, :naive_datetime
     field :last_thread_title, :string
     field :last_thread_updated_at, :naive_datetime
 
-    belongs_to :viewer, VtmAuth.Accounts.User
     belongs_to :last_thread, Vtm.Forum.ForumThread
 
     timestamps()

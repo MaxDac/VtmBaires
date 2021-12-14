@@ -57,6 +57,7 @@ const ForumSection = ({sectionId}: Props): any => {
     const showForumThreads = () => response?.threads
         ?.map(s => <ForumItemSelector key={s?.thread?.id}
                                       item={s?.thread}
+                                      hasNewPosts={s?.hasNewPosts}
                                       internal={true}
                                       onClick={toFormThread}
                                       onUpdate={onUpdate} />);
@@ -84,7 +85,6 @@ const ForumSection = ({sectionId}: Props): any => {
 
             return (<></>);
         };
-
 
         return (
             <>

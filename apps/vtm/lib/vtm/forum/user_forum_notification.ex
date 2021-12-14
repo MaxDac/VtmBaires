@@ -1,4 +1,6 @@
 defmodule Vtm.Forum.UserForumNotification do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

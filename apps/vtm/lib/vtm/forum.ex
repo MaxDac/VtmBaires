@@ -12,9 +12,28 @@ defmodule Vtm.Forum do
   alias Vtm.Forum.ForumPost
   alias Vtm.Forum.ForumSectionInfo
   alias Vtm.Forum.ForumThreadInfo
+  alias Vtm.Forum.UserForumNotification
 
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts.User
+
+  defp zip_with_nulls_ordered(sorted1, sorted2, acc \\ [])
+  defp zip_with_nulls_ordered([], [], acc), do: acc |> Enum.reverse()
+  defp zip_with_nulls_ordered([i1 | sorted1], [], acc), do: zip_with_nulls_ordered(sorted1, [], [{i1, nil} | acc])
+  defp zip_with_nulls_ordered([], [i2 | sorted2], acc), do: zip_with_nulls_ordered([], sorted2, [{nil, i2} | acc])
+  defp zip_with_nulls_ordered([i1 | sorted1], [i2 | sorted2], acc), do: zip_with_nulls_ordered(sorted1, sorted2, [{i1, i2} | acc])
+
+  defp zip_with_nulls(enumeration1, enumeration2, id_getter1, id_getter2) do
+    sorted1 =
+      enumeration1
+      |> Enum.sort_by(id_getter1)
+
+    sorted2 =
+      enumeration2
+      |> Enum.sort_by(id_getter2)
+
+    zip_with_nulls_ordered(sorted1, sorted2)
+  end
 
   defp user_can_read_query(section_id) do
     from s in ForumSection,
@@ -57,24 +76,57 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec get_forum_sections(%{:id => integer, optional(any) => any}) :: any
-  def get_forum_sections(%{id: user_id, role: :master}) do
-    # Repo.all(ForumSection)
+  @spec get_all_forum_section_ids(map()) :: list(ForumSectionInfo.t())
+  defp get_all_forum_section_ids(%{role: :master}) do
     ForumSectionInfo
     |> from()
-    |> where([s], s.viewer_id == ^user_id)
-    |> or_where([s], is_nil(s.viewer_id))
     |> Repo.all()
   end
 
-  def get_forum_sections(%{id: user_id}) do
-    # Repo.all(from s in ForumSection, where: s.can_view == true)
+  defp get_all_forum_section_ids(_) do
     ForumSectionInfo
     |> from()
     |> where([s], s.can_view == true)
-    |> where([s], s.viewer_id == ^user_id)
-    |> or_where([s], is_nil(s.user_id))
     |> Repo.all()
+  end
+
+  defp zip_sections_with_user_notifications(sections, notifications) do
+    zip_with_nulls(sections, notifications, fn %{id: id} -> id end, fn %{forum_section_id: id} -> id end)
+  end
+
+  @spec add_user_notification_information(list(ForumSectionInfo.t()), integer()) :: list({ForumSectionInfo.t(), UserForumNotification | nil})
+  defp add_user_notification_information(sections, user_id) do
+    section_ids =
+      sections
+      |> Enum.map(fn %{id: id} -> id end)
+
+    notifications =
+      UserForumNotification
+      |> from()
+      |> where([u], u.forum_section_id in ^section_ids)
+      |> where([u], u.user_id == ^user_id)
+      |> group_by([u], [u.forum_section_id, u.user_id])
+      |> select([u], %UserForumNotification{
+        forum_section_id: u.forum_section_id,
+        user_id: u.user_id,
+        last_checked_date: fragment("MAX(?)", u.last_checked_date)})
+      |> Repo.all()
+
+      zip_sections_with_user_notifications(sections, notifications)
+  end
+
+  @doc """
+  Collects all the sections, returning metadata about the reading state for a particular user.
+  """
+  @spec get_forum_sections(%{:id => integer, optional(any) => any}) :: list({ForumSectionInfo.t(), UserForumNotification | nil})
+  def get_forum_sections(attrs = %{id: user_id, role: :master}) do
+    get_all_forum_section_ids(attrs)
+    |> add_user_notification_information(user_id)
+  end
+
+  def get_forum_sections(attrs = %{id: user_id}) do
+    get_all_forum_section_ids(attrs)
+    |> add_user_notification_information(user_id)
   end
 
   @spec get_section_thread_count(integer) :: integer
@@ -103,8 +155,12 @@ defmodule Vtm.Forum do
   defp include_character_when_null(character = %{id: c_id}) when not is_nil(c_id), do: character
   defp include_character_when_null(_), do: %Character{id: 0, name: nil}
 
-  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, [ForumThread.t()]} | {:error, :illegal_access}
-  def get_forum_threads(user, section_id, page_size, page) do
+  defp zip_threads_with_user_notifications(threads, notifications) do
+    zip_with_nulls(threads, notifications, fn %{id: id} -> id end, fn %{forum_thread_id: id} -> id end)
+  end
+
+  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, list({ForumThread.t(), UserForumNotification.t()})} | {:error, :illegal_access}
+  def get_forum_threads(user = %{id: user_id}, section_id, page_size, page) do
     with :ok <- check_section(user, section_id) do
       query =
         ForumThreadInfo
@@ -120,14 +176,29 @@ defmodule Vtm.Forum do
           left_lateral_join: u in subquery(include_user_subquery()),
           select: {t, c, u}
 
-      {:ok,
+      items =
         Repo.all(query)
         |> Enum.map(fn
           {thread, character, user} ->
             thread
             |> Map.put(:creator_user, user)
             |> Map.put(:creator_character, character |> include_character_when_null())
-        end)}
+        end)
+
+      item_ids =
+        items
+        |> Enum.map(fn %{id: id} -> id end)
+
+      notifications =
+        UserForumNotification
+        |> from()
+        |> where([u], u.forum_thread_id in ^item_ids)
+        |> where([u], u.user_id == ^user_id)
+        |> Repo.all()
+
+      merged = zip_threads_with_user_notifications(items, notifications)
+
+      {:ok, merged}
     end
   end
 
@@ -247,6 +318,34 @@ defmodule Vtm.Forum do
         end
       _ ->
         {:error, :not_found}
+    end
+  end
+
+  @spec set_forum_thread_read(integer(), integer()) :: {:ok, UserForumNotification.t()} | {:error, any()}
+  def set_forum_thread_read(thread_id, user_id) do
+    case UserForumNotification
+      |> from()
+      |> where([un], un.user_id == ^user_id)
+      |> where([un], un.forum_thread_id == ^thread_id)
+      |> Repo.one() do
+      nil ->
+        %{forum_section_id: section_id} = ForumThread |> Repo.get(thread_id)
+
+        %UserForumNotification{}
+        |> UserForumNotification.changeset(%{
+          user_id: user_id,
+          forum_section_id: section_id,
+          forum_thread_id: thread_id,
+          last_checked_date: NaiveDateTime.utc_now()
+        })
+        |> Repo.insert()
+
+      item ->
+        item
+        |> UserForumNotification.changeset(%{
+          last_checked_date: NaiveDateTime.utc_now()
+        })
+        |> Repo.update()
     end
   end
 

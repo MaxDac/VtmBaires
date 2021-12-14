@@ -27,6 +27,7 @@ export const getForumThreadsQuery: GraphQLTaggedNode = graphql`
                     updatedAt
                 }
                 lastPostUpdatedAt
+                hasNewPosts
             }
         }
     }
