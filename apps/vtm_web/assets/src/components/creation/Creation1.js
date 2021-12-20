@@ -28,6 +28,9 @@ const Creation1 = (): any => {
                     }).catch(e => console.error("Error while updating session character", e));
 
                     history.push(MainRoutes.creation2);
+
+                    // Refreshing the page in order to update the left menu
+                    document.location.reload(false);
                 }
             })
             .catch(e => {
