@@ -12,12 +12,12 @@ import MapIcon from "@mui/icons-material/Map";
 import MenuCharacterSection from "./menu-character/MenuCharacterSection";
 import MenuHuntSection from "./sections/MenuHuntSection";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import ChatIcon from "@mui/icons-material/Chat";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import useIsChatRoute from "../../_hooks/useIsChatRoute";
+import MenuForumSection from "./sections/MenuForumSection";
 
 const CharacterSheetModal = React.lazy(() => import('./dialog/SheetDialog'));
 
@@ -86,12 +86,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Guide" />} />
             </ListItem>
-            <ListItem button onClick={_ => pushHistory(MainRoutes.forumSections)}>
-                <ListItemIcon>
-                    <ChatIcon sx={menuIconStyle} />
-                </ListItemIcon>
-                <ListItemText secondary={<MenuSecondaryText text="Forum" />} />
-            </ListItem>
+            <MenuForumSection pushHistory={pushHistory} />
             <ListItem button onClick={_ => pushHistory(MainRoutes.charactersList)}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon sx={menuIconStyle} />

@@ -17,11 +17,20 @@ defmodule Vtm.Forum do
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts.User
 
-  defp zip_with_nulls_ordered(sorted1, sorted2, acc \\ [])
-  defp zip_with_nulls_ordered([], [], acc), do: acc |> Enum.reverse()
-  defp zip_with_nulls_ordered([i1 | sorted1], [], acc), do: zip_with_nulls_ordered(sorted1, [], [{i1, nil} | acc])
-  defp zip_with_nulls_ordered([], [i2 | sorted2], acc), do: zip_with_nulls_ordered([], sorted2, [{nil, i2} | acc])
-  defp zip_with_nulls_ordered([i1 | sorted1], [i2 | sorted2], acc), do: zip_with_nulls_ordered(sorted1, sorted2, [{i1, i2} | acc])
+  defp zip_with_nulls_ordered(sorted1, sorted2, id_getter1, id_getter2, acc \\ [])
+  defp zip_with_nulls_ordered([], [], _, _, acc), do: acc |> Enum.reverse()
+  defp zip_with_nulls_ordered([i1 | sorted1], [], id_getter1, id_getter2, acc), do: zip_with_nulls_ordered(sorted1, [], id_getter1, id_getter2, [{i1, nil} | acc])
+  defp zip_with_nulls_ordered([], [i2 | sorted2], id_getter1, id_getter2, acc), do: zip_with_nulls_ordered([], sorted2, id_getter1, id_getter2, [{nil, i2} | acc])
+  defp zip_with_nulls_ordered(all1 = [i1 | sorted1], all2 = [i2 | sorted2], id_getter1, id_getter2, acc) do
+    case {id_getter1.(i1), id_getter2.(i2)} do
+      {a, a} ->
+        zip_with_nulls_ordered(sorted1, sorted2, id_getter1, id_getter2, [{i1, i2} | acc])
+      {a, b} when a <= b ->
+        zip_with_nulls_ordered(sorted1, all2, id_getter1, id_getter2, [{i1, nil} | acc])
+      _ ->
+        zip_with_nulls_ordered(all1, sorted2, id_getter1, id_getter2, [{nil, i2} | acc])
+    end
+  end
 
   defp zip_with_nulls(enumeration1, enumeration2, id_getter1, id_getter2) do
     sorted1 =
@@ -32,7 +41,7 @@ defmodule Vtm.Forum do
       enumeration2
       |> Enum.sort_by(id_getter2)
 
-    zip_with_nulls_ordered(sorted1, sorted2)
+    zip_with_nulls_ordered(sorted1, sorted2, id_getter1, id_getter2)
   end
 
   defp user_can_read_query(section_id) do
@@ -90,7 +99,7 @@ defmodule Vtm.Forum do
     |> Repo.all()
   end
 
-  defp zip_sections_with_user_notifications(sections, notifications) do
+  defp zip_sections_with_user_notifications(notifications, sections) do
     zip_with_nulls(sections, notifications, fn %{id: id} -> id end, fn %{forum_section_id: id} -> id end)
   end
 
@@ -100,19 +109,17 @@ defmodule Vtm.Forum do
       sections
       |> Enum.map(fn %{id: id} -> id end)
 
-    notifications =
-      UserForumNotification
-      |> from()
-      |> where([u], u.forum_section_id in ^section_ids)
-      |> where([u], u.user_id == ^user_id)
-      |> group_by([u], [u.forum_section_id, u.user_id])
-      |> select([u], %UserForumNotification{
-        forum_section_id: u.forum_section_id,
-        user_id: u.user_id,
-        last_checked_date: fragment("MAX(?)", u.last_checked_date)})
-      |> Repo.all()
-
-      zip_sections_with_user_notifications(sections, notifications)
+    UserForumNotification
+    |> from()
+    |> where([u], u.forum_section_id in ^section_ids)
+    |> where([u], u.user_id == ^user_id)
+    |> group_by([u], [u.forum_section_id, u.user_id])
+    |> select([u], %UserForumNotification{
+      forum_section_id: u.forum_section_id,
+      user_id: u.user_id,
+      last_checked_date: fragment("MAX(?)", u.last_checked_date)})
+    |> Repo.all()
+    |> zip_sections_with_user_notifications(sections)
   end
 
   @doc """

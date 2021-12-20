@@ -54,7 +54,6 @@ defmodule VtmWeb.MixProject do
       {:absinthe_phoenix, "~> 2.0"},
       {:absinthe_relay, "~> 1.5"},
       {:dataloader, "~> 1.0"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:swoosh, "~> 1.5"},
       {:gen_smtp, "~> 1.0"}
     ]

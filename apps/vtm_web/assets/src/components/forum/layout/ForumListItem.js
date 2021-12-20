@@ -32,7 +32,7 @@ type ForumSectionDescriptionProps = {
 
 export const ForumSectionDescription = ({
                                             description,
-                                            //newMessages,
+                                            newMessages,
                                             lastThreadId,
                                             lastThreadTitle,
                                             lastThreadUpdatedAt
@@ -43,7 +43,7 @@ export const ForumSectionDescription = ({
             padding: "5px",
             color: "white"
         }} variant="body2">
-            {description} {/* TODO - Fix the notification from the back end before showing it - newMessages ? (<b><span style={{color: "#C31313"}}>(Nuovi Messaggi)</span></b>) : (<></>)*/}
+            {description} {newMessages ? (<b><span style={{color: "#C31313"}}>(Nuovi Messaggi)</span></b>) : (<></>)}
         </Typography>
         { lastThreadId != null
             ? (
