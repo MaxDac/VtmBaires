@@ -72,6 +72,37 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
     end
   end
 
+  # If both the last updated post and the last checked date are not null, it means that the thread has a post,
+  # and the user checked it, so we can compare them.
+  defp parse_forum_thread_with_notifications({t = %{
+    last_post_updated_at: last_post_updated_at},
+    %{last_checked_date: last_checked_date}}) when not is_nil(last_post_updated_at) and not is_nil(last_checked_date) do
+      %{
+        thread: t,
+        last_post_updated_at: last_post_updated_at,
+        has_new_posts: NaiveDateTime.compare(last_checked_date, last_post_updated_at) == :lt
+      }
+  end
+
+  # If only the last updated post date is available, it means that the user never accessed the thread, so we can
+  # conclude that the user has unread posts
+  defp parse_forum_thread_with_notifications({t =
+    %{last_post_updated_at: last_post_updated_at}, _}) when not is_nil(last_post_updated_at) do
+      %{
+        thread: t,
+        last_post_updated_at: last_post_updated_at,
+        has_new_posts: true
+      }
+  end
+
+  # In this last case, we're sure that the thread doesn't have posts, so the user has nothing to read.
+  defp parse_forum_thread_with_notifications({t, _}) do
+    %{
+      thread: t,
+      has_new_posts: false
+    }
+  end
+
   def get_forum_threads(%{
     forum_section_id: section_id,
     page_size: page_size,
@@ -91,19 +122,7 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
               n
             }
         end)
-        |> Enum.map(fn
-          {t = %{last_post_updated_at: last_post_updated_at}, %{last_checked_date: last_checked_date}} ->
-            %{
-              thread: t,
-              last_post_updated_at: last_post_updated_at,
-              has_new_posts: NaiveDateTime.compare(last_checked_date, last_post_updated_at) == :lt
-            }
-          {t, _} ->
-            %{
-              thread: t,
-              has_new_posts: true
-            }
-        end)
+        |> Enum.map(&parse_forum_thread_with_notifications/1)
         |> Enum.sort(fn
           %{last_post_updated_at: up1}, %{last_post_updated_at: up2}    ->
             datetime_compare_desc(up1, up2)
