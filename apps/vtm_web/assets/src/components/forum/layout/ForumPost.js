@@ -4,10 +4,10 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
+import Box from "@mui/material/Box";
 
 type Props = {
     onGame: boolean;
@@ -46,12 +46,12 @@ const ForumPost = ({post, onGame}: Props): any => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <Paper component="div" variant="outlined">
+                <Box component="div">
                     <ParsedText text={post?.text} useNaturalNewLine sx={{
                         ...style(),
                         padding: "10px"
                     }} />
-                </Paper>
+                </Box>
             </Grid>
         </Grid>
     );

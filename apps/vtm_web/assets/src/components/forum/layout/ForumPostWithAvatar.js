@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import ForumPost from "./ForumPost";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
@@ -96,12 +95,12 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
                                     </div>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Paper component="div" variant="outlined" sx={{
+                                    <Box component="div" sx={{
                                         minHeight: "90px",
                                         padding: "10px"
                                     }}>
                                         <ParsedText text={post?.text} useNaturalNewLine sx={style()} />
-                                    </Paper>
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </td>
