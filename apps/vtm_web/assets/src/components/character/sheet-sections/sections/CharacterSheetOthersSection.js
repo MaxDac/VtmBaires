@@ -77,7 +77,7 @@ const InfoElement = ({title, text, titleSx, textSx}: InfoElementProps) => (
         }}>
             {title}
         </Typography>
-        <ParsedText text={text ?? ""} sx={{
+        <ParsedText text={text ?? ""} internalDivSx={{
             ...mainFontFamily,
             ...textSx
         }} />

@@ -52,7 +52,7 @@ const GuidesAttributes = (): any => {
     const ShowAttribute = ({name, description}) => (
         <>
             <h3 style={titleStyle}>{name}</h3>
-            <ParsedText text={description} sx={{fontSize: "0.9rem"}} />
+            <ParsedText text={description} internalDivSx={{fontSize: "0.9rem"}} />
         </>
     );
 

@@ -40,7 +40,7 @@ const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
             }}>
                 {getSheetName()}
             </Typography>
-            <ParsedText text={sheet?.description} ignoreDefaultComponents={true} sx={{
+            <ParsedText text={sheet?.description} ignoreDefaultComponents={true} internalDivSx={{
                 ...mainFontFamily,
                 marginBottom: "10px"
             }} />

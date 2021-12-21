@@ -100,7 +100,7 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
                                         minHeight: "90px",
                                         padding: "10px"
                                     }}>
-                                        <ParsedText text={post?.text} sx={style()} />
+                                        <ParsedText text={post?.text} useNaturalNewLine sx={style()} />
                                     </Paper>
                                 </Grid>
                             </Grid>

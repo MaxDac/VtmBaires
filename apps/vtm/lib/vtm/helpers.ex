@@ -69,4 +69,12 @@ defmodule Vtm.Helpers do
         diff < 0
     end
   end
+
+  @spec format_date_time(NaiveDateTime.t()) :: binary()
+  def format_date_time(date) do
+    case date |> NaiveDateTime.to_string() |> String.split(".") do
+      [formatted | _] -> formatted
+      _               -> date |> NaiveDateTime.to_date()
+    end
+  end
 end

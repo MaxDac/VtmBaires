@@ -51,17 +51,17 @@ const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps
                           }
                       }}>
                 <TableCell component="th" scope="row" sx={{verticalAlign: "top"}}>
-                    <ParsedText text={entry?.insertedAt} sx={{
+                    <ParsedText text={entry?.insertedAt} internalDivSx={{
                         fontSize: "0.9rem"
                     }} />
                 </TableCell>
                 <TableCell sx={{verticalAlign: "top"}}>
-                    <ParsedText text={entry?.character?.name} sx={{
+                    <ParsedText text={entry?.character?.name} internalDivSx={{
                         fontSize: "0.9rem"
                     }} />
                 </TableCell>
                 <TableCell>
-                    <ParsedText text={entry?.text ?? entry?.result} sx={{
+                    <ParsedText text={entry?.text ?? entry?.result} internalDivSx={{
                         fontSize: "0.9rem"
                     }} />
                 </TableCell>

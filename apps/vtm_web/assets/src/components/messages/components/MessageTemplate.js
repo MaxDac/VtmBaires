@@ -34,16 +34,26 @@ const MessageSchema = object().shape({
 });
 
 type Props = {
-    submitted: SubmitProperties => void,
+    submitted: SubmitProperties => void;
     isReply: boolean;
-    characterId?: string,
-    userId?: string,
-    onGame?: boolean,
-    toUserId?: ?string,
-    toCharacterId?: ?string
+    characterId?: string;
+    userId?: string;
+    onGame?: boolean;
+    toUserId?: ?string;
+    toCharacterId?: ?string;
+    subject?: string;
 };
 
-const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toUserId = null, toCharacterId = null, onGame = false}: Props): any => {
+const MessageTemplate = ({
+                             submitted,
+                             isReply,
+                             characterId = "",
+                             userId = "",
+                             toUserId = null,
+                             toCharacterId = null,
+                             onGame = false,
+                             subject = ""
+}: Props): any => {
     const theme = useTheme();
     const allUsers = useCustomLazyLoadQuery<AllUsersQuery>(allUsersQuery, {})?.allUsers;
     const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
@@ -69,7 +79,7 @@ const MessageTemplate = ({submitted, isReply, characterId = "", userId = "", toU
     const formik = useFormik({
         validationSchema: MessageSchema,
         initialValues: {
-            subject: "",
+            subject: subject,
             text: "",
             onGame: inGameOrCharacterNotNull,
             userId: userId === "" ? (toUserId ?? "") : userId,

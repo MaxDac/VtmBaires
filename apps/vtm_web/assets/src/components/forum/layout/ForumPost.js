@@ -47,7 +47,7 @@ const ForumPost = ({post, onGame}: Props): any => {
             </Grid>
             <Grid item xs={12}>
                 <Paper component="div" variant="outlined">
-                    <ParsedText text={post?.text} sx={{
+                    <ParsedText text={post?.text} useNaturalNewLine sx={{
                         ...style(),
                         padding: "10px"
                     }} />

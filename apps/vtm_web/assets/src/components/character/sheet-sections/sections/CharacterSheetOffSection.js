@@ -36,7 +36,7 @@ const CharacterSheetOffSection = ({characterQuery}: Props): any => {
             }
             <ParsedText text={sheet?.off} 
                         ignoreDefaultComponents 
-                        sx={{
+                        internalDivSx={{
                             ...mainFontFamily
                         }}
                         components={offComponents}

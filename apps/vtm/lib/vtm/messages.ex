@@ -23,20 +23,20 @@ defmodule Vtm.Messages do
     end
   end
 
-  defp aggregate_user_if_inexistent(attrs = %{
+  defp aggregate_user_if_not_existent(attrs = %{
     receiver_user_id: nil,
     receiver_character_id: c_id
   }) when not is_nil(c_id) do
     aggregate_user(attrs)
   end
 
-  defp aggregate_user_if_inexistent(attrs = %{
+  defp aggregate_user_if_not_existent(attrs = %{
     receiver_character_id: c_id
   }) when not is_nil(c_id) do
     aggregate_user(attrs)
   end
 
-  defp aggregate_user_if_inexistent(attrs) do
+  defp aggregate_user_if_not_existent(attrs) do
     attrs
   end
 
@@ -66,7 +66,7 @@ defmodule Vtm.Messages do
       attrs
       |> map_to_atom_map()
       |> Map.put(:sender_user_id, user_id)
-      |> aggregate_user_if_inexistent()
+      |> aggregate_user_if_not_existent()
 
     case new_attrs do
       %{sender_user_id: id, receiver_user_id: id} ->
@@ -80,8 +80,13 @@ defmodule Vtm.Messages do
   end
 
   def send_message(user, attrs = %{text: text, reply_to_id: reply_to_id}) when not is_nil(reply_to_id) do
-    with {:ok, %{text: replied_text}} <- get_message(user, reply_to_id),
-         new_text                     <- "#{text}\n\n-------------\n\n[i]#{replied_text}[/i]" do
+    with {:ok, %{
+      subject: replied_subject,
+      text: replied_text,
+      inserted_at: replied_inserted_at
+    }}                <- get_message(user, reply_to_id),
+         parsed_date  <- Vtm.Helpers.format_date_time(replied_inserted_at),
+         new_text     <- "#{text}\n\n-------------\n\n[i]#{replied_subject} (#{parsed_date})[/i]\n\n#{replied_text}" do
       send_message_p(user, attrs |> Map.put(:text, new_text))
     end
   end
@@ -121,7 +126,7 @@ defmodule Vtm.Messages do
     |> Map.put(:receiver_character, nil)
   end
 
-  @spec get_user_messages(%User{}) :: [%Message{}]
+  @spec get_user_messages(User.t()) :: list(Message.t())
   def get_user_messages(%{id: user_id}) do
     query =
       from m in Message,
@@ -145,7 +150,7 @@ defmodule Vtm.Messages do
     Repo.all(query) |> Enum.map(&remap_message/1)
   end
 
-  @spec get_sent_messages(%User{}) :: [%Message{}]
+  @spec get_sent_messages(User.t()) :: list(Message.t())
   def get_sent_messages(%{id: user_id}) do
     query =
       from m in Message,
@@ -190,7 +195,7 @@ defmodule Vtm.Messages do
     end
   end
 
-  @spec get_message(%User{}, String.t()) :: {:ok, %Message{}} | {:error, :not_found}
+  @spec get_message(User.t(), String.t()) :: {:ok, Message.t()} | {:error, :not_found}
   def get_message(%{id: user_id}, message_id) do
     message =
       Message

@@ -50,7 +50,8 @@ const ReplyToMessage = ({messageId, onSubmit, toUserId}: Props): any => {
                                  userId={message?.senderUser?.id}
                                  toUserId={toUserId}
                                  onGame={message?.onGame === true}
-                                 isReply={true} />
+                                 isReply={true}
+                                 subject={`Re: ${message?.subject ?? ""}`}/>
             </Grid>
         </Grid>
     );
