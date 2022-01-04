@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build the Docker image
+      run: sudo docker build -t vtm-baires:1.0.4 --build-arg db_url=ecto://postgres:${{ secrets.POSTGRES_DB_PWD }}@postgres-instance/vtm --build-arg secret_key=$(mix phx.gen.secret) --build-arg mail_smtps_server=smtps.aruba.it --build-arg mail_port=465 --build-arg mail_user=postmaster@vtmbaires.eu --build-arg mail_pass='${{ secrets.MAIL_PWD }}' --network=host .
+      
+    - name: Install DigitalOcean Controller
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DO_REPO_KEY }}
+        
+    - name: Authenticate with DigitalOcean Container Registry
+      run: doctl registry login --expiry-seconds 600
+      
+    - name: Build and Push to DigitalOcean Container Registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: registry.digitalocean.com/elixir-apps-repo:latest
+
+    - name: Logout from DigitalOcean Container Registry
+      run: doctl registry logout
