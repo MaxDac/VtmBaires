@@ -2,6 +2,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   @moduledoc false
 
   alias Vtm.Chats
+  alias Vtm.ChatBookings
   import VtmWeb.Resolvers.Helpers
 
   alias VtmWeb.Resolvers.ChatHelpers
@@ -10,8 +11,8 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     {:ok, Chats.get_main_chat_maps()}
   end
 
-  def get_chat_maps(%{parent_id: id}, _) do
-    {:ok, Chats.get_chat_maps(id)}
+  def get_chat_maps(%{parent_id: id}, %{context: %{current_user: user}}) do
+    {:ok, Chats.get_chat_maps(id, user)}
   end
 
   def get_chat(%{id: id}, _) do
@@ -20,6 +21,35 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
   def all_chat_locations(_, _, _) do
     {:ok, Chats.all_chat_locations()}
+  end
+
+  def has_user_access_to_map?(%{chat_id: id}, %{context: %{current_user: user}}) do
+    map_id = parsed_id_to_string?(id)
+    {:ok, ChatBookings.has_user_access_to_map?(map_id, user)}
+  end
+
+  def has_user_already_booked?(_, _, %{context: %{current_user: user}}) do
+    {:ok, ChatBookings.has_user_already_booked?(user)}
+  end
+
+  def available_users(_, _, _) do
+    {:ok, ChatBookings.available_users()}
+  end
+
+  def available_private_chats(_, _, _) do
+    {:ok, ChatBookings.available_private_chats()}
+  end
+
+  def book_chat_map(%{chat_id: id}, %{context: %{current_user: user}}) do
+    map_id = parsed_id_to_string?(id)
+    ChatBookings.book_chat_map(map_id, user)
+  end
+
+  def add_user_to_chat(_, %{request: %{chat_map_id: c_id, guest_user_id: g_id}}, %{context: %{current_user: user}}) do
+    with {:ok, chat_map_id}   <- from_global_id?(c_id),
+         {:ok, guest_user_id} <- from_global_id?(g_id) do
+      ChatBookings.add_user_to_chat(chat_map_id, guest_user_id, user)
+    end
   end
 
   def get_chat_entries(%{map_id: map_id}, _) do

@@ -7,6 +7,7 @@ defmodule Vtm.Chats do
   alias Vtm.Helpers
   alias Vtm.Chats.ChatMap
   alias Vtm.Chats.ChatEntry
+  alias Vtm.ChatBookings
   alias Vtm.Characters.Character
   alias Vtm.Characters
   alias Vtm.StatusChecks
@@ -21,11 +22,9 @@ defmodule Vtm.Chats do
     query |> Repo.all()
   end
 
-  def get_chat_maps(parent_id) do
-    query = from m in ChatMap,
-      where: m.chat_map_id == ^parent_id
-
-    query |> Repo.all()
+  @spec get_chat_maps(integer(), map()) :: list(ChatMap)
+  def get_chat_maps(parent_id, user) do
+    ChatBookings.available_chats(parent_id, user)
   end
 
   def get_map(chat_id) do
@@ -182,9 +181,7 @@ defmodule Vtm.Chats do
   }) do
     case {attribute_id, ability_id, free_throw} do
       {attribute_id, ability_id, _} when not(is_nil(attribute_id)) and not(is_nil(ability_id)) ->
-        with result <- get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw) do
-          result
-        end
+        get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw)
       {_, _, free_throw} when not is_nil(free_throw) ->
         free_throw = free_throw |> zero_if_less_than_zero()
         {free_throw, "Tiro di #{free_throw} dadi"}
@@ -290,11 +287,10 @@ defmodule Vtm.Chats do
   defp dices_to_string(dices, difficulty) do
     visual =
       dices
-      |> Enum.map(fn
+      |> Enum.map_join(", ", fn
         {true, n} -> "*#{n}*"
         {_, n}    -> "#{n}"
       end)
-      |> Enum.join(", ")
 
     difficulty_string = difficulty_as_string(difficulty)
 

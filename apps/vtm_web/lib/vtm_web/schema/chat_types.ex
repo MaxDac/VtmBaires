@@ -44,6 +44,11 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :chat_map_id, non_null(:id)
   end
 
+  input_object :add_user_to_private_request do
+    field :chat_map_id, non_null(:id)
+    field :guest_user_id, non_null(:id)
+  end
+
   object :chat_queries do
     field :main_maps, list_of(:chat_location) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
@@ -68,8 +73,34 @@ defmodule VtmWeb.Schema.ChatTypes do
     end
 
     field :all_chat_locations, list_of(:chat_location) do
-      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve &ChatResolvers.all_chat_locations/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :has_user_access_to_map, :boolean do
+      arg :chat_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ChatResolvers.has_user_access_to_map?/2, chat_id: :chat_location)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :has_user_already_booked, :boolean do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &ChatResolvers.has_user_already_booked?/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :private_chat_available_users, list_of(:user) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &ChatResolvers.available_users/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :available_private_chats, list_of(:chat_location) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &ChatResolvers.available_private_chats/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 
@@ -95,6 +126,22 @@ defmodule VtmWeb.Schema.ChatTypes do
   end
 
   object :chat_mutations do
+    field :book_chat_map, :chat_location do
+      arg :chat_id, non_null(:id)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&ChatResolvers.book_chat_map/2, chat_id: :chat_location)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :add_user_to_chat, :chat_location do
+      arg :request, non_null(:add_user_to_private_request)
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &ChatResolvers.add_user_to_chat/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
     field :create_chat_entry, :map_chat_entry do
       arg :entry, :chat_entry_request
 

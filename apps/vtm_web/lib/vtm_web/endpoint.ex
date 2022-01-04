@@ -14,7 +14,11 @@ defmodule VtmWeb.Endpoint do
   ]
 
   socket "/socket", VtmWeb.UserSocket,
-    websocket: true,
+    # websocket: true,
+    websocket: [
+      # This is to make it work with StrawberryShake
+      subprotocols: ["graphql-ws"]
+    ],
     longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

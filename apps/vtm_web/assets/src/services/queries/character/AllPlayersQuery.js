@@ -3,9 +3,9 @@
 import graphql from 'babel-plugin-relay/macro';
 import type {GraphQLTaggedNode} from "relay-runtime";
 
-export const allCharactersQuery: GraphQLTaggedNode = graphql`
-    query AllCharactersQuery {
-        charactersList {
+export const allPlayersQuery: GraphQLTaggedNode = graphql`
+    query AllPlayersQuery {
+        playersCharactersList {
             id
             name
             user {

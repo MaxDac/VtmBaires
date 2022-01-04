@@ -15,6 +15,11 @@ type AddAdvantagesPayload {
   result: Character
 }
 
+input AddUserToPrivateRequest {
+  chatMapId: ID!
+  guestUserId: ID!
+}
+
 input ApplyDamageInput {
   characterId: ID!
   damageEntity: Int!
@@ -176,6 +181,7 @@ type Character implements Node {
   stains: Int
   torpor: Boolean
   totalExperience: Int
+  user: User
   willpower: Int
   willpowerDamage: Int
 }
@@ -582,11 +588,13 @@ enum Role {
 
 type RootMutationType {
   addAdvantages(input: AddAdvantagesInput!): AddAdvantagesPayload
+  addUserToChat(request: AddUserToPrivateRequest!): ChatLocation
   appendCharacterAttributes(newStage: Int!, request: [CharacterAttributeRequest]): Character
   applyDamage(input: ApplyDamageInput!): ApplyDamagePayload
   applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
   approveCharacter(characterId: ID!, reason: String): Boolean
   assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
+  bookChatMap(chatId: ID!): ChatLocation
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
   changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
@@ -639,6 +647,7 @@ type RootQueryType {
   allNpcs: [Character]
   allUsers: [User]
   attributes: [Attribute]
+  availablePrivateChats: [ChatLocation]
   charactersList: [Character]
   clanDisciplines(clanId: ID!): [Discipline]
   clans: [Clan]
@@ -661,13 +670,17 @@ type RootQueryType {
   getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
+  hasUserAccessToMap(chatId: ID): Boolean
+  hasUserAlreadyBooked: Boolean
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
   mapAdminChatEntries(from: DateTime, mapId: ID, to: DateTime): [MapChatEntry]
   mapChatEntries(mapId: ID): [MapChatEntry]
   me: User
   messagesDigest: MessageDigest
+  playersCharactersList: [Character]
   predatorTypes: [PredatorType]
+  privateChatAvailableUsers: [User]
   sectionMaps(parentId: ID): [ChatLocation]
   sessionsList: [Session]
   subscriptionToken: String

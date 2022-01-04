@@ -41,6 +41,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
   end
 
   node object :character do
+    field :user, :user
     field :name, :string
     field :biography, :string
     field :description, :string
@@ -145,6 +146,12 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :characters_list, list_of(:character) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.all/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :players_characters_list, list_of(:character) do
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &CharacterResolvers.all_players/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

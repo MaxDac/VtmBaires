@@ -9,7 +9,7 @@ type Props = {
     onMapSelected: string => void;
 }
 
-const MainMapResponsive = ({maps, onMapSelected}: Props): any => {
+const MainMapResponsive = ({maps}: Props): any => {
     if (maps != null) {
         return (
             <SubMap maps={maps} imageUrl="main-map-responsive.webp" />

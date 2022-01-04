@@ -38,4 +38,12 @@
     "strokeColor": "black",
     "lineWidth": "2",
     "preFillColor": "#59191940"
+}, {
+    "title": "Chat Private",
+    "shape": "poly",
+    "coords": [5, 441, 27, 375, 61, 374, 107, 420, 159, 435, 245, 377, 364, 480, 338, 509, 5, 509, 5, 441],
+    "fillColor": "#C9C9C980",
+    "strokeColor": "black",
+    "lineWidth": "2",
+    "preFillColor": "#59191940"
 }]

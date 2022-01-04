@@ -15,8 +15,21 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
 
   alias Vtm.Experience
 
+  defp map_character_user(c = %{user_id: user_id}), do: c |> Map.put(:user, %{id: user_id})
+  defp map_character_user(c), do: c
+
   def all(_, _, _) do
-    {:ok, Characters.all()}
+    {:ok,
+      Characters.all()
+      |> Enum.map(&map_character_user/1)
+    }
+  end
+
+  def all_players(_, _, _) do
+    {:ok,
+      Characters.all_players()
+      |> Enum.map(&map_character_user/1)
+    }
   end
 
   def all_unapproved(_, _, _) do

@@ -14,17 +14,36 @@ defmodule Vtm.Characters do
   alias Vtm.Characters.AttributeType
   alias VtmAuth.Accounts.SessionInfo
 
-  @spec all() :: [%Character{}]
-  def all() do
-    query =
-      from c in Character,
-        where: c.is_complete == true,
-        where: c.approved == true,
-        order_by: c.name,
-        select: {c.id, c.name}
+  @spec all() :: list(Ecto.Query.t())
+  defp all_characters_query() do
+    Character
+    |> from()
+    |> where([c], c.is_complete == true)
+    |> where([c], c.approved == true)
+    |> order_by([c], c.name)
+  end
 
-    Repo.all(query)
-    |> Enum.map(fn {id, name} -> %Character{id: id, name: name} end)
+  @spec all() :: list(Character.t())
+  def all() do
+    all_characters_query()
+    |> select([c], %Character{
+      id: c.id,
+      name: c.name,
+      user_id: c.user_id
+    })
+    |> Repo.all()
+  end
+
+  @spec all_players() :: list(Character.t())
+  def all_players() do
+    all_characters_query()
+    |> where([c], c.is_npc == false)
+    |> select([c], %Character{
+      id: c.id,
+      name: c.name,
+      user_id: c.user_id
+    })
+    |> Repo.all()
   end
 
   def all_unapproved() do

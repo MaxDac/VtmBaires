@@ -13,8 +13,13 @@ export type SelectInputProps = {
     fieldName: string;
     label: string;
     values: Array<[string, string]>;
+    addNullValue?: boolean,
     sx?: any;
 };
+
+const emptyMenuItem = () => (
+    <MenuItem key="element-zero" value={null}>None</MenuItem>
+);
 
 const FormSelectField = (props: SelectInputProps): any => {
     const theme = useTheme();
@@ -22,12 +27,18 @@ const FormSelectField = (props: SelectInputProps): any => {
     const items = () => {
         const values = props.values;
         if (values && values.map) {
-            return values
+            const items = values
                 .map(([value, label]) => <MenuItem key={value ?? "is-null"} value={value}>{label}</MenuItem>);
+
+            if (props.addNullValue === true) {
+                return [emptyMenuItem()].concat(items);
+            }
+
+            return items;
         }
 
         return [];
-    }
+    };
 
     return (
         <FormControl sx={{

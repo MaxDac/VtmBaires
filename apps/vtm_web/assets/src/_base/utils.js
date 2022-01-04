@@ -82,6 +82,20 @@ export const firstOrDefault = <T>(a: ?Array<T>): ?T => {
 export const castNotNull = <T>(item: ?T): T => ((item: any): T);
 
 /**
+ * Determines whether the string is not null nor empty.
+ * @param item The string.
+ * @return {boolean} True if the string is not null nor empty, False otherwise.
+ */
+export const isNotNullNorEmpty = (item: ?string): boolean => item != null && item !== "";
+
+/**
+ * Determines whether the string is null or empty.
+ * @param item The string.
+ * @return {boolean} True if the string is null or empty, False otherwise.
+ */
+export const isNullOrEmpty = (item: ?string): boolean => !isNotNullNorEmpty(item);
+
+/**
  * Returns a range between the two specified number (included).
  * @param from The lower boundary.
  * @param to The highest boundary.

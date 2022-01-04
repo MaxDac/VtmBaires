@@ -29,12 +29,27 @@ import useChatSubscription from "../_hooks/useChatSubscription";
 import {getFileTextFromChatEntries} from "./chat-helpers";
 import {downloadFile} from "../../_base/file-utils";
 import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
+import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 
 type ChatProps = {
     id: string;
 }
 
-const Chat = ({id}: ChatProps): any => {
+const Chat = (props: ChatProps): any => {
+    const userHasAccess = useHasUserAccessToMap(props.id);
+
+    if (userHasAccess) {
+        return (<ChatInternal {...props} />);
+    }
+
+    return (
+        <h2>
+            Non hai accesso a questa chat
+        </h2>
+    );
+};
+
+const ChatInternal = ({id}: ChatProps): any => {
     const session = useRef(useContext(SessionContext));
 
     const environment = useRelayEnvironment();
@@ -233,6 +248,6 @@ const Chat = ({id}: ChatProps): any => {
             </Box>
         </>
     );
-}
+};
 
 export default Chat;

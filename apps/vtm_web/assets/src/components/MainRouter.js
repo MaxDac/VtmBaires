@@ -36,6 +36,7 @@ export const MainRoutes = {
     modifySheet: (id: string): string => `/main/sheet/modify/${id}`,
     subMap: (id: string): string => `/main/map/${id}`,
     chat: (id: string): string => `/main/chat/${id}`,
+    bookChat: "/main/book-chat",
 
     admin: "/main/admin",
     unapprovedCharacters: "/main/admin/unapproved",
@@ -58,6 +59,7 @@ const ModifyCharacterSheet: any = React.lazy(() => import('./character/ModifyCha
 const MainMap = React.lazy(() => import('./map/MainMap'));
 const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
+const BookChats = React.lazy(() => import('./chat/BookChats'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
 const ReceivedMessages = React.lazy(() => import('./messages/ReceivedMessages'));
@@ -104,6 +106,7 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/map" component={() => <MainMap />} />
             <AuthRoute exact path="/main/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
             <AuthRoute exact path="/main/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
+            <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />
 

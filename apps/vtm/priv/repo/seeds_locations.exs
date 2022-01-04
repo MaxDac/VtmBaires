@@ -2,11 +2,17 @@ defmodule Vtm.LocationsSeedsHelpers do
   import Ecto.Query
   require Logger
 
-  def insert_map(%Vtm.Chats.ChatMap{name: name, description: description, is_chat: is_chat, chat_map_id: chat_map_id}) do
+  def insert_map(attrs = %Vtm.Chats.ChatMap{name: name, description: description, is_chat: is_chat, chat_map_id: chat_map_id}) do
+    is_private =
+      case attrs do
+        %{is_private: true} -> true
+        _ -> false
+      end
+
     case Vtm.Repo.get_by(Vtm.Chats.ChatMap, name: name) do
       nil ->
         %Vtm.Chats.ChatMap{}
-        |> Vtm.Chats.ChatMap.changeset(%{name: name, description: description, is_chat: is_chat, chat_map_id: chat_map_id})
+        |> Vtm.Chats.ChatMap.changeset(%{name: name, description: description, is_chat: is_chat, chat_map_id: chat_map_id, is_private: is_private})
         |> Vtm.Repo.insert()
       place ->
         place
@@ -37,6 +43,7 @@ end
 {:ok, %{id: boca_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "La Boca", is_chat: false})
 {:ok, %{id: provincia_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Provincia", is_chat: false})
 {:ok, %{id: quilmes_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Quilmes", is_chat: false})
+{:ok, %{id: private_chats_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Chat Private", is_chat: false})
 
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Plaza Garibaldi", description: """
 Plaza Garibaldi è la zona di Palermo che sorge attorno all'omonima piazza dedicata all'eroe dei due
@@ -215,5 +222,16 @@ Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Seduction", descr
 """, is_chat: true, chat_map_id: quilmes_id})
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chiesa sconsacrata", description: """
 """, is_chat: true, chat_map_id: quilmes_id})
+
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 1", description: """
+""", is_chat: true, chat_map_id: private_chats_id, is_private: true})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 2", description: """
+""", is_chat: true, chat_map_id: private_chats_id, is_private: true})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 3", description: """
+""", is_chat: true, chat_map_id: private_chats_id, is_private: true})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 4", description: """
+""", is_chat: true, chat_map_id: private_chats_id, is_private: true})
+Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 5", description: """
+""", is_chat: true, chat_map_id: private_chats_id, is_private: true})
 
 Vtm.LocationsSeedsHelpers.update_chat_entries(confiteria_del_molino_id, anticamera_id)
