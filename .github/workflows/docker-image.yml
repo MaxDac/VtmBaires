@@ -37,7 +37,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: registry.digitalocean.com/elixir-apps-repo:vtm-baires:latest
+        tags: registry.digitalocean.com/elixir-apps-repo/vtm-baires:latest
         build-args: |
           db_url=ecto://postgres:${{ secrets.POSTGRES_DB_PWD }}@postgres-instance/vtm
           secret_key=$(mix phx.gen.secret)
