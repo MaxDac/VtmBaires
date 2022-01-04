@@ -74,7 +74,7 @@ const BookChats = (): any => {
 const BookChatsInternal = (): any => {
     const environment = useRelayEnvironment();
     const history = useHistory();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
+    const {openDialog, showUserNotification, setWait} = useContext(UtilityContext);
     const theme = useTheme();
     const [user,] = useSession();
 
@@ -118,6 +118,7 @@ const BookChatsInternal = (): any => {
     
     const onSubmit = ({chatMapId, guest1, guest2, guest3, guest4, guest5}) => {
         const guests = [guest1, guest2, guest3, guest4, guest5]
+            .filter(isNotNullNorEmpty)
             .map(x => {
                 const [userId, characterId] = x.split(divider).filter(isNotNullNorEmpty);
                 const val = firstOrDefault(allCharacters.filter(([ids, _]) => ids.indexOf(characterId) !== -1));
@@ -129,13 +130,20 @@ const BookChatsInternal = (): any => {
 
         openDialog("Prenotazione stanza privata", "Sei sicuro di voler prenotare una stanza privata?",
             () => {
+                setWait(true);
+
                 BookChatMapMutation(environment, chatMapId)
                     .then(_ => AddUserToChatMutation(environment, chatMapId, firstUserId).catch(manageError(firstCharacterName)))
                     .then(_ => getGuestsTask(chatMapId, guests.slice(1)))
                     .then(_ => {
-                        setTimeout(() => history.push(MainRoutes.chat(chatMapId)), 1000)
+                        showUserNotification({
+                            type: "success",
+                            message: "La chat è stata prenotata con successo"
+                        });
+                        setTimeout(() => history.push(MainRoutes.chat(chatMapId)), 1000);
                     })
-                    .catch(manageError);
+                    .catch(manageError)
+                    .finally(() => setWait(false));
             }
         );
     };
@@ -179,7 +187,7 @@ const BookChatsInternal = (): any => {
             </Typography>
 
             <Typography paragraph>
-                Dovrai invitare almeno un giocatore in questa schermata. Potrai invitarne altri anche successivamente.
+                Dovrai invitare almeno un giocatore in questa schermata.
             </Typography>
 
             <form onSubmit={formik.handleSubmit}>
