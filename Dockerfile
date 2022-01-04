@@ -1,4 +1,4 @@
-FROM elixir:1.13.1-alpine AS build
+FROM elixir:1.12.3-alpine AS build
 
 RUN apk add --no-cache build-base nodejs yarn python3 git && \
     mix local.hex --force && \
@@ -26,6 +26,8 @@ COPY mix.exs config/ ./
 COPY apps/vtm_web/mix.exs ./apps/vtm_web/
 COPY apps/vtm/mix.exs ./apps/vtm/
 COPY apps/vtm_auth/mix.exs ./apps/vtm_auth/
+
+RUN echo ${secret_key}
 
 RUN HEX_HTTP_CONCURRENCY=4 HEX_HTTP_TIMEOUT=10000 mix deps.get --only prod && \
     mix deps.compile
