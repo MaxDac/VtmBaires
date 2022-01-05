@@ -21,12 +21,17 @@ jobs:
       
     - name: Check Out Repo
       uses: actions/checkout@v2
-    
-    - name: Setting up Elixir
-      uses: actions/setup-elixir@v1.0.0
-      with:
-        otp-version: 24.2
-        elixir-version: 1.13.1
+      
+    - name: Install Elixir
+      run: |
+        # make file runnable, might not be necessary
+        chmod +x "${GITHUB_WORKSPACE}/.github/script.sh"
+
+        # run script
+        "${GITHUB_WORKSPACE}/.github/script.sh"
+
+        # or
+        # "${{ format('{0}/.github/script.sh', github.workspace) }}"
 
     - name: Install DigitalOcean Controller
       uses: digitalocean/action-doctl@v2
