@@ -25,13 +25,16 @@ jobs:
     - name: Install Elixir
       run: |
         # make file runnable, might not be necessary
-        chmod +x "${GITHUB_WORKSPACE}/.github/script.sh"
+        chmod +x "./.github/elixir_installation.sh"
 
         # run script
-        "${GITHUB_WORKSPACE}/.github/script.sh"
+        "./.github/elixir_installation.sh"
 
         # or
-        # "${{ format('{0}/.github/script.sh', github.workspace) }}"
+        # "${{ format('{0}/.github/elixir_installation.sh', github.workspace) }}"
+
+    - name: Output Elixir secret test
+      run: echo $(mix phx.gen.secret)
 
     - name: Install DigitalOcean Controller
       uses: digitalocean/action-doctl@v2
@@ -51,7 +54,9 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: registry.digitalocean.com/elixir-apps-repo/vtm-baires:${{ github.run_number }}
+        tags: |
+          registry.digitalocean.com/elixir-apps-repo/vtm-baires:1.${{ github.run_number }}
+          registry.digitalocean.com/elixir-apps-repo/vtm-baires:latest
         build-args: |
           db_url=ecto://postgres:${{ secrets.POSTGRES_DB_PWD }}@postgres-instance/vtm
           secret_key=$(mix phx.gen.secret)
@@ -60,6 +65,5 @@ jobs:
           mail_user=postmaster@vtmbaires.eu
           mail_pass='${{ secrets.MAIL_PWD }}'
           
-
     - name: Logout from DigitalOcean Container Registry
       run: doctl registry logout
