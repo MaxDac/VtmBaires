@@ -3,8 +3,8 @@ name: Docker Image CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  # pull_request:
+  #   branches: [ master ]
 
 jobs:
 
@@ -22,19 +22,19 @@ jobs:
     - name: Check Out Repo
       uses: actions/checkout@v2
       
-    - name: Install Elixir
-      run: |
-        # make file runnable, might not be necessary
-        chmod +x "./.github/elixir_installation.sh"
+    # - name: Install Elixir
+    #   run: |
+    #     # make file runnable, might not be necessary
+    #     chmod +x "./.github/elixir_installation.sh"
 
-        # run script
-        "./.github/elixir_installation.sh"
+    #     # run script
+    #     "./.github/elixir_installation.sh"
 
-        # or
-        # "${{ format('{0}/.github/elixir_installation.sh', github.workspace) }}"
+    #     # or
+    #     # "${{ format('{0}/.github/elixir_installation.sh', github.workspace) }}"
 
-    - name: Output Elixir secret test
-      run: echo $(mix phx.gen.secret)
+    # - name: Output Elixir secret test
+    #   run: echo $(mix phx.gen.secret)
 
     - name: Install DigitalOcean Controller
       uses: digitalocean/action-doctl@v2
