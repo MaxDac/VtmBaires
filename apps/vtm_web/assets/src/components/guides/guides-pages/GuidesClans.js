@@ -138,7 +138,7 @@ const GuidesAttributes = (): any => {
                 normale comunicazione sociale. Quando la Compulsione del Clan sopravviene, il Cainita regredisce
                 a necessit&agrave; e bisogni animali: trova difficile parlare, trova scomodi e inutili anche i vestiti,
                 e trova anche che il modo migliore per risolvere conflitti sia l'uso della forza. Per una scena,
-                ogni tiro che richiede gli Attributi di Manipolazione e Intelligenza subiranno una penalit&agrave;
+                ogni tiro che richiede gli Attributi di Persuasione e Intelligenza subiranno una penalit&agrave;
                 di 3.<br />
                 <b>Affiliazioni</b>: Anarchici o Indipendenti, pochi Cainiti hanno deciso di rimanere nella Camarilla.<br />
                 <b>Discipline</b>: Animalit&agrave;, Proteide, Robustezza.
@@ -203,7 +203,7 @@ const GuidesAttributes = (): any => {
                 <b>Compulsione</b>: quando soffrono della compulsione del loro Clan, la percezione del Malkavian comincia a divergere
                 dalla realt&agrave;, e le esperienze extrasensoriali di cui sono spettatori (o vittime, secondo i punti di vista), li 
                 rende estremamente suscettibili a qualsiasi stimolo. Subiscono una penalit&agrave; di 2 dadi all'ammontare di 
-                qualsiasi tiro su Destrezza, Manipolazione, Autocontrollo e Prontezza, e anche per resistere alla Frenesia di Terrore.
+                qualsiasi tiro su Destrezza, Persuasione, Autocontrollo e Prontezza, e anche per resistere alla Frenesia di Terrore.
                 (<b>HR</b>) Durante questo stato possono per&ograve; casualmente intuire indizi su una situazione differente, che 
                 magari non hanno nemmeno vissuto, e che magari mai vivranno, a discrezione del Narratore.<br />
                 <b>Affiliazioni</b>: Camarilla, alcuni Anarchici.<br />

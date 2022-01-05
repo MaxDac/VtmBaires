@@ -47,8 +47,8 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Sussurri Ferali</b> (&#9679;&#9679;): il vampiro pu&ograve; entrare in contatto con un animale, scambiando informazioni basiche (carenza di prede). Il vampiro pu&ograve;
                         anche tentare di chiamare un gruppo di un preciso animale.<br />
-                        <b>Sistema</b>: 1 Prova di Risveglio, poi tiro di Manipolazione + Animalit&agrave; (convincere un animale) o Carisma + Animalit&agrave; (richiamare un animale), 
-                        Diff. 3 per ordini semplici, 6 per ordini di vita o morte; 2 per richiamare animali presenti nei dintori, 6 per richiamarne da lontano.
+                        <b>Sistema</b>: 1 Prova di Risveglio, poi tiro di Persuasione + Animalit&agrave; (convincere un animale) o Carisma + Animalit&agrave; (richiamare un animale), 
+                        Diff. 3 per ordini semplici, 6 per ordini di vita o morte; 2 per richiamare animali presenti nei dintorni, 6 per richiamarne da lontano.
                     </li>
 
                     <li style={liStyle}>
@@ -70,7 +70,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Sottomettere lo spirito</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro trasferisce la sua mente in un animale, prendendone completamente il possesso (mentre il corpo del vampiro rimane indifeso, in uno stato simile al Torpore).<br />
-                        <b>Sistema</b>: 1 Prova di Risveglio, 0 se la vittima &egrave; il <i>famulus</i>, poi Manipolazione + Animalit&agrave; Difficolt&agrave; 4. Se il corpo del vampiro subisce danni, o se l'animale muore, la trance finisce e il vampiro perde 
+                        <b>Sistema</b>: 1 Prova di Risveglio, 0 se la vittima &egrave; il <i>famulus</i>, poi Persuasione + Animalit&agrave; Difficolt&agrave; 4. Se il corpo del vampiro subisce danni, o se l'animale muore, la trance finisce e il vampiro perde 
                         1 punto di Forza di Volont&agrave;.
                     </li>
 
@@ -102,7 +102,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Soggezione</b> (&#9679;): la presenza del vampiro diventa immediatamente un punto di riferimento, quasi impossibile da ignorare. Non ispira infatuazioni, ma sicuramente riesce a catturare l'attenzione sul vampiro.<br />
                         <b>Sistema</b>: il potere &egrave; gratuito, e grazie a questo il vampiro potr&agrave; aggiungere il suo livello di Ascendente a tiri di Persuasione, Espressivit&agrave;, ed in generale a qualsiasi tiro che 
-                        riguardi il Carisma (tranne tiri di intimidazione). Se un altro Cainita si accorge di essere sotto l'influsso di questo potere, potr&agrave; tirare Autocontrollo + Intelligenza contro Manipolazione + Ascendente del vampiro: se il tiro ha successo,
+                        riguardi il Carisma (tranne tiri di intimidazione). Se un altro Cainita si accorge di essere sotto l'influsso di questo potere, potr&agrave; tirare Autocontrollo + Intelligenza contro Persuasione + Ascendente del vampiro: se il tiro ha successo,
                         il Cainita diventa immune dal potere per il resto della scena, mentre se il tiro totalizza un successo critico, il vampiro diventa immune da ogni forma di Ascendente del vampiro per il resto della notte.
                     </li>
 
@@ -147,7 +147,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Convocazione</b> (&#9679;&#9679;&#9679;&#9679;): il vampiro pu&ograve; convocare qualsiasi mortale o Cainita su cui abbia precedentemente usato Soggezione, Ammaliamento o Maest&agrave;, oppure che abbia assaggiato una volta il suo sangue.
                         La vittima non metter&agrave; in pericolo la sua vita n&eacute; far&agrave; follie per raggiungere il Cainita, ma si prodigher&agrave; comunque per raggiungerlo. La vittima sapr&agrave; chi lo sta chiamando e la sua posizione.<br />
-                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Cainita pensa intensamente alla persona da convocare per cinque minuti, quindi tira Manipolazione + Ascendente contro Autocontrollo + Intelligenza della vittima.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Cainita pensa intensamente alla persona da convocare per cinque minuti, quindi tira Persuasione + Ascendente contro Autocontrollo + Intelligenza della vittima.
                         Se il tiro riesce, la vittima sentir&agrave; il bisogno di recarsi dal Cainita. Se il tiro totalizza un successo critico, la vittima metter&agrave; a rischio addirittura la sua vita per raggiungere il chiamante.
                     </li>
 
@@ -350,13 +350,13 @@ const GuidesAttributesDisciplines = (props: Props): any => {
 
                     <li style={liStyle}>
                         <b>Demenza (Malkavian)</b> (&#9679;&#9679; - Amalgama con Oscurazione &#9679;&#9679;): nel corso di una conversazione normale, il vampiro riesce ad ispirare tra le righe delle sue frasi la sua influenza, agitando la vittima e riuscendo a far emergere i suoi demoni interiori, facendogli perdere temporaneamente la ragione.<br />
-                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro deve vincere un confronto sociale contro la vittima, tirando Manipolazione + Dominazione contro Autocontrollo + Intelligenza. Ogni successo sottrae un punto di Forza di Volont&agrave;.
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro deve vincere un confronto sociale contro la vittima, tirando Persuasione + Dominazione contro Autocontrollo + Intelligenza. Ogni successo sottrae un punto di Forza di Volont&agrave;.
                         Quando tutti i punti di Forza di Volont&agrave; della vittima saranno stati sottratti, se la vittima &egrave; un umano, subir&agrave; un esaurimento nervoso, se &egrave; un vampiro sar&agrave; soggetto ad una Compulsione.
                     </li>
 
                     <li style={liStyle}>
                         <b>La Mente Immemore</b> (&#9679;&#9679;&#9679;): il vampiro pu&ograve; riscrivere interi brani della memoria della sua vittima, descrivendo nei minimi particolari quello che la mente ricorder&agrave;.<br />
-                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro potr&agrave; tirare tiri ripetuti di Manipolazione + Dominazione contro Intelligenza + Fermezza della vittima. Ogni successo supplementare consentir&agrave;
+                        <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro potr&agrave; tirare tiri ripetuti di Persuasione + Dominazione contro Intelligenza + Fermezza della vittima. Ogni successo supplementare consentir&agrave;
                         al vampiro di rimuovere o aggiungere un ricordo. Un successo critico creera un imprinting perfetto, simulando un'intera memoria, o sostituendone una. (<b>Home Rule</b>) Un fallimento totale invece annuller&agrave; 
                         tutti i progressi fatti, e la vittima non potr&agrave; essere pi&ugrave; dominata per il resto della scena.
                     </li>
@@ -374,7 +374,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     </li>
 
                     <li style={liStyle}>
-                        <b>Manipolazione di Massa</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita pu&ograve; ora usare i poteri di dominazione su un'intera folla di mortali, o anche su un gruppo di altri Cainiti.<br />
+                        <b>Persuasione di Massa</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita pu&ograve; ora usare i poteri di dominazione su un'intera folla di mortali, o anche su un gruppo di altri Cainiti.<br />
                         <b>Sistema</b>: 1 Prova di Risveglio aggiuntivo rispetto al potere che si intende utilizzare sulla folla. Tutti quanti presenti nella folla dovranno osservare negli occhi il vampiro.
                     </li>
 
@@ -576,7 +576,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Guisa dell'Impostore</b> (&#9679;&#9679;&#9679;&#9679;&#9679;): il Cainita dopo aver studiato una persona, riesce a replicarne in tutto e per tutto l'aspetto e i comportamenti, apparendo praticamente come lei.<br />
                         <b>Sistema</b>: effettuando 1 Prova di Risveglio, il Narratore tirer&agrave; senza che il giocatore sappia il risultato un tiro di Prontezza + Oscurazione a Difficolt&agrave; 4. Un fallimento a questo tiro significher&agrave; che il Cainita 
-                        non ha creato un'illusione tale da convincere chi conosce l'impersonato. Se, inoltre, il Cainita vorr&agrave; imitare il modo di muoversi e di parlare della persona, dovr&agrave; tirare Manipolazione + Espressivit&agrave;;
+                        non ha creato un'illusione tale da convincere chi conosce l'impersonato. Se, inoltre, il Cainita vorr&agrave; imitare il modo di muoversi e di parlare della persona, dovr&agrave; tirare Persuasione + Espressivit&agrave;;
                         un successo critico in questo tiro render&agrave; non necessari altri tiri per il resto della scena. Anche questo potere potr&agrave; essere identificato tramite <b>Percepire l'Invisibile</b>
                     </li>
                 </ul>
@@ -618,7 +618,7 @@ const GuidesAttributesDisciplines = (props: Props): any => {
                     <li style={liStyle}>
                         <b>Scintilla di Rabbia</b> (&#9679;&#9679;&#9679; - Amalgama: Ascendente &#9679;&#9679;&#9679;): il vampiro riesce ad ispirare rabbia ferale o addirittura frenesia negli astanti.<br />
                         <b>Sistema</b>: effettuando 1 Prova di Risveglio, il vampiro pu&ograve; aggiungere il suo punteggio di Potenza a qualsiasi tentativo di incitare una persona, o una folla, ad atti di rabbia. 
-                        Il vampiro potr&agrave; anche ispirare rabbia ad un altro vampiro attivando il potere e tirando Manipolazione + Potenza contro Autocontrollo + Intelligenza della vittima. Se il tiro riesce,
+                        Il vampiro potr&agrave; anche ispirare rabbia ad un altro vampiro attivando il potere e tirando Persuasione + Potenza contro Autocontrollo + Intelligenza della vittima. Se il tiro riesce,
                         la vittima dovr&agrave; testare il personaggio per <Link to={GuideRoutes.homeRules} id="frenzy-types">Frenesia di Furia</Link> a Difficolt&agrave; 3.
                     </li>
 
