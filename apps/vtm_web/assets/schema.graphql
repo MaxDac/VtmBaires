@@ -278,6 +278,7 @@ type ChatLocation implements Node {
   id: ID!
   image: String
   isChat: Boolean
+  isPrivate: Boolean
   name: String
 }
 

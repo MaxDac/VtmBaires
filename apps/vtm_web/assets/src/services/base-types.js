@@ -43,6 +43,7 @@ export type Map = {
     description: string,
     image: string;
     isChat: boolean;
+    isPrivate: boolean;
 }
 
 export const convertToMap: any => Map = ({
@@ -50,13 +51,15 @@ export const convertToMap: any => Map = ({
     name,
     description,
     image,
-    isChat
+    isChat,
+    isPrivate
 }) => ({
     id,
     name,
     description,
     image,
-    isChat
+    isChat,
+    isPrivate
 }: Map);
 
 export type SessionCharacter = {|

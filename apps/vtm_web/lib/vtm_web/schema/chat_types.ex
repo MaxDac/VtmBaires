@@ -11,6 +11,7 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :description, :string
     field :image, :string
     field :is_chat, :boolean
+    field :is_private, :boolean
     field :children, list_of(:chat_location)
   end
 

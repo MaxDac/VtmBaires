@@ -10,6 +10,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import useMap from "../../services/queries/map/MapQuery";
+import type {Map} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {useRelayEnvironment} from "react-relay";
 import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
@@ -32,14 +33,15 @@ import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 
 type ChatProps = {
-    id: string;
+    map: Map
 }
 
-const Chat = (props: ChatProps): any => {
-    const userHasAccess = useHasUserAccessToMap(props.id);
+const Chat = ({id}: {id: string}): any => {
+    const map = useMap(id);
+    const userHasAccess = useHasUserAccessToMap(id);
 
-    if (userHasAccess) {
-        return (<ChatInternal {...props} />);
+    if (map != null && (map.isPrivate === false || userHasAccess)) {
+        return (<ChatInternal map={map} />);
     }
 
     return (
@@ -49,11 +51,10 @@ const Chat = (props: ChatProps): any => {
     );
 };
 
-const ChatInternal = ({id}: ChatProps): any => {
+const ChatInternal = ({map}: ChatProps): any => {
     const session = useRef(useContext(SessionContext));
 
     const environment = useRelayEnvironment();
-    const map = useMap(id);
     const [user,character] = useSession();
 
     const isMaster = () => user?.role === "MASTER";
@@ -69,11 +70,11 @@ const ChatInternal = ({id}: ChatProps): any => {
     const [selectedCharacterName, setSelectedCharacterName] = useState<?string>(null);
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
-    const initialEntries = useChatEntries(id);
+    const initialEntries = useChatEntries(map.id);
     const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
 
-    useChatSubscription(id, setAdditionalEntries);
-    useUpdateSessionMap(id);
+    useChatSubscription(map.id, setAdditionalEntries);
+    useUpdateSessionMap(map.id);
 
     useEffect(() => {
         if (map?.id != null) {
@@ -176,7 +177,7 @@ const ChatInternal = ({id}: ChatProps): any => {
 
     const showChatMasterModal = () => {
         if (selectedCharacterId != null && selectedCharacterName != null) {
-            return <ChatMasterModal mapId={id}
+            return <ChatMasterModal mapId={map.id}
                                     characterId={selectedCharacterId}
                                     characterName={selectedCharacterName}
                                     closeModal={() => setCharacterModalOpen(_ => false)} />
@@ -232,7 +233,7 @@ const ChatInternal = ({id}: ChatProps): any => {
             }} id="chat-entries">
                 <ChatControls openMapModal={() => showMapDescription()}
                               openCharacterStatusPopup={() => setCharacterStatusOpen(_ => true)}
-                              mapId={id}
+                              mapId={map.id}
                               onChatLogRequested={downloadChat} />
                 <Suspense fallback={<DefaultFallback />}>
                     <ChatScreen entries={initialEntries}

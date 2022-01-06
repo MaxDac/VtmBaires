@@ -13,6 +13,7 @@ const mapQuery = graphql`
             description
             image
             isChat
+            isPrivate
         }
     }
 `;
