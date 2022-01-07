@@ -14,7 +14,7 @@ const JoinUsOnDiscord = (): any => {
                rel="noreferrer">
                 <img src="/discord.svg" style={{
                     maxWidth: "40px",
-                    height: "auto"
+                    height: "46px"
                 }} alt="discord" />
             </a>
                 <Typography variant="body2" color="textSecondary" align="center" sx={{
