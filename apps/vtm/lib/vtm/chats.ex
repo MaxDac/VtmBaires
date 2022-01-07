@@ -241,33 +241,65 @@ defmodule Vtm.Chats do
       (attribute_value + ability_value + free_throw + discipline_amount + rouse_augment_amount)
       |> zero_if_less_than_zero()
 
-    {amount, get_character_dice_amount_label(attribute_name, ability_name, free_throw, for_discipline, augment_attribute, rouse_augment_effect)}
+    {amount, get_character_dice_amount_label(%{
+      attribute_name: attribute_name,
+      ability_name: ability_name,
+      free_throw: free_throw,
+      for_discipline: for_discipline,
+      augment_attribute: augment_attribute,
+      rouse_augment_effect: rouse_augment_effect
+    })}
   end
 
-  @spec get_character_dice_amount_label(binary(), binary(), integer(), boolean(), boolean(), :rouse | :no_rouse | :frenzy) :: binary()
-  defp get_character_dice_amount_label(attribute_name, ability_name, free_throw, for_discipline, augment_attribute, rouse_augment_effect) do
-    free_throw_label =
-      case free_throw do
-        0       -> ""
-        ft      -> " più #{ft}"
-      end
-
-    for_discipline_label =
-      case for_discipline do
-        false   -> ""
-        true    -> " per Disciplina"
-      end
-
-    augment_attribute =
-      case {augment_attribute, rouse_augment_effect} do
-        {false, _}      -> ""
-        {_, :no_rouse}  -> " con spesa efficace di Sangue"
-        {_, :rouse}     -> " con spesa di Sangue"
-        {_, :frenzy}    -> " (al limite della Frenesia)"
-        _               -> ""
-      end
+  # @spec get_character_dice_amount_label(binary(), binary(), integer(), boolean(), boolean(), :rouse | :no_rouse | :frenzy) :: binary()
+  @spec get_character_dice_amount_label(%{
+    attribute_name: binary(),
+    ability_name: binary(),
+    free_throw: non_neg_integer(),
+    for_discipline: boolean(),
+    augment_attribute: boolean(),
+    rouse_augment_effect: :rouse | :no_rouse | :frenzy
+  }) :: binary()
+  defp get_character_dice_amount_label(%{
+    attribute_name: attribute_name,
+    ability_name: ability_name,
+    free_throw: free_throw,
+    for_discipline: for_discipline,
+    augment_attribute: augment_attribute,
+    rouse_augment_effect: rouse_augment_effect
+  }) do
+    free_throw_label = get_free_throw_label(free_throw)
+    for_discipline_label = get_for_discipline_label(for_discipline)
+    augment_attribute = get_augment_attribute_label(augment_attribute, rouse_augment_effect)
 
     "Tiro di #{attribute_name} e #{ability_name}#{free_throw_label}#{for_discipline_label}#{augment_attribute}"
+  end
+
+  @spec get_free_throw_label(non_neg_integer()) :: binary()
+  defp get_free_throw_label(free_throw) do
+    case free_throw do
+      0       -> ""
+      ft      -> " più #{ft}"
+    end
+  end
+
+  @spec get_for_discipline_label(boolean()) :: binary()
+  defp get_for_discipline_label(for_discipline) do
+    case for_discipline do
+      false   -> ""
+      true    -> " per Disciplina"
+    end
+  end
+
+  @spec get_augment_attribute_label(boolean(), :no_rouse | :rouse | :frenzy) :: binary()
+  defp get_augment_attribute_label(augment_attribute, rouse_augment_effect) do
+    case {augment_attribute, rouse_augment_effect} do
+      {false, _}      -> ""
+      {_, :no_rouse}  -> " con spesa efficace di Sangue"
+      {_, :rouse}     -> " con spesa di Sangue"
+      {_, :frenzy}    -> " (al limite della Frenesia)"
+      _               -> ""
+    end
   end
 
   defp get_dices_result(dice_thrower, amount, hunger) do
@@ -358,22 +390,42 @@ defmodule Vtm.Chats do
          successes    <- (dices |> Enum.count(fn {_, x} -> x >= 6 end)) + div(tens, 2) do
 
       result =
-        case {successes, tens} do
-          {s, t} when s >= difficulty and div(t, 2) > 0  -> :critical_success
-          {s, _} when s >= difficulty                    -> :success
-          {0, _}                                         -> :total_failure
-          _                                              -> :failure
-        end
-
-      result =
-        case {result, hunger_ones, hunger_tens, tens} do
-          {:critical_success, _, ht, t} when ht > 0 and rem(t, 2) == 0  -> :messy_critical
-          {:total_failure, o, _, _} when o > 0                          -> :bestial_failure
-          {:failure, o, _, _} when o > 0                                -> :bestial_failure
-          {res, _, _, _}                                                -> res
-        end
+        process_simple_dice_results(successes, tens, difficulty)
+        |> process_dice_results_with_hunger(hunger_ones, hunger_tens, tens)
 
       {successes, result}
+    end
+  end
+
+  @spec process_simple_dice_results(non_neg_integer(), non_neg_integer(), non_neg_integer()) ::
+    :critical_success |
+    :success |
+    :total_failure |
+    :failure
+  defp process_simple_dice_results(successes, tens, difficulty) do
+    case {successes, tens} do
+      {s, t} when s >= difficulty and div(t, 2) > 0  -> :critical_success
+      {s, _} when s >= difficulty                    -> :success
+      {0, _}                                         -> :total_failure
+      _                                              -> :failure
+    end
+  end
+
+  @spec process_dice_results_with_hunger(:critical_success |
+    :success |
+    :total_failure |
+    :failure, non_neg_integer(), non_neg_integer(), non_neg_integer()) :: :critical_success |
+      :success |
+      :total_failure |
+      :failure |
+      :messy_critical |
+      :bestial_failure
+  defp process_dice_results_with_hunger(result, hunger_ones, hunger_tens, tens) do
+    case {result, hunger_ones, hunger_tens, tens} do
+      {:critical_success, _, ht, t} when ht > 0 and rem(t, 2) == 0  -> :messy_critical
+      {:total_failure, o, _, _} when o > 0                          -> :bestial_failure
+      {:failure, o, _, _} when o > 0                                -> :bestial_failure
+      {res, _, _, _}                                                -> res
     end
   end
 end
