@@ -31,6 +31,9 @@ defmodule VtmWeb.Endpoint do
     at: "/",
     from: :vtm_web,
     gzip: true,
+    # TODO - This configuration forces the max-age cookie for cache-control response headers
+    # anyway, I noticed that forcing the request header is WORSE for performance
+    # in lighthouse. Consider removing it!
     cache_control_for_etags: "public, max-age=31536000"
 
   # Code reloading can be explicitly enabled under the
