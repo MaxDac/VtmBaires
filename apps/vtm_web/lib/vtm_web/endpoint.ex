@@ -30,7 +30,8 @@ defmodule VtmWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :vtm_web,
-    gzip: true
+    gzip: true,
+    cache_control_for_etags: "public, max-age=31536000"
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
