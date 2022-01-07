@@ -7,6 +7,21 @@ defmodule Vtm.Chats.ChatEntry do
   alias Vtm.Characters.Character
   alias Vtm.Chats.ChatMap
 
+  @type t :: %__MODULE__{
+    character_name: binary(),
+    result: binary(),
+    text: binary(),
+    master: boolean(),
+    off_game: boolean(),
+    character_id: non_neg_integer(),
+    character: Character.t(),
+    chat_map_id: non_neg_integer(),
+    chat_map: ChatMap.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "chat_entries" do
     field :character_name, :string
     field :result, :string

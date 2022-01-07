@@ -4,6 +4,19 @@ defmodule Vtm.Forum.UserForumNotification do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    last_checked_date: NaiveDateTime.t(),
+    user_id: non_neg_integer(),
+    user: VtmAuth.Accounts.User.t(),
+    forum_section_id: non_neg_integer(),
+    forum_section: Vtm.Forum.ForumSection.t(),
+    forum_thread_id: non_neg_integer(),
+    forum_thread: Vtm.Forum.ForumThread.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "user_forum_notifications" do
     field :last_checked_date, :naive_datetime
 

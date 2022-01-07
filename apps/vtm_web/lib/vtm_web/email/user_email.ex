@@ -1,4 +1,6 @@
 defmodule VtmWeb.UserEmail do
+  @moduledoc false
+
   import Swoosh.Email
 
   @postmaster_name "VTM Baires Postmaster"

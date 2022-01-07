@@ -4,6 +4,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Characters
+  alias Vtm.Characters.Character
 
   def all(_, _, _) do
     {:ok, Characters.get_all_npcs()}
@@ -57,7 +58,7 @@ defmodule VtmWeb.Resolvers.NpcResolvers do
     end
   end
 
-  @spec confirm_png(Map.t(), any()) :: {:ok, Character.t()}
+  @spec confirm_png(map(), any()) :: {:ok, Character.t()}
   def confirm_png(%{character_id: id}, _) do
     id
     |> String.to_integer()

@@ -22,7 +22,7 @@ defmodule Vtm.Helpers do
     :rand.uniform(10)
   end
 
-  @spec random_dice_thrower(Number.t()) :: [Number.t()]
+  @spec random_dice_thrower(integer()) :: [integer()]
   def random_dice_thrower(amount) do
     1..amount
     |> Enum.map(fn _ -> throw_dice() end)

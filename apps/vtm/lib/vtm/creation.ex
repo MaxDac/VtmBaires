@@ -60,7 +60,7 @@ defmodule Vtm.Creation do
     end
   end
 
-  @spec append_attributes(integer, list[map], number) :: any
+  @spec append_attributes(integer, list(map), number) :: any
   def append_attributes(character_id, attrs, new_stage) do
     # Cleaning
     case new_stage do
@@ -175,12 +175,14 @@ defmodule Vtm.Creation do
     end
   end
 
-  @spec create_attribute_value_from_template(TemplateAttribute.t(), Integer.t()) :: CharacterAttribute.t()
+  @spec create_attribute_value_from_template(struct(), non_neg_integer()) :: struct()
   defp create_attribute_value_from_template(%{attribute_id: a_id, value: v}, character_id) do
     with now <- NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second) do
-      %{
+      %CharacterAttribute{
         character_id: character_id,
         attribute_id: a_id,
+        character: nil,
+        attribute: nil,
         value: v,
         inserted_at: now,
         updated_at: now
@@ -216,7 +218,7 @@ defmodule Vtm.Creation do
   @doc """
   Applies the template to the character, moving its stage to 3, the one after setting all the skills.
   """
-  @spec apply_template_to_character(integer, integer) :: {:ok, Character.t()} | {:error, String.t()} | {:error, :not_found}
+  @spec apply_template_to_character(integer, integer) :: {:ok, Character.t()} | {:error, binary()} | {:error, :not_found}
   def apply_template_to_character(character_id, template_id) do
     delete_all_attributes(character_id)
     insert_template_attributes_to_character(character_id, template_id)

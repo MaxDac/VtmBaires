@@ -4,6 +4,15 @@ defmodule Vtm.Characters.AttributeType do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    name: binary(),
+    section: binary(),
+    experience_cost: non_neg_integer(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "attribute_types" do
     field :name, :string
     field :section, :string

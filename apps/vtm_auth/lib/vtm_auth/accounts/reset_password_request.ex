@@ -1,6 +1,17 @@
 defmodule VtmAuth.Accounts.ResetPasswordRequest do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
+
+  @type t :: %__MODULE__{
+    host: binary(),
+    ip: binary(),
+    user_email: binary(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "reset_password_requests" do
     field :host, :string

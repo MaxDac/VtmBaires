@@ -1,9 +1,11 @@
 defmodule VtmWeb.Schema.Middlewares.ChangesetErrors do
+  @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   def call(res, _) do
     with %{errors: [%Ecto.Changeset{} = changeset]} <- res do
-      %{ res | errors: transform_errors(changeset) }
+      %{res | errors: transform_errors(changeset)}
     end
   end
 

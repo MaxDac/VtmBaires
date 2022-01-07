@@ -6,6 +6,7 @@ defmodule Vtm.Characters do
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.InfoRegistry
+  alias VtmAuth.Accounts.User
   alias Vtm.Characters.Character
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
@@ -14,7 +15,7 @@ defmodule Vtm.Characters do
   alias Vtm.Characters.AttributeType
   alias VtmAuth.Accounts.SessionInfo
 
-  @spec all() :: list(Ecto.Query.t())
+  @spec all_characters_query() :: Ecto.Query.t()
   defp all_characters_query() do
     Character
     |> from()
@@ -153,7 +154,7 @@ defmodule Vtm.Characters do
     not is_nil(Repo.one(query))
   end
 
-  @spec user_has_characters?(String.t()) :: :ok | {:error, String.t()}
+  @spec user_has_characters?(binary()) :: :ok | {:error, binary()}
   def user_has_characters?(user_id) do
     query =
       from c in Character,
@@ -248,7 +249,7 @@ defmodule Vtm.Characters do
   @doc """
   Returns a subset of information about the character available to any user.
   """
-  @spec get_character_description(Integer.t()) :: Character.t() | nil
+  @spec get_character_description(non_neg_integer()) :: Character.t() | nil
   def get_character_description(character_id) do
     from(c in Character, where: c.id == ^character_id, select: %Character{
       id: c.id,
@@ -286,13 +287,13 @@ defmodule Vtm.Characters do
     |> Enum.map(fn c -> c |> Repo.preload(:clan) end)
   end
 
-  @spec get_characters_avatar(list(Integer.t())) :: list(Character.t())
+  @spec get_characters_avatar(list(non_neg_integer())) :: list(Character.t())
   def get_characters_avatar(character_ids) do
     from(c in Character, where: c.id in ^character_ids, select: %Character{id: c.id, avatar: c.avatar})
     |> Repo.all()
   end
 
-  @spec get_characters_chat_avatar(list(Integer.t())) :: list(Character.t())
+  @spec get_characters_chat_avatar(list(non_neg_integer())) :: list(Character.t())
   def get_characters_chat_avatar(character_ids) do
     from(c in Character, where: c.id in ^character_ids, select: %Character{id: c.id, chat_avatar: c.chat_avatar})
     |> Repo.all()
@@ -311,7 +312,7 @@ defmodule Vtm.Characters do
   defp filter_attributes(%Attribute{id: id}, map), do: map |> Map.has_key?(id)
   defp filter_attributes(_, _), do: false
 
-  @spec get_character_attrs_with_value(integer) :: %{String.t() => Integer.t()}
+  @spec get_character_attrs_with_value(integer) :: %{binary() => non_neg_integer()}
   def get_character_attrs_with_value(id) do
     query =
       from ca in CharacterAttribute,
@@ -387,13 +388,13 @@ defmodule Vtm.Characters do
     |> Enum.map(&handle_character_attribute_query_result(&1, character_id))
   end
 
-  @spec get_character_attributes_subset_by_names(Integer.t(), list(String.t())) :: list(CharacterAttribute.t())
+  @spec get_character_attributes_subset_by_names(non_neg_integer(), list(binary())) :: list(CharacterAttribute.t())
   def get_character_attributes_subset_by_names(character_id, attribute_names) do
     from(a in Attribute, where: a.name in ^attribute_names)
     |> get_character_attributes_subset(character_id)
   end
 
-  @spec get_character_attributes_subset_by_ids(Integer.t(), list(Integer.t())) :: list(CharacterAttribute.t())
+  @spec get_character_attributes_subset_by_ids(non_neg_integer(), list(non_neg_integer())) :: list(CharacterAttribute.t())
   def get_character_attributes_subset_by_ids(character_id, attribute_ids) do
     from(a in Attribute, where: a.id in ^attribute_ids)
     |> get_character_attributes_subset(character_id)
@@ -551,7 +552,7 @@ defmodule Vtm.Characters do
   This function accepts the character_id, and a collection of maps, in the following form:
   %{id: attribute_id, value: attribute_value}
   """
-  @spec assign_npc_attributes(Integer.t(), [Map.t()]) :: {:ok, Character.t()} | {:error, any()}
+  @spec assign_npc_attributes(non_neg_integer(), [map()]) :: {:ok, Character.t()} | {:error, any()}
   def assign_npc_attributes(character_id, attributes) do
     existents =
       from(ca in CharacterAttribute, where: ca.character_id == ^character_id)

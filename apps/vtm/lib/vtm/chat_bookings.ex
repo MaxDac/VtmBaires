@@ -88,7 +88,7 @@ defmodule Vtm.ChatBookings do
     end)
   end
 
-  @spec query_rules_by_user(integer(), boolean(), User.t()) :: boolean()
+  @spec query_rules_by_user(integer(), boolean(), %{:id => integer(), optional(any) => any}) :: boolean()
   defp query_rules_by_user(chat_map_id, is_owner, %{id: user_id}) do
     query =
       from m in ChatMap,
@@ -111,7 +111,7 @@ defmodule Vtm.ChatBookings do
     query_rules_by_user(chat_map_id, false, %{id: guest_user_id})
   end
 
-  @spec book_chat_map(integer(), User.t()) :: {:ok, ChatMap.t()} | {:error, binary() | Ecto.ChangeError.t()}
+  @spec book_chat_map(integer(), User.t()) :: {:ok, ChatMap.t()} | {:error, binary() | Ecto.Changeset.t()}
   def book_chat_map(chat_map_id, user = %{id: user_id}) do
     case {has_user_already_booked?(user), is_chat_available(chat_map_id)} do
       {_, false} ->
@@ -125,7 +125,7 @@ defmodule Vtm.ChatBookings do
     end
   end
 
-  @spec add_user_to_chat(integer(), integer(), User.t()) :: {:ok, ChatMap.t()} | {:error, binary() | Ecto.ChangeError.t()}
+  @spec add_user_to_chat(integer(), integer(), User.t()) :: {:ok, ChatMap.t()} | {:error, binary() | Ecto.Changeset.t()}
   def add_user_to_chat(chat_map_id, guest_user_id, user) do
     case {is_user_owner(chat_map_id, user), is_user_guest(chat_map_id, guest_user_id)} do
       {false, _} ->

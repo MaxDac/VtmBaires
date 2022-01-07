@@ -4,6 +4,17 @@ defmodule Vtm.Chats.ChatMap do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    description: binary(),
+    image: binary(),
+    name: binary(),
+    is_chat: boolean(),
+    is_private: boolean(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "chat_maps" do
     field :description, :string
     field :image, :string

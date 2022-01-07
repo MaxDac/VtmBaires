@@ -9,6 +9,21 @@ defmodule Vtm.Forum.ForumPost do
   alias VtmAuth.Accounts.User
   alias Vtm.Characters.Character
 
+  @type t :: %__MODULE__{
+    text: binary(),
+    forum_section_id: non_neg_integer(),
+    forum_section: ForumSection.t(),
+    forum_thread_id: non_neg_integer(),
+    forum_thread: ForumThread.t(),
+    creator_user_id: non_neg_integer(),
+    creator_user: User.t(),
+    creator_character_id: non_neg_integer(),
+    creator_character: Character.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "forum_posts" do
     field :text, :string
 

@@ -1,4 +1,6 @@
 defmodule VtmWeb.Schema.Mutations.LoginSchemaTest do
+  @moduledoc false
+
   use VtmWeb.ConnCase, async: true
 
   alias VtmAuth.Accounts
@@ -11,8 +13,8 @@ defmodule VtmWeb.Schema.Mutations.LoginSchemaTest do
   }
 
   setup do
-    with {:ok, user } <- Accounts.create_user(@ok_user) do
-      %{ user: user }
+    with {:ok, user} <- Accounts.create_user(@ok_user) do
+      %{user: user}
     end
   end
 
@@ -74,7 +76,7 @@ defmodule VtmWeb.Schema.Mutations.LoginSchemaTest do
       build_conn()
       |> post("/api", %{
         query: @query,
-        variables: %{ @ok_user | "password" => "some_other_password" }
+        variables: %{@ok_user | "password" => "some_other_password"}
       })
 
     assert %{
@@ -84,7 +86,7 @@ defmodule VtmWeb.Schema.Mutations.LoginSchemaTest do
       "errors" => [
         %{
           "message" => "incorrect username or password",
-          "path" => [ "login" ]
+          "path" => ["login"]
         }
       ]
     } = json_response(response, 200)
@@ -118,7 +120,7 @@ defmodule VtmWeb.Schema.Mutations.LoginSchemaTest do
       "errors" => [
         %{
           "message" => "incorrect username or password",
-          "path" => [ "login" ]
+          "path" => ["login"]
         }
       ]
     } = json_response(response, 200)

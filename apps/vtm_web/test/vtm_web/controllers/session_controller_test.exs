@@ -13,33 +13,33 @@ defmodule VtmWeb.SessionControllerTest do
 
   setup do
     with {:ok, user } <- Accounts.create_user(@ok_user) do
-      %{ user: user }
+      %{user: user}
     end
   end
 
   test "The login method correctly login with the right credentials", %{conn: conn, user: user} do
     conn = post(conn, Routes.session_path(conn, :create), @ok_user)
 
-    assert %{ resp_cookies: %{
-      "x-xcrf-cookie" => %{ value: token }
-    } } = conn
+    assert %{resp_cookies: %{
+      "x-xcrf-cookie" => %{value: token}
+    }} = conn
 
     {:ok, data} = Authentication.verify(token)
     assert data.id == user.id
   end
 
   test "The login method doesn't allow access when given wrong credentials", %{conn: conn} do
-    conn = post(conn, Routes.session_path(conn, :create), %{ @ok_user | "password" => "some_other_password" })
+    conn = post(conn, Routes.session_path(conn, :create), %{@ok_user | "password" => "some_other_password"})
 
-    assert %{ resp_cookies: %{} } = conn
+    assert %{resp_cookies: %{}} = conn
   end
 
   test "The check logon method correctly returns the user when called", %{conn: conn, user: user} do
     conn = post(conn, Routes.session_path(conn, :create), @ok_user)
 
-    assert %{ resp_cookies: %{
-      "x-xcrf-cookie" => %{ value: token }
-    } } = conn
+    assert %{resp_cookies: %{
+      "x-xcrf-cookie" => %{value: token}
+    }} = conn
 
     {:ok, data} = Authentication.verify(token)
     assert data.id == user.id
@@ -48,9 +48,9 @@ defmodule VtmWeb.SessionControllerTest do
   test "After a successful login, the subsequent request assigns the user to the connection", %{conn: conn, user: user} do
     conn = post(conn, Routes.session_path(conn, :create), @ok_user)
 
-    assert %{ resp_cookies: %{
-      "x-xcrf-cookie" => %{ value: token }
-    } } = conn
+    assert %{resp_cookies: %{
+      "x-xcrf-cookie" => %{value: token}
+    }} = conn
 
     new_conn =
       build_conn()
@@ -67,7 +67,7 @@ defmodule VtmWeb.SessionControllerTest do
       }
     } = json_response(conn, 200)
 
-    assert %{ assigns: %{ current_user: current_user } } = new_conn
+    assert %{assigns: %{current_user: current_user}} = new_conn
     assert not is_nil(current_user)
     assert user.id == current_user.id
 

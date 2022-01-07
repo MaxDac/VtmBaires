@@ -20,6 +20,7 @@ defmodule VtmAuth.Accounts do
     |> Repo.all()
   end
 
+  @spec nil_to_result(any() | nil) :: {:ok, User.t()} | {:error, :not_found}
   defp nil_to_result(u) do
     case u do
       nil -> {:error, :not_found}
@@ -36,19 +37,20 @@ defmodule VtmAuth.Accounts do
     |> Enum.map(fn {id, name} -> %{id: id, name: name} end)
   end
 
-  @spec get_user(Number.t()) :: {:error, :not_found} | {:ok, %User{}}
+  @spec get_user(integer()) :: {:error, :not_found} | {:ok, User.t()}
   def get_user(id), do:
     User
     |> Repo.get(id)
     |> nil_to_result()
 
-  @spec get_user_by_email(String.t()) :: {:error, :not_found} | {:ok, %User{}}
+  @spec get_user_by_email(binary()) :: {:error, :not_found} | {:ok, User.t()}
   def get_user_by_email(email) do
     User
     |> Repo.get_by(email: email)
     |> nil_to_result()
   end
 
+  @spec get_not_banned_user_by_email(binary()) :: {:ok, User.t()} | {:error, :not_found}
   def get_not_banned_user_by_email(email) do
     User
     |> from()
@@ -58,7 +60,7 @@ defmodule VtmAuth.Accounts do
     |> nil_to_result()
   end
 
-  @spec user_name_exists?(String.t()) :: boolean()
+  @spec user_name_exists?(binary()) :: boolean()
   def user_name_exists?(name) do
     query = from u in User, where: u.name == ^name
 
@@ -68,7 +70,7 @@ defmodule VtmAuth.Accounts do
     end
   end
 
-  @spec user_email_exists?(String.t()) :: boolean()
+  @spec user_email_exists?(binary()) :: boolean()
   def user_email_exists?(email) do
     query = from u in User, where: u.email == ^email
 
@@ -94,12 +96,14 @@ defmodule VtmAuth.Accounts do
     |> Repo.insert()
   end
 
-  def update_user(%User{} = user, attrs) do
+  @spec update_user(User.t(), map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  def update_user(user = %User{}, attrs) do
     user
     |> User.changeset(attrs)
     |> Repo.update()
   end
 
+  @spec get_last_session_by_user_query(non_neg_integer()) :: Ecto.Query.t()
   defp get_last_session_by_user_query(user_id) do
     from s in Session,
       where: s.user_id == ^user_id,
@@ -112,7 +116,7 @@ defmodule VtmAuth.Accounts do
     |> Repo.one()
   end
 
-  @spec get_user_name_by_id(Integer.t()) :: Integer.t()
+  @spec get_user_name_by_id(non_neg_integer()) :: non_neg_integer() | nil
   def get_user_name_by_id(user_id) do
     with %{name: name} when not is_nil(name)  <- User |> Repo.get(user_id) do
       name
@@ -125,7 +129,7 @@ defmodule VtmAuth.Accounts do
   #   "approved" => approved
   # }}
 
-  @spec get_character_session_by_user_id(integer()) :: {:ok, %SessionInfo{}} | {:error, :not_found}
+  @spec get_character_session_by_user_id(integer()) :: {:ok, SessionInfo.t()} | {:error, :not_found}
   def get_character_session_by_user_id(user_id) do
     user_id
     |> get_session_by_user_id()
@@ -142,6 +146,7 @@ defmodule VtmAuth.Accounts do
     |> Repo.one() == 1
   end
 
+  @spec update_session(%{:id => non_neg_integer(), optional(any()) => any()}) :: {:ok, Session.t()} | {:error, Ecto.Changeset.t()}
   def update_session(%{id: id}, attrs \\ %{}) do
     new_attrs =
       attrs
@@ -190,7 +195,7 @@ defmodule VtmAuth.Accounts do
     |> Repo.update()
   end
 
-  @spec clear_map_from_session_dynamic_field(%{id: integer()}) :: Map.t() | nil
+  @spec clear_map_from_session_dynamic_field(%{id: integer()}) :: map() | nil
   def clear_map_from_session_dynamic_field(%{id: id}) do
     case get_last_session_by_user_query(id) |> Repo.one() do
       session = %{session_info: info} ->
@@ -207,7 +212,7 @@ defmodule VtmAuth.Accounts do
     end
   end
 
-  def complete_session(%{id: user_id} = user) do
+  def complete_session(user = %{id: user_id}) do
     with u when not is_nil(u) <- get_session_by_user_id(user_id),
          {:ok, s}             <- clear_session_dynamic_field(user) do
       s
@@ -235,19 +240,25 @@ defmodule VtmAuth.Accounts do
     end)
   end
 
-  def authenticate(email, password, remember, _context) do
-    with {:ok, user = %User{password: digest}}  <- get_not_banned_user_by_email(email),
-         true                                   <- Password.valid?(password, digest),
-         {:ok, user}                            <- update_last_login_date(user) do
+  @spec authenticate(binary(), binary(), boolean()) :: {:ok, User.t()} | {:error, any()}
+  def authenticate(email, password, remember) do
+    with {:ok, user}  <- get_not_banned_user_by_email(email),
+          {:ok, user}  <- verify_user_password(user, password),
+          {:ok, user}  <- update_last_login_date(user) do
       update_session(user, %{remember: remember})
       {:ok, user}
-    else
-      _ ->
-        {:error, :unauthorized}
     end
   end
 
-  @spec update_last_login_date(User.t()) :: User.t()
+  @spec verify_user_password(User.t(), binary()) :: {:ok, User.t()} | {:error, :unauthorized}
+  def verify_user_password(user = %{password: digest}, password) do
+    case Password.valid?(password, digest) do
+      true  -> {:ok, user}
+      _     -> {:error, :unauthorized}
+    end
+  end
+
+  @spec update_last_login_date(User.t()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
   defp update_last_login_date(user) do
     user
     |> User.update_changeset(%{last_login: NaiveDateTime.utc_now()})

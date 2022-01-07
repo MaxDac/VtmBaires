@@ -16,8 +16,8 @@ defmodule VtmWeb.Resolver.Authentication.Test do
   }
 
   setup do
-    with {:ok, user } <- Accounts.create_user(@ok_user) do
-      %{ user: user }
+    with {:ok, user} <- Accounts.create_user(@ok_user) do
+      %{user: user}
     end
   end
 
@@ -34,7 +34,7 @@ defmodule VtmWeb.Resolver.Authentication.Test do
       "password" => password
     } = @ok_user
 
-    assert {:ok, %{token: token, user: logged_user} } = AccountsResolvers.login(%{}, %{
+    assert {:ok, %{token: token, user: logged_user}} = AccountsResolvers.login(%{}, %{
       role: role, email: email, password: password
     }, %{})
 
@@ -45,7 +45,7 @@ defmodule VtmWeb.Resolver.Authentication.Test do
 
   defp put_req_cookie_test(conn, cookie_key, cookie_value) do
     conn = conn |> fetch_cookies()
-    %{ conn | req_cookies: %{ cookie_key => cookie_value } }
+    %{conn | req_cookies: %{cookie_key => cookie_value}}
   end
 
   test "The get_cookie method gets the cookie when it exists" do

@@ -39,7 +39,7 @@ defmodule Vtm.Chats do
   @doc """
   Enriches the map id passed in input with the name, returning a session info struct.
   """
-  @spec enrich_map_id_for_session(Integer.t()) :: {:ok, Map.t()} | {:error, :not_found}
+  @spec enrich_map_id_for_session(non_neg_integer()) :: {:ok, map()} | {:error, :not_found}
   def enrich_map_id_for_session(map_id) do
     case get_map(map_id) do
       nil                   -> {:error, :not_found}
@@ -106,7 +106,7 @@ defmodule Vtm.Chats do
     |> Enum.sort_by(&(&1.inserted_at), :asc)
   end
 
-  @spec get_chat_entries_by_dates(Integer.t(), NaiveDateTime.t(), NaiveDateTime.t()) :: list(ChatEntry.t())
+  @spec get_chat_entries_by_dates(non_neg_integer(), NaiveDateTime.t(), NaiveDateTime.t()) :: list(ChatEntry.t())
   def get_chat_entries_by_dates(map_id, from, to) do
     query = from c in ChatEntry,
       where: c.chat_map_id == ^map_id,

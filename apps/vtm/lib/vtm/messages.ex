@@ -174,7 +174,7 @@ defmodule Vtm.Messages do
     Repo.all(query) |> Enum.map(&remap_message/1)
   end
 
-  @spec message_digest(Integer.t()) :: MessageDigest.t()
+  @spec message_digest(non_neg_integer()) :: MessageDigest.t()
   def message_digest(user_id) do
     query =
       from m in Message,
@@ -195,7 +195,7 @@ defmodule Vtm.Messages do
     end
   end
 
-  @spec get_message(User.t(), String.t()) :: {:ok, Message.t()} | {:error, :not_found}
+  @spec get_message(User.t(), binary()) :: {:ok, Message.t()} | {:error, :not_found}
   def get_message(%{id: user_id}, message_id) do
     message =
       Message

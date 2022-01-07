@@ -13,7 +13,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     [`& .${tooltipClasses.tooltip}`]: {
         // backgroundColor: '#191919',
         // color: 'rgba(0, 0, 0, 0.87)',
-        maxWidth: 220
+        maxWidth: 300
     },
 }));
 
@@ -30,7 +30,8 @@ const ChatInputHelpText = () => (
             Per inserire una frase off, anteponete un <b>+</b> davanti alla frase.
         </Typography>
         <Typography paragraph sx={textStyle}>
-            Per inserire il parlato, circondate la frase tra asterischi, ad esempio *"Frase"*
+            Per inserire il parlato, circondate la frase tra asterischi, ad esempio *"Frase"*, facendo attenzione a non
+            lasciare uno spazio tra l'asterisco e il carattere successivo o precedente (*" ... "* ok, * " ... "* o *" ..." * no).
         </Typography>
     </>
 );

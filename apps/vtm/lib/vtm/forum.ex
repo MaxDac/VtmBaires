@@ -65,7 +65,7 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec check_section(User.t(), Integer.t()) :: :ok | {:error, :illegal_access}
+  @spec check_section(User.t(), non_neg_integer()) :: :ok | {:error, :illegal_access}
   defp check_section(%{role: :master}, _), do: :ok
 
   defp check_section(_, section_id) do
@@ -75,7 +75,7 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec check_section_write(User.t(), Integer.t()) :: :ok | {:error, :illegal_access}
+  @spec check_section_write(User.t(), non_neg_integer()) :: :ok | {:error, :illegal_access}
   defp check_section_write(%{role: :master}, _), do: :ok
 
   defp check_section_write(_, section_id) do
@@ -229,7 +229,7 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec get_forum_thread(User.t(), Integer.t()) :: {:ok, ForumThread.t()} | {:error, :illegal_access}
+  @spec get_forum_thread(User.t(), non_neg_integer()) :: {:ok, ForumThread.t()} | {:error, :illegal_access}
   def get_forum_thread(conn_user, id) do
     query =
       from t in ForumThread,
@@ -266,7 +266,7 @@ defmodule Vtm.Forum do
     |> Repo.one()
   end
 
-  @spec get_section_by_thread(Integer.t()) :: ForumSection.t()
+  @spec get_section_by_thread(non_neg_integer()) :: ForumSection.t()
   defp get_section_by_thread(thread_id) do
     query =
       from t in ForumThread,

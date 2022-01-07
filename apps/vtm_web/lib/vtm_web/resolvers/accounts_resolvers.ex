@@ -5,6 +5,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
   alias VtmAuth.Accounts.SessionInfo
+  alias Vtm.Characters.Character
 
   import VtmAuth.Helpers
 
@@ -25,8 +26,9 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     {:ok, nil}
   end
 
-  def login(_, request, context) do
-    case Authentication.login(request, context) do
+  @spec login(map(), map(), map()) :: {:ok, map()} | {:error, binary()}
+  def login(_, %{email: email, password: password, remember: remember}, _) do
+    case Authentication.login(email, password, remember) do
       {:ok, login_response} ->
         manage_session_character(login_response)
       _ ->
@@ -34,6 +36,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
+  @spec manage_session_character(map()) :: {:ok, map()} | {:error, any()}
   defp manage_session_character(login_response = %{user: user, relogin_id: relogin_id}) do
     with {:ok, _}   <- Accounts.update_user_relogin_id(user, relogin_id),
          character  <- get_user_first_character(user),
@@ -42,6 +45,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     end
   end
 
+  @spec get_user_first_character(User.t()) :: Character.t()
   defp get_user_first_character(user) do
     # Checking whether the user has only one character.
     # In this case, the character will be automatically selected.
@@ -217,9 +221,9 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     old_password: old,
     new_password: new,
     repeat_password: new
-  }, context = %{context: %{current_user: %{id: id}}}) do
+  }, %{context: %{current_user: %{id: id}}}) do
     with {:ok, user}  <- Accounts.get_user(id),
-         {:ok, _}     <- Accounts.authenticate(user.email, old, false, context),
+         {:ok, _}     <- Accounts.authenticate(user.email, old, false),
          {:ok, _}     <- user |> Accounts.update_user(%{password: new}) do
       {:ok, true}
     end

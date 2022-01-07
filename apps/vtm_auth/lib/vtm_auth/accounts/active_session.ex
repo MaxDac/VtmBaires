@@ -6,6 +6,25 @@ defmodule VtmAuth.Accounts.ActiveSession do
 
   alias VtmAuth.Accounts.User
 
+  @type t :: %__MODULE__{
+    last_checked: NaiveDateTime.t(),
+    remember: boolean(),
+    host: binary(),
+    ip: binary(),
+    session_info: map(),
+    completed: boolean(),
+    approved: boolean(),
+    character_id: non_neg_integer(),
+    character_name: binary(),
+    map_id: non_neg_integer(),
+    map_name: binary(),
+    user_id: non_neg_integer(),
+    user: User.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "session_info" do
     field :last_checked, :naive_datetime
     field :remember, :boolean

@@ -63,7 +63,7 @@ defmodule Vtm.StatusChecks do
   @doc """
   This function implements the Rouse Check. It doesn't check whether the character belongs to a particular user.
   """
-  @spec rouse_check(Integer.t()) :: {:ok, String.t()} | {:error, String.t()} | {:error, :not_found}
+  @spec rouse_check(non_neg_integer()) :: {:ok, binary()} | {:error, binary()} | {:error, :not_found}
   def rouse_check(character_id) do
     case rouse_check_effect(character_id) do
       {:ok, :frenzy} ->
@@ -79,7 +79,7 @@ defmodule Vtm.StatusChecks do
   @doc """
   This function applies the damage to a character, returning the current state of the character itself.
   """
-  @spec apply_damage(Integer.t(), Integer.t(), :aggravated | :superficial) :: {:ok, String.t()}
+  @spec apply_damage(non_neg_integer(), non_neg_integer(), :aggravated | :superficial) :: {:ok, binary()}
   def apply_damage(character_id, damage_entity, :superficial) do
     query =
       from c in Character,
@@ -338,7 +338,7 @@ defmodule Vtm.StatusChecks do
   Simulates the character hunting.
   It considers the Herd Advantage while performing a throw of Wits + Survival.
   """
-  @spec hunt(Integer.t()) :: Character.t()
+  @spec hunt(non_neg_integer()) :: {:ok, binary(), Character.t()}
   def hunt(character_id) do
     character = %{last_hunt: last_hunt} = Character |> Repo.get(character_id)
 

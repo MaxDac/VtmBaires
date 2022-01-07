@@ -4,6 +4,21 @@ defmodule VtmAuth.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    email: binary(),
+    name: binary(),
+    password: binary(),
+    role: binary(),
+    needs_new_password: boolean(),
+    banned: boolean(),
+    last_login: NaiveDateTime.t(),
+    relogin_token: binary(),
+    original_id: non_neg_integer(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "users" do
     field :email, :string
     field :name, :string
@@ -13,6 +28,7 @@ defmodule VtmAuth.Accounts.User do
     field :banned, :boolean
     field :last_login, :naive_datetime
     field :relogin_token, :string
+    field :original_id, :string, virtual: true
 
     timestamps()
   end

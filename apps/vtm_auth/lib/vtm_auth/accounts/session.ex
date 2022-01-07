@@ -1,8 +1,22 @@
 defmodule VtmAuth.Accounts.Session do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
   alias VtmAuth.Accounts.User
+
+  @type t :: %__MODULE__{
+    last_checked: NaiveDateTime.t(),
+    remember: boolean(),
+    host: binary(),
+    ip: binary(),
+    session_info: map(),
+    completed: boolean(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "sessions" do
     field :last_checked, :naive_datetime

@@ -3,6 +3,27 @@ defmodule Vtm.Forum.ForumThreadInfo do
 
   use Ecto.Schema
 
+  @type t :: %__MODULE__{
+    title: binary(),
+    description: binary(),
+    on_game: boolean(),
+    can_view: boolean(),
+    can_edit: boolean(),
+    last_post_updated_at: NaiveDateTime.t(),
+    forum_section_title: binary(),
+    creator_user_id: non_neg_integer(),
+    creator_user: VtmAuth.Accounts.User.t(),
+    creator_character_id: non_neg_integer(),
+    creator_character: Vtm.Characters.Character.t(),
+    forum_section_id: non_neg_integer(),
+    forum_section: Vtm.Forum.ForumSection.t(),
+    last_post_id: non_neg_integer(),
+    last_post: Vtm.Forum.ForumPost.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "forum_thread_info" do
     field :title, :string
     field :description, :string

@@ -1,9 +1,22 @@
 defmodule Vtm.Creation.TemplateAttribute do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
   alias Vtm.Creation.Template
   alias Vtm.Characters.Attribute
+
+  @type t :: %__MODULE__{
+    value: non_neg_integer(),
+    template_id: non_neg_integer(),
+    template: Template.t(),
+    attribute_id: non_neg_integer(),
+    attribute: Attribute.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "creation_template_attrs" do
     field :value, :integer

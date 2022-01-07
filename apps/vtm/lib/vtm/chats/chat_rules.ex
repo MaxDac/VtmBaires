@@ -7,6 +7,17 @@ defmodule Vtm.Chats.ChatRules do
   alias Vtm.Chats.ChatMap
   alias VtmAuth.Accounts.User
 
+  @type t :: %__MODULE__{
+    is_owner: boolean(),
+    chat_map_id: non_neg_integer(),
+    chat_map: ChatMap.t(),
+    guest_user_id: non_neg_integer(),
+    guest_user: User.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "chat_rules" do
     field :is_owner, :boolean
 

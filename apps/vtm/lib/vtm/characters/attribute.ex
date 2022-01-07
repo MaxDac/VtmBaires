@@ -6,6 +6,15 @@ defmodule Vtm.Characters.Attribute do
 
   alias Vtm.Characters.AttributeType
 
+  @type t :: %__MODULE__{
+    description: binary(),
+    name: binary(),
+    order: non_neg_integer(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "attributes" do
     field :description, :string
     field :name, :string
@@ -38,12 +47,20 @@ defmodule Vtm.Characters.Discipline do
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.Discipline
 
+  @type t :: %__MODULE__{
+    id: non_neg_integer(),
+    description: binary(),
+    name: binary(),
+    attribute_type_id: non_neg_integer(),
+    attribute_type: AttributeType.t()
+  }
+
   defstruct id: 0, description: "", name: "", attribute_type_id: 0, attribute_type: %AttributeType{}
 
   defp merge_values_only(:__struct__, v1, _), do: v1
   defp merge_values_only(_, _, v2), do: v2
 
-  @spec from_attribute(%{} | %Attribute{}) :: %Discipline{}
+  @spec from_attribute(map() | Attribute.t()) :: Discipline.t()
   def from_attribute(attrs = %Attribute{}) do
     %Discipline{} |> Map.merge(attrs, &merge_values_only/3)
   end
@@ -52,7 +69,7 @@ defmodule Vtm.Characters.Discipline do
     %Discipline{} |> Map.merge(attrs)
   end
 
-  @spec to_attribute(%Discipline{}) :: %Attribute{}
+  @spec to_attribute(Discipline.t()) :: Attribute.t()
   def to_attribute(attrs = %Discipline{}) do
     %Attribute{} |> Map.merge(attrs, &merge_values_only/3)
   end

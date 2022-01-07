@@ -1,9 +1,32 @@
 defmodule Vtm.Messages.Message do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 
   alias VtmAuth.Accounts.User
   alias Vtm.Characters.Character
+
+  @type t :: %__MODULE__{
+    subject: binary(),
+    text: binary(),
+    on_game: boolean(),
+    read: boolean(),
+    hide_for_receiver: boolean(),
+    hide_for_sender: boolean(),
+    sender_name: binary(),
+    sender_user_id: non_neg_integer(),
+    sender_user: User.t(),
+    receiver_user_id: non_neg_integer(),
+    receiver_user: User.t(),
+    sender_character_id: non_neg_integer(),
+    sender_character: Character.t(),
+    receiver_character_id: non_neg_integer(),
+    receiver_character: Character.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "messages" do
     field :subject, :string

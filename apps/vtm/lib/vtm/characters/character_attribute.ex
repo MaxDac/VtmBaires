@@ -7,6 +7,18 @@ defmodule Vtm.Characters.CharacterAttribute do
   alias Vtm.Characters.Character
   alias Vtm.Characters.Attribute
 
+  @type t :: %__MODULE__{
+    value: non_neg_integer(),
+    character_id: non_neg_integer(),
+    attribute_id: non_neg_integer(),
+
+    character: Character.t(),
+    attribute: Attribute.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "character_attributes" do
     field :value, :integer
 

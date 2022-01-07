@@ -4,6 +4,17 @@ defmodule Vtm.Forum.ForumSection do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    title: binary(),
+    description: binary(),
+    on_game: boolean(),
+    can_view: boolean(),
+    can_edit: boolean(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "forum_sections" do
     field :title, :string
     field :description, :string

@@ -8,6 +8,51 @@ defmodule Vtm.Characters.Character do
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
 
+  @type t :: %__MODULE__{
+    name: binary(),
+    avatar: binary(),
+    chat_avatar: binary(),
+    biography: binary(),
+    description: binary(),
+    soundtrack: binary(),
+    off: binary(),
+    is_npc: boolean(),
+    is_complete: boolean(),
+    experience: non_neg_integer(),
+    total_experience: non_neg_integer(),
+    humanity: non_neg_integer(),
+    generation: non_neg_integer(),
+    hunger: non_neg_integer(),
+    health: non_neg_integer(),
+    damage: non_neg_integer(),
+    aggravated_damage: non_neg_integer(),
+    willpower: non_neg_integer(),
+    willpower_damage: non_neg_integer(),
+    stains: non_neg_integer(),
+    blood_potency: non_neg_integer(),
+    last_resonance: binary(),
+    last_hunt: NaiveDateTime.t(),
+    last_resonance_intensity: non_neg_integer(),
+    torpor: boolean(),
+    dead: boolean(),
+    stage: non_neg_integer(),
+    approved: boolean(),
+    advantages: binary(),
+    notes: binary(),
+    discipline_powers: binary(),
+    specialties: binary(),
+    convictions: binary(),
+    objects: binary(),
+    user_id: non_neg_integer(),
+    user: User.t(),
+    clan_id: non_neg_integer(),
+    clan: Clan.t(),
+    predator_type_id: non_neg_integer(),
+    predator_type: PredatorType.t(),
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t(),
+  }
+
   schema "characters" do
     field :name, :string
     field :avatar, :string

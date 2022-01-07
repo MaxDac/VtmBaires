@@ -25,6 +25,7 @@ defmodule VtmWeb.Authentication do
     System.get_env("SUBSCRIPTION_TOKEN_SALT") || "TOKEN SALT"
   end
 
+  @spec sign_token(map()) :: nonempty_binary
   def sign_token(data) do
     Phoenix.Token.sign(VtmWeb.Endpoint, get_user_salt(), data)
   end
@@ -61,7 +62,7 @@ defmodule VtmWeb.Authentication do
     ])
   end
 
-  @spec get_cookie(%Plug.Conn{}, String.t()) :: {:error, :not_found} | {:ok, String.t()}
+  @spec get_cookie(Plug.Conn.t(), binary()) :: {:error, :not_found} | {:ok, binary()}
   def get_cookie(conn, cookie_key) do
     conn = conn |> fetch_cookies()
 
@@ -124,41 +125,38 @@ defmodule VtmWeb.Authentication do
     end
   end
 
-  defp get_relogin_token(true) do
-    with uuid <- VtmAuth.Helpers.get_uuid() do
-      {uuid, uuid |> VtmWeb.Authentication.sign_relogin_token()}
-    end
-  end
-
-  defp get_relogin_token(_), do: ""
-
   @doc """
   Performs the login, calling the Ecto projects.
   """
-  @spec login(%{:email => binary(), :password => binary(), :remember => boolean(), optional(any) => any}, any()) ::
-          {:error, binary()}
-          | {:ok,
-             %{
+  @spec login(binary(), binary(), boolean()) :: {:ok, %{
                relogin_token: binary(),
                relogin_id: binary(),
                token: nonempty_binary(),
                user: User.t()
-             }}
-  def login(%{email: email, password: password, remember: remember}, context) do
-    with {:ok, %{id: id, role: role} = user}  <- Accounts.authenticate(email, password, remember, context),
-         data                                 <- %{id: id, role: AccountsResolvers.parse_role(role, nil)},
-         token                                <- VtmWeb.Authentication.sign_token(data),
-         {relogin_id, relogin_token}          <- get_relogin_token(remember) do
-      {:ok, %{
-        token: token,
-        relogin_token: relogin_token,
-        relogin_id: relogin_id,
-        # Passing the id in this field to allow queries (for adding host and IP to the session)
-        user: user |> Map.put(:original_id, user.id)
-      }}
-    else
-      _ ->
-        {:error, "incorrect username or password"}
+             }} | {:error, :unauthorized}
+  def login(email, password, remember) do
+    case Accounts.authenticate(email, password, remember) do
+      {:error, _} ->
+        {:error, :unauthorized}
+      {:ok, user = %User{id: id, role: role}} ->
+        role = AccountsResolvers.parse_role(role, nil)
+        token = VtmWeb.Authentication.sign_token(%{id: id, role: role})
+        {relogin_id, relogin_token} = get_relogin_token(remember)
+
+        {:ok, %{
+          token: token,
+          relogin_token: relogin_token,
+          relogin_id: relogin_id,
+          # Passing the id in this field to allow queries (for adding host and IP to the session)
+          user: user |> Map.put(:original_id, user.id)
+        }}
     end
   end
+
+  defp get_relogin_token(true) do
+    uuid = VtmAuth.Helpers.get_uuid()
+    {uuid, uuid |> VtmWeb.Authentication.sign_relogin_token()}
+  end
+
+  defp get_relogin_token(_), do: {"", ""}
 end

@@ -1,4 +1,6 @@
 defmodule VtmWeb.Resolvers.StatusResolvers do
+  @moduledoc false
+
   alias Vtm.StatusChecks
   alias Vtm.Characters
 

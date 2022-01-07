@@ -16,12 +16,14 @@ import {isUserMaster} from "../../../services/base-types";
 import {useSession} from "../../../services/session-service";
 import Typography from "@mui/material/Typography";
 import ChatInputHelp from "./ChatInputHelp";
+import {isNullOrEmpty} from "../../../_base/utils";
 
 type ChatInputProps = {
     newChatEntry: string => void;
     newDiceEntry: ChatDiceRequest => void;
 }
 
+const minCharacters = 100;
 const maxCharacters = 1200;
 const warningCharacters = 1000;
 const preferredCharacters = 700;
@@ -41,6 +43,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
 
     const onControlChanged = ({ target: { value: val } }) => {
         setValue(_ => val);
+        setInDices(_ => isNullOrEmpty(val));
     };
 
     const handleControlKeyDown = event => {
@@ -63,8 +66,10 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const isMasterPhrase = () => isUserMaster(user) && value.substring(0, 3) === "***";
 
     const sendInputEntry = () => {
-        newChatEntry(isMasterPhrase() ? value : value.substring(0, maxCharacters));
-        setValue(_ => "");
+        if (value.length >= minCharacters) {
+            newChatEntry(isMasterPhrase() ? value : value.substring(0, maxCharacters));
+            setValue(_ => "");
+        }
     };
 
     const transitionDuration = {
@@ -88,13 +93,18 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     };
 
     const remainingCharacterDescription = () =>
-        `Numero di caratteri rimanenti: ${maxCharacters - charactersCount}, consigliati ${preferredCharacters - charactersCount}`;
+        `Numero di caratteri rimanenti: ${maxCharacters - charactersCount}, consigliati ${preferredCharacters - charactersCount}, minimo ${minCharacters}`;
 
     const CountCharacterMessageWrapper = ({message, color}) => (
         <Box component="span" sx={{color}}>{message}</Box>
     );
 
     const countCharacterMessage = () => {
+        if (charactersCount < minCharacters && charactersCount > 0) {
+            return (<CountCharacterMessageWrapper message={`${minCharacters - charactersCount} caratteri per raggiungere il minimo per azione.`}
+                                                  color="red" />);
+        }
+
         if (charactersCount > maxCharacters) {
             return (<CountCharacterMessageWrapper message={`Numero di caratteri utilizzati eccessivo. La frase sarà tagliata a ${maxCharacters} caratteri.`}
                                                   color="red" />);
@@ -125,8 +135,8 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
                            rows={textboxRows}
                            fullWidth
                            value={value}
-                           onFocus={_ => setInDices(false)}
-                           onBlur={_ => setInDices(true)}
+                           // onFocus={_ => setInDices(false)}
+                           // onBlur={_ => setInDices(true)}
                            sx={{
                                fontFamily: 'Chat',
                                padding: "5px",

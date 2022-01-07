@@ -1,4 +1,6 @@
 defmodule Vtm.InfoRegistry do
+  @moduledoc false
+
   use GenServer
 
   @registry_key :character_info_registry

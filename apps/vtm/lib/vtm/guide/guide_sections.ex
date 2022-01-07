@@ -1,6 +1,16 @@
 defmodule Vtm.Guide.GuideSections do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
+
+  @type t :: %__MODULE__{
+    description: binary(),
+    name: binary(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "guide_sections" do
     field :description, :string

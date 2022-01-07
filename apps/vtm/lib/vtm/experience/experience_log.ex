@@ -4,6 +4,19 @@ defmodule Vtm.Experience.ExperienceLog do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+    change: integer(),
+    character_id: non_neg_integer(),
+    character: Vtm.Characters.Character.t(),
+    master_id: non_neg_integer(),
+    master: VtmAuth.Accounts.User.t(),
+    attribute_id: non_neg_integer(),
+    attribute: Vtm.Characters.Attribute.t(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
+
   schema "experience_logs" do
     field :change, :integer
 

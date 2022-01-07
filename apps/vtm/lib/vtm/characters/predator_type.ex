@@ -1,6 +1,16 @@
 defmodule Vtm.Characters.PredatorType do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
+
+  @type t :: %__MODULE__{
+    description: binary(),
+    name: binary(),
+
+    inserted_at: NaiveDateTime.t(),
+    updated_at: NaiveDateTime.t()
+  }
 
   schema "predator_types" do
     field :description, :string

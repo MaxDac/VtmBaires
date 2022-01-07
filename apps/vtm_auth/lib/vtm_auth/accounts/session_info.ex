@@ -6,6 +6,14 @@ defmodule VtmAuth.Accounts.SessionInfo do
   alias VtmAuth.Accounts.Session
   alias VtmAuth.Accounts.SessionInfo
 
+  @type t :: %__MODULE__{
+    map_id: non_neg_integer(),
+    map_name: binary(),
+    character_id: non_neg_integer(),
+    approved: boolean(),
+    character_name: binary()
+  }
+
   defp to_atom({key, value}) when is_binary(key), do: {String.to_atom(key), value}
   defp to_atom(k), do: k
 
@@ -33,7 +41,7 @@ defmodule VtmAuth.Accounts.SessionInfo do
     }
   end
 
-  @spec extract_from_session(%Session{}) :: {:ok, %SessionInfo{}} | {:error, :not_found}
+  @spec extract_from_session(Session.t()) :: {:ok, SessionInfo.t()} | {:error, :not_found}
   def extract_from_session(%{session_info: session_info}) when not is_nil(session_info) do
     {:ok, struct(SessionInfo, session_info |> convert_keys())}
   end

@@ -3,7 +3,7 @@ defmodule VtmAuth.Helpers do
   Converts a map to a map with only atom keys.
   """
 
-  @spec map_to_atom_map(Map.t()) :: Map.t()
+  @spec map_to_atom_map(map()) :: map()
   def map_to_atom_map(map) do
     map
     |> Map.new(fn
@@ -12,7 +12,7 @@ defmodule VtmAuth.Helpers do
     end)
   end
 
-  @spec atom_map_to_map(Map.t()) :: Map.t()
+  @spec atom_map_to_map(map()) :: map()
   def atom_map_to_map(struct) when is_struct(struct) do
     struct
     |> Map.from_struct()
@@ -30,7 +30,7 @@ defmodule VtmAuth.Helpers do
   @doc """
   Generates a random string of specified length.
   """
-  @spec generate_password(Number.t()) :: String.t()
+  @spec generate_password(integer()) :: binary()
   def generate_password(length) do
     :crypto.strong_rand_bytes(length)
     |> Base.url_encode64
