@@ -82,7 +82,8 @@ const CreateNewThread = ({sectionId}: Props): any => {
         <ThreadForm title={getTitle()}
                     description={getDescription()}
                     goBack={goBack}
-                    formik={formik} />
+                    formik={formik}
+                    buttonText="Crea Thread" />
     );
 };
 

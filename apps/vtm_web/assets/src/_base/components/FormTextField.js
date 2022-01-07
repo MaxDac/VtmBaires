@@ -11,6 +11,8 @@ type FormTextFieldProps = {
     autoComplete?: ?string;
     label?: ?string;
     rows?: ?number;
+    minRows?: ?number;
+    maxRows?: ?number;
     fullWidth?: ?boolean;
     className?: ?string;
     validate?: ?(string => string);
@@ -36,6 +38,8 @@ const FormTextField = (props: FormTextFieldProps): any => {
             autoComplete={props.autoComplete ?? ""}
             multiline={multiRows}
             rows={rows}
+            minRows={props.minRows}
+            maxRows={props.maxRows}
             value={props.formik.values[props.fieldName]}
             onChange={props.formik.handleChange}
             error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}

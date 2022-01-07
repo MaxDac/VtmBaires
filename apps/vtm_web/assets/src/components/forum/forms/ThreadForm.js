@@ -11,9 +11,10 @@ type Props = {
     description: string;
     goBack: () => void;
     formik: any;
+    buttonText: string;
 }
 
-const ThreadForm = ({title, description, goBack, formik}: Props): any => {
+const ThreadForm = ({title, description, goBack, formik, buttonText}: Props): any => {
     const theme = useTheme();
 
     return (
@@ -25,7 +26,7 @@ const ThreadForm = ({title, description, goBack, formik}: Props): any => {
                 marginTop: "10px",
             }} noValidate onSubmit={formik.handleSubmit}>
                 <FormTextField formik={formik} fieldName="title" label="Titolo" fullWidth />
-                <FormTextField formik={formik} fieldName="description" label="Descrizione" fullWidth rows={4} />
+                <FormTextField formik={formik} fieldName="description" label="Descrizione" fullWidth />
                 <Button
                     type="submit"
                     fullWidth
@@ -34,7 +35,7 @@ const ThreadForm = ({title, description, goBack, formik}: Props): any => {
                     sx={{
                         margin: theme.spacing(3, 0, 2),
                     }}>
-                    Crea thread
+                    {buttonText}
                 </Button>
             </form>
         </ForumFormLayout>

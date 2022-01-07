@@ -74,7 +74,8 @@ const ModifyThread = ({sectionId, threadId}: Props): any => {
         <ThreadForm title={getTitle()}
                     description={getDescription()}
                     goBack={goBack}
-                    formik={formik} />
+                    formik={formik}
+                    buttonText="Modifica Thread" />
     );
 };
 

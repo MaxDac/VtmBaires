@@ -21,7 +21,11 @@ const ForumPostForm = ({title, confirmButtonText, goBack, formik}: Props): any =
                 width: '100%', // Fix IE 11 issue.
                 marginTop: "10px",
             }} noValidate onSubmit={formik.handleSubmit}>
-                <FormTextField formik={formik} fieldName="text" label="Testo dell'intervento" fullWidth rows={4} />
+                <FormTextField formik={formik}
+                               fieldName="text"
+                               label="Testo dell'intervento"
+                               fullWidth
+                               minRows={4} />
                 <Button
                     type="submit"
                     fullWidth
