@@ -25,6 +25,7 @@ const ForumPostForm = ({title, confirmButtonText, goBack, formik}: Props): any =
                                fieldName="text"
                                label="Testo dell'intervento"
                                fullWidth
+                               multiline
                                minRows={4} />
                 <Button
                     type="submit"
