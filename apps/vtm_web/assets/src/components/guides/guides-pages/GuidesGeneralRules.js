@@ -130,8 +130,8 @@ const GuidesGeneralRules = (props: Props): any => {
                         sensibilit&agrave;.
                         <ul>
                             <li style={liStyle}>
-                                A tutti, ricordiamo che le cupe e terrificanti tematiche espresse dai personaggi 
-                                <b>non sono</b> e <b>non devono essere</b> le stesse dei giocatori. L'orrore,
+                                A tutti, ricordiamo che le cupe e terrificanti tematiche espresse dai
+                                personaggi <b>non sono</b> e <b>non devono essere</b> le stesse dei giocatori. L'orrore,
                                 la tragedia e la nefandezza delle giocate deve servire ad <b>esorcizzare</b> queste 
                                 tematiche, non ad indulgervi. Giocare, per un giocatore, dev'essere come assistere
                                 ad un film: si deve esercitare estremo distacco.<br />

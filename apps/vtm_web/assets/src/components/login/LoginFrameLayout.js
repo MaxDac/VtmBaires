@@ -39,14 +39,6 @@ const LoginFrameLayout = (props: Props): any => {
             <Typography component="h1" variant="h5">
                 {props.title}
             </Typography>
-            <Typography paragraph sx={{
-                fontSize: "14px",
-                paddingTop: "10px"
-            }}>
-                Il sito &egrave; attualmente in alpha test. Questo vuol dire che non &egrave; garantito il funzionamento
-                al 100% ed &egrave; possibile che alcuni dati verranno persi nel corso dello sviluppo, anche senza
-                preavviso.
-            </Typography>
             <Box sx={{
                 width: "100%",
                 background: loginFrameBackgroundColor
