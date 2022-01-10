@@ -4,14 +4,13 @@ import React from "react";
 import useForumSections from "../../services/queries/forum/GetForumSectionsQuery";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import ForumLayout from "./layout/ForumLayout";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {MainRoutes} from "../MainRouter";
-import { ForumSectionDescription } from "./layout/ForumListItem";
 import Box from "@mui/material/Box";
+import ForumListItemText from "./layout/ForumListItemText";
 
 const ForumSections = (): any => {
     const history = useHistory();
@@ -32,28 +31,14 @@ const ForumSections = (): any => {
                 <ListItem alignItems="flex-start"
                           button
                           onClick={_ => toSection(s?.section?.id)}>
-                    <ListItemText inset={!s?.hasNewPosts}
-                                  primary={s?.section?.title}
-                                  secondary={<ForumSectionDescription description={s?.section?.description}
-                                                                      newMessages={s?.hasNewPosts}
-                                                                      lastThreadId={s?.lastThread?.id}
-                                                                      lastThreadTitle={s?.lastThread?.title}
-                                                                      lastThreadUpdatedAt={s?.lastThread?.updatedAt} />}
-                                  sx={{
-                                      color: "white",
-                                      fontFamily: 'DefaultTypewriter',
-                                      fontSize: "24px",
-                                      padding: "5px"
-                                  }} />
+                    <ForumListItemText title={s?.section?.title}
+                                       hasNewMessages={s?.hasNewPosts}
+                                       description={s?.section?.description}
+                                       lastThread={s?.lastThread} />
                 </ListItem>
                 <Divider />
             </Box>
         ));
-        
-        
-        // <ForumListItem key={s?.id}
-        //                           item={s}
-        //                           onClick={toSection} />);
 
     return (
         <ForumLayout title="Forum (beta)">

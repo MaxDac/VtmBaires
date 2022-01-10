@@ -6,7 +6,7 @@ import useForumSections from "../../services/queries/forum/GetForumSectionsQuery
 import {firstOrDefault} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadsQuery} from "../../services/queries/forum/GetForumThreadsQuery";
-import ForumItemSelector from "./layout/ForumListItem";
+import ForumListItem from "./layout/ForumListItem";
 import type {GetForumThreadsQuery} from "../../services/queries/forum/__generated__/GetForumThreadsQuery.graphql";
 import Grid from "@mui/material/Grid";
 import {useHistory} from "react-router-dom";
@@ -55,7 +55,7 @@ const ForumSection = ({sectionId}: Props): any => {
     const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => response?.threads
-        ?.map(s => <ForumItemSelector key={s?.thread?.id}
+        ?.map(s => <ForumListItem key={s?.thread?.id}
                                       item={s?.thread}
                                       hasNewPosts={s?.hasNewPosts}
                                       internal={true}
