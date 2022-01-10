@@ -66,7 +66,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const isMasterPhrase = () => isUserMaster(user) && value.substring(0, 3) === "***";
 
     const sendInputEntry = () => {
-        if (value.length >= minCharacters) {
+        if (isUserMaster(user) || value.length >= minCharacters) {
             newChatEntry(isMasterPhrase() ? value : value.substring(0, maxCharacters));
             setValue(_ => "");
         }
