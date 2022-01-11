@@ -55,6 +55,15 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
     const [user,] = useSession();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
 
+    // Hack
+    // This variable controls the navigation flow.
+    // When the ListItem element is of type button, it's impossible to select the secondary actions because their
+    // events are triggered BEFORE the ListItem click event, this way the route gets messed up as well
+    // (Current page -> secondary action -> ListItem button action)
+    // By using this variable, I can control the flow: if any of the second action is selected, this variable will be
+    // set to *true*, "disabling" in fact the ListItem event!
+    // The state was not used because the new value didn't get refreshed between the two different events, and because
+    // when the component will be re-rendered, it will have to be equal to false.
     let holdAction = false;
 
     const isUserMaster = () => user?.role === "MASTER";
