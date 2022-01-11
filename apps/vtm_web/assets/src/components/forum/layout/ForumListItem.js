@@ -1,7 +1,6 @@
 // @flow
 
-import React, {useContext, useState} from "react";
-import Typography from "@mui/material/Typography";
+import React, {useContext} from "react";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import {handleMutation} from "../../../_base/utils";
@@ -11,54 +10,14 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Stack from "@mui/material/Stack";
 import {UtilityContext} from "../../../contexts";
 import DeleteThreadMutation from "../../../services/mutations/forum/DeleteThreadMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
-import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import ForumListItemText from "./ForumListItemText";
-
-type ForumSectionDescriptionProps = {
-    description: ?string;
-    newMessages: ?boolean;
-    lastThreadId: ?string;
-    lastThreadTitle: ?string;
-    lastThreadUpdatedAt: ?string;
-}
-
-export const ForumSectionDescription = ({
-                                            description,
-                                            newMessages,
-                                            lastThreadId,
-                                            lastThreadTitle,
-                                            lastThreadUpdatedAt
-}: ForumSectionDescriptionProps): any => (
-    <Stack direction="row" justifyContent="space-between" sx={{width: "calc(100% - 80px)"}}>
-        <Typography sx={{
-            fontFamily: 'DefaultTypewriter',
-            padding: "5px",
-            color: "white"
-        }} variant="body2">
-            {description} {newMessages ? (<b><span style={{color: "#C31313"}}>(Nuovi Messaggi)</span></b>) : (<></>)}
-        </Typography>
-        { lastThreadId != null
-            ? (
-                <Typography sx={{
-                    fontFamily: 'DefaultTypewriter',
-                    padding: "5px",
-                    color: "gray"
-                }} variant="body2">
-                    Ultimo thread: {defaultFormatDateAndTime(lastThreadUpdatedAt)} - {lastThreadTitle}
-                </Typography>
-            )
-            : (<></>)
-        }
-    </Stack>
-);
 
 export type ForumItemProps = {
     item: ?{|
@@ -95,32 +54,28 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
     const environment = useRelayEnvironment();
     const [user,] = useSession();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
-    const [holdAction, setHoldAction] = useState(false);
+
+    let holdAction = false;
 
     const isUserMaster = () => user?.role === "MASTER";
 
     const isUserThreadCreator = () => user?.id != null && item?.creatorUser?.id != null && user.id === item.creatorUser.id;
 
     const accessThreadEventHandler = _ => {
-        console.debug("hold action", holdAction);
-        setTimeout(() => {
-            console.debug("hold action", holdAction);
-            if (!holdAction) {
-                onClick(item?.id);
-            }
-        }, 100);
+        if (!holdAction) {
+            onClick(item?.id);
+        }
     }
 
     const modifyThread = () => {
-        console.debug("passing");
-        setHoldAction(true);
+        holdAction = true;
         if (item?.id != null && item?.forumSection?.id != null) {
             history.push(MainRoutes.modifyForumThread(item.forumSection.id, item.id));
         }
     };
 
     const deleteThread = () => {
-        setHoldAction(true);
+        holdAction = true;
         if (item?.id != null) {
             const threadId = item.id;
 

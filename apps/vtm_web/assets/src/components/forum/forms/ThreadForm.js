@@ -22,7 +22,7 @@ const ThreadForm = ({title, description, goBack, formik, buttonText}: Props): an
                          description={description}
                          goBack={goBack}>
             <form style={{
-                width: '100%', // Fix IE 11 issue.
+                width: '100%',
                 marginTop: "10px",
             }} noValidate onSubmit={formik.handleSubmit}>
                 <FormTextField formik={formik} fieldName="title" label="Titolo" fullWidth />

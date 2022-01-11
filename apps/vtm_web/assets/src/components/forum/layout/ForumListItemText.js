@@ -2,7 +2,7 @@
 
 import React from "react";
 import ListItemText from "@mui/material/ListItemText";
-import {ForumSectionDescription} from "./ForumListItem";
+import ForumSectionDescription from "./ForumSectionDescription";
 
 type Props = {
     title: ?string;
@@ -23,6 +23,9 @@ const ForumListItemText = ({title, hasNewMessages, description, lastThread}: Pro
                           padding: "5px",
                           color: "white",
                           fontSize: "1.2rem"
+                      }}
+                      secondaryTypographyProps={{
+                          component: "div"
                       }}
                       secondary={<ForumSectionDescription newMessages={hasNewMessages}
                                                           description={description}
