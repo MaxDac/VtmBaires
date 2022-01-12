@@ -76,6 +76,8 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :predator_type, :predator_type
     field :last_resonance, :string
     field :last_hunt, :date_time
+    field :is_awake, :boolean
+    field :last_awake, :date_time
     field :last_resonance_intensity, :integer
   end
 
@@ -257,6 +259,14 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :get_creation_templates, list_of(:creation_template) do
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       resolve &CharacterResolvers.get_creation_templates/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    field :is_character_awake, :boolean do
+      arg :character_id, :id
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve parsing_node_ids(&CharacterResolvers.is_character_awake/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
   end

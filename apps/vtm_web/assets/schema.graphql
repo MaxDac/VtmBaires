@@ -65,6 +65,14 @@ type AttributeType implements Node {
   section: String
 }
 
+input AwakeInput {
+  characterId: ID!
+}
+
+type AwakePayload {
+  result: String
+}
+
 input ChangeCharacterAttributeInput {
   attributeId: ID!
   characterId: ID!
@@ -165,8 +173,10 @@ type Character implements Node {
 
   """The ID of an object"""
   id: ID!
+  isAwake: Boolean
   isComplete: Boolean
   isNpc: Boolean
+  lastAwake: DateTime
   lastHunt: DateTime
   lastResonance: String
   lastResonanceIntensity: Int
@@ -595,6 +605,7 @@ type RootMutationType {
   applyTemplateToCharacter(input: ApplyTemplateToCharacterInput!): ApplyTemplateToCharacterPayload
   approveCharacter(characterId: ID!, reason: String): Boolean
   assignNpcAttributes(input: AssignNpcAttributesInput!): AssignNpcAttributesPayload
+  awake(input: AwakeInput!): AwakePayload
   bookChatMap(chatId: ID!): ChatLocation
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
@@ -673,6 +684,7 @@ type RootQueryType {
   getSessionCharacter: Character
   hasUserAccessToMap(chatId: ID): Boolean
   hasUserAlreadyBooked: Boolean
+  isCharacterAwake(characterId: ID): Boolean
   mainMaps: [ChatLocation]
   map(id: ID): ChatLocation
   mapAdminChatEntries(from: DateTime, mapId: ID, to: DateTime): [MapChatEntry]

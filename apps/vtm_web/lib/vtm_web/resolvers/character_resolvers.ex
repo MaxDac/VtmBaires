@@ -183,6 +183,10 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
+  def is_character_awake(%{character_id: id }, %{context: %{current_user: user}}) do
+    {:ok, Characters.is_character_awake(id |> String.to_integer())}
+  end
+
   def create_character(_, %{request: request = %{clan_id: clan_id}}, %{context: %{current_user: current_user}}) do
     get_new_request =
       fn clan_id ->

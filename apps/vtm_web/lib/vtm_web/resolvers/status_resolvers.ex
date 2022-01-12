@@ -78,6 +78,14 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     |> Characters.update_character(request)
   end
 
+  def awake(%{character_id: character_id}, _) do
+    with {:ok, result}  <- character_id
+      |> String.to_integer()
+      |> StatusChecks.awake_character() do
+      {:ok, %{result: result}}
+    end
+  end
+
   def hunt(%{character_id: character_id}, _) do
     with c_id               <- character_id |> String.to_integer(),
          {:ok, message, _}  <- StatusChecks.hunt(c_id) do

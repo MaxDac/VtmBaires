@@ -31,6 +31,7 @@ import {getFileTextFromChatEntries} from "./chat-helpers";
 import {downloadFile} from "../../_base/file-utils";
 import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
+import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
 
 type ChatProps = {
     map: Map
@@ -49,6 +50,32 @@ const Chat = ({id}: {id: string}): any => {
             Non hai accesso a questa chat
         </h2>
     );
+};
+
+const ShowChatInput = ({character, characterId, onNewEntry, onNewDiceEntry}) => {
+    const isCharacterAwake = useIsCharacterAwake(characterId, 1);
+
+    if (!isCharacterAwake) {
+        return (
+            <Typography>
+                Devi risvegliare il personaggio per poter giocare. Una volta risvegliato, potresti dover aggiornare
+                la pagina.
+            </Typography>
+        );
+    }
+
+    if (character?.approved) {
+        return (
+            <ChatInput newChatEntry={onNewEntry}
+                       newDiceEntry={onNewDiceEntry} />
+        );
+    }
+
+    return (
+        <Typography>
+            Il tuo personaggio non &egrave; ancora stato accettato.
+        </Typography>
+    )
 };
 
 const ChatInternal = ({map}: ChatProps): any => {
@@ -155,24 +182,26 @@ const ChatInternal = ({map}: ChatProps): any => {
                 chatMapId: mapId
             }));
 
-    const downloadChat = () => {
-        const fileText = getFileTextFromChatEntries(initialEntries.concat(additionalEntries));
-        downloadFile("chat.txt", fileText);
-    };
-
     const showChatInput = () => {
-        if (character?.approved) {
+        if (character?.id != null) {
             return (
-                <ChatInput newChatEntry={onNewEntry}
-                           newDiceEntry={onNewDiceEntry} />
+                <ShowChatInput characterId={character.id}
+                               character={character}
+                               onNewEntry={onNewEntry}
+                               onNewDiceEntry={onNewDiceEntry} />
             );
         }
 
         return (
             <Typography>
-                Il tuo personaggio non &egrave; ancora stato accetato.
+                Non hai selezionato nessun personaggio.
             </Typography>
-        )
+        );
+    };
+
+    const downloadChat = () => {
+        const fileText = getFileTextFromChatEntries(initialEntries.concat(additionalEntries));
+        downloadFile("chat.txt", fileText);
     };
 
     const showChatMasterModal = () => {

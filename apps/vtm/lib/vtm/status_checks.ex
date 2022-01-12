@@ -235,6 +235,27 @@ defmodule Vtm.StatusChecks do
   defp parse_throw([x | rest], tens, successes, ones) when x >= 6, do: parse_throw(rest, tens, successes + 1, ones)
   defp parse_throw([_ | rest], tens, successes, ones), do: parse_throw(rest, tens, successes, ones)
 
+  @spec awake_character(non_neg_integer()) :: {:error, any()} | {:ok, binary()}
+  def awake_character(character_id) do
+    with {:ok, result}  <- awake_character_effect(character_id),
+         {:ok, _}       <- Character
+          |> Repo.get(character_id)
+          |> Character.changeset(%{last_awake: NaiveDateTime.utc_now()})
+          |> Repo.update() do
+      {:ok, result}
+    end
+  end
+
+  defp awake_character_effect(character_id) do
+    case {character_id |> Characters.is_character_awake(), character_id |> rouse_check_effect(false)} do
+      {true, _}             -> {:error, "Il personaggio è già sveglio."}
+      {_, {:ok, :no_rouse}} -> {:ok, "Il personaggio si sveglia senza avvertire i morsi della Fame."}
+      {_, {:ok, :rouse}}    -> {:ok, "Il personaggio si sveglia avvertendo i morsi della Fame."}
+      {_, {:ok, :frenzy}}   -> {:ok, "Il personaggio si sveglia sulla soglia della frenesia!"}
+      e                     -> e
+    end
+  end
+
   defp update_hunger(character = %{hunger: hunger}, updater) do
     character
     |> Character.update_changeset(%{hunger: updater.(less_than_5(hunger))})
@@ -243,7 +264,7 @@ defmodule Vtm.StatusChecks do
 
   defp increase_hunger(character, amount), do: update_hunger(character, &(&1 + amount))
 
-  defp decrease_hunger(character, amount), do: update_hunger(character, fn h -> at_least_one(h - amount) end)
+  defp decrease_hunger(character, amount), do: update_hunger(character, &at_least_one(&1 - amount))
 
   def get_hunt_attributes_amount(%{id: character_id}) do
     character_id
