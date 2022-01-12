@@ -32,6 +32,8 @@ defmodule Vtm.Characters.Character do
     blood_potency: non_neg_integer(),
     last_resonance: binary(),
     last_hunt: NaiveDateTime.t(),
+    last_awake: NaiveDateTime.t(),
+    is_awake: boolean(),
     last_resonance_intensity: non_neg_integer(),
     torpor: boolean(),
     dead: boolean(),
@@ -77,6 +79,8 @@ defmodule Vtm.Characters.Character do
     field :blood_potency, :integer
     field :last_resonance, :string
     field :last_hunt, :naive_datetime
+    field :last_awake, :naive_datetime
+    field :is_awake, :boolean, virtual: true
     field :last_resonance_intensity, :integer
     field :torpor, :boolean
     field :dead, :boolean
@@ -159,6 +163,7 @@ defmodule Vtm.Characters.Character do
       :last_resonance,
       :last_resonance_intensity,
       :last_hunt,
+      :last_awake,
       :torpor,
       :dead
     ])
@@ -203,6 +208,7 @@ defmodule Vtm.Characters.Character do
       :last_resonance,
       :last_resonance_intensity,
       :last_hunt,
+      :last_awake,
       :torpor,
       :dead
     ])

@@ -44,6 +44,8 @@ export const characterStatsFragment: any = graphql`
         willpowerDamage
         stains
         bloodPotency
+        isAwake
+        lastAwake
         lastHunt
         lastResonance
         lastResonanceIntensity

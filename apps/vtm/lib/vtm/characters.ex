@@ -15,6 +15,8 @@ defmodule Vtm.Characters do
   alias Vtm.Characters.AttributeType
   alias VtmAuth.Accounts.SessionInfo
 
+  @awake_time 60 * 60 * 24 * -1
+
   @spec all_characters_query() :: Ecto.Query.t()
   defp all_characters_query() do
     Character
@@ -182,11 +184,41 @@ defmodule Vtm.Characters do
     |> Repo.exists?()
   end
 
+  @spec is_character_awake(non_neg_integer()) :: boolean()
+  def is_character_awake(character_id) do
+    with %{last_awake: last_awake} <- Character |> Repo.get(character_id) do
+      is_character_awake_time_yesterday(last_awake)
+    end
+  end
+
+  @spec is_character_awake_time_yesterday(NaiveDateTime.t()) :: boolean()
+  defp is_character_awake_time_yesterday(last_awake) when not is_nil(last_awake) do
+    yesterday = NaiveDateTime.add(NaiveDateTime.utc_now(), @awake_time)
+    NaiveDateTime.compare(last_awake, yesterday) == :gt
+  end
+
+  defp is_character_awake_time_yesterday(_), do: false
+
+  @spec add_is_awake_to_character(Character.t()) :: Character.t()
+  defp add_is_awake_to_character(character = %{last_awake: last_awake}) do
+    is_awake = is_character_awake_time_yesterday(last_awake)
+
+    character
+    |> Map.put(:is_awake, is_awake)
+  end
+
+  @spec map_character_info(Character.t()) :: Character.t()
+  defp map_character_info(character) do
+    character
+    |> add_is_awake_to_character()
+  end
+
   def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
     |> preload(:predator_type)
     |> Repo.get(id)
+    |> map_character_info()
   end
 
   def get_specific_character(%{id: user_id}, id) do
@@ -198,6 +230,7 @@ defmodule Vtm.Characters do
     Repo.one(query)
     |> Repo.preload(:clan)
     |> Repo.preload(:predator_type)
+    |> map_character_info()
   end
 
   def get_specific_character(_, _) do
