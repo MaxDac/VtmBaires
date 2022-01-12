@@ -36,7 +36,7 @@ const GuidesHome = (): any => {
                 per poter interpretare un vampiro appena Abbracciato (trasformato in vampiro). All'interno del sito,
                 poi, le guide e i narratori saranno a vostra disposizione per chiarire qualsiasi dubbio. C'&egrave;
                 anche una comunit&agrave;
-                su <a href="https://discord.gg/nhk6rkjJDA" target="_blank" rel="noreferrer">Discord</a> su cui potrete
+                su <a href="https://discord.gg/3wHD3er8Du" target="_blank" rel="noreferrer">Discord</a> su cui potrete
                 chiarire i vostri dubbi.
             </Typography>
 

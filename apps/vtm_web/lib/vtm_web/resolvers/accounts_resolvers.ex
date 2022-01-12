@@ -1,6 +1,8 @@
 defmodule VtmWeb.Resolvers.AccountsResolvers do
   @moduledoc false
 
+  require Logger
+
   alias VtmWeb.Authentication
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
@@ -90,6 +92,15 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
     """)
   end
 
+  defp send_mail_and_log(mail) do
+    case Mailer.deliver(mail) do
+      ok_response = {:ok, _}  -> ok_response
+      e ->
+        Logger.error("There was an error while sending the email: #{inspect e}")
+        e
+    end
+  end
+
   def create(_, request = %{email: email, name: user_name}, _) do
     new_password = generate_password(10)
 
@@ -100,7 +111,7 @@ defmodule VtmWeb.Resolvers.AccountsResolvers do
 
     with {:ok, %User{id: id}} <- Accounts.create_user(request),
          mail                 <- UserEmail.welcome(user_name, email, new_password),
-         {:ok, _}             <- Mailer.deliver(mail) do
+         {:ok, _}             <- send_mail_and_log(mail) do
       Task.start(fn -> send_welcome_message(id) end)
       {:ok, %{id: id}}
     end

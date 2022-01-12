@@ -9,7 +9,7 @@ const JoinUsOnDiscord = (): any => {
         <Box sx={{
             textAlign: "center"
         }}>
-            <a href="https://discord.gg/nhk6rkjJDA"
+            <a href="https://discord.gg/3wHD3er8Du"
                target="_blank"
                rel="noreferrer">
                 <img src="/discord.svg" style={{
@@ -21,7 +21,7 @@ const JoinUsOnDiscord = (): any => {
                     whiteSpace: "break-spaces"
                 }}>
                     Stai riscontrando un problema? Contattaci su&nbsp;
-                    <a href="https://discord.gg/nhk6rkjJDA"
+                    <a href="https://discord.gg/3wHD3er8Du"
                        target="_blank"
                        rel="noreferrer">
                         <Typography component="span" variant="body2" sx={{
