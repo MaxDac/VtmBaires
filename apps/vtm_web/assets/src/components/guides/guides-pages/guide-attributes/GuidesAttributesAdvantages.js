@@ -20,6 +20,24 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): any => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
+                I Background sono Vantaggi che determinano il potere del Cainita sul mondo mortale. Mentre le altre
+                caratteristiche, inclusi Pregi e Difetti, sono profondamente legati alla natura stessa del personaggio,
+                i Background possono facilmente cambiare nel tempo se il personaggio si impegna nella loro conquista,
+                o se eventi fuori dal controllo del Cainita glieli sottraggono. Data la natura mutevole di queste
+                caratteristiche, <b>parte del regolamento verr&agrave; gestito nel Forum interno</b>, cos&igrave; come
+                l'elenco dei background gi&agrave; acquisiti dagli altri personaggi.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                In generale, poi, il Narratore potr&agrave; dover cambiare i Background scelti per poter inserire
+                correttamente il personaggio nell'ambientazione. Come regola generale, comunque, <b>non sar&agrave;
+                consentito in fase di creazione indicare un alleato / una influenza / un seguace con un punteggio
+                maggiore di 2</b>. Questa regola vale anche per le diverse aree di influenza dei background, in fase di
+                creazione il personaggio non potr&agrave; possedere pi&grave; di 3 pallini in una singola area di
+                influenza (esempio: Politica, Criminalit&agrave;, ...).
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
                 <ul>
                     {showAttributes("Advantage")}
                 </ul>
