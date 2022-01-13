@@ -73,7 +73,23 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
         }
 
         return (<></>);
-    }
+    };
+
+    const showBloodPotency = () => {
+        if (characterIsVampire(sheet)) {
+            return (
+                <Grid item xs={12} sx={bottomLinesStyle}>
+                    <AttributeStat stat={{
+                        name: "Potenza del Sangue",
+                        value: sheet?.bloodPotency,
+                        maxValue: 5
+                    }} damage={0} />
+                </Grid>
+            );
+        }
+
+        return (<></>);
+    };
 
     return (
         <>
@@ -99,6 +115,7 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
                     maxValue: 10
                 }} damage={sheet?.stains ?? 0} />
             </Grid>
+            {showBloodPotency()}
             {showHunger()}
         </>
     );
