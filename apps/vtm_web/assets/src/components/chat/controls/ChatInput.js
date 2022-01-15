@@ -39,12 +39,15 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
 
     const fontSize = showMiniFont ? "16px" : "18px";
-    const textboxRows = showMiniFont ? 3 : 4;
+    const textBoxRows = showMiniFont ? 3 : 4;
 
-    const onControlChanged = ({ target: { value: val } }) => {
+    const setNewValue = val => {
         setValue(_ => val);
         setInDices(_ => isNullOrEmpty(val));
-    };
+        setCharactersCount(val.length);
+    }
+
+    const onControlChanged = ({ target: { value: val } }) => setNewValue(val);
 
     const handleControlKeyDown = event => {
         const {key} = event;
@@ -65,10 +68,12 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
 
     const isMasterPhrase = () => isUserMaster(user) && value.substring(0, 3) === "***";
 
+    const isOffPhrase = () => value.substring(0, 1) === "+";
+
     const sendInputEntry = () => {
-        if (isUserMaster(user) || value.length >= minCharacters) {
+        if (isMasterPhrase() || isOffPhrase() || value.length >= minCharacters) {
             newChatEntry(isMasterPhrase() ? value : value.substring(0, maxCharacters));
-            setValue(_ => "");
+            setNewValue("");
         }
     };
 
@@ -100,7 +105,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
     );
 
     const countCharacterMessage = () => {
-        if (charactersCount < minCharacters && charactersCount > 0) {
+        if (charactersCount < minCharacters && charactersCount > 0 && !isOffPhrase() && !isMasterPhrase()) {
             return (<CountCharacterMessageWrapper message={`${minCharacters - charactersCount} caratteri per raggiungere il minimo per azione.`}
                                                   color="red" />);
         }
@@ -132,7 +137,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
             <Box>
                 <InputBase placeholder="Scrivi qui la tua azione"
                            multiline
-                           rows={textboxRows}
+                           rows={textBoxRows}
                            fullWidth
                            value={value}
                            // onFocus={_ => setInDices(false)}

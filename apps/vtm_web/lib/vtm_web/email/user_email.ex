@@ -17,7 +17,7 @@ defmodule VtmWeb.UserEmail do
     <p>Per accedere la prima volta al sito, puoi usare la seguente password: <b>#{password}</b></p>
     <p>Ti consigliamo di cambiare la tua password immediatamente, accedendo alle <b>Opzioni</b> nel
     menu del sito una volta entrato.</p>
-    <p>Se riscontri problemi di accesso, o qualunque altro problema, contattaci su <a href="https://discord.gg/nhk6rkjJDA">Discord</a></p>
+    <p>Se riscontri problemi di accesso, o qualunque altro problema, contattaci su <a href="https://discord.gg/3wHD3er8Du">Discord</a></p>
     """)
     |> text_body("""
     Benvenuto!\r\n
@@ -29,7 +29,7 @@ defmodule VtmWeb.UserEmail do
     menu del sito una volta entrato.
     \r\n
     \r\n
-    Se riscontri problemi di accesso, o qualunque altro problema, contattaci su Discord a questo link: https://discord.gg/nhk6rkjJDA
+    Se riscontri problemi di accesso, o qualunque altro problema, contattaci su Discord a questo link: https://discord.gg/3wHD3er8Du
     """)
   end
 

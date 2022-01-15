@@ -183,7 +183,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     end
   end
 
-  def is_character_awake(%{character_id: id }, %{context: %{current_user: user}}) do
+  def is_character_awake(%{character_id: id }, _) do
     {:ok, Characters.is_character_awake(id |> String.to_integer())}
   end
 
@@ -509,7 +509,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
                character_id: character_id |> String.to_integer(),
                attribute_id: attribute_id,
                master_id: user_id,
-               change: expenditure
+               change: expenditure * -1
              }) do
           {:ok, %{result: character}}
         end

@@ -196,7 +196,7 @@ const GuidesCreation = (): any => {
                         <ul>
                             <li><b>Specialit&agrave;</b>: Intimidire (Rapina) e Rissa (Lotta)</li>
                             <li><b>Disciplina</b>: Potenza o Velocit&agrave;</li>
-                            <li><b>Pregio</b>: tre pallini di <b>Conoscenze</b></li>
+                            <li><b>Pregio</b>: tre pallini di <b>Contatti</b> nella Criminalit&agrave;</li>
                             <li><b>Difetto</b>: sottrae un pallino di Umanit&agrave;</li>
                         </ul>
                     </li>

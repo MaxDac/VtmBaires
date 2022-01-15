@@ -144,10 +144,16 @@ const MessageTemplate = ({
             <Grid container>
                 {typeSelector()}
                 <Grid item xs={12}>
-                    <FormTextField formik={formik} fieldName="subject" label="Titolo" />
+                    <FormTextField formik={formik}
+                                   fieldName="subject"
+                                   label="Titolo" />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormTextField formik={formik} fieldName="text" label="Testo del messaggio" rows={4} />
+                    <FormTextField formik={formik}
+                                   fieldName="text"
+                                   label="Testo del messaggio"
+                                   multiline
+                                   minRows={4} />
                 </Grid>
                 <Grid item xs={12}>
                     <Button

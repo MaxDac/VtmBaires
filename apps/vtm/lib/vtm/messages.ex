@@ -126,7 +126,32 @@ defmodule Vtm.Messages do
     |> Map.put(:receiver_character, nil)
   end
 
+  # TODO - see if there's a way to refactor the query
   @spec get_user_messages(User.t()) :: list(Message.t())
+  def get_user_messages(%{id: user_id, role: :master}) do
+    query =
+      from m in Message,
+        join: u in User,
+        on: m.sender_user_id == u.id,
+        left_join: cs in Character,
+        on: m.sender_character_id == cs.id,
+        left_join: cr in Character,
+        on: m.receiver_character_id == cr.id,
+        where: m.receiver_user_id == ^user_id or cr.is_npc == true,
+        where: m.hide_for_receiver == false,
+        order_by: [desc: m.inserted_at],
+        select: %{%{%{m | sender_user: u} | sender_character: {
+          cs.id,
+          cs.name
+        }} | receiver_character: {
+          cr.id,
+          cr.name
+        }}
+
+    Repo.all(query)
+    |> Enum.map(&remap_message/1)
+  end
+
   def get_user_messages(%{id: user_id}) do
     query =
       from m in Message,
@@ -147,7 +172,8 @@ defmodule Vtm.Messages do
           cr.name
         }}
 
-    Repo.all(query) |> Enum.map(&remap_message/1)
+    Repo.all(query)
+    |> Enum.map(&remap_message/1)
   end
 
   @spec get_sent_messages(User.t()) :: list(Message.t())
@@ -196,15 +222,20 @@ defmodule Vtm.Messages do
   end
 
   @spec get_message(User.t(), binary()) :: {:ok, Message.t()} | {:error, :not_found}
-  def get_message(%{id: user_id}, message_id) do
+  def get_message(%{id: user_id, role: user_role}, message_id) do
     message =
       Message
       |> preload([:sender_user, :receiver_user, :sender_character, :receiver_character])
       |> Repo.get(message_id)
 
-    case message do
-      message = %{sender_user_id: ^user_id}   -> {:ok, message}
-      message = %{receiver_user_id: ^user_id} -> {:ok, message}
+    case {user_role, message} do
+      {:master, message = %{
+        receiver_character: %{
+          is_npc: true
+        }
+      }}                                            -> {:ok, message}
+      {_, message = %{sender_user_id: ^user_id}}    -> {:ok, message}
+      {_, message = %{receiver_user_id: ^user_id}}  -> {:ok, message}
       _ -> {:error, :not_found}
     end
   end

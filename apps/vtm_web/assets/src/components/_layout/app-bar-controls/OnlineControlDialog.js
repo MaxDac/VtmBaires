@@ -95,15 +95,20 @@ const OnlineControlDialog = ({closePopup}: Props): any => {
             ? (<OnlineControlActionsSmallScreen o={o} closePopup={closePopup} />)
             : (<OnlineControlActionsBigScreen o={o} closePopup={closePopup} />);
 
+    const onlineUserAndCharacterName = o => {
+        if (o?.character?.name != null) {
+            return `${o.character.name} (${o.user?.name ?? ""})`;
+        }
+
+        return `${o?.user?.name ?? ""}`;
+    };
+
     const onlineRow = o => (
         <ListItem key={o?.user?.id}
                   secondaryAction={secondaryActions(o)}>
             {userMasterIcon(o?.user)}
             <ListItemText inset={!isUserMaster(o?.user)}
-                          primary={`${o?.user?.name ?? ""}${
-                              !!o?.character?.name
-                                  ? ` (${o?.character?.name})`
-                                  : ""}`}
+                          primary={onlineUserAndCharacterName(o)}
                           secondary={o?.location?.name}
             />
         </ListItem>

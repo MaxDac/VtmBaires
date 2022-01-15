@@ -92,4 +92,12 @@ defmodule VtmWeb.Resolvers.Helpers do
     |> Enum.map(&from_global_id?/1)
     |> reduce_error_list()
   end
+
+  @doc """
+  Returns a result as a map, with the result inside another map with a single **result** field, as wanted most of the
+  time by the new Absinthe types syntax.
+  """
+  @spec as_result({:ok, any()} | {:error, any()}) :: {:ok, %{result: any()}} | {:error, any()}
+  def as_result({:ok, result}), do: {:ok, %{result: result}}
+  def as_result(e), do: e
 end

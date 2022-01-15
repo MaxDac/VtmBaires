@@ -54,20 +54,25 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
         return emptyArray<ChatEntry>();
     };
 
-    const moreThanTenMinutesAgo = (date: string): boolean => {
-        const tenMinutesAgo = add(new Date(), {minutes: -10});
-        const convertedDate = parseUTC(date);
-
-        if (convertedDate != null) {
-            return compareAsc(convertedDate, tenMinutesAgo) > -1;
+    const moreThanTenMinutesAgo = (date: ?string): boolean => {
+        if (date == null) {
+            return false;
         }
+        else {
+            const tenMinutesAgo = add(new Date(), {minutes: -10});
+            const convertedDate = parseUTC(date);
 
-        return true;
+            if (convertedDate != null) {
+                return compareAsc(convertedDate, tenMinutesAgo) > -1;
+            }
+
+            return true;
+        }
     }
 
     const entriesSet = (entries: Array<ChatEntry>) => {
         const filteredEntries = entries
-            .filter(e => e.offGame === false || moreThanTenMinutesAgo(e.insertedAt));
+            .filter(e => e?.offGame === false || moreThanTenMinutesAgo(e?.insertedAt));
 
         const map = new Map(filteredEntries.map(e => [e.id, e]));
         const set = new Set(filteredEntries.map(e => e.id));
