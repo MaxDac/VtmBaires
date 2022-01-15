@@ -5,6 +5,7 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
   alias Vtm.Characters
 
   alias VtmWeb.Resolvers.ChatHelpers
+  alias VtmWeb.Resolvers.Helpers
 
   defp execute_when_master_or_user_itself(character_id, %{role: role, id: user_id}, action) do
     case {role, Characters.character_of_user?(user_id, character_id)} do
@@ -32,9 +33,10 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
       with {:ok, text}  <- StatusChecks.rouse_check(character_id) do
         ChatHelpers.create_chat_entry(%{
           character_id: character_id,
-          text: text,
+          result: text,
           chat_map_id: chat_map_id
         }, user)
+        |> Helpers.as_result()
       end
     end)
   end
@@ -45,9 +47,10 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
       with {:ok, text}  <- StatusChecks.use_willpower(character_id) do
         ChatHelpers.create_chat_entry(%{
           character_id: character_id,
-          text: text,
+          result: text,
           chat_map_id: chat_map_id
         }, user)
+        |> Helpers.as_result()
       end
     end)
   end
@@ -61,9 +64,10 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
       with {:ok, text}  <- StatusChecks.heal(character_id) do
         ChatHelpers.create_chat_entry(%{
           character_id: character_id,
-          text: text,
+          result: text,
           chat_map_id: chat_map_id
         }, user)
+        |> Helpers.as_result()
       end
     end)
   end

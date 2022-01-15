@@ -30,7 +30,7 @@ const SentMessages = (): any => {
         (messages?.me?.sentMessages ?? [])
             ?.map(m =>
                 m != null
-                    ? (<MessageListItem message={{
+                    ? (<MessageListItem key={m.id} message={{
                         id: m.id,
                         subject: m.subject,
                         onGame: m.onGame,

@@ -178,7 +178,7 @@ defmodule VtmWeb.Schema.ChatTypes do
       trigger :heal, topic: &ChatResolvers.handle_chat_trigger/1
 
       resolve fn root, _args, _res ->
-        {:ok, root}
+        root |> ChatResolvers.handle_chat_subscription_resolution()
       end
     end
   end

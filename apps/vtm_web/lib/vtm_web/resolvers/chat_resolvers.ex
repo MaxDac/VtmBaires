@@ -7,6 +7,8 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
 
   alias VtmWeb.Resolvers.ChatHelpers
 
+  @null_chat_subscription_id "0"
+
   def get_main_chat_maps(_, _, _) do
     {:ok, Chats.get_main_chat_maps()}
   end
@@ -122,6 +124,10 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     end
   end
 
+  def handle_chat_trigger(%{result: %{chat_map_id: id}}), do: id
   def handle_chat_trigger(%{chat_map_id: id}), do: id
-  def handle_chat_trigger(_), do: "0"
+  def handle_chat_trigger(_), do: @null_chat_subscription_id
+
+  def handle_chat_subscription_resolution(%{result: result = %{chat_map_id: _}}), do: {:ok, result}
+  def handle_chat_subscription_resolution(root), do: {:ok, root}
 end

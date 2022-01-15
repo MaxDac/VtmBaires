@@ -12,7 +12,7 @@ import {UtilityContext} from "../../contexts";
 export const useMessageSubscription = (): number => {
     const {showUserNotification} = useContext(UtilityContext);
     const messagesDigest = useCustomLazyLoadQuery<GetMessageDigestQuery>(getMessageDigestQuery, {}, {
-        fetchPolicy: "store-and-network"
+        fetchPolicy: "network-only"
     });
 
     const [numberOfMessages, setNumberOfMessages] = useState(messagesDigest?.messagesDigest?.unreadMessages ?? 0);

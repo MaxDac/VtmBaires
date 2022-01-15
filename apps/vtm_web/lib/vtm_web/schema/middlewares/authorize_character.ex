@@ -17,6 +17,8 @@ defmodule VtmWeb.Schema.Middlewares.AuthorizeCharacter do
     end
   end
 
+  defp correct_user_for_character?(%{role: :master}, _), do: true
+
   defp correct_user_for_character?(%{id: user_id}, %{character_id: character_id}) do
     with {:ok, c_id}  <- from_global_id?(character_id) do
       Characters.character_of_user?(user_id, c_id)
