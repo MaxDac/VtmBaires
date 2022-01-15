@@ -16,6 +16,7 @@ defmodule Vtm.Characters do
   alias VtmAuth.Accounts.SessionInfo
 
   @awake_time 60 * 60 * 24 * -1
+  @not_enough_experience "Il personaggio non ha sufficiente esperienza"
 
   @spec all_characters_query() :: Ecto.Query.t()
   defp all_characters_query() do
@@ -433,16 +434,30 @@ defmodule Vtm.Characters do
     |> get_character_attributes_subset(character_id)
   end
 
-  @spec get_character_predator_type(integer()) :: PredatorType.t() | nil
-  def get_character_predator_type(id) do
+  @spec get_character_predator_type(non_neg_integer()) :: PredatorType.t() | nil
+  def get_character_predator_type(character_id) do
     query =
       from c in Character,
         join: p in PredatorType,
         on: c.predator_type_id == p.id,
-        where: c.id == ^id,
+        where: c.id == ^character_id,
         select: p
 
-    Repo.one(query)
+    query
+    |> Repo.one()
+    |> Repo.preload(:attribute)
+    |> Repo.preload(:skill)
+  end
+
+  @spec get_character_predator_type_skills(non_neg_integer()) :: list(CharacterAttribute.t())
+  def get_character_predator_type_skills(character_id) do
+    %{
+      attribute: %{id: attribute_id},
+      skill: %{id: skill_id}
+    } = get_character_predator_type(character_id)
+
+    character_id
+    |> get_character_attributes_subset_by_ids([attribute_id, skill_id])
   end
 
   def get_character_clan(character_id) do
@@ -548,11 +563,50 @@ defmodule Vtm.Characters do
     |> Helpers.reduce_errors({:ok, %Character{id: character_id}})
   end
 
+  @spec update_character(non_neg_integer(), map()) :: {:ok, Character.t()}
   def update_character(id, attrs) do
     with character <- Character |> Repo.get(id) do
       character
       |> Character.update_changeset(attrs)
       |> Repo.update()
+    end
+  end
+
+  @spec update_character_experience(non_neg_integer(), non_neg_integer(), User.t()) :: {:ok, Character.t()} | {:error, binary()}
+  def update_character_experience(character_id, exp, user = %{id: user_id}) do
+    case get_specific_character(user, character_id) do
+      nil ->
+        {:error, :not_found}
+      %{
+        id: id,
+        experience: current_exp,
+        total_experience: total_exp
+      } when current_exp + exp >= 0 and total_exp + exp >= 0 ->
+        with {:ok, character} <- Characters.update_character(id, %{
+               experience: current_exp + exp,
+               total_experience: total_exp + exp
+             }),
+             {:ok, _} <- Experience.add_experience_log(%{
+               character_id: character_id |> String.to_integer(),
+               master_id: user_id,
+               change: exp
+             }) do
+
+          {:ok, character}
+
+        end
+      _ ->
+        {:error, @not_enough_experience}
+    end
+  end
+
+  @spec update_character_hunt_difficulty(non_neg_integer(), non_neg_integer(), User.t()) :: {:ok, Character.t()} | {:error, Changeset.t()}
+  def update_character_hunt_difficulty(character_id, hunt_difficulty, user) do
+    case get_specific_character(user, character_id) do
+      nil       ->
+        {:error, :not_found}
+      %{id: id} ->
+        update_character(id, %{hunt_difficulty: hunt_difficulty})
     end
   end
 

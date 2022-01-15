@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import {MainRoutes} from "../../MainRouter";
 import MapIcon from "@mui/icons-material/Map";
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
+import HomeWorkTwoToneIcon from '@mui/icons-material/HomeWorkTwoTone';
 import MenuCharacterSection from "./menu-character/MenuCharacterSection";
 import MenuHuntSection from "./sections/MenuHuntSection";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -73,6 +74,12 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                     <MapIcon sx={menuIconStyle} />
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Mappa" />} />
+            </ListItem>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.haven)}>
+                <ListItemIcon>
+                    <HomeWorkTwoToneIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Rifugio" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.bookChat)}>
                 <ListItemIcon>

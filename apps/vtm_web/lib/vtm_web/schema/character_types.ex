@@ -76,6 +76,7 @@ defmodule VtmWeb.Schema.CharacterTypes do
     field :predator_type, :predator_type
     field :last_resonance, :string
     field :last_hunt, :date_time
+    field :hunt_difficulty, :integer
     field :is_awake, :boolean
     field :last_awake, :date_time
     field :last_resonance_intensity, :integer
@@ -428,6 +429,21 @@ defmodule VtmWeb.Schema.CharacterTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :master
       resolve parsing_node_ids(&CharacterResolvers.update_character_experience/2, character_id: :character)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
+
+    payload field :change_character_hunt_difficulty do
+      input do
+        field :character_id, non_null(:id)
+        field :hunt_difficulty, non_null(:integer)
+      end
+
+      output do
+        field :result, :character
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      resolve parsing_node_ids(&CharacterResolvers.update_character_hunt_difficulty/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

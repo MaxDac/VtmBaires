@@ -27,9 +27,16 @@ const PredatorType = ({sheet}) => (
         </Typography>
         <Typography sx={{
             ...mainFontFamily,
+            fontSize: "1.2rem",
             marginBottom: "10px"
         }}>
             {sheet?.predatorType?.name}
+        </Typography>
+        <Typography sx={{
+            ...mainFontFamily,
+            marginBottom: "10px"
+        }}>
+            Difficolt&agrave; della caccia: <b>{sheet?.huntDifficulty}</b>
         </Typography>
     </>
 );
@@ -41,6 +48,7 @@ const Clan = ({sheet}) => (
         </Typography>
         <Typography sx={{
             ...mainFontFamily,
+            fontSize: "1.2rem",
             marginBottom: "10px"
         }}>
             {sheet?.clan?.name}

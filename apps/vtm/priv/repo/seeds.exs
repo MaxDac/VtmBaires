@@ -80,16 +80,30 @@ defmodule Vtm.SeedsHelpers do
     end
   end
 
-  def insert_predator_type(%Vtm.Characters.PredatorType{name: name, description: description}) do
-    try_insert_by_name(
-      Vtm.Characters.PredatorType,
-      name,
-      fn ->
+  def insert_predator_type(%Vtm.Characters.PredatorType{
+    name: name,
+    description: description,
+    attribute_id: attribute_id,
+    skill_id: skill_id
+  }) do
+    case Vtm.Characters.PredatorType |> Vtm.Repo.get_by(name: name) do
+      nil ->
         %Vtm.Characters.PredatorType{}
-        |> Vtm.Characters.PredatorType.changeset(%{name: name, description: description})
+        |> Vtm.Characters.PredatorType.changeset(%{
+          name: name,
+          description: description,
+          attribute_id: attribute_id,
+          skill_id: skill_id
+        })
         |> Vtm.Repo.insert()
-      end
-    )
+      a   ->
+        a
+        |> Vtm.Characters.PredatorType.changeset(%{
+          attribute_id: attribute_id,
+          skill_id: skill_id
+        })
+        |> Vtm.Repo.update()
+    end
   end
 
   def insert_map(%Vtm.Chats.ChatMap{name: name, is_chat: is_chat, chat_map_id: chat_map_id}) do
@@ -152,27 +166,27 @@ end
 {:ok, %{id: advantage_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Advantage", "", 3)
 {:ok, %{id: discipline_id}} = Vtm.SeedsHelpers.get_or_insert_attr_type("Discipline", "", 7)
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Forza", description: """
+{:ok, %{id: strength_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Forza", description: """
 La Forza governa quanto è possibile sollevare, quanto duramente il personaggio può colpire e quanta forza il personaggio può esercitare.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Destrezza", description: """
+{:ok, %{id: dexterity_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Destrezza", description: """
 La Destrezza governa l'agilità e la grazia del personaggio, quanto velocemente può schivare, e quanto fine è il controllo dei propri muscoli in situazioni di stress.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_attribute_id, name: "Costituzione", description: """
 La Costituzione rappresenta la resistenza fisica del personaggio, intesa come capacità di assorbimeto dei danni, e la capacità di sopravvivere a duri e prolungati sforzi.
 """})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Carisma", description: """
+{:ok, %{id: charisma_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Carisma", description: """
 Il Carisma misura il naturale charme, la grazia e il sex appeal del personaggio. Più alto sarà il punteggio di Carisma, più le persone saranno attirate dal personaggio. Il Carisma non è da confondere con l'aspetto fisico del personaggio.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Persuasione", description: """
+{:ok, %{id: manipulation_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Persuasione", description: """
 La Manipolazione è l'abilità del personaggio di convincere altri del proprio punto di vista, e mentire in modo convincente.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Autocontrollo", description: """
+{:ok, %{id: composure_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_attribute_id, name: "Autocontrollo", description: """
 L'Autocontrollo consente di mantenere la calma, di comandare le proprie emozioni, e di mettere gli altri a proprio agio nonostante le loro ansietà. Rappresenta anche la capacità di rimanere freddo di fronte alle situazioni più stressanti.
 """})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Intelligenza", description: """
+{:ok, %{id: intelligence_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Intelligenza", description: """
 L'Intelligenza misura l'abilità di ragionare, ricercare, e applicare logica. Si possono ricordare informazion da libri e dai propri sensi.
 """})
 Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: mental_attribute_id, name: "Prontezza", description: """
@@ -202,7 +216,7 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: p
 L'Abilità consente al personaggio di usare, manutenere e ricaricare velocemente armi da fuoco di vario calibro, dipendendo dal livello che si ha.
 **Specialità**: Armaiolo, Balestre, Estrazione Rapida, Ricarica Manuale, Tiratore Scelto, Tiri Impossibili, Rivendere Armi.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: """
+{:ok, %{id: brawl_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Rissa", description: """
 Rissa consente al personaggio di colpire i propri avversari con pugni, calci, o artigli. Finché non si hanno armi in mano, si dovrà usare Rissa per colpire gli avversari.
 **Specialità**: Animali, Combattimento Sportivo, Fratelli, In Forma Bestiale di Proteide, Lupi Mannari, Mortali Armati, Mortali Disarmati, Prese di Lotta, Zuffe da Bar.
 """})
@@ -210,7 +224,7 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: p
 Con questa Abilità, il personaggio riesce ad utilizzare armi da mischia quali coltelli, catene, bastoni o mazze da baseball. Anche i paletti di legno, una delle armi preferite dalla Seconda Inquisizione, sono da considerarsi armi da mischia.
 **Specialità**: Armi Improvvisate, Asce, Catene, Colpi Disarmanti, Coltelli, Garrota, Paletti, Randelli, Scherma, Spade.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: """
+{:ok, %{id: stealth_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: phisical_ability_id, name: "Furtività", description: """
 Un personaggio con questa Abilità riesce facilmente a spiare, nascondersi e mimetizzarsi facilmente in una folla. Possedere alti livelli di questa Abilità aiuta anche la Caccia per i vampiri.
 **Specialità**: Ambienti Naturali, Folle, Imboscate, Movimento Silenzioso, Nascondersi, Pedinamenti, Travestimenti, Urbana.
 """})
@@ -219,7 +233,7 @@ La Sopravvivenza trasmette l'abilità di resistere in territori serlvaggi, e rit
 **Specialità**: Boschi, Caccia, Deserto, Esplorazione Urbana, Giungla, Ripari, Seguire Tracce, Trappole.
 """})
 
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Affinità Animale", description: """
+{:ok, %{id: animal_ken_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Affinità Animale", description: """
 Rappresenta la capacità del personaggio di ammansire ed addestrare animali, e di predirne i comportamenti. I personaggi vampiri sprovvisti di questa Abilità avranno serie difficoltà con gli animali, dato che questi eviteranno o saranno aggressivi naturalmente nei loro confronti.
 **Specialità**: Acrobazie, Attaccare, Cani, Cavalli, Gatti, Falconeria, Lupi, Pacificare, Serpenti, Topi.
 """})
@@ -243,15 +257,15 @@ Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: s
 L'Espressività è l'Abilità con la quale il personaggio riesce ad esprimere sé stesso, molto spesso in modo artistico. Rappresenta anche la proprietà di linguaggio, sia verbale che artistico: il personaggio sarà in grado di dipingere un quadro, o di articolare saggiamente un discorso. Acquisendo questa Abilità, si guadagna una Specializzazione (da indicare in fase di creazione in scheda).
 **Specialità**: Batteria, Canto, Chitarra, Commedia, Declamazione, Danza, Poesia, Rap, Strumenti a Fiato, Tastiere, Teatro, Violino.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Convincere", description: """
+{:ok, %{id: persuasion_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Convincere", description: """
 La Persuasione è l'Abilità con cui un personaggio riesce a convincerne altri che sa cos'è meglio per loro. I maestri persuasori sanno come giocare con le emozioni delle loro vittime, o appellarsi alla loro ragione. Da non confondere con la Manipolazione, che è una capacità innata ed istintiva del personaggio, la Persuasione ha a che fare con lo studio e la conoscenza di arti quali la retorica.
 **Specialità**: Contrattare, Dibattimento, Interrogare, Negoziati, Raggirare, Retorica.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Bassifondi", description: """
+{:ok, %{id: streetwise_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Bassifondi", description: """
 Questa Abilità garantisce al personaggio l'abilità di parlare la stessa lingua dei bassifondi, riuscendoa mimetizzarcisi senza dare troppo nell'occhio. Un personaggio con questa Abilità riesce anche ad interpretare lo slang, o i simboli e i graffiti sui muri di determinati quartieri.
 **Specialità**: Corruzione, Droghe, Fama Personale, Gang, Graffiti, Mercato Nero, Prostituzione, Ricettazione, Sopravvivenza Urbana, Traffico d’Armi.
 """})
-Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Sotterfugio", description: """
+{:ok, %{id: subterfuge_id}} = Vtm.SeedsHelpers.insert_attribute(%Vtm.Characters.Attribute{attribute_type_id: social_ability_id, name: "Sotterfugio", description: """
 Il Sotterfugio è l'arte di ingannare in modo convincente, per evitare situazioni spiacevoli a seguito di cattive azioni, o convincere fornendo scuse convincenti. Questa Abilità ha a che fare con l'intrigo, i segreti e il doppio gioco. Può essere anche utilizzata per sedurre, o imitare il comportamento di un mortale nel caso dei vampiri.
 **Specialità**: Bluff, Bugie Impeccabili, Fingere Mortalità, Innocenza, Lungo Raggiro, Seduzione.
 """})
@@ -401,16 +415,16 @@ Vtm.SeedsHelpers.set_selectable_clans(["Sangue Debole",
                                        "Tremere",
                                        "Ventrue"])
 
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Accattone", description: "Accattone"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Allevatore", description: "Allevatore"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Consensualista", description: "Consensualista"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Osiride", description: "Osiride"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Randagio", description: "Randagio"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Scene Queen", description: "Scene Queen"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sandman", description: "Sandman"})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Accattone", description: "Accattone", attribute_id: intelligence_id, skill_id: streetwise_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Allevatore", description: "Allevatore", attribute_id: composure_id, skill_id: animal_ken_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Consensualista", description: "Consensualista", attribute_id: manipulation_id, skill_id: persuasion_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Osiride", description: "Osiride", attribute_id: manipulation_id, skill_id: subterfuge_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Randagio", description: "Randagio", attribute_id: strength_id, skill_id: brawl_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Scene Queen", description: "Scene Queen", attribute_id: manipulation_id, skill_id: persuasion_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sandman", description: "Sandman", attribute_id: dexterity_id, skill_id: stealth_id})
 # Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sanguisuga", description: "Sanguisuga"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Simulante", description: "Simulante"})
-Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sirena", description: "Sirena"})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Simulante", description: "Simulante", attribute_id: manipulation_id, skill_id: subterfuge_id})
+Vtm.SeedsHelpers.insert_predator_type(%Vtm.Characters.PredatorType{name: "Sirena", description: "Sirena", attribute_id: charisma_id, skill_id: subterfuge_id})
 
 Vtm.SeedsHelpers.insert_forum_section(%{title: "In Game", description: "Sezione dedicata a giocate via forum", on_game: true, can_view: true, can_edit: true})
 Vtm.SeedsHelpers.insert_forum_section(%{title: "Off Game", description: "Sezione dedicata a dubbi o discussioni sul gioco", on_game: false, can_view: true, can_edit: true})

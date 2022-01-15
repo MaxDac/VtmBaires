@@ -47,6 +47,7 @@ export const characterStatsFragment: any = graphql`
         isAwake
         lastAwake
         lastHunt
+        huntDifficulty
         lastResonance
         lastResonanceIntensity
     }
@@ -85,6 +86,7 @@ export const characterStateFragment: any = graphql`
             id
             name
         }
+        huntDifficulty
     }
 `;
 

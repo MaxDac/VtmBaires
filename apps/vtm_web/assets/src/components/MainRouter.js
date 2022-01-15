@@ -27,6 +27,7 @@ export const MainRoutes = {
     createNewForumPost: (threadId: string): string => `/main/forum/thread/${threadId}/post/new`,
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
+    haven: "/main/haven",
 
     charactersList: "/main/characters",
     sheet: (id?: ?string, reload?: ?boolean): string =>
@@ -60,6 +61,7 @@ const MainMap = React.lazy(() => import('./map/MainMap'));
 const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
 const BookChats = React.lazy(() => import('./chat/BookChats'));
+const Haven = React.lazy(() => import('./haven/Haven'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
 const ReceivedMessages = React.lazy(() => import('./messages/ReceivedMessages'));
@@ -81,12 +83,7 @@ const UnapprovedCharacters = React.lazy(() => import('./admin/approvation/Unappr
 const CreateNewNpc = React.lazy(() => import('./character/npcs/CreateNewNpc'));
 const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
 
-
-type Props = {
-
-}
-
-const MainRouter = (props: Props): any => {
+const MainRouter = (): any => {
     return (
         <MainLayout>
             <AuthRoute exact path="/main/" component={() => <Main />} />
@@ -107,6 +104,8 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
             <AuthRoute exact path="/main/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
             <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
+
+            <AuthRoute exact path="/main/haven" component={() => <Haven />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />
 

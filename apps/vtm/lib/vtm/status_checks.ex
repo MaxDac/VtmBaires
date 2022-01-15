@@ -3,8 +3,6 @@ defmodule Vtm.StatusChecks do
 
   import Ecto.Query, warn: false
 
-  @hunt_difficulty 1
-
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.Characters
@@ -268,26 +266,37 @@ defmodule Vtm.StatusChecks do
 
   def get_hunt_attributes_amount(%{id: character_id}) do
     character_id
-    |> Characters.get_character_attributes_subset_by_names(["Prontezza", "Sopravvivenza", "Gregge", "Seguaci"])
-    |> Enum.map(fn %{value: value} -> value end)
+    |> Characters.get_character_predator_type_skills()
+    |> Enum.map(fn %{value: v} -> v end)
     |> Enum.sum()
   end
 
+  @spec get_hunt_difficulty(Character.t()) :: non_neg_integer()
+  def get_hunt_difficulty(%{id: character_id}) do
+    Character
+    |> from()
+    |> where([c], c.id == ^character_id)
+    |> select([c], c.hunt_difficulty)
+    |> Repo.one()
+  end
+
+  @spec determine_hunger(Character.t()) :: {:ok, binary(), Character.t()} | {:no_hunt, binary(), Character.t()}
   defp determine_hunger(character) do
-    with amount <- get_hunt_attributes_amount(character) do
+    with amount <- get_hunt_attributes_amount(character),
+         difficulty <- get_hunt_difficulty(character) do
       case Helpers.random_dice_thrower(amount) |> parse_throw() do
         {0, 0, o} when o > 0          ->
           with {:ok, character} <- character |> increase_hunger(2),
                message          <-  "Il personaggio fallisce clamorosamente la caccia." do
             {:no_hunt, message, character}
           end
-        {_, s, _} when s < @hunt_difficulty ->
+        {_, s, _} when s < difficulty ->
           with {:ok, character} <- character |> increase_hunger(1),
                message          <- "Il personaggio fallisce la caccia." do
             {:no_hunt, message, character}
           end
         {t, s, o}                     ->
-          with decrease         <- s + at_least_zero(t - o) - @hunt_difficulty + 1,
+          with decrease         <- s + at_least_zero(t - o) - difficulty + 1,
                message          <- "Il personaggio riesce a cacciare.",
                {:ok, character} <- character |> decrease_hunger(decrease) do
             {:ok, message, character}

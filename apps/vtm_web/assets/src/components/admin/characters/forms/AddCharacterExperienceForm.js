@@ -38,7 +38,7 @@ const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
         return options;
     };
 
-    const changeCharacterAttribute = _ => {
+    const changeCharacterExperience = _ => {
         const changeTypeLabel = experience < 0 ? "sottrarre" : "aggiungere";
 
         openDialog(
@@ -75,13 +75,13 @@ const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{paddingTop: "20px", textAlign: "center"}}>
                     <Button variant="outlined"
-                            onClick={changeCharacterAttribute}>
+                            onClick={changeCharacterExperience}>
                         Aggiungi / Sottrai Esperienza
                     </Button>
                 </Grid>
             </Grid>
         </Grid>
     );
-}
+};
 
 export default AddCharacterExperienceForm;

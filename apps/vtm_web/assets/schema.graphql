@@ -92,6 +92,15 @@ type ChangeCharacterExperiencePayload {
   result: Character
 }
 
+input ChangeCharacterHuntDifficultyInput {
+  characterId: ID!
+  huntDifficulty: Int!
+}
+
+type ChangeCharacterHuntDifficultyPayload {
+  result: Character
+}
+
 input ChangeCharacterNotesInput {
   advantages: String!
   characterId: ID!
@@ -170,6 +179,7 @@ type Character implements Node {
   health: Int
   humanity: Int
   hunger: Int
+  huntDifficulty: Int
 
   """The ID of an object"""
   id: ID!
@@ -609,6 +619,7 @@ type RootMutationType {
   bookChatMap(chatId: ID!): ChatLocation
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
+  changeCharacterHuntDifficulty(input: ChangeCharacterHuntDifficultyInput!): ChangeCharacterHuntDifficultyPayload
   changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
   changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
   changeCharacterStatus(input: ChangeCharacterStatusInput!): ChangeCharacterStatusPayload
