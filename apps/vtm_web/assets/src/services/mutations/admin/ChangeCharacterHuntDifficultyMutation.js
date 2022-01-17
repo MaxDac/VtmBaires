@@ -20,10 +20,9 @@ const mutation = graphql`
 
 const mutationPromise = (
     environment: IEnvironment,
-    request: ChangeCharacterHuntDifficultyInput): Promise<ChangeCharacterHuntDifficultyMutationResponse> => {
-    return wrapMutation<ChangeCharacterHuntDifficultyMutationResponse>(environment, mutation, {
+    request: ChangeCharacterHuntDifficultyInput): Promise<ChangeCharacterHuntDifficultyMutationResponse> =>
+    wrapMutation<ChangeCharacterHuntDifficultyMutationResponse>(environment, mutation, {
         input: request
     });
-}
 
 export default mutationPromise;

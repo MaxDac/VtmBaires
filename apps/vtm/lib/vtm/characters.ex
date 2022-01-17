@@ -73,9 +73,10 @@ defmodule Vtm.Characters do
   end
 
   def get_clan_disciplines(clan_id) do
-    %{attributes: attributes} = Clan
-    |> preload(:attributes)
-    |> Repo.get(clan_id)
+    %{attributes: attributes} =
+      Clan
+      |> preload(:attributes)
+      |> Repo.get(clan_id)
 
     attributes
   end

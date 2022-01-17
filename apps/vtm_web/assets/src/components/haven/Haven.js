@@ -1,6 +1,7 @@
 // @flow
 
 import React from "react";
+import HavenMap from "./controls/HavenMap";
 
 const Haven = (): any => {
     return (
@@ -11,6 +12,7 @@ const Haven = (): any => {
             }}>
                 Rifugio
             </h1>
+            <HavenMap />
         </>
     );
 }

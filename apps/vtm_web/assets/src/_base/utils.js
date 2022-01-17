@@ -59,6 +59,16 @@ export const toMap = <TKey, TValue>(arr: ?Array<?[?TKey, ?TValue]>): ?Map<TKey, 
         return map;
     }, new Map<TKey, TValue>());
 
+export const getMapKeys = <TKey, TValue>(map: Map<TKey, TValue>): Array<TKey> => {
+    const ret = [];
+
+    for (const key of map.keys()) {
+        ret.push(key);
+    }
+
+    return ret;
+};
+
 export const filterNulls = <T>(arr: Array<?T>): Array<T> =>
     arr?.reduce((acc, p) => {
         if (p != null) {

@@ -24,6 +24,7 @@ defmodule VtmWeb.Schema do
   import_types __MODULE__.ForumTypes
   import_types __MODULE__.StatusTypes
   import_types __MODULE__.NpcTypes
+  import_types __MODULE__.HavenTypes
 
   query do
     import_fields :base_queries
@@ -34,6 +35,7 @@ defmodule VtmWeb.Schema do
     import_fields :forum_queries
     import_fields :status_queries
     import_fields :npc_queries
+    import_fields :haven_queries
   end
 
   mutation do
@@ -44,6 +46,7 @@ defmodule VtmWeb.Schema do
     import_fields :forum_mutations
     import_fields :status_mutations
     import_fields :npc_mutations
+    import_fields :haven_mutations
   end
 
   subscription do

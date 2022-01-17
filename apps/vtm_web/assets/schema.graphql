@@ -445,9 +445,29 @@ type ForumThreadInfo {
   thread: ForumThread
 }
 
+type GetHavensPayload {
+  result: [Haven]
+}
+
 type GetThreadsResponse {
   threadCount: Int
   threads: [ForumThreadInfo]
+}
+
+type Haven implements Node {
+  character: Character
+  danger: Int
+  difficulty: Int
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  name: String
+  ownerDifficulty: Int
+  resourcesLevel: Int
+  updatedAt: DateTime
+  x: Int
+  y: Int
 }
 
 input HealInput {
@@ -691,6 +711,7 @@ type RootQueryType {
   getForumThread(id: ID!): ForumThread
   getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]
   getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
+  getHavens: GetHavensPayload
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
   hasUserAccessToMap(chatId: ID): Boolean
