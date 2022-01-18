@@ -12,7 +12,7 @@ const Haven = (): any => {
             }}>
                 Rifugio
             </h1>
-            <HavenMap />
+            <HavenMap onSectionSelected={s => console.debug(s)} />
         </>
     );
 }

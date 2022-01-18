@@ -146,8 +146,7 @@ const AssignNpcGenericStats = ({characterId}: Props): any => {
                     textAlign: "center",
                     padding: theme.spacing(3)
                 }}>
-                    <Button
-                        type="submit"
+                    <Button type="submit"
                         variant="outlined"
                         color="primary">
                         Salva

@@ -8,14 +8,14 @@ defmodule Vtm.Havens do
   alias Vtm.Havens.Haven
 
   @spec build_haven_name(Haven.t()) :: Haven.t()
-  defp build_haven_name(haven = %{character: %{name: cn}, difficulty: d}) do
+  defp build_haven_name(haven = %{character: %{name: cn}, difficulty: d, danger: da}) do
     haven
-    |> Map.put(:name, "#{cn} - Difficoltà: #{d}")
+    |> Map.put(:name, "#{cn} - Difficoltà: #{d} - Pericolosità: #{da}")
   end
 
-  defp build_haven_name(haven = %{difficulty: d, resources_level: r, x: x, y: y}) do
+  defp build_haven_name(haven = %{difficulty: d, resources_level: r, danger: da, x: x, y: y}) do
     haven
-    |> Map.put(:name, "(#{x} #{y}) Difficoltà: #{d} - Risorse: #{r}")
+    |> Map.put(:name, "(#{x} #{y}) Difficoltà: #{d} - Pericolosità: #{da} - Risorse: #{r}")
   end
 
   @spec get_havens() :: list(Haven.t())

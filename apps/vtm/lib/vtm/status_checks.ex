@@ -7,6 +7,8 @@ defmodule Vtm.StatusChecks do
   alias Vtm.Helpers
   alias Vtm.Characters
   alias Vtm.Characters.Character
+  alias Vtm.Havens.Haven
+  alias Vtm.Havens.Event
 
   defp update_character(character, changes) do
     character
@@ -271,31 +273,31 @@ defmodule Vtm.StatusChecks do
     |> Enum.sum()
   end
 
-  @spec get_hunt_difficulty(Character.t()) :: non_neg_integer()
-  def get_hunt_difficulty(%{id: character_id}) do
-    Character
-    |> from()
-    |> where([c], c.id == ^character_id)
-    |> select([c], c.hunt_difficulty)
-    |> Repo.one()
-  end
+  @spec get_hunt_difficulty(Character.t(), Haven.t()) :: non_neg_integer()
+  def get_hunt_difficulty(%{id: c_id, hunt_difficulty: c_hd}, %{character_id: c_id, owner_difficulty: h_hd}), do: at_least_zero(c_hd + h_hd)
+  def get_hunt_difficulty(%{hunt_difficulty: c_hd}, %{difficulty: h_hd}), do: at_least_zero(c_hd + h_hd)
 
-  @spec determine_hunger(Character.t()) :: {:ok, binary(), Character.t()} | {:no_hunt, binary(), Character.t()}
-  defp determine_hunger(character) do
-    with amount <- get_hunt_attributes_amount(character),
-         difficulty <- get_hunt_difficulty(character) do
-      case Helpers.random_dice_thrower(amount) |> parse_throw() do
-        {0, 0, o} when o > 0          ->
+  @spec determine_hunger(Character.t(), Haven.t()) :: {:ok, binary(), Character.t()} | {:no_hunt, binary(), Character.t()}
+  defp determine_hunger(character, haven) do
+    with amount     <- get_hunt_attributes_amount(character),
+         difficulty <- get_hunt_difficulty(character, haven) do
+      case {difficulty, Helpers.random_dice_thrower(amount) |> parse_throw()} do
+        {0, {0, 0, o}} when o > 0 ->
+          with {:ok, character} <- character |> increase_hunger(2),
+               message          <-  "Il personaggio fallisce la caccia." do
+            {:no_hunt, message, character}
+          end
+        {_, {0, 0, o}} when o > 0 ->
           with {:ok, character} <- character |> increase_hunger(2),
                message          <-  "Il personaggio fallisce clamorosamente la caccia." do
             {:no_hunt, message, character}
           end
-        {_, s, _} when s < difficulty ->
+        {_, {_, s, _}} when s < difficulty ->
           with {:ok, character} <- character |> increase_hunger(1),
                message          <- "Il personaggio fallisce la caccia." do
             {:no_hunt, message, character}
           end
-        {t, s, o}                     ->
+        {_, {t, s, o}} ->
           with decrease         <- s + at_least_zero(t - o) - difficulty + 1,
                message          <- "Il personaggio riesce a cacciare.",
                {:ok, character} <- character |> decrease_hunger(decrease) do
@@ -351,14 +353,38 @@ defmodule Vtm.StatusChecks do
     "#{hunt_message} La vitae estratta dalla preda concede una risonanza #{type} #{power_level_message}."
   end
 
-  defp perform_hunt(character) do
-    with {:ok, message, character}      <- determine_hunger(character),
-         {:ok, power, type, character}  <- determine_resonance(character) do
-      {:ok, message |> enrich_message_with_resonance(power, type), character}
+  @spec determine_consequences(Character.t(), Haven.t()) :: {:ok, nil | Event.t()} | {:error, any}
+  defp determine_consequences(%{id: c_id}, %{character_id: c_id}), do: {:ok, nil}
+
+  defp determine_consequences(%{id: c_id}, %{id: haven_id, danger: danger}) do
+    case 1 do # Helpers.throw_dice() |> IO.inspect() do
+      x when x >= danger  ->
+        {:ok, nil}
+      _                   ->
+        %Event{}
+        |> Event.changeset(%{character_id: c_id, haven_id: haven_id})
+        |> Repo.insert()
+        |> Repo.preload(haven: :character)
+    end
+  end
+
+  @spec perform_hunt(Character.t(), Haven.t()) :: {:ok, {binary(), Character.t(), Event.t() | nil}} | {:error, any()}
+  defp perform_hunt(character, haven) do
+    with {:ok, message, character}      <- determine_hunger(character, haven),
+         {:ok, power, type, character}  <- determine_resonance(character),
+         {:ok, event}                   <- determine_consequences(character, haven) do
+      {:ok, {
+        message |> enrich_message_with_resonance(power, type),
+        character,
+        event
+      }}
     else
-      # If the character failed the hunt, it is not considered an error
+      # If the character failed the hunt, it is not considered an error...
       {:no_hunt, message, character} ->
-        {:ok, message, character}
+        # ... but there would be possible consequences
+        with {:ok, event}                   <- determine_consequences(character, haven) do
+          {:ok, {message, character, event}}
+        end
       e ->
         e
     end
@@ -368,18 +394,19 @@ defmodule Vtm.StatusChecks do
   Simulates the character hunting.
   It considers the Herd Advantage while performing a throw of Wits + Survival.
   """
-  @spec hunt(non_neg_integer()) :: {:ok, binary(), Character.t()}
-  def hunt(character_id) do
+  @spec hunt(non_neg_integer(), non_neg_integer()) :: {:ok, {binary(), Character.t(), Event.t() | nil}}
+  def hunt(character_id, haven_id) do
     character = %{last_hunt: last_hunt} = Character |> Repo.get(character_id)
+    haven = Haven |> Repo.get(haven_id)
 
     case Helpers.at_least_one_day?(last_hunt) do
       false ->
-        {:ok, "L'ultima caccia risale a meno di un giorno fa.", character}
+        {:ok, {"L'ultima caccia risale a meno di un giorno fa.", character, nil}}
       true ->
         # Updating the hunt only if no technical errors occoured
-        with {:ok, message, character}  <- perform_hunt(character),
-             {:ok, character}           <- character |> set_new_hunt_time() do
-          {:ok, message, character}
+        with {:ok, {message, character, event}} <- perform_hunt(character, haven),
+             {:ok, character}                   <- character |> set_new_hunt_time() do
+          {:ok, {message, character, event}}
         end
     end
   end

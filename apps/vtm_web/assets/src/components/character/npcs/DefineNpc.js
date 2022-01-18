@@ -53,12 +53,11 @@ const DefineNpc = ({characterId}: Props): any => {
                 margin: "10px",
                 padding: "10px"
             }}>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    fullWidth
-                    color="primary"
-                    onClick={_ => confirmPng()}>
+                <Button type="submit"
+                        variant="outlined"
+                        fullWidth
+                        color="primary"
+                        onClick={_ => confirmPng()}>
                     Conferma Personaggio non Giocante
                 </Button>
             </Grid>

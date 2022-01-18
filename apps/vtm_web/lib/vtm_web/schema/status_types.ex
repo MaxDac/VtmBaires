@@ -150,6 +150,7 @@ defmodule VtmWeb.Schema.StatusTypes do
     payload field :hunt do
       input do
         field :character_id, non_null(:id)
+        field :haven_id, non_null(:id)
       end
 
       output do
@@ -158,7 +159,7 @@ defmodule VtmWeb.Schema.StatusTypes do
 
       middleware VtmWeb.Schema.Middlewares.Authorize, :any
       middleware VtmWeb.Schema.Middlewares.AuthorizeCharacterId, :any
-      resolve parsing_node_ids(&StatusResolvers.hunt/2, character_id: :character)
+      resolve parsing_node_ids(&StatusResolvers.hunt/2, character_id: :character, haven_id: :haven)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
 

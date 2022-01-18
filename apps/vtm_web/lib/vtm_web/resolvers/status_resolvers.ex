@@ -3,6 +3,8 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
 
   alias Vtm.StatusChecks
   alias Vtm.Characters
+  alias Vtm.Havens.Event
+  alias Vtm.Messages
 
   alias VtmWeb.Resolvers.ChatHelpers
   alias VtmWeb.Resolvers.Helpers
@@ -90,10 +92,23 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     end
   end
 
-  def hunt(%{character_id: character_id}, _) do
-    with c_id               <- character_id |> String.to_integer(),
-         {:ok, message, _}  <- StatusChecks.hunt(c_id) do
+  @spec check_event(any(), Character.t(), Event.t() | nil) :: any()
+  defp check_event(result, %{name: name}, %{haven: %{character: %{id: c_id, name: c_name}}}) do
+    Messages.send_master_message_on(c_id, "Evento nel dominio di #{c_name}", """
+    #{name} è entrato nel dominio di #{c_name} per cacciare.
+    """)
+
+    result
+  end
+
+  defp check_event(result, _, _), do: result
+
+  def hunt(%{character_id: character_id, haven_id: haven_id}, _) do
+    with {:ok, c_id}                        <- character_id |> Helpers.parsed_id_to_integer?(),
+         {:ok, h_id}                        <- haven_id |> Helpers.parsed_id_to_integer?(),
+         {:ok, {message, character, event}} <- StatusChecks.hunt(c_id, h_id) do
       {:ok, %{result: message}}
+      |> check_event(character, event)
     end
   end
 

@@ -384,7 +384,7 @@ type DeleteForumThreadPayload {
 }
 
 input DeleteHavenCharacterInput {
-  havenId: ID
+  havenId: ID!
 }
 
 type DeleteHavenCharacterPayload {
@@ -498,6 +498,7 @@ type HealWillpowerPayload {
 
 input HuntInput {
   characterId: ID!
+  havenId: ID!
 }
 
 type HuntPayload {
@@ -800,8 +801,8 @@ type SetForumThreadReadPayload {
 }
 
 input SetHavenCharacterInput {
-  characterId: ID
-  havenId: ID
+  characterId: ID!
+  havenId: ID!
 }
 
 type SetHavenCharacterPayload {

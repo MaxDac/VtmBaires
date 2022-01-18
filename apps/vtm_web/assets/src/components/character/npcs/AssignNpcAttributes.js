@@ -95,11 +95,10 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
                 textAlign: "center",
                 padding: theme.spacing(3)
             }}>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    color="primary"
-                    onClick={_ => onSave()}>
+                <Button type="submit"
+                        variant="outlined"
+                        color="primary"
+                        onClick={_ => onSave()}>
                     Salva
                 </Button>
             </Grid>

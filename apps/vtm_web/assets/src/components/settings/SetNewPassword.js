@@ -73,13 +73,12 @@ const SetNewPassword = (): any => {
                 <FormTextField formik={formik} fieldName="oldPassword" label="Vecchia Password" type="password" />
                 <FormTextField formik={formik} fieldName="newPassword" label="Nuova Password" type="password" />
                 <FormTextField formik={formik} fieldName="repeatPassword" label="Ripeti Password" type="password" />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                        margin: theme.spacing(3, 0, 2),
-                    }}>
+                <Button type="submit"
+                        fullWidth
+                        variant="outlined"
+                        sx={{
+                            margin: theme.spacing(3, 0, 2),
+                        }}>
                     Cambia password
                 </Button>
             </form>

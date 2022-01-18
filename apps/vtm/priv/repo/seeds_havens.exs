@@ -7,8 +7,8 @@ defmodule Vtm.SeedsHavens.Helpers do
   @max_distance 23
 
   @max_danger 3
-  @max_resources 4
-  @max_difficulty 4
+  @max_resources 5
+  @max_difficulty 5
 
   def insert_haven(x, y) do
     distance_coefficient_from_center = abs(@center_x - x) + abs(@center_y - y)

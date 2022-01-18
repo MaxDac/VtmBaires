@@ -3,21 +3,19 @@
 import graphql from 'babel-plugin-relay/macro';
 import { wrapMutation } from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
-import type {HuntMutationResponse} from "./__generated__/HuntMutation.graphql";
+import type {HuntInput, HuntMutationResponse} from "./__generated__/HuntMutation.graphql";
 
 const mutation = graphql`
-    mutation HuntMutation($characterId: ID!) {
-        hunt(input: {
-            characterId: $characterId
-        }) {
+    mutation HuntMutation($input: HuntInput!) {
+        hunt(input: $input) {
             result
         }
     }
 `;
 
-const mutationPromise = (environment: IEnvironment, characterId: string): Promise<HuntMutationResponse> => {
+const mutationPromise = (environment: IEnvironment, input: HuntInput): Promise<HuntMutationResponse> => {
     return wrapMutation<HuntMutationResponse>(environment, mutation, {
-        characterId
+        input
     });
 }
 

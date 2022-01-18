@@ -36,8 +36,8 @@ defmodule VtmWeb.Schema.HavenTypes do
   object :haven_mutations do
     payload field :set_haven_character do
       input do
-        field :haven_id, :id
-        field :character_id, :id
+        field :haven_id, non_null(:id)
+        field :character_id, non_null(:id)
       end
 
       output do
@@ -51,7 +51,7 @@ defmodule VtmWeb.Schema.HavenTypes do
 
     payload field :delete_haven_character do
       input do
-        field :haven_id, :id
+        field :haven_id, non_null(:id)
       end
 
       output do

@@ -59,10 +59,9 @@ const AttributeSwitchControl = (props: Props): any => {
                                          values={props.values} />
                     </Grid>
                     <Grid item xs={12} md={4} sx={{textAlign: "left", paddingTop: theme.spacing(2)}}>
-                        <Button
-                            type="submit"
-                            variant="outlined"
-                            color="primary">
+                        <Button type="submit"
+                                variant="outlined"
+                                color="primary">
                             Cambia
                         </Button>
                     </Grid>

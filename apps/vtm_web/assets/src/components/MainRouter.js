@@ -28,6 +28,7 @@ export const MainRoutes = {
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
     haven: "/main/haven",
+    hunt: "/main/hunt",
 
     charactersList: "/main/characters",
     sheet: (id?: ?string, reload?: ?boolean): string =>
@@ -63,6 +64,7 @@ const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
 const BookChats = React.lazy(() => import('./chat/BookChats'));
 const Haven = React.lazy(() => import('./haven/Haven'));
+const Hunt = React.lazy(() => import('./hunt/Hunt'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
 const ReceivedMessages = React.lazy(() => import('./messages/ReceivedMessages'));
@@ -108,6 +110,7 @@ const MainRouter = (): any => {
             <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
 
             <AuthRoute exact path="/main/haven" component={() => <Haven />} />
+            <AuthRoute exact path="/main/hunt" component={() => <Hunt />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />
 

@@ -184,10 +184,9 @@ const ModifyCharacterSheet = ({id}: Props): any => {
                 <FormTextField formik={formik} fieldName="off" label="Testo Sezione Off" autoComplete="Testo Sezione Off" rows={15} />
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    color="primary">
+                <Button type="submit"
+                        variant="outlined"
+                        color="primary">
                     Salva
                 </Button>
             </Grid>

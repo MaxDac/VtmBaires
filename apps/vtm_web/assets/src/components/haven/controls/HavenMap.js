@@ -8,19 +8,34 @@ import type {GetHavensQuery} from "../../../services/queries/haven/__generated__
 import {getHavensQuery} from "../../../services/queries/haven/GetHavensQuery";
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import {getMapKeys} from "../../../_base/utils";
+import {useSession} from "../../../services/session-service";
 
 type Props = {
     onSectionSelected: Haven => void;
     fetchKey?: number;
+    setPersonalHaven?: string => void;
 }
 
-const HavenMap = ({onSectionSelected, fetchKey}: Props): any => {
+const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
+    if (setPersonalHaven != null) {
+        const [personalHaven,] = havens?.filter(h => h?.character?.id === characterId) ?? [];
+
+        if (personalHaven?.id != null) {
+            setPersonalHaven(personalHaven.id);
+        }
+    }
+};
+
+const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): any => {
+    const [,character] = useSession();
     const havens = useCustomLazyLoadQuery<GetHavensQuery>(getHavensQuery, {}, {
         fetchPolicy: "network-only",
         fetchKey: fetchKey
     })?.getHavens?.result;
 
     const radius = 20.8;
+
+    sendPersonalHaven(character?.id, havens, setPersonalHaven);
 
     const onMapSelectedInternal = (haven: Haven) =>
         onSectionSelected(haven);

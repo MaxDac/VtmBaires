@@ -92,14 +92,13 @@ const LoginComponent = (): Node => {
                 <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
                 <FormTextField formik={formik} fieldName="password" label="Password" type="password" />
                 {/*<FormCheckboxField formik={formik} fieldName="remember" label="Ricorda" />*/}
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                        margin: theme.spacing(3, 0, 2),
-                    }}>
+                <Button type="submit"
+                        fullWidth
+                        variant="outlined"
+                        color="primary"
+                        sx={{
+                            margin: theme.spacing(3, 0, 2),
+                        }}>
                     Accedi
                 </Button>
             </form>

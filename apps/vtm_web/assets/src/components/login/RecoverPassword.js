@@ -65,13 +65,12 @@ const RecoverPassword = (): any => {
                     marginTop: "10px",
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="outlined"
-                        sx={{
-                            margin: theme.spacing(3, 0, 2),
-                        }}>
+                    <Button type="submit"
+                            fullWidth
+                            variant="outlined"
+                            sx={{
+                                margin: theme.spacing(3, 0, 2),
+                            }}>
                         Recupera la tua password!
                     </Button>
                 </form>
