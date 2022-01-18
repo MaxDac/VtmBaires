@@ -34,5 +34,33 @@ defmodule VtmWeb.Schema.HavenTypes do
   end
 
   object :haven_mutations do
+    payload field :set_haven_character do
+      input do
+        field :haven_id, :id
+        field :character_id, :id
+      end
+
+      output do
+        field :result, :haven
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve parsing_node_ids(&HavenResolvers.set_haven_character/2, haven_id: :haven, character_id: :character)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :delete_haven_character do
+      input do
+        field :haven_id, :id
+      end
+
+      output do
+        field :result, :haven
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve parsing_node_ids(&HavenResolvers.delete_haven_character/2, haven_id: :haven)
+      middleware Middlewares.ChangesetErrors
+    end
   end
 end

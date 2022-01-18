@@ -17,13 +17,6 @@ import {useMediaQuery} from "@mui/material";
 import MenuLayout from "../../_base/components/MenuLayout";
 import { matchNames } from "../../_base/utils";
 
-type Props = {
-    characters: Array<{|
-        +id: string,
-        +name: ?string
-    |}>;
-};
-
 const CharacterActions = ({characterId}) => {
     const theme = useTheme();
 
@@ -57,6 +50,13 @@ const CharacterActions = ({characterId}) => {
         </Stack>
     );
 }
+
+type Props = {
+    characters: Array<{
+        +id: string,
+        +name: ?string
+    }>;
+};
 
 const ShowCharactersComponent = ({characters}: Props): any => {
     const [filteredCharacter, setFilteredCharacter] = useState(characters);

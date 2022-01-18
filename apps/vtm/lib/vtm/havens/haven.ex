@@ -12,7 +12,7 @@ defmodule Vtm.Havens.Haven do
     y: non_neg_integer(),
     danger: non_neg_integer(),
     difficulty: integer(),
-    owner_difficulty: non_neg_integer(),
+    owner_difficulty: integer(),
     resources_level: non_neg_integer(),
 
     character_id: non_neg_integer(),
@@ -40,7 +40,6 @@ defmodule Vtm.Havens.Haven do
     haven
     |> cast(attrs, [:character_id])
     |> foreign_key_constraint(:character_id)
-    |> validate_required([:character_id])
   end
 
   @doc false

@@ -44,6 +44,7 @@ export const MainRoutes = {
     characterDashboard: (id: string): string => `/main/admin/character/${id}`,
     createNewNpc: "/main/admin/npc/new",
     defineNpc: (id: string): string => `/main/admin/npc/${id}/define`,
+    adminHavens: "/main/admin/havens",
     chatViewer: "/main/admin/chat",
 }
 
@@ -76,12 +77,13 @@ const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
 
-const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 const CharactersList = React.lazy(() => import('./character/CharactersList'));
 const CharacterDashboard = React.lazy(() => import('./admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./admin/approvation/UnapprovedCharacters'));
 const CreateNewNpc = React.lazy(() => import('./character/npcs/CreateNewNpc'));
 const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
+const AdminHavens = React.lazy(() => import('./admin/havens/AdminHavens'));
+const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 
 const MainRouter = (): any => {
     return (
@@ -131,6 +133,7 @@ const MainRouter = (): any => {
             <AuthMasterRoute exact path="/main/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/main/admin/npc/new" component={() => <CreateNewNpc />} />
             <AuthMasterRoute exact path="/main/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
+            <AuthMasterRoute exact path="/main/admin/havens" component={() => <AdminHavens />} />
             <AuthMasterRoute exact path="/main/admin/chat" component={() => <ChatViewer />} />
         </MainLayout>
     );

@@ -485,7 +485,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       c   ->
         with {:ok, {character, expenditure}} <- Experience.handle_experience_expenditure(%{
                character: c,
-               attribute_id: VtmWeb.Resolvers.Helpers.parsed_id_to_string?(attribute_id),
+               attribute_id: VtmWeb.Resolvers.Helpers.parsed_id_to_integer(attribute_id),
                custom_experience_expenditure: custom_experience_expenditure
              }),
              {:ok, _} <- Experience.add_experience_log(%{

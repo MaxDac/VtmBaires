@@ -383,6 +383,14 @@ type DeleteForumThreadPayload {
   result: ForumThread
 }
 
+input DeleteHavenCharacterInput {
+  havenId: ID
+}
+
+type DeleteHavenCharacterPayload {
+  result: Haven
+}
+
 type Discipline implements Node {
   description: String
 
@@ -656,6 +664,7 @@ type RootMutationType {
   deleteCharacter(characterId: ID): Boolean
   deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
   deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload
+  deleteHavenCharacter(input: DeleteHavenCharacterInput!): DeleteHavenCharacterPayload
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
   heal(input: HealInput!): HealPayload
@@ -676,6 +685,7 @@ type RootMutationType {
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
   setForumThreadRead(input: SetForumThreadReadInput!): SetForumThreadReadPayload
+  setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
   setMessageRead(messageId: ID): Message
   spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
@@ -787,6 +797,15 @@ input SetForumThreadReadInput {
 
 type SetForumThreadReadPayload {
   result: Boolean
+}
+
+input SetHavenCharacterInput {
+  characterId: ID
+  havenId: ID
+}
+
+type SetHavenCharacterPayload {
+  result: Haven
 }
 
 input SpendCharacterExperienceInput {

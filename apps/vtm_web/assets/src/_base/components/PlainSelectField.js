@@ -1,27 +1,27 @@
 // @flow
 
 import React from "react";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import type { Formik } from "./FormTypes";
 import {useTheme} from "@mui/material/styles";
 
-export type SelectInputProps = {
-    formik: Formik;
+type Props = {
+    onChange: string => void;
+    selectedValue: string;
     fieldName: string;
     label: string;
     values: Array<[string, string]>;
     addNullValue?: boolean,
     sx?: any;
-};
+}
 
 const emptyMenuItem = () => (
     <MenuItem key="element-zero" value={null}>None</MenuItem>
 );
 
-const FormSelectField = (props: SelectInputProps): any => {
+const PlainSelectField = (props: Props): any => {
     const theme = useTheme();
 
     const items = () => {
@@ -40,6 +40,8 @@ const FormSelectField = (props: SelectInputProps): any => {
         return [];
     };
 
+    const onChange = ({target: {value}}) => props.onChange(value);
+
     return (
         <FormControl sx={{
             margin: theme.spacing(1),
@@ -55,13 +57,12 @@ const FormSelectField = (props: SelectInputProps): any => {
                         minWidth: theme.spacing(10)
                     }}
                     label={props.label}
-                    value={props.formik.values[props.fieldName]}
-                    onChange={props.formik.handleChange}
-                    error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
+                    value={props.selectedValue}
+                    onChange={onChange}>
                 {items()}
             </Select>
         </FormControl>
     );
 }
 
-export default FormSelectField;
+export default PlainSelectField;

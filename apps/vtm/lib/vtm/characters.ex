@@ -215,6 +215,7 @@ defmodule Vtm.Characters do
     |> add_is_awake_to_character()
   end
 
+  @spec get_specific_character(User.t(), non_neg_integer()) :: Character.t()
   def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
