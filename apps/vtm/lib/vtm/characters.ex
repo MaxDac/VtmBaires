@@ -2,17 +2,21 @@ defmodule Vtm.Characters do
   @moduledoc false
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
+
+  alias VtmAuth.Accounts.User
 
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.InfoRegistry
-  alias VtmAuth.Accounts.User
   alias Vtm.Characters.Character
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.CharacterAttribute
   alias Vtm.Characters.AttributeType
+  alias Vtm.Experience
+
   alias VtmAuth.Accounts.SessionInfo
 
   @awake_time 60 * 60 * 24 * -1
@@ -209,13 +213,15 @@ defmodule Vtm.Characters do
     |> Map.put(:is_awake, is_awake)
   end
 
-  @spec map_character_info(Character.t()) :: Character.t()
-  defp map_character_info(character) do
+  @spec map_character_info(Character.t() | nil) :: Character.t() | nil
+  defp map_character_info(character) when not is_nil(character) do
     character
     |> add_is_awake_to_character()
   end
 
-  @spec get_specific_character(User.t(), non_neg_integer()) :: Character.t()
+  defp map_character_info(c), do: c
+
+  @spec get_specific_character(User.t(), non_neg_integer()) :: Character.t() | nil
   def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
@@ -584,12 +590,12 @@ defmodule Vtm.Characters do
         experience: current_exp,
         total_experience: total_exp
       } when current_exp + exp >= 0 and total_exp + exp >= 0 ->
-        with {:ok, character} <- Characters.update_character(id, %{
+        with {:ok, character} <- update_character(id, %{
                experience: current_exp + exp,
                total_experience: total_exp + exp
              }),
              {:ok, _} <- Experience.add_experience_log(%{
-               character_id: character_id |> String.to_integer(),
+               character_id: character_id,
                master_id: user_id,
                change: exp
              }) do

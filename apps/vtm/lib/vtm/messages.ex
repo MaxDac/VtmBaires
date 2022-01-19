@@ -2,7 +2,6 @@ defmodule Vtm.Messages do
   @moduledoc false
 
   import Ecto.Query, warn: false
-  alias Ecto.Changeset
 
   alias Vtm.Repo
   alias Vtm.Messages.Message
@@ -109,15 +108,6 @@ defmodule Vtm.Messages do
       receiver_user_id: receiver_user_id
     })
     |> Repo.insert()
-  end
-
-  @doc """
-  Sends the message to the user owner of the given character.
-  """
-  @spec send_master_message_on(non_neg_integer(), binary(), binary()) :: {:ok, Message.t()} | {:error, Changeset.t()}
-  def send_master_message_on(receiver_character_id, subject, message) do
-    %{id: id} = Characters.get_character_user(%{id: receiver_character_id})
-    send_master_message(id, subject, message)
   end
 
   defp remap_message(message = %Message{

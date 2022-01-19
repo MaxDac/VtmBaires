@@ -7,6 +7,9 @@ defmodule Vtm.SeedsHavens.Helpers do
   @max_distance 23
 
   @max_danger 3
+  @max_ground_control 5
+  # the greater this number, the greater the control in the center rather than the periphery
+  @ground_control_center_offset 2
   @max_resources 5
   @max_difficulty 5
 
@@ -15,6 +18,8 @@ defmodule Vtm.SeedsHavens.Helpers do
     distance_coefficient = distance_coefficient_from_center / @max_distance
 
     danger = round(@max_danger * distance_coefficient)
+    # with this algorithm, the edge between center and peripheral will have less control
+    ground_control = round(abs(round(@max_ground_control * 2 * distance_coefficient) - @max_ground_control - @ground_control_center_offset))
     resources = @max_resources - round(@max_resources * distance_coefficient)
     difficulty = round(@max_difficulty * distance_coefficient) - 2
     owner_difficulty =
@@ -28,7 +33,8 @@ defmodule Vtm.SeedsHavens.Helpers do
     |> Haven.changeset(%{
       x: x,
       y: y,
-      danger: danger,
+      danger: danger + 1,
+      ground_control: ground_control,
       resources_level: resources,
       difficulty: difficulty,
       owner_difficulty: owner_difficulty
@@ -44,7 +50,7 @@ defmodule Vtm.SeedsHavens.Helpers do
   def insert_row(_, _), do: {:ok, %{}}
 end
 
-# Vtm.Repo.query!("truncate table haven_locations")
+Vtm.Repo.query!("truncate table haven_locations cascade")
 
 Vtm.SeedsHavens.Helpers.insert_row(1, 9)
 Vtm.SeedsHavens.Helpers.insert_row(2, 9)

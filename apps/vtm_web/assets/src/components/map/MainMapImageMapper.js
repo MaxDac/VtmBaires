@@ -7,11 +7,11 @@ import Stack from "@mui/material/Stack";
 import ImageMapper from "react-img-mapper";
 import Typography from "@mui/material/Typography";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
-import type {MapAreas} from "../haven/controls/haven-map-areas-helpers";
+import type {MapAreas} from "../_base/haven-map-areas-helpers";
 
 type Props = {
     areas: Array<MapAreas>;
-    onAreaSelected: Haven => void;
+    onAreaSelected: (Haven | string) => void;
 }
 
 export const mainMapWidth = 800;
@@ -22,7 +22,13 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): any => {
     const [legend, setLegend] = useState("");
 
     const legendFontSize = () => {
+        if (legend.length > 50) {
+            return "1.1rem";
+        }
         if (legend.length > 40) {
+            return "1.2rem";
+        }
+        else if (legend.length > 30) {
             return "1.5rem";
         }
         else {
@@ -43,7 +49,7 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): any => {
         setLegend(_ => "");
     };
 
-    const onAreaSelectedInternal = ({haven}: MapAreas) => onAreaSelected(haven);
+    const onAreaSelectedInternal = ({haven, name}: MapAreas) => onAreaSelected(haven ?? name);
 
     return (
         <Box component="div" sx={{display: "inline-flex", width: "100%"}}>
@@ -64,7 +70,9 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): any => {
                     <Typography sx={{
                         fontFamily: "ThroughTheNight",
                         fontSize: legendFontSize(),
-                        margin: "0 auto"
+                        margin: "0 auto",
+                        display: "flex",
+                        alignItems: "middle"
                     }}>
                         {legend}
                     </Typography>

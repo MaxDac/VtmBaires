@@ -1,6 +1,6 @@
 // @flow
 
-import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
+import type {Haven} from "../../services/queries/haven/GetHavensQuery";
 
 const cos30 = Math.cos(Math.PI / 6);
 
@@ -8,6 +8,8 @@ const sen30 = 0.5;
 
 export type MapAreas = {
     id?: string;
+    name?: string;
+    title?: string;
     shape: string;
     coords: number[];
     active?: boolean;
@@ -45,21 +47,36 @@ export const groupHavens = (havens: $ReadOnlyArray<?Haven>): Map<number, Array<H
 
 /**
  * Builds the single area, given the coords and the other information of the area.
+ * @param characterId The session character id.
  * @param haven The haven instance.
  * @param coords The area coords.
  * @param defaultTitle The default title.
  * @return {MapAreas} The area.
  */
-export const buildArea = (haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
+export const buildArea = (characterId: ?string, haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
+    const fillColor =
+        haven?.character?.id != null
+            ? (haven.character.id === characterId
+                ? "#39C93940"
+                : "#C9191980")
+            : "#19791980";
+
+    const preFillColor =
+        haven?.character?.id != null
+            ? (haven.character.id === characterId
+                ? "#39C93940"
+                : "#F9393940")
+            : "#59191940";
+
     return {
         id: haven.id,
         title: haven?.name ?? defaultTitle,
         shape: "poly",
         coords: coords.flatMap(([x, y]) => [x, y]),
-        fillColor: haven?.character?.id != null ? "#C9191980" : "#19791980",
+        fillColor,
         strokeColor: "black",
         lineWidth: 2,
-        preFillColor: "#59191940",
+        preFillColor,
         haven: haven
     };
 };
@@ -88,12 +105,13 @@ export const computeHexagonCoords = (center: [number, number], radius: number): 
 
 /**
  * Draws a line of hexagons of determined length.
+ * @param characterId The session character id.
  * @param index The row index.
  * @param havens The havens.
  * @param radius Each hexagon radius.
  * @return {Array<MapAreas>} The array of map areas.
  */
-export const drawLine = (index: number, havens: Array<Haven>, radius: number): Array<MapAreas> => {
+export const drawLine = (characterId: ?string, index: number, havens: Array<Haven>, radius: number): Array<MapAreas> => {
     const d = 2 * radius * cos30;
 
     const [x1, y1] = [
@@ -102,6 +120,7 @@ export const drawLine = (index: number, havens: Array<Haven>, radius: number): A
     ];
 
     return havens.map((haven, i) => buildArea(
+        characterId,
         haven,
         computeHexagonCoords([x1 + d * i, y1], radius),
         `Posizione ${i} - ${index}`));

@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import HavenMap from "../haven/controls/HavenMap";
+import HavenMap from "../_base/HavenMap";
 import HuntMutation from "../../services/mutations/characters/HuntMutation";
 import type {HuntMutationResponse} from "../../services/mutations/characters/__generated__/HuntMutation.graphql";
 import {useRelayEnvironment} from "react-relay";

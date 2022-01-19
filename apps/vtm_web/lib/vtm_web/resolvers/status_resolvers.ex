@@ -5,6 +5,7 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
   alias Vtm.Characters
   alias Vtm.Havens.Event
   alias Vtm.Messages
+  alias Vtm.Characters.Character
 
   alias VtmWeb.Resolvers.ChatHelpers
   alias VtmWeb.Resolvers.Helpers
@@ -92,11 +93,23 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     end
   end
 
+  defp send_event_message(user_id, offender_name, owner_name) do
+    subject = "Evento nel dominio di #{owner_name}"
+    text = """
+    #{offender_name} è entrato nel dominio di #{owner_name} per cacciare.
+    """
+
+    with {:ok, message} <- Messages.send_master_message(user_id, subject, text),
+         _              <- Absinthe.Subscription.publish(VtmWeb.Endpoint, message, new_message_notification: user_id) do
+      message
+    end
+  end
+
   @spec check_event(any(), Character.t(), Event.t() | nil) :: any()
   defp check_event(result, %{name: name}, %{haven: %{character: %{id: c_id, name: c_name}}}) do
-    Messages.send_master_message_on(c_id, "Evento nel dominio di #{c_name}", """
-    #{name} è entrato nel dominio di #{c_name} per cacciare.
-    """)
+    case Characters.get_character_user(%{id: c_id}) do
+      %{id: id}   -> send_event_message(id, name, c_name)
+    end
 
     result
   end

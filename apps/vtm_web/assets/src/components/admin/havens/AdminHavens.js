@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext} from "react";
-import HavenMap from "../../haven/controls/HavenMap";
+import HavenMap from "../../_base/HavenMap";
 import AdminHavensForm from "./AdminHavensForm";
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import {UtilityContext} from "../../../contexts";

@@ -9,6 +9,7 @@ defmodule Vtm.Havens.Event do
 
   @type t :: %__MODULE__{
     danger_triggered: boolean(),
+    control_triggered: boolean(),
     resolved: boolean(),
 
     haven_id: non_neg_integer(),
@@ -23,6 +24,7 @@ defmodule Vtm.Havens.Event do
 
   schema "haven_events" do
     field :danger_triggered, :boolean, default: true
+    field :control_triggered, :boolean, default: false
     field :resolved, :boolean, default: false
 
     belongs_to :character, Character
@@ -34,7 +36,7 @@ defmodule Vtm.Havens.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:danger_triggered, :resolved, :character_id, :haven_id])
+    |> cast(attrs, [:danger_triggered, :control_triggered, :resolved, :character_id, :haven_id])
     |> foreign_key_constraint(:character_id)
     |> foreign_key_constraint(:haven_id)
     |> validate_required([:character_id, :haven_id])

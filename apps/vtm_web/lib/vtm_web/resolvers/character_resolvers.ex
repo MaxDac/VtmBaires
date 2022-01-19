@@ -463,7 +463,8 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   end
 
   def update_character_experience(%{character_id: character_id, experience_change: exp}, %{context: %{current_user: user}}) do
-    with {:ok, character} <- Characters.update_character_experience(character_id |> String.to_integer(), exp, user) do
+    with {:ok, c_id}      <- character_id |> parsed_id_to_integer?(),
+         {:ok, character} <- Characters.update_character_experience(c_id, exp, user) do
       {:ok, %{result: character}}
     end
   end

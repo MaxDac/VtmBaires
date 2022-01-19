@@ -27,7 +27,6 @@ export const MainRoutes = {
     createNewForumPost: (threadId: string): string => `/main/forum/thread/${threadId}/post/new`,
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
-    haven: "/main/haven",
     hunt: "/main/hunt",
 
     charactersList: "/main/characters",
@@ -63,7 +62,6 @@ const MainMap = React.lazy(() => import('./map/MainMap'));
 const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
 const BookChats = React.lazy(() => import('./chat/BookChats'));
-const Haven = React.lazy(() => import('./haven/Haven'));
 const Hunt = React.lazy(() => import('./hunt/Hunt'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
@@ -109,7 +107,6 @@ const MainRouter = (): any => {
             <AuthRoute exact path="/main/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
             <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
 
-            <AuthRoute exact path="/main/haven" component={() => <Haven />} />
             <AuthRoute exact path="/main/hunt" component={() => <Hunt />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />

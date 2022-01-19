@@ -2,6 +2,7 @@ defmodule Vtm.StatusChecks do
   @moduledoc false
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
 
   alias Vtm.Repo
   alias Vtm.Helpers
@@ -353,18 +354,32 @@ defmodule Vtm.StatusChecks do
     "#{hunt_message} La vitae estratta dalla preda concede una risonanza #{type} #{power_level_message}."
   end
 
+  @spec preload_event_info({:ok, Event.t()} | {:error, Changeset.t()}) :: {:ok, Event.t()} | {:error, Changeset.t()}
+  defp preload_event_info({:ok, event}) do
+    {:ok,
+      event
+      |> Repo.preload(haven: :character)
+    }
+  end
+
+  defp preload_event_info(e), do: e
+
   @spec determine_consequences(Character.t(), Haven.t()) :: {:ok, nil | Event.t()} | {:error, any}
   defp determine_consequences(%{id: c_id}, %{character_id: c_id}), do: {:ok, nil}
 
-  defp determine_consequences(%{id: c_id}, %{id: haven_id, danger: danger}) do
-    case 1 do # Helpers.throw_dice() |> IO.inspect() do
-      x when x >= danger  ->
-        {:ok, nil}
-      _                   ->
+  defp determine_consequences(%{id: c_id}, %{id: haven_id, danger: danger, ground_control: ground_control}) do
+    case {Helpers.throw_dice(), Helpers.throw_dice()} do
+      {x, y} when x <= danger or y <= ground_control  ->
         %Event{}
-        |> Event.changeset(%{character_id: c_id, haven_id: haven_id})
+        |> Event.changeset(%{
+          character_id: c_id,
+          haven_id: haven_id,
+          danger_triggered: x <= danger,
+          control_triggered: y <= ground_control})
         |> Repo.insert()
-        |> Repo.preload(haven: :character)
+        |> preload_event_info()
+      _                               ->
+        {:ok, nil}
     end
   end
 

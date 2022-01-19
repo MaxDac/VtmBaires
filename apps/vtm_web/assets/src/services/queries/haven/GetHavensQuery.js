@@ -9,6 +9,7 @@ export type Haven = {|
     +x: ?number,
     +y: ?number,
     +difficulty: ?number,
+    +groundControl: ?number,
     +ownerDifficulty: ?number,
     +resourcesLevel: ?number,
     +character: ?{|
@@ -26,6 +27,7 @@ export const getHavensQuery: GraphQLTaggedNode = graphql`
                 x
                 y
                 difficulty
+                groundControl
                 ownerDifficulty
                 resourcesLevel
                 character {

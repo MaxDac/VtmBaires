@@ -12,6 +12,7 @@ defmodule VtmWeb.Schema.HavenTypes do
     field :x, :integer
     field :y, :integer
     field :danger, :integer
+    field :ground_control, :integer
     field :difficulty, :integer
     field :owner_difficulty, :integer
     field :resources_level, :integer

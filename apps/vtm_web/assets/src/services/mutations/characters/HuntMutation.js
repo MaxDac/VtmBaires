@@ -17,6 +17,6 @@ const mutationPromise = (environment: IEnvironment, input: HuntInput): Promise<H
     return wrapMutation<HuntMutationResponse>(environment, mutation, {
         input
     });
-}
+};
 
 export default mutationPromise;

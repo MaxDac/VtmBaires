@@ -75,12 +75,6 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Mappa" />} />
             </ListItem>
-            <ListItem button onClick={_ => pushHistory(MainRoutes.haven)}>
-                <ListItemIcon>
-                    <HomeWorkTwoToneIcon sx={menuIconStyle} />
-                </ListItemIcon>
-                <ListItemText secondary={<MenuSecondaryText text="Rifugio" />} />
-            </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.bookChat)}>
                 <ListItemIcon>
                     <LockOpenTwoToneIcon sx={menuIconStyle} />

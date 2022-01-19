@@ -466,6 +466,7 @@ type Haven implements Node {
   character: Character
   danger: Int
   difficulty: Int
+  groundControl: Int
 
   """The ID of an object"""
   id: ID!

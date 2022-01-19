@@ -11,8 +11,8 @@ type Props = {
 }
 
 const MainMapWide = ({maps, onMapSelected}: Props): any => {
-    const onMapSelectedInternal = haven => {
-        const [selectedMap,] = maps?.filter(m => m.name === haven?.name) ?? [];
+    const onMapSelectedInternal = name => {
+        const [selectedMap,] = maps?.filter(m => m.name === name) ?? [];
 
         if (selectedMap?.id != null) {
             onMapSelected(selectedMap.id);
@@ -23,6 +23,6 @@ const MainMapWide = ({maps, onMapSelected}: Props): any => {
         <MainMapImageMapper areas={areas}
                             onAreaSelected={onMapSelectedInternal} />
     );
-}
+};
 
 export default MainMapWide;
