@@ -153,7 +153,7 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec character_of_user?(integer, integer) :: boolean
+  @spec character_of_user?(non_neg_integer(), non_neg_integer()) :: boolean()
   def character_of_user?(user_id, character_id) do
     query = from c in Character,
       where: c.id == ^character_id,

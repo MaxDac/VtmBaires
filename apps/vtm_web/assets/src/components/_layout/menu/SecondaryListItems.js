@@ -13,6 +13,7 @@ import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import MapsHomeWorkTwoToneIcon from '@mui/icons-material/MapsHomeWorkTwoTone';
 import type {GenericReactComponent} from "../../../_base/types";
+import CameraIndoorTwoToneIcon from "@mui/icons-material/CameraIndoorTwoTone";
 
 const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericReactComponent => {
     const history = useHistory();
@@ -44,6 +45,12 @@ const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): Gen
                     <MarkChatReadIcon sx={menuIconStyle} />
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Chats" />} />
+            </ListItem>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.adminHavenEvents)}>
+                <ListItemIcon>
+                    <CameraIndoorTwoToneIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Eventi Globali" />} />
             </ListItem>
         </>
     );

@@ -5,6 +5,7 @@ import MainLayout from "./MainLayout";
 import AuthRoute from "./_auth/AuthRoute";
 import AuthMasterRoute from "./_auth/AuthMasterRoute";
 import type {GenericReactComponent} from "../_base/types";
+import AdminHavenEvents from "./admin/havens/AdminHavenEvents";
 
 export const MainRoutes = {
     creation1: "/main/creation/1",
@@ -48,6 +49,7 @@ export const MainRoutes = {
     defineNpc: (id: string): string => `/main/admin/npc/${id}/define`,
     adminHavens: "/main/admin/havens",
     chatViewer: "/main/admin/chat",
+    adminHavenEvents: "/main/admin/haven-events"
 }
 
 const Main = React.lazy(() => import('./Main'));
@@ -139,6 +141,7 @@ const MainRouter = (): GenericReactComponent => {
             <AuthMasterRoute exact path="/main/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
             <AuthMasterRoute exact path="/main/admin/havens" component={() => <AdminHavens />} />
             <AuthMasterRoute exact path="/main/admin/chat" component={() => <ChatViewer />} />
+            <AuthMasterRoute exact path='/main/admin/haven-events' component={() => <AdminHavenEvents />} />
         </MainLayout>
     );
 }

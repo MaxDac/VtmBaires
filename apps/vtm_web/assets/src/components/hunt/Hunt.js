@@ -14,7 +14,6 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
-import Button from "@mui/material/Button";
 import {GuideRoutes} from "../guides/GuidesMain";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
 import type {GenericReactComponent} from "../../_base/types";
@@ -26,7 +25,8 @@ const HuntInternal = ({characterId}) => {
 
     const isCharacterVampire = characterIsVampire(character);
     const [awakeFetchKey, setAwakeFetchKey] = useState(1);
-    const [personalHavenId, setPersonalHavenId] = React.useState<?string>(null);
+    // TODO see below
+    // const [personalHavenId, setPersonalHavenId] = React.useState<?string>(null);
 
     const isCharacterAwake = useIsCharacterAwake(characterId, awakeFetchKey);
 
@@ -160,8 +160,9 @@ const HuntInternal = ({characterId}) => {
                 {/*TODO - See above for the personal domain button*/}
                 {/*{showPersonalHavenHuntButton()}*/}
 
-                <HavenMap onSectionSelected={onSectionSelected}
-                          setPersonalHaven={id => setPersonalHavenId(_ => id)} />
+                <HavenMap onSectionSelected={onSectionSelected} />
+                          {/*TODO - See above for the personal domain button*/}
+                          {/*setPersonalHaven={id => setPersonalHavenId(_ => id)} />*/}
             </>
         );
     }

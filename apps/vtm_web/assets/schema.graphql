@@ -453,6 +453,14 @@ type ForumThreadInfo {
   thread: ForumThread
 }
 
+input GetCharacterDomainEventsInput {
+  characterId: ID!
+}
+
+type GetCharacterDomainEventsPayload {
+  result: [HavenEvent]
+}
+
 type GetHavensPayload {
   result: [Haven]
 }
@@ -460,6 +468,10 @@ type GetHavensPayload {
 type GetThreadsResponse {
   threadCount: Int
   threads: [ForumThreadInfo]
+}
+
+type GetUnresolvedEventsPayload {
+  result: [HavenEvent]
 }
 
 type Haven implements Node {
@@ -477,6 +489,19 @@ type Haven implements Node {
   updatedAt: DateTime
   x: Int
   y: Int
+}
+
+type HavenEvent implements Node {
+  character: Character
+  controlTriggered: Boolean
+  dangerTriggered: Boolean
+  haven: Haven
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  resolved: Boolean
+  updatedAt: DateTime
 }
 
 input HealInput {
@@ -632,6 +657,14 @@ type ResetCharacterHuntPayload {
   result: Character
 }
 
+input ResolveEventInput {
+  eventId: ID!
+}
+
+type ResolveEventPayload {
+  result: HavenEvent
+}
+
 enum Role {
   MASTER
   USER
@@ -683,6 +716,7 @@ type RootMutationType {
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
   resetSession: Boolean
   resetSessionMap: Boolean
+  resolveEvent(input: ResolveEventInput!): ResolveEventPayload
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
@@ -711,6 +745,7 @@ type RootQueryType {
   getCharacterAvatar(characterId: ID!): CharacterAvatar
   getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar
   getCharacterDescription(characterId: ID): Character
+  getCharacterDomainEvents(input: GetCharacterDomainEventsInput!): GetCharacterDomainEventsPayload
   getCharacterPublicInfo(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
@@ -726,6 +761,7 @@ type RootQueryType {
   getHavens: GetHavensPayload
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
+  getUnresolvedEvents: GetUnresolvedEventsPayload
   hasUserAccessToMap(chatId: ID): Boolean
   hasUserAlreadyBooked: Boolean
   isCharacterAwake(characterId: ID): Boolean

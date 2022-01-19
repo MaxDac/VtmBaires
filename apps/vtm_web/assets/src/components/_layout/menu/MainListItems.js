@@ -93,7 +93,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericR
                 <ListItemIcon>
                     <CameraIndoorTwoToneIcon sx={menuIconStyle} />
                 </ListItemIcon>
-                <ListItemText secondary={<MenuSecondaryText text="Dominio" />} />
+                <ListItemText secondary={<MenuSecondaryText text="Eventi Dominio" />} />
             </ListItem>
             <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
