@@ -4,7 +4,7 @@ defmodule VtmWeb.Resolvers.HavenResolvers do
   import VtmWeb.Resolvers.Helpers
 
   alias Vtm.Havens
-  alias Vtm.Havens.Haven
+  alias Vtm.Havens.Event
   alias Vtm.Characters
 
   def get_havens(_, _, _) do
