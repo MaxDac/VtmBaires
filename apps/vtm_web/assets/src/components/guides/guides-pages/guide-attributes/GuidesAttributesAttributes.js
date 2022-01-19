@@ -6,12 +6,13 @@ import Grid from "@mui/material/Grid";
 import {guideStyle, titleStyle} from "../../GuidesStyles";
 import { Link } from "react-router-dom";
 import { GuideRoutes } from "../../GuidesMain";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     showAttributes: (string, string) => any[];
 }
 
-const GuidesAttributesAttributes = ({showAttributes}: Props): any => {
+const GuidesAttributesAttributes = ({showAttributes}: Props): GenericReactComponent => {
     const showAttributeColumns = (name: string, title: string) => (
         <>
             <Grid item xs={12}>

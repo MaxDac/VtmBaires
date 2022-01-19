@@ -9,6 +9,7 @@ import type {
 } from "../../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
 import ParsedText from "../../../../_base/components/ParsedText";
 import {mainFontFamily} from "../../../Main.Layout.Style";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any
@@ -135,7 +136,7 @@ const Notes = ({sheet}) => (
     }} />
 );
 
-const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
+const CharacterSheetOthersSection = ({characterQuery}: Props): GenericReactComponent => {
     const sheet = useFragment<?CharacterFragments_characterState$key>(
         characterStateFragment,
         characterQuery);

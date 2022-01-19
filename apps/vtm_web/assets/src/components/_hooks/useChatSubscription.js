@@ -7,8 +7,9 @@ import type {ChatEntry} from "../../services/base-types";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import {showDesktopNotification} from "../../_base/notification-utils";
 import {useSession} from "../../services/session-service";
+import type {GenericReactComponent} from "../../_base/types";
 
-const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>) => void): any => {
+const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>) => void): GenericReactComponent => {
     const [,character] = useSession();
     const chatToken = useSubscriptionTokenQuery();
 

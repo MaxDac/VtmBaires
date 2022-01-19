@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {useTheme} from "@mui/material/styles";
+import type {GenericReactComponent} from "../types";
 
 type Props = {
     onChange: string => void;
@@ -21,7 +22,7 @@ const emptyMenuItem = () => (
     <MenuItem key="element-zero" value={null}>None</MenuItem>
 );
 
-const PlainSelectField = (props: Props): any => {
+const PlainSelectField = (props: Props): GenericReactComponent => {
     const theme = useTheme();
 
     const items = () => {

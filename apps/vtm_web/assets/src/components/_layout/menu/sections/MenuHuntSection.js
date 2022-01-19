@@ -18,6 +18,7 @@ import type {
 } from "../../../../services/mutations/characters/__generated__/AwakeCharacterMutation.graphql";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../../MainRouter";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 const MenuHuntControl = ({huntRequest}) => (
     <ListItem button onClick={huntRequest}>
@@ -49,7 +50,7 @@ const MenuHuntSectionInternal = ({
                                      awakeRequest,
                                      huntRequest,
                                      awakeFetchKey
-}: MenuHuntSectionInternalProps): any => {
+}: MenuHuntSectionInternalProps): GenericReactComponent => {
     const isCharacterAwake = useIsCharacterAwake(characterId, awakeFetchKey);
 
     return isCharacterAwake
@@ -57,7 +58,7 @@ const MenuHuntSectionInternal = ({
         : (<MenuAwakeControl awakeRequest={awakeRequest} />);
 };
 
-const MenuHuntSection = (): any => {
+const MenuHuntSection = (): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {showUserNotification, openDialog} = useContext(UtilityContext);

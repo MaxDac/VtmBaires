@@ -10,6 +10,7 @@ import {useSession} from "../../services/session-service";
 import TemplateSelectionControl from "./controls/TemplateSelectionControl";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../guides/GuidesMain";
+import type {GenericReactComponent} from "../../_base/types";
 
 const Creation2Explanation = () => (
     <Grid item xs={12}>
@@ -37,7 +38,7 @@ const Creation2Explanation = () => (
     </Grid>
 );
 
-const Creation2 = (): any => {
+const Creation2 = (): GenericReactComponent => {
     const classes = useStyles();
     const [, character] = useSession();
 

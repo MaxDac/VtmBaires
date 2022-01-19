@@ -2,8 +2,9 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
+import type {GenericReactComponent} from "../types";
 
-const AppVersion = (): any => {
+const AppVersion = (): GenericReactComponent => {
     return (
         <Typography sx={{
             fontSize: "13px"

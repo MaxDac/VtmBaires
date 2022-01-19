@@ -12,6 +12,7 @@ import {isUserMaster} from "../../../services/base-types";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: ?string;
@@ -19,7 +20,7 @@ type Props = {
     asMenuItem?: boolean;
 }
 
-const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): any => {
+const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): GenericReactComponent => {
     const [user,] = useSession();
     const history = useHistory();
 

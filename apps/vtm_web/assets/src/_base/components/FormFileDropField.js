@@ -8,6 +8,7 @@ import {compressImage} from "../file-utils";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import type {GenericReactComponent} from "../types";
 
 export type FormFileDropFieldProps = {
     changed: (?string, ?string) => void;
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FormFileDropField = (props: FormFileDropFieldProps): any => {
+const FormFileDropField = (props: FormFileDropFieldProps): GenericReactComponent => {
     const classes = useStyles();
     const [largePreview, setLargePreview] = useState<string>("");
     const [preview, setPreview] = useState<string>("");

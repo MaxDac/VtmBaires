@@ -23,6 +23,7 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import {useTheme} from "@mui/material/styles";
 import ListSubheader from "@mui/material/ListSubheader";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     onSubmit: CharacterCreationRequest => void;
@@ -92,7 +93,7 @@ const CharacterInfoFormValidationSchema = object().shape({
     avatar: string("Il tuo avatar").nullable().notRequired().matches(getUrlValidationMatchString())
 });
 
-const CharacterInfoForm = ({onSubmit}: Props): any => {
+const CharacterInfoForm = ({onSubmit}: Props): GenericReactComponent => {
     const classes = useStyles();
     const clans = useCustomLazyLoadQuery<CreationClansQuery>(creationClansQuery, {})?.creationClans;
 

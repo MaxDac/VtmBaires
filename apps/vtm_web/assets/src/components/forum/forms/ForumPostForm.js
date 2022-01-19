@@ -5,6 +5,7 @@ import ForumFormLayout from "../layout/ForumFormLayout";
 import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     title: string;
@@ -13,7 +14,7 @@ type Props = {
     formik: any;
 }
 
-const ForumPostForm = ({title, confirmButtonText, goBack, formik}: Props): any => {
+const ForumPostForm = ({title, confirmButtonText, goBack, formik}: Props): GenericReactComponent => {
     const theme = useTheme();
     return (
         <ForumFormLayout title={title} goBack={goBack}>

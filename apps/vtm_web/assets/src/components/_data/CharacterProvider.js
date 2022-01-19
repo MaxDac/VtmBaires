@@ -6,6 +6,7 @@ import type {CharacterProviderBaseProps} from "./character-providers-types";
 import {useCharacterProviderId} from "./character-providers-types";
 import RemoteCharacterProvider from "./RemoteCharacterProvider";
 import {useCharacterCompleteQuery} from "../../services/queries/character/GetCharacterCompleteQuery";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = CharacterProviderBaseProps & {
     showWarningWhenNoCharacterSelected: boolean,
@@ -22,7 +23,7 @@ const CharacterProviderQuery = ({characterId, children}) => {
     return <></>;
 }
 
-const CharacterProvider = (props: Props): any => {
+const CharacterProvider = (props: Props): GenericReactComponent => {
     const characterId = useCharacterProviderId(props.characterId);
 
     if (characterId != null) {

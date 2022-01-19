@@ -9,8 +9,9 @@ import CharacterInfoForm from "../../creation/controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
 import {MainRoutes} from "../../MainRouter";
 import {Routes} from "../../../AppRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const CreateNewNpc = (): any => {
+const CreateNewNpc = (): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);

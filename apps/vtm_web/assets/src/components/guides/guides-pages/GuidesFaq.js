@@ -3,12 +3,13 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { guideStyle, titleStyle } from "../GuidesStyles";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
 
 }
 
-const GuidesFaq = (props: Props): any => {
+const GuidesFaq = (props: Props): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>

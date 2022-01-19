@@ -10,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import type {SubmitProperties} from "../NewMessage";
 import MessageTemplate from "./MessageTemplate";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     messageId: string;
@@ -17,7 +18,7 @@ type Props = {
     toUserId?: string;
 }
 
-const ReplyToMessage = ({messageId, onSubmit, toUserId}: Props): any => {
+const ReplyToMessage = ({messageId, onSubmit, toUserId}: Props): GenericReactComponent => {
     const message = useCustomLazyLoadQuery<GetMessageQuery>(
         getMessageQuery,
         {messageId: messageId},

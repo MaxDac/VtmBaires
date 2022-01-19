@@ -9,13 +9,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {handleMutation} from "../../../../_base/utils";
 import ChangeCharacterNotesMutation from "../../../../services/mutations/admin/ChangeCharacterNotesMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 };
 
-const ChangeCharacterNotesForm = ({character, onUpdate}: Props): any => {
+const ChangeCharacterNotesForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 

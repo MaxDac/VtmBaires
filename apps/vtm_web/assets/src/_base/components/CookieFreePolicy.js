@@ -2,8 +2,9 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
+import type {GenericReactComponent} from "../types";
 
-const CookieFreePolicy = (): any => {
+const CookieFreePolicy = (): GenericReactComponent => {
     return (
         <Typography variant="body2"
                     color="textSecondary">

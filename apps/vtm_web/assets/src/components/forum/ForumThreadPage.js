@@ -7,13 +7,14 @@ import ForumPostLayout from "./layout/ForumPostLayout";
 import ForumPostWithAvatar from "./layout/ForumPostWithAvatar";
 import type {GetForumThreadPostsQuery} from "../../services/queries/forum/__generated__/GetForumThreadPostsQuery.graphql";
 import {getForumThreadPostsQuery} from "../../services/queries/forum/GetForumThreadPostsQuery";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     threadId: string;
     page: number;
 }
 
-const ForumThreadPage = ({threadId, page}: Props): any => {
+const ForumThreadPage = ({threadId, page}: Props): GenericReactComponent => {
     const [postFetchKey, setPostFetchKey] = useState(0);
 
     const onReloadCustom = () => {

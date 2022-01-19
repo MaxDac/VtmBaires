@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import {useSession} from "../../../../services/session-service";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     open: boolean;
@@ -19,7 +20,7 @@ type Props = {
     children: any;
 };
 
-const MovableDialog = ({open, handleClose, children}: Props): any => {
+const MovableDialog = ({open, handleClose, children}: Props): GenericReactComponent => {
     const theme = useTheme();
     const [,character] = useSession();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));

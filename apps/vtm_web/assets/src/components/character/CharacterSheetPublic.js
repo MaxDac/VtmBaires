@@ -6,6 +6,7 @@ import CharacterFragmentPublicProviderQuery from "../_data/CharacterPublicFragme
 import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
 import Paper from "@mui/material/Paper";
 import {CharacterSheetSuspenseFallback} from "./CharacterSheet";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     id: string;
@@ -14,7 +15,7 @@ type Props = {
     fetchKey?: number;
 }
 
-const CharacterSheetPublic = (props: Props): any => {
+const CharacterSheetPublic = (props: Props): GenericReactComponent => {
     return (
         <CharacterFragmentPublicProviderQuery {...props}>
             { character =>

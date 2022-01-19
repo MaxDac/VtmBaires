@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {attributeEmptyPointStyle, attributeFullPointStyle} from "./AttributeStat";
 import {mainFontFamily} from "../../Main.Layout.Style";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     stat: StatWithoutId;
@@ -17,7 +18,7 @@ type Props = {
     secondDamage?: number;
 }
 
-const AttributeWithDamageStat = ({stat, damage, secondDamage}: Props): any => {
+const AttributeWithDamageStat = ({stat, damage, secondDamage}: Props): GenericReactComponent => {
     const parsedSecondDamage = secondDamage ?? 0;
 
     const realValue = (stat.value ?? 0) - damage - parsedSecondDamage;

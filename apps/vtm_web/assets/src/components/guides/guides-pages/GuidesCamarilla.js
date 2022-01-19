@@ -3,8 +3,9 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const GuidesCamarilla = (): any => {
+const GuidesCamarilla = (): GenericReactComponent => {
     return (
         <>
             <Typography component="div">

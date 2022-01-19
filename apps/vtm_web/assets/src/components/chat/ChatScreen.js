@@ -11,6 +11,7 @@ import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {add, compareAsc} from "date-fns";
 import { parseUTC } from "../../_base/date-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     entries: ?Array<ChatEntry>;
@@ -18,7 +19,7 @@ type Props = {
     showCharacterDescription: (string, string) => void;
 }
 
-const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Props): any => {
+const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Props): GenericReactComponent => {
     const theme = useTheme();
     const chatContainer = useRef();
 

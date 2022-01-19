@@ -4,8 +4,9 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const GuidesNpcs = (): any => {
+const GuidesNpcs = (): GenericReactComponent => {
     const sheetBoxStyle = {
         marginLeft: "30px",
         marginRight: "30px"

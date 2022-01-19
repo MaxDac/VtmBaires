@@ -7,10 +7,11 @@ import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import {UtilityContext} from "../../../contexts";
 import SetHavenCharacterMutation from "../../../services/mutations/havens/SetHavenCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
-import {handleMutation, isNullOrEmpty} from "../../../_base/utils";
+import {handleMutation, isNullOrEmpty, tryCastToOneType} from "../../../_base/utils";
 import DeleteHavenCharacterMutation from "../../../services/mutations/havens/DeleteHavenCharacterMutation";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const AdminHavens = (): any => {
+const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
 
@@ -18,9 +19,13 @@ const AdminHavens = (): any => {
     const [fetchKey, setFetchKey] = React.useState(0);
     const [open, setOpen] = React.useState<boolean>(false);
 
-    const onHavenSelected = haven => {
-        setHaven(_ => haven);
-        setOpen(_ => true);
+    const onHavenSelected = h => {
+        const haven = tryCastToOneType<Haven, string>(h);
+
+        if (haven != null) {
+            setHaven(_ => haven);
+            setOpen(_ => true);
+        }
     };
 
     const onCharacterSelected = (h, cId) => {

@@ -9,6 +9,7 @@ import type {CharacterFragments_characterOff$key} from "../../../../services/que
 import ParsedText from "../../../../_base/components/ParsedText";
 import {mainFontFamily} from "../../../Main.Layout.Style";
 import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any
@@ -22,7 +23,7 @@ const offComponents = {
     )
 };
 
-const CharacterSheetOffSection = ({characterQuery}: Props): any => {
+const CharacterSheetOffSection = ({characterQuery}: Props): GenericReactComponent => {
     const sheet = useFragment<?CharacterFragments_characterOff$key>(
         characterOffFragment,
         characterQuery);

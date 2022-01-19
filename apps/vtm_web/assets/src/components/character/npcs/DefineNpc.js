@@ -12,12 +12,13 @@ import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { MainRoutes } from "../../MainRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const DefineNpc = ({characterId}: Props): any => {
+const DefineNpc = ({characterId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);

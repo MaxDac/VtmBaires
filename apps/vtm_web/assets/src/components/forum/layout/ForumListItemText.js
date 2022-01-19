@@ -3,6 +3,7 @@
 import React from "react";
 import ListItemText from "@mui/material/ListItemText";
 import ForumSectionDescription from "./ForumSectionDescription";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     title: ?string;
@@ -15,7 +16,7 @@ type Props = {
     |}
 };
 
-const ForumListItemText = ({title, hasNewMessages, description, lastThread}: Props): any => {
+const ForumListItemText = ({title, hasNewMessages, description, lastThread}: Props): GenericReactComponent => {
     return (
         <ListItemText primary={title}
                       primaryTypographyProps={{

@@ -4,6 +4,7 @@ import React from "react";
 import MainLayout from "./MainLayout";
 import AuthRoute from "./_auth/AuthRoute";
 import AuthMasterRoute from "./_auth/AuthMasterRoute";
+import type {GenericReactComponent} from "../_base/types";
 
 export const MainRoutes = {
     creation1: "/main/creation/1",
@@ -28,6 +29,7 @@ export const MainRoutes = {
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
     hunt: "/main/hunt",
+    havenEvents: "/main/haven-events",
 
     charactersList: "/main/characters",
     sheet: (id?: ?string, reload?: ?boolean): string =>
@@ -63,6 +65,7 @@ const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
 const BookChats = React.lazy(() => import('./chat/BookChats'));
 const Hunt = React.lazy(() => import('./hunt/Hunt'));
+const HavenEvents = React.lazy(() => import('./haven/HavenEvents'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
 const ReceivedMessages = React.lazy(() => import('./messages/ReceivedMessages'));
@@ -85,7 +88,7 @@ const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
 const AdminHavens = React.lazy(() => import('./admin/havens/AdminHavens'));
 const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 
-const MainRouter = (): any => {
+const MainRouter = (): GenericReactComponent => {
     return (
         <MainLayout>
             <AuthRoute exact path="/main/" component={() => <Main />} />
@@ -108,6 +111,7 @@ const MainRouter = (): any => {
             <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
 
             <AuthRoute exact path="/main/hunt" component={() => <Hunt />} />
+            <AuthRoute exact path="/main/haven-events" component={() => <HavenEvents />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />
 

@@ -43,7 +43,19 @@ export const groupHavens = (havens: $ReadOnlyArray<?Haven>): Map<number, Array<H
     }
 
     return ret;
-}
+};
+
+export const personalHavenPreFillColor = "#39C93940";
+export const occupiedHavenPreFillColor = "#C9191980";
+export const freeHavenPreFillColor = "#19791980";
+
+export const personalHavenFillColor = "#39C93940";
+export const occupiedHavenFillColor = "#F9393940";
+export const freeHavenFillColor = "#59191940";
+
+export const personalHavenFillColorWithoutOpacity = "#39C939";
+export const occupiedHavenFillColorWithoutOpacity = "#F93939";
+export const freeHavenFillColorWithoutOpacity = "#591919";
 
 /**
  * Builds the single area, given the coords and the other information of the area.

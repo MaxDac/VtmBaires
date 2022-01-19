@@ -6,6 +6,7 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import Typography from "@mui/material/Typography";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -40,7 +41,7 @@ const ChatInputHelpText = () => (
     </>
 );
 
-const ChatInputHelp = (): any => {
+const ChatInputHelp = (): GenericReactComponent => {
     return (
         <HtmlTooltip title={<ChatInputHelpText />}>
             <IconButton size="small">

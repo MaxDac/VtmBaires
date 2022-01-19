@@ -16,12 +16,13 @@ import ApplyTemplateToCharacterMutation from "../../../services/mutations/charac
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const TemplateSelectionControl = ({characterId}: Props): any => {
+const TemplateSelectionControl = ({characterId}: Props): GenericReactComponent => {
     const history = useHistory();
     const theme = useTheme();
     const {showUserNotification, openDialog, setWait} = useContext(UtilityContext);

@@ -27,13 +27,14 @@ import type {
   CharacterFragments_characterConcealedInfo,
   CharacterFragments_characterConcealedInfo$key,
 } from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import type {GenericReactComponent} from "../../_base/types";
 
 type InternalElementProps = {
     character: any;
     children: any => any;
 };
 
-const InternalElement = ({character, children}: InternalElementProps): any => {
+const InternalElement = ({character, children}: InternalElementProps): GenericReactComponent => {
     const infoFragment = useFragment<CharacterFragments_characterConcealedInfo$key>(
         characterConcealedInfoFragment,
         character);
@@ -110,7 +111,7 @@ const capitalizeFirst = (s: string): string => `${s.charAt(0).toUpperCase()}${s.
 const buildConvictions = (first: string, second: string, third: string): string => 
     `- ${capitalizeFirst(first)}\n- ${capitalizeFirst(second)}\n- ${capitalizeFirst(third)}`;
 
-const Creation4 = (): any => {
+const Creation4 = (): GenericReactComponent => {
     const {showUserNotification} = useContext(UtilityContext);
     const classes = useStyles();
     const history = useHistory();

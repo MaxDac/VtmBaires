@@ -22,12 +22,13 @@ import ParsedText from "../../_base/components/ParsedText";
 import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../MainRouter";
 import ReadMessageAvatar from "./components/ReadMessageAvatar";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     messageId: string;
 }
 
-const ReadMessage = ({messageId}: Props): any => {
+const ReadMessage = ({messageId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);

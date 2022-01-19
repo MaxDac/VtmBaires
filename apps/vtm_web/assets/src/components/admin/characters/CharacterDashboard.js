@@ -18,12 +18,13 @@ import ResetHuntForm from "./forms/ResetHuntForm";
 import SpendCharacterExperienceForm from "./forms/SpendCharacterExperienceForm";
 import SendMessageToUserOrCharacter from "./forms/SendMessageToUserOrCharacter";
 import SetHuntDifficultyForm from "./forms/SetHuntDifficultyForm";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const CharacterDashboard = ({characterId}: Props): any => {
+const CharacterDashboard = ({characterId}: Props): GenericReactComponent => {
     const character = useCharacterCompleteQuery(characterId);
 
     const [showSheet, setShowSheet] = useState(true);

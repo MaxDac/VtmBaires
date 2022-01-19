@@ -29,6 +29,7 @@ import type {CharacterFragments_characterOff$key} from "../../services/queries/c
 import {getUrlValidationMatchString} from "../../_base/utils";
 import type {CharacterFragments_characterConcealedInfo$key} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import {avatarHeight, avatarWidth} from "./sheet-sections/sections/CharacterSheetAvatarSection";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     id: string;
@@ -45,7 +46,7 @@ const ModifyCharacterValidationSchema = object().shape({
     off: string("Off").nullable().notRequired()
 });
 
-const ModifyCharacterSheet = ({id}: Props): any => {
+const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
     const history = useHistory();
     const {showUserNotification} = useContext(UtilityContext);
     const environment = useRelayEnvironment();

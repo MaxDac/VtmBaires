@@ -6,8 +6,9 @@ import type {AllUnapprovedCharactersQuery} from "../../../services/queries/chara
 import {allUnapprovedCharactersQuery} from "../../../services/queries/character/AllUnapprovedCharactersQuery";
 import ShowCharactersComponent from "../../character/ShowCharactersComponent";
 import {toNotNullArray} from "../../../_base/utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const UnapprovedCharacters = (): any => {
+const UnapprovedCharacters = (): GenericReactComponent => {
     const unapprovedCharacters = toNotNullArray(
         useCustomLazyLoadQuery<AllUnapprovedCharactersQuery>(allUnapprovedCharactersQuery, {}, {
             fetchPolicy: "network-only"

@@ -3,13 +3,14 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     showWarningWhenNoCharacterSelected: boolean,
     children: string => any
 }
 
-const RemoteCharacterProvider = (props: Props): any => {
+const RemoteCharacterProvider = (props: Props): GenericReactComponent => {
     const characters = useUserCharactersQuery();
 
     if (characters != null && characters.length > 0) {

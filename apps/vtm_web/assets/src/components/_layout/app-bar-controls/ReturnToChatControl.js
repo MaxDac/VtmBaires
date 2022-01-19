@@ -8,8 +8,9 @@ import RoomIcon from '@mui/icons-material/Room';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const ReturnToChatControl = (): any => {
+const ReturnToChatControl = (): GenericReactComponent => {
     const history = useHistory();
     const [,,location] = useSession();
 

@@ -14,8 +14,9 @@ import StyledTableCell from "../components/StyledTableCell";
 import {Link} from "react-router-dom";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 import {GuideRoutes} from "../GuidesMain";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const GuidesMechanics = (): any => {
+const GuidesMechanics = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>

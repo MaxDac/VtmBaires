@@ -3,6 +3,7 @@
 import React from 'react';
 import TextField from "@mui/material/TextField";
 import type { Formik } from "./FormTypes";
+import type {GenericReactComponent} from "../types";
 
 type FormTextFieldProps = {
     formik: Formik;
@@ -19,7 +20,7 @@ type FormTextFieldProps = {
     validate?: ?(string => string);
 }
 
-const FormTextField = (props: FormTextFieldProps): any => {
+const FormTextField = (props: FormTextFieldProps): GenericReactComponent => {
     const multiline = props.multiline != null
         ? props.multiline
         : props.rows && props.rows > 1

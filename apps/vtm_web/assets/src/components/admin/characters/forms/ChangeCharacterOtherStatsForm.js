@@ -15,13 +15,14 @@ import ChangeCharacterOtherStatsMutation from "../../../../services/mutations/ad
 import type {PredatorTypesQuery} from "../../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import {predatorTypesQuery} from "../../../../services/queries/info/PredatorTypesQuery";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): any => {
+const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const predatorTypes = useCustomLazyLoadQuery<PredatorTypesQuery>(predatorTypesQuery, {})

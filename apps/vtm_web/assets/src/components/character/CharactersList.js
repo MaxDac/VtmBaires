@@ -6,8 +6,9 @@ import {allCharactersQuery} from "../../services/queries/character/AllCharacters
 import type {AllCharactersQuery} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
 import ShowCharactersComponent from "./ShowCharactersComponent";
 import { filterNulls, toArray } from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
-const CharactersList = (): any => {
+const CharactersList = (): GenericReactComponent => {
     const characters = filterNulls(toArray(
         useForceReloadFirstQuery<AllCharactersQuery>(allCharactersQuery, {})
             ?.charactersList));

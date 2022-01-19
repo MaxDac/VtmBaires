@@ -4,6 +4,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
+import type {GenericReactComponent} from "../types";
 
 export type OnMenuItemSelectedDelegate = () => void;
 
@@ -11,7 +12,7 @@ type Props = {
     children: OnMenuItemSelectedDelegate => any;
 };
 
-const MenuLayout = ({children}: Props): any => {
+const MenuLayout = ({children}: Props): GenericReactComponent => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 

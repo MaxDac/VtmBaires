@@ -16,6 +16,7 @@ import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import MenuLayout from "../../_base/components/MenuLayout";
 import { matchNames } from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 const CharacterActions = ({characterId}) => {
     const theme = useTheme();
@@ -58,7 +59,7 @@ type Props = {
     }>;
 };
 
-const ShowCharactersComponent = ({characters}: Props): any => {
+const ShowCharactersComponent = ({characters}: Props): GenericReactComponent => {
     const [filteredCharacter, setFilteredCharacter] = useState(characters);
 
     const characterLine = ({id, name}) => {

@@ -5,12 +5,13 @@ import CharacterSheetStatsSection from "../sections/CharacterSheetStatsSection";
 import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any;
 }
 
-export const CharacterSheetStatsTabSuspenseFallback = (): any => {
+export const CharacterSheetStatsTabSuspenseFallback = (): GenericReactComponent => {
     const Title = () => (
         <Box component="div" sx={{
             width: "100%"
@@ -74,7 +75,7 @@ export const CharacterSheetStatsTabSuspenseFallback = (): any => {
     );
 };
 
-const CharacterSheetStatsTab = ({characterQuery}: Props): any => {
+const CharacterSheetStatsTab = ({characterQuery}: Props): GenericReactComponent => {
     return (
         <Suspense fallback={<CharacterSheetStatsTabSuspenseFallback />}>
             { characterQuery?.id != null

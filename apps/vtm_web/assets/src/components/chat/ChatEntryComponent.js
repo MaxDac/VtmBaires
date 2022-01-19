@@ -12,6 +12,7 @@ import type {ChatEntry} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {markdownComponents} from "../../_base/components/ParsedText";
 import {defaultFormatTime} from "../../_base/date-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;
@@ -20,7 +21,7 @@ type ChatEntryComponentProps = {
     sx?: any;
 }
 
-const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): any => {
+const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): GenericReactComponent => {
     const divider = () => <Divider variant="inset" component="li" />
 
     const isText = () => Boolean(entry.text);

@@ -9,8 +9,9 @@ import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "./controls/CharacterInfoForm";
 import type { CharacterCreationRequest } from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 import { MainRoutes } from "../MainRouter";
+import type {GenericReactComponent} from "../../_base/types";
 
-const Creation1 = (): any => {
+const Creation1 = (): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);

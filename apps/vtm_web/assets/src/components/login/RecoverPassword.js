@@ -16,6 +16,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import {Routes} from "../../AppRouter";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -23,7 +24,7 @@ const RecoverPasswordSchema = object().shape({
         .required("Required")
 });
 
-const RecoverPassword = (): any => {
+const RecoverPassword = (): GenericReactComponent => {
     const history = useHistory();
     const theme = useTheme();
     const {showUserNotification, setWait} = useContext(UtilityContext);

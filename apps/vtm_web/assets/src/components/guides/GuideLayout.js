@@ -11,6 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import GuidesMenu from "./GuidesMenu";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     children: any;
@@ -18,7 +19,7 @@ type Props = {
 
 export const drawerWidth = 240;
 
-const GuideLayout = ({children}: Props): any => {
+const GuideLayout = ({children}: Props): GenericReactComponent => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {

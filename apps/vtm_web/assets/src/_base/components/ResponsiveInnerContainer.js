@@ -3,13 +3,14 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import {useTheme} from "@mui/material/styles";
+import type {GenericReactComponent} from "../types";
 
 type Props = {
     sx?: any;
     children: any;
 }
 
-const ResponsiveInnerContainer = ({sx, children}: Props): any => {
+const ResponsiveInnerContainer = ({sx, children}: Props): GenericReactComponent => {
     const theme = useTheme();
 
     return (

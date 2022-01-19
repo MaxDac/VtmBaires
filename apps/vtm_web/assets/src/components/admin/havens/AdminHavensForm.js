@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import CharactersSelectControl from "../../_base/CharactersSelectControl";
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     haven: ?Haven;
@@ -19,7 +20,7 @@ type Props = {
     havenCharacterId?: string;
 };
 
-const AdminHavensForm = ({haven, open, handleClose, onSelected, havenCharacterId}: Props): any => {
+const AdminHavensForm = ({haven, open, handleClose, onSelected, havenCharacterId}: Props): GenericReactComponent => {
     const [characterId, setCharacterId] = React.useState(havenCharacterId ?? "");
 
     const onSubmit = () => {

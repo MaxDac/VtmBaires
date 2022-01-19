@@ -26,6 +26,7 @@ import {getAvailableCharactersQuery} from "../../services/queries/chat/GetAvaila
 import type {
     GetAvailableCharactersQuery
 } from "../../services/queries/chat/__generated__/GetAvailableCharactersQuery.graphql";
+import type {GenericReactComponent} from "../../_base/types";
 
 const numberOfPossibleUsers = 5;
 
@@ -57,7 +58,7 @@ const getInitialObject = () => {
     return initialObject;
 };
 
-const BookChats = (): any => {
+const BookChats = (): GenericReactComponent => {
     const hasUserAlreadyBooked = useHasUserAlreadyBooked();
 
     if (!hasUserAlreadyBooked) {
@@ -71,7 +72,7 @@ const BookChats = (): any => {
     );
 };
 
-const BookChatsInternal = (): any => {
+const BookChatsInternal = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const history = useHistory();
     const {openDialog, showUserNotification, setWait} = useContext(UtilityContext);

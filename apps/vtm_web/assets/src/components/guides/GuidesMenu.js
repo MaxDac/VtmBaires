@@ -26,12 +26,13 @@ import {GuideRoutes} from "./GuidesMain";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {Routes} from "../../AppRouter";
 import {useSession} from "../../services/session-service";
+import type {GenericReactComponent} from "../../_base/types";
 
 type GuidesMenuProps = {
     onSelected?: () => void;
 };
 
-const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
+const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
     const history = useHistory();
     const [user,] = useSession();
     const [environmentOpen, setEnvironmentOpen] = useState(true);
@@ -145,6 +146,9 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): any => {
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.homeRules)}>
                             <ListItemText primary="Stati di Esistenza & Adattamenti" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.hunt)}>
+                            <ListItemText primary="Caccia" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.experience)}>
                             <ListItemText primary="Gestione dell'Esperienza" />

@@ -11,8 +11,9 @@ import Typography from "@mui/material/Typography";
 import {MainRoutes} from "../MainRouter";
 import Box from "@mui/material/Box";
 import ForumListItemText from "./layout/ForumListItemText";
+import type {GenericReactComponent} from "../../_base/types";
 
-const ForumSections = (): any => {
+const ForumSections = (): GenericReactComponent => {
     const history = useHistory();
 
     const forumSections = useForumSections()

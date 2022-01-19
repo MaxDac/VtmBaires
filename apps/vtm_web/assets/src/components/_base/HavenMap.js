@@ -9,9 +9,10 @@ import {getHavensQuery} from "../../services/queries/haven/GetHavensQuery";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
 import {getMapKeys} from "../../_base/utils";
 import {useSession} from "../../services/session-service";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
-    onSectionSelected: Haven => void;
+    onSectionSelected: (Haven | string) => void;
     fetchKey?: number;
     setPersonalHaven?: string => void;
 }
@@ -26,7 +27,7 @@ const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
     }
 };
 
-const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): any => {
+const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): GenericReactComponent => {
     const [,character] = useSession();
     const havens = useCustomLazyLoadQuery<GetHavensQuery>(getHavensQuery, {}, {
         fetchPolicy: "network-only",
@@ -37,7 +38,7 @@ const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): any =
 
     sendPersonalHaven(character?.id, havens, setPersonalHaven);
 
-    const onMapSelectedInternal = (haven: Haven) =>
+    const onMapSelectedInternal = (haven: Haven | string) =>
         onSectionSelected(haven);
 
     if (havens != null) {

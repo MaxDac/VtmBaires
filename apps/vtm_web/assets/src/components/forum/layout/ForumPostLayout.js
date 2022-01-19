@@ -18,6 +18,7 @@ import DeletePostMutation from "../../../services/mutations/forum/DeletePostMuta
 import {useRelayEnvironment} from "react-relay";
 import {handleMutation} from "../../../_base/utils";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     threadId: string;
@@ -26,7 +27,7 @@ type Props = {
     onReload: () => void;
 }
 
-const ForumPostLayout = ({threadId, post, children, onReload}: Props): any => {
+const ForumPostLayout = ({threadId, post, children, onReload}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const history = useHistory();
     const [user,] = useSession();

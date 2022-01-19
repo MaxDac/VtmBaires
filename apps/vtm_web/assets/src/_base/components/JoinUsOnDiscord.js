@@ -3,8 +3,9 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../types";
 
-const JoinUsOnDiscord = (): any => {
+const JoinUsOnDiscord = (): GenericReactComponent => {
     return (
         <Box sx={{
             textAlign: "center"

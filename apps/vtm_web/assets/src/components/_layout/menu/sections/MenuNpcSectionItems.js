@@ -8,6 +8,7 @@ import type {UserCharacter} from "../../../../services/queries/accounts/UserChar
 import MenuCharacterItem from "../menu-character/MenuCharacterItem";
 import MenuItem from "@mui/material/MenuItem";
 import {MainRoutes} from "../../../MainRouter";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     reloadCount: number;
@@ -15,7 +16,7 @@ type Props = {
     handleCharacterSelection?: UserCharacter => any => void;
 }
 
-const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}: Props): any => {
+const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}: Props): GenericReactComponent => {
     const history = useHistory();
     const npcs = useNpcsQuery(reloadCount);
     const npcsWithAvatar = useMenuCharactersAvatar(npcs);

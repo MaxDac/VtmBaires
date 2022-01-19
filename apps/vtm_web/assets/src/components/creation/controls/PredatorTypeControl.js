@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterInfo: CharacterFragments_characterConcealedInfo;
@@ -21,7 +22,7 @@ type Props = {
     formik: any;
 }
 
-const PredatorTypeControl = ({characterInfo, classes, formik}: Props): any => {
+const PredatorTypeControl = ({characterInfo, classes, formik}: Props): GenericReactComponent => {
     const {predatorTypes}: PredatorTypesQueryResponse = useCustomLazyLoadQuery(predatorTypesQuery, {});
 
     const showPredatorTypes = () => {

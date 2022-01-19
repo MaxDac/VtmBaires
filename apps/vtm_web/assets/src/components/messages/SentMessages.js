@@ -14,8 +14,9 @@ import {handleMutation} from "../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import DeleteAllSentMessagesMutation from "../../services/mutations/messages/DeleteAllSentMessagesMutation";
+import type {GenericReactComponent} from "../../_base/types";
 
-const SentMessages = (): any => {
+const SentMessages = (): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);

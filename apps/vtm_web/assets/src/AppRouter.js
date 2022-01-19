@@ -1,5 +1,7 @@
 // @flow
 
+import type {GenericReactComponent} from "./_base/types";
+
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
@@ -20,7 +22,7 @@ const MainRouter = React.lazy(() => import('./components/MainRouter'));
 const GuidesMain = React.lazy(() => import('./components/guides/GuidesMain'));
 const Logout = React.lazy(() => import('./components/logout/Logout'));
 
-const AppRouter = (): any => {
+const AppRouter = (): GenericReactComponent => {
     return (
         <Switch>
             <Route exact path="/" component={SplashScreen} />

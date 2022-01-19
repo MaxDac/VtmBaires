@@ -11,6 +11,7 @@ import {useSession} from "../../services/session-service";
 import Button from "@mui/material/Button";
 import {MainRoutes} from "../MainRouter";
 import CharacterSheetTabs from "./sheet-sections/tabs/CharacterSheetTabs";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     id?: string;
@@ -19,7 +20,7 @@ type Props = {
     fetchKey?: number;
 }
 
-const CharacterSheetComplete = (props: Props): any => {
+const CharacterSheetComplete = (props: Props): GenericReactComponent => {
     const history = useHistory();
     const userCharacters = useUserCharactersQuery();
     const [user,] = useSession();

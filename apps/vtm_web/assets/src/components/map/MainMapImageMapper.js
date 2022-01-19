@@ -8,6 +8,7 @@ import ImageMapper from "react-img-mapper";
 import Typography from "@mui/material/Typography";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
 import type {MapAreas} from "../_base/haven-map-areas-helpers";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     areas: Array<MapAreas>;
@@ -18,7 +19,7 @@ export const mainMapWidth = 800;
 
 export const mainMapHeight = 510;
 
-const MainMapImageMapper = ({areas, onAreaSelected}: Props): any => {
+const MainMapImageMapper = ({areas, onAreaSelected}: Props): GenericReactComponent => {
     const [legend, setLegend] = useState("");
 
     const legendFontSize = () => {

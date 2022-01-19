@@ -4,6 +4,7 @@ import React from "react";
 import LoginLayout from "./LoginLayout";
 import {Route} from "react-router-dom";
 import type {HomeLayoutProps} from "./LoginLayout";
+import type {GenericReactComponent} from "../../_base/types";
 
 export const LoginRoutes = {
     login: "/access/login",
@@ -23,7 +24,7 @@ const CreateUser = React.lazy(() => import('./CreateUser'));
 const RecoverPassword = React.lazy(() => import('./RecoverPassword'));
 const Disclaimer = React.lazy(() => import('./Disclaimer'));
 
-const LoginRouter = (props: Props): any => {
+const LoginRouter = (props: Props): GenericReactComponent => {
     return (
         <LoginLayout {...props}>
             <Route exact path={`${props.match.url}/login`} component={Login} />

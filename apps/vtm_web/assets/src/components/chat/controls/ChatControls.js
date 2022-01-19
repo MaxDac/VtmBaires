@@ -22,6 +22,7 @@ import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpo
 import HealMutation from "../../../services/mutations/chat/HealMutation";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import DownloadIcon from '@mui/icons-material/Download';
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     openMapModal: () => void;
@@ -30,7 +31,7 @@ type Props = {
     onChatLogRequested: () => void;
 };
 
-const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogRequested}: Props): any => {
+const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogRequested}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const {openDialog, showUserNotification} = useContext(UtilityContext);

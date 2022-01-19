@@ -11,9 +11,10 @@ import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
-import { guideStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, titleStyle} from "../GuidesStyles";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const GuidesExperience = (): any => {
+const GuidesExperience = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>

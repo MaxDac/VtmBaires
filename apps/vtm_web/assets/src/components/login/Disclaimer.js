@@ -8,8 +8,9 @@ import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
 import LoginFrameLayout from "./LoginFrameLayout";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
-const Disclaimer = (): any => {
+const Disclaimer = (): GenericReactComponent => {
     return (
         <LoginFrameLayout title="Disclaimer" icon={<ErrorOutlineIcon sx={menuIconStyle} />}>
             <Box sx={{margin: "10px"}}>

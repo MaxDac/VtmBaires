@@ -12,13 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import ChangeCharacterExperienceMutation from "../../../../services/mutations/admin/ChangeCharacterExperienceMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
+const AddCharacterExperienceForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 

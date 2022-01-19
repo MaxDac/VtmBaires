@@ -16,8 +16,9 @@ import DeleteAllReceivedMessagesMutation from "../../services/mutations/messages
 import {useRelayEnvironment} from "react-relay";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
+import type {GenericReactComponent} from "../../_base/types";
 
-const ReceivedMessages = (): any => {
+const ReceivedMessages = (): GenericReactComponent => {
     const theme = useTheme();
     const history = useHistory();
     const environment = useRelayEnvironment();

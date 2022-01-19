@@ -23,6 +23,7 @@ import type {GetAdminChatEntriesQuery} from "../../../services/queries/chat/__ge
 import {getAdminChatEntriesQuery} from "../../../services/queries/chat/GetAdminChatEntriesQuery";
 import {yesterday, defaultFormatDateAndTimeForControl, parseISO} from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type ChatViewerInternalProps = {
     from: any,
@@ -86,7 +87,7 @@ const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps
     );
 };
 
-const ChatViewer = (): any => {
+const ChatViewer = (): GenericReactComponent => {
     const chatRooms = useCustomLazyLoadQuery<GetAllChatLocationsQuery>(getAllChatLocationsQuery, {})
         ?.allChatLocations;
 

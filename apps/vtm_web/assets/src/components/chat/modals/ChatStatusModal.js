@@ -10,6 +10,7 @@ import type {CharacterFragments_characterStats$key} from "../../../services/quer
 import {characterStatsFragment} from "../../../services/queries/character/CharacterFragments";
 import CharacterSheetStatusStatsSection from "../../character/sheet-sections/sections/CharacterSheetStatusStatsSection";
 import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type PropsInternal = {
     characterQuery: any;
@@ -21,7 +22,7 @@ type Props = {
     close: () => void;
 }
 
-const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): any => {
+const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): GenericReactComponent => {
     const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
         characterStatsFragment,
         characterQuery);
@@ -43,7 +44,7 @@ const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): any =>
     );
 }
 
-const ChatStatusModal = (props: Props): any => {
+const ChatStatusModal = (props: Props): GenericReactComponent => {
     if (props.characterId != null) {
         return (
             <CharacterFragmentProvider characterId={props.characterId}

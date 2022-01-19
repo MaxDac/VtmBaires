@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import {useTheme} from "@mui/material/styles";
 import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
@@ -53,7 +54,7 @@ const Internal = ({pushHistory, character: {id: characterId, name: characterName
     );
 }
 
-const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): any => {
+const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): GenericReactComponent => {
     const [,character] = useSession();
 
     if (character?.id != null) {

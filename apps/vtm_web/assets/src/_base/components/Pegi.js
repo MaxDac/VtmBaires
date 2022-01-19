@@ -4,8 +4,9 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import {Tooltip} from "@mui/material";
+import type {GenericReactComponent} from "../types";
 
-const Pegi = (): any => {
+const Pegi = (): GenericReactComponent => {
     // return (<></>);
 
     return (

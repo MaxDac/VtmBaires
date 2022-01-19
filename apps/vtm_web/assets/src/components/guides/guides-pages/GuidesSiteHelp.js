@@ -1,10 +1,12 @@
 // @flow
 
+import type {GenericReactComponent} from "../../../_base/types";
+
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
-const GuidesSiteHelp = (): any => {
+const GuidesSiteHelp = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>

@@ -4,8 +4,9 @@ import Box from '@mui/system/Box';
 import React, {useEffect, useState} from 'react';
 import CenteredBox from "../_base/components/CenteredBox";
 import Typography from '@mui/material/Typography';
+import type {GenericReactComponent} from "../_base/types";
 
-const Main = (): any => {
+const Main = (): GenericReactComponent => {
     const [firstPhrase, setFirstPhrase] = useState("");
     const [secondPhrase, setSecondPhrase] = useState("");
     const [thirdPhrase, setThirdPhrase] = useState("");

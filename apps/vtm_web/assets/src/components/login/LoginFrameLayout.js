@@ -10,6 +10,7 @@ import JoinUsOnDiscord from "../../_base/components/JoinUsOnDiscord";
 import {useMediaQuery} from "@mui/material";
 import AppVersion from "../../_base/components/AppVersion";
 import Pegi from "../../_base/components/Pegi";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     icon: any;
@@ -17,7 +18,7 @@ type Props = {
     children: any;
 }
 
-const LoginFrameLayout = (props: Props): any => {
+const LoginFrameLayout = (props: Props): GenericReactComponent => {
     const theme = useTheme();
     // const classes = useStyles();
 

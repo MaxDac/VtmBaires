@@ -11,6 +11,7 @@ import {bool, object, string} from "yup";
 import type {SubmitProperties} from "../NewMessage";
 import CharactersSelectControl from "../../_base/CharactersSelectControl";
 import UsersSelectControl from "../../_base/UsersSelectControl";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const MessageSchema = object().shape({
     subject: string("Subject: ").required("Required"),
@@ -48,7 +49,7 @@ const MessageTemplate = ({
                              toCharacterId = null,
                              onGame = false,
                              subject = ""
-}: Props): any => {
+}: Props): GenericReactComponent => {
     const theme = useTheme();
 
     const cleanInput = (values: SubmitProperties) => {

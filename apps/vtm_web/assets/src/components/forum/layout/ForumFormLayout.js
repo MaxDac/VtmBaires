@@ -13,6 +13,7 @@ import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     title: string;
@@ -21,7 +22,7 @@ type Props = {
     children: any;
 }
 
-const ForumFormLayout = ({title, description, children}: Props): any => {
+const ForumFormLayout = ({title, description, children}: Props): GenericReactComponent => {
     const history = useHistory();
     const showDescription = () => {
         if (description != null && description !== "") {

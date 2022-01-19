@@ -5,6 +5,7 @@ import {useSession} from "../../../../services/session-service";
 import {isUserMaster} from "../../../../services/base-types";
 import MenuCharacterSectionForUser from "./MenuCharacterSectionForUser";
 import MenuCharacterSelectionForMasterNoUserAllowed from "./MenuCharacterSelectionForMasterNoUserAllowed";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
@@ -12,7 +13,7 @@ type Props = {
     onUpdate: () => void;
 }
 
-const MenuCharacterSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
+const MenuCharacterSection = ({pushHistory, reloadCount, onUpdate}: Props): GenericReactComponent => {
     const [user,] = useSession();
 
     if (isUserMaster(user)) {

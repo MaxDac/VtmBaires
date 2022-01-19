@@ -7,6 +7,7 @@ import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../../services/queries/accounts/UserCharactersQuery";
 import { MainRoutes } from "../../../MainRouter";
 import CreateNewCharacterMenuItem from "./CreateNewCharacterMenuItem";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
@@ -14,7 +15,7 @@ type Props = {
     onUpdate: () => void;
 }
 
-const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Props): any => {
+const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Props): GenericReactComponent => {
     const history = useHistory();
     const {setCurrentCharacter} = useContext(SessionContext);
     

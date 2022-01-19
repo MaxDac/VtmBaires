@@ -15,6 +15,7 @@ import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
 import MenuNpcSectionItems from "./MenuNpcSectionItems";
 import MenuItemSuspenseFallback from "../MenuItemSuspenseFallback";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
@@ -22,7 +23,7 @@ type Props = {
     onUpdate: () => void;
 };
 
-const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): any => {
+const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): GenericReactComponent => {
     const [expand, setExpand] = useState(false);
     const [hasBeenExpanded, setHasBeenExpanded] = useState(false);
     const {setCurrentCharacter} = useContext(SessionContext);

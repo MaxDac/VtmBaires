@@ -8,12 +8,13 @@ import {useHistory} from "react-router-dom";
 import Box from "@mui/material/Box";
 import {performLogout} from "../../services/logout-service";
 import {LoginRoutes} from "../login/LoginRouter";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     title: string;
 };
 
-const Logout = ({title}: Props): any => {
+const Logout = ({title}: Props): GenericReactComponent => {
     const history = useHistory();
 
     useEffect(() => {

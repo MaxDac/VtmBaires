@@ -13,13 +13,14 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import ChangeCharacterHuntDifficultyMutation
     from "../../../../services/mutations/admin/ChangeCharacterHuntDifficultyMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const SetHuntDifficultyForm = ({character, onUpdate}: Props): any => {
+const SetHuntDifficultyForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 

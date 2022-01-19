@@ -17,6 +17,7 @@ import DefineNpcStatsMutation from "../../../services/mutations/npcs/DefineNpcSt
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string
@@ -32,7 +33,7 @@ const DefineNpcFormValidationSchema = object().shape({
     predatorTypeId: string("Tipo di predatore").required("Required")
 });
 
-const AssignNpcGenericStats = ({characterId}: Props): any => {
+const AssignNpcGenericStats = ({characterId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
     const character = useCharacterCompleteQuery(characterId);

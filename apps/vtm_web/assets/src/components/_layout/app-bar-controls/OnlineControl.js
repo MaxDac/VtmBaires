@@ -16,13 +16,14 @@ import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import OnlineControlDialog from "./OnlineControlDialog";
 import Skeleton from "@mui/material/Skeleton";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const SuspenseFallback = () => (<Skeleton variant="circular" width={40} height={40} />);
 
 const Transition = React.forwardRef((props, ref) =>
     <Fade ref={ref} {...props} />);
 
-const OnlineControl = (): any => {
+const OnlineControl = (): GenericReactComponent => {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));

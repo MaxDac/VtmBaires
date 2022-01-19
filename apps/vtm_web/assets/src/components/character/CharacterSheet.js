@@ -7,6 +7,7 @@ import {useSession} from "../../services/session-service";
 import {isUserMaster} from "../../services/base-types";
 import CharacterSheetPublic from "./CharacterSheetPublic";
 import CharacterSheetComplete from "./CharacterSheetComplete";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     id?: string;
@@ -15,7 +16,7 @@ type Props = {
     fetchKey?: number;
 }
 
-export const CharacterSheetSuspenseFallback = (): any => {
+export const CharacterSheetSuspenseFallback = (): GenericReactComponent => {
     return (
         <>
             <Box component="div" style={{textAlign: "center"}}>
@@ -28,7 +29,7 @@ export const CharacterSheetSuspenseFallback = (): any => {
     );
 }
 
-const CharacterSheet = (props: Props): any => {
+const CharacterSheet = (props: Props): GenericReactComponent => {
     const [user, character] = useSession();
 
     const characterOfUser = () =>

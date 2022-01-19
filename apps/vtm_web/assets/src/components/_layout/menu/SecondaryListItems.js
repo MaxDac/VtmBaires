@@ -12,8 +12,9 @@ import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import MapsHomeWorkTwoToneIcon from '@mui/icons-material/MapsHomeWorkTwoTone';
+import type {GenericReactComponent} from "../../../_base/types";
 
-const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
+const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericReactComponent => {
     const history = useHistory();
 
     const pushHistory = (route: string) => {

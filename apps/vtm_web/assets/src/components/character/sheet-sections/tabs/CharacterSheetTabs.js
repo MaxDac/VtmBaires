@@ -9,6 +9,7 @@ import {mainFontFamily} from "../../../Main.Layout.Style";
 import CharacterSheetInfoTab from "./CharacterSheetInfoTab";
 import CharacterSheetStatsTab from "./CharacterSheetStatsTab";
 import CharacterSheetDataTab from "./CharacterSheetDataTab";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: {id: string}
@@ -19,7 +20,7 @@ const a11yProps = index => ({
     'aria-controls': `scrollable-force-tabpanel-${index - 1}`,
 });
 
-const CharacterSheetTabs = ({characterQuery}: Props): any => {
+const CharacterSheetTabs = ({characterQuery}: Props): GenericReactComponent => {
     const [value, setValue] = useState(1);
 
     const handleChange = (_, newValue) => {

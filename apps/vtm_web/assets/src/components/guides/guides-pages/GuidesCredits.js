@@ -4,12 +4,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
 
 }
 
-const GuidesCredits = (props: Props): any => {
+const GuidesCredits = (props: Props): GenericReactComponent => {
     const imageLinkStyle = {
         maxHeight: "60px",
         maxWidth: "auto"

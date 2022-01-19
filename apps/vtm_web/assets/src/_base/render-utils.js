@@ -1,5 +1,7 @@
 // @flow
 
+import type {GenericReactComponent} from "./types";
+
 import React from "react";
 
 /**
@@ -8,7 +10,7 @@ import React from "react";
  * @param render The render component.
  * @return {JSX.Element|*} The render element to return.
  */
-export const conditionalRendering = (condition: () => boolean, render: () => any): any => {
+export const conditionalRendering = (condition: () => boolean, render: () => any): GenericReactComponent => {
     if (condition()) {
         return render();
     }
@@ -23,7 +25,7 @@ export const conditionalRendering = (condition: () => boolean, render: () => any
  * @param render The render function.
  * @return {JSX.Element|*} The render component.
  */
-export const propNotNullRendering = <T>(propGetter: () => ?T, render: T => any): any => {
+export const propNotNullRendering = <T>(propGetter: () => ?T, render: T => any): GenericReactComponent => {
     const property = propGetter();
 
     if (property != null) {

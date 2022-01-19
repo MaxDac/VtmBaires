@@ -7,8 +7,7 @@ import type {HuntMutationResponse} from "../../services/mutations/characters/__g
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import {useSession} from "../../services/session-service";
-import {characterIsVampire} from "../../_base/utils";
-import Typography from "@mui/material/Typography";
+import { characterIsVampire, tryCastToOneType } from "../../_base/utils";
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import Box from "@mui/material/Box";
@@ -16,6 +15,9 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
 import Button from "@mui/material/Button";
+import {GuideRoutes} from "../guides/GuidesMain";
+import type {Haven} from "../../services/queries/haven/GetHavensQuery";
+import type {GenericReactComponent} from "../../_base/types";
 
 const HuntInternal = ({characterId}) => {
     const environment = useRelayEnvironment();
@@ -24,50 +26,62 @@ const HuntInternal = ({characterId}) => {
 
     const isCharacterVampire = characterIsVampire(character);
     const [awakeFetchKey, setAwakeFetchKey] = useState(1);
-    const [showHelp, setShowHelp] = useState(false);
     const [personalHavenId, setPersonalHavenId] = React.useState<?string>(null);
 
     const isCharacterAwake = useIsCharacterAwake(characterId, awakeFetchKey);
 
-    const onSectionSelected = ({id}) => huntRequest(id);
+    const showHuntHelp = _ => {
+        const newTab = window.open(`#${GuideRoutes.hunt}`, "_blank");
+        newTab.focus();
+    }
 
-    const selectPersonalHaven = () => {
-        if (personalHavenId != null) {
-            huntRequest(personalHavenId);
+    const onSectionSelected = h => {
+        const haven = tryCastToOneType<Haven, string>(h);
+        
+        if (haven?.id != null) {
+            huntRequest(haven.id);
         }
-        else {
-            showUserNotification({
-                type: "warning",
-                message: "Il tuo personaggio non ha attualmente un rifugio"
-            });
-        }
-    };
+    }
 
-    const showPersonalHavenHuntButton = () => {
-        if (personalHavenId != null) {
-            return (
-                <Box sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "1rem"
-                }}>
-                    <Button type="submit"
-                            variant="outlined"
-                            fullWidth
-                            color="primary"
-                            onClick={_ => selectPersonalHaven()}
-                            sx={{
-                                width: "80%"
-                            }}>
-                        Caccia nel Dominio personale
-                    </Button>
-                </Box>
-            )
-        }
-
-        return (<></>);
-    };
+    // TODO - Hidden for now, because the personal Domain is already highlighted in the map locations. Check if it's ok with the feedbacks
+    //
+    // const selectPersonalHaven = () => {
+    //     if (personalHavenId != null) {
+    //         huntRequest(personalHavenId);
+    //     }
+    //     else {
+    //         showUserNotification({
+    //             type: "warning",
+    //             message: "Il tuo personaggio non ha attualmente un rifugio"
+    //         });
+    //     }
+    // };
+    //
+    // const showPersonalHavenHuntButton = () => {
+    //     if (personalHavenId != null) {
+    //         return (
+    //             <Box sx={{
+    //                 width: "100%",
+    //                 display: "flex",
+    //                 justifyContent: "center",
+    //                 padding: "1rem"
+    //             }}>
+    //                 <Button type="submit"
+    //                         variant="outlined"
+    //                         fullWidth
+    //                         color="primary"
+    //                         onClick={_ => selectPersonalHaven()}
+    //                         sx={{
+    //                             width: "80%"
+    //                         }}>
+    //                     Caccia nel Dominio personale
+    //                 </Button>
+    //             </Box>
+    //         )
+    //     }
+    //
+    //     return (<></>);
+    // };
 
     const huntRequest = havenId => {
         if (character?.id != null) {
@@ -137,34 +151,17 @@ const HuntInternal = ({characterId}) => {
                         <Box>
                             Caccia
                         </Box>
-                        <IconButton onClick={_ => setShowHelp(p => !p)}>
+                        <IconButton onClick={showHuntHelp}>
                             <HelpTwoToneIcon sx={{menuIconStyle}}/>
                         </IconButton>
                     </Stack>
                 </h1>
 
-                <Box component="div" sx={{
-                    display: showHelp ? "inline" : "none"
-                }}>
-                    <Typography paragraph>
-                        La citt&agrave; &egrave; a disposizione del tuo personaggio per la caccia. Puoi scegliere la
-                        zona
-                        del tuo Dominio, una zona conosciuta non troppo esposta al rischio, oppure muoverti per la
-                        citt&agrave;, ricordando che zone sconosciute potrebbero nascondere dei pericoli inaspettati.
-                    </Typography>
+                {/*TODO - See above for the personal domain button*/}
+                {/*{showPersonalHavenHuntButton()}*/}
 
-                    <Typography paragraph>
-                        Puoi anche selezionare una zona gi&agrave; occupata da un altro personaggio, ma ricorda che in
-                        quel caso
-                        &egrave; possibile che il tuo personaggio venga identificato a cacciare nel Dominio di un altro
-                        Cainita,
-                        con conseguenze anche spiacevoli.
-                    </Typography>
-                </Box>
-
-                {showPersonalHavenHuntButton()}
-
-                <HavenMap onSectionSelected={onSectionSelected} setPersonalHaven={id => setPersonalHavenId(_ => id)} />
+                <HavenMap onSectionSelected={onSectionSelected}
+                          setPersonalHaven={id => setPersonalHavenId(_ => id)} />
             </>
         );
     }
@@ -172,7 +169,7 @@ const HuntInternal = ({characterId}) => {
     return (<></>);
 };
 
-const Hunt = (): any => {
+const Hunt = (): GenericReactComponent => {
     const [,character] = useSession();
 
     if (character?.id != null) {
