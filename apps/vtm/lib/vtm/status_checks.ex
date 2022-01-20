@@ -308,6 +308,7 @@ defmodule Vtm.StatusChecks do
     end
   end
 
+  @spec determine_resonance_power() :: non_neg_integer()
   defp determine_resonance_power() do
     case {Helpers.throw_dice(), Helpers.throw_dice()} do
       {x, r} when x >= 9 and r >= 9 -> 4
@@ -317,18 +318,22 @@ defmodule Vtm.StatusChecks do
     end
   end
 
-  defp determine_resonance_type() do
-    case Helpers.throw_dice() do
-      x when x >= 9 -> "Flemmatica"
-      x when x >= 7 -> "Collerica"
-      x when x >= 4 -> "Malinconica"
-      _             -> "Sanguigna"
+  @spec determine_resonance_type(Character.t()) :: binary()
+  defp determine_resonance_type(%{id: character_id}) do
+    case {Characters.is_character_vegan_hunter?(character_id), Helpers.throw_dice()} do
+      {true, _}           -> "Animale"
+      {_, x} when x == 10 -> "Flemmatica"
+      {_, x} when x >= 7  -> "Collerica"
+      {_, x} when x >= 4  -> "Malinconica"
+      {_, x} when x >= 1  -> "Sanguigna"
+      _                   -> "Animale"
     end
   end
 
+  @spec determine_resonance(Character.t()) :: {:ok, non_neg_integer(), binary(), Character.t()} | {:error, Changeset.t()}
   defp determine_resonance(character) do
     with power            <- determine_resonance_power(),
-         type             <- determine_resonance_type(),
+         type             <- determine_resonance_type(character),
          {:ok, character} <- character
                              |> Character.update_changeset(%{last_resonance: type, last_resonance_intensity: power})
                              |> Repo.update() do

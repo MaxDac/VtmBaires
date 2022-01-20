@@ -10,6 +10,7 @@ defmodule Vtm.Characters do
   alias Vtm.Helpers
   alias Vtm.InfoRegistry
   alias Vtm.Characters.Character
+  alias Vtm.Characters.CharacterInfo
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
   alias Vtm.Characters.Attribute
@@ -263,6 +264,15 @@ defmodule Vtm.Characters do
     |> Repo.one()
   end
 
+  @spec get_character_info(non_neg_integer()) :: CharacterInfo.t() | nil
+  def get_character_info(character_id) do
+    CharacterInfo
+    |> from()
+    |> where([c], c.character_id == ^character_id)
+    |> Repo.one()
+  end
+
+  @spec get_charater_clan(non_neg_integer()) :: Clan.t() | nil
   defp get_charater_clan(character_id) do
     query =
       from c in Character,
@@ -274,6 +284,7 @@ defmodule Vtm.Characters do
     query |> Repo.one()
   end
 
+  @spec is_character_thin_blood?(non_neg_integer()) :: boolean()
   def is_character_thin_blood?(character_id) do
     case get_charater_clan(character_id) do
       %{name: "Sangue Debole"} -> true
@@ -281,9 +292,18 @@ defmodule Vtm.Characters do
     end
   end
 
+  @spec is_character_human?(non_neg_integer()) :: boolean()
   def is_character_human?(character_id) do
     case get_charater_clan(character_id) do
       %{name: "Umano"}  -> true
+      _                 -> false
+    end
+  end
+
+  @spec is_character_vegan_hunter?(non_neg_integer()) :: boolean()
+  def is_character_vegan_hunter?(character_id) do
+    case get_character_info(character_id) do
+      %{is_vegan: true} -> true
       _                 -> false
     end
   end
