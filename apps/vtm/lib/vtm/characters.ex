@@ -2,20 +2,26 @@ defmodule Vtm.Characters do
   @moduledoc false
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
+
+  alias VtmAuth.Accounts.User
 
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.InfoRegistry
-  alias VtmAuth.Accounts.User
   alias Vtm.Characters.Character
+  alias Vtm.Characters.CharacterInfo
   alias Vtm.Characters.Clan
   alias Vtm.Characters.PredatorType
   alias Vtm.Characters.Attribute
   alias Vtm.Characters.CharacterAttribute
   alias Vtm.Characters.AttributeType
+  alias Vtm.Experience
+
   alias VtmAuth.Accounts.SessionInfo
 
   @awake_time 60 * 60 * 24 * -1
+  @not_enough_experience "Il personaggio non ha sufficiente esperienza"
 
   @spec all_characters_query() :: Ecto.Query.t()
   defp all_characters_query() do
@@ -72,9 +78,10 @@ defmodule Vtm.Characters do
   end
 
   def get_clan_disciplines(clan_id) do
-    %{attributes: attributes} = Clan
-    |> preload(:attributes)
-    |> Repo.get(clan_id)
+    %{attributes: attributes} =
+      Clan
+      |> preload(:attributes)
+      |> Repo.get(clan_id)
 
     attributes
   end
@@ -147,7 +154,7 @@ defmodule Vtm.Characters do
     end
   end
 
-  @spec character_of_user?(integer, integer) :: boolean
+  @spec character_of_user?(non_neg_integer(), non_neg_integer()) :: boolean()
   def character_of_user?(user_id, character_id) do
     query = from c in Character,
       where: c.id == ^character_id,
@@ -207,12 +214,15 @@ defmodule Vtm.Characters do
     |> Map.put(:is_awake, is_awake)
   end
 
-  @spec map_character_info(Character.t()) :: Character.t()
-  defp map_character_info(character) do
+  @spec map_character_info(Character.t() | nil) :: Character.t() | nil
+  defp map_character_info(character) when not is_nil(character) do
     character
     |> add_is_awake_to_character()
   end
 
+  defp map_character_info(c), do: c
+
+  @spec get_specific_character(User.t(), non_neg_integer()) :: Character.t() | nil
   def get_specific_character(%{role: :master}, id) do
     Character
     |> preload(:clan)
@@ -254,6 +264,15 @@ defmodule Vtm.Characters do
     |> Repo.one()
   end
 
+  @spec get_character_info(non_neg_integer()) :: CharacterInfo.t() | nil
+  def get_character_info(character_id) do
+    CharacterInfo
+    |> from()
+    |> where([c], c.character_id == ^character_id)
+    |> Repo.one()
+  end
+
+  @spec get_charater_clan(non_neg_integer()) :: Clan.t() | nil
   defp get_charater_clan(character_id) do
     query =
       from c in Character,
@@ -265,6 +284,7 @@ defmodule Vtm.Characters do
     query |> Repo.one()
   end
 
+  @spec is_character_thin_blood?(non_neg_integer()) :: boolean()
   def is_character_thin_blood?(character_id) do
     case get_charater_clan(character_id) do
       %{name: "Sangue Debole"} -> true
@@ -272,9 +292,18 @@ defmodule Vtm.Characters do
     end
   end
 
+  @spec is_character_human?(non_neg_integer()) :: boolean()
   def is_character_human?(character_id) do
     case get_charater_clan(character_id) do
       %{name: "Umano"}  -> true
+      _                 -> false
+    end
+  end
+
+  @spec is_character_vegan_hunter?(non_neg_integer()) :: boolean()
+  def is_character_vegan_hunter?(character_id) do
+    case get_character_info(character_id) do
+      %{is_vegan: true} -> true
       _                 -> false
     end
   end
@@ -433,16 +462,30 @@ defmodule Vtm.Characters do
     |> get_character_attributes_subset(character_id)
   end
 
-  @spec get_character_predator_type(integer()) :: PredatorType.t() | nil
-  def get_character_predator_type(id) do
+  @spec get_character_predator_type(non_neg_integer()) :: PredatorType.t() | nil
+  def get_character_predator_type(character_id) do
     query =
       from c in Character,
         join: p in PredatorType,
         on: c.predator_type_id == p.id,
-        where: c.id == ^id,
+        where: c.id == ^character_id,
         select: p
 
-    Repo.one(query)
+    query
+    |> Repo.one()
+    |> Repo.preload(:attribute)
+    |> Repo.preload(:skill)
+  end
+
+  @spec get_character_predator_type_skills(non_neg_integer()) :: list(CharacterAttribute.t())
+  def get_character_predator_type_skills(character_id) do
+    %{
+      attribute: %{id: attribute_id},
+      skill: %{id: skill_id}
+    } = get_character_predator_type(character_id)
+
+    character_id
+    |> get_character_attributes_subset_by_ids([attribute_id, skill_id])
   end
 
   def get_character_clan(character_id) do
@@ -548,11 +591,50 @@ defmodule Vtm.Characters do
     |> Helpers.reduce_errors({:ok, %Character{id: character_id}})
   end
 
+  @spec update_character(non_neg_integer(), map()) :: {:ok, Character.t()}
   def update_character(id, attrs) do
     with character <- Character |> Repo.get(id) do
       character
       |> Character.update_changeset(attrs)
       |> Repo.update()
+    end
+  end
+
+  @spec update_character_experience(non_neg_integer(), non_neg_integer(), User.t()) :: {:ok, Character.t()} | {:error, binary()}
+  def update_character_experience(character_id, exp, user = %{id: user_id}) do
+    case get_specific_character(user, character_id) do
+      nil ->
+        {:error, :not_found}
+      %{
+        id: id,
+        experience: current_exp,
+        total_experience: total_exp
+      } when current_exp + exp >= 0 and total_exp + exp >= 0 ->
+        with {:ok, character} <- update_character(id, %{
+               experience: current_exp + exp,
+               total_experience: total_exp + exp
+             }),
+             {:ok, _} <- Experience.add_experience_log(%{
+               character_id: character_id,
+               master_id: user_id,
+               change: exp
+             }) do
+
+          {:ok, character}
+
+        end
+      _ ->
+        {:error, @not_enough_experience}
+    end
+  end
+
+  @spec update_character_hunt_difficulty(non_neg_integer(), non_neg_integer(), User.t()) :: {:ok, Character.t()} | {:error, Changeset.t()}
+  def update_character_hunt_difficulty(character_id, hunt_difficulty, user) do
+    case get_specific_character(user, character_id) do
+      nil       ->
+        {:error, :not_found}
+      %{id: id} ->
+        update_character(id, %{hunt_difficulty: hunt_difficulty})
     end
   end
 

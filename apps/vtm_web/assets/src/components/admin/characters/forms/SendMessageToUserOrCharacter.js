@@ -9,12 +9,13 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useCustomLazyLoadQuery } from "../../../../_base/relay-utils";
 import { getCharacterUserQuery } from "../../../../services/queries/character/GetCharacterUserQuery";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
 }
 
-const AddCharacterExperienceForm = ({character}: Props): any => {
+const AddCharacterExperienceForm = ({character}: Props): GenericReactComponent => {
     const history = useHistory();
     const user = useCustomLazyLoadQuery(getCharacterUserQuery, {characterId: character.id})?.getCharacterUser;
 

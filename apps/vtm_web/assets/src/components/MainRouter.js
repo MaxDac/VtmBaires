@@ -4,6 +4,8 @@ import React from "react";
 import MainLayout from "./MainLayout";
 import AuthRoute from "./_auth/AuthRoute";
 import AuthMasterRoute from "./_auth/AuthMasterRoute";
+import type {GenericReactComponent} from "../_base/types";
+import AdminHavenEvents from "./admin/havens/AdminHavenEvents";
 
 export const MainRoutes = {
     creation1: "/main/creation/1",
@@ -27,6 +29,8 @@ export const MainRoutes = {
     createNewForumPost: (threadId: string): string => `/main/forum/thread/${threadId}/post/new`,
     modifyForumPost: (threadId: string, postId: string): string => `/main/forum/thread/${threadId}/post/modify/${postId}`,
     mainMap: "/main/map",
+    hunt: "/main/hunt",
+    havenEvents: "/main/haven-events",
 
     charactersList: "/main/characters",
     sheet: (id?: ?string, reload?: ?boolean): string =>
@@ -43,7 +47,9 @@ export const MainRoutes = {
     characterDashboard: (id: string): string => `/main/admin/character/${id}`,
     createNewNpc: "/main/admin/npc/new",
     defineNpc: (id: string): string => `/main/admin/npc/${id}/define`,
+    adminHavens: "/main/admin/havens",
     chatViewer: "/main/admin/chat",
+    adminHavenEvents: "/main/admin/haven-events"
 }
 
 const Main = React.lazy(() => import('./Main'));
@@ -60,6 +66,8 @@ const MainMap = React.lazy(() => import('./map/MainMap'));
 const Map: any = React.lazy(() => import('./map/Map'));
 const Chat = React.lazy(() => import('./chat/Chat'));
 const BookChats = React.lazy(() => import('./chat/BookChats'));
+const Hunt = React.lazy(() => import('./hunt/Hunt'));
+const HavenEvents = React.lazy(() => import('./haven/HavenEvents'));
 
 const Settings = React.lazy(() => import('./settings/Settings'));
 const ReceivedMessages = React.lazy(() => import('./messages/ReceivedMessages'));
@@ -74,19 +82,15 @@ const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
 
-const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 const CharactersList = React.lazy(() => import('./character/CharactersList'));
 const CharacterDashboard = React.lazy(() => import('./admin/characters/CharacterDashboard'));
 const UnapprovedCharacters = React.lazy(() => import('./admin/approvation/UnapprovedCharacters'));
 const CreateNewNpc = React.lazy(() => import('./character/npcs/CreateNewNpc'));
 const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
+const AdminHavens = React.lazy(() => import('./admin/havens/AdminHavens'));
+const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 
-
-type Props = {
-
-}
-
-const MainRouter = (props: Props): any => {
+const MainRouter = (): GenericReactComponent => {
     return (
         <MainLayout>
             <AuthRoute exact path="/main/" component={() => <Main />} />
@@ -107,6 +111,9 @@ const MainRouter = (props: Props): any => {
             <AuthRoute exact path="/main/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
             <AuthRoute exact path="/main/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
             <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
+
+            <AuthRoute exact path="/main/hunt" component={() => <Hunt />} />
+            <AuthRoute exact path="/main/haven-events" component={() => <HavenEvents />} />
 
             <AuthRoute exact path="/main/settings" component={() => <Settings />} />
 
@@ -132,7 +139,9 @@ const MainRouter = (props: Props): any => {
             <AuthMasterRoute exact path="/main/admin/unapproved" component={() => <UnapprovedCharacters />} />
             <AuthMasterRoute exact path="/main/admin/npc/new" component={() => <CreateNewNpc />} />
             <AuthMasterRoute exact path="/main/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
+            <AuthMasterRoute exact path="/main/admin/havens" component={() => <AdminHavens />} />
             <AuthMasterRoute exact path="/main/admin/chat" component={() => <ChatViewer />} />
+            <AuthMasterRoute exact path='/main/admin/haven-events' component={() => <AdminHavenEvents />} />
         </MainLayout>
     );
 }

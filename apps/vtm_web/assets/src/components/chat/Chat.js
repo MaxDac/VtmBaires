@@ -32,12 +32,13 @@ import {downloadFile} from "../../_base/file-utils";
 import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
+import type {GenericReactComponent} from "../../_base/types";
 
 type ChatProps = {
     map: Map
 }
 
-const Chat = ({id}: {id: string}): any => {
+const Chat = ({id}: {id: string}): GenericReactComponent => {
     const map = useMap(id);
     const userHasAccess = useHasUserAccessToMap(id);
 
@@ -78,7 +79,7 @@ const ShowChatInput = ({character, characterId, onNewEntry, onNewDiceEntry}) => 
     )
 };
 
-const ChatInternal = ({map}: ChatProps): any => {
+const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     const session = useRef(useContext(SessionContext));
 
     const environment = useRelayEnvironment();

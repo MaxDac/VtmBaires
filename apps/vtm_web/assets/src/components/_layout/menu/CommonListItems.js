@@ -5,8 +5,9 @@ import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import AppVersion from "../../../_base/components/AppVersion";
 import JoinUsOnDiscord from "../../../_base/components/JoinUsOnDiscord";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const CommonListItems = (): any => {
+const CommonListItems = (): GenericReactComponent => {
     const DOLogo = () => (
         <ListItem>
             <Box sx={{margin: "0 auto"}}>

@@ -7,6 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import type { Formik } from "./FormTypes";
 import {useTheme} from "@mui/material/styles";
+import type {GenericReactComponent} from "../types";
 
 export type SelectInputProps = {
     formik: Formik;
@@ -21,7 +22,7 @@ const emptyMenuItem = () => (
     <MenuItem key="element-zero" value={null}>None</MenuItem>
 );
 
-const FormSelectField = (props: SelectInputProps): any => {
+const FormSelectField = (props: SelectInputProps): GenericReactComponent => {
     const theme = useTheme();
 
     const items = () => {
@@ -45,8 +46,8 @@ const FormSelectField = (props: SelectInputProps): any => {
             margin: theme.spacing(1),
             minWidth: 150,
         }}>
-            <InputLabel id="select-label">{props.label}</InputLabel>
-            <Select labelId="select-label"
+            <InputLabel id={`select-for-${props.fieldName}`}>{props.label}</InputLabel>
+            <Select labelId={`select-for-${props.fieldName}`}
                     id={props.fieldName}
                     name={props.fieldName}
                     fullWidth

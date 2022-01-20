@@ -5,6 +5,7 @@ import GuideLayout, {drawerWidth} from "./GuideLayout";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import {Route} from "react-router-dom";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     match: any
@@ -27,6 +28,7 @@ export const GuideRoutes = {
     mechanics: "/guides/mechanics",
     creation: "/guides/creation",
     homeRules: "/guides/home-rules",
+    hunt: "/guides/hunt",
     experience: "/guides/experience",
     places: "/guides/places",
     sayings: "/guides/sayings",
@@ -51,6 +53,7 @@ const GuidesCredits = React.lazy(() => import("./guides-pages/GuidesCredits"));
 const GuidesSiteHelp = React.lazy(() => import("./guides-pages/GuidesSiteHelp"));
 const GuidesGlossary = React.lazy(() => import("./guides-pages/GuidesGlossary"));
 const GuidesHomeRules = React.lazy(() => import("./guides-pages/GuidesHomeRules"));
+const GuidesHunt = React.lazy(() => import("./guides-pages/GuidesHunt"));
 const GuidesExperience = React.lazy(() => import("./guides-pages/GuidesExperience"));
 const GuidesSayings = React.lazy(() => import("./guides-pages/GuidesSayings"));
 const GuidesClans = React.lazy(() => import("./guides-pages/GuidesClans"));
@@ -58,7 +61,7 @@ const GuidesAttributes = React.lazy(() => import("./guides-pages/GuidesAttribute
 const GuidesMechanics = React.lazy(() => import("./guides-pages/GuidesMechanics"));
 const GuidesCreation = React.lazy(() => import("./guides-pages/GuidesCreation"));
 
-const GuidesMain = ({match}: Props): any => {
+const GuidesMain = ({match}: Props): GenericReactComponent => {
     return (
         <GuideLayout>
             <Box component="main" sx={{
@@ -87,6 +90,7 @@ const GuidesMain = ({match}: Props): any => {
                     <Route exact path={`${match.url}/creation`} component={GuidesCreation} />
                     <Route exact path={`${match.url}/npcs`} component={GuidesNpcs} />
                     <Route exact path={`${match.url}/home-rules`} component={GuidesHomeRules} />
+                    <Route exact path={`${match.url}/hunt`} component={GuidesHunt} />
                     <Route exact path={`${match.url}/experience`} component={GuidesExperience} />
                     <Route exact path={`${match.url}/places`} component={GuidesPlaces} />
                     <Route exact path={`${match.url}/sayings`} component={GuidesSayings} />

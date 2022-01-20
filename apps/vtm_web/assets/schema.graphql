@@ -92,6 +92,15 @@ type ChangeCharacterExperiencePayload {
   result: Character
 }
 
+input ChangeCharacterHuntDifficultyInput {
+  characterId: ID!
+  huntDifficulty: Int!
+}
+
+type ChangeCharacterHuntDifficultyPayload {
+  result: Character
+}
+
 input ChangeCharacterNotesInput {
   advantages: String!
   characterId: ID!
@@ -170,6 +179,7 @@ type Character implements Node {
   health: Int
   humanity: Int
   hunger: Int
+  huntDifficulty: Int
 
   """The ID of an object"""
   id: ID!
@@ -373,6 +383,14 @@ type DeleteForumThreadPayload {
   result: ForumThread
 }
 
+input DeleteHavenCharacterInput {
+  havenId: ID!
+}
+
+type DeleteHavenCharacterPayload {
+  result: Haven
+}
+
 type Discipline implements Node {
   description: String
 
@@ -435,9 +453,55 @@ type ForumThreadInfo {
   thread: ForumThread
 }
 
+input GetCharacterDomainEventsInput {
+  characterId: ID!
+}
+
+type GetCharacterDomainEventsPayload {
+  result: [HavenEvent]
+}
+
+type GetHavensPayload {
+  result: [Haven]
+}
+
 type GetThreadsResponse {
   threadCount: Int
   threads: [ForumThreadInfo]
+}
+
+type GetUnresolvedEventsPayload {
+  result: [HavenEvent]
+}
+
+type Haven implements Node {
+  character: Character
+  danger: Int
+  difficulty: Int
+  groundControl: Int
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  name: String
+  ownerDifficulty: Int
+  resourcesLevel: Int
+  updatedAt: DateTime
+  x: Int
+  y: Int
+}
+
+type HavenEvent implements Node {
+  character: Character
+  controlTriggered: Boolean
+  dangerTriggered: Boolean
+  haven: Haven
+
+  """The ID of an object"""
+  id: ID!
+  insertedAt: DateTime
+  resolved: Boolean
+  updatedAt: DateTime
 }
 
 input HealInput {
@@ -460,6 +524,7 @@ type HealWillpowerPayload {
 
 input HuntInput {
   characterId: ID!
+  havenId: ID!
 }
 
 type HuntPayload {
@@ -592,6 +657,14 @@ type ResetCharacterHuntPayload {
   result: Character
 }
 
+input ResolveEventInput {
+  eventId: ID!
+}
+
+type ResolveEventPayload {
+  result: HavenEvent
+}
+
 enum Role {
   MASTER
   USER
@@ -609,6 +682,7 @@ type RootMutationType {
   bookChatMap(chatId: ID!): ChatLocation
   changeCharacterAttribute(input: ChangeCharacterAttributeInput!): ChangeCharacterAttributePayload
   changeCharacterExperience(input: ChangeCharacterExperienceInput!): ChangeCharacterExperiencePayload
+  changeCharacterHuntDifficulty(input: ChangeCharacterHuntDifficultyInput!): ChangeCharacterHuntDifficultyPayload
   changeCharacterNotes(input: ChangeCharacterNotesInput!): ChangeCharacterNotesPayload
   changeCharacterOtherStats(input: ChangeCharacterOtherStatsInput!): ChangeCharacterOtherStatsPayload
   changeCharacterStatus(input: ChangeCharacterStatusInput!): ChangeCharacterStatusPayload
@@ -625,6 +699,7 @@ type RootMutationType {
   deleteCharacter(characterId: ID): Boolean
   deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
   deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload
+  deleteHavenCharacter(input: DeleteHavenCharacterInput!): DeleteHavenCharacterPayload
   deleteMessage(messageId: ID): Message
   finalizeCharacter(characterId: ID): Character
   heal(input: HealInput!): HealPayload
@@ -641,10 +716,12 @@ type RootMutationType {
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
   resetSession: Boolean
   resetSessionMap: Boolean
+  resolveEvent(input: ResolveEventInput!): ResolveEventPayload
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
   setForumThreadRead(input: SetForumThreadReadInput!): SetForumThreadReadPayload
+  setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
   setMessageRead(messageId: ID): Message
   spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
@@ -668,6 +745,7 @@ type RootQueryType {
   getCharacterAvatar(characterId: ID!): CharacterAvatar
   getCharacterChatAvatar(characterId: ID!): CharacterChatAvatar
   getCharacterDescription(characterId: ID): Character
+  getCharacterDomainEvents(input: GetCharacterDomainEventsInput!): GetCharacterDomainEventsPayload
   getCharacterPublicInfo(id: ID): Character
   getCharacterStats(characterId: ID): CharacterStats
   getCharacterStatus(characterId: ID): Character
@@ -680,8 +758,10 @@ type RootQueryType {
   getForumThread(id: ID!): ForumThread
   getForumThreadPosts(id: ID!, page: Int!, pageSize: Int!): [ForumPost]
   getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
+  getHavens: GetHavensPayload
   getMessage(messageId: ID): Message
   getSessionCharacter: Character
+  getUnresolvedEvents: GetUnresolvedEventsPayload
   hasUserAccessToMap(chatId: ID): Boolean
   hasUserAlreadyBooked: Boolean
   isCharacterAwake(characterId: ID): Boolean
@@ -755,6 +835,15 @@ input SetForumThreadReadInput {
 
 type SetForumThreadReadPayload {
   result: Boolean
+}
+
+input SetHavenCharacterInput {
+  characterId: ID!
+  havenId: ID!
+}
+
+type SetHavenCharacterPayload {
+  result: Haven
 }
 
 input SpendCharacterExperienceInput {

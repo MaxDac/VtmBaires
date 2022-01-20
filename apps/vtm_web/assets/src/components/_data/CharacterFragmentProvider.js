@@ -10,6 +10,7 @@ import type {
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {randomFetchKey} from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = CharacterProviderBaseProps & {
     showWarningWhenNoCharacterSelected: boolean;
@@ -39,7 +40,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey
     );
 };
 
-const CharacterFragmentProvider = (props: Props): any => {
+const CharacterFragmentProvider = (props: Props): GenericReactComponent => {
     const characterId = useCharacterProviderId(props.characterId);
 
     if (characterId != null) {

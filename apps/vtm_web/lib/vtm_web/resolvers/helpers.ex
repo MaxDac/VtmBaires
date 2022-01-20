@@ -3,10 +3,17 @@ defmodule VtmWeb.Resolvers.Helpers do
 
   import Absinthe.Relay.Node
 
-  @spec parsed_id_to_string?(any()) :: integer() | nil
-  def parsed_id_to_string?(parsed_id) when is_binary(parsed_id), do: parsed_id |> String.to_integer()
-  def parsed_id_to_string?(parsed_id) when is_integer(parsed_id), do: parsed_id
-  def parsed_id_to_string?(_), do: nil
+  @spec parsed_id_to_integer(any()) :: integer() | nil
+  def parsed_id_to_integer(parsed_id) when is_binary(parsed_id), do: parsed_id |> String.to_integer()
+  def parsed_id_to_integer(parsed_id) when is_integer(parsed_id), do: parsed_id
+  def parsed_id_to_integer(_), do: nil
+
+  def parsed_id_to_integer?(parsed_id) do
+    case parsed_id_to_integer(parsed_id) do
+      nil -> {:error, :not_found}
+      id  -> {:ok, id}
+    end
+  end
 
   def parse_changeset_errors(%Ecto.Changeset{errors: errors}, _) do
     errors

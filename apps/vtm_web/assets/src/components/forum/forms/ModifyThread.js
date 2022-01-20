@@ -13,6 +13,7 @@ import {getForumThreadQuery} from "../../../services/queries/forum/GetForumThrea
 import type {GetForumThreadQuery} from "../../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import ModifyThreadMutation from "../../../services/mutations/forum/ModifyThreadMutation";
 import { handleMutation } from "../../../_base/utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     sectionId: string;
@@ -24,7 +25,7 @@ const CreateNewThreadValidationSchema = object().shape({
     description: string("La descrizione del thread")
 });
 
-const ModifyThread = ({sectionId, threadId}: Props): any => {
+const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);

@@ -21,6 +21,7 @@ import Checkbox from '@mui/material/Checkbox';
 import {isUserMaster} from "../../../services/base-types";
 import {useSession} from "../../../services/session-service";
 import {sortAttributes} from "../../../_base/info-helpers";
+import type {GenericReactComponent} from "../../../_base/types";
 
 export type ChatDiceRequest = {
     attributeId: string;
@@ -38,7 +39,7 @@ type ChatThrowDiceInputProps = {
     onDialogFormSubmit: ChatDiceRequest => void;
 };
 
-const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): any => {
+const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): GenericReactComponent => {
     const attributes = useAttributesSlimQuery() ?? [];
     const [user,] = useSession();
     const [open, setOpen] = useState(props.isOpen);

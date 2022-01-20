@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type PropsInternal = {
     characterId: string;
@@ -20,7 +21,7 @@ type Props = {
     close: () => void;
 }
 
-const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): any => {
+const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): GenericReactComponent => {
     const characterInfo =
         useCustomLazyLoadQuery<GetCharacterDescriptionQuery>(getCharacterDescriptionQuery, {id: characterId})
             ?.getCharacterDescription;
@@ -44,7 +45,7 @@ const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): any 
     );
 }
 
-const ChatDescriptionModal = (props: Props): any => {
+const ChatDescriptionModal = (props: Props): GenericReactComponent => {
     if (props.characterId != null) {
         return (<ChatDescriptionModalInternal characterId={props.characterId} close={props.close} />);
     }

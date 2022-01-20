@@ -13,13 +13,14 @@ import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../../contexts";
 import ChangeCharacterAttributeMutation from "../../../../services/mutations/admin/ChangeCharacterAttributeMutation";
 import {UseAttributeSelectOptions} from "./hooks";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): any => {
+const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const [attributes, attributeSelectOptions] = UseAttributeSelectOptions();

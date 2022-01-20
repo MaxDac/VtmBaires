@@ -2,6 +2,7 @@
 
 import React from "react";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../types";
 
 export type TabPanelProps = {
     children: any;
@@ -9,7 +10,7 @@ export type TabPanelProps = {
     index: number;
 }
 
-const TabPanel = ({ children, value, index }: TabPanelProps): any => {
+const TabPanel = ({ children, value, index }: TabPanelProps): GenericReactComponent => {
     return (
         <div role="tabpanel"
              hidden={value !== index}

@@ -12,8 +12,9 @@ import SpecialistSkillForm from "./strategies/SpecialistSkillForm";
 import useStyles from "../Main.Layout.Style";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../guides/GuidesMain";
+import type {GenericReactComponent} from "../../_base/types";
 
-const Creation3 = (): any => {
+const Creation3 = (): GenericReactComponent => {
     const classes = useStyles();
     const [characterType, setCharacterType] = useState(1);
 

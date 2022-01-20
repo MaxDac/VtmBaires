@@ -5,12 +5,13 @@ import {useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { MainRoutes } from "../../MainRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     children: any;
 }
 
-const ReturnToMessagesControl = ({children}: Props): any => {
+const ReturnToMessagesControl = ({children}: Props): GenericReactComponent => {
     const history = useHistory();
 
     return (

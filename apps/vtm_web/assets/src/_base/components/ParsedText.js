@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ReactMarkdown from 'react-markdown';
 import {replaceAll} from "../utils";
+import type {GenericReactComponent} from "../types";
 
 type Props = {
     text: ?string;
@@ -31,7 +32,7 @@ const ParsedText = ({
                         ignoreDefaultComponents,
                         useDivsInsteadOfParagraphs,
                         useNaturalNewLine
-}: Props): any => {
+}: Props): GenericReactComponent => {
     const parseComponents = () => {
         if (!!components) {
             return components;

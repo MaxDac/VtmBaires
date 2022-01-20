@@ -11,8 +11,9 @@ import MainMapResponsive from './MainMapResponsive';
 import type {MainMapsQuery} from "../../services/queries/map/__generated__/MainMapsQuery.graphql";
 import {useRelayEnvironment} from "react-relay";
 import ResetSessionMapMutation from "../../services/mutations/sessions/ResetSessionMapMutation";
+import type {GenericReactComponent} from "../../_base/types";
 
-const MainMap = (): any => {
+const MainMap = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const history = useHistory();

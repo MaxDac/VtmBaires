@@ -6,12 +6,13 @@ import useSectionMaps from "../../services/queries/map/SectionMapsQuery";
 import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import useMap from "../../services/queries/map/MapQuery";
 import {replaceAll, stripAccents} from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type MapProps = {
     id: string;
 }
 
-const Map = ({ id }: MapProps): any => {
+const Map = ({ id }: MapProps): GenericReactComponent => {
     useUpdateSessionMap(id);
 
     const map = useMap(id);

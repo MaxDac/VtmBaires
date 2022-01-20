@@ -6,12 +6,13 @@ import Grid from "@mui/material/Grid";
 import CreationBase from "./CreationBase";
 import {propNotNullRendering} from "../../../_base/render-utils";
 import { useSession } from "../../../services/session-service";
+import type {GenericReactComponent} from "../../../_base/types";
 
 export type CreationBaseProps = {
     classes: any;
 }
 
-const BalancedSkillForm = ({ classes }: CreationBaseProps): any => {
+const BalancedSkillForm = ({ classes }: CreationBaseProps): GenericReactComponent => {
     const [, currentCharacter] = useSession();
 
     const emptyAttributes = {

@@ -8,13 +8,14 @@ import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../../contexts";
 import {handleMutation} from "../../../../_base/utils";
 import ResetHuntMutation from "../../../../services/mutations/admin/ResetHuntMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const ResetHuntForm = ({character, onUpdate}: Props): any => {
+const ResetHuntForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
 

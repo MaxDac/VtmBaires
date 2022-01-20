@@ -8,13 +8,14 @@ import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQu
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     onGame: boolean;
     post: ?Post;
 }
 
-const ForumPost = ({post, onGame}: Props): any => {
+const ForumPost = ({post, onGame}: Props): GenericReactComponent => {
     const style = () => onGame
         ? mainFontFamily
         : {};

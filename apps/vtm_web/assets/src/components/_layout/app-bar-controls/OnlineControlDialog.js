@@ -18,6 +18,7 @@ import SendMessageToCharacter from "../button-links/SendMessageToCharacter";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import MenuLayout from "../../../_base/components/MenuLayout";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     closePopup: () => void;
@@ -69,7 +70,7 @@ const OnlineControlActionsSmallScreen = ({o, closePopup}) => {
     );
 }
 
-const OnlineControlDialog = ({closePopup}: Props): any => {
+const OnlineControlDialog = ({closePopup}: Props): GenericReactComponent => {
     const theme = useTheme();
     const online = useCustomLazyLoadQuery<SessionQuery>(listSessionQuery, {}, {
         fetchPolicy: "network-only"

@@ -9,6 +9,7 @@ import type {
 } from "../../../../services/queries/character/__generated__/CharacterFragments_characterState.graphql";
 import ParsedText from "../../../../_base/components/ParsedText";
 import {mainFontFamily} from "../../../Main.Layout.Style";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any
@@ -27,9 +28,16 @@ const PredatorType = ({sheet}) => (
         </Typography>
         <Typography sx={{
             ...mainFontFamily,
+            fontSize: "1.2rem",
             marginBottom: "10px"
         }}>
             {sheet?.predatorType?.name}
+        </Typography>
+        <Typography sx={{
+            ...mainFontFamily,
+            marginBottom: "10px"
+        }}>
+            Difficolt&agrave; della caccia: <b>{sheet?.huntDifficulty}</b>
         </Typography>
     </>
 );
@@ -41,6 +49,7 @@ const Clan = ({sheet}) => (
         </Typography>
         <Typography sx={{
             ...mainFontFamily,
+            fontSize: "1.2rem",
             marginBottom: "10px"
         }}>
             {sheet?.clan?.name}
@@ -127,7 +136,7 @@ const Notes = ({sheet}) => (
     }} />
 );
 
-const CharacterSheetOthersSection = ({characterQuery}: Props): any => {
+const CharacterSheetOthersSection = ({characterQuery}: Props): GenericReactComponent => {
     const sheet = useFragment<?CharacterFragments_characterState$key>(
         characterStateFragment,
         characterQuery);

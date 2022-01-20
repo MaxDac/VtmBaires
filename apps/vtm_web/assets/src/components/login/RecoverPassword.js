@@ -16,6 +16,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import {Routes} from "../../AppRouter";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -23,7 +24,7 @@ const RecoverPasswordSchema = object().shape({
         .required("Required")
 });
 
-const RecoverPassword = (): any => {
+const RecoverPassword = (): GenericReactComponent => {
     const history = useHistory();
     const theme = useTheme();
     const {showUserNotification, setWait} = useContext(UtilityContext);
@@ -65,13 +66,12 @@ const RecoverPassword = (): any => {
                     marginTop: "10px",
                 }} noValidate onSubmit={formik.handleSubmit}>
                     <FormTextField formik={formik} fieldName="email" label="Email" type="email" />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="outlined"
-                        sx={{
-                            margin: theme.spacing(3, 0, 2),
-                        }}>
+                    <Button type="submit"
+                            fullWidth
+                            variant="outlined"
+                            sx={{
+                                margin: theme.spacing(3, 0, 2),
+                            }}>
                         Recupera la tua password!
                     </Button>
                 </form>

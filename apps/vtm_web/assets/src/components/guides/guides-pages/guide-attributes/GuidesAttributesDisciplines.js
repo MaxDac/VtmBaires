@@ -5,12 +5,13 @@ import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {guideStyle, liStyle, titleStyle} from "../../GuidesStyles";
 import {GuideRoutes} from "../../GuidesMain";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
 
 }
 
-const GuidesAttributesDisciplines = (props: Props): any => {
+const GuidesAttributesDisciplines = (props: Props): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>

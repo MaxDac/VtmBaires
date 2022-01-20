@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     userId: ?string;
@@ -17,7 +18,7 @@ type Props = {
     asMenuItem?: boolean;
 }
 
-const SendMessageToUser = ({userId, onSelected, asMenuItem}: Props): any => {
+const SendMessageToUser = ({userId, onSelected, asMenuItem}: Props): GenericReactComponent => {
     const history = useHistory();
 
     const trySendMessageToUser = _ => {

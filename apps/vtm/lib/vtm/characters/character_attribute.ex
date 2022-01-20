@@ -38,6 +38,8 @@ defmodule Vtm.Characters.CharacterAttribute do
   def changeset(character_attribute, attrs) do
     character_attribute
     |> cast(attrs, [:value, :character_id, :attribute_id])
+    |> foreign_key_constraint(:character_id)
+    |> foreign_key_constraint(:attribute_id)
     |> validate_required([:value, :character_id, :attribute_id])
   end
 end

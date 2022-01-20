@@ -12,13 +12,14 @@ import MenuItem from "@mui/material/MenuItem";
 import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import ChangeCharacterExperienceMutation from "../../../../services/mutations/admin/ChangeCharacterExperienceMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
+const AddCharacterExperienceForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
@@ -38,7 +39,7 @@ const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
         return options;
     };
 
-    const changeCharacterAttribute = _ => {
+    const changeCharacterExperience = _ => {
         const changeTypeLabel = experience < 0 ? "sottrarre" : "aggiungere";
 
         openDialog(
@@ -75,13 +76,13 @@ const AddCharacterExperienceForm = ({character, onUpdate}: Props): any => {
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{paddingTop: "20px", textAlign: "center"}}>
                     <Button variant="outlined"
-                            onClick={changeCharacterAttribute}>
+                            onClick={changeCharacterExperience}>
                         Aggiungi / Sottrai Esperienza
                     </Button>
                 </Grid>
             </Grid>
         </Grid>
     );
-}
+};
 
 export default AddCharacterExperienceForm;

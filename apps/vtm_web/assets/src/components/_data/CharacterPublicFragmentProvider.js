@@ -4,6 +4,7 @@ import React from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterPublicQuery} from "../../services/queries/character/GetCharacterPublicQuery";
 import type {GetCharacterPublicQuery} from "../../services/queries/character/__generated__/GetCharacterPublicQuery.graphql";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     id: string;
@@ -12,7 +13,7 @@ type Props = {
     fetchKey?: number;
 }
 
-const CharacterFragmentPublicProviderQuery = ({id, children, reload, fetchKey}: Props): any => {
+const CharacterFragmentPublicProviderQuery = ({id, children, reload, fetchKey}: Props): GenericReactComponent => {
     const policy = {
         fetchPolicy: reload ? "store-and-network" : "store-or-network",
         fetchKey: fetchKey ?? 0

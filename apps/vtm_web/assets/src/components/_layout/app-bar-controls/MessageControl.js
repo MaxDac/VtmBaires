@@ -8,12 +8,13 @@ import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "../menu/menu-base-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     numberOfMessages: number;
 }
 
-const MessageControl = ({numberOfMessages}: Props): any => {
+const MessageControl = ({numberOfMessages}: Props): GenericReactComponent => {
     const history = useHistory();
 
     return (

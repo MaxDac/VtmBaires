@@ -12,12 +12,13 @@ import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { MainRoutes } from "../../MainRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const DefineNpc = ({characterId}: Props): any => {
+const DefineNpc = ({characterId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
@@ -53,12 +54,11 @@ const DefineNpc = ({characterId}: Props): any => {
                 margin: "10px",
                 padding: "10px"
             }}>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    fullWidth
-                    color="primary"
-                    onClick={_ => confirmPng()}>
+                <Button type="submit"
+                        variant="outlined"
+                        fullWidth
+                        color="primary"
+                        onClick={_ => confirmPng()}>
                     Conferma Personaggio non Giocante
                 </Button>
             </Grid>

@@ -48,6 +48,7 @@ export type Character = {|
     +specialties: ?string,
     +objects: ?string,
     +lastHunt: ?any,
+    +huntDifficulty: ?number,
     +lastResonance: ?string,
     +lastResonanceIntensity: ?number,
     +bloodPotency: ?number,

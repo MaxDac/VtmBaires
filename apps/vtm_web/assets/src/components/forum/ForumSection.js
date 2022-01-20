@@ -18,6 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from '@mui/icons-material/Home';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     sectionId: string;
@@ -25,7 +26,7 @@ type Props = {
 
 export const DefaultPageSize = 10;
 
-const ForumSection = ({sectionId}: Props): any => {
+const ForumSection = ({sectionId}: Props): GenericReactComponent => {
     const history = useHistory();
     const [,character] = useSession();
     const [currentPage, setCurrentPage] = useState(1);

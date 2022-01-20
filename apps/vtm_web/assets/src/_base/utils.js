@@ -1,7 +1,7 @@
 // @flow
 
 import type {History} from "./types";
-import type {AlertInfo} from "./types";
+import type {AlertInfo, GenericReactComponent} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
@@ -59,6 +59,16 @@ export const toMap = <TKey, TValue>(arr: ?Array<?[?TKey, ?TValue]>): ?Map<TKey, 
         return map;
     }, new Map<TKey, TValue>());
 
+export const getMapKeys = <TKey, TValue>(map: Map<TKey, TValue>): Array<TKey> => {
+    const ret = [];
+
+    for (const key of map.keys()) {
+        ret.push(key);
+    }
+
+    return ret;
+};
+
 export const filterNulls = <T>(arr: Array<?T>): Array<T> =>
     arr?.reduce((acc, p) => {
         if (p != null) {
@@ -80,6 +90,13 @@ export const firstOrDefault = <T>(a: ?Array<T>): ?T => {
 };
 
 export const castNotNull = <T>(item: ?T): T => ((item: any): T);
+
+/**
+ * Tries to cast the given item to one type.
+ * @param item The item.
+ * @return {*} The casted item.
+ */
+export const tryCastToOneType = <T, Q>(item: T | Q): ?T => ((item: any): ?T);
 
 /**
  * Determines whether the string is not null nor empty.
@@ -121,7 +138,7 @@ export const rangeArray = (from: number, to: number): Array<number> => {
     return ret;
 };
 
-export const baseMenuItems = (min: number, max: number): any => {
+export const baseMenuItems = (min: number, max: number): GenericReactComponent => {
     const values = [];
 
     for (const v of range(min, max)) {

@@ -12,6 +12,7 @@ import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../../MainRouter";
 import ThreadForm from "./ThreadForm";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     sectionId: string;
@@ -22,7 +23,7 @@ const CreateNewThreadValidationSchema = object().shape({
     description: string("La descrizione del thread")
 });
 
-const CreateNewThread = ({sectionId}: Props): any => {
+const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);

@@ -17,12 +17,13 @@ import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
 import MainSuspenseFallback from "./MainSuspenseFallback";
 import { performLogout } from "./services/logout-service";
+import type {GenericReactComponent} from "./_base/types";
 
 const Internal = ({env}: { env: IEnvironment}) => {
     const { showUserNotification } = useContext(UtilityContext);
     const history = useHistory();
 
-    const fallback = (error, _retry): any => {
+    const fallback = (error, _retry): GenericReactComponent => {
         console.error("An unhandled error happened in the app", error)
         showUserNotification({
             type: "error",

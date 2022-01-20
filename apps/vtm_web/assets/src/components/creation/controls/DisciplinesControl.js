@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
 import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import TextField from "@mui/material/TextField";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterInfo: CharacterFragments_characterConcealedInfo;
@@ -42,7 +43,7 @@ const DisciplinesControl = ({
                                 firstError,
                                 secondError,
                                 disciplinePowersErrors
-}: Props): any => {
+}: Props): GenericReactComponent => {
     const { clanDisciplines }: ClanDisciplinesQueryResponse =
         useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: characterInfo.clan?.id });
 

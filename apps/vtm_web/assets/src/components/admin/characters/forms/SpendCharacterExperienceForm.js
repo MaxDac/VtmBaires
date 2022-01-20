@@ -13,13 +13,14 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import {UseAttributeSelectOptions} from "./hooks";
 import SpendCharacterExperienceMutation from "../../../../services/mutations/admin/SpendCharacterExperienceMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate: () => void;
 }
 
-const SpendCharacterExperienceForm = ({character, onUpdate}: Props): any => {
+const SpendCharacterExperienceForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const [attributes, attributeSelectOptions] = UseAttributeSelectOptions(true);

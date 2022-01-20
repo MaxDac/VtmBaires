@@ -6,12 +6,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     onClick: () => void;
 }
 
-const CreateNewCharacterMenuItem = ({onClick}: Props): any => {
+const CreateNewCharacterMenuItem = ({onClick}: Props): GenericReactComponent => {
     return (
         <ListItem button onClick={onClick}>
             <ListItemIcon>

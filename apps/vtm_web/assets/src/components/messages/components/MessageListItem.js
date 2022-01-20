@@ -10,6 +10,7 @@ import {useHistory} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     message: {|
@@ -38,7 +39,7 @@ type Props = {
     |}
 }
 
-const MessageListItem = ({message}: Props): any => {
+const MessageListItem = ({message}: Props): GenericReactComponent => {
     const history = useHistory();
 
     const readIcon = () =>

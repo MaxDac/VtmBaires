@@ -14,12 +14,13 @@ import Box from "@mui/material/Box";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import { MainRoutes } from "../../MainRouter";
 import RejectCharacterMutation from "../../../services/mutations/characters/RejectCharacterMutation";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     character: Character;
 }
 
-const ApproveCharacterForm = ({character}: Props): any => {
+const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
     const history = useHistory();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();

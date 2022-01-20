@@ -14,6 +14,7 @@ import GuidesAttributesAttributes from "./guide-attributes/GuidesAttributesAttri
 import GuidesAttributesDisciplines from "./guide-attributes/GuidesAttributesDisciplines";
 import GuidesAttributesAdvantages from "./guide-attributes/GuidesAttributesAdvantages";
 import ParsedText from "../../../_base/components/ParsedText";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const a11yProps = index => {
     return {
@@ -22,7 +23,7 @@ const a11yProps = index => {
     };
 };
 
-const GuidesAttributes = (): any => {
+const GuidesAttributes = (): GenericReactComponent => {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {

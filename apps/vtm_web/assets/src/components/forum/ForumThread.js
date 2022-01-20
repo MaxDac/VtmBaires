@@ -19,6 +19,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {useRelayEnvironment} from "react-relay";
 import SetForumThreadReadMutation from "../../services/mutations/forum/SetForumThreadReadMutation";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     threadId: string;
@@ -26,7 +27,7 @@ type Props = {
 
 export const DefaultPageSize = 10;
 
-const ForumThread = ({threadId}: Props): any => {
+const ForumThread = ({threadId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const history = useHistory();
 

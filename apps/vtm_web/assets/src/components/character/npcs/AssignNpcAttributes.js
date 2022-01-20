@@ -15,12 +15,13 @@ import AssignNpcAttributesMutation from "../../../services/mutations/npcs/Assign
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import type { Attribute } from "../../../services/queries/character/GetCharacterStatsQuery";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const AssignNpcAttributes = ({characterId}: Props): any => {
+const AssignNpcAttributes = ({characterId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
     const theme = useTheme();
@@ -95,11 +96,10 @@ const AssignNpcAttributes = ({characterId}: Props): any => {
                 textAlign: "center",
                 padding: theme.spacing(3)
             }}>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    color="primary"
-                    onClick={_ => onSave()}>
+                <Button type="submit"
+                        variant="outlined"
+                        color="primary"
+                        onClick={_ => onSave()}>
                     Salva
                 </Button>
             </Grid>

@@ -10,8 +10,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import type {Attribute} from "../../../services/queries/info/AttributesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const AdvantagesControl = (): any => {
+const AdvantagesControl = (): GenericReactComponent => {
     const {attributes}: { attributes: Array<Attribute> } = useCustomLazyLoadQuery(attributesSlimQuery, {});
 
     const error = useState(false);

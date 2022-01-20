@@ -20,6 +20,7 @@ import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {goToChatAndUpdateSession} from "../chat/chat-helpers";
 import {SessionContext} from "../../contexts";
 import {orderAlphabetically} from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -71,7 +72,7 @@ const SubMapWide = ({classes, imageUrl, subHeader, mapLinks}) => (
     </Container>
 );
 
-const SubMap = ({maps, imageUrl}: SubMapProps): any => {
+const SubMap = ({maps, imageUrl}: SubMapProps): GenericReactComponent => {
     const history = useHistory();
     const sessionUtils = useContext(SessionContext);
     const classes = useStyles();

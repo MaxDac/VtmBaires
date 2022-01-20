@@ -11,6 +11,7 @@ import {SessionContext} from "../../../contexts";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     location: ?{
@@ -21,7 +22,7 @@ type Props = {
     asMenuItem?: boolean;
 }
 
-const GoToMapLocation = ({location, onSelected, asMenuItem}: Props): any => {
+const GoToMapLocation = ({location, onSelected, asMenuItem}: Props): GenericReactComponent => {
     const sessionUtils = useContext(SessionContext);
     const history = useHistory();
 

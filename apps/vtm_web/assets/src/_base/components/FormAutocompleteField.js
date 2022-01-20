@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import {useTheme} from "@mui/material/styles";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import type {GenericReactComponent} from "../types";
 
 type Props = {
     formik: Formik;
@@ -14,7 +15,7 @@ type Props = {
     values: Array<[string, string]>;
 }
 
-const FormAutocompleteField = (props: Props): any => {
+const FormAutocompleteField = (props: Props): GenericReactComponent => {
     const theme = useTheme();
 
     const onChanged = (e) => {

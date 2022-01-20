@@ -9,8 +9,9 @@ import { useHistory } from 'react-router';
 import { Routes } from "../../AppRouter";
 import CenteredBox from "../../_base/components/CenteredBox";
 import {LoginRoutes} from "./LoginRouter";
+import type {GenericReactComponent} from "../../_base/types";
 
-const SplashScreen = (): any => {
+const SplashScreen = (): GenericReactComponent => {
     const history = useHistory();
 
     useEffect(() => {

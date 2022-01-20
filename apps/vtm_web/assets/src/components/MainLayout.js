@@ -26,6 +26,7 @@ import ReturnToChatControl from "./_layout/app-bar-controls/ReturnToChatControl"
 import SecondaryListItems from "./_layout/menu/SecondaryListItems";
 import MainListItems from "./_layout/menu/MainListItems";
 import CommonListItems from "./_layout/menu/CommonListItems";
+import type {GenericReactComponent} from "../_base/types";
 
 const drawerWidth = 300;
 
@@ -71,7 +72,7 @@ const PageDrawer = ({open, setOpen, children}) => {
     );
 };
 
-const MiniDrawer = ({children}: {children: any}): any => {
+const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();

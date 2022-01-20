@@ -13,6 +13,7 @@ import {useFragment} from "react-relay";
 import {characterStatsFragment} from "../../../../services/queries/character/CharacterFragments";
 import type {CharacterFragments_characterStats$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import CharacterSheetStatusStatsSection from "./CharacterSheetStatusStatsSection";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 export type RefreshedQueryOption = {
     fetchKey: number;
@@ -39,7 +40,7 @@ export const sectionStyle = {
 };
 
 const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
-                                        hideAttributes, hideAbilities, hideAdvantages, hideStatus}: Props): any => {
+                                        hideAttributes, hideAbilities, hideAdvantages, hideStatus}: Props): GenericReactComponent => {
     const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
         characterStatsFragment,
         characterQuery);

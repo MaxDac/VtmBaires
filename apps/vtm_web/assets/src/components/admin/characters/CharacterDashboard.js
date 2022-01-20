@@ -17,12 +17,14 @@ import ChangeCharacterStatusForm from "./forms/ChangeCharacterStatusForm";
 import ResetHuntForm from "./forms/ResetHuntForm";
 import SpendCharacterExperienceForm from "./forms/SpendCharacterExperienceForm";
 import SendMessageToUserOrCharacter from "./forms/SendMessageToUserOrCharacter";
+import SetHuntDifficultyForm from "./forms/SetHuntDifficultyForm";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     characterId: string;
 }
 
-const CharacterDashboard = ({characterId}: Props): any => {
+const CharacterDashboard = ({characterId}: Props): GenericReactComponent => {
     const character = useCharacterCompleteQuery(characterId);
 
     const [showSheet, setShowSheet] = useState(true);
@@ -81,6 +83,12 @@ const CharacterDashboard = ({characterId}: Props): any => {
                         <Paper variant="outlined" sx={{margin: "10px"}}>
                             <ChangeCharacterNotesForm character={character}
                                                       onUpdate={onUpdate} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper variant="outlined" sx={{margin: "10px"}}>
+                            <SetHuntDifficultyForm character={character}
+                                                   onUpdate={onUpdate} />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>

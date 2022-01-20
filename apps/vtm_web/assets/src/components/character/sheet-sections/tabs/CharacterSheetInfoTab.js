@@ -6,12 +6,13 @@ import Box from "@mui/material/Box";
 import CharacterSheetDescriptionSection from "../sections/CharacterSheetDescriptionSection";
 import CharacterSheetOffSection from "../sections/CharacterSheetOffSection";
 import CharacterSheetAvatarSection from "../sections/CharacterSheetAvatarSection";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any
 }
 
-const CharacterSheetInfoTab = ({characterQuery}: Props): any => {
+const CharacterSheetInfoTab = ({characterQuery}: Props): GenericReactComponent => {
     return (
         <Grid container>
             <Grid item xs={12}>

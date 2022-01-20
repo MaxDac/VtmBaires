@@ -13,13 +13,14 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {UtilityContext} from "../../contexts";
+import type {GenericReactComponent} from "../types";
 
 type Props = {
     id?: string;
     soundSourceUrl: string;
 }
 
-const SoundWrapperComponent = ({id, soundSourceUrl}: Props): any => {
+const SoundWrapperComponent = ({id, soundSourceUrl}: Props): GenericReactComponent => {
     const utilities = useRef(useContext(UtilityContext));
     const [isPlaying, setIsPlaying] = useState(false);
     const [trackDuration, setTrackDuration] = useState(0);

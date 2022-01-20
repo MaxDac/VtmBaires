@@ -26,7 +26,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def has_user_access_to_map?(%{chat_id: id}, %{context: %{current_user: user}}) do
-    map_id = parsed_id_to_string?(id)
+    map_id = parsed_id_to_integer(id)
     {:ok, ChatBookings.has_user_access_to_map?(map_id, user)}
   end
 
@@ -43,7 +43,7 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
   end
 
   def book_chat_map(%{chat_id: id}, %{context: %{current_user: user}}) do
-    map_id = parsed_id_to_string?(id)
+    map_id = parsed_id_to_integer(id)
     ChatBookings.book_chat_map(map_id, user)
   end
 

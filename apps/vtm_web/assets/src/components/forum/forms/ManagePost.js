@@ -16,6 +16,7 @@ import ForumPostForm from "./ForumPostForm";
 import type {GetForumPostQuery} from "../../../services/queries/forum/__generated__/GetForumPostQuery.graphql";
 import {getForumPostQuery} from "../../../services/queries/forum/GetForumPostQuery";
 import ModifyPostMutation from "../../../services/mutations/forum/ModifyPostMutation";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const CreateNewPostValidationSchema = object().shape({
     text: string("Il testo dell'intervento").required("Richiesto")
@@ -26,7 +27,7 @@ type NewPostProps = {
     title: ?string;
 }
 
-const NewPost = ({threadId, title}: NewPostProps): any => {
+const NewPost = ({threadId, title}: NewPostProps): GenericReactComponent => {
     const history = useHistory();
     const [user, character] = useSession();
     const environment = useRelayEnvironment();
@@ -78,7 +79,7 @@ type ModifyPostProps = {
     title: ?string;
 }
 
-const ModifyPost = ({threadId, postId, title}: ModifyPostProps): any => {
+const ModifyPost = ({threadId, postId, title}: ModifyPostProps): GenericReactComponent => {
     const history = useHistory();
     const [user,] = useSession();
     const environment = useRelayEnvironment();
@@ -134,7 +135,7 @@ type Props = {
     postId?: string;
 }
 
-const ManagePost = ({threadId, postId}: Props): any => {
+const ManagePost = ({threadId, postId}: Props): GenericReactComponent => {
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
     })?.getForumThread;

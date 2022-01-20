@@ -17,13 +17,14 @@ import {getCharacterChatAvatarQuery} from "../../../services/queries/character/G
 import Avatar from "@mui/material/Avatar";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     onGame: boolean;
     post: ?Post;
 }
 
-const ForumChatAvatar = ({characterId, characterName}): any => {
+const ForumChatAvatar = ({characterId, characterName}): GenericReactComponent => {
     const avatar = useCustomLazyLoadQuery<GetCharacterChatAvatarQuery>(getCharacterChatAvatarQuery, {
         characterId: characterId
     }, {
@@ -39,7 +40,7 @@ const ForumChatAvatar = ({characterId, characterName}): any => {
     );
 };
 
-const ForumAvatar = ({characterId, characterName}): any => {
+const ForumAvatar = ({characterId, characterName}): GenericReactComponent => {
     const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, { id: characterId }, {
         fetchPolicy: "store-or-network"
     })?.getCharacterAvatar?.avatar;
@@ -53,7 +54,7 @@ const ForumAvatar = ({characterId, characterName}): any => {
     );
 };
 
-const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
+const ForumPostWithAvatarInternal = ({characterId, post, onGame}): GenericReactComponent => {
     const theme = useTheme();
     const style = () => onGame
         ? mainFontFamily
@@ -111,7 +112,7 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): any => {
     );
 };
 
-const ForumPostWithAvatar = ({post, onGame}: Props): any => {
+const ForumPostWithAvatar = ({post, onGame}: Props): GenericReactComponent => {
     if (post?.character?.id) {
         return (
             <ForumPostWithAvatarInternal characterId={post?.character?.id} 

@@ -5,6 +5,7 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     title: string;
@@ -13,7 +14,7 @@ type Props = {
     children: any;
 }
 
-const ForumLayout = ({title, description, controls, children}: Props): any => {
+const ForumLayout = ({title, description, controls, children}: Props): GenericReactComponent => {
     const showDescription = () => {
         if (description != null && description !== "") {
             return (

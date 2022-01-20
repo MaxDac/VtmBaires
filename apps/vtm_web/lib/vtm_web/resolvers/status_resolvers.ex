@@ -3,6 +3,9 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
 
   alias Vtm.StatusChecks
   alias Vtm.Characters
+  alias Vtm.Havens.Event
+  alias Vtm.Messages
+  alias Vtm.Characters.Character
 
   alias VtmWeb.Resolvers.ChatHelpers
   alias VtmWeb.Resolvers.Helpers
@@ -90,10 +93,35 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
     end
   end
 
-  def hunt(%{character_id: character_id}, _) do
-    with c_id               <- character_id |> String.to_integer(),
-         {:ok, message, _}  <- StatusChecks.hunt(c_id) do
+  defp send_event_message(user_id, offender_name, owner_name) do
+    subject = "Evento nel dominio di #{owner_name}"
+    text = """
+    #{offender_name} è entrato nel dominio di #{owner_name} per cacciare.
+    """
+
+    with {:ok, message} <- Messages.send_master_message(user_id, subject, text),
+         _              <- Absinthe.Subscription.publish(VtmWeb.Endpoint, message, new_message_notification: user_id) do
+      message
+    end
+  end
+
+  @spec check_event(any(), Character.t(), Event.t() | nil) :: any()
+  defp check_event(result, %{name: name}, %{haven: %{character: %{id: c_id, name: c_name}}}) do
+    case Characters.get_character_user(%{id: c_id}) do
+      %{id: id}   -> send_event_message(id, name, c_name)
+    end
+
+    result
+  end
+
+  defp check_event(result, _, _), do: result
+
+  def hunt(%{character_id: character_id, haven_id: haven_id}, _) do
+    with {:ok, c_id}                        <- character_id |> Helpers.parsed_id_to_integer?(),
+         {:ok, h_id}                        <- haven_id |> Helpers.parsed_id_to_integer?(),
+         {:ok, {message, character, event}} <- StatusChecks.hunt(c_id, h_id) do
       {:ok, %{result: message}}
+      |> check_event(character, event)
     end
   end
 

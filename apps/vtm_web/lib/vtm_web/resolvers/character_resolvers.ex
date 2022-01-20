@@ -462,32 +462,16 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
     |> Characters.update_character(attrs |> Map.drop([:character_id]))
   end
 
-  @not_enough_experience "Il personaggio non ha sufficiente esperienza"
+  def update_character_experience(%{character_id: character_id, experience_change: exp}, %{context: %{current_user: user}}) do
+    with {:ok, c_id}      <- character_id |> parsed_id_to_integer?(),
+         {:ok, character} <- Characters.update_character_experience(c_id, exp, user) do
+      {:ok, %{result: character}}
+    end
+  end
 
-  def update_character_experience(%{character_id: character_id, experience_change: exp}, %{context: %{current_user: user = %{id: user_id}}}) do
-    case Characters.get_specific_character(user, character_id |> String.to_integer()) do
-      nil ->
-        {:error, :not_found}
-      %{
-        id: id,
-        experience: current_exp,
-        total_experience: total_exp
-      } when current_exp + exp >= 0 and total_exp + exp >= 0 ->
-        with {:ok, character} <- Characters.update_character(id, %{
-               experience: current_exp + exp,
-               total_experience: total_exp + exp
-             }),
-             {:ok, _} <- Experience.add_experience_log(%{
-               character_id: character_id |> String.to_integer(),
-               master_id: user_id,
-               change: exp
-             }) do
-
-          {:ok, %{result: character}}
-
-        end
-      _ ->
-        {:error, @not_enough_experience}
+  def update_character_hunt_difficulty(%{character_id: character_id, hunt_difficulty: hd}, %{context: %{current_user: user}}) do
+    with {:ok, character} <- Characters.update_character_hunt_difficulty(character_id |> String.to_integer(), hd, user) do
+      {:ok, %{result: character}}
     end
   end
 
@@ -502,7 +486,7 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
       c   ->
         with {:ok, {character, expenditure}} <- Experience.handle_experience_expenditure(%{
                character: c,
-               attribute_id: VtmWeb.Resolvers.Helpers.parsed_id_to_string?(attribute_id),
+               attribute_id: VtmWeb.Resolvers.Helpers.parsed_id_to_integer(attribute_id),
                custom_experience_expenditure: custom_experience_expenditure
              }),
              {:ok, _} <- Experience.add_experience_log(%{

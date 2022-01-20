@@ -11,8 +11,11 @@ import ListItemText from "@mui/material/ListItemText";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
+import MapsHomeWorkTwoToneIcon from '@mui/icons-material/MapsHomeWorkTwoTone';
+import type {GenericReactComponent} from "../../../_base/types";
+import CameraIndoorTwoToneIcon from "@mui/icons-material/CameraIndoorTwoTone";
 
-const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
+const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericReactComponent => {
     const history = useHistory();
 
     const pushHistory = (route: string) => {
@@ -31,11 +34,23 @@ const SecondaryListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Accettazione" />} />
             </ListItem>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.adminHavens)}>
+                <ListItemIcon>
+                    <MapsHomeWorkTwoToneIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Gestione Rifugi" />} />
+            </ListItem>
             <ListItem button onClick={_ => pushHistory(MainRoutes.chatViewer)}>
                 <ListItemIcon>
                     <MarkChatReadIcon sx={menuIconStyle} />
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Chats" />} />
+            </ListItem>
+            <ListItem button onClick={_ => pushHistory(MainRoutes.adminHavenEvents)}>
+                <ListItemIcon>
+                    <CameraIndoorTwoToneIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Eventi Globali" />} />
             </ListItem>
         </>
     );

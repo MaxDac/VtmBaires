@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import {menuIconStyle, menuTextStyle, menuTextStyleHover} from "../menu-base-utils";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: UserCharacter;
@@ -21,7 +22,7 @@ type Props = {
     handleCharacterSelection?: UserCharacter => any => void;
 }
 
-const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSelection}: Props): any => {
+const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSelection}: Props): GenericReactComponent => {
     const theme = useTheme();
     const [,currentCharacter] = useSession();
 

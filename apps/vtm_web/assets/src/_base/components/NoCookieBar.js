@@ -9,8 +9,9 @@ import CookieFreePolicy from "./CookieFreePolicy";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {menuIconStyle} from "../../components/_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../types";
 
-const NoCookieBar = (): any => {
+const NoCookieBar = (): GenericReactComponent => {
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 

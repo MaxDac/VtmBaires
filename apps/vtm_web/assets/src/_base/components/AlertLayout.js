@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useState} from "react";
-import { parseGraphqlMessage } from "../relay-utils";
+import {parseGraphqlMessage} from "../relay-utils";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import {useSnackbar} from "notistack";
-import type {AlertContext} from "../types";
+import type {AlertContext, GenericReactComponent} from "../types";
 import useStyles from "../../components/Main.Layout.Style";
 import {tryTranslateError} from "../dictionary-utils";
 
@@ -19,7 +19,7 @@ type Props = {
     children: AlertContext => any
 }
 
-const AlertLayout = (props: Props): any => {
+const AlertLayout = (props: Props): GenericReactComponent => {
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();
     const [backdropOpen, setBackdropOpen] = useState(false);

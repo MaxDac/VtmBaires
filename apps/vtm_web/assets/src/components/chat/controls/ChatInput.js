@@ -17,6 +17,7 @@ import {useSession} from "../../../services/session-service";
 import Typography from "@mui/material/Typography";
 import ChatInputHelp from "./ChatInputHelp";
 import {isNullOrEmpty} from "../../../_base/utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -28,7 +29,7 @@ const maxCharacters = 1200;
 const warningCharacters = 1000;
 const preferredCharacters = 700;
 
-const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): any => {
+const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): GenericReactComponent => {
     const theme = useTheme();
     const [user,] = useSession();
     const [value, setValue] = useState("");

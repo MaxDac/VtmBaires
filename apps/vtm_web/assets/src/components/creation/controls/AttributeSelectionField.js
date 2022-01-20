@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {setValue} from "relay-runtime/lib/store/RelayModernRecord";
 import ListSubheader from "@mui/material/ListSubheader";
+import type {GenericReactComponent} from "../../../_base/types";
 
 export type SetControlValue = string => void;
 
@@ -20,7 +21,7 @@ type AttributeSelectionFieldProps = {
     onChange: (string, string, SetControlValue, SetControlError) => void;
 }
 
-const AttributeSelectionField = (props: AttributeSelectionFieldProps): any => {
+const AttributeSelectionField = (props: AttributeSelectionFieldProps): GenericReactComponent => {
     const [innerValue, setInnerValue] = useState(props.value);
     const [error, setError] = useState("");
 

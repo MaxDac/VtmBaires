@@ -9,6 +9,7 @@ import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
 import ChangeUserPasswordMutation from "../../services/mutations/sessions/ChangeUserPasswordMutation";
+import type {GenericReactComponent} from "../../_base/types";
 
 const SignUpSchema = object().shape({
     oldPassword: string("La tua vecchia passwod").required("Required"),
@@ -23,7 +24,7 @@ const SignUpSchema = object().shape({
         .required("Required")
 });
 
-const SetNewPassword = (): any => {
+const SetNewPassword = (): GenericReactComponent => {
     const theme = useTheme();
     const environment = useRelayEnvironment();
 
@@ -73,13 +74,12 @@ const SetNewPassword = (): any => {
                 <FormTextField formik={formik} fieldName="oldPassword" label="Vecchia Password" type="password" />
                 <FormTextField formik={formik} fieldName="newPassword" label="Nuova Password" type="password" />
                 <FormTextField formik={formik} fieldName="repeatPassword" label="Ripeti Password" type="password" />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                        margin: theme.spacing(3, 0, 2),
-                    }}>
+                <Button type="submit"
+                        fullWidth
+                        variant="outlined"
+                        sx={{
+                            margin: theme.spacing(3, 0, 2),
+                        }}>
                     Cambia password
                 </Button>
             </form>

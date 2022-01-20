@@ -15,14 +15,16 @@ import MenuHuntSection from "./sections/MenuHuntSection";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
+import CameraIndoorTwoToneIcon from '@mui/icons-material/CameraIndoorTwoTone';
 import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
 import useIsChatRoute from "../../_hooks/useIsChatRoute";
 import MenuForumSection from "./sections/MenuForumSection";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const CharacterSheetModal = React.lazy(() => import('./dialog/SheetDialog'));
 
-const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
+const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericReactComponent => {
     const history = useHistory();
     const [popupOpen, setPopupOpen] = useState(false);
     const [requested, setRequested] = useState(false);
@@ -87,6 +89,12 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): any => {
                                   reloadCount={reloadCount}
                                   onUpdate={onUpdate} />
             <MenuHuntSection />
+            <ListItem button onClick={_ => pushHistory(MainRoutes.havenEvents)}>
+                <ListItemIcon>
+                    <CameraIndoorTwoToneIcon sx={menuIconStyle} />
+                </ListItemIcon>
+                <ListItemText secondary={<MenuSecondaryText text="Eventi Dominio" />} />
+            </ListItem>
             <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon sx={menuIconStyle} />

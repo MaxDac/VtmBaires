@@ -10,12 +10,13 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {characterIsVampire} from "../../../../_base/utils";
 import { defaultFormatDateAndTime } from "../../../../_base/date-utils";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     sheet: Character;
 }
 
-const CharacterSheetStatusStatsSection = ({sheet}: Props): any => {
+const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent => {
     const bottomLinesStyle = {
         name: "Umanità",
         value: sheet?.humanity,

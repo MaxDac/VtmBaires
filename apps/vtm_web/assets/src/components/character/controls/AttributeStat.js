@@ -8,6 +8,7 @@ import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecord
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {mainFontFamily} from "../../Main.Layout.Style";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     stat: StatWithoutId
@@ -21,7 +22,7 @@ export const attributeEmptyPointStyle = {
     color: "primary.dark"
 }
 
-const AttributeStat = ({stat}: Props): any => {
+const AttributeStat = ({stat}: Props): GenericReactComponent => {
     return (
         <>
             <Grid container>

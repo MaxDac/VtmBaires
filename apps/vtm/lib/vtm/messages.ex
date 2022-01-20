@@ -6,11 +6,10 @@ defmodule Vtm.Messages do
   alias Vtm.Repo
   alias Vtm.Messages.Message
   alias Vtm.Messages.MessageDigest
+  alias Vtm.Characters
   alias Vtm.Characters.Character
   alias VtmAuth.Accounts
   alias VtmAuth.Accounts.User
-
-  alias Vtm.Characters
 
   import Vtm.Helpers
 

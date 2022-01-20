@@ -8,6 +8,7 @@ import { MainRoutes } from "../../../MainRouter";
 import CreateNewCharacterMenuItem from "./CreateNewCharacterMenuItem";
 import {useUserCharactersQuery} from "../../../../services/queries/accounts/UserCharactersQuery";
 import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
@@ -15,7 +16,7 @@ type Props = {
     onUpdate: () => void;
 }
 
-const MenuCharacterSectionForUser = ({pushHistory, reloadCount, onUpdate}: Props): any => {
+const MenuCharacterSectionForUser = ({pushHistory, reloadCount, onUpdate}: Props): GenericReactComponent => {
     const history = useHistory();
     const characters = useUserCharactersQuery(reloadCount);
     const charactersWithAvatars = useMenuCharactersAvatar(characters);

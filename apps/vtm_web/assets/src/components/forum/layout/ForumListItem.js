@@ -18,6 +18,7 @@ import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import ForumListItemText from "./ForumListItemText";
+import type {GenericReactComponent} from "../../../_base/types";
 
 export type ForumItemProps = {
     item: ?{|
@@ -49,7 +50,7 @@ export type ForumItemProps = {
     onUpdate?: () => void;
 }
 
-const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): any => {
+const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const [user,] = useSession();

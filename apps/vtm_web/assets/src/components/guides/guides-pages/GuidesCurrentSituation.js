@@ -5,8 +5,9 @@ import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import {GuideRoutes} from "../GuidesMain";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const GuidesCurrentSituation = (): any => {
+const GuidesCurrentSituation = (): GenericReactComponent => {
     return (
         <>
             <Typography component="div">

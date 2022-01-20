@@ -10,6 +10,7 @@ import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../MainRouter";
 import ReplyToMessage from "./components/ReplyToMessage";
 import MessageTemplate from "./components/MessageTemplate";
+import type {GenericReactComponent} from "../../_base/types";
 
 export type SubmitProperties = {
     subject: string;
@@ -25,7 +26,7 @@ type Props = {
     toCharacterId?: string;
 }
 
-const NewMessage = (props: Props): any => {
+const NewMessage = (props: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const history = useHistory();
     const {showUserNotification} = useContext(UtilityContext);

@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';
 import { range } from "../utils";
+import type {GenericReactComponent} from "../types";
 
-const DefaultFallback = (): any => {
+const DefaultFallback = (): GenericReactComponent => {
     const SkeletonRow = () => (
         <table style={{width: "100%"}}>
             <tbody>

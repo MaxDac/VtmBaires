@@ -9,8 +9,9 @@ import {performLogout} from "../../../services/logout-service";
 import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {Routes} from "../../../AppRouter";
+import type {GenericReactComponent} from "../../../_base/types";
 
-const LogoutControl = (): any => {
+const LogoutControl = (): GenericReactComponent => {
     const history = useHistory();
     const {openDialog} = useContext(UtilityContext);
 

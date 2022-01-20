@@ -17,6 +17,7 @@ import {UtilityContext} from "../../../contexts";
 import { MainRoutes } from "../../MainRouter";
 import {sortAttributes} from "../../../_base/info-helpers";
 import {translateAttributeSection} from "../../../_base/dictionary-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -28,7 +29,7 @@ export type CreationBaseProps<TFormAttributes> = {|
     children: ((string, string) => any) => any;
 |}
 
-const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): any => {
+const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);

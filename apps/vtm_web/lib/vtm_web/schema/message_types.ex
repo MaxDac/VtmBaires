@@ -5,6 +5,7 @@ defmodule VtmWeb.Schema.MessageTypes do
   use Absinthe.Relay.Schema.Notation, :modern
 
   alias VtmWeb.Resolvers.MessageResolvers
+  alias VtmWeb.Resolvers.StatusResolvers
 
   node object :message do
     field :subject, non_null(:string)

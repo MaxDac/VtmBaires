@@ -11,13 +11,14 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import SetCharacterStatusMutation from "../../../../services/mutations/admin/SetCharacterStatusMutation";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     character: Character;
     onUpdate?: () => void;
 }
 
-const ChangeCharacterStatusForm = ({character, onUpdate}: Props): any => {
+const ChangeCharacterStatusForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 

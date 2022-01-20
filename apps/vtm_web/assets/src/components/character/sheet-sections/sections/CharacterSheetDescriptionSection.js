@@ -12,12 +12,13 @@ import type {CharacterFragments_characterInfo$key} from "../../../../services/qu
 import {mainFontFamily} from "../../../Main.Layout.Style";
 import ParsedText from "../../../../_base/components/ParsedText";
 import Box from "@mui/material/Box";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     characterQuery: any
 }
 
-const CharacterSheetDescriptionSection = ({characterQuery}: Props): any => {
+const CharacterSheetDescriptionSection = ({characterQuery}: Props): GenericReactComponent => {
     const info = useFragment<?CharacterFragments_characterInfo$key>(
         characterInfoFragment,
         characterQuery);

@@ -8,12 +8,13 @@ import ChatIcon from "@mui/icons-material/Chat";
 import {menuIconStyle, MenuSecondaryText} from "../menu-base-utils";
 import ListItemText from "@mui/material/ListItemText";
 import {useForumHasNewPosts} from "../../../../services/queries/forum/ForumHasNewPostQuery";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     pushHistory: string => void;
 }
 
-const MenuForumSection = ({pushHistory}: Props): any => {
+const MenuForumSection = ({pushHistory}: Props): GenericReactComponent => {
     const forumHasNewPosts = useForumHasNewPosts();
 
     const forumIconStyle =

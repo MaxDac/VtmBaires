@@ -4,13 +4,14 @@ import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import {getSessionSync} from "../../services/session-service";
+import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
     component?: (...any) => any;
     children?: any;
 }
 
-const AuthMasterRoute = ({ children, component, ...rest }: Props): any => {
+const AuthMasterRoute = ({ children, component, ...rest }: Props): GenericReactComponent => {
     const user = getSessionSync()?.user;
 
     const loginRedirection = location => ({

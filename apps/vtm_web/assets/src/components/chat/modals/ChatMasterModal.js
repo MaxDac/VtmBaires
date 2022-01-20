@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import {useSession} from "../../../services/session-service";
 import CharacterChatDashboard from "../../admin/characters/CharacterChatDashboard";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type InternalProps = {
     mapId: string;
@@ -25,7 +26,7 @@ type Props = {
     closeModal: () => void;
 }
 
-const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}: InternalProps): any => {
+const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}: InternalProps): GenericReactComponent => {
     const [user,] = useSession();
 
     if (user?.role !== "MASTER") {
@@ -57,7 +58,7 @@ const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}
     }
 }
 
-const ChatMasterModal = (props: Props): any => {
+const ChatMasterModal = (props: Props): GenericReactComponent => {
     if (props.characterId != null && props.characterName != null) {
         const newProps = {
             ...props,
