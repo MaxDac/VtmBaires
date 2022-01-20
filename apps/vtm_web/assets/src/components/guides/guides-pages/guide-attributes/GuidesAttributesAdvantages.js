@@ -457,7 +457,8 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): GenericReactCompon
                         i poteri del Sangue, per il resto non soffre altri danni.<br />
                         La Fame per&ograve; continua a venire percepita, e il vampiro sentir&agrave; il bisogno di
                         riposare. Se inoltre i danni subiti supereranno i livelli di salute dimezzati, il vampiro
-                        entrer&agrave; in torpore finch&egrave; non verr&agrave; tolto dalla luce del Sole.
+                        entrer&agrave; in torpore finch&egrave; non verr&agrave; tolto dalla luce del Sole.<br />
+                        <b>Home Rule</b>: Questo pregio non sar&agrave; disponibile in creazione.
                     </li>
 
                     <li style={liStyle}>
