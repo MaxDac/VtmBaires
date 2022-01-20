@@ -50,7 +50,7 @@ defmodule Vtm.SeedsHavens.Helpers do
   def insert_row(_, _), do: {:ok, %{}}
 end
 
-Vtm.Repo.query!("truncate table haven_locations cascade")
+# Vtm.Repo.query!("truncate table haven_locations cascade")
 
 Vtm.SeedsHavens.Helpers.insert_row(1, 9)
 Vtm.SeedsHavens.Helpers.insert_row(2, 9)

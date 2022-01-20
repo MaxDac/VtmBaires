@@ -238,6 +238,30 @@ const GuidesHunt = (): GenericReactComponent => {
 
             <Typography paragraph>
                 <h3 style={titleStyle}>
+                    Gli eventi del Dominio
+                </h3>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Dato che un personaggio pu&ograve; cacciare nel Dominio di un altro personaggio giocante, potrebbe
+                succedere che quest'ultimo se ne accorga. In chat sar&agrave; presente una schermata chiamata <b>Eventi
+                Dominio</b>, in cui ogni personaggio potr&agrave; consultare le infrazioni commesse da altre personaggi.
+                Le infrazioni possono essere una semplice Caccia nel proprio Dominio, oppure un evento potenzialmente
+                catastrofico innescato da un altro personaggio, che potrebbe rendere presto il 
+                Dominio <i>off-limits</i>.
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Si ricordi che una delle Tradizioni della Camarilla &egrave; la Tradizione del Dominio, e che
+                all'interno di un Dominio il personaggio fa le veci del Principe, e pu&ograve; esigere giustizia dalla
+                burocrazia della Camarilla... che solitamente vuol dire che il personaggio pu&ograve; denunciare 
+                l'infrazione allo Sceriffo. Alternativamente, il personaggio pu&ograve; chiedere di essere ripagato
+                con un Favore; insomma, eventi di questo tipo possono e devono essere un incentivo al gioco politico
+                in chat.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
                     La Risonanza del Sangue
                 </h3>
             </Typography>

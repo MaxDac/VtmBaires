@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip";
 import ListItemText from "@mui/material/ListItemText";
 import {defaultFormatDate} from "../../_base/date-utils";
 import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import type {HavenEvent} from "../../services/queries/haven/HavenEventFragment";
@@ -27,10 +26,14 @@ const getTooltipFromEvent = ({controlTriggered}) =>
         ? "Intrusione"
         : "Attenzione richiamata";
 
-const getTextFromEvent = ({controlTriggered, character}) =>
-    controlTriggered
-        ? `${character?.name ?? "Qualcuno"} è entrato nel tuo dominio per cacciare`
-        : `${character?.name ?? "Qualcuno"} è stato intercettato nel tuo Dominio`;
+const getTitleFromEvent = (isMaster, {controlTriggered, character, haven}) =>
+    isMaster
+        ? (controlTriggered
+            ? `${character?.name ?? ""} è entrato nel tuo dominio di ${haven?.character?.name ?? ""} per cacciare`
+            : `${character?.name ?? ""} è stato intercettato nel Dominio di ${haven?.character?.name ?? ""}`)
+        : (controlTriggered
+            ? `${character?.name ?? "Qualcuno"} è entrato nel tuo dominio per cacciare`
+            : `${character?.name ?? "Qualcuno"} è stato intercettato nel tuo Dominio`);
 
 const actions = ({id}, onClick) => {
     return (
@@ -39,7 +42,7 @@ const actions = ({id}, onClick) => {
         </Button>);
 };
 
-const eventListItem = (e, resolveEvent) => {
+const eventListItem = (isMaster: boolean, e: ?HavenEvent, resolveEvent: string => void) => {
     if (e != null) {
         return (
             <>
@@ -51,7 +54,7 @@ const eventListItem = (e, resolveEvent) => {
                                            dangerTriggered={e.dangerTriggered}/>
                             </Tooltip>
                         </ListItemIcon>
-                        <ListItemText primary={getTextFromEvent(e)}
+                        <ListItemText primary={getTitleFromEvent(isMaster, e)}
                                       secondary={defaultFormatDate(e?.insertedAt)} />
                     </ListItemButton>
                 </ListItem>
@@ -64,39 +67,31 @@ const eventListItem = (e, resolveEvent) => {
 };
 
 type Props = {
+    isMaster: boolean;
     events: ?$ReadOnlyArray<?HavenEvent>;
     resolveEvent: string => void;
 }
 
-const HavenEventsList = ({events, resolveEvent}: Props): any => {
+const HavenEventsList = ({isMaster, events, resolveEvent}: Props): any => {
     const rows = () =>
-        events?.map(e => eventListItem(e, resolveEvent)) ?? [];
+        events?.map(e => eventListItem(isMaster, e, resolveEvent)) ?? [];
 
     return (
-        <Stack direction="column">
-            <h1 style={{
-                fontFamily: 'Disturbed',
-                marginRight: "20px"
+        <Box sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center"
+        }}>
+            <List sx={{
+                width: {
+                    sx: "100%",
+                    md: "100%"
+                },
+                bgcolor: 'background.paper',
             }}>
-                Eventi nel Dominio
-            </h1>
-
-            <Box sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center"
-            }}>
-                <List sx={{
-                    width: {
-                        sx: "100%",
-                        md: "70%"
-                    },
-                    bgcolor: 'background.paper',
-                }}>
-                    {rows()}
-                </List>
-            </Box>
-        </Stack>
+                {rows()}
+            </List>
+        </Box>
     );
 }
 

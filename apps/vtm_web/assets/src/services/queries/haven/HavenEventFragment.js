@@ -11,6 +11,12 @@ export type HavenEvent = {|
     +haven: ?{|
         +id: string,
         +name: ?string,
+        +x: ?number,
+        +y: ?number,
+        +character: ?{|
+            +id: string,
+            +name: ?string,
+        |},
     |},
     +resolved: ?boolean,
     +controlTriggered: ?boolean,
@@ -29,6 +35,12 @@ export const havenEventFragment: any = graphql`
         haven {
             id
             name
+            x
+            y
+            character {
+                id
+                name
+            }
         }
         resolved
         controlTriggered

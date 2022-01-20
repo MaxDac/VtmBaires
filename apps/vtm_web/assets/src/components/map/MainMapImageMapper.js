@@ -68,15 +68,19 @@ const MainMapImageMapper = ({areas, onAreaSelected}: Props): GenericReactCompone
                                      onMouseEnter={onMouseEnter}
                                      onMouseLeave={onMouseLeave} />
                     </Box>
-                    <Typography sx={{
-                        fontFamily: "ThroughTheNight",
-                        fontSize: legendFontSize(),
+                    <Box sx={{
                         margin: "0 auto",
-                        display: "flex",
-                        alignItems: "middle"
+                        minHeight: "55px",
+                        display: "flex"
                     }}>
-                        {legend}
-                    </Typography>
+                        <Typography sx={{
+                            fontFamily: "ThroughTheNight",
+                            fontSize: legendFontSize(),
+                            alignSelf: "center",
+                        }}>
+                            {legend}
+                        </Typography>
+                    </Box>
                 </Stack>
             </Paper>
         </Box>
