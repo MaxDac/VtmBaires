@@ -31,12 +31,13 @@ const CharactersSelectControlInternal = ({label, characterValues, onChange, defa
 
 type Props = {
     label: string;
+    fieldName?: string;
     formik?: any;
     onChange?: string => void;
     value?: string;
 }
 
-const CharactersSelectControl = ({label, formik, onChange, value}: Props): GenericReactComponent => {
+const CharactersSelectControl = ({label, fieldName, formik, onChange, value}: Props): GenericReactComponent => {
     const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
 
     const characterValues = useMemo((): Array<[string, string]> => {
@@ -50,9 +51,9 @@ const CharactersSelectControl = ({label, formik, onChange, value}: Props): Gener
     if (formik != null) {
         return (
             <FormSelectField formik={formik}
-                             fieldName="characterId"
+                             fieldName={fieldName ?? "characterId"}
                              label={label}
-                             values={characterValues}/>
+                             values={characterValues} />
         );
     }
 

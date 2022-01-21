@@ -7,15 +7,12 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {useTheme} from "@mui/material/styles";
 import type {GenericReactComponent} from "../types";
+import type {SelectProps} from "../component-helpers";
+import {getSelectItems} from "../component-helpers";
 
-type Props = {
+type Props = SelectProps & {
     onChange: string => void;
     selectedValue: string;
-    fieldName: string;
-    label: string;
-    values: Array<[string, string]>;
-    addNullValue?: boolean,
-    sx?: any;
 }
 
 const emptyMenuItem = () => (
@@ -25,21 +22,7 @@ const emptyMenuItem = () => (
 const PlainSelectField = (props: Props): GenericReactComponent => {
     const theme = useTheme();
 
-    const items = () => {
-        const values = props.values;
-        if (values && values.map) {
-            const items = values
-                .map(([value, label]) => <MenuItem key={value ?? "is-null"} value={value}>{label}</MenuItem>);
-
-            if (props.addNullValue === true) {
-                return [emptyMenuItem()].concat(items);
-            }
-
-            return items;
-        }
-
-        return [];
-    };
+    const items = () => getSelectItems(props, emptyMenuItem);
 
     const onChange = ({target: {value}}) => props.onChange(value);
 

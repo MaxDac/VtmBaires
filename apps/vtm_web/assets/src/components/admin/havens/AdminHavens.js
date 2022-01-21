@@ -10,6 +10,7 @@ import {useRelayEnvironment} from "react-relay";
 import {handleMutation, isNullOrEmpty, tryCastToOneType} from "../../../_base/utils";
 import DeleteHavenCharacterMutation from "../../../services/mutations/havens/DeleteHavenCharacterMutation";
 import type {GenericReactComponent} from "../../../_base/types";
+import SetHavenInfoMutation from "../../../services/mutations/havens/SetHavenInfoMutation";
 
 const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
@@ -28,7 +29,7 @@ const AdminHavens = (): GenericReactComponent => {
         }
     };
 
-    const onCharacterSelected = (h, cId) => {
+    const onCharacterSelected = (h, cId, request) => {
         if (h?.id != null) {
             const hId = h.id;
 
@@ -53,7 +54,9 @@ const AdminHavens = (): GenericReactComponent => {
             openDialog(title, message,
                 () => {
                     handleMutation(
-                        () => action().finally(_ => setFetchKey(p => p + 1)),
+                        () => action()
+                            .then(_ => SetHavenInfoMutation(environment, hId, request))
+                            .finally(_ => setFetchKey(p => p + 1)),
                         showUserNotification,
                         {
                             successMessage: "La modifica è stata effettuata con successo."

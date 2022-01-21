@@ -46,7 +46,7 @@ const LoginComponent = (): Node => {
         },
         validationSchema: SignInSchema,
         onSubmit: v => onSubmit(v)
-    })
+    });
 
     const onSubmit = ({
         email,

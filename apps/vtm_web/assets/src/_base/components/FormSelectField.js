@@ -8,14 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import type { Formik } from "./FormTypes";
 import {useTheme} from "@mui/material/styles";
 import type {GenericReactComponent} from "../types";
+import type {SelectProps} from "../component-helpers";
+import {getSelectItems} from "../component-helpers";
 
-export type SelectInputProps = {
+export type SelectInputProps = SelectProps & {
     formik: Formik;
-    fieldName: string;
-    label: string;
-    values: Array<[string, string]>;
-    addNullValue?: boolean,
-    sx?: any;
 };
 
 const emptyMenuItem = () => (
@@ -25,21 +22,7 @@ const emptyMenuItem = () => (
 const FormSelectField = (props: SelectInputProps): GenericReactComponent => {
     const theme = useTheme();
 
-    const items = () => {
-        const values = props.values;
-        if (values && values.map) {
-            const items = values
-                .map(([value, label]) => <MenuItem key={value ?? "is-null"} value={value}>{label}</MenuItem>);
-
-            if (props.addNullValue === true) {
-                return [emptyMenuItem()].concat(items);
-            }
-
-            return items;
-        }
-
-        return [];
-    };
+    const items = () => getSelectItems(props, emptyMenuItem);
 
     return (
         <FormControl sx={{

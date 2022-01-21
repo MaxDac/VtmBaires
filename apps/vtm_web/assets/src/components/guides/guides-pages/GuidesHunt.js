@@ -120,18 +120,22 @@ const GuidesHunt = (): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Ogni personaggio potr&agrave; selezionare una locazione come suo Dominio. Ogni locazione ha una serie
-                di caratteristiche che ne determinano la pericolosit&agrave;, le caratteristiche medie delle persone
-                che ci vivono, che influenzano la risonanza del sangue pi&ugrave; facile da trovare, e il livello di 
-                <b>Risorse</b> che il personaggio deve avere per sostenere i costi. Il punteggio di Risorse espresso
-                dalla locazione non esprime direttamente il numero di "pallini" di Risorse necessari per ottenere il 
-                Dominio: altri Background potrebbero influenzare la possibilit&agrave; di reclamare un Dominio, come
-                Alleati, Influenza o Fama. In fase di accettazione della scheda, potrete proporre una locazione come
-                Dominio del vostro personaggio, e a sua discrezione il Narratore potr&agrave; accettare la vostra scelta
-                o indicare le caratteristiche di una locazione accessibile al vostro personaggio.<br />
-                Ad esempio, se il personaggio ha Risorse 1, ma un Alleato di livello 2 e un Rifugio di livello 2, 
-                potrebbe aver sfruttato la sua conoscenza per aver ottenuto un attico protetto poco in vista, protetto
-                dalla luce del giorno, senza aver dovuto sborsare denaro.
+                Ogni personaggio potr&agrave; selezionare una locazione come suo Dominio, richiedendola ad un Narratore. 
+                Ogni locazione ha una serie di caratteristiche che ne determinano la pericolosit&agrave;, le 
+                caratteristiche medie delle persone che ci vivono, che influenzano la risonanza del sangue pi&ugrave; 
+                facile da trovare, e il livello di <b>Risorse</b> che il personaggio deve avere per sostenere i costi. 
+                Il punteggio di Risorse espresso dalla locazione non esprime direttamente il numero di "pallini" di 
+                Risorse necessari per ottenere il Dominio: altri Background potrebbero influenzare la possibilit&agrave; 
+                di reclamare un Dominio, come Alleati, Influenza o Fama. 
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                In fase di accettazione della scheda, potrete proporre una locazione come Dominio del vostro 
+                personaggio, e a sua discrezione il Narratore potr&agrave; accettare la vostra scelta o indicare le 
+                caratteristiche di una locazione accessibile al vostro personaggio. Ad esempio, se il personaggio ha 
+                Risorse 1, ma un Alleato di livello 2 e un Rifugio di livello 2, potrebbe aver sfruttato la sua 
+                conoscenza per aver ottenuto un attico protetto poco in vista, protetto dalla luce del giorno, senza 
+                aver dovuto sborsare denaro.
             </Typography>
 
             <Typography paragraph style={guideStyle}>
@@ -258,6 +262,22 @@ const GuidesHunt = (): GenericReactComponent => {
                 l'infrazione allo Sceriffo. Alternativamente, il personaggio pu&ograve; chiedere di essere ripagato
                 con un Favore; insomma, eventi di questo tipo possono e devono essere un incentivo al gioco politico
                 in chat.
+            </Typography>
+
+            <Typography paragraph>
+                <h3 style={titleStyle}>
+                    Ubicaione del Rifugio
+                </h3>
+            </Typography>
+
+            <Typography paragraph style={guideStyle}>
+                Rifugio e Dominio sono considerati come due concetti differenti. Mentre il Dominio &egrave; la porzione
+                di territorio che un Cainita pu&ograve; reclamare come sua zona di caccia, il rifugio &egrave; 
+                materialmente la sistemazione che il Cainita ha costruito o comprato, e rinforzato per renderla sicura 
+                dai raggi solari, e potrebbe <b>non trovarsi</b> nella zona di territori del suo Dominio.
+                Per questa ragione, conoscere il Dominio di un personaggio <b>non equivale</b> a conoscere l'ubicazione
+                del suo rifugio; nel caso in cui un personaggio voglia danneggiarne un altro agendo suo suo rifugio, 
+                quindi, dovr&agrave; sempre impegnarsi a scoprire l'esatta ubicazione del Rifugio del Cainita.
             </Typography>
 
             <Typography paragraph>

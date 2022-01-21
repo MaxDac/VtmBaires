@@ -16,7 +16,7 @@ const LogoutControl = (): GenericReactComponent => {
     const {openDialog} = useContext(UtilityContext);
 
     const logoutClick = _ => {
-        openDialog("Logout", "Do you want to log out?", () =>
+        openDialog("Logout", "Vuoi uscire dal gioco?", () =>
             performLogout(() => history.push(Routes.logout)));
     }
 

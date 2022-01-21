@@ -184,11 +184,20 @@ defmodule Vtm.Characters do
     not is_nil(Repo.one(query))
   end
 
+  @spec character_exists?(non_neg_integer()) :: boolean()
   def character_exists?(character_id) do
     Character
     |> from()
     |> where([c], c.id == ^character_id)
     |> Repo.exists?()
+  end
+
+  @spec get_character_info(non_neg_integer()) :: CharacterInfo.t() | nil
+  def get_character_info(character_id) do
+    CharacterInfo
+    |> from()
+    |> where([c], c.character_id == ^character_id)
+    |> Repo.one()
   end
 
   @spec is_character_awake(non_neg_integer()) :: boolean()
@@ -261,14 +270,6 @@ defmodule Vtm.Characters do
       is_npc: c.is_npc,
       off: c.off
     })
-    |> Repo.one()
-  end
-
-  @spec get_character_info(non_neg_integer()) :: CharacterInfo.t() | nil
-  def get_character_info(character_id) do
-    CharacterInfo
-    |> from()
-    |> where([c], c.character_id == ^character_id)
     |> Repo.one()
   end
 
@@ -636,6 +637,34 @@ defmodule Vtm.Characters do
       %{id: id} ->
         update_character(id, %{hunt_difficulty: hunt_difficulty})
     end
+  end
+
+  @spec set_character_infos(non_neg_integer(), map()) :: {:ok, CharacterInfo.t()} | {:error, Changeset.t()}
+  def set_character_infos(character_id, attrs) do
+    case get_character_info(character_id) do
+      nil ->
+        %CharacterInfo{}
+        |> CharacterInfo.changeset(attrs |> Map.put(:character_id, character_id))
+        |> Repo.insert()
+      c ->
+        c
+        |> CharacterInfo.changeset(attrs)
+        |> Repo.update()
+    end
+  end
+
+  @spec set_character_vegan(non_neg_integer()) :: {:ok, CharacterInfo.t()} | {:error, Changeset.t()}
+  def set_character_vegan(character_id) do
+    set_character_infos(character_id, %{
+      is_vegan: true
+    })
+  end
+
+  @spec set_character_can_hunt_animals(non_neg_integer()) :: {:ok, CharacterInfo.t()} | {:error, Changeset.t()}
+  def set_character_can_hunt_animals(character_id) do
+    set_character_infos(character_id, %{
+      can_hunt_animals: true
+    })
   end
 
   @spec has_character_in_session?(%{:id => integer(), optional(any) => any}) :: boolean()

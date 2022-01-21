@@ -31,6 +31,12 @@ defmodule VtmWeb.Resolvers.HavenResolvers do
     end
   end
 
+  def set_haven_info(%{haven_id: haven_id, request: request}, _) do
+    with {:ok, h_id}  <- parsed_id_to_integer?(haven_id) do
+      Havens.set_haven_info(h_id, request)
+    end
+  end
+
   def get_unresolved_events(_, _, _) do
     {:ok, %{result: Havens.get_unresolved_events()}}
   end

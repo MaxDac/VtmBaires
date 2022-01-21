@@ -722,6 +722,7 @@ type RootMutationType {
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
   setForumThreadRead(input: SetForumThreadReadInput!): SetForumThreadReadPayload
   setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
+  setHavenInfo(input: SetHavenInfoInput!): SetHavenInfoPayload
   setMessageRead(messageId: ID): Message
   spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
@@ -844,6 +845,23 @@ input SetHavenCharacterInput {
 
 type SetHavenCharacterPayload {
   result: Haven
+}
+
+input SetHavenInfoInput {
+  havenId: ID!
+  request: SetHavenInfoRequest!
+}
+
+type SetHavenInfoPayload {
+  result: Haven
+}
+
+input SetHavenInfoRequest {
+  danger: Int!
+  difficulty: Int!
+  groundControl: Int!
+  ownerDifficulty: Int!
+  resourcesLevel: Int!
 }
 
 input SpendCharacterExperienceInput {

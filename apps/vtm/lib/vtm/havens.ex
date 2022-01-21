@@ -55,6 +55,14 @@ defmodule Vtm.Havens do
     |> Repo.update()
   end
 
+  @spec set_haven_info(non_neg_integer(), map()) :: {:ok, Haven.t()} | {:error, Changeset.t()}
+  def set_haven_info(haven_id, request) do
+    Haven
+    |> Repo.get(haven_id)
+    |> Haven.changeset(request)
+    |> Repo.update()
+  end
+
   @spec events_query() :: Ecto.Query.t()
   defp events_query() do
     from c in Character,

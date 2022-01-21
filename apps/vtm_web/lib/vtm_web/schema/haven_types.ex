@@ -68,6 +68,14 @@ defmodule VtmWeb.Schema.HavenTypes do
     end
   end
 
+  input_object :set_haven_info_request do
+    field :danger, non_null(:integer)
+    field :ground_control, non_null(:integer)
+    field :difficulty, non_null(:integer)
+    field :owner_difficulty, non_null(:integer)
+    field :resources_level, non_null(:integer)
+  end
+
   object :haven_mutations do
     payload field :set_haven_character do
       input do
@@ -95,6 +103,21 @@ defmodule VtmWeb.Schema.HavenTypes do
 
       middleware Middlewares.Authorize, :master
       resolve parsing_node_ids(&HavenResolvers.delete_haven_character/2, haven_id: :haven)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :set_haven_info do
+      input do
+        field :haven_id, non_null(:id)
+        field :request, non_null(:set_haven_info_request)
+      end
+
+      output do
+        field :result, :haven
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve parsing_node_ids(&HavenResolvers.set_haven_info/2, haven_id: :haven)
       middleware Middlewares.ChangesetErrors
     end
 
