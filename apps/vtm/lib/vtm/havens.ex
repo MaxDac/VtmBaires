@@ -31,6 +31,11 @@ defmodule Vtm.Havens do
     |> Enum.map(&build_haven_name/1)
   end
 
+  def get_haven(haven_id) do
+    Haven
+    |> Repo.get(haven_id)
+  end
+
   @spec get_character_haven(non_neg_integer()) :: Haven.t() | nil
   def get_character_haven(character_id) do
     Haven
@@ -73,6 +78,7 @@ defmodule Vtm.Havens do
       join: ca in Character,
       on: e.character_id == ca.id,
       where: e.resolved == false,
+      order_by: [desc: e.updated_at],
       select: {e, h, c.id, c.name, ca.id, ca.name}
   end
 
@@ -133,5 +139,50 @@ defmodule Vtm.Havens do
     |> Repo.get(event_id)
     |> Event.changeset(%{resolved: true})
     |> Repo.update()
+  end
+
+  @doc """
+  Applies the given resonance to a number of havens centered at the given coordinates, with a distance depending on
+  the power of the resonance change. The power determines the max distance from the given coordinate.
+  """
+  @spec set_resonance_zone({non_neg_integer(), non_neg_integer()}, binary(), non_neg_integer()) :: {integer(), nil | [term()]}
+  def set_resonance_zone(center, resonance, power) do
+    ids = get_haven_ids_in_distance(center, power)
+
+    Haven
+    |> from()
+    |> where([h], h.id in ^ids)
+    |> Repo.update_all(set: [resonance: resonance])
+  end
+
+  @spec get_haven_ids_in_distance({non_neg_integer(), non_neg_integer()}, non_neg_integer()) :: list(non_neg_integer())
+  defp get_haven_ids_in_distance(center, power) do
+    Haven
+    |> Repo.all()
+    |> Enum.filter(&haven_filter_distance(&1, center, power))
+    |> Enum.map(fn %{id: id} -> id end)
+  end
+
+  @spec haven_filter_distance(Haven.t(), {non_neg_integer(), non_neg_integer()}, non_neg_integer()) :: boolean()
+  defp haven_filter_distance(%{x: x, y: y}, {center_x, center_y}, distance) do
+    case compute_distance({x, y}, {center_x, center_y}) do
+      d when d <= distance  -> true
+      _                     -> false
+    end
+  end
+
+  @spec compute_distance({non_neg_integer(), non_neg_integer()}, {non_neg_integer(), non_neg_integer()}) :: number()
+  defp compute_distance({x1, y1}, {x2, y2}) do
+    {dx, dy} = {abs(x1 - x2), abs(y1 - y2)}
+    :math.sqrt(:math.pow(dx, 2) + :math.pow(dy, 2))
+  end
+
+  @doc """
+  Resets the resonances in all the havens.
+  """
+  @spec reset_resonances() :: {integer(), nil | [term()]}
+  def reset_resonances() do
+    Haven
+    |> Repo.update_all(set: [resonance: nil])
   end
 end

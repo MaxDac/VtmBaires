@@ -130,4 +130,8 @@ defmodule VtmWeb.Resolvers.StatusResolvers do
       StatusChecks.reset_hunt(c_id)
     end
   end
+
+  def get_resonance_types(_, _, _) do
+    {:ok, %{result: StatusChecks.get_resonance_types()}}
+  end
 end

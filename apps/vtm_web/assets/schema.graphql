@@ -465,6 +465,10 @@ type GetHavensPayload {
   result: [Haven]
 }
 
+type GetResonanceTypesPayload {
+  result: [String]
+}
+
 type GetThreadsResponse {
   threadCount: Int
   threads: [ForumThreadInfo]
@@ -485,6 +489,7 @@ type Haven implements Node {
   insertedAt: DateTime
   name: String
   ownerDifficulty: Int
+  resonance: String
   resourcesLevel: Int
   updatedAt: DateTime
   x: Int
@@ -657,6 +662,10 @@ type ResetCharacterHuntPayload {
   result: Character
 }
 
+type ResetResonancesPayload {
+  result: Int
+}
+
 input ResolveEventInput {
   eventId: ID!
 }
@@ -714,6 +723,7 @@ type RootMutationType {
   rejectCharacter(characterId: ID!, reason: String!): Boolean
   requestNewPassword(userEmail: String!): Boolean
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
+  resetResonances: ResetResonancesPayload
   resetSession: Boolean
   resetSessionMap: Boolean
   resolveEvent(input: ResolveEventInput!): ResolveEventPayload
@@ -724,6 +734,7 @@ type RootMutationType {
   setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
   setHavenInfo(input: SetHavenInfoInput!): SetHavenInfoPayload
   setMessageRead(messageId: ID): Message
+  setResonanceZone(input: SetResonanceZoneInput!): SetResonanceZonePayload
   spendCharacterExperience(input: SpendCharacterExperienceInput!): SpendCharacterExperiencePayload
   switchCharacterAttributes(characterId: ID, firstAttribute: String, secondAttribute: String): Character
   updateSessionCharacter(characterId: ID): Character
@@ -761,6 +772,7 @@ type RootQueryType {
   getForumThreads(forumSectionId: ID!, page: Int!, pageSize: Int!): GetThreadsResponse
   getHavens: GetHavensPayload
   getMessage(messageId: ID): Message
+  getResonanceTypes: GetResonanceTypesPayload
   getSessionCharacter: Character
   getUnresolvedEvents: GetUnresolvedEventsPayload
   hasUserAccessToMap(chatId: ID): Boolean
@@ -861,7 +873,22 @@ input SetHavenInfoRequest {
   difficulty: Int!
   groundControl: Int!
   ownerDifficulty: Int!
+  resonance: String
   resourcesLevel: Int!
+}
+
+input SetResonanceZoneInput {
+  havenId: ID!
+  request: SetResonanceZoneRequest!
+}
+
+type SetResonanceZonePayload {
+  result: Int
+}
+
+input SetResonanceZoneRequest {
+  power: Int!
+  resonance: String!
 }
 
 input SpendCharacterExperienceInput {

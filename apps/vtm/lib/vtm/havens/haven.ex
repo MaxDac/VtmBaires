@@ -10,6 +10,7 @@ defmodule Vtm.Havens.Haven do
     name: binary(),
     x: non_neg_integer(),
     y: non_neg_integer(),
+    resonance: binary(),
     danger: non_neg_integer(),
     ground_control: non_neg_integer(),
     difficulty: integer(),
@@ -27,6 +28,7 @@ defmodule Vtm.Havens.Haven do
     field :name, :string, virtual: true
     field :x, :integer
     field :y, :integer
+    field :resonance, :string
     field :danger, :integer
     field :ground_control, :integer
     field :difficulty, :integer
@@ -47,8 +49,8 @@ defmodule Vtm.Havens.Haven do
   @doc false
   def changeset(haven, attrs) do
     haven
-    |> cast(attrs, [:x, :y, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
+    |> cast(attrs, [:x, :y, :resonance, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
     |> unique_constraint([:x, :y], name: :haven_locations_unique_key)
-    |> validate_required([:x, :y, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
+    |> validate_required([:x, :y, :resonance, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
   end
 end

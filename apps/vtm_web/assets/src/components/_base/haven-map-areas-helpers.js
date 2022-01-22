@@ -57,15 +57,7 @@ export const personalHavenFillColorWithoutOpacity = "#39C939";
 export const occupiedHavenFillColorWithoutOpacity = "#F93939";
 export const freeHavenFillColorWithoutOpacity = "#591919";
 
-/**
- * Builds the single area, given the coords and the other information of the area.
- * @param characterId The session character id.
- * @param haven The haven instance.
- * @param coords The area coords.
- * @param defaultTitle The default title.
- * @return {MapAreas} The area.
- */
-export const buildArea = (characterId: ?string, haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
+const buildAreaForStats = (characterId: ?string, haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
     const fillColor =
         haven?.character?.id != null
             ? (haven.character.id === characterId
@@ -93,6 +85,57 @@ export const buildArea = (characterId: ?string, haven: Haven, coords: Array<[num
     };
 };
 
+export const animalResonanceFillColor = "#00800040";
+export const phlegmaticResonanceFillColor = "#ACACAC40";
+export const cholericResonanceFillColor = "#FFA50040";
+export const melancholyResonanceFillColor = "#00008040";
+export const sanguineResonanceFillColor = "#DC143C40";
+export const noResonanceFillColor = "#2F4F4F40";
+
+const getResonanceColor = (haven: Haven) => {
+    switch (haven.resonance) {
+        case "Animale": return animalResonanceFillColor;
+        case "Flemmatica": return phlegmaticResonanceFillColor;
+        case "Collerica": return cholericResonanceFillColor;
+        case "Malinconica": return melancholyResonanceFillColor;
+        case "Sanguigna": return sanguineResonanceFillColor;
+        default: return noResonanceFillColor;
+    }
+};
+
+const buildAreaForResonances = (characterId: ?string, haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
+    const color = getResonanceColor(haven);
+
+    return {
+        id: haven.id,
+        title: haven?.name ?? defaultTitle,
+        shape: "poly",
+        coords: coords.flatMap(([x, y]) => [x, y]),
+        fillColor: color,
+        strokeColor: "black",
+        lineWidth: 2,
+        preFillColor: color,
+        haven: haven
+    };
+};
+
+/**
+ * Builds the single area, given the coords and the other information of the area.
+ * @param showResonances Determines whether to show the resonances color.
+ * @param characterId The session character id.
+ * @param haven The haven instance.
+ * @param coords The area coords.
+ * @param defaultTitle The default title.
+ * @return {MapAreas} The area.
+ */
+export const buildArea = (showResonances: boolean, characterId: ?string, haven: Haven, coords: Array<[number, number]>, defaultTitle: string): MapAreas => {
+    if (!showResonances) {
+        return buildAreaForStats(characterId, haven, coords, defaultTitle);
+    }
+
+    return buildAreaForResonances(characterId, haven, coords, defaultTitle);
+};
+
 /**
  * Computes the hexagonal coords given the hexagon center and its radius.
  * @param center The hexagon center in coordinates.
@@ -117,13 +160,14 @@ export const computeHexagonCoords = (center: [number, number], radius: number): 
 
 /**
  * Draws a line of hexagons of determined length.
+ * @param showResonances Determines whether to show the resonances colors in the areas or not.
  * @param characterId The session character id.
  * @param index The row index.
  * @param havens The havens.
  * @param radius Each hexagon radius.
  * @return {Array<MapAreas>} The array of map areas.
  */
-export const drawLine = (characterId: ?string, index: number, havens: Array<Haven>, radius: number): Array<MapAreas> => {
+export const drawLine = (showResonances: boolean, characterId: ?string, index: number, havens: Array<Haven>, radius: number): Array<MapAreas> => {
     const d = 2 * radius * cos30;
 
     const [x1, y1] = [
@@ -132,6 +176,7 @@ export const drawLine = (characterId: ?string, index: number, havens: Array<Have
     ];
 
     return havens.map((haven, i) => buildArea(
+        showResonances,
         characterId,
         haven,
         computeHexagonCoords([x1 + d * i, y1], radius),

@@ -10,6 +10,7 @@ import {useTheme} from "@mui/material/styles";
 import type {GenericReactComponent} from "../types";
 import type {SelectProps} from "../component-helpers";
 import {getSelectItems} from "../component-helpers";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export type SelectInputProps = SelectProps & {
     formik: Formik;
@@ -44,6 +45,7 @@ const FormSelectField = (props: SelectInputProps): GenericReactComponent => {
                     error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
                 {items()}
             </Select>
+            <FormHelperText sx={{color: "red"}}>{props.formik.errors[props.fieldName]}</FormHelperText>
         </FormControl>
     );
 }

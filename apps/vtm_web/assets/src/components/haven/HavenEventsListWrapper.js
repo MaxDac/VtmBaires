@@ -27,6 +27,7 @@ export type HavenEventsListWrapperProps = {
  * This component wraps the rendering around and inside the haven page, abstracting away only the query, that has
  * to be in a React component in order to be used.
  * Basically, it works like this: Wrapper{Injected component{List}}, and the wrapper will be used by the page component.
+ * @param isMaster
  * @param component
  * @return {JSX.Element|*}
  * @constructor

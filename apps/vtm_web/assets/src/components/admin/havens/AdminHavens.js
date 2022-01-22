@@ -2,7 +2,7 @@
 
 import React, {useContext} from "react";
 import HavenMap from "../../_base/HavenMap";
-import AdminHavensForm from "./AdminHavensForm";
+import AdminHavensModal from "./AdminHavensModal";
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import {UtilityContext} from "../../../contexts";
 import SetHavenCharacterMutation from "../../../services/mutations/havens/SetHavenCharacterMutation";
@@ -11,6 +11,10 @@ import {handleMutation, isNullOrEmpty, tryCastToOneType} from "../../../_base/ut
 import DeleteHavenCharacterMutation from "../../../services/mutations/havens/DeleteHavenCharacterMutation";
 import type {GenericReactComponent} from "../../../_base/types";
 import SetHavenInfoMutation from "../../../services/mutations/havens/SetHavenInfoMutation";
+import SetResonanceZoneMutation from "../../../services/mutations/havens/SetResonanceZoneMutation";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ResetResonancesMutation from "../../../services/mutations/havens/ResetResonancesMutation";
 
 const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
@@ -29,7 +33,7 @@ const AdminHavens = (): GenericReactComponent => {
         }
     };
 
-    const onCharacterSelected = (h, cId, request) => {
+    const onCharacterSubmitted = (h, cId, request) => {
         if (h?.id != null) {
             const hId = h.id;
 
@@ -64,6 +68,39 @@ const AdminHavens = (): GenericReactComponent => {
                 });
         }
     };
+    
+    const onMarkResonance = (h, {resonance, power}) => {
+        if (h?.id != null && resonance != null) {
+            const hId = h.id;
+
+            openDialog("Assegnazione Risonanza", `Sei sicuro di voler marcare questa zona con una risonanza ${resonance}?`,
+                () => {
+                    handleMutation(
+                        () => SetResonanceZoneMutation(environment, hId, {
+                            resonance: resonance,
+                            power: power ?? 3
+                        })
+                            .finally(_ => setFetchKey(p => p + 1)),
+                        showUserNotification,
+                        {
+                            successMessage: "La modifica è stata effettuata con successo."
+                        });
+                });
+        }
+    };
+
+    const onResetResonances = _ => {
+        openDialog("Resetta Risonanze", `Sei sicuro di voler resettare tutte le risonanze nel Dominio? Questo cancellerà completamente lo stato attuale.`,
+            () => {
+                handleMutation(
+                    () => ResetResonancesMutation(environment)
+                        .finally(_ => setFetchKey(p => p + 1)),
+                    showUserNotification,
+                    {
+                        successMessage: "La modifica è stata effettuata con successo."
+                    });
+            });
+    };
 
     return (
         <>
@@ -73,11 +110,22 @@ const AdminHavens = (): GenericReactComponent => {
             }}>
                 Gestione rifugio
             </h1>
-            <AdminHavensForm haven={haven}
-                             open={open}
-                             handleClose={_ => setOpen(_ => false)}
-                             onSelected={onCharacterSelected}
-                             havenCharacterId={haven?.character?.id} />
+            <Box sx={{
+                width: "100%",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center"
+            }}>
+                <Button variant="outlined" onClick={onResetResonances}>
+                    Resetta Risonanze
+                </Button>
+            </Box>
+            <AdminHavensModal haven={haven}
+                              open={open}
+                              handleClose={_ => setOpen(_ => false)}
+                              onSelected={onCharacterSubmitted}
+                              onMarkResonance={onMarkResonance}
+                              havenCharacterId={haven?.character?.id} />
             <HavenMap onSectionSelected={onHavenSelected}
                       fetchKey={fetchKey} />
         </>

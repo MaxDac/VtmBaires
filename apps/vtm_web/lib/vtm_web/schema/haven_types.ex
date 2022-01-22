@@ -11,6 +11,7 @@ defmodule VtmWeb.Schema.HavenTypes do
     field :name, :string
     field :x, :integer
     field :y, :integer
+    field :resonance, :string
     field :danger, :integer
     field :ground_control, :integer
     field :difficulty, :integer
@@ -69,11 +70,17 @@ defmodule VtmWeb.Schema.HavenTypes do
   end
 
   input_object :set_haven_info_request do
+    field :resonance, :string
     field :danger, non_null(:integer)
     field :ground_control, non_null(:integer)
     field :difficulty, non_null(:integer)
     field :owner_difficulty, non_null(:integer)
     field :resources_level, non_null(:integer)
+  end
+
+  input_object :set_resonance_zone_request do
+    field :resonance, non_null(:string)
+    field :power, non_null(:integer)
   end
 
   object :haven_mutations do
@@ -132,6 +139,31 @@ defmodule VtmWeb.Schema.HavenTypes do
 
       middleware Middlewares.Authorize, :master
       resolve parsing_node_ids(&HavenResolvers.resolve_event/2, event_id: :haven_event)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :set_resonance_zone do
+      input do
+        field :haven_id, non_null(:id)
+        field :request, non_null(:set_resonance_zone_request)
+      end
+
+      output do
+        field :result, :integer
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve parsing_node_ids(&HavenResolvers.set_resonance_zone/2, haven_id: :haven)
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :reset_resonances do
+      output do
+        field :result, :integer
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve &HavenResolvers.reset_resonances/3
       middleware Middlewares.ChangesetErrors
     end
   end

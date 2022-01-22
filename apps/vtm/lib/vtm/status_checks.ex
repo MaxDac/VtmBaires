@@ -308,8 +308,8 @@ defmodule Vtm.StatusChecks do
     end
   end
 
-  @spec determine_resonance_power() :: non_neg_integer()
-  defp determine_resonance_power() do
+  @spec determine_resonance_power(binary() | nil) :: non_neg_integer()
+  defp determine_resonance_power(nil) do
     case {Helpers.throw_dice(), Helpers.throw_dice()} do
       {x, r} when x >= 9 and r >= 9 -> 4
       {x, _} when x >= 9            -> 3
@@ -318,22 +318,69 @@ defmodule Vtm.StatusChecks do
     end
   end
 
-  @spec determine_resonance_type(Character.t()) :: binary()
-  defp determine_resonance_type(%{id: character_id}) do
+  defp determine_resonance_power(_) do
+    case Helpers.throw_dice() do
+      x when x >= 10  -> 4
+      x when x >= 9   -> 3
+      x when x >= 6   -> 2
+      _               -> 1
+    end
+  end
+
+  @spec get_resonance_types() :: list(binary())
+  def get_resonance_types(), do: [
+    "Animale",
+    "Flemmatica",
+    "Collerica",
+    "Malinconica",
+    "Sanguigna"
+  ]
+
+  @spec get_other_resonance_types(binary()) :: list(binary())
+  defp get_other_resonance_types(resonance) do
+    get_resonance_types()
+    |> Enum.filter(fn
+      ^resonance  -> false
+      _           -> true
+    end)
+  end
+
+  @spec determine_resonance_type(Character.t(), binary() | nil) :: binary()
+  defp determine_resonance_type(%{id: character_id}, nil) do
     case {Characters.is_character_vegan_hunter?(character_id), Helpers.throw_dice()} do
       {true, _}           -> "Animale"
-      {_, x} when x == 10 -> "Flemmatica"
+      {_, x} when x == 9  -> "Flemmatica"
       {_, x} when x >= 7  -> "Collerica"
-      {_, x} when x >= 4  -> "Malinconica"
-      {_, x} when x >= 1  -> "Sanguigna"
+      {_, x} when x >= 5  -> "Malinconica"
+      {_, x} when x >= 2  -> "Sanguigna"
       _                   -> "Animale"
     end
   end
 
-  @spec determine_resonance(Character.t()) :: {:ok, non_neg_integer(), binary(), Character.t()} | {:error, Changeset.t()}
-  defp determine_resonance(character) do
-    with power            <- determine_resonance_power(),
-         type             <- determine_resonance_type(character),
+  defp determine_resonance_type(%{id: character_id}, resonance) do
+    [
+      first,
+      second,
+      third,
+      fourth | _
+    ] = get_other_resonance_types(resonance)
+
+    is_vegan_hunger = Characters.is_character_vegan_hunter?(character_id)
+
+    case {is_vegan_hunger, Helpers.throw_dice()} do
+      {true, _}           -> "Animale"
+      {_, x} when x == 10 -> first
+      {_, x} when x == 9  -> second
+      {_, x} when x == 8  -> third
+      {_, x} when x == 7  -> fourth
+      _                   -> resonance
+    end
+  end
+
+  @spec determine_resonance(Character.t(), Haven.t()) :: {:ok, non_neg_integer(), binary(), Character.t()} | {:error, Changeset.t()}
+  defp determine_resonance(character, %{resonance: resonance}) do
+    with power            <- determine_resonance_power(resonance),
+         type             <- determine_resonance_type(character, resonance),
          {:ok, character} <- character
                              |> Character.update_changeset(%{last_resonance: type, last_resonance_intensity: power})
                              |> Repo.update() do
@@ -370,7 +417,10 @@ defmodule Vtm.StatusChecks do
   defp preload_event_info(e), do: e
 
   @spec determine_consequences(Character.t(), Haven.t()) :: {:ok, nil | Event.t()} | {:error, any}
-  defp determine_consequences(%{id: c_id}, %{character_id: c_id}), do: {:ok, nil}
+  defp determine_consequences(%{id: c_id}, %{id: haven_id, character_id: c_id}) do
+    _ = insert_empty_event(c_id, haven_id)
+    {:ok, nil}
+  end
 
   defp determine_consequences(%{id: c_id}, %{id: haven_id, danger: danger, ground_control: ground_control}) do
     case {Helpers.throw_dice(), Helpers.throw_dice()} do
@@ -384,14 +434,28 @@ defmodule Vtm.StatusChecks do
         |> Repo.insert()
         |> preload_event_info()
       _                               ->
+        _ = insert_empty_event(c_id, haven_id)
         {:ok, nil}
     end
+  end
+
+  @spec insert_empty_event(non_neg_integer(), non_neg_integer()) :: {:ok, Event.t()} | {:error, Changeset.t()}
+  defp insert_empty_event(c_id, haven_id) do
+    %Event{}
+    |> Event.changeset(%{
+      character_id: c_id,
+      haven_id: haven_id,
+      danger_triggered: false,
+      control_triggered: false,
+      resolved: true
+    })
+    |> Repo.insert()
   end
 
   @spec perform_hunt(Character.t(), Haven.t()) :: {:ok, {binary(), Character.t(), Event.t() | nil}} | {:error, any()}
   defp perform_hunt(character, haven) do
     with {:ok, message, character}      <- determine_hunger(character, haven),
-         {:ok, power, type, character}  <- determine_resonance(character),
+         {:ok, power, type, character}  <- determine_resonance(character, haven),
          {:ok, event}                   <- determine_consequences(character, haven) do
       {:ok, {
         message |> enrich_message_with_resonance(power, type),

@@ -8,6 +8,7 @@ export type Haven = {|
     +name: ?string,
     +x: ?number,
     +y: ?number,
+    +resonance: ?string;
     +danger: ?number,
     +difficulty: ?number,
     +groundControl: ?number,
@@ -27,6 +28,7 @@ export const getHavensQuery: GraphQLTaggedNode = graphql`
                 name
                 x
                 y
+                resonance
                 danger
                 difficulty
                 groundControl

@@ -10,16 +10,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Tooltip from "@mui/material/Tooltip";
 import ListItemText from "@mui/material/ListItemText";
-import {defaultFormatDate} from "../../_base/date-utils";
+import {defaultFormatDate, sortByDate} from "../../_base/date-utils";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import type {HavenEvent} from "../../services/queries/haven/HavenEventFragment";
-
-const EventIcon = ({controlTriggered}) =>
-    controlTriggered
-        ? (<MeetingRoomTwoToneIcon sx={menuIconStyle} />)
-        : (<ReportProblemTwoToneIcon sx={menuIconStyle} />);
+import {castNotNull, toArray} from "../../_base/utils";
 
 const getTooltipFromEvent = ({controlTriggered}) =>
     controlTriggered
@@ -42,17 +38,25 @@ const actions = ({id}, onClick) => {
         </Button>);
 };
 
-const eventListItem = (isMaster: boolean, e: ?HavenEvent, resolveEvent: string => void) => {
+const EventListItem = ({isMaster, e, resolveEvent}) => {
+    const tooltipText = getTooltipFromEvent(e);
+    const eventIcon = React.useMemo(() => (
+        <Tooltip title={tooltipText}>
+            {
+                e.controlTriggered
+                    ? (<MeetingRoomTwoToneIcon sx={menuIconStyle}/>)
+                    : (<ReportProblemTwoToneIcon sx={menuIconStyle}/>)
+            }
+        </Tooltip>
+    ), [e, tooltipText]);
+
     if (e != null) {
         return (
             <>
                 <ListItem disablePadding secondaryAction={actions(e, resolveEvent)}>
                     <ListItemButton>
                         <ListItemIcon>
-                            <Tooltip title={getTooltipFromEvent(e)}>
-                                <EventIcon controlTriggered={e.controlTriggered}
-                                           dangerTriggered={e.dangerTriggered}/>
-                            </Tooltip>
+                            {eventIcon}
                         </ListItemIcon>
                         <ListItemText primary={getTitleFromEvent(isMaster, e)}
                                       secondary={defaultFormatDate(e?.insertedAt)} />
@@ -73,8 +77,21 @@ type Props = {
 }
 
 const HavenEventsList = ({isMaster, events, resolveEvent}: Props): any => {
-    const rows = () =>
-        events?.map(e => eventListItem(isMaster, e, resolveEvent)) ?? [];
+    const rows = () => {
+        const es = toArray(events);
+
+        if (es != null && es.length > 0) {
+            return es
+                .filter(es => es != null)
+                .map(e => castNotNull(e))
+                .sort(({updatedAt: a}, {updatedAt: b}) => sortByDate(a ?? "", b ?? "", true))
+                .map(e => (
+                    <EventListItem key={e.id} isMaster={isMaster} e={e} resolveEvent={resolveEvent} />
+                )) ?? [];
+        }
+
+        return (<></>);
+    }
 
     return (
         <Box sx={{

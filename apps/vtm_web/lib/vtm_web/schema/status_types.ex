@@ -22,6 +22,16 @@ defmodule VtmWeb.Schema.StatusTypes do
       resolve parsing_node_ids(&StatusResolvers.get_character_description/2, character_id: :character)
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
+
+    payload field :get_resonance_types do
+      output do
+        field :result, list_of(:string)
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :any
+      resolve &StatusResolvers.get_resonance_types/3
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
   end
 
   enum :damage_type do
