@@ -73,7 +73,6 @@
   },
   "proxy": "http://localhost:4000",
   "devDependencies": {
-    "react-scripts": "^5.0.0",
     "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.12",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -91,13 +90,13 @@
     "graphql": "^16.2.0",
     "html-webpack-plugin": "^5.5.0",
     "node-sass": "^7.0.1",
+    "path-browserify": "^1.0.1",
+    "postcss-normalize": "^10.0.1",
+    "react-scripts": "^5.0.0",
     "relay-compiler": "^13.0.0",
     "relay-compiler-language-js-flow-uncommented": "^2.0.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
-    "url-loader": "^4.1.1",
-    "webpack": "5.67.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "4.7.3"
+    "url-loader": "^4.1.1"
   }
 }

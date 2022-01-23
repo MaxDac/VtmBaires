@@ -18,6 +18,7 @@ import {
     requestSubscription, useLazyLoadQuery
 } from "react-relay";
 import type { Query, Variables } from "relay-runtime/util/RelayRuntimeTypes";
+import { emptyExactObject } from "./utils";
 
 export type GraphqlErrorLocation = {
     column: number;
@@ -184,4 +185,21 @@ export const useCustomLazyLoadQuery = <TVariables: Variables, TData>(
     |},
 ): TData =>
     useLazyLoadQuery(gqlQuery, variables, options);
+
+/**
+ * Custom implementation of the Relay lazy load query for queries without input parameters.
+ * @param gqlQuery The GraphQL query.
+ * @param options The call options.
+ * @return {*} The query response.
+ */
+export const useCustomLazyLoadQueryNoVar = <TData>(
+    gqlQuery: Query<{||}, TData>,
+    options?: {|
+        fetchKey?: string | number,
+        fetchPolicy?: FetchPolicy,
+        networkCacheConfig?: CacheConfig,
+        UNSTABLE_renderPolicy?: RenderPolicy,
+    |},
+): TData =>
+    useLazyLoadQuery(gqlQuery, emptyExactObject(), options);
     

@@ -30,10 +30,12 @@ module.exports = {
             return babelLoaderOptions;
         },
     },
-    // if you want to track react-redux selectors
+    // Essential for react-markdown, otherwise it breaks with webpack 5
     webpack: {
-        alias: {
-            'react-redux': process.env.NODE_ENV === 'development' ? 'react-redux/lib' : 'react-redux'
+        resolve: {
+            fallback: {
+                'path': require.resolve('path-browserify')
+            }
         }
     }
 };

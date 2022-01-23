@@ -4,7 +4,7 @@ import {uniques} from "../../../../_base/utils";
 import {useCharactersChatAvatar} from "../../../../services/queries/character/GetCharactersChatAvatarQuery";
 
 export type MenuCharacter = {
-    id: string;
+    +id: string;
     chatAvatar?: ?string;
 }
 

@@ -3,7 +3,10 @@
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterPublicQuery} from "../../services/queries/character/GetCharacterPublicQuery";
-import type {GetCharacterPublicQuery} from "../../services/queries/character/__generated__/GetCharacterPublicQuery.graphql";
+import type {
+  GetCharacterPublicQueryResponse,
+  GetCharacterPublicQueryVariables,
+} from "../../services/queries/character/__generated__/GetCharacterPublicQuery.graphql";
 import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {
@@ -20,7 +23,7 @@ const CharacterFragmentPublicProviderQuery = ({id, children, reload, fetchKey}: 
     };
 
     const character =
-        useCustomLazyLoadQuery<GetCharacterPublicQuery>(getCharacterPublicQuery, { id: id }, policy)
+        useCustomLazyLoadQuery<GetCharacterPublicQueryVariables, GetCharacterPublicQueryResponse>(getCharacterPublicQuery, { id: id }, policy)
             ?.getCharacterPublicInfo;
 
     if (character?.id != null) {

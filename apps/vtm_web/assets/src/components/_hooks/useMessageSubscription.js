@@ -2,16 +2,20 @@
 
 import {useContext, useEffect, useState} from "react";
 import {subscribe, useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {GetMessageDigestQuery} from "../../services/queries/messages/__generated__/GetMessageDigestQuery.graphql";
+import type {
+  GetMessageDigestQueryResponse,
+  GetMessageDigestQueryVariables,
+} from "../../services/queries/messages/__generated__/GetMessageDigestQuery.graphql";
 import {getMessageDigestQuery} from "../../services/queries/messages/GetMessageDigestQuery";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import type {MessageNotificationSubscriptionResponse} from "../../services/subscriptions/__generated__/MessageNotificationSubscription.graphql";
 import MessageNotificationSubscription from "../../services/subscriptions/MessageNotificationSubscription";
 import {UtilityContext} from "../../contexts";
+import { emptyExactObject } from "../../_base/utils";
 
 export const useMessageSubscription = (): number => {
     const {showUserNotification} = useContext(UtilityContext);
-    const messagesDigest = useCustomLazyLoadQuery<GetMessageDigestQuery>(getMessageDigestQuery, {}, {
+    const messagesDigest = useCustomLazyLoadQuery<GetMessageDigestQueryVariables, GetMessageDigestQueryResponse>(getMessageDigestQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     });
 

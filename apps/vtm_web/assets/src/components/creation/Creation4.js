@@ -30,12 +30,12 @@ import type {
 import type {GenericReactComponent} from "../../_base/types";
 
 type InternalElementProps = {
-    character: any;
-    children: any => any;
+    character: CharacterFragments_characterConcealedInfo$key;
+    children: GenericReactComponent => GenericReactComponent;
 };
 
 const InternalElement = ({character, children}: InternalElementProps): GenericReactComponent => {
-    const infoFragment = useFragment<CharacterFragments_characterConcealedInfo$key>(
+    const infoFragment = useFragment(
         characterConcealedInfoFragment,
         character);
 

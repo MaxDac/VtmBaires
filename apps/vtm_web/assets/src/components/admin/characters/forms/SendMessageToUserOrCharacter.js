@@ -10,6 +10,10 @@ import Button from "@mui/material/Button";
 import { useCustomLazyLoadQuery } from "../../../../_base/relay-utils";
 import { getCharacterUserQuery } from "../../../../services/queries/character/GetCharacterUserQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
+import type {
+  GetCharacterUserQueryResponse,
+  GetCharacterUserQueryVariables,
+} from "../../../../services/queries/character/__generated__/GetCharacterUserQuery.graphql";
 
 type Props = {
     character: Character;
@@ -17,10 +21,14 @@ type Props = {
 
 const AddCharacterExperienceForm = ({character}: Props): GenericReactComponent => {
     const history = useHistory();
-    const user = useCustomLazyLoadQuery(getCharacterUserQuery, {characterId: character.id})?.getCharacterUser;
+    const user = useCustomLazyLoadQuery<GetCharacterUserQueryVariables, GetCharacterUserQueryResponse>(getCharacterUserQuery, {characterId: character.id})
+        ?.getCharacterUser;
 
-    const sendMessageToUser = () => 
-        history.push(MainRoutes.newMessageTo(user.id))
+    const sendMessageToUser = () => {
+        if (user?.id != null) {
+            history.push(MainRoutes.newMessageTo(user?.id));
+        }
+    };
     
     const sendMessageToCharacter = () => 
         history.push(MainRoutes.newMessageToCharacter(character.id));

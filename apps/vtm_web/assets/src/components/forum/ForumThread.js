@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
 import ForumLayout from "./layout/ForumLayout";
-import type {GetForumThreadQuery} from "../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import Grid from "@mui/material/Grid";
 import {useSession} from "../../services/session-service";
 import {useHistory} from "react-router-dom";
@@ -31,7 +30,7 @@ const ForumThread = ({threadId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const history = useHistory();
 
-    const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
+    const thread = useCustomLazyLoadQuery(getForumThreadQuery, {
         forumThreadId: threadId
     }, {
         fetchPolicy: "store-and-network"

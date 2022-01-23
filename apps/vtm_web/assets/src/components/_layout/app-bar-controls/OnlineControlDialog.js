@@ -2,7 +2,10 @@
 
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {SessionQuery} from "../../../services/queries/accounts/__generated__/SessionQuery.graphql";
+import type {
+  SessionQueryResponse,
+  SessionQueryVariables,
+} from "../../../services/queries/accounts/__generated__/SessionQuery.graphql";
 import {listSessionQuery} from "../../../services/queries/accounts/SessionQuery";
 import Tooltip from "@mui/material/Tooltip";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -19,6 +22,7 @@ import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import MenuLayout from "../../../_base/components/MenuLayout";
 import type {GenericReactComponent} from "../../../_base/types";
+import { emptyExactObject } from "../../../_base/utils";
 
 type Props = {
     closePopup: () => void;
@@ -72,7 +76,7 @@ const OnlineControlActionsSmallScreen = ({o, closePopup}) => {
 
 const OnlineControlDialog = ({closePopup}: Props): GenericReactComponent => {
     const theme = useTheme();
-    const online = useCustomLazyLoadQuery<SessionQuery>(listSessionQuery, {}, {
+    const online = useCustomLazyLoadQuery<SessionQueryVariables, SessionQueryResponse>(listSessionQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     })?.sessionsList ?? [];
 

@@ -13,9 +13,9 @@ export const userCharactersQuery: Query<UserCharactersQueryVariables, UserCharac
     query UserCharactersQuery {
         me {
             userCharacters {
-                id
+                id @required(action: NONE)
                 name
-                stage
+                stage @required(action: NONE)
                 approved
                 isComplete
                 clan {
@@ -29,7 +29,8 @@ export const userCharactersQuery: Query<UserCharactersQueryVariables, UserCharac
 export type UserCharacter = {
     +id: string,
     +name: ?string,
-    +stage: ?number,
+    chatAvatar?: ?string,
+    +stage: number,
     +approved: ?boolean,
     +isComplete: ?boolean,
     +clan: ?{|
@@ -47,5 +48,8 @@ export const useUserCharactersQuery = (reloadCount?: number): Array<UserCharacte
 
     return (toArray(result) ?? [])
         .filter(c => c != null)
-        .map(castNotNull);
+        .map(castNotNull)
+        .map(x => ({
+            ...x
+        }));
 };

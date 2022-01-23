@@ -4,10 +4,13 @@ import React from "react";
 import MainMapImageMapper from "../map/MainMapImageMapper";
 import {drawLine, groupHavens} from "./haven-map-areas-helpers";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {GetHavensQuery} from "../../services/queries/haven/__generated__/GetHavensQuery.graphql";
+import type {
+  GetHavensQueryResponse,
+  GetHavensQueryVariables,
+} from "../../services/queries/haven/__generated__/GetHavensQuery.graphql";
 import {getHavensQuery} from "../../services/queries/haven/GetHavensQuery";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
-import {getMapKeys} from "../../_base/utils";
+import { emptyExactObject, getMapKeys } from "../../_base/utils";
 import {useSession} from "../../services/session-service";
 import type {GenericReactComponent} from "../../_base/types";
 import Stack from "@mui/material/Stack";
@@ -106,7 +109,7 @@ const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
 
 const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): GenericReactComponent => {
     const [,character] = useSession();
-    const havens = useCustomLazyLoadQuery<GetHavensQuery>(getHavensQuery, {}, {
+    const havens = useCustomLazyLoadQuery<GetHavensQueryVariables, GetHavensQueryResponse>(getHavensQuery, emptyExactObject(), {
         fetchPolicy: "network-only",
         fetchKey: fetchKey
     })?.getHavens?.result;

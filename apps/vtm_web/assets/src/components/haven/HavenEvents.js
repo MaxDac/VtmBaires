@@ -3,15 +3,12 @@
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterHavenEventsQuery} from "../../services/queries/haven/GetCharacterHavenEventsQuery";
-import type {
-    GetCharacterHavenEventsQuery
-} from "../../services/queries/haven/__generated__/GetCharacterHavenEventsQuery.graphql";
 import HavenEventsListWrapper from "./HavenEventsListWrapper";
 import type {HavenEventsInternalProps} from "./HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
 
 const HavenEventsInternal = ({characterId, fetchKey, component}: HavenEventsInternalProps) => {
-    const events = useCustomLazyLoadQuery<GetCharacterHavenEventsQuery>(getCharacterHavenEventsQuery, {
+    const events = useCustomLazyLoadQuery(getCharacterHavenEventsQuery, {
         characterId: characterId
     }, {
         fetchPolicy: "network-only",

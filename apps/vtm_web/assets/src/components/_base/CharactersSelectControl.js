@@ -2,12 +2,15 @@
 
 import React, {useMemo} from "react";
 import FormSelectField from "../../_base/components/FormSelectField";
-import {orderAlphabetically} from "../../_base/utils";
+import { emptyExactObject, orderAlphabetically } from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {AllCharactersQuery} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
 import PlainSelectField from "../../_base/components/PlainSelectField";
 import type {GenericReactComponent} from "../../_base/types";
+import type {
+  AllCharactersQueryResponse,
+  AllCharactersQueryVariables,
+} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
 
 const CharactersSelectControlInternal = ({label, characterValues, onChange, defaultValue}): GenericReactComponent => {
     const [value, setValue] = React.useState<string>(defaultValue ?? "");
@@ -38,7 +41,7 @@ type Props = {
 }
 
 const CharactersSelectControl = ({label, fieldName, formik, onChange, value}: Props): GenericReactComponent => {
-    const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
+    const allCharacters = useCustomLazyLoadQuery<AllCharactersQueryVariables, AllCharactersQueryResponse>(allCharactersQuery, emptyExactObject())?.charactersList;
 
     const characterValues = useMemo((): Array<[string, string]> => {
         const values: Array<[string, string]> = allCharacters

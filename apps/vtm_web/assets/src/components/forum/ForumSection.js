@@ -7,7 +7,6 @@ import {firstOrDefault} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadsQuery} from "../../services/queries/forum/GetForumThreadsQuery";
 import ForumListItem from "./layout/ForumListItem";
-import type {GetForumThreadsQuery} from "../../services/queries/forum/__generated__/GetForumThreadsQuery.graphql";
 import Grid from "@mui/material/Grid";
 import {useHistory} from "react-router-dom";
 import {useSession} from "../../services/session-service";
@@ -36,7 +35,7 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
         ?.getForumSections
         ?.filter(s => s?.section?.id === sectionId));
 
-    const response = useCustomLazyLoadQuery<GetForumThreadsQuery>(
+    const response = useCustomLazyLoadQuery(
         getForumThreadsQuery,
         {
             forumSectionId: sectionId,

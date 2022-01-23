@@ -6,8 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import {useTheme} from "@mui/material/styles";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetCreationTemplateQuery} from "../../../services/queries/character/__generated__/GetCreationTemplateQuery.graphql";
+import {useCustomLazyLoadQueryNoVar} from "../../../_base/relay-utils";
 import {getCreationTemplateQuery} from "../../../services/queries/character/GetCreationTemplateQuery";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -27,7 +26,7 @@ const TemplateSelectionControl = ({characterId}: Props): GenericReactComponent =
     const theme = useTheme();
     const {showUserNotification, openDialog, setWait} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const templates = useCustomLazyLoadQuery<GetCreationTemplateQuery>(getCreationTemplateQuery, {})
+    const templates = useCustomLazyLoadQueryNoVar(getCreationTemplateQuery)
         ?.getCreationTemplates ?? [];
 
     const [template, setTemplate] = useState<?string>(null);

@@ -9,10 +9,8 @@ import ForumPost from "./ForumPost";
 import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { getCharacterAvatarQuery } from "../../../services/queries/character/GetCharacterAvatarQuery";
-import type { GetCharacterAvatarQuery } from "../../../services/queries/character/__generated__/GetCharacterAvatarQuery.graphql";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import type {GetCharacterChatAvatarQuery} from "../../../services/queries/character/__generated__/GetCharacterChatAvatarQuery.graphql";
 import {getCharacterChatAvatarQuery} from "../../../services/queries/character/GetCharacterChatAvatarQuery";
 import Avatar from "@mui/material/Avatar";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
@@ -24,33 +22,17 @@ type Props = {
     post: ?Post;
 }
 
-const ForumChatAvatar = ({characterId, characterName}): GenericReactComponent => {
-    const avatar = useCustomLazyLoadQuery<GetCharacterChatAvatarQuery>(getCharacterChatAvatarQuery, {
-        characterId: characterId
-    }, {
-        fetchPolicy: "store-or-network"
-    })?.getCharacterChatAvatar?.chatAvatar;
+const ForumPostWithAvatar = ({post, onGame}: Props): GenericReactComponent => {
+    if (post?.character?.id) {
+        return (
+            <ForumPostWithAvatarInternal characterId={post?.character?.id} 
+                                         post={post} 
+                                         onGame={onGame} />
+        );
+    }
 
     return (
-        <td style={{width: "50px"}}>
-            <Avatar src={avatar}
-                    sx={{width: "50px", height: "50px"}}
-                    alt={`${characterName ?? ""} Avatar`} />
-        </td>
-    );
-};
-
-const ForumAvatar = ({characterId, characterName}): GenericReactComponent => {
-    const avatar = useCustomLazyLoadQuery<GetCharacterAvatarQuery>(getCharacterAvatarQuery, { id: characterId }, {
-        fetchPolicy: "store-or-network"
-    })?.getCharacterAvatar?.avatar;
-
-    return (
-        <td style={{width: "120px"}}>
-            <Avatar style={{width: "100px", height: "100px"}}
-                    src={avatar}
-                    alt={`${characterName ?? ""} Avatar`} />
-        </td>
+        <ForumPost post={post} onGame={onGame} />
     );
 };
 
@@ -112,17 +94,33 @@ const ForumPostWithAvatarInternal = ({characterId, post, onGame}): GenericReactC
     );
 };
 
-const ForumPostWithAvatar = ({post, onGame}: Props): GenericReactComponent => {
-    if (post?.character?.id) {
-        return (
-            <ForumPostWithAvatarInternal characterId={post?.character?.id} 
-                                         post={post} 
-                                         onGame={onGame} />
-        );
-    }
+const ForumChatAvatar = ({characterId, characterName}): GenericReactComponent => {
+    const avatar = useCustomLazyLoadQuery(getCharacterChatAvatarQuery, {
+        characterId: characterId
+    }, {
+        fetchPolicy: "store-or-network"
+    })?.getCharacterChatAvatar?.chatAvatar;
 
     return (
-        <ForumPost post={post} onGame={onGame} />
+        <td style={{width: "50px"}}>
+            <Avatar src={avatar}
+                    sx={{width: "50px", height: "50px"}}
+                    alt={`${characterName ?? ""} Avatar`} />
+        </td>
+    );
+};
+
+const ForumAvatar = ({characterId, characterName}): GenericReactComponent => {
+    const avatar = useCustomLazyLoadQuery(getCharacterAvatarQuery, { id: characterId }, {
+        fetchPolicy: "store-or-network"
+    })?.getCharacterAvatar?.avatar;
+
+    return (
+        <td style={{width: "120px"}}>
+            <Avatar style={{width: "100px", height: "100px"}}
+                    src={avatar}
+                    alt={`${characterName ?? ""} Avatar`} />
+        </td>
     );
 };
 

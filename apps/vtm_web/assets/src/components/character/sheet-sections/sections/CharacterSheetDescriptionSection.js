@@ -15,15 +15,15 @@ import Box from "@mui/material/Box";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
-    characterQuery: any
+    characterQuery: CharacterFragments_characterInfo$key & CharacterFragments_characterSheet$key
 }
 
 const CharacterSheetDescriptionSection = ({characterQuery}: Props): GenericReactComponent => {
-    const info = useFragment<?CharacterFragments_characterInfo$key>(
+    const info = useFragment(
         characterInfoFragment,
         characterQuery);
 
-    const sheet = useFragment<?CharacterFragments_characterSheet$key>(
+    const sheet = useFragment(
         characterSheetFragment,
         characterQuery);
 
