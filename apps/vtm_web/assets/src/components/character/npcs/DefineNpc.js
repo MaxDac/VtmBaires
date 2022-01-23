@@ -9,17 +9,14 @@ import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
 import ConfirmPngMutation from "../../../services/mutations/characters/ConfirmPngMutation";
 import {useRelayEnvironment} from "react-relay";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { MainRoutes } from "../../MainRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import {AdminRoutes} from "../../admin/AdminRouter";
 
-type Props = {
-    characterId: string;
-}
-
-const DefineNpc = ({characterId}: Props): GenericReactComponent => {
-    const history = useHistory();
+const DefineNpc = (): GenericReactComponent => {
+    const {characterId} = useParams();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
 
@@ -29,7 +26,7 @@ const DefineNpc = ({characterId}: Props): GenericReactComponent => {
             "Sei sicuro di voler confermare il personaggio? Potrai comunque continuare ad editarlo successivamente.",
             () => {
                 handleMutation(() => ConfirmPngMutation(environment, characterId), showUserNotification, {
-                    onCompleted: () => history.push(MainRoutes.characterDashboard(characterId))
+                    onCompleted: () => navigate(AdminRoutes.characterDashboard(characterId))
                 });
             });
     }

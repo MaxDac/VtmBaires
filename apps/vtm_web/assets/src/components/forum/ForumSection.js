@@ -9,7 +9,7 @@ import {getForumThreadsQuery} from "../../services/queries/forum/GetForumThreads
 import ForumListItem from "./layout/ForumListItem";
 import type {GetForumThreadsQuery} from "../../services/queries/forum/__generated__/GetForumThreadsQuery.graphql";
 import Grid from "@mui/material/Grid";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useSession} from "../../services/session-service";
 import {MainRoutes} from "../MainRouter";
 import Pagination from "@mui/material/Pagination";
@@ -19,15 +19,14 @@ import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from '@mui/icons-material/Home';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../_base/types";
-
-type Props = {
-    sectionId: string;
-}
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 export const DefaultPageSize = 10;
 
-const ForumSection = ({sectionId}: Props): GenericReactComponent => {
-    const history = useHistory();
+const ForumSection = (): GenericReactComponent => {
+    const {sectionId} = useParams();
+    const navigate = useNavigate();
     const [,character] = useSession();
     const [currentPage, setCurrentPage] = useState(1);
     const [threadFetchKey, setThreadFetchKey] = useState(0);
@@ -53,7 +52,7 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
 
     const pageCount = Math.ceil((response?.threadCount ?? 0) / DefaultPageSize);
 
-    const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
+    const toFormThread = id => navigate(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => response?.threads
         ?.map(s => <ForumListItem key={s?.thread?.id}
@@ -67,9 +66,9 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
         setCurrentPage(_ => newPage);
     };
 
-    const goToForum = _ => history.push(MainRoutes.forumSections);
+    const goToForum = _ => navigate(MainRoutes.forumSections);
 
-    const createNew = _ => history.push(MainRoutes.createNewForumThread(sectionId));
+    const createNew = _ => navigate(MainRoutes.createNewForumThread(sectionId));
 
     const forumControls = () => {
         const createNewThreadControl = () => {
@@ -119,14 +118,18 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
     };
 
     return (
-        <ForumLayout title={section?.section?.title ?? "Section"} controls={forumControls()}>
-            <Grid container>
-                <Grid item xs={12}>
-                    {showForumThreads()}
-                </Grid>
-                {paginationControl()}
-            </Grid>
-        </ForumLayout>
+        <RequireAuth>
+            <RouterPage>
+                <ForumLayout title={section?.section?.title ?? "Section"} controls={forumControls()}>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            {showForumThreads()}
+                        </Grid>
+                        {paginationControl()}
+                    </Grid>
+                </ForumLayout>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

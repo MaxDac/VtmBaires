@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {UtilityContext} from "../../contexts";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -22,12 +22,14 @@ import {
 } from "../../_base/utils";
 import {MainRoutes} from "../MainRouter";
 import {Link} from "react-router-dom";
-import { GuideRoutes } from "../guides/GuidesMain";
+import { GuideRoutes } from "../guides/GuidesRouter";
 import type {
   CharacterFragments_characterConcealedInfo,
   CharacterFragments_characterConcealedInfo$key,
 } from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 type InternalElementProps = {
     character: any;
@@ -114,7 +116,7 @@ const buildConvictions = (first: string, second: string, third: string): string 
 const Creation4 = (): GenericReactComponent => {
     const {showUserNotification} = useContext(UtilityContext);
     const classes = useStyles();
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
 
     const submit = (character: CharacterFragments_characterConcealedInfo) => ({
@@ -185,7 +187,7 @@ const Creation4 = (): GenericReactComponent => {
                 }
 
                 AddAdvantagesMutation(environment, request)
-                    .then(_ => history.push(MainRoutes.creation5))
+                    .then(_ => navigate(MainRoutes.creation5))
                     .catch(e => {
                         console.error("error!", e);
                         showUserNotification({
@@ -397,15 +399,19 @@ const Creation4 = (): GenericReactComponent => {
     }
 
     return (
-        <CharacterFragmentProvider showWarningWhenNoCharacterSelected={true}>
-            {characterQuery =>
-                <InternalElement character={characterQuery}>
-                    { character =>
-                        <InnerComponent characterInfo={character} classes={classes} />
+        <RequireAuth>
+            <RouterPage>
+                <CharacterFragmentProvider showWarningWhenNoCharacterSelected={true}>
+                    {characterQuery =>
+                        <InternalElement character={characterQuery}>
+                            { character =>
+                                <InnerComponent characterInfo={character} classes={classes} />
+                            }
+                        </InternalElement>
                     }
-                </InternalElement>
-            }
-        </CharacterFragmentProvider>
+                </CharacterFragmentProvider>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

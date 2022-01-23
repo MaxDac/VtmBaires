@@ -1,9 +1,9 @@
 // @flow
 
 import React, {useState, Suspense} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
-import {Routes} from "../../../AppRouter";
+import {AppRoutes} from "../../../AppRouter";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from "@mui/icons-material/Home";
 import ListItemText from "@mui/material/ListItemText";
@@ -25,7 +25,7 @@ import type {GenericReactComponent} from "../../../_base/types";
 const CharacterSheetModal = React.lazy(() => import('./dialog/SheetDialog'));
 
 const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [popupOpen, setPopupOpen] = useState(false);
     const [requested, setRequested] = useState(false);
     const isChatRoute = useIsChatRoute();
@@ -37,7 +37,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericR
             pushComponentOnPopup();
         }
         else {
-            history.push(route);
+            navigate(route);
         }
     };
 
@@ -64,7 +64,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericR
 
     return (
         <>
-            <ListItem button onClick={_ => pushHistory(Routes.main)}>
+            <ListItem button onClick={_ => pushHistory(AppRoutes.main)}>
                 <ListItemIcon>
                     <HomeIcon sx={menuIconStyle} />
                 </ListItemIcon>
@@ -95,7 +95,7 @@ const MainListItems = ({drawerDone, reloadCount, onUpdate}: MenuProps): GenericR
                 </ListItemIcon>
                 <ListItemText secondary={<MenuSecondaryText text="Eventi Dominio" />} />
             </ListItem>
-            <ListItem button onClick={_ => pushHistoryOnAnotherTab(Routes.guideMain)}>
+            <ListItem button onClick={_ => pushHistoryOnAnotherTab(AppRoutes.guideMain)}>
                 <ListItemIcon>
                     <AssignmentIcon sx={menuIconStyle} />
                 </ListItemIcon>

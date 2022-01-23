@@ -4,21 +4,21 @@ import React, {useContext} from "react";
 import Button from "@mui/material/Button";
 import { login } from "../../services/login-service";
 import type {Node} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
-import {Routes} from "../../AppRouter";
+import {AppRoutes} from "../../AppRouter";
 import {checkCharacter, storeSession} from "../../services/session-service";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {useRelayEnvironment} from "react-relay";
+import LoginLayout from "./LoginLayout";
 
 const SignInSchema = object().shape({
     email: string("Enter your email")
@@ -30,7 +30,7 @@ const SignInSchema = object().shape({
 
 const LoginComponent = (): Node => {
     const environment = useRelayEnvironment();
-    const history = useHistory();
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const {
@@ -68,7 +68,7 @@ const LoginComponent = (): Node => {
                 setWait(false);
                 storeSession(res.data);
                 setTimeout(() => {
-                    history.push(Routes.main);
+                    navigate(AppRoutes.main);
                 }, 200);
                 return res;
             })
@@ -84,7 +84,7 @@ const LoginComponent = (): Node => {
     }
 
     return (
-        <LoginFrameLayout title="Login" icon={<LockOutlinedIcon sx={menuIconStyle} />}>
+        <LoginLayout title="Login" icon={<LockOutlinedIcon sx={menuIconStyle} />}>
             <form style={{
                 width: '100%', // Fix IE 11 issue.
                 marginTop: "10px",
@@ -104,12 +104,13 @@ const LoginComponent = (): Node => {
             </form>
             <Box component="div" sx={{textAlign: "center"}}>
                 <ButtonGroup variant="outlined" aria-label="login links">
-                    <Button onClick={_ => history.push(LoginRoutes.recoverPassword)}>Recupera password</Button>
-                    <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
-                    <Button onClick={_ => history.push(LoginRoutes.register)}>Registrazione</Button>
+                    <Button onClick={_ => navigate(LoginRoutes.recoverPassword)}>Recupera password</Button>
+                    <Button onClick={_ => navigate(AppRoutes.guideMain)}>Guida</Button>
+                    <Button onClick={_ => navigate(LoginRoutes.register)}>Registrazione</Button>
                 </ButtonGroup>
             </Box>
-        </LoginFrameLayout>);
+        </LoginLayout>
+    );
 };
 
 export default LoginComponent;

@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import MainLayout from "./MainLayout";
+import RouterPage from "./RouterPage";
 import Typography from "@mui/material/Typography";
 import type {GenericReactComponent} from "../_base/types";
 
@@ -12,11 +12,11 @@ type Props = {
 
 const FallbackComponent = ({error}: Props): GenericReactComponent => {
     return (
-        <MainLayout>
+        <RouterPage>
             <Typography>
                 There was an error in the app: {JSON.stringify(error)}
             </Typography>
-        </MainLayout>
+        </RouterPage>
     )
 }
 

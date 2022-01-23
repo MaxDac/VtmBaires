@@ -4,10 +4,11 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesCamarilla = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography component="div">
                 <h1 style={titleStyle}>
                     Camarilla
@@ -433,8 +434,8 @@ const GuidesCamarilla = (): GenericReactComponent => {
                 praticamente qualsiasi cosa come pagamento, <b>tranne la Morte Ultima</b>, potere che &egrave; solo 
                 appannaggio dei Principi e dei Sire.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesCamarilla;

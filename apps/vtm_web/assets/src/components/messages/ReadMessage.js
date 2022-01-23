@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import ReturnToMessagesControl from "./components/ReturnToMessagesControl";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import DeleteMessageMutation from "../../services/mutations/messages/DeleteMessageMutation";
 import {UtilityContext} from "../../contexts";
 import SetMessageReadMutation from "../../services/mutations/messages/SetMessageReadMutation";
@@ -23,13 +23,12 @@ import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../MainRouter";
 import ReadMessageAvatar from "./components/ReadMessageAvatar";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
-type Props = {
-    messageId: string;
-}
-
-const ReadMessage = ({messageId}: Props): GenericReactComponent => {
-    const history = useHistory();
+const ReadMessage = (): GenericReactComponent => {
+    const {messageId} = useParams();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
 
@@ -72,47 +71,51 @@ const ReadMessage = ({messageId}: Props): GenericReactComponent => {
                     graphqlError: e,
                     message: "Si è verificato un errore cancellando il messaggio."
                 }))
-                .finally(() => history.push(MainRoutes.messages));
+                .finally(() => navigate(MainRoutes.messages));
         });
 
     return (
-        <ReturnToMessagesControl>
-            <Card sx={{
-                width: "100%",
-                background: "#191919"
-            }}>
-                <CardContent>
-                    <Grid container sx={{width: "100%"}}>
-                        <Grid item xs={3} sm={2} md={1}>
-                            {getAvatarSrc()}
-                        </Grid>
-                        <Grid item xs={9} sm={10} md={11}>
-                            <Typography>
-                                <b>Da: </b> {getSenderName()}
-                            </Typography>
-                            <Typography>
-                                <b>A: </b> {getReceiverName()}
-                            </Typography>
-                            <Typography>
-                                <b>Oggetto: </b> {message?.subject}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper variant="outlined" component="div" sx={{
-                                padding: "10px",
-                                margin: "10px"
-                            }}>
-                                <ParsedText text={message?.text} />
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-                <CardActions sx={{textAlign: "right"}}>
-                    <Button type="button" onClick={_ => history.push(MainRoutes.newMessage(messageId))}>Rispondi</Button>
-                    <Button type="button" onClick={deleteMessage}>Elimina</Button>
-                </CardActions>
-            </Card>
-        </ReturnToMessagesControl>
+        <RequireAuth>
+            <RouterPage>
+                <ReturnToMessagesControl>
+                    <Card sx={{
+                        width: "100%",
+                        background: "#191919"
+                    }}>
+                        <CardContent>
+                            <Grid container sx={{width: "100%"}}>
+                                <Grid item xs={3} sm={2} md={1}>
+                                    {getAvatarSrc()}
+                                </Grid>
+                                <Grid item xs={9} sm={10} md={11}>
+                                    <Typography>
+                                        <b>Da: </b> {getSenderName()}
+                                    </Typography>
+                                    <Typography>
+                                        <b>A: </b> {getReceiverName()}
+                                    </Typography>
+                                    <Typography>
+                                        <b>Oggetto: </b> {message?.subject}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Paper variant="outlined" component="div" sx={{
+                                        padding: "10px",
+                                        margin: "10px"
+                                    }}>
+                                        <ParsedText text={message?.text} />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                        <CardActions sx={{textAlign: "right"}}>
+                            <Button type="button" onClick={_ => navigate(MainRoutes.newMessage(messageId))}>Rispondi</Button>
+                            <Button type="button" onClick={deleteMessage}>Elimina</Button>
+                        </CardActions>
+                    </Card>
+                </ReturnToMessagesControl>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

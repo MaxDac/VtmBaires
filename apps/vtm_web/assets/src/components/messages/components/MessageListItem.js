@@ -6,7 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
 import { defaultFormatDateAndTime } from "../../../_base/date-utils";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
@@ -40,7 +40,7 @@ type Props = {
 }
 
 const MessageListItem = ({message}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const readIcon = () =>
         message.read
@@ -71,7 +71,7 @@ const MessageListItem = ({message}: Props): GenericReactComponent => {
         <ListItem button
                   key={message.id}
                   alignItems="flex-start"
-                  onClick={_ => history.push(MainRoutes.readMessage(message.id))}>
+                  onClick={_ => navigate(MainRoutes.readMessage(message.id))}>
             <ListItemAvatar>
                 {readIcon()}
             </ListItemAvatar>

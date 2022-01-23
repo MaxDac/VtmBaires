@@ -4,8 +4,8 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Avatar from '@mui/material/Avatar';
-import { range } from "../utils";
-import type {GenericReactComponent} from "../types";
+import { range } from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
 
 const DefaultFallback = (): GenericReactComponent => {
     const SkeletonRow = () => (

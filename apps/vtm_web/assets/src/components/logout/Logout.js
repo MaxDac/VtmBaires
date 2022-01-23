@@ -4,7 +4,7 @@ import React, {useEffect} from "react";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../Main.Layout.Style";
 import {menuTextStyle} from "../_layout/menu/menu-base-utils";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import {performLogout} from "../../services/logout-service";
 import {LoginRoutes} from "../login/LoginRouter";
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Logout = ({title}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Invoking the logout service to delete all the cached information
@@ -52,7 +52,7 @@ const Logout = ({title}: Props): GenericReactComponent => {
                     ...menuTextStyle,
                     textAlign: "center",
                     cursor: "pointer"
-                }} onClick={_ => history.push(LoginRoutes.login)}>
+                }} onClick={_ => navigate(LoginRoutes.login)}>
                     Ritorna al login
                 </Typography>
             </Box>

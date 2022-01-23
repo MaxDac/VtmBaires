@@ -4,12 +4,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesCurrentSituation = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography component="div">
                 <h1 style={titleStyle}>
                     Situazione Attuale
@@ -253,8 +254,8 @@ const GuidesCurrentSituation = (): GenericReactComponent => {
                 E i Sangue Debole? Cercheranno di aggregarsi assieme ai loro simili, sotto la guida di <b>Rinaldi</b>?
                 Oppure si muoveranno in modo indipendente, cercando di nascondersi, o di rendersi utili per i Fratelli?
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesCurrentSituation;

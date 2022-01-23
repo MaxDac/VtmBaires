@@ -21,7 +21,7 @@ import type {GetCharacterQuery} from "../../services/queries/character/__generat
 import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../services/session-service";
-import {Redirect, useHistory} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import ChangeCharacterSheetInfoMutation from "../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
 import {UtilityContext} from "../../contexts";
 import { MainRoutes } from "../MainRouter";
@@ -30,9 +30,28 @@ import {getUrlValidationMatchString} from "../../_base/utils";
 import type {CharacterFragments_characterConcealedInfo$key} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import {avatarHeight, avatarWidth} from "./sheet-sections/sections/CharacterSheetAvatarSection";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
-type Props = {
-    id: string;
+const ModifyCharacterSheet = (): GenericReactComponent => {
+    const {id} = useParams();
+    const character = useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, {id})?.getCharacter;
+
+    const show = () => {
+        if (character != null) {
+            return (<ModifyCharacterSheetInternal character={character} id={id}/>)
+        }
+
+        return (<></>);
+    };
+
+    return (
+        <RequireAuth>
+            <RouterPage>
+                {show()}
+            </RouterPage>
+        </RequireAuth>
+    );
 }
 
 const urlNotMatchingErrorMessage = "L'URL che stai utilizzando è invalido";
@@ -46,8 +65,8 @@ const ModifyCharacterValidationSchema = object().shape({
     off: string("Off").nullable().notRequired()
 });
 
-const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
-    const history = useHistory();
+const ModifyCharacterSheetInternal = ({character, id}) => {
+    const navigate = useNavigate();
     const {showUserNotification} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
 
@@ -55,20 +74,18 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
 
     const [user,] = useSession();
     const userCharacters = useUserCharactersQuery();
-    const character =
-        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, {id})?.getCharacter;
 
     const formRef = useRef();
 
-    const sheet = useFragment<?CharacterFragments_characterSheet$key>(
+    const sheet = useFragment<CharacterFragments_characterSheet$key>(
         characterSheetFragment,
         character);
 
-    const concealedSheetInfo = useFragment<?CharacterFragments_characterConcealedInfo$key>(
+    const concealedSheetInfo = useFragment<CharacterFragments_characterConcealedInfo$key>(
         characterConcealedInfoFragment,
         character);
 
-    const offSheet = useFragment<?CharacterFragments_characterOff$key>(
+    const offSheet = useFragment<CharacterFragments_characterOff$key>(
         characterOffFragment,
         character);
 
@@ -91,7 +108,7 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
                 showUserNotification({type: "error", message: "C'è stato un errore salvando il personaggio."});
             })
             .finally(() => {
-                history.push(MainRoutes.sheet(id, true));
+                navigate(MainRoutes.sheet(id, true));
                 // setTimeout(() => document.location.reload(false), 200);
             });
     }
@@ -119,7 +136,7 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
 
     if (!user?.role === "master" && userCharacters?.some(c => c.id === character?.id) === false) {
         return (
-            <Redirect to={MainRoutes.sheet(id)} />
+            <Navigate to={MainRoutes.sheet(id)} />
         );
     }
 
@@ -174,11 +191,11 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
                     Il testo, ad ogni modo, non è libero: potrete utilizzare i tag messi a disposizione dal markdown
                     concesso. Potete trovare la documentazione completa del markdown concessa al
                     seguente <a href="https://commonmark.org/help/"
-                              target="_blank"
-                              rel="noreferrer">link</a>, e un esempio al
+                                target="_blank"
+                                rel="noreferrer">link</a>, e un esempio al
                     seguente <a href="https://remarkjs.github.io/react-markdown/"
-                             target="_blank"
-                             rel="noreferrer">link</a>.
+                                target="_blank"
+                                rel="noreferrer">link</a>.
                 </Typography>
             </Grid>
             <Grid item xs={12} sx={formSectionStyle}>
@@ -193,6 +210,6 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
             </Grid>
         </form>
     );
-}
+};
 
 export default ModifyCharacterSheet;

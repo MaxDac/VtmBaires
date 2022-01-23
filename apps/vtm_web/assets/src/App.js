@@ -4,24 +4,24 @@ import React, {useState, Suspense, useContext, createRef} from "react";
 import { RelayEnvironmentProvider } from 'react-relay';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AlertLayout from './_base/components/AlertLayout';
-import AppRouter, {Routes} from "./AppRouter";
+import AppRouter, {AppRoutes} from "./AppRouter";
 import {SnackbarProvider} from "notistack";
 import type { Node } from 'react';
 import {ErrorBoundaryWithRetry} from "./_base/components/ErrorBoundaryWithRetry";
 import FallbackComponent from "./components/FallbackComponent";
 import Button from "@mui/material/Button";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useEnv} from "./_base/relay-environment";
 import type {IEnvironment} from "relay-runtime";
 import {SessionContext, UtilityContext} from "./contexts";
 import {getSessionHookValue} from "./services/session-service";
-import MainSuspenseFallback from "./MainSuspenseFallback";
+import MainSuspenseFallback from "./components/skeletons/MainSuspenseFallback";
 import { performLogout } from "./services/logout-service";
 import type {GenericReactComponent} from "./_base/types";
 
 const Internal = ({env}: { env: IEnvironment}) => {
     const { showUserNotification } = useContext(UtilityContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const fallback = (error, _retry): GenericReactComponent => {
         console.error("An unhandled error happened in the app", error)
@@ -37,12 +37,14 @@ const Internal = ({env}: { env: IEnvironment}) => {
 
     return (
         <ErrorBoundaryWithRetry fallback={fallback}
-                                onUnauthorized={() => performLogout(() => history.push(Routes.sessionExpired))}>
+                                onUnauthorized={() => performLogout(() => navigate(AppRoutes.sessionExpired))}>
             <RelayEnvironmentProvider environment={env}>
+                <Suspense fallback={<MainSuspenseFallback />}>
                 <AppRouter />
+                </Suspense>
             </RelayEnvironmentProvider>
         </ErrorBoundaryWithRetry>);
-}
+};
 
 const App = (): Node => {
     const darkState = useState(true);
@@ -96,7 +98,7 @@ const App = (): Node => {
 
     return (
         <ThemeProvider theme={darkTheme}>
-            <Suspense fallback={<MainSuspenseFallback />}>
+            {/*<Suspense fallback={<MainSuspenseFallback />}>*/}
                 <SnackbarProvider maxSnack={3}
                                   ref={snackbarsRef}
                                   preventDuplicate
@@ -118,7 +120,7 @@ const App = (): Node => {
                         }
                     </AlertLayout>
                 </SnackbarProvider>
-            </Suspense>
+            {/*</Suspense>*/}
         </ThemeProvider>
     );
 }

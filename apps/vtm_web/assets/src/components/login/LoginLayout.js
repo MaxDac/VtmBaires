@@ -10,6 +10,7 @@ import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import LoginFrameLayout from "./LoginFrameLayout";
 
 export type HomeLayoutProps = {
     title: string;
@@ -22,13 +23,11 @@ type LoginLayoutProps = HomeLayoutProps & {
 
 const LoginLayout = (props: LoginLayoutProps): Node => {
     const theme = useTheme();
-    // const classes = useStyles();
 
     const isPhone = useMediaQuery(theme.breakpoints.down("sm"));
 
     const loginFrameBackgroundColor = isPhone
         ? "#191919EE"
-        // : "linear-gradient(to right, #191919EE, #191919)"
         : "transparent"
     ;
 
@@ -110,7 +109,9 @@ const LoginLayout = (props: LoginLayoutProps): Node => {
                     flexDirection: 'column',
                     alignItems: 'center'
                 }}>
-                    {props.children}
+                    <LoginFrameLayout {...props}>
+                        {props.children}
+                    </LoginFrameLayout>
                 </div>
             </Grid>
             <NoCookieBar />

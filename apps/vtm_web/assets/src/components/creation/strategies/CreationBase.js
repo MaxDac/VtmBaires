@@ -1,7 +1,7 @@
 // @flow
 
 import React, {useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import AttributeSelectionField from "../controls/AttributeSelectionField";
 import Button from "@mui/material/Button";
@@ -30,7 +30,7 @@ export type CreationBaseProps<TFormAttributes> = {|
 |}
 
 const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);
 
@@ -41,7 +41,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     if (character?.stage != null) {
         if (character.stage > props.currentStage) {
-            history.push(MainRoutes[`creation${props.currentStage + 1}`]);
+            navigate(MainRoutes[`creation${props.currentStage + 1}`]);
         }
     }
 
@@ -113,7 +113,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
         const request: Array<CharacterAttributeRequest> = props.getAttributesToSave(values, generateRequest);
 
         appendAttributesMutation(environment, request, props.currentStage)
-            .then(_ => history.push(`${MainRoutes.creationBase}${props.currentStage + 1}`))
+            .then(_ => navigate(`${MainRoutes.creationBase}${props.currentStage + 1}`))
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }
 

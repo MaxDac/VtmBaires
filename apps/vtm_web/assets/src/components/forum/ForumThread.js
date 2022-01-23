@@ -7,7 +7,7 @@ import ForumLayout from "./layout/ForumLayout";
 import type {GetForumThreadQuery} from "../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import Grid from "@mui/material/Grid";
 import {useSession} from "../../services/session-service";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import ForumThreadPage from "./ForumThreadPage";
 import Pagination from '@mui/material/Pagination';
@@ -20,16 +20,15 @@ import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {useRelayEnvironment} from "react-relay";
 import SetForumThreadReadMutation from "../../services/mutations/forum/SetForumThreadReadMutation";
 import type {GenericReactComponent} from "../../_base/types";
-
-type Props = {
-    threadId: string;
-}
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 export const DefaultPageSize = 10;
 
-const ForumThread = ({threadId}: Props): GenericReactComponent => {
+const ForumThread = (): GenericReactComponent => {
+    const {threadId} = useParams();
     const environment = useRelayEnvironment();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
@@ -58,11 +57,11 @@ const ForumThread = ({threadId}: Props): GenericReactComponent => {
         setCurrentPage(_ => newPage);
     }
 
-    const goToForum = _ => history.push(MainRoutes.forumSections);
+    const goToForum = _ => navigate(MainRoutes.forumSections);
 
-    const goToSection = _ => history.push(MainRoutes.forumSection(thread?.forumSection?.id ?? ""));
+    const goToSection = _ => navigate(MainRoutes.forumSection(thread?.forumSection?.id ?? ""));
 
-    const createNew = _ => history.push(MainRoutes.createNewForumPost(threadId));
+    const createNew = _ => navigate(MainRoutes.createNewForumPost(threadId));
 
     const forumControls = () => {
         const createNewPost = () => {
@@ -119,14 +118,18 @@ const ForumThread = ({threadId}: Props): GenericReactComponent => {
     };
 
     return (
-        <ForumLayout title={thread?.title ?? "Thread"}
-                     description={thread?.description}
-                     controls={forumControls()}>
-            <Grid container>
-                {showThreadPosts()}
-                {paginationControl()}
-            </Grid>
-        </ForumLayout>
+        <RequireAuth>
+            <RouterPage>
+                <ForumLayout title={thread?.title ?? "Thread"}
+                             description={thread?.description}
+                             controls={forumControls()}>
+                    <Grid container>
+                        {showThreadPosts()}
+                        {paginationControl()}
+                    </Grid>
+                </ForumLayout>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

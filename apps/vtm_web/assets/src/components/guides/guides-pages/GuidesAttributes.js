@@ -15,6 +15,7 @@ import GuidesAttributesDisciplines from "./guide-attributes/GuidesAttributesDisc
 import GuidesAttributesAdvantages from "./guide-attributes/GuidesAttributesAdvantages";
 import ParsedText from "../../../_base/components/ParsedText";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const a11yProps = index => {
     return {
@@ -67,36 +68,38 @@ const GuidesAttributes = (): GenericReactComponent => {
                                       description={a?.description} />));
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Typography paragraph>
-                <h1 style={titleStyle}>
-                    Abilit&agrave;, Attributi e altri valori della Scheda
-                </h1>
-            </Typography>
+        <GuideLayout>
+            <Box sx={{ width: '100%' }}>
+                <Typography paragraph>
+                    <h1 style={titleStyle}>
+                        Abilit&agrave;, Attributi e altri valori della Scheda
+                    </h1>
+                </Typography>
 
-            <Typography paragraph sx={guideStyle}>
-                Si propongono di seguito una lista di Attributi, Abilit&agrave;, Discipline e Vantaggi disponibili in fase di creazione,
-                con relativa descrizione.
-            </Typography>
+                <Typography paragraph sx={guideStyle}>
+                    Si propongono di seguito una lista di Attributi, Abilit&agrave;, Discipline e Vantaggi disponibili in fase di creazione,
+                    con relativa descrizione.
+                </Typography>
 
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Attributi e Abilità" {...a11yProps(0)} />
-                    <Tab label="Discipline" {...a11yProps(1)} />
-                    <Tab label="Vantaggi" {...a11yProps(2)} />
-                </Tabs>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab label="Attributi e Abilità" {...a11yProps(0)} />
+                        <Tab label="Discipline" {...a11yProps(1)} />
+                        <Tab label="Vantaggi" {...a11yProps(2)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={value} index={0}>
+                    <GuidesAttributesAttributes showAttributes={showAttributes} />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <GuidesAttributesDisciplines />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <GuidesAttributesAdvantages showAttributes={showAttributes} />
+                </TabPanel>
             </Box>
-            <TabPanel value={value} index={0}>
-                <GuidesAttributesAttributes showAttributes={showAttributes} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <GuidesAttributesDisciplines />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <GuidesAttributesAdvantages showAttributes={showAttributes} />
-            </TabPanel>
-        </Box>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesAttributes;

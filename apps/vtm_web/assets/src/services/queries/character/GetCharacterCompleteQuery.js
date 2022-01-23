@@ -1,10 +1,14 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type {Query} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {
+  GetCharacterCompleteQueryResponse,
+  GetCharacterCompleteQueryVariables,
+} from "./__generated__/GetCharacterCompleteQuery.graphql";
 
-export const getCharacterCompleteQuery: GraphQLTaggedNode = graphql`
+export const getCharacterCompleteQuery: Query<GetCharacterCompleteQueryVariables, GetCharacterCompleteQueryResponse> = graphql`
     query GetCharacterCompleteQuery($id: ID!) {
         getCharacter(id: $id) {
             ...CharacterFragments_characterInfo @relay(mask: false)
@@ -16,10 +20,10 @@ export const getCharacterCompleteQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-export type Character = {|
+export type Character = {
     +id: string,
     +name: ?string,
-    +chatAvatar: ?string,
+    +avatar: ?string,
     +clan: ?{|
         +id: string,
         +name: ?string,
@@ -56,7 +60,7 @@ export type Character = {|
       +id: string,
       +name: ?string,
     |}
-|};
+};
 
 export const useCharacterCompleteQuery = (characterId: string): ?Character => {
     return useCustomLazyLoadQuery(getCharacterCompleteQuery, { id: characterId })?.getCharacter;

@@ -5,10 +5,11 @@ import type {GenericReactComponent} from "../../../_base/types";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import GuideLayout from "../GuideLayout";
 
 const GuidesSiteHelp = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph sx={guideStyle}>
                 <h1 style={titleStyle}>
                     Help del Sito
@@ -19,7 +20,7 @@ const GuidesSiteHelp = (): GenericReactComponent => {
                 <i>In questa sezione verr&agrave; spiegato il funzionamento del sito e delle sue sezioni.<br />
                 In base ai vostri feedback, questa sezione verr&garave; progressivamente riempita come la sezione F.A.Q.</i>
             </Typography>
-        </>
+        </GuideLayout>
     );
 };
 

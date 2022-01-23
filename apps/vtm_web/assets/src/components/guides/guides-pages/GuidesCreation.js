@@ -4,12 +4,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
-import { GuideRoutes } from "../GuidesMain";
+import { GuideRoutes } from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesCreation = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Creazione della Scheda
@@ -408,8 +409,8 @@ const GuidesCreation = (): GenericReactComponent => {
                 potrete scrivere post nel Forum, mandare messaggi, e soprattutto partecipare alla vita della 
                 Comunit&agrave; <b>VTM Baires</b> su <b>Discord</b>.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesCreation;

@@ -2,14 +2,15 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import {Link} from 'react-router-dom';
 import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesEnvironmentBaires = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Buenos Aires by Night
@@ -367,8 +368,8 @@ const GuidesEnvironmentBaires = (): GenericReactComponent => {
                 e nuovi "coloni" europei, Cainiti in grado di approfittare delle numerose
                 posizioni di potere ancora vacanti.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesEnvironmentBaires;

@@ -6,13 +6,13 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import LoginFrameLayout from "./LoginFrameLayout";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../_base/types";
+import LoginLayout from "./LoginLayout";
 
 const Disclaimer = (): GenericReactComponent => {
     return (
-        <LoginFrameLayout title="Disclaimer" icon={<ErrorOutlineIcon sx={menuIconStyle} />}>
+        <LoginLayout title="Disclaimer" icon={<ErrorOutlineIcon sx={menuIconStyle} />}>
             <Box sx={{margin: "10px"}}>
                 <Typography>
                     Registrazione (ai sensi e per gli effetti della legge 196/03)
@@ -78,7 +78,7 @@ const Disclaimer = (): GenericReactComponent => {
                     Torna alla registrazione
                 </Link>
             </Box>
-        </LoginFrameLayout>
+        </LoginLayout>
     );
 }
 

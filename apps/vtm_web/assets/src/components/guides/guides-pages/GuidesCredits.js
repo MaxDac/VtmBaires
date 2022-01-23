@@ -5,19 +5,16 @@ import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import Box from "@mui/material/Box";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
-type Props = {
-
-}
-
-const GuidesCredits = (props: Props): GenericReactComponent => {
+const GuidesCredits = (): GenericReactComponent => {
     const imageLinkStyle = {
         maxHeight: "60px",
         maxWidth: "auto"
     };
 
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph sx={guideStyle}>
                 <h1 style={titleStyle}>
                     Credits
@@ -135,8 +132,8 @@ const GuidesCredits = (props: Props): GenericReactComponent => {
                     </a>.
                 </Typography>
             </Box>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesCredits;

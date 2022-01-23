@@ -19,7 +19,7 @@ import {useMediaQuery} from "@mui/material";
 import MessageControl from "./_layout/app-bar-controls/MessageControl";
 import OnlineControl from "./_layout/app-bar-controls/OnlineControl";
 import LogoutControl from "./_layout/app-bar-controls/LogoutControl";
-import DefaultFallback from "../_base/components/DefaultFallback";
+import DefaultFallback from "./skeletons/DefaultFallback";
 import ReloadControl from "./_layout/app-bar-controls/ReloadControl";
 import {useMessageSubscription} from "./_hooks/useMessageSubscription";
 import ReturnToChatControl from "./_layout/app-bar-controls/ReturnToChatControl";
@@ -31,6 +31,18 @@ import type {GenericReactComponent} from "../_base/types";
 const drawerWidth = 300;
 
 const SwipeableDrawer = React.lazy(() => import("@mui/material/SwipeableDrawer"));
+
+type Props = {
+    children: GenericReactComponent
+};
+
+const MainLayout = ({children}: Props): GenericReactComponent => {
+    return (
+        <MiniDrawer>
+            {children}
+        </MiniDrawer>
+    );
+};
 
 const PageDrawer = ({open, setOpen, children}) => {
     const theme = useTheme();
@@ -72,7 +84,7 @@ const PageDrawer = ({open, setOpen, children}) => {
     );
 };
 
-const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
+const MiniDrawer = ({children}) => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [user,] = useSession();
@@ -219,4 +231,4 @@ const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
     );
 };
 
-export default MiniDrawer;
+export default MainLayout;

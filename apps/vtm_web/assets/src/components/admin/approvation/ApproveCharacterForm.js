@@ -9,19 +9,19 @@ import ApproveCharacterMutation from "../../../services/mutations/characters/App
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import { MainRoutes } from "../../MainRouter";
 import RejectCharacterMutation from "../../../services/mutations/characters/RejectCharacterMutation";
 import type {GenericReactComponent} from "../../../_base/types";
+import {AdminRoutes} from "../AdminRouter";
 
 type Props = {
     character: Character;
 }
 
 const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const [reason, setReason] = useState<?string>(null);
@@ -32,7 +32,7 @@ const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
             handleMutation(() => promise, showUserNotification, {
                 successMessage: "Il personaggio è stato accettato.",
                 errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
-                onCompleted: () => history.push(MainRoutes.unapprovedCharacters)
+                onCompleted: () => navigate(AdminRoutes.unapprovedCharacters)
             });
         });
     };
@@ -44,7 +44,7 @@ const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
                 handleMutation(() => promise, showUserNotification, {
                     successMessage: "Il personaggio è stato correttamente rifiutato.",
                     errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
-                    onCompleted: () => history.push(MainRoutes.unapprovedCharacters)
+                    onCompleted: () => navigate(AdminRoutes.unapprovedCharacters)
                 });
             });
         }

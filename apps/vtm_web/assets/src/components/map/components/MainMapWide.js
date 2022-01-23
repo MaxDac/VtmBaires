@@ -2,9 +2,9 @@
 
 import React from 'react';
 import areas from "./map-settings.json";
-import type {Map} from "../../services/base-types";
+import type {Map} from "../../../services/base-types";
 import MainMapImageMapper from "./MainMapImageMapper";
-import type {GenericReactComponent} from "../../_base/types";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     maps: ?Array<Map>,

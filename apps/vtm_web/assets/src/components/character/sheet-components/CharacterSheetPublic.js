@@ -1,12 +1,12 @@
 // @flow
 
 import React, {Suspense} from "react";
-import CharacterSheetInfoTab from "./sheet-sections/tabs/CharacterSheetInfoTab";
-import CharacterFragmentPublicProviderQuery from "../_data/CharacterPublicFragmentProvider";
-import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
+import CharacterSheetInfoTab from "../sheet-sections/tabs/CharacterSheetInfoTab";
+import CharacterFragmentPublicProviderQuery from "../../_data/CharacterPublicFragmentProvider";
+import ResponsiveInnerContainer from "../../../_base/components/ResponsiveInnerContainer";
 import Paper from "@mui/material/Paper";
-import {CharacterSheetSuspenseFallback} from "./CharacterSheet";
-import type {GenericReactComponent} from "../../_base/types";
+import type {GenericReactComponent} from "../../../_base/types";
+import CharacterSheetSuspenseFallback from "./CharacterSheetSuspenseFallback";
 
 type Props = {
     id: string;

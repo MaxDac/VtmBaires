@@ -12,7 +12,7 @@ import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplin
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { characterHasDisciplines } from "../../../_base/utils";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../../guides/GuidesMain";
+import {GuideRoutes} from "../../guides/GuidesRouter";
 import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import TextField from "@mui/material/TextField";
 import type {GenericReactComponent} from "../../../_base/types";

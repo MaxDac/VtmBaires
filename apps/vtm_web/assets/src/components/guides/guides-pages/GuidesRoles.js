@@ -4,10 +4,11 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesRoles = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph sx={guideStyle}>
                 <h1 style={titleStyle}>
                     Ruoli
@@ -148,8 +149,8 @@ const GuidesRoles = (): GenericReactComponent => {
                 Narratori stanno comunque tentando di accomodare i desideri di molti giocatori, e senza remunerazione,
                 verr&agrave; solo notificato l'errore, e non verranno prese altre misure nei loro confronti.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesRoles;

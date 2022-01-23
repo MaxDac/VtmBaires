@@ -14,7 +14,7 @@ import type {CharacterCreationRequest} from "../../../services/mutations/npcs/__
 import type {CreationClansQuery} from "../../../services/queries/info/__generated__/CreationClansQuery.graphql";
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../../guides/GuidesMain";
+import {GuideRoutes} from "../../guides/GuidesRouter";
 import {getUrlValidationMatchString} from "../../../_base/utils";
 import {avatarHeight, avatarWidth} from "../../character/sheet-sections/sections/CharacterSheetAvatarSection";
 import InputLabel from "@mui/material/InputLabel";

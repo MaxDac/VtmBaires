@@ -13,8 +13,9 @@ import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const percentageCellStyle = {
     textAlign: "center"
@@ -22,7 +23,7 @@ const percentageCellStyle = {
 
 const GuidesHomeRules = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Adattamenti e Differenze
@@ -923,8 +924,8 @@ const GuidesHomeRules = (): GenericReactComponent => {
                 il processo di invecchiamento recupera il tempo perso, possibilmente riducendo l'Asservito
                 a cenere nel giro di minuti.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesHomeRules;

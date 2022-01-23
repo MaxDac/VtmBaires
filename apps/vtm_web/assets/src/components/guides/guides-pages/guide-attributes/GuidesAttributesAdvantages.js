@@ -4,7 +4,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { guideStyle, liStyle, titleStyle } from "../../GuidesStyles";
-import { GuideRoutes } from "../../GuidesMain";
+import { GuideRoutes } from "../../GuidesRouter";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
@@ -493,6 +493,6 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): GenericReactCompon
             </Typography>
         </>
     );
-}
+};
 
 export default GuidesAttributesAdvantages;

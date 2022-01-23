@@ -1,9 +1,9 @@
 // @flow
 
 import React from "react";
-import type {Map} from "../../services/base-types";
+import type {Map} from "../../../services/base-types";
 import SubMap from "./SubMap";
-import type {GenericReactComponent} from "../../_base/types";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     maps: ?Array<Map>,

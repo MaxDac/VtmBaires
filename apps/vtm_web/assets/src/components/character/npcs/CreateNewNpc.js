@@ -1,18 +1,18 @@
 // @flow
 
 import React, {useContext} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {updateCurrentCharacter} from "../../../services/session-service";
 import {UtilityContext} from "../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "../../creation/controls/CharacterInfoForm";
 import CreateNewNpcMutation from "../../../services/mutations/npcs/CreateNewNpcMutation";
-import {MainRoutes} from "../../MainRouter";
-import {Routes} from "../../../AppRouter";
+import {AppRoutes} from "../../../AppRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import {AdminRoutes} from "../../admin/AdminRouter";
 
 const CreateNewNpc = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);
 
@@ -30,10 +30,10 @@ const CreateNewNpc = (): GenericReactComponent => {
 
                     // Forcing the cast after having checked the id for nulls
                     const characterId: string = (response?.createNpc?.character?.id: any);
-                    history.push(MainRoutes.defineNpc(characterId));
+                    navigate(AdminRoutes.defineNpc(characterId));
                 }
                 else {
-                    history.push(Routes.main);
+                    navigate(AppRoutes.main);
                 }
             })
             .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "An error happened while creating the user." }));

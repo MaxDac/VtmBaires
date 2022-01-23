@@ -1,22 +1,24 @@
 // @flow
 
 import React, {useContext} from "react";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import {getForumThreadQuery} from "../../../services/queries/forum/GetForumThreadQuery";
-import type {GetForumThreadQuery} from "../../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
-import {useHistory} from "react-router-dom";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
+import type {GetForumThreadQuery} from "../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
+import {useNavigate, useParams} from "react-router-dom";
 import {object, string} from "yup";
 import {useFormik} from "formik";
-import CreateNewPostMutation from "../../../services/mutations/forum/CreateNewPostMutation";
+import CreateNewPostMutation from "../../services/mutations/forum/CreateNewPostMutation";
 import {useRelayEnvironment} from "react-relay";
-import {useSession} from "../../../services/session-service";
-import {UtilityContext} from "../../../contexts";
-import {MainRoutes} from "../../MainRouter";
-import ForumPostForm from "./ForumPostForm";
-import type {GetForumPostQuery} from "../../../services/queries/forum/__generated__/GetForumPostQuery.graphql";
-import {getForumPostQuery} from "../../../services/queries/forum/GetForumPostQuery";
-import ModifyPostMutation from "../../../services/mutations/forum/ModifyPostMutation";
-import type {GenericReactComponent} from "../../../_base/types";
+import {useSession} from "../../services/session-service";
+import {UtilityContext} from "../../contexts";
+import {MainRoutes} from "../MainRouter";
+import ForumPostForm from "./forms/ForumPostForm";
+import type {GetForumPostQuery} from "../../services/queries/forum/__generated__/GetForumPostQuery.graphql";
+import {getForumPostQuery} from "../../services/queries/forum/GetForumPostQuery";
+import ModifyPostMutation from "../../services/mutations/forum/ModifyPostMutation";
+import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 const CreateNewPostValidationSchema = object().shape({
     text: string("Il testo dell'intervento").required("Richiesto")
@@ -28,7 +30,7 @@ type NewPostProps = {
 }
 
 const NewPost = ({threadId, title}: NewPostProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user, character] = useSession();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
@@ -61,7 +63,7 @@ const NewPost = ({threadId, title}: NewPostProps): GenericReactComponent => {
         onSubmit
     })
 
-    const goBack = () => history.push(MainRoutes.forumThread(threadId));
+    const goBack = () => navigate(MainRoutes.forumThread(threadId));
 
     const getTitle = () => title != null
         ? `Nuovo post in ${title}`
@@ -80,7 +82,7 @@ type ModifyPostProps = {
 }
 
 const ModifyPost = ({threadId, postId, title}: ModifyPostProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user,] = useSession();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
@@ -118,7 +120,7 @@ const ModifyPost = ({threadId, postId, title}: ModifyPostProps): GenericReactCom
         return (<></>);
     }
 
-    const goBack = () => history.push(MainRoutes.forumThread(threadId));
+    const goBack = () => navigate(MainRoutes.forumThread(threadId));
 
     const getTitle = () => title != null
         ? `Modifica post in ${title}`
@@ -130,24 +132,29 @@ const ModifyPost = ({threadId, postId, title}: ModifyPostProps): GenericReactCom
                            formik={formik} />)
 }
 
-type Props = {
-    threadId: string;
-    postId?: string;
-}
-
-const ManagePost = ({threadId, postId}: Props): GenericReactComponent => {
+const ManagePost = (): GenericReactComponent => {
+    const {threadId, postId} = useParams();
     const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
         forumThreadId: threadId
     })?.getForumThread;
 
-    if (thread?.id != null) {
-        if (postId != null) {
-            return (<ModifyPost threadId={thread.id} title={thread?.title} postId={postId} />);
+    const show = () => {
+        if (thread?.id != null) {
+            if (postId != null) {
+                return (<ModifyPost threadId={thread.id} title={thread?.title} postId={postId}/>);
+            } else {
+                return (<NewPost threadId={thread.id} title={thread?.title}/>);
+            }
         }
-        else {
-            return (<NewPost threadId={thread.id} title={thread?.title} />);
-        }
-    }
+    };
+
+    return (
+        <RequireAuth>
+            <RouterPage>
+                {show()}
+            </RouterPage>
+        </RequireAuth>
+    )
 }
 
 export default ManagePost;

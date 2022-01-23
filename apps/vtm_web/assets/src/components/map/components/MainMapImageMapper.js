@@ -6,9 +6,9 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import ImageMapper from "react-img-mapper";
 import Typography from "@mui/material/Typography";
-import type {Haven} from "../../services/queries/haven/GetHavensQuery";
-import type {MapAreas} from "../_base/haven-map-areas-helpers";
-import type {GenericReactComponent} from "../../_base/types";
+import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
+import type {MapAreas} from "../../_base/haven-map-areas-helpers";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     areas: Array<MapAreas>;

@@ -1,7 +1,7 @@
 // @flow
 
 import React from "react";
-import MainMapImageMapper from "../map/MainMapImageMapper";
+import MainMapImageMapper from "../map/components/MainMapImageMapper";
 import {drawLine, groupHavens} from "./haven-map-areas-helpers";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import type {GetHavensQuery} from "../../services/queries/haven/__generated__/GetHavensQuery.graphql";
@@ -19,7 +19,6 @@ import HavenMapLegend from "./HavenMapLegend";
 type Props = {
     onSectionSelected: (Haven | string) => void;
     fetchKey?: number;
-    setPersonalHaven?: string => void;
 };
 
 const rowStyle = {
@@ -94,17 +93,7 @@ const HavenMapHavensNotNull = ({havens, showResonances, character, toggleResonan
                           toggleResonanceView={toggleResonanceView} />
     ), [character, havens, onMapSelected, showResonances, toggleResonanceView]);
 
-const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
-    if (setPersonalHaven != null) {
-        const [personalHaven,] = havens?.filter(h => h?.character?.id === characterId) ?? [];
-
-        if (personalHaven?.id != null) {
-            setPersonalHaven(personalHaven.id);
-        }
-    }
-};
-
-const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): GenericReactComponent => {
+const HavenMap = ({onSectionSelected, fetchKey}: Props): GenericReactComponent => {
     const [,character] = useSession();
     const havens = useCustomLazyLoadQuery<GetHavensQuery>(getHavensQuery, {}, {
         fetchPolicy: "network-only",
@@ -112,8 +101,6 @@ const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): Gener
     })?.getHavens?.result;
 
     const [showResonances, setShowResonances] = React.useState<boolean>(false);
-
-    sendPersonalHaven(character?.id, havens, setPersonalHaven);
 
     const onMapSelectedInternal = (haven: Haven | string) =>
         onSectionSelected(haven);

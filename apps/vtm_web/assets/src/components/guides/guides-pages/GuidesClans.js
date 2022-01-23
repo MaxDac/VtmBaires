@@ -4,12 +4,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {guideStyle, titleStyle} from "../GuidesStyles";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesAttributes = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Clan
@@ -441,8 +442,8 @@ const GuidesAttributes = (): GenericReactComponent => {
                 <b>Affiliazioni</b>: Anarchici o Indipendenti.<br />
                 <b>Discipline</b>: Animalit&agrave;, Dominazione, Proteide (Vicissitudine).
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesAttributes;

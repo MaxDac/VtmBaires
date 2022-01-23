@@ -14,12 +14,14 @@ import {useTheme} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import type {RefreshedQueryOption} from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import FinalizeCharacterMutation from "../../services/mutations/characters/FinalizeCharacterMutation";
-import {useHistory} from "react-router-dom";
-import {Routes} from "../../AppRouter";
+import {useNavigate} from "react-router-dom";
+import {AppRoutes} from "../../AppRouter";
 import DeleteCharacterMutation from "../../services/mutations/characters/DeleteCharacterMutation";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import {sortAttributes} from "../../_base/info-helpers";
 import type { AttributeTypeNames } from "../../services/queries/info/AttributesQuery";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 type Props = {
 
@@ -30,7 +32,7 @@ const Internal = ({character}) => {
     const {setWait, showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
     const attributes = useAttributesSlimQuery();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [refreshedQueryOptions, setRefreshedQueryOptions] = useState<?RefreshedQueryOption>(null);
     
@@ -82,7 +84,7 @@ const Internal = ({character}) => {
                 .then(r => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
                     setTimeout(() => {
-                        history.push(Routes.main);
+                        navigate(AppRoutes.main);
                         setTimeout(() => document.location.reload(false), 200);
                     }, 1000);
                 })
@@ -101,7 +103,7 @@ const Internal = ({character}) => {
             DeleteCharacterMutation(environment, characterId)
                 .then(r => {
                     showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
-                    history.push(Routes.main);
+                    navigate(AppRoutes.main);
                     document.location.reload(false);
                 })
                 .catch(e => {
@@ -184,20 +186,22 @@ const Internal = ({character}) => {
 }
 
 const Creation5 = (_: Props): any => (
-    <>
-        <Typography>
-            Complimenti! Hai inserito tutti i dati del tuo personaggio, adesso la tua scheda &egrave; pronta per poter essere approvata.
-        </Typography>
-        <Typography>
-            Adesso puoi apportare modifiche alla tua scheda, ora che è completa. Puoi scambiare i valori tra attributi e abilit&agrave;.
-            Per apportare altre modifiche, contatta un master.
-        </Typography>
-        <CharacterProvider showWarningWhenNoCharacterSelected={true}>
-            { character =>
-                <Internal character={character} />
-            }
-        </CharacterProvider>
-    </>
+    <RequireAuth>
+        <RouterPage>
+            <Typography>
+                Complimenti! Hai inserito tutti i dati del tuo personaggio, adesso la tua scheda &egrave; pronta per poter essere approvata.
+            </Typography>
+            <Typography>
+                Adesso puoi apportare modifiche alla tua scheda, ora che è completa. Puoi scambiare i valori tra attributi e abilit&agrave;.
+                Per apportare altre modifiche, contatta un master.
+            </Typography>
+            <CharacterProvider showWarningWhenNoCharacterSelected={true}>
+                { character =>
+                    <Internal character={character} />
+                }
+            </CharacterProvider>
+        </RouterPage>
+    </RequireAuth>
 );
 
 export default Creation5;

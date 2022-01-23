@@ -4,7 +4,7 @@ import React from "react";
 import MovableDialog from "./MovableDialog";
 import type {GenericReactComponent} from "../../../../_base/types";
 
-const CharacterSheet = React.lazy(() => import('../../../character/CharacterSheet'));
+const CharacterSheetComponent = React.lazy(() => import('../../../character/sheet-components/CharacterSheetComponent'));
 
 type Props = {
     open: boolean;
@@ -14,7 +14,7 @@ type Props = {
 const SheetDialog = ({open, handleClose}: Props): GenericReactComponent => {
     return (
         <MovableDialog open={open} handleClose={handleClose}>
-            <CharacterSheet contained />
+            <CharacterSheetComponent contained />
         </MovableDialog>
     );
 }

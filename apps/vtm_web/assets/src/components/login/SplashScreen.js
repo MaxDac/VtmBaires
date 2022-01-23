@@ -1,30 +1,30 @@
 // @flow
 
 import React from 'react';
-import { useEffect } from "react";
-import { Box } from '@mui/system';
+import {useEffect} from "react";
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { getSessionSync } from "../../services/session-service";
-import { useHistory } from 'react-router';
-import { Routes } from "../../AppRouter";
+import {getSessionSync} from "../../services/session-service";
+import {useNavigate} from 'react-router-dom';
+import {AppRoutes} from "../../AppRouter";
 import CenteredBox from "../../_base/components/CenteredBox";
 import {LoginRoutes} from "./LoginRouter";
 import type {GenericReactComponent} from "../../_base/types";
 
 const SplashScreen = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const user = getSessionSync()?.user;
         if (user?.id != null) {
-            history.push(Routes.main);
+            navigate(AppRoutes.main);
         }
         else {
-            history.push(LoginRoutes.login);
+            navigate(LoginRoutes.login);
         }
     });
 
-    const handleLogoClick = () => history.push(LoginRoutes.login);
+    const handleLogoClick = () => navigate(LoginRoutes.login);
 
     return (
         <Box onClick={_ => handleLogoClick()}>

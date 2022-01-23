@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -23,7 +23,7 @@ type Props = {
 }
 
 const ForumFormLayout = ({title, description, children}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const showDescription = () => {
         if (description != null && description !== "") {
             return (
@@ -42,13 +42,13 @@ const ForumFormLayout = ({title, description, children}: Props): GenericReactCom
         <>
             <Tooltip title="Torna al Forum">
                 <IconButton aria-label="Forum"
-                            onClick={_ => history.push(MainRoutes.forumSections)}>
+                            onClick={_ => navigate(MainRoutes.forumSections)}>
                     <HomeIcon sx={menuIconStyle} />
                 </IconButton>
             </Tooltip>
             <Tooltip title="Torna alla sezione">
                 <IconButton aria-label="Sezione"
-                            onClick={_ => history.goBack()}>
+                            onClick={_ => navigate(-1)}>
                     <ArrowBackIcon sx={menuIconStyle} />
                 </IconButton>
             </Tooltip>

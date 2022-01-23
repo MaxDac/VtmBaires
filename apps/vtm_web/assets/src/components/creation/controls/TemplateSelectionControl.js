@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import {UtilityContext} from "../../../contexts";
 import ApplyTemplateToCharacterMutation from "../../../services/mutations/characters/ApplyTemplateToCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { MainRoutes } from "../../MainRouter";
 import type {GenericReactComponent} from "../../../_base/types";
 
@@ -23,7 +23,7 @@ type Props = {
 }
 
 const TemplateSelectionControl = ({characterId}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const theme = useTheme();
     const {showUserNotification, openDialog, setWait} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
@@ -61,7 +61,7 @@ const TemplateSelectionControl = ({characterId}: Props): GenericReactComponent =
                             });
                         }
                         else {
-                            history.push(MainRoutes.creation4);
+                            navigate(MainRoutes.creation4);
                         }
                     })
                     .catch(e => {

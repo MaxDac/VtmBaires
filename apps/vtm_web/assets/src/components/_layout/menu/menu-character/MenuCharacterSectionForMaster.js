@@ -2,7 +2,7 @@
 
 import React, {useContext} from "react";
 import {SessionContext} from "../../../../contexts";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import MenuCharacterItem from "./MenuCharacterItem";
 import type { UserCharacter } from "../../../../services/queries/accounts/UserCharactersQuery";
 import { MainRoutes } from "../../../MainRouter";
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {setCurrentCharacter} = useContext(SessionContext);
     
     const handleSheetSelection = (info: UserCharacter) =>
@@ -53,8 +53,8 @@ const MenuCharacterSectionForMaster = ({pushHistory, characters, onUpdate}: Prop
                                               handleCharacterSelection={handleCharacterSelection} />));
         }
 
-        // return <MenuItem key={"0"} onClick={_ => history.push(MainRoutes.creation1)}>Crea nuovo personaggio</MenuItem>;
-        return <CreateNewCharacterMenuItem key={0} onClick={_ => history.push(MainRoutes.creation1)} />
+        // return <MenuItem key={"0"} onClick={_ => navigate(MainRoutes.creation1)}>Crea nuovo personaggio</MenuItem>;
+        return <CreateNewCharacterMenuItem key={0} onClick={_ => navigate(MainRoutes.creation1)} />
     }
 
     return (

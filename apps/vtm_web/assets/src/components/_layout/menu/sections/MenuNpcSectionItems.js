@@ -1,14 +1,14 @@
 // @flow
 
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useNpcsQuery} from "../../../../services/queries/npcs/GetAllNpcsQuery";
 import {useMenuCharactersAvatar} from "../menu-character/MenuCharactersAvatarHook";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
 import MenuCharacterItem from "../menu-character/MenuCharacterItem";
 import MenuItem from "@mui/material/MenuItem";
-import {MainRoutes} from "../../../MainRouter";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {AdminRoutes} from "../../../admin/AdminRouter";
 
 type Props = {
     reloadCount: number;
@@ -17,7 +17,7 @@ type Props = {
 }
 
 const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacterSelection}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const npcs = useNpcsQuery(reloadCount);
     const npcsWithAvatar = useMenuCharactersAvatar(npcs);
 
@@ -52,7 +52,7 @@ const MenuNpcSectionItems = ({reloadCount, handleSheetSelection, handleCharacter
             );
         }
 
-        rows.push(<MenuItem key={"0"} onClick={_ => history.push(MainRoutes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
+        rows.push(<MenuItem key={"0"} onClick={_ => navigate(AdminRoutes.createNewNpc)}>Crea nuovo personaggio</MenuItem>);
         return rows;
     };
 

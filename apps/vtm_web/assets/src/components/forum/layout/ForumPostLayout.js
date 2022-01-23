@@ -12,7 +12,7 @@ import {useSession} from "../../../services/session-service";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import {MainRoutes} from "../../MainRouter";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {UtilityContext} from "../../../contexts";
 import DeletePostMutation from "../../../services/mutations/forum/DeletePostMutation";
 import {useRelayEnvironment} from "react-relay";
@@ -29,12 +29,12 @@ type Props = {
 
 const ForumPostLayout = ({threadId, post, children, onReload}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user,] = useSession();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
 
     const modifyPost = () =>
-        history.push(MainRoutes.modifyForumPost(threadId, post?.id ?? ""));
+        navigate(MainRoutes.modifyForumPost(threadId, post?.id ?? ""));
 
     const deletePost = () => {
         if (post?.id != null) {

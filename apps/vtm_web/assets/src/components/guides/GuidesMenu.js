@@ -21,10 +21,10 @@ import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
 import CasinoIcon from '@mui/icons-material/Casino';
 import TranslateIcon from '@mui/icons-material/Translate';
 import WebIcon from '@mui/icons-material/Web';
-import {useHistory} from "react-router-dom";
-import {GuideRoutes} from "./GuidesMain";
+import {useNavigate} from "react-router-dom";
+import {GuideRoutes} from "./GuidesRouter";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
-import {Routes} from "../../AppRouter";
+import {AppRoutes} from "../../AppRouter";
 import {useSession} from "../../services/session-service";
 import type {GenericReactComponent} from "../../_base/types";
 
@@ -33,7 +33,7 @@ type GuidesMenuProps = {
 };
 
 const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [user,] = useSession();
     const [environmentOpen, setEnvironmentOpen] = useState(true);
     const [rulesOpen, setRulesOpen] = useState(false);
@@ -44,7 +44,7 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
                 onSelected();
             }
 
-            history.push(route);
+            navigate(route);
         };
 
     return (
@@ -52,7 +52,7 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem button onClick={onMenuItemSelected(Routes.splashScreen)}>
+                <ListItem button onClick={onMenuItemSelected(AppRoutes.splashScreen)}>
                     <ListItemIcon>
                         {
                             user?.id != null

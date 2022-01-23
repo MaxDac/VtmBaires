@@ -4,16 +4,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
-type Props = {
-
-}
-
-const GuidesGlossary = (props: Props): GenericReactComponent => {
+const GuidesGlossary = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Introduzione
@@ -51,8 +48,8 @@ const GuidesGlossary = (props: Props): GenericReactComponent => {
                 Potrete trovare informazioni sulla citt&agrave; di Buenos Aires e la sua organizzazione nelle
                 sezioni <Link to={GuideRoutes.environmentBaires}>Buenos Aires</Link> e <Link to={GuideRoutes.environmentSects}>Sette</Link>.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesGlossary;

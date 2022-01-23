@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import MessageIcon from "@mui/icons-material/Message";
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {MainRoutes} from "../../MainRouter";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
@@ -19,14 +19,14 @@ type Props = {
 }
 
 const SendMessageToUser = ({userId, onSelected, asMenuItem}: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const trySendMessageToUser = _ => {
         if (userId != null) {
-            history.push(MainRoutes.newMessageTo(userId));
+            navigate(MainRoutes.newMessageTo(userId));
         }
         else {
-            history.push(MainRoutes.newMessage());
+            navigate(MainRoutes.newMessage());
         }
 
         if (onSelected != null) {

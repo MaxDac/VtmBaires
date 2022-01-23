@@ -7,6 +7,8 @@ import type {AllCharactersQuery} from "../../services/queries/character/__genera
 import ShowCharactersComponent from "./ShowCharactersComponent";
 import { filterNulls, toArray } from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 const CharactersList = (): GenericReactComponent => {
     const characters = filterNulls(toArray(
@@ -21,7 +23,13 @@ const CharactersList = (): GenericReactComponent => {
         return (<></>);
     }
 
-    return showComponent();
+    return (
+        <RequireAuth>
+            <RouterPage>
+                {showComponent()}
+            </RouterPage>
+        </RequireAuth>
+    );
 }
 
 export default CharactersList;

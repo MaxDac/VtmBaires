@@ -9,8 +9,10 @@ import useStyles from "../Main.Layout.Style";
 import {useSession} from "../../services/session-service";
 import TemplateSelectionControl from "./controls/TemplateSelectionControl";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../guides/GuidesMain";
+import {GuideRoutes} from "../guides/GuidesRouter";
 import type {GenericReactComponent} from "../../_base/types";
+import RouterPage from "../RouterPage";
+import RequireAuth from "../_auth/RequireAuth";
 
 const Creation2Explanation = () => (
     <Grid item xs={12}>
@@ -154,7 +156,13 @@ const Creation2 = (): GenericReactComponent => {
         return <></>;
     }
 
-    return getForm();
+    return (
+        <RequireAuth>
+            <RouterPage>
+                {getForm()}
+            </RouterPage>
+        </RequireAuth>
+    );
 }
 
 export default Creation2;

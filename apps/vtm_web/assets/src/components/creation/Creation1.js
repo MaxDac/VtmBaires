@@ -1,18 +1,20 @@
 // @flow
 
 import React, {useContext} from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
 import {updateCurrentCharacter} from "../../services/session-service";
 import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "./controls/CharacterInfoForm";
-import type { CharacterCreationRequest } from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
+import type {CharacterCreationRequest} from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 const Creation1 = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
 
@@ -28,7 +30,7 @@ const Creation1 = (): GenericReactComponent => {
                         } 
                     }).catch(e => console.error("Error while updating session character", e));
 
-                    history.push(MainRoutes.creation2);
+                    navigate(MainRoutes.creation2);
 
                     // Refreshing the page in order to update the left menu
                     document.location.reload(false);
@@ -44,7 +46,11 @@ const Creation1 = (): GenericReactComponent => {
     }
 
     return (
-        <CharacterInfoForm onSubmit={onSubmit} />
+        <RequireAuth>
+            <RouterPage>
+                <CharacterInfoForm onSubmit={onSubmit} />
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

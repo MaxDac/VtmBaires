@@ -2,7 +2,7 @@
 
 import React, {useContext} from "react";
 import {object, string} from "yup";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import {useFormik} from "formik";
@@ -10,13 +10,13 @@ import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {requestNewPassword} from "../../services/login-service";
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {Routes} from "../../AppRouter";
+import {AppRoutes} from "../../AppRouter";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../_base/types";
+import LoginLayout from "./LoginLayout";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -25,7 +25,7 @@ const RecoverPasswordSchema = object().shape({
 });
 
 const RecoverPassword = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const theme = useTheme();
     const {showUserNotification, setWait} = useContext(UtilityContext);
 
@@ -46,7 +46,7 @@ const RecoverPassword = (): GenericReactComponent => {
                     type: "success",
                     message: "Password ristabilita, controlla la tua mail!"
                 });
-                history.push(LoginRoutes.login);
+                navigate(LoginRoutes.login);
             })
             .catch(e => {
                 console.error("error while retrieving the password", e);
@@ -59,7 +59,7 @@ const RecoverPassword = (): GenericReactComponent => {
     }
 
     return (
-        <LoginFrameLayout title="Recupera la tua password" icon={<ContactMailIcon sx={menuIconStyle} />}>
+        <LoginLayout title="Recupera la tua password" icon={<ContactMailIcon sx={menuIconStyle} />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -77,13 +77,13 @@ const RecoverPassword = (): GenericReactComponent => {
                 </form>
                 <Box component="div" sx={{textAlign: "center"}}>
                     <ButtonGroup variant="outlined" aria-label="recover password links">
-                        <Button onClick={_ => history.push(LoginRoutes.login)}>Torna al Login</Button>
-                        <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
-                        <Button onClick={_ => history.push(LoginRoutes.register)}>Registrazione</Button>
+                        <Button onClick={_ => navigate(LoginRoutes.login)}>Torna al Login</Button>
+                        <Button onClick={_ => navigate(AppRoutes.guideMain)}>Guida</Button>
+                        <Button onClick={_ => navigate(LoginRoutes.register)}>Registrazione</Button>
                     </ButtonGroup>
                 </Box>
             </>
-        </LoginFrameLayout>
+        </LoginLayout>
     );
 }
 

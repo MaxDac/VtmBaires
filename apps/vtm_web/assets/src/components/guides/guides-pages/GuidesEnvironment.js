@@ -4,14 +4,11 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
-type Props = {
-
-}
-
-const GuidesEnvironment = (props: Props): GenericReactComponent => {
+const GuidesEnvironment = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Ambientazione
@@ -197,8 +194,8 @@ const GuidesEnvironment = (props: Props): GenericReactComponent => {
                     </li>
                 </ul>
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesEnvironment;

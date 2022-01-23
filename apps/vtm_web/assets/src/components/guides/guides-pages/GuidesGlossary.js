@@ -4,16 +4,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import {Link} from "react-router-dom";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
-type Props = {
-
-}
-
-const GuidesGlossary = (props: Props): GenericReactComponent => {
+const GuidesGlossary = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Glossario
@@ -158,8 +155,8 @@ const GuidesGlossary = (props: Props): GenericReactComponent => {
                     </li>
                 </ul>
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesGlossary;

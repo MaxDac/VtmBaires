@@ -3,15 +3,15 @@
 import React from "react";
 import {useEffect, useRef} from "react";
 import List from "@mui/material/List";
-import type {ChatEntry} from "../../services/base-types";
+import type {ChatEntry} from "../../../services/base-types";
 import ChatEntryComponent from "./ChatEntryComponent";
-import {emptyArray} from "../../_base/utils";
-import {useChatEntriesForSubscriptions} from "./hooks/ChatEntryFromSubscriptionHook";
+import {emptyArray} from "../../../_base/utils";
+import {useChatEntriesForSubscriptions} from "../hooks/ChatEntryFromSubscriptionHook";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {add, compareAsc} from "date-fns";
-import { parseUTC } from "../../_base/date-utils";
-import type {GenericReactComponent} from "../../_base/types";
+import { parseUTC } from "../../../_base/date-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     entries: ?Array<ChatEntry>;

@@ -1,8 +1,7 @@
 // @flow
 
 import React from "react";
-import {useHistory} from "react-router-dom";
-import {MainRoutes} from "../../MainRouter";
+import {useNavigate} from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
 import type {GenericReactComponent} from "../../../_base/types";
+import {AdminRoutes} from "../../admin/AdminRouter";
 
 type Props = {
     characterId: ?string;
@@ -22,11 +22,11 @@ type Props = {
 
 const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): GenericReactComponent => {
     const [user,] = useSession();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const tryVisualizeCharacterDashboard = characterId =>
         _ => {
-            history.push(MainRoutes.characterDashboard(characterId));
+            navigate(AdminRoutes.characterDashboard(characterId));
 
             if (onSelected != null) {
                 onSelected();

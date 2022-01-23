@@ -8,11 +8,11 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import type {ChatEntry} from "../../services/base-types";
+import type {ChatEntry} from "../../../services/base-types";
 import Box from "@mui/material/Box";
-import {markdownComponents} from "../../_base/components/ParsedText";
-import {defaultFormatTime} from "../../_base/date-utils";
-import type {GenericReactComponent} from "../../_base/types";
+import {markdownComponents} from "../../../_base/components/ParsedText";
+import {defaultFormatTime} from "../../../_base/date-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;

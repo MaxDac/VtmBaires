@@ -1,9 +1,7 @@
 // @flow
 
 import React from "react";
-import LoginLayout from "./LoginLayout";
-import {Route} from "react-router-dom";
-import type {HomeLayoutProps} from "./LoginLayout";
+import {Routes, Route} from "react-router-dom";
 import type {GenericReactComponent} from "../../_base/types";
 
 export const LoginRoutes = {
@@ -13,25 +11,19 @@ export const LoginRoutes = {
     disclaimer: "/access/disclaimer",
 }
 
-type Props = HomeLayoutProps & {
-    match: {
-        url: string
-    }
-}
-
 const Login = React.lazy(() => import('./Login'));
 const CreateUser = React.lazy(() => import('./CreateUser'));
 const RecoverPassword = React.lazy(() => import('./RecoverPassword'));
 const Disclaimer = React.lazy(() => import('./Disclaimer'));
 
-const LoginRouter = (props: Props): GenericReactComponent => {
+const LoginRouter = (): GenericReactComponent => {
     return (
-        <LoginLayout {...props}>
-            <Route exact path={`${props.match.url}/login`} component={Login} />
-            <Route exact path={`${props.match.url}/register`} component={CreateUser} />
-            <Route exact path={`${props.match.url}/recover-password`} component={RecoverPassword} />
-            <Route exact path={`${props.match.url}/disclaimer`} component={Disclaimer} />
-        </LoginLayout>
+        <Routes>
+            <Route exact path="login" element={<Login />} />
+            <Route exact path="register" element={<CreateUser />} />
+            <Route exact path="recover-password" element={<RecoverPassword />} />
+            <Route exact path="disclaimer" element={<Disclaimer />} />
+        </Routes>
     );
 }
 

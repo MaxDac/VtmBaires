@@ -13,10 +13,11 @@ import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesExperience = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Gestione dell'Esperienza
@@ -172,8 +173,8 @@ const GuidesExperience = (): GenericReactComponent => {
                     </TableContainer>
                 </Box>
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesExperience;

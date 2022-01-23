@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import CharacterSheet from "../../character/CharacterSheet";
+import CharacterSheetComponent from "../../character/sheet-components/CharacterSheetComponent";
 import Grid from "@mui/material/Grid";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -19,12 +19,10 @@ import SpendCharacterExperienceForm from "./forms/SpendCharacterExperienceForm";
 import SendMessageToUserOrCharacter from "./forms/SendMessageToUserOrCharacter";
 import SetHuntDifficultyForm from "./forms/SetHuntDifficultyForm";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useParams} from "react-router-dom";
 
-type Props = {
-    characterId: string;
-}
-
-const CharacterDashboard = ({characterId}: Props): GenericReactComponent => {
+const CharacterDashboard = (): GenericReactComponent => {
+    const {characterId} = useParams();
     const character = useCharacterCompleteQuery(characterId);
 
     const [showSheet, setShowSheet] = useState(true);
@@ -45,10 +43,10 @@ const CharacterDashboard = ({characterId}: Props): GenericReactComponent => {
                     margin: "5px"
                 }}>
                     <Paper elevation={12}>
-                        <CharacterSheet id={character?.id}
-                                        reload={true}
-                                        contained={true}
-                                        fetchKey={reloadCount} />
+                        <CharacterSheetComponent id={character?.id}
+                                                 reload={true}
+                                                 contained={true}
+                                                 fetchKey={reloadCount} />
                     </Paper>
                 </Grid>
             );

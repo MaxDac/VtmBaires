@@ -3,15 +3,11 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { GuideRoutes } from "../GuidesMain";
+import { GuideRoutes } from "../GuidesRouter";
 import { guideStyle, liStyle, storyStyle, titleStyle } from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesEnvironmentSects = (props: Props): GenericReactComponent => {
+const GuidesEnvironmentSects = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>

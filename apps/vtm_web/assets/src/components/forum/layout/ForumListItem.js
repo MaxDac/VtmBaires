@@ -14,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import {UtilityContext} from "../../../contexts";
 import DeleteThreadMutation from "../../../services/mutations/forum/DeleteThreadMutation";
 import {useRelayEnvironment} from "react-relay";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import ForumListItemText from "./ForumListItemText";
@@ -51,7 +51,7 @@ export type ForumItemProps = {
 }
 
 const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const [user,] = useSession();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
@@ -80,7 +80,7 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
     const modifyThread = () => {
         holdAction = true;
         if (item?.id != null && item?.forumSection?.id != null) {
-            history.push(MainRoutes.modifyForumThread(item.forumSection.id, item.id));
+            navigate(MainRoutes.modifyForumThread(item.forumSection.id, item.id));
         }
     };
 

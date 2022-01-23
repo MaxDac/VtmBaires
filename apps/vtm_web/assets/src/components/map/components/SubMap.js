@@ -8,19 +8,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SendIcon from "@mui/icons-material/Send";
-import {useHistory} from "react-router-dom";
-import type {Map} from "../../services/base-types";
-import useStyles from "../Main.Layout.Style";
+import {useNavigate} from "react-router-dom";
+import type {Map} from "../../../services/base-types";
+import useStyles from "../../Main.Layout.Style";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import {MainRoutes} from "../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import {useMediaQuery, useTheme} from '@mui/material';
-import {menuIconStyle} from "../_layout/menu/menu-base-utils";
-import {goToChatAndUpdateSession} from "../chat/chat-helpers";
-import {SessionContext} from "../../contexts";
-import {orderAlphabetically} from "../../_base/utils";
-import type {GenericReactComponent} from "../../_base/types";
+import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
+import {goToChatAndUpdateSession} from "../../chat/chat-helpers";
+import {SessionContext} from "../../../contexts";
+import {orderAlphabetically} from "../../../_base/utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -73,7 +73,7 @@ const SubMapWide = ({classes, imageUrl, subHeader, mapLinks}) => (
 );
 
 const SubMap = ({maps, imageUrl}: SubMapProps): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const sessionUtils = useContext(SessionContext);
     const classes = useStyles();
     const theme = useTheme();
@@ -86,10 +86,10 @@ const SubMap = ({maps, imageUrl}: SubMapProps): GenericReactComponent => {
 
     const openMap = (id: string, name: string, isChat: boolean) => _ => {
         if (isChat) {
-            goToChatAndUpdateSession(sessionUtils, history, id, name);
+            goToChatAndUpdateSession(sessionUtils, navigate, id, name);
         }
         else {
-            history.push(MainRoutes.subMap(id));
+            navigate(MainRoutes.subMap(id));
         }
     }
 

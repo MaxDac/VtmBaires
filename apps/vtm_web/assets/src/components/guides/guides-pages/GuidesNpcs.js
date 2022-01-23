@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import {guideStyle, storyStyle, titleStyle} from "../GuidesStyles";
 import Box from "@mui/material/Box";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesNpcs = (): GenericReactComponent => {
     const sheetBoxStyle = {
@@ -17,7 +18,7 @@ const GuidesNpcs = (): GenericReactComponent => {
     }
 
     return (
-        <>
+        <GuideLayout>
             <Typography component="div">
                 <h1 style={titleStyle}>
                     Personaggi non Giocanti
@@ -727,8 +728,8 @@ const GuidesNpcs = (): GenericReactComponent => {
                     </Box>
                 </Box>
             </Box>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesNpcs;

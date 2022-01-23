@@ -79,7 +79,19 @@ const GuideLayout = ({children}: Props): GenericReactComponent => {
                     <GuidesMenu />
                 </Drawer>
             </Box>
-            {children}
+            <Box component="main" sx={{
+                flexGrow: 1,
+                p: 3,
+                width: {
+                    sm: `calc(100% - ${drawerWidth}px)`
+                }
+            }}>
+                {/* Toolbar put here just to allow space at the top */}
+                <Toolbar />
+                <div>
+                    {children}
+                </div>
+            </Box>
         </Box>
     );
 }

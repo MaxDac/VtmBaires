@@ -6,18 +6,18 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RoomIcon from '@mui/icons-material/Room';
 import {menuIconStyle} from "../menu/menu-base-utils";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {MainRoutes} from "../../MainRouter";
 import type {GenericReactComponent} from "../../../_base/types";
 
 const ReturnToChatControl = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [,,location] = useSession();
 
     const tryGoToChat = locationId =>
         _ => {
             if (locationId != null) {
-                history.push(MainRoutes.chat(locationId));
+                navigate(MainRoutes.chat(locationId));
             }
         }
 

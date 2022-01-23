@@ -8,16 +8,18 @@ import type {UserSentMessagesQuery} from "../../services/queries/messages/__gene
 import MessageListItem from "./components/MessageListItem";
 import Button from "@mui/material/Button";
 import {MainRoutes} from "../MainRouter";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {handleMutation} from "../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import DeleteAllSentMessagesMutation from "../../services/mutations/messages/DeleteAllSentMessagesMutation";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 const SentMessages = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
     const [fetchKey, setFetchKey] = useState(0);
@@ -64,26 +66,28 @@ const SentMessages = (): GenericReactComponent => {
     };
 
     return (
-        <>
-            <div style={{textAlign: "right", padding: "1rem"}}>
-                <ButtonGroup>
-                    <Button type="submit" onClick={_ => history.push(MainRoutes.newMessage())}>
-                        Scrivi nuovo
-                    </Button>
-                    <Button type="submit" onClick={_ => history.push(MainRoutes.messages)}>
-                        Messaggi ricevuti
-                    </Button>
-                    <Button type="submit" onClick={onDeleteAll}>
-                        Cancella tutti
-                    </Button>
-                </ButtonGroup>
-            </div>
-            <Suspense fallback={"Loading..."}>
-                <List sx={{width: "100%", bgcolor: "background.paper"}}>
-                    {messageList()}
-                </List>
-            </Suspense>
-        </>
+        <RequireAuth>
+            <RouterPage>
+                <div style={{textAlign: "right", padding: "1rem"}}>
+                    <ButtonGroup>
+                        <Button type="submit" onClick={_ => navigate(MainRoutes.newMessage())}>
+                            Scrivi nuovo
+                        </Button>
+                        <Button type="submit" onClick={_ => navigate(MainRoutes.messages)}>
+                            Messaggi ricevuti
+                        </Button>
+                        <Button type="submit" onClick={onDeleteAll}>
+                            Cancella tutti
+                        </Button>
+                    </ButtonGroup>
+                </div>
+                <Suspense fallback={"Loading..."}>
+                    <List sx={{width: "100%", bgcolor: "background.paper"}}>
+                        {messageList()}
+                    </List>
+                </Suspense>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

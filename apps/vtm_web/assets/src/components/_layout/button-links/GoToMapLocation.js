@@ -5,7 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RoomIcon from "@mui/icons-material/Room";
 import {menuIconStyle} from "../menu/menu-base-utils";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {goToChatAndUpdateSession} from "../../chat/chat-helpers";
 import {SessionContext} from "../../../contexts";
 import MenuItem from "@mui/material/MenuItem";
@@ -24,12 +24,12 @@ type Props = {
 
 const GoToMapLocation = ({location, onSelected, asMenuItem}: Props): GenericReactComponent => {
     const sessionUtils = useContext(SessionContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const tryGoToLocation = location =>
         _ => {
             if (location?.id != null) {
-                goToChatAndUpdateSession(sessionUtils, history, location.id, location?.name);
+                goToChatAndUpdateSession(sessionUtils, navigate, location.id, location?.name);
             }
 
             if (onSelected != null) {

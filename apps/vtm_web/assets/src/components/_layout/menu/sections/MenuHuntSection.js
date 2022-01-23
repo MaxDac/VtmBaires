@@ -16,7 +16,7 @@ import AwakeCharacterMutation from "../../../../services/mutations/characters/Aw
 import type {
     AwakeCharacterMutationResponse
 } from "../../../../services/mutations/characters/__generated__/AwakeCharacterMutation.graphql";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {MainRoutes} from "../../../MainRouter";
 import type {GenericReactComponent} from "../../../../_base/types";
 
@@ -59,7 +59,7 @@ const MenuHuntSectionInternal = ({
 };
 
 const MenuHuntSection = (): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const environment = useRelayEnvironment();
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const [,character] = useSession();
@@ -118,7 +118,7 @@ const MenuHuntSection = (): GenericReactComponent => {
         }
     };
 
-    const huntRequest = () => history.push(MainRoutes.hunt);
+    const huntRequest = () => navigate(MainRoutes.hunt);
 
     if (isCharacterVampire && character?.id != null) {
         return (<MenuHuntSectionInternal awakeRequest={awakeRequest}

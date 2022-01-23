@@ -6,9 +6,9 @@ import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import type {Node} from "react";
-import {Routes} from "../../AppRouter";
+import {AppRoutes} from "../../AppRouter";
 import {useTheme} from "@mui/material/styles";
 import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
@@ -19,10 +19,10 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from "@mui/material/Typography";
 import {FormControl} from "@mui/material";
 import Box from "@mui/material/Box";
-import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import LoginLayout from "./LoginLayout";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -38,7 +38,7 @@ const SignUpSchema = (nameChecker: CheckerFunction, emailChecker: CheckerFunctio
     });
 
 const CreateUserComponent = (): Node => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const theme = useTheme();
     const environment = useRelayEnvironment();
     const {showUserNotification, setWait} = useContext(UtilityContext);
@@ -104,7 +104,7 @@ const CreateUserComponent = (): Node => {
                     type: "success",
                     message: "L'utente è stato creato correttamente, controlla la mail (spam incluso) per avere la tua prima password."
                 });
-                setTimeout(() => history.push(LoginRoutes.login), 2000);
+                setTimeout(() => navigate(LoginRoutes.login), 2000);
             })
             .catch(errors => {
                 showUserNotification({
@@ -117,7 +117,7 @@ const CreateUserComponent = (): Node => {
     }
 
     return (
-        <LoginFrameLayout title="Registrazione" icon={<AddCircleOutlineIcon sx={menuIconStyle} />}>
+        <LoginLayout title="Registrazione" icon={<AddCircleOutlineIcon sx={menuIconStyle} />}>
             <>
                 <form style={{
                     width: '100%', // Fix IE 11 issue.
@@ -146,13 +146,13 @@ const CreateUserComponent = (): Node => {
                 </form>
                 <Box component="div" sx={{textAlign: "center"}}>
                     <ButtonGroup variant="outlined" aria-label="registration links">
-                        <Button onClick={_ => history.push(LoginRoutes.recoverPassword)}>Recupera Password</Button>
-                        <Button onClick={_ => history.push(Routes.guideMain)}>Guida</Button>
-                        <Button onClick={_ => history.push(LoginRoutes.login)}>Torna al Login</Button>
+                        <Button onClick={_ => navigate(LoginRoutes.recoverPassword)}>Recupera Password</Button>
+                        <Button onClick={_ => navigate(AppRoutes.guideMain)}>Guida</Button>
+                        <Button onClick={_ => navigate(LoginRoutes.login)}>Torna al Login</Button>
                     </ButtonGroup>
                 </Box>
             </>
-        </LoginFrameLayout>
+        </LoginLayout>
     );
 };
 

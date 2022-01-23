@@ -9,6 +9,27 @@ import type {
 import HavenEventsListWrapper from "./HavenEventsListWrapper";
 import type {HavenEventsInternalProps} from "./HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
+
+const HavenEvents = (): any => {
+    return (
+        <RequireAuth>
+            <RouterPage>
+                <Stack direction="column">
+                    <h1 style={{
+                        fontFamily: 'Disturbed',
+                        marginRight: "20px"
+                    }}>
+                        Eventi nel Dominio del personaggio
+                    </h1>
+
+                    <HavenEventsListWrapper component={HavenEventsInternal} />
+                </Stack>
+            </RouterPage>
+        </RequireAuth>
+    );
+};
 
 const HavenEventsInternal = ({characterId, fetchKey, component}: HavenEventsInternalProps) => {
     const events = useCustomLazyLoadQuery<GetCharacterHavenEventsQuery>(getCharacterHavenEventsQuery, {
@@ -19,21 +40,6 @@ const HavenEventsInternal = ({characterId, fetchKey, component}: HavenEventsInte
     })?.getCharacterDomainEvents?.result;
 
     return component(events);
-};
-
-const HavenEvents = (): any => {
-    return (
-        <Stack direction="column">
-            <h1 style={{
-                fontFamily: 'Disturbed',
-                marginRight: "20px"
-            }}>
-                Eventi nel Dominio del personaggio
-            </h1>
-
-            <HavenEventsListWrapper component={HavenEventsInternal} />
-        </Stack>
-    );
 };
 
 export default HavenEvents;

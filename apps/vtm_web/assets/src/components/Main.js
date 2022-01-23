@@ -1,10 +1,12 @@
 // @flow
 
-import Box from '@mui/system/Box';
+import Box from "@mui/material/Box";
 import React, {useEffect, useState} from 'react';
 import CenteredBox from "../_base/components/CenteredBox";
 import Typography from '@mui/material/Typography';
 import type {GenericReactComponent} from "../_base/types";
+import RouterPage from "./RouterPage";
+import RequireAuth from "./_auth/RequireAuth";
 
 const Main = (): GenericReactComponent => {
     const [firstPhrase, setFirstPhrase] = useState("");
@@ -49,49 +51,53 @@ const Main = (): GenericReactComponent => {
     }, []);
 
     return (
-        <Box sx={{
-            background: `url("/SplashScreen.webp") no-repeat center`,
-            backgroundColor: "black",
-            boxShadow: "-2px -2px #191919",
-            height: "calc(100% - 70px)",
-            backgroundSize: "cover"
-        }}>
-            <CenteredBox isBodyChild={false} innerBoxSx={{
-                maxWidth: "500px"
-            }}>
-                <Typography sx={{
-                    fontFamily: 'ThroughTheNight',
-                    color: "white",
-                    fontSize: "36px",
-                    // opacity: 0,
-                    // animation: "opacityAppear 2s ease-in-out forwards",
-                    // animationDelay: "1000ms"
+        <RequireAuth>
+            <RouterPage>
+                <Box sx={{
+                    background: `url("/SplashScreen.webp") no-repeat center`,
+                    backgroundColor: "black",
+                    boxShadow: "-2px -2px #191919",
+                    height: "calc(100% - 70px)",
+                    backgroundSize: "cover"
                 }}>
-                    {firstPhrase}
-                </Typography>
-                <Typography sx={{
-                    fontFamily: 'ThroughTheNight',
-                    color: "#C92929",
-                    fontSize: "36px"
-                    // opacity: 0,
-                    // animation: "opacityAppear 2s ease-in-out forwards",
-                    // animationDelay: "3000ms"
-                }}>
-                    {secondPhrase}
-                </Typography>
-                <Typography sx={{
-                    fontFamily: 'ThroughTheNight',
-                    color: "#C9C9C9",
-                    fontSize: "16px",
-                    paddingTop: "20px"
-                    // opacity: 0,
-                    // animation: "opacityAppear 2s ease-in-out forwards",
-                    // animationDelay: "3000ms"
-                }}>
-                    {thirdPhrase}
-                </Typography>
-            </CenteredBox>
-        </Box>
+                    <CenteredBox isBodyChild={false} innerBoxSx={{
+                        maxWidth: "500px"
+                    }}>
+                        <Typography sx={{
+                            fontFamily: 'ThroughTheNight',
+                            color: "white",
+                            fontSize: "36px",
+                            // opacity: 0,
+                            // animation: "opacityAppear 2s ease-in-out forwards",
+                            // animationDelay: "1000ms"
+                        }}>
+                            {firstPhrase}
+                        </Typography>
+                        <Typography sx={{
+                            fontFamily: 'ThroughTheNight',
+                            color: "#C92929",
+                            fontSize: "36px"
+                            // opacity: 0,
+                            // animation: "opacityAppear 2s ease-in-out forwards",
+                            // animationDelay: "3000ms"
+                        }}>
+                            {secondPhrase}
+                        </Typography>
+                        <Typography sx={{
+                            fontFamily: 'ThroughTheNight',
+                            color: "#C9C9C9",
+                            fontSize: "16px",
+                            paddingTop: "20px"
+                            // opacity: 0,
+                            // animation: "opacityAppear 2s ease-in-out forwards",
+                            // animationDelay: "3000ms"
+                        }}>
+                            {thirdPhrase}
+                        </Typography>
+                    </CenteredBox>
+                </Box>
+            </RouterPage>
+        </RequireAuth>
     )
 };
 

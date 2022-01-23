@@ -13,12 +13,13 @@ import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
 import {Link} from "react-router-dom";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
-import {GuideRoutes} from "../GuidesMain";
+import {GuideRoutes} from "../GuidesRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesMechanics = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Meccaniche di Gioco V5
@@ -863,8 +864,8 @@ const GuidesMechanics = (): GenericReactComponent => {
                 completamente, totalmente e irrimediabilmente il controllo del Cainita, il personaggio non sar&agrave; pi&ugrave;
                 giocaile e passer&agrave; ad essere interpretato dal Narratore.
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesMechanics;

@@ -38,7 +38,7 @@ type Props = {
 }
 
 const CharactersSelectControl = ({label, fieldName, formik, onChange, value}: Props): GenericReactComponent => {
-    const allCharacters = useCustomLazyLoadQuery<AllCharactersQuery>(allCharactersQuery, {})?.charactersList;
+    const allCharacters = useCustomLazyLoadQuery(allCharactersQuery, {})?.charactersList;
 
     const characterValues = useMemo((): Array<[string, string]> => {
         const values: Array<[string, string]> = allCharacters

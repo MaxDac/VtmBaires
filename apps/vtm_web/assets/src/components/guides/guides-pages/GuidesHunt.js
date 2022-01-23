@@ -18,10 +18,11 @@ import {
   occupiedHavenFillColorWithoutOpacity,
   personalHavenFillColorWithoutOpacity,
 } from "../../_base/haven-map-areas-helpers";
+import GuideLayout from "../GuideLayout";
 
 const GuidesHunt = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Caccia
@@ -471,8 +472,8 @@ const GuidesHunt = (): GenericReactComponent => {
                     </TableContainer>
                 </Box>
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesHunt;

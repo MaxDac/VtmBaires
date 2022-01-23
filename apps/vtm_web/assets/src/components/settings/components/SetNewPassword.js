@@ -4,12 +4,12 @@ import React, {useContext} from "react";
 import {object, string, ref} from 'yup';
 import {useFormik} from "formik";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
-import FormTextField from "../../_base/components/FormTextField";
+import {UtilityContext} from "../../../contexts";
+import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
-import ChangeUserPasswordMutation from "../../services/mutations/sessions/ChangeUserPasswordMutation";
-import type {GenericReactComponent} from "../../_base/types";
+import ChangeUserPasswordMutation from "../../../services/mutations/sessions/ChangeUserPasswordMutation";
+import type {GenericReactComponent} from "../../../_base/types";
 
 const SignUpSchema = object().shape({
     oldPassword: string("La tua vecchia passwod").required("Required"),

@@ -1,17 +1,17 @@
 // @flow
 
 import React, {Suspense} from "react";
-import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
-import ResponsiveInnerContainer from "../../_base/components/ResponsiveInnerContainer";
+import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
+import ResponsiveInnerContainer from "../../../_base/components/ResponsiveInnerContainer";
 import Paper from "@mui/material/Paper";
-import {CharacterSheetSuspenseFallback} from "./CharacterSheet";
-import {useHistory} from "react-router-dom";
-import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
-import {useSession} from "../../services/session-service";
+import {useNavigate} from "react-router-dom";
+import {useUserCharactersQuery} from "../../../services/queries/accounts/UserCharactersQuery";
+import {useSession} from "../../../services/session-service";
 import Button from "@mui/material/Button";
-import {MainRoutes} from "../MainRouter";
-import CharacterSheetTabs from "./sheet-sections/tabs/CharacterSheetTabs";
-import type {GenericReactComponent} from "../../_base/types";
+import {MainRoutes} from "../../MainRouter";
+import CharacterSheetTabs from "../sheet-sections/tabs/CharacterSheetTabs";
+import type {GenericReactComponent} from "../../../_base/types";
+import CharacterSheetSuspenseFallback from "./CharacterSheetSuspenseFallback";
 
 type Props = {
     id?: string;
@@ -21,7 +21,7 @@ type Props = {
 }
 
 const CharacterSheetComplete = (props: Props): GenericReactComponent => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const userCharacters = useUserCharactersQuery();
     const [user,] = useSession();
 
@@ -34,7 +34,7 @@ const CharacterSheetComplete = (props: Props): GenericReactComponent => {
                     margin: "20px",
                     textAlign: "center"
                 }}>
-                    <Button variant="outlined" onClick={_ => history.push(MainRoutes.modifySheet(character.id))}>
+                    <Button variant="outlined" onClick={_ => navigate(MainRoutes.modifySheet(character.id))}>
                         Modifica scheda
                     </Button>
                 </div>

@@ -23,9 +23,9 @@ import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
 import ChatStatusModal from "./modals/ChatStatusModal";
 import {useChatEntries} from "./hooks/ChatEntriesHook";
-import ChatScreen from "./ChatScreen";
+import ChatScreen from "./controls/ChatScreen";
 import type { ChatEntry } from "../../services/base-types";
-import DefaultFallback from "../../_base/components/DefaultFallback";
+import DefaultFallback from "../skeletons/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";
 import {getFileTextFromChatEntries} from "./chat-helpers";
 import {downloadFile} from "../../_base/file-utils";
@@ -33,24 +33,38 @@ import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
 import type {GenericReactComponent} from "../../_base/types";
+import {useParams} from "react-router-dom";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 type ChatProps = {
     map: Map
 }
 
-const Chat = ({id}: {id: string}): GenericReactComponent => {
+const Chat = (): GenericReactComponent => {
+    const {id} = useParams();
     const map = useMap(id);
     const userHasAccess = useHasUserAccessToMap(id);
 
-    if (map != null && (map.isPrivate === false || userHasAccess)) {
-        return (<ChatInternal map={map} />);
-    }
+    const show = () => {
+        if (map != null && (map.isPrivate === false || userHasAccess)) {
+            return (<ChatInternal map={map}/>);
+        }
+
+        return (
+            <h2>
+                Non hai accesso a questa chat
+            </h2>
+        );
+    };
 
     return (
-        <h2>
-            Non hai accesso a questa chat
-        </h2>
-    );
+        <RequireAuth>
+            <RouterPage>
+                {show()}
+            </RouterPage>
+        </RequireAuth>
+    )
 };
 
 const ShowChatInput = ({character, characterId, onNewEntry, onNewDiceEntry}) => {

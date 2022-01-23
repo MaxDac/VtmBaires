@@ -14,16 +14,16 @@ import type {
     Variables
 } from "relay-runtime";
 import {post} from "axios";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {log} from "./utils";
-import {Routes} from "../AppRouter";
+import {AppRoutes} from "../AppRouter";
 
 export const cache: any = new RelayQueryResponseCache({
     size: 250,
     ttl: 60 * 5 * 1000
 });
 
-const fetchGraphQL = history => {
+const fetchGraphQL = navigate => {
     return async ({text}: RequestParameters, variables: Variables) => {
         try {
             const response = await post("/api", {
@@ -35,39 +35,22 @@ const fetchGraphQL = history => {
         } catch (e) {
             if (e.response.status === 401) {
                 log("Unauthorized", e.response.data, "error");
-                history.push(Routes.sessionExpired);
+                navigate(AppRoutes.sessionExpired);
             }
 
             return e.response.data;
         }
     };
 };
-    // fetch("/api", {
-    //     method: 'POST',
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         query: text,
-    //         variables
-    //     })
-    // }).then(r => r.json());
 
-// const environment: Environment = new Environment({
-//     network: Network.create(fetchGraphQL),
-//     store: new Store(new RecordSource())
-// });
-//
-// export default environment;
-
-export const getEnvironment = (history: any): Environment => {
+export const getEnvironment = (navigate: string => void): Environment => {
     return new Environment({
-        network: Network.create(fetchGraphQL(history)),
+        network: Network.create(fetchGraphQL(navigate)),
         store: new Store(new RecordSource())
     });
 }
 
 export const useEnv = (): Environment => {
-    const history = useHistory();
-    return getEnvironment(history);
+    const navigate = useNavigate();
+    return getEnvironment(navigate);
 };

@@ -4,10 +4,11 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
+import GuideLayout from "../GuideLayout";
 
 const GuidesSayings = (): GenericReactComponent => {
     return (
-        <>
+        <GuideLayout>
             <Typography paragraph>
                 <h1 style={titleStyle}>
                     Modi di dire
@@ -110,8 +111,8 @@ const GuidesSayings = (): GenericReactComponent => {
                    target="_blank"
                    rel="noreferrer">Wikipedia</a>)
             </Typography>
-        </>
+        </GuideLayout>
     );
-}
+};
 
 export default GuidesSayings;

@@ -5,12 +5,14 @@ import ReturnToMessagesControl from "./components/ReturnToMessagesControl";
 import SendMessageMutation from "../../services/mutations/messages/SendMessageMutation";
 import {useSession} from "../../services/session-service";
 import {UtilityContext} from "../../contexts";
-import {useHistory} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useRelayEnvironment} from "react-relay";
 import { MainRoutes } from "../MainRouter";
 import ReplyToMessage from "./components/ReplyToMessage";
 import MessageTemplate from "./components/MessageTemplate";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
 
 export type SubmitProperties = {
     subject: string;
@@ -26,9 +28,10 @@ type Props = {
     toCharacterId?: string;
 }
 
-const NewMessage = (props: Props): GenericReactComponent => {
+const NewMessage = (): GenericReactComponent => {
+    const props: Props = useParams();
     const environment = useRelayEnvironment();
-    const history = useHistory();
+    const navigate = useNavigate();
     const {showUserNotification} = useContext(UtilityContext);
     const [,character] = useSession();
 
@@ -51,7 +54,7 @@ const NewMessage = (props: Props): GenericReactComponent => {
                 graphqlError: e,
                 message: "Errore inviando il messaggio!"
             }))
-            .finally(() => history.push(MainRoutes.messages));
+            .finally(() => navigate(MainRoutes.messages));
     };
 
     const editor = () =>
@@ -66,9 +69,13 @@ const NewMessage = (props: Props): GenericReactComponent => {
                                 isReply={false} />);
 
     return (
-        <ReturnToMessagesControl>
-            {editor()}
-        </ReturnToMessagesControl>
+        <RequireAuth>
+            <RouterPage>
+                <ReturnToMessagesControl>
+                    {editor()}
+                </ReturnToMessagesControl>
+            </RouterPage>
+        </RequireAuth>
     );
 }
 

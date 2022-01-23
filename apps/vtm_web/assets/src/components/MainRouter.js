@@ -1,11 +1,9 @@
 // @flow
 
 import React from "react";
-import MainLayout from "./MainLayout";
-import AuthRoute from "./_auth/AuthRoute";
-import AuthMasterRoute from "./_auth/AuthMasterRoute";
+import {Routes, Route} from "react-router-dom";
 import type {GenericReactComponent} from "../_base/types";
-import AdminHavenEvents from "./admin/havens/AdminHavenEvents";
+import MainLayout from "./MainLayout";
 
 export const MainRoutes = {
     creation1: "/main/creation/1",
@@ -40,16 +38,7 @@ export const MainRoutes = {
     modifySheet: (id: string): string => `/main/sheet/modify/${id}`,
     subMap: (id: string): string => `/main/map/${id}`,
     chat: (id: string): string => `/main/chat/${id}`,
-    bookChat: "/main/book-chat",
-
-    admin: "/main/admin",
-    unapprovedCharacters: "/main/admin/unapproved",
-    characterDashboard: (id: string): string => `/main/admin/character/${id}`,
-    createNewNpc: "/main/admin/npc/new",
-    defineNpc: (id: string): string => `/main/admin/npc/${id}/define`,
-    adminHavens: "/main/admin/havens",
-    chatViewer: "/main/admin/chat",
-    adminHavenEvents: "/main/admin/haven-events"
+    bookChat: "/main/book-chat"
 }
 
 const Main = React.lazy(() => import('./Main'));
@@ -76,72 +65,50 @@ const NewMessage: any = React.lazy(() => import('./messages/NewMessage'));
 const ReadMessage: any = React.lazy(() => import('./messages/ReadMessage'));
 
 const ForumSections = React.lazy(() => import('./forum/ForumSections'));
-const CreateNewThread = React.lazy(() => import('./forum/forms/CreateNewThread'));
-const ModifyThread = React.lazy(() => import('./forum/forms/ModifyThread'));
-const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
+const CreateNewThread = React.lazy(() => import('./forum/CreateNewThread'));
+const ModifyThread = React.lazy(() => import('./forum/ModifyThread'));
+const ManagePost = React.lazy(() => import('./forum/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));
-
 const CharactersList = React.lazy(() => import('./character/CharactersList'));
-const CharacterDashboard = React.lazy(() => import('./admin/characters/CharacterDashboard'));
-const UnapprovedCharacters = React.lazy(() => import('./admin/approvation/UnapprovedCharacters'));
-const CreateNewNpc = React.lazy(() => import('./character/npcs/CreateNewNpc'));
-const DefineNpc = React.lazy(() => import('./character/npcs/DefineNpc'));
-const AdminHavens = React.lazy(() => import('./admin/havens/AdminHavens'));
-const ChatViewer = React.lazy(() => import('./admin/chat/ChatViewer'));
 
 const MainRouter = (): GenericReactComponent => {
     return (
         <MainLayout>
-            <AuthRoute exact path="/main/" component={() => <Main />} />
-
-            <AuthRoute exact path="/main/creation/1" component={() => <Creation1 />} />
-            <AuthRoute exact path="/main/creation/2" component={() => <Creation2 />} />
-            <AuthRoute exact path="/main/creation/3" component={() => <Creation3 />} />
-            <AuthRoute exact path="/main/creation/4" component={() => <Creation4 />} />
-            <AuthRoute exact path="/main/creation/5" component={() => <Creation5 />} />
-
-            <AuthRoute exact path="/main/characters" component={() => <CharactersList />} />
-            <AuthRoute exact path="/main/sheet/modify/:id" component={({match: {params: {id}}}) => <ModifyCharacterSheet id={id} />} />
-            <AuthRoute exact path="/main/sheet" component={() => <CharacterSheet />} />
-            <AuthRoute exact path="/main/sheet/:id/reload" component={({match: {params: {id}}}) => <CharacterSheet id={id} reload={true} />} />
-            <AuthRoute exact path="/main/sheet/:id" component={({match: {params: {id}}}) => <CharacterSheet id={id} />} />
-
-            <AuthRoute exact path="/main/map" component={() => <MainMap />} />
-            <AuthRoute exact path="/main/map/:id" component={({match: {params: {id}}}) => <Map id={id} />} />
-            <AuthRoute exact path="/main/chat/:id" component={({match: {params: {id}}}) => <Chat id={id} />} />
-            <AuthRoute exact path="/main/book-chat" component={() => <BookChats />} />
-
-            <AuthRoute exact path="/main/hunt" component={() => <Hunt />} />
-            <AuthRoute exact path="/main/haven-events" component={() => <HavenEvents />} />
-
-            <AuthRoute exact path="/main/settings" component={() => <Settings />} />
-
-            <AuthRoute exact path="/main/messages/sent" component={() => <SentMessages />} />
-            <AuthRoute exact path="/main/messages" component={() => <ReceivedMessages />} />
-            <AuthRoute exact path="/main/message/view/:id" component={({match: {params: {id}}}) => <ReadMessage messageId={id} />} />
-            <AuthRoute exact path="/main/message/new/user/:id" component={({match: {params: {id}}}) => <NewMessage toUserId={id} />} />
-            <AuthRoute exact path="/main/message/new/character/:id" component={({match: {params: {id}}}) => <NewMessage toCharacterId={id} />} />
-            <AuthRoute exact path="/main/message/new/:id" component={({match: {params: {id}}}) => <NewMessage replyMessageId={id} />} />
-            <AuthRoute exact path="/main/message/new" component={() => <NewMessage />} />
-
-            <AuthRoute exact path="/main/forum" component={() => <ForumSections />} />
-            <AuthRoute exact path="/main/forum/:id/thread/:threadId/modify" component={({match: {params: {id, threadId}}}) =>
-                <ModifyThread sectionId={id} threadId={threadId} />} />
-            <AuthRoute exact path="/main/forum/:id/thread/new" component={({match: {params: {id}}}) => <CreateNewThread sectionId={id} />} />
-            <AuthRoute exact path="/main/forum/thread/:threadId/post/modify/:postId" component={({match: {params: {threadId, postId}}}) =>
-                <ManagePost threadId={threadId} postId={postId} />} />
-            <AuthRoute exact path="/main/forum/thread/:id/post/new" component={({match: {params: {id}}}) => <ManagePost threadId={id} />} />
-            <AuthRoute exact path="/main/forum/thread/:id" component={({match: {params: {id}}}) => <ForumThread threadId={id} />} />
-            <AuthRoute exact path="/main/forum/:id" component={({match: {params: {id}}}) => <ForumSection sectionId={id} />} />
-
-            <AuthMasterRoute exact path="/main/admin/character/:id" component={({match: {params: {id}}}) => <CharacterDashboard characterId={id} />} />
-            <AuthMasterRoute exact path="/main/admin/unapproved" component={() => <UnapprovedCharacters />} />
-            <AuthMasterRoute exact path="/main/admin/npc/new" component={() => <CreateNewNpc />} />
-            <AuthMasterRoute exact path="/main/admin/npc/:id/define" component={({match: {params: {id}}}) => <DefineNpc characterId={id} />} />
-            <AuthMasterRoute exact path="/main/admin/havens" component={() => <AdminHavens />} />
-            <AuthMasterRoute exact path="/main/admin/chat" component={() => <ChatViewer />} />
-            <AuthMasterRoute exact path='/main/admin/haven-events' component={() => <AdminHavenEvents />} />
+            <Routes>
+                <Route index element={<Main />} />
+                <Route path="creation/1" element={<Creation1 />} />
+                <Route path="creation/2" element={<Creation2 />} />
+                <Route path="creation/3" element={<Creation3 />} />
+                <Route path="creation/4" element={<Creation4 />} />
+                <Route path="creation/5" element={<Creation5 />} />
+                <Route path="characters" element={<CharactersList />} />
+                <Route path="sheet/modify/:id" element={<ModifyCharacterSheet />} />
+                <Route path="sheet" element={<CharacterSheet />} />
+                <Route path="sheet/:id/reload" element={<CharacterSheet />} />
+                <Route path="sheet/:id" element={<CharacterSheet />} />
+                <Route path="map" element={<MainMap />} />
+                <Route path="map/:id" element={<Map />} />
+                <Route path="chat/:id" element={<Chat />} />
+                <Route path="book-chat" element={<BookChats />} />
+                <Route path="hunt" element={<Hunt />} />
+                <Route path="haven-events" element={<HavenEvents />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="messages/sent" element={<SentMessages />} />
+                <Route path="messages" element={<ReceivedMessages />} />
+                <Route path="message/view/:id" element={<ReadMessage />} />
+                <Route path="message/new/user/:id" element={<NewMessage />} />
+                <Route path="message/new/character/:id" element={<NewMessage />} />
+                <Route path="message/new/:id" element={<NewMessage />} />
+                <Route path="message/new" element={<NewMessage />} />
+                <Route path="forum" element={<ForumSections />} />
+                <Route path="forum/thread/:id" element={<ForumThread />} />
+                <Route path="forum/:id" element={<ForumSection />} />
+                <Route path="forum/:id/thread/:threadId/modify" element={<ModifyThread />} />
+                <Route path="forum/:id/thread/new" element={<CreateNewThread />} />
+                <Route path="forum/thread/:threadId/post/modify/:postId" element={<ManagePost />} />
+                <Route path="forum/thread/:id/post/new" element={<ManagePost />} />
+            </Routes>
         </MainLayout>
     );
 }

@@ -17,7 +17,7 @@ import AddUserToChatMutation from "../../services/mutations/chat/AddUserToChatMu
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../contexts";
 import {firstOrDefault, isNotNullNorEmpty} from "../../_base/utils";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import BookChatMapMutation from "../../services/mutations/chat/BookChatMapMutation";
 import {MainRoutes} from "../MainRouter";
 import type {AllPlayersQuery} from "../../services/queries/character/__generated__/AllPlayersQuery.graphql";
@@ -27,6 +27,32 @@ import type {
     GetAvailableCharactersQuery
 } from "../../services/queries/chat/__generated__/GetAvailableCharactersQuery.graphql";
 import type {GenericReactComponent} from "../../_base/types";
+import RequireAuth from "../_auth/RequireAuth";
+import RouterPage from "../RouterPage";
+
+const BookChats = (): GenericReactComponent => {
+    const hasUserAlreadyBooked = useHasUserAlreadyBooked();
+
+    const show = () => {
+        if (!hasUserAlreadyBooked) {
+            return (<BookChatsInternal/>);
+        }
+
+        return (
+            <h2>
+                Hai gi&agrave; prenotato, o sei stato invitato, in un'altra chat privata.
+            </h2>
+        );
+    }
+
+    return (
+        <RequireAuth>
+            <RouterPage>
+                {show()}
+            </RouterPage>
+        </RequireAuth>
+    );
+};
 
 const numberOfPossibleUsers = 5;
 
@@ -58,23 +84,9 @@ const getInitialObject = () => {
     return initialObject;
 };
 
-const BookChats = (): GenericReactComponent => {
-    const hasUserAlreadyBooked = useHasUserAlreadyBooked();
-
-    if (!hasUserAlreadyBooked) {
-        return (<BookChatsInternal />);
-    }
-
-    return (
-        <h2>
-            Hai gi&agrave; prenotato, o sei stato invitato, in un'altra chat privata.
-        </h2>
-    );
-};
-
 const BookChatsInternal = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const history = useHistory();
+    const navigate = useNavigate();
     const {openDialog, showUserNotification, setWait} = useContext(UtilityContext);
     const theme = useTheme();
     const [user,] = useSession();
@@ -141,7 +153,7 @@ const BookChatsInternal = (): GenericReactComponent => {
                             type: "success",
                             message: "La chat è stata prenotata con successo"
                         });
-                        setTimeout(() => history.push(MainRoutes.chat(chatMapId)), 1000);
+                        setTimeout(() => navigate(MainRoutes.chat(chatMapId)), 1000);
                     })
                     .catch(manageError)
                     .finally(() => setWait(false));

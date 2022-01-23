@@ -10,13 +10,13 @@ import {replaceAll} from "../../_base/utils";
  * Sets the current location, updating the chat before the location change takes place. This is to avoid reloading
  * problems.
  * @param session The Session Info.
- * @param history The History.
+ * @param navigate( The History.
  * @param chatId The chat id.
  * @param chatName The chat name.
  */
-export const goToChatAndUpdateSession = (session: SessionInfo, history: any, chatId: string, chatName?: ?string) => {
+export const goToChatAndUpdateSession = (session: SessionInfo, navigate: string => void, chatId: string, chatName?: ?string) => {
     session.setCurrentLocation({id: chatId, name: chatName});
-    history.push(MainRoutes.chat(chatId));
+    navigate(MainRoutes.chat(chatId));
 };
 
 /**
