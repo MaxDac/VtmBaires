@@ -1,12 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
-import type {AvailablePrivateChatsQuery} from "./__generated__/AvailablePrivateChatsQuery.graphql";
+import type {
+  AvailablePrivateChatsQueryResponse,
+  AvailablePrivateChatsQueryVariables,
+} from "./__generated__/AvailablePrivateChatsQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import {castNotNull} from "../../../_base/utils";
+import { castNotNull, emptyExactObject } from "../../../_base/utils";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const availablePrivateChatsQuery: GraphQLTaggedNode = graphql`
+export const availablePrivateChatsQuery: Query<AvailablePrivateChatsQueryVariables, AvailablePrivateChatsQueryResponse> = graphql`
     query AvailablePrivateChatsQuery {
         availablePrivateChats {
             id
@@ -21,7 +24,7 @@ export type AvailablePrivateChat = {
 };
 
 export const useAvailablePrivateChats = (): Array<AvailablePrivateChat> =>
-    useCustomLazyLoadQuery<AvailablePrivateChatsQuery>(availablePrivateChatsQuery, {}, {
+    useCustomLazyLoadQuery(availablePrivateChatsQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     })
         ?.availablePrivateChats

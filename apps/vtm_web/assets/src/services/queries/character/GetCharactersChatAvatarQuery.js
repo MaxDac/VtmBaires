@@ -1,12 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetCharactersChatAvatarQuery} from "./__generated__/GetCharactersChatAvatarQuery.graphql";
+import type {
+  GetCharactersChatAvatarQueryResponse,
+  GetCharactersChatAvatarQueryVariables,
+} from "./__generated__/GetCharactersChatAvatarQuery.graphql";
 import {toMap} from "../../../_base/utils";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getCharactersChatAvatarQuery: GraphQLTaggedNode = graphql`
+export const getCharactersChatAvatarQuery: Query<GetCharactersChatAvatarQueryVariables, GetCharactersChatAvatarQueryResponse> = graphql`
     query GetCharactersChatAvatarQuery($characterIds: [ID!]) {
         getCharactersChatAvatar(characterIds: $characterIds) {
             character {
@@ -30,7 +33,7 @@ type Avatar = string;
  * @return {?Map<string, string>} A map with the character ids as keys and the chat avatar as value.
  */
 export const useCharactersChatAvatar = (characterIds: Array<string>): ?Map<CharacterId, Avatar> => {
-    const queryAvatars = useCustomLazyLoadQuery<GetCharactersChatAvatarQuery>(getCharactersChatAvatarQuery, {
+    const queryAvatars = useCustomLazyLoadQuery(getCharactersChatAvatarQuery, {
         characterIds
     }, {
         fetchPolicy: "store-or-network"

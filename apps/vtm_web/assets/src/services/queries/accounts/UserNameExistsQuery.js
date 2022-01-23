@@ -1,11 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {wrapQuery} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  UserNameExistsQueryResponse,
+  UserNameExistsQueryVariables,
+} from "./__generated__/UserNameExistsQuery.graphql";
 
-export const userNameExistsQuery: GraphQLTaggedNode = graphql`
+export const userNameExistsQuery: Query<UserNameExistsQueryVariables, UserNameExistsQueryResponse> = graphql`
     query UserNameExistsQuery($name: String!) {
         userNameExists(name: $name)
     }

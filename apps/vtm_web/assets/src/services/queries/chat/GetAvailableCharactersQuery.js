@@ -1,9 +1,14 @@
 // @flow
 
-import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type {
+  GetAvailableCharactersQueryResponse,
+  GetAvailableCharactersQueryVariables,
+} from "./__generated__/GetAvailableCharactersQuery.graphql";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getAvailableCharactersQuery: GraphQLTaggedNode = graphql`
+import graphql from 'babel-plugin-relay/macro';
+
+export const getAvailableCharactersQuery: Query<GetAvailableCharactersQueryVariables, GetAvailableCharactersQueryResponse> = graphql`
     query GetAvailableCharactersQuery {
         privateChatAvailableUsers {
             id

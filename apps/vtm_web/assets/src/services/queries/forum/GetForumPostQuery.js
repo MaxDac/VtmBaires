@@ -1,9 +1,13 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  GetForumPostQueryResponse,
+  GetForumPostQueryVariables,
+} from "./__generated__/GetForumPostQuery.graphql";
 
-export const getForumPostQuery: GraphQLTaggedNode = graphql`
+export const getForumPostQuery: Query<GetForumPostQueryVariables, GetForumPostQueryResponse> = graphql`
     query GetForumPostQuery($id: ID!) {
         getForumPost(id: $id) {
             id

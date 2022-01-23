@@ -1,7 +1,6 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import { attributesDefaultSortFunction } from "./AttributesQuery";
 import type {
@@ -9,13 +8,19 @@ import type {
   AttributeSections,
   AttributeTypeNames,
 } from "./AttributesQuery";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  AttributesSlimQueryResponse,
+  AttributesSlimQueryVariables,
+} from "./__generated__/AttributesSlimQuery.graphql";
+import { emptyExactObject, toNotNullArray } from "../../../_base/utils";
 
-export const attributesSlimQuery: GraphQLTaggedNode = graphql`
+export const attributesSlimQuery: Query<AttributesSlimQueryVariables, AttributesSlimQueryResponse> = graphql`
     query AttributesSlimQuery {
         attributes {
-            id
-            name
-            order
+            id @required(action: LOG)
+            name @required(action: NONE)
+            order @required(action: LOG)
             attributeType {
                 name
                 section
@@ -24,16 +29,22 @@ export const attributesSlimQuery: GraphQLTaggedNode = graphql`
     }
 `;
 
-const useAttributesSlimQuery = (): ?Array<Attribute> => useCustomLazyLoadQuery(attributesSlimQuery, {})
-    ?.attributes
-    ?.map(a => ({
-        id: a?.id ?? "",
-        name: a?.name ?? "",
-        attributeType: {
-            name: ((a?.attributeType?.name ?? "Attribute": any): AttributeTypeNames),
-            section: ((a?.attributeType?.section ?? "Physical": any): AttributeSections)
-        }
-    }))
-    ?.sort((a, b) => attributesDefaultSortFunction(a, b));
+const useAttributesSlimQuery = (): Array<Attribute> => {
+    const attributes = useCustomLazyLoadQuery(attributesSlimQuery, emptyExactObject())?.attributes;
+
+    const mappedAttributes: Array<Attribute> = toNotNullArray(attributes)
+        .map(x => ({
+            id: x.id,
+            name: x.name,
+            order: x.order,
+            attributeType: {
+                name: ((x.attributeType?.name: any): AttributeTypeNames),
+                section: ((x.attributeType?.section: any): AttributeSections)
+            }
+        }));
+
+    return mappedAttributes
+        .sort((a, b) => attributesDefaultSortFunction(a, b));
+};
 
 export default useAttributesSlimQuery;

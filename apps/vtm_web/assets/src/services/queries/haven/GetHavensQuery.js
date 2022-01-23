@@ -1,7 +1,11 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  GetHavensQueryResponse,
+  GetHavensQueryVariables,
+} from "./__generated__/GetHavensQuery.graphql";
 
 export type Haven = {|
     +id: string,
@@ -20,7 +24,7 @@ export type Haven = {|
     |},
 |};
 
-export const getHavensQuery: GraphQLTaggedNode = graphql`
+export const getHavensQuery: Query<GetHavensQueryVariables, GetHavensQueryResponse> = graphql`
     query GetHavensQuery {
         getHavens {
             result {

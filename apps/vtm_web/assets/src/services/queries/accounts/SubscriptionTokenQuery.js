@@ -24,7 +24,7 @@ const useSubscriptionTokenQuery = (): ?string => {
     const refSetToken = useRef(setToken);
 
     useEffect(() => {
-        wrapQuery<string>(environment, subscriptionTokenQuery, {}, r => r?.subscriptionToken)
+        wrapQuery(environment, subscriptionTokenQuery, {}, r => r?.subscriptionToken)
             .then(tkn => refSetToken.current(tkn));
     }, [environment])
 
