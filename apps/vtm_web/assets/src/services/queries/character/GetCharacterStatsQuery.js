@@ -1,13 +1,16 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetCharacterStatsQuery} from "./__generated__/GetCharacterStatsQuery.graphql";
+import type {
+  GetCharacterStatsQueryResponse,
+  GetCharacterStatsQueryVariables,
+} from "./__generated__/GetCharacterStatsQuery.graphql";
 import type { AttributeTypeNames } from "../info/AttributesQuery";
 import { sortStrings } from "../../../_base/info-helpers";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getCharacterStatsQuery: GraphQLTaggedNode = graphql`
+export const getCharacterStatsQuery: Query<GetCharacterStatsQueryVariables, GetCharacterStatsQueryResponse> = graphql`
     query GetCharacterStatsQuery($id: ID!) {
         getCharacterStats(characterId: $id) {
             id
@@ -99,7 +102,7 @@ export type CharacterStats = {|
 
 export const useCharacterStatsQuery = (characterId: string, queryOptions?: any): ?CharacterStats => {
     const s =
-        useCustomLazyLoadQuery<GetCharacterStatsQuery>(getCharacterStatsQuery, {id: characterId}, queryOptions ?? {
+        useCustomLazyLoadQuery(getCharacterStatsQuery, {id: characterId}, queryOptions ?? {
             fetchPolicy: "store-and-network"
         })
             ?.getCharacterStats;

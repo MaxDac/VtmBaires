@@ -2,13 +2,12 @@
 
 import type {ChatEntry} from "../../../services/base-types";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetChatEntriesQuery} from "../../../services/queries/chat/__generated__/GetChatEntriesQuery.graphql";
 import {emptyArray} from "../../../_base/utils";
 import {chatEntriesQuery} from "../../../services/queries/chat/GetChatEntriesQuery";
 import {useChatEntryAvatarQuery} from "./ChatEntryAvatarsHook";
 
 export const useChatEntriesQuery = (mapId: string): Array<ChatEntry> => {
-    return useCustomLazyLoadQuery<GetChatEntriesQuery>(chatEntriesQuery, {mapId}, {
+    return useCustomLazyLoadQuery(chatEntriesQuery, {mapId}, {
         fetchPolicy: "network-only"
     })?.mapChatEntries
         ?.map(e => ({

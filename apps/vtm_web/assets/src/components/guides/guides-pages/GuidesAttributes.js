@@ -3,8 +3,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {AttributesCompleteQuery} from "../../../services/queries/info/__generated__/AttributesCompleteQuery.graphql";
+import {useCustomLazyLoadQueryNoVar} from "../../../_base/relay-utils";
 import {attributesCompleteQuery} from "../../../services/queries/info/AttributesCompleteQuery";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -30,7 +29,7 @@ const GuidesAttributes = (): GenericReactComponent => {
         setValue(newValue);
     };
 
-    const attributes = useCustomLazyLoadQuery<AttributesCompleteQuery>(attributesCompleteQuery, {}, {
+    const attributes = useCustomLazyLoadQueryNoVar(attributesCompleteQuery, {
         fetchPolicy: "store-or-network"
     })?.attributes ?? [];
 

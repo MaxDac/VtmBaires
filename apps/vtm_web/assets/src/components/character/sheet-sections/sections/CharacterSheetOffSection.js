@@ -12,7 +12,7 @@ import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComp
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
-    characterQuery: any
+    characterQuery: CharacterFragments_characterOff$key
 };
 
 const offComponents = {
@@ -24,7 +24,7 @@ const offComponents = {
 };
 
 const CharacterSheetOffSection = ({characterQuery}: Props): GenericReactComponent => {
-    const sheet = useFragment<?CharacterFragments_characterOff$key>(
+    const sheet = useFragment(
         characterOffFragment,
         characterQuery);
 

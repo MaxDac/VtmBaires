@@ -44,6 +44,16 @@ export const toArray = <T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<?T> => {
     return emptyArray<?T>();
 };
 
+/**
+ * Returns an array with null filtered values from the a read-only array.
+ * @param readOnlyArray The read only array.
+ * @return {Array<T>} The array without nulls.
+ */
+export const toNullFilteredArray = <T>(readOnlyArray: ?$ReadOnlyArray<?T>): Array<T> => 
+    toArray(readOnlyArray)
+        .filter(c => c != null)
+        .map(castNotNull);
+
 export const uniques = <T>(arr: Array<T>): Array<T> => [...new Set(arr)];
 
 export const toMap = <TKey, TValue>(arr: ?Array<?[?TKey, ?TValue]>): ?Map<TKey, TValue> =>
@@ -90,6 +100,15 @@ export const firstOrDefault = <T>(a: ?Array<T>): ?T => {
 };
 
 export const castNotNull = <T>(item: ?T): T => ((item: any): T);
+
+/**
+ * Returns an empty exact object that will satisfy flow
+ * @return {{}} An empty exact object.
+ */
+export const emptyExactObject = (): {||} => {
+    // $FlowFixMe
+    return {};
+};
 
 /**
  * Tries to cast the given item to one type.

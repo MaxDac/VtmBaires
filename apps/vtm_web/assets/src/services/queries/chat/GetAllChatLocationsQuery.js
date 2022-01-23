@@ -1,9 +1,14 @@
 // @flow
 
-import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type {
+  GetAllChatLocationsQueryResponse,
+  GetAllChatLocationsQueryVariables,
+} from "./__generated__/GetAllChatLocationsQuery.graphql";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getAllChatLocationsQuery: GraphQLTaggedNode = graphql`
+import graphql from 'babel-plugin-relay/macro';
+
+export const getAllChatLocationsQuery: Query<GetAllChatLocationsQueryVariables, GetAllChatLocationsQueryResponse> = graphql`
     query GetAllChatLocationsQuery {
         allChatLocations {
             id

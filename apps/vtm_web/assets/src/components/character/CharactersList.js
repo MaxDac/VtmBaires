@@ -1,17 +1,20 @@
 // @flow
 
 import React from "react";
-import {useForceReloadFirstQuery} from "../../_base/relay-utils";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
-import type {AllCharactersQuery} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
 import ShowCharactersComponent from "./ShowCharactersComponent";
-import { filterNulls, toArray } from "../../_base/utils";
+import {
+  emptyExactObject,
+  toNotNullArray,
+} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
+import { useCustomLazyLoadQuery } from "../../_base/relay-utils";
 
 const CharactersList = (): GenericReactComponent => {
-    const characters = filterNulls(toArray(
-        useForceReloadFirstQuery<AllCharactersQuery>(allCharactersQuery, {})
-            ?.charactersList));
+    const characters = toNotNullArray(
+        useCustomLazyLoadQuery(allCharactersQuery, emptyExactObject(), {
+            fetchPolicy: "store-and-network"
+        })?.charactersList);
 
     const showComponent = () => {
         if (characters != null) {

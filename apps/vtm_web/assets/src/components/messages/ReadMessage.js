@@ -3,7 +3,6 @@
 import React, {useContext, useEffect} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
-import type {GetMessageQuery} from "../../services/queries/messages/__generated__/GetMessageQuery.graphql";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -33,7 +32,7 @@ const ReadMessage = ({messageId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const {openDialog, showUserNotification} = useContext(UtilityContext);
 
-    const message = useCustomLazyLoadQuery<GetMessageQuery>(getMessageQuery, {messageId})?.getMessage;
+    const message = useCustomLazyLoadQuery(getMessageQuery, {messageId})?.getMessage;
 
     useEffect(() => {
         if (message?.id != null && !message.read) {

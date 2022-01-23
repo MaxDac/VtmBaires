@@ -1,12 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetAllNpcsQuery} from "./__generated__/GetAllNpcsQuery.graphql";
-import { emptyArray } from "../../../_base/utils";
+import type {
+  GetAllNpcsQueryResponse,
+  GetAllNpcsQueryVariables,
+} from "./__generated__/GetAllNpcsQuery.graphql";
+import { emptyArray, emptyExactObject } from "../../../_base/utils";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getAllNpcsQuery: GraphQLTaggedNode = graphql`
+export const getAllNpcsQuery: Query<GetAllNpcsQueryVariables, GetAllNpcsQueryResponse> = graphql`
     query GetAllNpcsQuery {
         allNpcs {
             id
@@ -34,7 +37,7 @@ export type Npc = {
 };
 
 export const useNpcsQuery = (reloadCount: number): Array<Npc> =>
-    useCustomLazyLoadQuery<GetAllNpcsQuery>(getAllNpcsQuery, {}, {
+    useCustomLazyLoadQuery(getAllNpcsQuery, emptyExactObject(), {
         fetchPolicy: "store-and-network",
         fetchKey: reloadCount
     })?.allNpcs?.map(n => ({

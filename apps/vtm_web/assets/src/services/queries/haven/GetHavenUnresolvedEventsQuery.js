@@ -1,9 +1,13 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  GetHavenUnresolvedEventsQueryResponse,
+  GetHavenUnresolvedEventsQueryVariables,
+} from "./__generated__/GetHavenUnresolvedEventsQuery.graphql";
 
-export const getHavenUnresolvedEventsQuery: GraphQLTaggedNode = graphql`
+export const getHavenUnresolvedEventsQuery: Query<GetHavenUnresolvedEventsQueryVariables, GetHavenUnresolvedEventsQueryResponse> = graphql`
     query GetHavenUnresolvedEventsQuery {
         getUnresolvedEvents {
             result {

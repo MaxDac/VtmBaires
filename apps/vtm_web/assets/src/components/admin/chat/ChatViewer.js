@@ -11,7 +11,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {getAllChatLocationsQuery} from "../../../services/queries/chat/GetAllChatLocationsQuery";
-import type {GetAllChatLocationsQuery} from "../../../services/queries/chat/__generated__/GetAllChatLocationsQuery.graphql";
+import type {
+  GetAllChatLocationsQueryResponse,
+  GetAllChatLocationsQueryVariables,
+} from "../../../services/queries/chat/__generated__/GetAllChatLocationsQuery.graphql";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,11 +22,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import type {GetAdminChatEntriesQuery} from "../../../services/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
+import type {
+  GetAdminChatEntriesQueryResponse,
+  GetAdminChatEntriesQueryVariables,
+} from "../../../services/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
 import {getAdminChatEntriesQuery} from "../../../services/queries/chat/GetAdminChatEntriesQuery";
 import {yesterday, defaultFormatDateAndTimeForControl, parseISO} from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
 import type {GenericReactComponent} from "../../../_base/types";
+import { emptyExactObject } from "../../../_base/utils";
 
 type ChatViewerInternalProps = {
     from: any,
@@ -32,63 +39,8 @@ type ChatViewerInternalProps = {
     fetchKey: number
 }
 
-const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps) => {
-    const entries = useCustomLazyLoadQuery<GetAdminChatEntriesQuery>(getAdminChatEntriesQuery, {
-        mapId: mapId, 
-        fromDate: from, 
-        toDate: to
-    }, {
-        fetchPolicy: "network-only",
-        fetchKey: fetchKey
-    });
-
-    const rows = () => entries
-        ?.mapAdminChatEntries
-        ?.map(entry => (
-            <TableRow key={entry?.id}
-                      sx={{
-                          '&:last-child td, &:last-child th': {
-                              border: 0
-                          }
-                      }}>
-                <TableCell component="th" scope="row" sx={{verticalAlign: "top"}}>
-                    <ParsedText text={entry?.insertedAt} internalDivSx={{
-                        fontSize: "0.9rem"
-                    }} />
-                </TableCell>
-                <TableCell sx={{verticalAlign: "top"}}>
-                    <ParsedText text={entry?.character?.name} internalDivSx={{
-                        fontSize: "0.9rem"
-                    }} />
-                </TableCell>
-                <TableCell>
-                    <ParsedText text={entry?.text ?? entry?.result} internalDivSx={{
-                        fontSize: "0.9rem"
-                    }} />
-                </TableCell>
-            </TableRow>
-        ));
-
-    return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="chat-logs">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Ora</TableCell>
-                        <TableCell>Personaggio</TableCell>
-                        <TableCell>Testo</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows()}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
-};
-
 const ChatViewer = (): GenericReactComponent => {
-    const chatRooms = useCustomLazyLoadQuery<GetAllChatLocationsQuery>(getAllChatLocationsQuery, {})
+    const chatRooms = useCustomLazyLoadQuery(getAllChatLocationsQuery, emptyExactObject())
         ?.allChatLocations;
 
     const [from, setFrom] = useState(yesterday(new Date()));
@@ -183,6 +135,61 @@ const ChatViewer = (): GenericReactComponent => {
                 </Grid>
             </Grid>
         </LocalizationProvider>
+    );
+};
+
+const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps) => {
+    const entries = useCustomLazyLoadQuery(getAdminChatEntriesQuery, {
+        mapId: mapId, 
+        fromDate: from, 
+        toDate: to
+    }, {
+        fetchPolicy: "network-only",
+        fetchKey: fetchKey
+    });
+
+    const rows = () => entries
+        ?.mapAdminChatEntries
+        ?.map(entry => (
+            <TableRow key={entry?.id}
+                      sx={{
+                          '&:last-child td, &:last-child th': {
+                              border: 0
+                          }
+                      }}>
+                <TableCell component="th" scope="row" sx={{verticalAlign: "top"}}>
+                    <ParsedText text={entry?.insertedAt} internalDivSx={{
+                        fontSize: "0.9rem"
+                    }} />
+                </TableCell>
+                <TableCell sx={{verticalAlign: "top"}}>
+                    <ParsedText text={entry?.character?.name} internalDivSx={{
+                        fontSize: "0.9rem"
+                    }} />
+                </TableCell>
+                <TableCell>
+                    <ParsedText text={entry?.text ?? entry?.result} internalDivSx={{
+                        fontSize: "0.9rem"
+                    }} />
+                </TableCell>
+            </TableRow>
+        ));
+
+    return (
+        <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} size="small" aria-label="chat-logs">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Ora</TableCell>
+                        <TableCell>Personaggio</TableCell>
+                        <TableCell>Testo</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows()}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 

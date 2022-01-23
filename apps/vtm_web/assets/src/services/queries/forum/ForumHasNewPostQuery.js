@@ -1,11 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {ForumHasNewPostQuery as Query} from "./__generated__/ForumHasNewPostQuery.graphql";
+import type {
+  ForumHasNewPostQueryResponse,
+  ForumHasNewPostQueryVariables,
+} from "./__generated__/ForumHasNewPostQuery.graphql";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import { emptyExactObject } from "../../../_base/utils";
 
-export const ForumHasNewPostQuery: GraphQLTaggedNode = graphql`
+export const ForumHasNewPostQuery: Query<ForumHasNewPostQueryVariables, ForumHasNewPostQueryResponse> = graphql`
     query ForumHasNewPostQuery {
         getForumSections {
             hasNewPosts
@@ -18,6 +22,6 @@ export const ForumHasNewPostQuery: GraphQLTaggedNode = graphql`
  * @return {boolean} True if the forum has new messages, False otherwise.
  */
 export const useForumHasNewPosts = (): boolean =>
-    useCustomLazyLoadQuery<Query>(ForumHasNewPostQuery, {}, {
+    useCustomLazyLoadQuery(ForumHasNewPostQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     })?.getForumSections?.some(x => x?.hasNewPosts === true) ?? false;

@@ -1,9 +1,13 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  UserSentMessagesQueryResponse,
+  UserSentMessagesQueryVariables,
+} from "./__generated__/UserSentMessagesQuery.graphql";
 
-export const userSentMessagesQuery: GraphQLTaggedNode = graphql`
+export const userSentMessagesQuery: Query<UserSentMessagesQueryVariables, UserSentMessagesQueryResponse> = graphql`
     query UserSentMessagesQuery {
         me {
             sentMessages {

@@ -11,7 +11,6 @@ import FormTextField from "../../../_base/components/FormTextField";
 import FormFileDropField from "../../../_base/components/FormFileDropField";
 import Button from "@mui/material/Button";
 import type {CharacterCreationRequest} from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
-import type {CreationClansQuery} from "../../../services/queries/info/__generated__/CreationClansQuery.graphql";
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
@@ -95,7 +94,7 @@ const CharacterInfoFormValidationSchema = object().shape({
 
 const CharacterInfoForm = ({onSubmit}: Props): GenericReactComponent => {
     const classes = useStyles();
-    const clans = useCustomLazyLoadQuery<CreationClansQuery>(creationClansQuery, {})?.creationClans;
+    const clans = useCustomLazyLoadQuery(creationClansQuery, {})?.creationClans;
 
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
 

@@ -12,8 +12,29 @@ import {mainFontFamily} from "../../../Main.Layout.Style";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
-    characterQuery: any
+    characterQuery: CharacterFragments_characterState$key
 };
+
+const CharacterSheetOthersSection = ({characterQuery}: Props): GenericReactComponent => {
+    const sheet = useFragment(
+        characterStateFragment,
+        characterQuery);
+
+    return (
+        <>
+            <Clan sheet={sheet} />
+            <Experience sheet={sheet} />
+            <PredatorType sheet={sheet} />
+            <Biography sheet={sheet} />
+            <DisciplinePowers sheet={sheet} />
+            <Specialties sheet={sheet} />
+            <Advantages sheet={sheet} />
+            <Convictions sheet={sheet} />
+            <Objects sheet={sheet} />
+            <Notes sheet={sheet} />
+        </>
+    );
+}
 
 const sectionTitleStyle = {
     fontFamily: 'DefaultTypewriter',
@@ -135,26 +156,5 @@ const Notes = ({sheet}) => (
         marginBottom: "10px"
     }} />
 );
-
-const CharacterSheetOthersSection = ({characterQuery}: Props): GenericReactComponent => {
-    const sheet = useFragment<?CharacterFragments_characterState$key>(
-        characterStateFragment,
-        characterQuery);
-
-    return (
-        <>
-            <Clan sheet={sheet} />
-            <Experience sheet={sheet} />
-            <PredatorType sheet={sheet} />
-            <Biography sheet={sheet} />
-            <DisciplinePowers sheet={sheet} />
-            <Specialties sheet={sheet} />
-            <Advantages sheet={sheet} />
-            <Convictions sheet={sheet} />
-            <Objects sheet={sheet} />
-            <Notes sheet={sheet} />
-        </>
-    );
-}
 
 export default CharacterSheetOthersSection;

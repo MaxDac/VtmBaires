@@ -1,11 +1,15 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
-import type {GetForumSectionsQuery, GetForumSectionsQueryResponse} from "./__generated__/GetForumSectionsQuery.graphql";
+import type {
+  GetForumSectionsQueryResponse,
+  GetForumSectionsQueryVariables,
+} from "./__generated__/GetForumSectionsQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import { emptyExactObject } from "../../../_base/utils";
 
-export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
+export const getForumSectionsQuery: Query<GetForumSectionsQueryVariables, GetForumSectionsQueryResponse> = graphql`
     query GetForumSectionsQuery {
         getForumSections {
             section {
@@ -29,7 +33,7 @@ export const getForumSectionsQuery: GraphQLTaggedNode = graphql`
 `;
 
 const useForumSections = (): GetForumSectionsQueryResponse =>
-    useCustomLazyLoadQuery<GetForumSectionsQuery>(getForumSectionsQuery, {}, {
+    useCustomLazyLoadQuery(getForumSectionsQuery, emptyExactObject(), {
         // store and network for checking new messages notifications
         fetchPolicy: "store-and-network"
     });

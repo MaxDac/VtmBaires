@@ -5,10 +5,7 @@ import {Observable} from "relay-runtime";
 import type {
     CacheConfig,
     FetchPolicy,
-    GraphQLTaggedNode,
-    OperationType,
     RenderPolicy,
-    VariablesOf,
     IEnvironment
 } from "relay-runtime";
 import type {Sink} from "relay-runtime/network/RelayObservable";
@@ -20,6 +17,8 @@ import {
     fetchQuery,
     requestSubscription, useLazyLoadQuery
 } from "react-relay";
+import type { Query, Variables } from "relay-runtime/util/RelayRuntimeTypes";
+import { emptyExactObject } from "./utils";
 
 export type GraphqlErrorLocation = {
     column: number;
@@ -64,7 +63,11 @@ const parseResponse = <T>(res: T => void, rej: any => void, extractor?: any => T
     };
 }
 
-export const wrapQuery = <T>(environment: IEnvironment, operation: GraphQLTaggedNode, variables: any, extractor?: any => T): Promise<T> => {
+export const wrapQuery = <TVariables: Variables, TData, TResult>(
+    environment: IEnvironment, 
+    operation: Query<TVariables, TData>, 
+    variables: TVariables, 
+    extractor?: TData => TResult): Promise<TResult> => {
     return new Promise((res, rej) => {
         fetchQuery(
             environment,
@@ -171,30 +174,32 @@ export const convertToJavascriptArray = <T>(arr: ?$ReadOnlyArray<T>): T[] => {
  * @param options The call options.
  * @return {*} The query response.
  */
-export const useCustomLazyLoadQuery = <TQuery: OperationType>(
-    gqlQuery: GraphQLTaggedNode,
-    variables: VariablesOf<TQuery>,
+export const useCustomLazyLoadQuery = <TVariables: Variables, TData>(
+    gqlQuery: Query<TVariables, TData>,
+    variables: TVariables,
     options?: {|
         fetchKey?: string | number,
         fetchPolicy?: FetchPolicy,
         networkCacheConfig?: CacheConfig,
         UNSTABLE_renderPolicy?: RenderPolicy,
     |},
-): $ElementType<TQuery, 'response'> =>
+): TData =>
     useLazyLoadQuery(gqlQuery, variables, options);
 
-export const useStoreFirstQuery = <TQuery: OperationType>(
-    gqlQuery: GraphQLTaggedNode,
-    variables: VariablesOf<TQuery>
-): $ElementType<TQuery, 'response'> =>
-    useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
-        fetchPolicy: "store-or-network"
-    });
-
-export const useForceReloadFirstQuery = <TQuery: OperationType>(
-    gqlQuery: GraphQLTaggedNode,
-    variables: VariablesOf<TQuery>
-): $ElementType<TQuery, 'response'> =>
-    useCustomLazyLoadQuery<TQuery>(gqlQuery, variables, {
-        fetchPolicy: "store-and-network"
-    });
+/**
+ * Custom implementation of the Relay lazy load query for queries without input parameters.
+ * @param gqlQuery The GraphQL query.
+ * @param options The call options.
+ * @return {*} The query response.
+ */
+export const useCustomLazyLoadQueryNoVar = <TData>(
+    gqlQuery: Query<{||}, TData>,
+    options?: {|
+        fetchKey?: string | number,
+        fetchPolicy?: FetchPolicy,
+        networkCacheConfig?: CacheConfig,
+        UNSTABLE_renderPolicy?: RenderPolicy,
+    |},
+): TData =>
+    useLazyLoadQuery(gqlQuery, emptyExactObject(), options);
+    

@@ -1,16 +1,21 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type { GraphQLTaggedNode } from "relay-runtime/query/GraphQLTag";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  UserCharactersQuery$data,
+  UserCharactersQueryVariables,
+} from "./__generated__/UserCharactersQuery.graphql";
+import {castNotNull, emptyExactObject, toArray} from "../../../_base/utils";
 
-export const userCharactersQuery: GraphQLTaggedNode = graphql`
+export const userCharactersQuery: Query<UserCharactersQueryVariables, UserCharactersQuery$data> = graphql`
     query UserCharactersQuery {
         me {
             userCharacters {
-                id
+                id @required(action: NONE)
                 name
-                stage
+                stage @required(action: NONE)
                 approved
                 isComplete
                 clan {
@@ -22,21 +27,29 @@ export const userCharactersQuery: GraphQLTaggedNode = graphql`
 `;
 
 export type UserCharacter = {
-    id: string;
-    name: string;
-    stage: number;
-    approved: boolean;
-    isComplete: boolean;
-    chatAvatar?: ?string;
-    clan: {
-        name: string;
-    }
+    +id: string,
+    +name: ?string,
+    chatAvatar?: ?string,
+    +stage: number,
+    +approved: ?boolean,
+    +isComplete: ?boolean,
+    +clan: ?{|
+      +name: ?string,
+    |},
 }
 
-export const useUserCharactersQuery = (reloadCount?: number): Array<UserCharacter> =>
-    useCustomLazyLoadQuery(userCharactersQuery, {}, {
+export const useUserCharactersQuery = (reloadCount?: number): Array<UserCharacter> => {
+    const result = useCustomLazyLoadQuery(userCharactersQuery, emptyExactObject(), {
         fetchPolicy: "store-and-network",
         fetchKey: reloadCount ?? 0
     })
         ?.me
-        ?.userCharacters ?? [];
+        ?.userCharacters;
+
+    return (toArray(result) ?? [])
+        .filter(c => c != null)
+        .map(castNotNull)
+        .map(x => ({
+            ...x
+        }));
+};

@@ -8,7 +8,6 @@ import {MainRoutes} from "../MainRouter";
 import MainMapWide from './MainMapWide';
 import {useMediaQuery, useTheme} from '@mui/material';
 import MainMapResponsive from './MainMapResponsive';
-import type {MainMapsQuery} from "../../services/queries/map/__generated__/MainMapsQuery.graphql";
 import {useRelayEnvironment} from "react-relay";
 import ResetSessionMapMutation from "../../services/mutations/sessions/ResetSessionMapMutation";
 import type {GenericReactComponent} from "../../_base/types";
@@ -17,7 +16,7 @@ const MainMap = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
     const history = useHistory();
-    const ret = useCustomLazyLoadQuery<MainMapsQuery>(mainMapsQuery, {});
+    const ret = useCustomLazyLoadQuery(mainMapsQuery, {});
     const maps = convert(ret);
     const showResponsive = useMediaQuery(theme.breakpoints.down('sm'));
 

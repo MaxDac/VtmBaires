@@ -6,7 +6,8 @@ import {useCharacterProviderId} from "./character-providers-types";
 import RemoteCharacterProvider from "./RemoteCharacterProvider";
 import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
 import type {
-    GetCharacterQuery
+  GetCharacterQueryResponse,
+  GetCharacterQueryVariables,
 } from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {randomFetchKey} from "../../_base/utils";
@@ -28,7 +29,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey
     };
 
     const character =
-        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, { id: characterId }, policy)
+        useCustomLazyLoadQuery(getCharacterQuery, { id: characterId }, policy)
             ?.getCharacter;
 
     if (character?.id != null) {

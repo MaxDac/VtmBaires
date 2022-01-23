@@ -17,7 +17,7 @@ import type { CharacterFragments_characterConcealedInfo } from "../../../service
 import TextField from "@mui/material/TextField";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
+type Props = {|
     characterInfo: CharacterFragments_characterConcealedInfo;
     classes: any;
     onFirstDisciplineChange?: ?(Event) => void;
@@ -29,23 +29,32 @@ type Props = {
     firstError?: boolean;
     secondError?: boolean;
     disciplinePowersErrors?: boolean;
-}
+|};
 
-const DisciplinesControl = ({
-                                characterInfo,
-                                classes,
-                                onFirstDisciplineChange,
-                                onSecondDisciplineChange,
-                                onDisciplinePowersChange,
-                                firstDiscipline,
-                                secondDiscipline,
-                                disciplinePowers,
-                                firstError,
-                                secondError,
-                                disciplinePowersErrors
-}: Props): GenericReactComponent => {
+const DisciplinesControl = (props: Props): GenericReactComponent => {
+    if (props.characterInfo.clan?.id != null) {
+        return (<DisciplinesControlInternal clanId={props.characterInfo.clan?.id} {...props} />);
+    }
+
+    return (<></>);
+};
+
+const DisciplinesControlInternal = ({
+    clanId,
+    characterInfo,
+    classes,
+    onFirstDisciplineChange,
+    onSecondDisciplineChange,
+    onDisciplinePowersChange,
+    firstDiscipline,
+    secondDiscipline,
+    disciplinePowers,
+    firstError,
+    secondError,
+    disciplinePowersErrors
+}) => {
     const { clanDisciplines }: ClanDisciplinesQueryResponse =
-        useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: characterInfo.clan?.id });
+        useCustomLazyLoadQuery(clanDisciplinesQuery, { clanId: clanId });
 
     const showDisciplines = () => {
         const options = [<MenuItem key="None" value=" ">None</MenuItem>];
@@ -134,6 +143,6 @@ const DisciplinesControl = ({
     }
 
     return disciplineSelector();
-}
+};
 
 export default DisciplinesControl;

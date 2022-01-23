@@ -10,7 +10,6 @@ import { MainRoutes } from "../../MainRouter";
 import ThreadForm from "./ThreadForm";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {getForumThreadQuery} from "../../../services/queries/forum/GetForumThreadQuery";
-import type {GetForumThreadQuery} from "../../../services/queries/forum/__generated__/GetForumThreadQuery.graphql";
 import ModifyThreadMutation from "../../../services/mutations/forum/ModifyThreadMutation";
 import { handleMutation } from "../../../_base/utils";
 import type {GenericReactComponent} from "../../../_base/types";
@@ -29,7 +28,7 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const {showUserNotification} = useContext(UtilityContext);
-    const thread = useCustomLazyLoadQuery<GetForumThreadQuery>(getForumThreadQuery, {
+    const thread = useCustomLazyLoadQuery(getForumThreadQuery, {
         forumThreadId: threadId
     })?.getForumThread;
 

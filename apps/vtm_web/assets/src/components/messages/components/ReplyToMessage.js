@@ -2,7 +2,6 @@
 
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetMessageQuery} from "../../../services/queries/messages/__generated__/GetMessageQuery.graphql";
 import {getMessageQuery} from "../../../services/queries/messages/GetMessageQuery";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -19,7 +18,7 @@ type Props = {
 }
 
 const ReplyToMessage = ({messageId, onSubmit, toUserId}: Props): GenericReactComponent => {
-    const message = useCustomLazyLoadQuery<GetMessageQuery>(
+    const message = useCustomLazyLoadQuery(
         getMessageQuery,
         {messageId: messageId},
         {

@@ -4,7 +4,6 @@ import React, {Suspense, useContext, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userSentMessagesQuery} from "../../services/queries/messages/UserSentMessagesQuery";
 import List from "@mui/material/List";
-import type {UserSentMessagesQuery} from "../../services/queries/messages/__generated__/UserSentMessagesQuery.graphql";
 import MessageListItem from "./components/MessageListItem";
 import Button from "@mui/material/Button";
 import {MainRoutes} from "../MainRouter";
@@ -22,7 +21,7 @@ const SentMessages = (): GenericReactComponent => {
     const {openDialog, showUserNotification} = useContext(UtilityContext);
     const [fetchKey, setFetchKey] = useState(0);
 
-    const messages = useCustomLazyLoadQuery<UserSentMessagesQuery>(userSentMessagesQuery, {}, {
+    const messages = useCustomLazyLoadQuery(userSentMessagesQuery, {}, {
         fetchPolicy: "store-and-network",
         fetchKey: fetchKey
     });

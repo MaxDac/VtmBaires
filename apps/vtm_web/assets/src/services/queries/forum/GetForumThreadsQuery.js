@@ -1,9 +1,13 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {
+  GetForumThreadsQueryResponse,
+  GetForumThreadsQueryVariables,
+} from "./__generated__/GetForumThreadsQuery.graphql";
 
-export const getForumThreadsQuery: GraphQLTaggedNode = graphql`
+export const getForumThreadsQuery: Query<GetForumThreadsQueryVariables, GetForumThreadsQueryResponse> = graphql`
     query GetForumThreadsQuery($forumSectionId: ID!, $pageSize: Int!, $page: Int!) {
         getForumThreads(forumSectionId: $forumSectionId, pageSize: $pageSize, page: $page) {
             threadCount

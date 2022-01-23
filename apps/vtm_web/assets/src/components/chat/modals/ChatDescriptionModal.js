@@ -2,7 +2,6 @@
 
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetCharacterDescriptionQuery} from "../../../services/queries/character/__generated__/GetCharacterDescriptionQuery.graphql";
 import {getCharacterDescriptionQuery} from "../../../services/queries/character/GetCharacterDescriptionQuery";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -23,7 +22,7 @@ type Props = {
 
 const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): GenericReactComponent => {
     const characterInfo =
-        useCustomLazyLoadQuery<GetCharacterDescriptionQuery>(getCharacterDescriptionQuery, {id: characterId})
+        useCustomLazyLoadQuery(getCharacterDescriptionQuery, {id: characterId})
             ?.getCharacterDescription;
 
     return (

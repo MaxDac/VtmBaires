@@ -7,12 +7,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {baseMenuItems, handleMutation} from "../../../../_base/utils";
+import {
+  baseMenuItems,
+  emptyExactObject,
+  handleMutation,
+} from "../../../../_base/utils";
 import Button from "@mui/material/Button";
 import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import ChangeCharacterOtherStatsMutation from "../../../../services/mutations/admin/ChangeCharacterOtherStatsMutation";
-import type {PredatorTypesQuery} from "../../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
+import type {
+  PredatorTypesQueryResponse,
+  PredatorTypesQueryVariables,
+} from "../../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import {predatorTypesQuery} from "../../../../services/queries/info/PredatorTypesQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
@@ -25,7 +32,7 @@ type Props = {
 const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const predatorTypes = useCustomLazyLoadQuery<PredatorTypesQuery>(predatorTypesQuery, {})
+    const predatorTypes = useCustomLazyLoadQuery(predatorTypesQuery, emptyExactObject())
         ?.predatorTypes;
 
     const [willpower, setWillpower] = useState(character?.willpower ?? 0);

@@ -10,7 +10,6 @@ import type { AttributeTypeNames } from "../../../services/queries/info/Attribut
 import type {CharacterAttributeRequest} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
 import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
 import useAttributesQuery from "../../../services/queries/info/AttributesQuery";
-import type {GetCharacterStageQuery} from "../../../services/queries/character/__generated__/GetCharacterStageQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
 import {UtilityContext} from "../../../contexts";
@@ -34,7 +33,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
     const environment = useRelayEnvironment();
     const { showUserNotification } = useContext(UtilityContext);
 
-    const character = useCustomLazyLoadQuery<GetCharacterStageQuery>(getCharacterStageQuery, {
+    const character = useCustomLazyLoadQuery(getCharacterStageQuery, {
         id: props.characterId
     }, {fetchPolicy: "network-only"})?.getCharacter;
     const data = useAttributesQuery();
@@ -50,9 +49,9 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
     const selectFields = () => {
         const attrs = data
-            ?.filter(({ attributeType: { name } }) => name === props.attributeTypeName)
+            ?.filter(({ attributeType: { name } = {} }) => name === props.attributeTypeName)
             ?.sort((a, b) => sortAttributes(props.attributeTypeName)(a, b))
-            ?.map(({ id, name, attributeType: { section: group } }) => [translateAttributeSection(group), String(id), name])
+            ?.map(({ id, name, attributeType: { section: group } = {} }) => [translateAttributeSection(group ?? ""), String(id), name])
             ?? [];
 
         return [["", "", "None"]].concat(attrs);

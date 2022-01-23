@@ -22,13 +22,13 @@ export type RefreshedQueryOption = {
 
 type Props = {
     characterId: string;
-    characterQuery: any;
+    characterQuery: CharacterFragments_characterStats$key;
     queryOptions?: ?RefreshedQueryOption;
     hideAttributes?: boolean;
     hideAbilities?: boolean;
     hideAdvantages?: boolean;
     hideStatus?: boolean;
-}
+};
 
 export const sectionStyle = {
     fontFamily: 'DefaultTypewriter',
@@ -41,7 +41,7 @@ export const sectionStyle = {
 
 const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
                                         hideAttributes, hideAbilities, hideAdvantages, hideStatus}: Props): GenericReactComponent => {
-    const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
+    const sheet: any = useFragment(
         characterStatsFragment,
         characterQuery);
 
@@ -86,7 +86,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
         }
 
         return (<></>);
-    }
+    };
 
     const renderAbilities = () => {
         if (showAbilities) {
@@ -117,7 +117,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
         }
 
         return (<></>);
-    }
+    };
 
     const hasDisciplines = () => (stats?.disciplines?.length ?? 0) > 0;
 
@@ -146,7 +146,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
         }
 
         return (<></>);
-    }
+    };
 
     const advantages = () =>
         stats?.advantages
@@ -175,7 +175,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
         }
 
         return (<></>);
-    }
+    };
 
     const renderStatus = () => {
         if (showStatus) {
@@ -192,7 +192,7 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
         }
 
         return (<></>);
-    }
+    };
 
     const responsiveProperties = {
         xs: 12,
@@ -217,6 +217,6 @@ const CharacterSheetStatsSection = ({characterId, characterQuery, queryOptions,
             </Grid>
         </>
     );
-}
+};
 
 export default CharacterSheetStatsSection;

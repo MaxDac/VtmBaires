@@ -5,7 +5,6 @@ import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {DefaultPageSize} from "./ForumThread";
 import ForumPostLayout from "./layout/ForumPostLayout";
 import ForumPostWithAvatar from "./layout/ForumPostWithAvatar";
-import type {GetForumThreadPostsQuery} from "../../services/queries/forum/__generated__/GetForumThreadPostsQuery.graphql";
 import {getForumThreadPostsQuery} from "../../services/queries/forum/GetForumThreadPostsQuery";
 import type {GenericReactComponent} from "../../_base/types";
 
@@ -21,7 +20,7 @@ const ForumThreadPage = ({threadId, page}: Props): GenericReactComponent => {
         setPostFetchKey(p => p + 1);
     }
 
-    const posts = useCustomLazyLoadQuery<GetForumThreadPostsQuery>(getForumThreadPostsQuery, {
+    const posts = useCustomLazyLoadQuery(getForumThreadPostsQuery, {
         forumThreadId: threadId,
         pageSize: DefaultPageSize,
         page: page

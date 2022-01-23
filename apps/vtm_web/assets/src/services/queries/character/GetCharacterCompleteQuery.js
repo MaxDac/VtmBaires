@@ -1,10 +1,14 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
+import type {
+  GetCharacterCompleteQuery$variables,
+  GetCharacterCompleteQueryResponse,
+} from "./__generated__/GetCharacterCompleteQuery.graphql";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
-export const getCharacterCompleteQuery: GraphQLTaggedNode = graphql`
+export const getCharacterCompleteQuery: Query<GetCharacterCompleteQuery$variables, GetCharacterCompleteQueryResponse> = graphql`
     query GetCharacterCompleteQuery($id: ID!) {
         getCharacter(id: $id) {
             ...CharacterFragments_characterInfo @relay(mask: false)
@@ -19,12 +23,16 @@ export const getCharacterCompleteQuery: GraphQLTaggedNode = graphql`
 export type Character = {|
     +id: string,
     +name: ?string,
-    +chatAvatar: ?string,
+    +isNpc: ?boolean,
+    +biography: ?string,
+    +disciplinePowers: ?string,
+    +specialties: ?string,
+    +objects: ?string,
     +clan: ?{|
         +id: string,
         +name: ?string,
     |},
-    +biography: ?string,
+    +avatar: ?string,
     +description: ?string,
     +humanity: ?number,
     +experience: ?number,
@@ -36,37 +44,26 @@ export type Character = {|
     +aggravatedDamage: ?number,
     +willpower: ?number,
     +willpowerDamage: ?number,
-    +stage: ?number,
     +stains: ?number,
-    +approved: ?boolean,
-    +isComplete: ?boolean,
-    +isNpc: ?boolean,
-    +advantages: ?string,
-    +notes: ?string,
-    +convictions: ?string,
-    +disciplinePowers: ?string,
-    +specialties: ?string,
-    +objects: ?string,
+    +bloodPotency: ?number,
+    +isAwake: ?boolean,
+    +lastAwake: ?any,
     +lastHunt: ?any,
     +huntDifficulty: ?number,
     +lastResonance: ?string,
     +lastResonanceIntensity: ?number,
-    +bloodPotency: ?number,
+    +stage: ?number,
+    +approved: ?boolean,
+    +isComplete: ?boolean,
+    +advantages: ?string,
+    +notes: ?string,
+    +convictions: ?string,
     +predatorType: ?{|
-      +id: string,
-      +name: ?string,
-    |}
+        +id: string,
+        +name: ?string,
+    |},
 |};
 
 export const useCharacterCompleteQuery = (characterId: string): ?Character => {
     return useCustomLazyLoadQuery(getCharacterCompleteQuery, { id: characterId })?.getCharacter;
-}
-
-// const queryPromise = (characterId: Id): Promise<Character> => {
-//     return wrapQueryAuthorized<{ getCharacter: Character }>(query, {
-//         id: characterId
-//     })
-//         .then(x => x.getCharacter);
-// };
-//
-// export default queryPromise;
+};

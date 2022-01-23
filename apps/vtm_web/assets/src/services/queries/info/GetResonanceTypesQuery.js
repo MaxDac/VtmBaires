@@ -1,14 +1,21 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type {GraphQLTaggedNode} from "relay-runtime";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {GetResonanceTypesQuery} from "./__generated__/GetResonanceTypesQuery.graphql";
-import {castNotNull, isNotNullNorEmpty} from "../../../_base/utils";
+import type {
+  GetResonanceTypesQueryResponse,
+  GetResonanceTypesQueryVariables,
+} from "./__generated__/GetResonanceTypesQuery.graphql";
+import {
+  castNotNull,
+  emptyExactObject,
+  isNotNullNorEmpty,
+} from "../../../_base/utils";
+import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
 
 export type ResonanceType = string
 
-export const getResonanceTypesQuery: GraphQLTaggedNode = graphql`
+export const getResonanceTypesQuery: Query<GetResonanceTypesQueryVariables, GetResonanceTypesQueryResponse> = graphql`
     query GetResonanceTypesQuery {
         getResonanceTypes {
             result
@@ -17,7 +24,7 @@ export const getResonanceTypesQuery: GraphQLTaggedNode = graphql`
 `;
 
 export const useResonanceTypes = (): $ReadOnlyArray<ResonanceType> =>
-    (useCustomLazyLoadQuery<GetResonanceTypesQuery>(getResonanceTypesQuery, {}, {
+    (useCustomLazyLoadQuery(getResonanceTypesQuery, emptyExactObject(), {
         fetchPolicy: "store-or-network"
     })?.getResonanceTypes?.result ?? [])
         .filter(isNotNullNorEmpty)

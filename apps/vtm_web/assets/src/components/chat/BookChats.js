@@ -8,7 +8,7 @@ import {useAvailablePrivateChats} from "../../services/queries/map/AvailablePriv
 import Stack from "@mui/material/Stack";
 import FormSelectField from "../../_base/components/FormSelectField";
 import Box from "@mui/material/Box";
-import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {useCustomLazyLoadQueryNoVar} from "../../_base/relay-utils";
 import {useHasUserAlreadyBooked} from "../../services/queries/chat/HasUserAlreadyBookedQuery";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
@@ -20,12 +20,8 @@ import {firstOrDefault, isNotNullNorEmpty} from "../../_base/utils";
 import {useHistory} from "react-router-dom";
 import BookChatMapMutation from "../../services/mutations/chat/BookChatMapMutation";
 import {MainRoutes} from "../MainRouter";
-import type {AllPlayersQuery} from "../../services/queries/character/__generated__/AllPlayersQuery.graphql";
 import {allPlayersQuery} from "../../services/queries/character/AllPlayersQuery";
 import {getAvailableCharactersQuery} from "../../services/queries/chat/GetAvailableCharactersQuery";
-import type {
-    GetAvailableCharactersQuery
-} from "../../services/queries/chat/__generated__/GetAvailableCharactersQuery.graphql";
 import type {GenericReactComponent} from "../../_base/types";
 
 const numberOfPossibleUsers = 5;
@@ -84,7 +80,7 @@ const BookChatsInternal = (): GenericReactComponent => {
     const availablePrivateChats = useAvailablePrivateChats()
         ?.map(m => [m.id, m.name ?? ""]);
 
-    const allowedUsers = useCustomLazyLoadQuery<GetAvailableCharactersQuery>(getAvailableCharactersQuery, {}, {
+    const allowedUsers = useCustomLazyLoadQueryNoVar(getAvailableCharactersQuery, {
         fetchPolicy: "network-only"
     })
         ?.privateChatAvailableUsers
@@ -93,7 +89,7 @@ const BookChatsInternal = (): GenericReactComponent => {
 
     const allowedUsersMap = new Map(allowedUsers.map(x => [x, true]));
 
-    const allCharacters = useCustomLazyLoadQuery<AllPlayersQuery>(allPlayersQuery, {})
+    const allCharacters = useCustomLazyLoadQueryNoVar(allPlayersQuery)
         ?.playersCharactersList
         ?.filter(x => x?.user?.id !== user?.id && x?.user?.id && allowedUsersMap.has(x?.user?.id))
         ?.map(c => [c?.user?.id != null ? `${c?.user?.id}${divider}${c?.id}` : "", c?.name ?? ""]) ?? [];

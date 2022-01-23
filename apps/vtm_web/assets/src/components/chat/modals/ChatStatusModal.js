@@ -13,7 +13,7 @@ import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";
 import type {GenericReactComponent} from "../../../_base/types";
 
 type PropsInternal = {
-    characterQuery: any;
+    characterQuery: CharacterFragments_characterStats$key;
     close: () => void;
 }
 
@@ -23,7 +23,7 @@ type Props = {
 }
 
 const ChatStatusModalInternal = ({characterQuery, close}: PropsInternal): GenericReactComponent => {
-    const sheet: any = useFragment<?CharacterFragments_characterStats$key>(
+    const sheet: any = useFragment(
         characterStatsFragment,
         characterQuery);
 

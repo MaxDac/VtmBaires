@@ -7,7 +7,6 @@ import FormFileDropField from "../../_base/components/FormFileDropField";
 import FormTextField from "../../_base/components/FormTextField";
 import {object, string} from "yup";
 import {useFragment, useRelayEnvironment} from "react-relay";
-import type {CharacterFragments_characterSheet$key} from "../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import {
     characterConcealedInfoFragment,
     characterOffFragment,
@@ -17,7 +16,6 @@ import {useFormik} from "formik";
 import Typography from "@mui/material/Typography";
 import {mainFontFamily} from "../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {GetCharacterQuery} from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
 import {useSession} from "../../services/session-service";
@@ -25,9 +23,7 @@ import {Redirect, useHistory} from "react-router-dom";
 import ChangeCharacterSheetInfoMutation from "../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
 import {UtilityContext} from "../../contexts";
 import { MainRoutes } from "../MainRouter";
-import type {CharacterFragments_characterOff$key} from "../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 import {getUrlValidationMatchString} from "../../_base/utils";
-import type {CharacterFragments_characterConcealedInfo$key} from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import {avatarHeight, avatarWidth} from "./sheet-sections/sections/CharacterSheetAvatarSection";
 import type {GenericReactComponent} from "../../_base/types";
 
@@ -55,20 +51,19 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
 
     const [user,] = useSession();
     const userCharacters = useUserCharactersQuery();
-    const character =
-        useCustomLazyLoadQuery<GetCharacterQuery>(getCharacterQuery, {id})?.getCharacter;
+    const character = useCustomLazyLoadQuery(getCharacterQuery, {id})?.getCharacter;
 
     const formRef = useRef();
 
-    const sheet = useFragment<?CharacterFragments_characterSheet$key>(
+    const sheet = useFragment(
         characterSheetFragment,
         character);
 
-    const concealedSheetInfo = useFragment<?CharacterFragments_characterConcealedInfo$key>(
+    const concealedSheetInfo = useFragment(
         characterConcealedInfoFragment,
         character);
 
-    const offSheet = useFragment<?CharacterFragments_characterOff$key>(
+    const offSheet = useFragment(
         characterOffFragment,
         character);
 
