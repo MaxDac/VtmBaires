@@ -2,10 +2,6 @@
 
 import {useContext, useEffect, useState} from "react";
 import {subscribe, useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {
-  GetMessageDigestQueryResponse,
-  GetMessageDigestQueryVariables,
-} from "../../services/queries/messages/__generated__/GetMessageDigestQuery.graphql";
 import {getMessageDigestQuery} from "../../services/queries/messages/GetMessageDigestQuery";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import type {MessageNotificationSubscriptionResponse} from "../../services/subscriptions/__generated__/MessageNotificationSubscription.graphql";

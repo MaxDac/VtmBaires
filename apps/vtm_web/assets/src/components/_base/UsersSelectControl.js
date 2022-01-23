@@ -4,10 +4,6 @@ import React, {useMemo} from "react";
 import FormSelectField from "../../_base/components/FormSelectField";
 import { emptyExactObject, orderAlphabetically } from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import type {
-  AllUsersQueryResponse,
-  AllUsersQueryVariables,
-} from "../../services/queries/accounts/__generated__/AllUsersQuery.graphql";
 import {allUsersQuery} from "../../services/queries/accounts/AllUsersQuery";
 import type {GenericReactComponent} from "../../_base/types";
 

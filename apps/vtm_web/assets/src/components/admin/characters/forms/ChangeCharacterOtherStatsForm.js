@@ -16,10 +16,6 @@ import Button from "@mui/material/Button";
 import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import ChangeCharacterOtherStatsMutation from "../../../../services/mutations/admin/ChangeCharacterOtherStatsMutation";
-import type {
-  PredatorTypesQueryResponse,
-  PredatorTypesQueryVariables,
-} from "../../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import {predatorTypesQuery} from "../../../../services/queries/info/PredatorTypesQuery";
 import type {GenericReactComponent} from "../../../../_base/types";

@@ -3,17 +3,13 @@
 import type { Character } from "../../../../services/queries/character/GetCharacterCompleteQuery";
 
 import React from "react";
-import {useHistory} from "react-router";
+import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../../MainRouter";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useCustomLazyLoadQuery } from "../../../../_base/relay-utils";
 import { getCharacterUserQuery } from "../../../../services/queries/character/GetCharacterUserQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
-import type {
-  GetCharacterUserQueryResponse,
-  GetCharacterUserQueryVariables,
-} from "../../../../services/queries/character/__generated__/GetCharacterUserQuery.graphql";
 
 type Props = {
     character: Character;

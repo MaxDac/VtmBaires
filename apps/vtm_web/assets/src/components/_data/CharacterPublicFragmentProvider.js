@@ -3,10 +3,6 @@
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterPublicQuery} from "../../services/queries/character/GetCharacterPublicQuery";
-import type {
-  GetCharacterPublicQueryResponse,
-  GetCharacterPublicQueryVariables,
-} from "../../services/queries/character/__generated__/GetCharacterPublicQuery.graphql";
 import type {GenericReactComponent} from "../../_base/types";
 
 type Props = {

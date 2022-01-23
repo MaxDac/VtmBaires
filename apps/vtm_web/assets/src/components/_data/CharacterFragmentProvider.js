@@ -5,10 +5,6 @@ import type {CharacterProviderBaseProps} from "./character-providers-types";
 import {useCharacterProviderId} from "./character-providers-types";
 import RemoteCharacterProvider from "./RemoteCharacterProvider";
 import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
-import type {
-  GetCharacterQueryResponse,
-  GetCharacterQueryVariables,
-} from "../../services/queries/character/__generated__/GetCharacterQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {randomFetchKey} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";

@@ -3,10 +3,6 @@
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {getHavenUnresolvedEventsQuery} from "../../../services/queries/haven/GetHavenUnresolvedEventsQuery";
-import type {
-  GetHavenUnresolvedEventsQueryResponse,
-  GetHavenUnresolvedEventsQueryVariables,
-} from "../../../services/queries/haven/__generated__/GetHavenUnresolvedEventsQuery.graphql";
 import {HavenEventsListWrapper} from "../../haven/HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
 import { emptyExactObject } from "../../../_base/utils";

@@ -2,10 +2,6 @@
 
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {
-  SessionQueryResponse,
-  SessionQueryVariables,
-} from "../../../services/queries/accounts/__generated__/SessionQuery.graphql";
 import {listSessionQuery} from "../../../services/queries/accounts/SessionQuery";
 import Tooltip from "@mui/material/Tooltip";
 import ListItemIcon from "@mui/material/ListItemIcon";

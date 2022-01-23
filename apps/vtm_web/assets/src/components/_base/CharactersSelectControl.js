@@ -7,10 +7,6 @@ import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
 import PlainSelectField from "../../_base/components/PlainSelectField";
 import type {GenericReactComponent} from "../../_base/types";
-import type {
-  AllCharactersQueryResponse,
-  AllCharactersQueryVariables,
-} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
 
 const CharactersSelectControlInternal = ({label, characterValues, onChange, defaultValue}): GenericReactComponent => {
     const [value, setValue] = React.useState<string>(defaultValue ?? "");

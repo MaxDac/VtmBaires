@@ -11,10 +11,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {getAllChatLocationsQuery} from "../../../services/queries/chat/GetAllChatLocationsQuery";
-import type {
-  GetAllChatLocationsQueryResponse,
-  GetAllChatLocationsQueryVariables,
-} from "../../../services/queries/chat/__generated__/GetAllChatLocationsQuery.graphql";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,10 +18,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import type {
-  GetAdminChatEntriesQueryResponse,
-  GetAdminChatEntriesQueryVariables,
-} from "../../../services/queries/chat/__generated__/GetAdminChatEntriesQuery.graphql";
 import {getAdminChatEntriesQuery} from "../../../services/queries/chat/GetAdminChatEntriesQuery";
 import {yesterday, defaultFormatDateAndTimeForControl, parseISO} from "../../../_base/date-utils";
 import ParsedText from "../../../_base/components/ParsedText";
