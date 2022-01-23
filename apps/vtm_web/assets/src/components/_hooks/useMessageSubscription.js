@@ -15,7 +15,7 @@ import { emptyExactObject } from "../../_base/utils";
 
 export const useMessageSubscription = (): number => {
     const {showUserNotification} = useContext(UtilityContext);
-    const messagesDigest = useCustomLazyLoadQuery<GetMessageDigestQueryVariables, GetMessageDigestQueryResponse>(getMessageDigestQuery, emptyExactObject(), {
+    const messagesDigest = useCustomLazyLoadQuery(getMessageDigestQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     });
 

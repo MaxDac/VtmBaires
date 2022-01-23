@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import { emptyExactObject } from "../../../_base/utils";
 
 const AdminHavenEventsInternal = ({fetchKey, component}) => {
-    const events = useCustomLazyLoadQuery<GetHavenUnresolvedEventsQueryVariables, GetHavenUnresolvedEventsQueryResponse>(getHavenUnresolvedEventsQuery, emptyExactObject(), {
+    const events = useCustomLazyLoadQuery(getHavenUnresolvedEventsQuery, emptyExactObject(), {
         fetchPolicy: "network-only",
         fetchKey: fetchKey
     })?.getUnresolvedEvents?.result;

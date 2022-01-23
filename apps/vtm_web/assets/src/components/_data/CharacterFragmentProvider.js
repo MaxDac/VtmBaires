@@ -29,7 +29,7 @@ const CharacterFragmentProviderQuery = ({characterId, children, reload, fetchKey
     };
 
     const character =
-        useCustomLazyLoadQuery<GetCharacterQueryVariables, GetCharacterQueryResponse>(getCharacterQuery, { id: characterId }, policy)
+        useCustomLazyLoadQuery(getCharacterQuery, { id: characterId }, policy)
             ?.getCharacter;
 
     if (character?.id != null) {

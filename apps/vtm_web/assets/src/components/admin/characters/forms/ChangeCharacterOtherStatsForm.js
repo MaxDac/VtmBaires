@@ -32,7 +32,7 @@ type Props = {
 const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const {showUserNotification, openDialog} = useContext(UtilityContext);
     const environment = useRelayEnvironment();
-    const predatorTypes = useCustomLazyLoadQuery<PredatorTypesQueryVariables, PredatorTypesQueryResponse>(predatorTypesQuery, emptyExactObject())
+    const predatorTypes = useCustomLazyLoadQuery(predatorTypesQuery, emptyExactObject())
         ?.predatorTypes;
 
     const [willpower, setWillpower] = useState(character?.willpower ?? 0);

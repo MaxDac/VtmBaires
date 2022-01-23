@@ -13,7 +13,7 @@ import type {GenericReactComponent} from "../../../_base/types";
 
 const UnapprovedCharacters = (): GenericReactComponent => {
     const unapprovedCharacters = toNotNullArray(
-        useCustomLazyLoadQuery<AllUnapprovedCharactersQueryVariables, AllUnapprovedCharactersQueryResponse>(allUnapprovedCharactersQuery, emptyExactObject(), {
+        useCustomLazyLoadQuery(allUnapprovedCharactersQuery, emptyExactObject(), {
             fetchPolicy: "network-only"
         })?.unapprovedCharactersList);
 

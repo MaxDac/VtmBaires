@@ -76,7 +76,7 @@ const OnlineControlActionsSmallScreen = ({o, closePopup}) => {
 
 const OnlineControlDialog = ({closePopup}: Props): GenericReactComponent => {
     const theme = useTheme();
-    const online = useCustomLazyLoadQuery<SessionQueryVariables, SessionQueryResponse>(listSessionQuery, emptyExactObject(), {
+    const online = useCustomLazyLoadQuery(listSessionQuery, emptyExactObject(), {
         fetchPolicy: "network-only"
     })?.sessionsList ?? [];
 

@@ -40,7 +40,7 @@ type ChatViewerInternalProps = {
 }
 
 const ChatViewer = (): GenericReactComponent => {
-    const chatRooms = useCustomLazyLoadQuery<GetAllChatLocationsQueryVariables, GetAllChatLocationsQueryResponse>(getAllChatLocationsQuery, emptyExactObject())
+    const chatRooms = useCustomLazyLoadQuery(getAllChatLocationsQuery, emptyExactObject())
         ?.allChatLocations;
 
     const [from, setFrom] = useState(yesterday(new Date()));
@@ -139,7 +139,7 @@ const ChatViewer = (): GenericReactComponent => {
 };
 
 const ChatViewerInternal = ({from, to, mapId, fetchKey}: ChatViewerInternalProps) => {
-    const entries = useCustomLazyLoadQuery<GetAdminChatEntriesQueryVariables, GetAdminChatEntriesQueryResponse>(getAdminChatEntriesQuery, {
+    const entries = useCustomLazyLoadQuery(getAdminChatEntriesQuery, {
         mapId: mapId, 
         fromDate: from, 
         toDate: to

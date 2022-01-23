@@ -17,7 +17,7 @@ type Props = {
 }
 
 const UsersSelectControl = ({label, formik}: Props): GenericReactComponent => {
-    const allUsers = useCustomLazyLoadQuery<AllUsersQueryVariables, AllUsersQueryResponse>(allUsersQuery, emptyExactObject())?.allUsers;
+    const allUsers = useCustomLazyLoadQuery(allUsersQuery, emptyExactObject())?.allUsers;
 
     const userValues = useMemo((): Array<[string, string]> => {
         const values: Array<[string, string]> = allUsers

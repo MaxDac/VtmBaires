@@ -21,7 +21,7 @@ type Props = {
 
 const AddCharacterExperienceForm = ({character}: Props): GenericReactComponent => {
     const history = useHistory();
-    const user = useCustomLazyLoadQuery<GetCharacterUserQueryVariables, GetCharacterUserQueryResponse>(getCharacterUserQuery, {characterId: character.id})
+    const user = useCustomLazyLoadQuery(getCharacterUserQuery, {characterId: character.id})
         ?.getCharacterUser;
 
     const sendMessageToUser = () => {

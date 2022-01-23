@@ -109,7 +109,7 @@ const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
 
 const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): GenericReactComponent => {
     const [,character] = useSession();
-    const havens = useCustomLazyLoadQuery<GetHavensQueryVariables, GetHavensQueryResponse>(getHavensQuery, emptyExactObject(), {
+    const havens = useCustomLazyLoadQuery(getHavensQuery, emptyExactObject(), {
         fetchPolicy: "network-only",
         fetchKey: fetchKey
     })?.getHavens?.result;
