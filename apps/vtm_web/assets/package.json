@@ -93,7 +93,7 @@
     "path-browserify": "^1.0.1",
     "postcss-normalize": "^10.0.1",
     "react-scripts": "^5.0.0",
-    "relay-compiler": "^13.0.0",
+    "relay-compiler": "^13.0.1",
     "relay-compiler-language-js-flow-uncommented": "^2.0.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
