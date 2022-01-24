@@ -42,6 +42,7 @@ export type ForumItemProps = {
         |},
         +title: ?string,
         +description: ?string,
+        +highlighted: ?boolean,
         +insertedAt: ?any,
         +updatedAt: ?any,
     |};
@@ -50,7 +51,7 @@ export type ForumItemProps = {
     onUpdate?: () => void;
 }
 
-const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): GenericReactComponent => {
+const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
     const [user,] = useSession();
@@ -149,6 +150,13 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
             ? hasNewPosts
             : item?.hasNewPosts;
 
+    const listItemSx =
+        item?.highlighted === true
+            ? {
+                border: "1px #C91919 solid"
+            }
+            : {};
+
     return (
         <>
             <Divider />
@@ -156,6 +164,7 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
                       alignItems="flex-start"
                       dense
                       button
+                      sx={listItemSx}
                       onClick={accessThreadEventHandler}
                       secondaryAction={actions()}>
                 <ForumListItemText title={item?.title}
@@ -168,4 +177,4 @@ const ForumListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): 
     );
 }
 
-export default ForumListItem;
+export default ForumThreadListItem;

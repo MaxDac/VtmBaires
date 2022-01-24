@@ -327,6 +327,7 @@ input CreateNewThreadRequest {
   creatorCharacterId: ID
   creatorUserId: ID!
   description: String
+  highlighted: Boolean
   sectionId: ID!
   title: String!
 }
@@ -422,6 +423,7 @@ type ForumSection implements Node {
   id: ID!
   insertedAt: DateTime
   onGame: Boolean
+  orderType: ForumSectionOrderType
   title: String
   updatedAt: DateTime
 }
@@ -432,11 +434,21 @@ type ForumSectionInfo {
   section: ForumSection
 }
 
+"""The forum section default ordering"""
+enum ForumSectionOrderType {
+  """Ascending order"""
+  ASC
+
+  """Descending order"""
+  DESC
+}
+
 type ForumThread implements Node {
   creatorCharacter: Character
   creatorUser: User
   description: String
   forumSection: ForumSection
+  highlighted: Boolean
 
   """The ID of an object"""
   id: ID!
@@ -598,6 +610,7 @@ type ModifyForumPostPayload {
 
 input ModifyForumThreadInput {
   description: String!
+  highlighted: Boolean
   threadId: ID!
   title: String!
 }

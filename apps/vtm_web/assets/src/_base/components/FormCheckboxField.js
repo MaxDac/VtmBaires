@@ -6,6 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import type {Formik} from "./FormTypes";
 import type {GenericReactComponent} from "../types";
+import FormHelperText from "@mui/material/FormHelperText";
 
 type Props = {
     formik: Formik,
@@ -15,7 +16,13 @@ type Props = {
 }
 
 const FormCheckboxField = ({formik, fieldName, label, onChanged}: Props): GenericReactComponent => {
+    const [checked, setChecked] = React.useState<boolean>(formik.values[fieldName] === true);
+
     const onControlChanged = e => {
+        setChecked(e.target.checked);
+
+        e.target.value = e.target.value === "on";
+
         formik.handleChange(e);
 
         if (onChanged != null) {
@@ -28,12 +35,13 @@ const FormCheckboxField = ({formik, fieldName, label, onChanged}: Props): Generi
             <FormControlLabel
                 control={
                     <Checkbox onChange={onControlChanged}
-                              checked={formik.values[fieldName]}
+                              checked={checked}
                               name={fieldName}
                               id={fieldName}
                               color="primary" />
                 }
                 label={label} />
+            <FormHelperText sx={{color: "red"}}>{formik.errors[fieldName]}</FormHelperText>
         </FormGroup>
     );
 }

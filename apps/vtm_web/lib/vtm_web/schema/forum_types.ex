@@ -7,12 +7,20 @@ defmodule VtmWeb.Schema.ForumTypes do
   alias VtmWeb.Schema.Middlewares
   alias VtmWeb.Resolvers.ForumResolvers
 
+  enum :forum_section_order_type do
+    description "The forum section default ordering"
+
+    value :asc, description: "Ascending order"
+    value :desc, description: "Descending order"
+  end
+
   node object :forum_section do
     field :title, :string
     field :description, :string
     field :on_game, :boolean
     field :can_view, :boolean
     field :can_edit, :boolean
+    field :order_type, :forum_section_order_type
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end
@@ -26,6 +34,7 @@ defmodule VtmWeb.Schema.ForumTypes do
   node object :forum_thread do
     field :title, :string
     field :description, :string
+    field :highlighted, :boolean
     field :forum_section, :forum_section
     field :on_game, :boolean
     field :creator_user, :user
@@ -107,6 +116,7 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :creator_character_id, :id
     field :title, non_null(:string)
     field :description, :string
+    field :highlighted, :boolean
   end
 
   input_object :create_new_post_request do
@@ -167,6 +177,7 @@ defmodule VtmWeb.Schema.ForumTypes do
         field :thread_id, non_null(:id)
         field :title, non_null(:string)
         field :description, non_null(:string)
+        field :highlighted, :boolean
       end
 
       output do

@@ -6,7 +6,7 @@ import useForumSections from "../../services/queries/forum/GetForumSectionsQuery
 import {firstOrDefault} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadsQuery} from "../../services/queries/forum/GetForumThreadsQuery";
-import ForumListItem from "./layout/ForumListItem";
+import ForumThreadListItem from "./layout/ForumThreadListItem";
 import Grid from "@mui/material/Grid";
 import {useHistory} from "react-router-dom";
 import {useSession} from "../../services/session-service";
@@ -55,12 +55,12 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
     const toFormThread = id => history.push(MainRoutes.forumThread(id ?? ""));
 
     const showForumThreads = () => response?.threads
-        ?.map(s => <ForumListItem key={s?.thread?.id}
-                                      item={s?.thread}
-                                      hasNewPosts={s?.hasNewPosts}
-                                      internal={true}
-                                      onClick={toFormThread}
-                                      onUpdate={onUpdate} />);
+        ?.map(s => <ForumThreadListItem key={s?.thread?.id}
+                                        item={s?.thread}
+                                        hasNewPosts={s?.hasNewPosts}
+                                        internal={true}
+                                        onClick={toFormThread}
+                                        onUpdate={onUpdate} />);
 
     const onPageChanged = (newPage: number) => {
         setCurrentPage(_ => newPage);

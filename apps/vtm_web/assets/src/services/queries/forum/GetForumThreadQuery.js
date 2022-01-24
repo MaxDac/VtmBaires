@@ -26,6 +26,7 @@ export const getForumThreadQuery: Query<GetForumThreadQueryVariables, GetForumTh
             postCount
             title
             description
+            highlighted
         }
     }
 `;

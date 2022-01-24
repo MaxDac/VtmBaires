@@ -76,8 +76,8 @@ const NewMessage: any = React.lazy(() => import('./messages/NewMessage'));
 const ReadMessage: any = React.lazy(() => import('./messages/ReadMessage'));
 
 const ForumSections = React.lazy(() => import('./forum/ForumSections'));
-const CreateNewThread = React.lazy(() => import('./forum/forms/CreateNewThread'));
-const ModifyThread = React.lazy(() => import('./forum/forms/ModifyThread'));
+const CreateNewThread = React.lazy(() => import('./forum/CreateNewThread'));
+const ModifyThread = React.lazy(() => import('./forum/ModifyThread'));
 const ManagePost = React.lazy(() => import('./forum/forms/ManagePost'));
 const ForumThread = React.lazy(() => import('./forum/ForumThread'));
 const ForumSection = React.lazy(() => import('./forum/ForumSection'));

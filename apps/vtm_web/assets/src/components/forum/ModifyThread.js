@@ -1,32 +1,29 @@
 // @flow
 
 import React, {useContext} from "react";
-import {object, string} from "yup";
 import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
-import {UtilityContext} from "../../../contexts";
+import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import { MainRoutes } from "../../MainRouter";
-import ThreadForm from "./ThreadForm";
-import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import {getForumThreadQuery} from "../../../services/queries/forum/GetForumThreadQuery";
-import ModifyThreadMutation from "../../../services/mutations/forum/ModifyThreadMutation";
-import { handleMutation } from "../../../_base/utils";
-import type {GenericReactComponent} from "../../../_base/types";
+import { MainRoutes } from "../MainRouter";
+import ThreadForm, {CreateNewThreadValidationSchema} from "./forms/ThreadForm";
+import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
+import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
+import ModifyThreadMutation from "../../services/mutations/forum/ModifyThreadMutation";
+import { handleMutation } from "../../_base/utils";
+import type {GenericReactComponent} from "../../_base/types";
+import {useSession} from "../../services/session-service";
+import {isUserMaster} from "../../services/base-types";
 
 type Props = {
     sectionId: string;
     threadId: string;
-}
-
-const CreateNewThreadValidationSchema = object().shape({
-    title: string("Il titolo del thread").required("Richiesto"),
-    description: string("La descrizione del thread")
-});
+};
 
 const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
+    const [user,] = useSession();
     const {showUserNotification} = useContext(UtilityContext);
     const thread = useCustomLazyLoadQuery(getForumThreadQuery, {
         forumThreadId: threadId
@@ -34,12 +31,13 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
 
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
-    const onSubmit = ({title, description}) => {
+    const onSubmit = ({title, description, highlighted}) => {
         handleMutation(() => 
             ModifyThreadMutation(environment, {
-                threadId: threadId,
-                title: title,
-                description: description
+                threadId,
+                title,
+                description,
+                highlighted
             }), showUserNotification, {
                 successMessage: "Thread modificato.",
                 onCompleted: () => {
@@ -60,7 +58,7 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
             title: thread?.title,
             description: thread?.description
         },
-        validationSchema: CreateNewThreadValidationSchema,
+        validationSchema: CreateNewThreadValidationSchema(isUserMaster(user)),
         onSubmit
     });
 

@@ -11,6 +11,7 @@ defmodule Vtm.Forum.ForumThread do
   @type t :: %__MODULE__{
     title: binary(),
     description: binary(),
+    highlighted: boolean(),
     forum_section_id: non_neg_integer(),
     forum_section: ForumSection.t(),
     creator_user_id: non_neg_integer(),
@@ -25,6 +26,7 @@ defmodule Vtm.Forum.ForumThread do
   schema "forum_threads" do
     field :title, :string
     field :description, :string
+    field :highlighted, :boolean, default: false
 
     belongs_to :forum_section, ForumSection
     belongs_to :creator_user, User
@@ -35,14 +37,14 @@ defmodule Vtm.Forum.ForumThread do
 
   def update_changeset(forum_thread, attrs) do
     forum_thread
-    |> cast(attrs, [:title, :description])
+    |> cast(attrs, [:title, :description, :highlighted])
     |> validate_required([:title, :description])
   end
 
   @doc false
   def changeset(forum_thread, attrs) do
     forum_thread
-    |> cast(attrs, [:title, :description, :forum_section_id, :creator_user_id, :creator_character_id])
+    |> cast(attrs, [:title, :description, :forum_section_id, :creator_user_id, :creator_character_id, :highlighted])
     |> foreign_key_constraint(:forum_section_id)
     |> foreign_key_constraint(:creator_user_id)
     |> foreign_key_constraint(:creator_character_id)

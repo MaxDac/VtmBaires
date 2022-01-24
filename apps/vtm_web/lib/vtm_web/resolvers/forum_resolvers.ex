@@ -124,6 +124,10 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
         end)
         |> Enum.map(&parse_forum_thread_with_notifications/1)
         |> Enum.sort(fn
+          %{thread: %{highlighted: h1}}, %{thread: %{highlighted: h2}} when h1 == true and h2 == false  ->
+            true
+          %{thread: %{highlighted: h1}}, %{thread: %{highlighted: h2}} when h1 == false and h2 == true  ->
+            false
           %{last_post_updated_at: up1}, %{last_post_updated_at: up2}    ->
             datetime_compare_desc(up1, up2)
           %{thread: %{updated_at: up1}}, %{thread: %{updated_at: up2}}  ->

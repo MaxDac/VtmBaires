@@ -27,6 +27,7 @@ export const getForumThreadsQuery: Query<GetForumThreadsQueryVariables, GetForum
                     }
                     title
                     description
+                    highlighted
                     insertedAt
                     updatedAt
                 }

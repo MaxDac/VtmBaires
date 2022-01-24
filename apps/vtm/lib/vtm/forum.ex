@@ -18,7 +18,7 @@ defmodule Vtm.Forum do
   alias VtmAuth.Accounts.User
 
   defp zip_with_nulls_ordered(sorted1, sorted2, id_getter1, id_getter2, acc \\ [])
-  defp zip_with_nulls_ordered([], [], _, _, acc), do: acc |> Enum.reverse()
+  defp zip_with_nulls_ordered([], [], _, _, acc), do: acc
   defp zip_with_nulls_ordered([i1 | sorted1], [], id_getter1, id_getter2, acc), do: zip_with_nulls_ordered(sorted1, [], id_getter1, id_getter2, [{i1, nil} | acc])
   defp zip_with_nulls_ordered([], [i2 | sorted2], id_getter1, id_getter2, acc), do: zip_with_nulls_ordered([], sorted2, id_getter1, id_getter2, [{nil, i2} | acc])
   defp zip_with_nulls_ordered(all1 = [i1 | sorted1], all2 = [i2 | sorted2], id_getter1, id_getter2, acc) do
@@ -65,13 +65,18 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec check_section(User.t(), non_neg_integer()) :: :ok | {:error, :illegal_access}
-  defp check_section(%{role: :master}, _), do: :ok
+  @spec check_section(User.t(), non_neg_integer()) :: {:ok, ForumSection.t()} | {:error, :illegal_access} | {:error, :not_found}
+  defp check_section(%{role: :master}, section_id) do
+    case ForumSection |> Repo.get(section_id) do
+      nil -> {:error, :not_found}
+      s   -> {:ok, s}
+    end
+  end
 
   defp check_section(_, section_id) do
     case section_id |> user_can_read_query() |> Repo.one() do
       nil -> {:error, :illegal_access}
-      _   -> :ok
+      s   -> {:ok, s}
     end
   end
 
@@ -166,47 +171,54 @@ defmodule Vtm.Forum do
     zip_with_nulls(threads, notifications, fn %{id: id} -> id end, fn %{forum_thread_id: id} -> id end)
   end
 
-  @spec get_forum_threads(User.t(), integer, integer, integer) :: {:ok, list({ForumThread.t(), UserForumNotification.t()})} | {:error, :illegal_access}
+  @spec get_forum_threads(User.t(), non_neg_integer(), non_neg_integer(), non_neg_integer()) ::
+    {:ok, list({ForumThread.t(), UserForumNotification.t()})} |
+    {:error, :illegal_access}
   def get_forum_threads(user = %{id: user_id}, section_id, page_size, page) do
-    with :ok <- check_section(user, section_id) do
-      query =
-        ForumThreadInfo
-        |> from()
-        |> where([t], t.forum_section_id == ^section_id)
-        |> order_by([t], [desc: t.last_post_updated_at])
-        |> Pagination.as_paged_query(page_size, page)
-
-      query =
-        from t in query,
-          as: :items,
-          left_lateral_join: c in subquery(include_character_subquery()),
-          left_lateral_join: u in subquery(include_user_subquery()),
-          select: {t, c, u}
-
-      items =
-        Repo.all(query)
-        |> Enum.map(fn
-          {thread, character, user} ->
-            thread
-            |> Map.put(:creator_user, user)
-            |> Map.put(:creator_character, character |> include_character_when_null())
-        end)
-
-      item_ids =
-        items
-        |> Enum.map(fn %{id: id} -> id end)
-
-      notifications =
-        UserForumNotification
-        |> from()
-        |> where([u], u.forum_thread_id in ^item_ids)
-        |> where([u], u.user_id == ^user_id)
-        |> Repo.all()
-
+    with {:ok, section} <- check_section(user, section_id) do
+      items = get_forum_thread_list(section, page_size, page)
+      notifications = get_thread_notification_list(user_id, items)
       merged = zip_threads_with_user_notifications(items, notifications)
-
       {:ok, merged}
     end
+  end
+
+  @spec get_forum_thread_list(Section.t(), non_neg_integer(), non_neg_integer()) :: list(ForumThread.t())
+  defp get_forum_thread_list(%{id: section_id}, page_size, page) do
+    query =
+      ForumThreadInfo
+      |> from()
+      |> where([t], t.forum_section_id == ^section_id)
+      |> order_by([t], [desc: t.highlighted, desc: t.last_post_updated_at])
+      |> Pagination.as_paged_query(page_size, page)
+
+    query =
+      from t in query,
+        as: :items,
+        left_lateral_join: c in subquery(include_character_subquery()),
+        left_lateral_join: u in subquery(include_user_subquery()),
+        select: {t, c, u}
+
+    Repo.all(query)
+    |> Enum.map(fn
+      {thread, character, user} ->
+        thread
+        |> Map.put(:creator_user, user)
+        |> Map.put(:creator_character, character |> include_character_when_null())
+    end)
+  end
+
+  @spec get_thread_notification_list(non_neg_integer(), list(ForumThread.t())) :: list(UserForumNotification.t())
+  defp get_thread_notification_list(user_id, threads) do
+    item_ids =
+      threads
+      |> Enum.map(fn %{id: id} -> id end)
+
+    UserForumNotification
+    |> from()
+    |> where([u], u.forum_thread_id in ^item_ids)
+    |> where([u], u.user_id == ^user_id)
+    |> Repo.all()
   end
 
   @doc """
@@ -243,8 +255,8 @@ defmodule Vtm.Forum do
       item = %{forum_section_id: section_id},
       character,
       user
-    }         <- Repo.one(query),
-         :ok  <- check_section(conn_user, section_id) do
+    }             <- Repo.one(query),
+         {:ok, _} <- check_section(conn_user, section_id) do
       item =
         item
         |> Map.put(:creator_character, character |> include_character_when_null())
@@ -280,43 +292,64 @@ defmodule Vtm.Forum do
 
   @spec get_forum_posts(User.t(), integer, integer, integer) :: {:ok, [ForumPost.t()]} | {:error, :illegal_access}
   def get_forum_posts(user, thread_id, page_size, page) do
-    with %{id: id}  <- get_section_by_thread(thread_id),
-         :ok        <- check_section(user, id) do
+    with %{id: id}      <- get_section_by_thread(thread_id),
+         {:ok, section} <- check_section(user, id) do
+      items =
+        get_forum_posts_query(thread_id, section, page_size, page)
+        |> Repo.all()
+        |> Enum.map(&collect_by_post_type/1)
 
-      query =
-        ForumPost
-        |> from()
-        |> where([p], p.forum_thread_id == ^thread_id)
-        |> order_by([p], [desc: p.inserted_at])
-        |> Pagination.as_paged_query(page_size, page)
-
-      query =
-        from p in query,
-          as: :items,
-          left_lateral_join: c in subquery(include_character_subquery()),
-          left_lateral_join: u in subquery(include_user_subquery()),
-          select: {p, c.id, c.name, u.id, u.name}
-
-      {:ok, Repo.all(query)
-        |> Enum.map(fn
-          {item, id, name, u_id, u_name} when not is_nil(name) ->
-            item
-            |> Map.put(:character, %{id: id, name: name})
-            |> Map.put(:user, %{id: u_id, name: u_name})
-          {item, _, _, id, name} ->
-            item
-            |> Map.put(:user, %{id: id, name: name})
-        end)}
+      {:ok, items}
     else
       nil -> {:error, :not_found}
       e   -> e
     end
   end
 
+  @spec get_forum_posts_query(non_neg_integer(), ForumSection.t(), non_neg_integer(), non_neg_integer()) :: Ecto.Query.t()
+  defp get_forum_posts_query(thread_id, %{order_type: ot}, page_size, page) do
+    IO.puts "Ordering: #{inspect ot}"
+    query =
+      get_forum_post_query_order(ot)
+      |> where([p], p.forum_thread_id == ^thread_id)
+      |> Pagination.as_paged_query(page_size, page)
+
+    from p in query,
+      as: :items,
+      left_lateral_join: c in subquery(include_character_subquery()),
+      left_lateral_join: u in subquery(include_user_subquery()),
+      select: {p, c.id, c.name, u.id, u.name}
+  end
+
+  @spec get_forum_post_query_order(:asc | :desc) :: Ecto.Query.t()
+  defp get_forum_post_query_order(:desc) do
+    ForumPost
+    |> from()
+    |> order_by([p], [desc: p.inserted_at])
+  end
+
+  defp get_forum_post_query_order(_) do
+    ForumPost
+    |> from()
+    |> order_by([p], [asc: p.inserted_at])
+  end
+
+  @spec collect_by_post_type({ForumPost.t(), non_neg_integer(), binary(), non_neg_integer(), binary()}) :: map()
+  defp collect_by_post_type({item, id, name, u_id, u_name}) when not is_nil(name) do
+    item
+    |> Map.put(:character, %{id: id, name: name})
+    |> Map.put(:user, %{id: u_id, name: u_name})
+  end
+
+  defp collect_by_post_type({item, _, _, id, name}) do
+    item
+    |> Map.put(:user, %{id: id, name: name})
+  end
+
   def get_forum_post(user, post_id) do
     case ForumPost |> Repo.get(post_id) do
       post = %{forum_section_id: section_id} ->
-        with :ok  <- check_section(user, section_id) do
+        with {:ok, _} <- check_section(user, section_id) do
           {:ok,
             post
             |> Repo.preload(:creator_user)
@@ -356,6 +389,7 @@ defmodule Vtm.Forum do
     end
   end
 
+  @spec new_thread(User.t(), non_neg_integer(), map()) :: {:ok, ForumThread.t()} | {:error, Changeset.t()}
   def new_thread(user, section_id, attrs) do
     with :ok  <- check_section_write(user, section_id),
          :ok  <- can_write_on_game?(section_id, attrs) do
@@ -404,6 +438,7 @@ defmodule Vtm.Forum do
     end
   end
 
+  @spec modify_thread(User.t(), non_neg_integer(), map()) :: {:ok, ForumThread.t()} | {:error, Changeset.t()}
   def modify_thread(user, id, attrs) do
     with {:ok, item} <- can_modify?(user, ForumThread, id) do
       # Updating only the updated_at date of the related thread

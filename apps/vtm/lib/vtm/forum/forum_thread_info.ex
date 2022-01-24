@@ -6,6 +6,7 @@ defmodule Vtm.Forum.ForumThreadInfo do
   @type t :: %__MODULE__{
     title: binary(),
     description: binary(),
+    highlighted: boolean(),
     on_game: boolean(),
     can_view: boolean(),
     can_edit: boolean(),
@@ -27,6 +28,7 @@ defmodule Vtm.Forum.ForumThreadInfo do
   schema "forum_thread_info" do
     field :title, :string
     field :description, :string
+    field :highlighted, :boolean, default: false
     field :on_game, :boolean, default: false
     field :can_view, :boolean, default: false
     field :can_edit, :boolean, default: false

@@ -19,6 +19,7 @@ export const getForumSectionsQuery: Query<GetForumSectionsQueryVariables, GetFor
                 onGame
                 canView
                 canEdit
+                orderType
                 insertedAt
                 updatedAt
             }
