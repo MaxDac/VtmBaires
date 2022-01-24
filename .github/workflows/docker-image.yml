@@ -54,6 +54,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
+        file: DockerfileGithubAction
         tags: |
           registry.digitalocean.com/elixir-apps-repo/vtm-baires:1.${{ github.run_number }}
           registry.digitalocean.com/elixir-apps-repo/vtm-baires:latest

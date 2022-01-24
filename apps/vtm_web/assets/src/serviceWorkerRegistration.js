@@ -80,10 +80,12 @@ function registerValidSW(swUrl, config) {
               );
 
               registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-              alert('Update available! To update, refresh this tab.', {
+              alert("Una nuova versione della app è pronta!", {
                 toastId: 'appUpdateAvailable',
                 autoClose: false
               });
+
+              window.document.location.reload(true);
 
               // Execute callback
               if (config && config.onUpdate) {
