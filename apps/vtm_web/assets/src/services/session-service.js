@@ -35,7 +35,6 @@ export const checkCharacter = (environment: IEnvironment, session?: Session): Pr
 
         getSessionCharacter(environment)
             .then(response => {
-                console.debug("response from session character", response);
                 if (oldSession?.user != null) {
                     const character = response?.getSessionCharacter
                     const newSession: Session = {

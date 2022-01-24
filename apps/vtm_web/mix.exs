@@ -37,25 +37,25 @@ defmodule VtmWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.2"},
+      {:phoenix, "~> 1.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_pubsub, "~> 2.0"},
-      {:phoenix_live_dashboard, "~> 0.5"},
-      {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 0.5"},
-      {:gettext, "~> 0.11"},
+      {:phoenix_live_dashboard, "~> 0.6.2"},
+      {:telemetry_metrics, "~> 0.6.1"},
+      {:telemetry_poller, "~> 1.0"},
+      {:gettext, "~> 0.19.0"},
       {:vtm, in_umbrella: true},
       {:vtm_auth, in_umbrella: true},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.3"},
+      {:plug_cowboy, "~> 2.5"},
       {:decimal, "~> 2.0"},
-      {:absinthe, "~> 1.6"},
+      {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0"},
       {:absinthe_relay, "~> 1.5"},
       {:dataloader, "~> 1.0"},
-      {:swoosh, "~> 1.5"},
-      {:gen_smtp, "~> 1.0"}
+      {:swoosh, "~> 1.6"},
+      {:gen_smtp, "~> 1.1"}
     ]
   end
 
