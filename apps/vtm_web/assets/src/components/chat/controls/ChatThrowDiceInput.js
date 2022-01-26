@@ -278,10 +278,10 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): GenericReactCompone
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
-                    Cancel
+                    Chiudi
                 </Button>
                 <Button onClick={handleThrow} color="primary">
-                    Throw
+                    Tira Dadi
                 </Button>
             </DialogActions>
         </Dialog>);

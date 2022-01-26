@@ -180,7 +180,7 @@ defmodule Vtm.Chats do
     free_throw: free_throw
   }) do
     case {attribute_id, ability_id, free_throw} do
-      {attribute_id, ability_id, _} when not(is_nil(attribute_id)) and not(is_nil(ability_id)) ->
+      {attribute_id, ability_id, _} when not(is_nil(attribute_id)) ->
         get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw)
       {_, _, free_throw} when not is_nil(free_throw) ->
         free_throw = free_throw |> zero_if_less_than_zero()
@@ -220,17 +220,34 @@ defmodule Vtm.Chats do
     end
   end
 
-  defp get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw) do
-    attrs =
-      Characters.get_character_attributes_subset_by_ids(character_id, [attribute_id, ability_id])
+  defp get_character_attribute_and_ability_amounts(character_id, attribute_id, ability_id) do
+    not_nulls =
+      [attribute_id, ability_id]
+      |> Enum.filter(fn
+        x when not is_nil(x) -> true
+        _ -> false
+      end)
+
+    attrs = Characters.get_character_attributes_subset_by_ids(character_id, not_nulls)
 
     {
-      %{value: attribute_value, attribute: %{name: attribute_name}},
-      %{value: ability_value, attribute: %{name: ability_name}}
-    } = {
       attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == attribute_id end),
       attrs |> Enum.find(fn %{attribute: %{id: id}} -> id == ability_id end)
     }
+  end
+
+  defp get_character_dices_amount(character_id, attribute_id, ability_id, for_discipline, augment_attribute, free_throw) do
+    {attribute_value, attribute_name, ability_value, ability_name} =
+      case get_character_attribute_and_ability_amounts(character_id, attribute_id, ability_id) do
+        {
+          %{value: attr_v, attribute: %{name: attr_n}},
+          %{value: ab_v, attribute: %{name: ab_n}}
+        } -> {attr_v, attr_n, ab_v, ab_n}
+        {
+          %{value: attr_v, attribute: %{name: attr_n}},
+          _
+        } -> {attr_v, attr_n, 0, nil}
+      end
 
     discipline_amount = parse_amount_augment_for_discipline(character_id, for_discipline)
 
@@ -272,7 +289,10 @@ defmodule Vtm.Chats do
     for_discipline_label = get_for_discipline_label(for_discipline)
     augment_attribute = get_augment_attribute_label(augment_attribute, rouse_augment_effect)
 
-    "Tiro di #{attribute_name} e #{ability_name}#{free_throw_label}#{for_discipline_label}#{augment_attribute}"
+    case ability_name do
+      nil -> "Tiro di #{attribute_name}#{free_throw_label}#{for_discipline_label}#{augment_attribute}"
+      n   -> "Tiro di #{attribute_name} e #{n}#{free_throw_label}#{for_discipline_label}#{augment_attribute}"
+    end
   end
 
   @spec get_free_throw_label(non_neg_integer()) :: binary()
