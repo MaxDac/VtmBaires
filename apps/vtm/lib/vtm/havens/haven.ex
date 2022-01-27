@@ -46,6 +46,12 @@ defmodule Vtm.Havens.Haven do
     |> foreign_key_constraint(:character_id)
   end
 
+  def modify_danger_changeset(haven, attrs) do
+    haven
+    |> cast(attrs, [:danger])
+    |> foreign_key_constraint(:danger)
+  end
+
   @doc false
   def changeset(haven, attrs) do
     haven

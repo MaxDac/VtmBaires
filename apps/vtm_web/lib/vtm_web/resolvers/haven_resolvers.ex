@@ -95,7 +95,7 @@ defmodule VtmWeb.Resolvers.HavenResolvers do
   def set_danger_zone(%{haven_id: haven_id, request: %{danger: d, range: r}}, _) do
     with {:ok, h_id}    <- parsed_id_to_integer?(haven_id),
          %{x: x, y: y}  <- Havens.get_haven(h_id),
-         {n, _}         <- Havens.set_danger_zone({x, y}, d, r) do
+         {:ok, n}       <- Havens.set_danger_zone({x, y}, d, r) do
       {:ok, %{result: n}}
     end
   end

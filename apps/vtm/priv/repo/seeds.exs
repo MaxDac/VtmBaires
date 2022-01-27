@@ -27,8 +27,13 @@ defmodule Vtm.SeedsHelpers do
         where: at.section == ^section
 
     case Vtm.Repo.one(query) do
-      nil -> Vtm.Repo.insert(%Vtm.Characters.AttributeType{name: name, section: section, experience_cost: experience_cost})
-      at  -> {:ok, at}
+      nil ->
+        %Vtm.Characters.AttributeType{name: name, section: section, experience_cost: experience_cost}
+        |> Vtm.Repo.insert()
+      at  ->
+        at
+        |> Vtm.Characters.AttributeType.changeset(%{experience_cost: experience_cost})
+        |> Vtm.Repo.update()
     end
   end
 
