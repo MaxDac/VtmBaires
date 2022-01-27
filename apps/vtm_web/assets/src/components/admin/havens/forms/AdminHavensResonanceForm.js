@@ -5,17 +5,17 @@ import {number, object, string} from "yup";
 import {useFormik} from "formik";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
-import {rangeArray} from "../../../_base/utils";
-import FormSelectField from "../../../_base/components/FormSelectField";
-import type {GenericReactComponent} from "../../../_base/types";
+import type {Haven} from "../../../../services/queries/haven/GetHavensQuery";
+import {rangeArray} from "../../../../_base/utils";
+import FormSelectField from "../../../../_base/components/FormSelectField";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 const AdminHavensResonanceFormSchema = object().shape({
     resonance: string("La risonanza").required("La risonanza è richiesta"),
     power: number().required(),
 });
 
-type ResonancesFormSubmitProps = {
+export type ResonancesFormSubmitProps = {
     resonance: string;
     power: number;
 };

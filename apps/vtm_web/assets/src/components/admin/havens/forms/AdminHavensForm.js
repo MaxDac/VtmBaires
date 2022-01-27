@@ -2,14 +2,14 @@
 
 import React from "react";
 import {number, object, string} from "yup";
-import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
-import {rangeArray} from "../../../_base/utils";
+import type {Haven} from "../../../../services/queries/haven/GetHavensQuery";
+import {rangeArray} from "../../../../_base/utils";
 import {useFormik} from "formik";
 import Grid from "@mui/material/Grid";
-import CharactersSelectControl from "../../_base/CharactersSelectControl";
-import FormSelectField from "../../../_base/components/FormSelectField";
+import CharactersSelectControl from "../../../_base/CharactersSelectControl";
+import FormSelectField from "../../../../_base/components/FormSelectField";
 import Button from "@mui/material/Button";
-import type {GenericReactComponent} from "../../../_base/types";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 const AdminHavensFormSchema = object().shape({
     havenCharacterId: string().nullable().notRequired(),
@@ -21,7 +21,7 @@ const AdminHavensFormSchema = object().shape({
     resourcesLevel: number().required(),
 });
 
-type FormSubmitProps = {
+export type FormSubmitProps = {
     havenCharacterId: string,
     resonance: string;
     danger: number,
