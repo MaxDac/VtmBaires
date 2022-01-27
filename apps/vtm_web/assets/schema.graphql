@@ -743,6 +743,7 @@ type RootMutationType {
   rouseCheck(input: RouseCheckInput!): RouseCheckPayload
   sendMessage(message: SendMessageRequest!): Message
   setCharacterStatus(input: SetCharacterStatusInput!): SetCharacterStatusPayload
+  setDangerZone(input: SetDangerZoneInput!): SetDangerZonePayload
   setForumThreadRead(input: SetForumThreadReadInput!): SetForumThreadReadPayload
   setHavenCharacter(input: SetHavenCharacterInput!): SetHavenCharacterPayload
   setHavenInfo(input: SetHavenInfoInput!): SetHavenInfoPayload
@@ -853,6 +854,20 @@ input SetCharacterStatusRequest {
   hunger: Int
   stains: Int
   willpowerDamage: Int
+}
+
+input SetDangerZoneInput {
+  havenId: ID!
+  request: SetDangerZoneRequest!
+}
+
+type SetDangerZonePayload {
+  result: Int
+}
+
+input SetDangerZoneRequest {
+  danger: Int!
+  range: Int!
 }
 
 input SetForumThreadReadInput {
