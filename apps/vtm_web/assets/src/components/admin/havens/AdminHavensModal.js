@@ -13,7 +13,16 @@ import type {SetHavenInfoRequest} from "../../../services/mutations/havens/__gen
 import type {
     SetResonanceZoneRequest
 } from "../../../services/mutations/havens/__generated__/SetResonanceZoneMutation.graphql";
-import AdminHavensFormSelector from "./forms/AdminHavensFormSelector";
+import Box from "@mui/material/Box";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import Tab from "@mui/material/Tab";
+import TabPanel from "@mui/lab/TabPanel";
+import AdminHavensForm from "./forms/AdminHavensForm";
+import AdminHavensResonanceForm from "./forms/AdminHavensResonanceForm";
+import AdminHavensDangerForm from "./forms/AdminHavensDangerForm";
+import {useResonanceTypes} from "../../../services/queries/info/GetResonanceTypesQuery";
+import type {SetDangerZoneRequest} from "../../../services/mutations/havens/__generated__/SetDangerZoneMutation.graphql.js";
 
 type Props = {
     haven: ?Haven;
@@ -21,13 +30,20 @@ type Props = {
     handleClose: () => void;
     onSelected: (?Haven, string, SetHavenInfoRequest) => void;
     onMarkResonance: (?Haven, SetResonanceZoneRequest) => void;
+    onSetDanger: (?Haven, SetDangerZoneRequest) => void;
     havenCharacterId?: string;
 };
 
-const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance, havenCharacterId}: Props): GenericReactComponent => {
-    const triggerButton = useRef();
+const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance, onSetDanger, havenCharacterId}: Props): GenericReactComponent => {
+    const resonances = useResonanceTypes().map(x => [x, x]);
 
-    console.debug("trigger button", triggerButton);
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const triggerButton = useRef();
 
     const triggerSubmit = _ => triggerButton.current?.click();
 
@@ -54,7 +70,12 @@ const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance
     };
 
     const onDangerUpdateSubmitted = formInfo => {
+        onSetDanger(haven, {
+            danger: Number(formInfo.danger),
+            range: Number(formInfo.range)
+        });
 
+        handleClose();
     };
 
     return (
@@ -64,11 +85,35 @@ const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance
                 <DialogContentText>
                     Modifica il rifugio selezionato
                 </DialogContentText>
-                <AdminHavensFormSelector haven={haven}
-                                         havenCharacterId={havenCharacterId}
-                                         onSetHavenSubmitted={onSetHavenSubmitted}
-                                         onMarkResonanceSubmitted={onMarkResonanceSubmitted}
-                                         onDangerUpdateSubmitted={onDangerUpdateSubmitted} />
+                <Box sx={{ width: '100%', typography: 'body1' }}>
+                    <TabContext value={value}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                <Tab label="Assegna Rifugio" value="1" />
+                                <Tab label="Traccia Risonanza" value="2" />
+                                <Tab label="Aggiungi pericolo" value="3" />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1">
+                            <AdminHavensForm resonances={resonances}
+                                             haven={haven}
+                                             havenCharacterId={havenCharacterId}
+                                             onSubmit={onSetHavenSubmitted}
+                                             ref={triggerButton} />
+                        </TabPanel>
+                        <TabPanel value="2">
+                            <AdminHavensResonanceForm resonances={resonances}
+                                                      haven={haven}
+                                                      onSubmit={onMarkResonanceSubmitted}
+                                                      ref={triggerButton} />
+                        </TabPanel>
+                        <TabPanel value="3">
+                            <AdminHavensDangerForm haven={haven}
+                                                   onSubmit={onDangerUpdateSubmitted}
+                                                   ref={triggerButton} />
+                        </TabPanel>
+                    </TabContext>
+                </Box>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Annulla</Button>

@@ -185,4 +185,18 @@ defmodule Vtm.Havens do
     Haven
     |> Repo.update_all(set: [resonance: nil])
   end
+
+  @doc """
+  Applies the given danger to a number of havens centered at the given coordinates, with a distance depending on
+  the range of the danger itself.
+  """
+  @spec set_danger_zone({non_neg_integer(), non_neg_integer()}, non_neg_integer(), non_neg_integer()) :: {integer(), nil | [term()]}
+  def set_danger_zone(center, danger, range) do
+    ids = get_haven_ids_in_distance(center, range)
+
+    Haven
+    |> from()
+    |> where([h], h.id in ^ids)
+    |> Repo.update_all(set: [danger: danger])
+  end
 end
