@@ -15,6 +15,7 @@ import SetResonanceZoneMutation from "../../../services/mutations/havens/SetReso
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ResetResonancesMutation from "../../../services/mutations/havens/ResetResonancesMutation";
+import SetDangerZoneMutation from "../../../services/mutations/havens/SetDangerZoneMutation";
 
 const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
@@ -102,6 +103,26 @@ const AdminHavens = (): GenericReactComponent => {
             });
     };
 
+    const onSetDanger = (h, {danger, range}) => {
+        if (h?.id != null) {
+            const hId = h.id;
+
+            openDialog("Assegnazione Pericolo", `Sei sicuro di voler cambiare il pericolo di questa zona?`,
+                () => {
+                    handleMutation(
+                        () => SetDangerZoneMutation(environment, hId, {
+                            danger,
+                            range
+                        })
+                            .finally(_ => setFetchKey(p => p + 1)),
+                        showUserNotification,
+                        {
+                            successMessage: "La modifica è stata effettuata con successo."
+                        });
+                });
+        }
+    };
+
     return (
         <>
             <h1 style={{
@@ -125,6 +146,7 @@ const AdminHavens = (): GenericReactComponent => {
                               handleClose={_ => setOpen(_ => false)}
                               onSelected={onCharacterSubmitted}
                               onMarkResonance={onMarkResonance}
+                              onSetDanger={onSetDanger}
                               havenCharacterId={haven?.character?.id} />
             <HavenMap onSectionSelected={onHavenSelected}
                       fetchKey={fetchKey} />

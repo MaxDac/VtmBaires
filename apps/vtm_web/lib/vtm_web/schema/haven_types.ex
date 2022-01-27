@@ -83,6 +83,11 @@ defmodule VtmWeb.Schema.HavenTypes do
     field :power, non_null(:integer)
   end
 
+  input_object :set_danger_zone_request do
+    field :danger, non_null(:integer)
+    field :range, non_null(:integer)
+  end
+
   object :haven_mutations do
     payload field :set_haven_character do
       input do
@@ -164,6 +169,21 @@ defmodule VtmWeb.Schema.HavenTypes do
 
       middleware Middlewares.Authorize, :master
       resolve &HavenResolvers.reset_resonances/3
+      middleware Middlewares.ChangesetErrors
+    end
+
+    payload field :set_danger_zone do
+      input do
+        field :haven_id, non_null(:id)
+        field :request, non_null(:set_danger_zone_request)
+      end
+
+      output do
+        field :result, :integer
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve parsing_node_ids(&HavenResolvers.set_danger_zone/2, haven_id: :haven)
       middleware Middlewares.ChangesetErrors
     end
   end

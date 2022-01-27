@@ -185,4 +185,53 @@ defmodule Vtm.Havens do
     Haven
     |> Repo.update_all(set: [resonance: nil])
   end
+
+  @doc """
+  Applies the given danger to a number of havens centered at the given coordinates, with a distance depending on
+  the range of the danger itself.
+  """
+  @spec set_danger_zone({non_neg_integer(), non_neg_integer()}, non_neg_integer(), non_neg_integer()) :: {:ok, non_neg_integer()} | {:error, Changeset.t()}
+  def set_danger_zone(center, danger, range) do
+    ids = get_haven_ids_in_distance(center, range)
+
+    Haven
+    |> from()
+    |> where([h], h.id in ^ids)
+    |> Repo.all()
+    |> Enum.map(&compute_danger(&1, center, danger, range))
+    |> Enum.map(&update_cell_danger/1)
+    |> Enum.reduce({:ok, 0}, &compute_update_errors/2)
+  end
+
+  @spec compute_danger(Haven.t(), {non_neg_integer(), non_neg_integer()}, non_neg_integer(), non_neg_integer()) :: {Haven.t(), non_neg_integer()}
+  defp compute_danger(h, _, 0, _), do: {h, 0}
+  defp compute_danger(h = %{x: x, y: y, danger: previous_danger}, center, danger, range) do
+    distance = compute_distance({x, y}, center)
+
+    distance_coefficient =
+      case range do
+        0 -> 0
+        _ -> (range - distance) / range
+      end
+
+    location_danger = round(danger * distance_coefficient)
+
+    average_danger = round((location_danger + previous_danger) / 2)
+
+    {h, average_danger}
+  end
+
+  @spec update_cell_danger({Haven.t(), non_neg_integer()}) :: {:ok, Haven.t()} | {:error, Changeset.t()}
+  defp update_cell_danger({haven, danger}) do
+    haven
+    |> Haven.modify_danger_changeset(%{danger: danger})
+    |> Repo.update()
+  end
+
+  @spec compute_update_errors(
+    {:ok, Haven.t()} | {:error, Changeset.t()},
+    {:ok, non_neg_integer()} | {:error, Changeset.t()}) :: {:ok, non_neg_integer()} | {:error, Changeset.t()}
+  defp compute_update_errors({:ok, _}, {:ok, n}), do: {:ok, n + 1}
+  defp compute_update_errors(e = {:error, _}, _), do: e
+  defp compute_update_errors(_, e), do: e
 end

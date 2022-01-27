@@ -152,8 +152,8 @@ defmodule Vtm.Experience do
 
     current_character_attribute =
       case Characters.get_character_attribute_value_by_id(character_id, attribute_id) do
-        %CharacterAttribute{value: v} -> v
-        nil                           -> 0
+        %CharacterAttribute{value: v} when not is_nil(v)  -> v
+        nil                                               -> 0
       end
 
     total_expenditure = expenditure * (current_character_attribute + 1)
