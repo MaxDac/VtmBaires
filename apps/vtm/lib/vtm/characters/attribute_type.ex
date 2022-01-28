@@ -21,6 +21,11 @@ defmodule Vtm.Characters.AttributeType do
     timestamps()
   end
 
+  def update_changeset(attribute_type, attrs) do
+    attribute_type
+    |> cast(attrs, [:experience_cost])
+  end
+
   @doc false
   def changeset(attribute_type, attrs) do
     attribute_type

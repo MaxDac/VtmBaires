@@ -32,7 +32,7 @@ defmodule Vtm.SeedsHelpers do
         |> Vtm.Repo.insert()
       at  ->
         at
-        |> Vtm.Characters.AttributeType.changeset(%{experience_cost: experience_cost})
+        |> Vtm.Characters.AttributeType.update_changeset(%{experience_cost: experience_cost})
         |> Vtm.Repo.update()
     end
   end
