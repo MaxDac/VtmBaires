@@ -143,7 +143,7 @@ export const subscribe = <T>(observable: Observable<T>, onNext: T => void, onErr
         next: onNext,
         error: handleError,
         complete: () => {
-            console.info("base unsubscribing");
+            console.debug("base unsubscribing");
             subscription.unsubscribe();
         },
         closed: false

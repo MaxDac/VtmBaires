@@ -10,13 +10,16 @@ import {requestDesktopNotificationPermission} from "./_base/notification-utils";
 
 // <React.StrictMode>
 
-ReactDOM.render(
+const container = document.getElementById('root');
+
+const root = ReactDOM.createRoot(container);
+
+root.render(
     <React.StrictMode>
         <HashRouter>
             <App />
         </HashRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
