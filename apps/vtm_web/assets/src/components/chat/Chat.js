@@ -102,9 +102,9 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
     const initialEntries = useChatEntries(map.id);
-    const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
+    const [entries, setEntries] = useState<Array<ChatEntry>>(initialEntries);
 
-    useChatSubscription(map.id, setAdditionalEntries);
+    useChatSubscription(map.id, setEntries);
     useUpdateSessionMap(map.id);
 
     useEffect(() => {
@@ -220,7 +220,7 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     };
 
     const downloadChat = () => {
-        const fileText = getFileTextFromChatEntries(initialEntries.concat(additionalEntries));
+        const fileText = getFileTextFromChatEntries(entries);
         downloadFile("chat.txt", fileText);
     };
 
@@ -285,8 +285,7 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
                               mapId={map.id}
                               onChatLogRequested={downloadChat} />
                 <Suspense fallback={<DefaultFallback />}>
-                    <ChatScreen entries={initialEntries}
-                                additionalEntries={additionalEntries}
+                    <ChatScreen entries={entries}
                                 showCharacterDescription={showCharacterDescription}
                                 canDelete={isMaster()}
                                 deletePhrase={deletePhrase} />

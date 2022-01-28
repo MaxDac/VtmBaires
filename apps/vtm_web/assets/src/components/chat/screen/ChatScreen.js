@@ -15,17 +15,16 @@ import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     entries: ?Array<ChatEntry>;
-    additionalEntries: ?Array<ChatEntry>;
     showCharacterDescription: (string, string) => void;
     canDelete: boolean;
     deletePhrase: string => void;
 }
 
-const ChatScreen = ({entries, additionalEntries, showCharacterDescription, canDelete, deletePhrase}: Props): GenericReactComponent => {
+const ChatScreen = ({entries, showCharacterDescription, canDelete, deletePhrase}: Props): GenericReactComponent => {
     const theme = useTheme();
     const chatContainer = useRef();
 
-    const additionalEntriesWithAvatar = useChatEntriesForSubscriptions(additionalEntries);
+    const additionalEntriesWithAvatar = useChatEntriesForSubscriptions(entries);
 
     const showMiniFont = useMediaQuery(theme.breakpoints.down('md'));
     const fontSize = showMiniFont ? "16px" : "18px";
@@ -41,15 +40,6 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription, canDe
     });
 
     const aggregatedEntries = () => {
-        if (entries != null) {
-            if (additionalEntriesWithAvatar != null) {
-                return entries.concat(additionalEntriesWithAvatar);
-            }
-            else {
-                return entries;
-            }
-        }
-
         if (additionalEntriesWithAvatar != null) {
             return additionalEntriesWithAvatar;
         }
