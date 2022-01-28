@@ -1,6 +1,6 @@
 // @flow
 
-import React from "react";
+import React, {useContext} from "react";
 import ReactMarkdown from 'react-markdown';
 import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
@@ -8,11 +8,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import type {ChatEntry} from "../../services/base-types";
+import type {ChatEntry} from "../../../services/base-types";
 import Box from "@mui/material/Box";
-import {markdownComponents} from "../../_base/components/ParsedText";
-import {defaultFormatTime} from "../../_base/date-utils";
-import type {GenericReactComponent} from "../../_base/types";
+import {markdownComponents} from "../../../_base/components/ParsedText";
+import {defaultFormatTime} from "../../../_base/date-utils";
+import type {GenericReactComponent} from "../../../_base/types";
+import ChatEntryContextMenu from "./ChatEntryContextMenu";
+import {UtilityContext} from "../../../contexts";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;
@@ -21,7 +23,54 @@ type ChatEntryComponentProps = {
     sx?: any;
 }
 
-const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): GenericReactComponent => {
+const ChatEntryRow = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): GenericReactComponent => {
+    const {showUserNotification} = useContext(UtilityContext);
+    const [contextMenu, setContextMenu] = React.useState(null);
+
+    const copyPhrase = () => {
+        const phrase = entry?.text ?? entry?.result;
+
+        if (phrase != null) {
+            navigator.clipboard.writeText(phrase);
+
+            showUserNotification({
+                type: "success",
+                message: "Il testo dell'intervento è stato correttamente copiato"
+            })
+        }
+        else {
+            showUserNotification({
+                type: "warning",
+                message: "Nessun testo da copiare"
+            })
+        }
+    }
+
+    const showDescription = () => {
+        // if (!isMaster()) {
+            showCharacterDescription(entry?.character?.id, entry?.character?.name);
+        // }
+    };
+
+    const handleContextMenu = (event) => {
+        event.preventDefault();
+        setContextMenu(cm =>
+            cm == null
+                ? {
+                    mouseX: event.clientX - 2,
+                    mouseY: event.clientY - 4,
+                }
+                : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
+                  // Other native context menus might behave different.
+                  // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+                null,
+        );
+    };
+
+    const handleContextMenuClose = () => {
+        setContextMenu(null);
+    };
+
     const divider = () => <Divider variant="inset" component="li" />
 
     const isText = () => Boolean(entry.text);
@@ -169,22 +218,22 @@ const ChatEntryComponent = ({entry, isLast, showCharacterDescription, sx}: ChatE
         }
 
         return getChatEntry();
-    }
-
-    const showDescription = _ => {
-        if (!isMaster()) {
-            showCharacterDescription(entry?.character?.id, entry?.character?.name);
-        }
     };
 
     return (
         <>
-            <ListItem alignItems="flex-start" button onClick={showDescription}>
+            <ListItem alignItems="flex-start"
+                      onContextMenu={handleContextMenu}>
                 {itemText()}
+                <ChatEntryContextMenu contextMenu={contextMenu}
+                                      handleClose={handleContextMenuClose}
+                                      onCopyRequested={copyPhrase}
+                                      phraseHasDescription={entry?.character?.id != null}
+                                      onDescriptionRequested={showDescription} />
             </ListItem>
             {isLast ? <></> : divider()}
         </>
     );
 }
 
-export default ChatEntryComponent;
+export default ChatEntryRow;

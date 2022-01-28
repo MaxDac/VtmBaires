@@ -3,15 +3,15 @@
 import React from "react";
 import {useEffect, useRef} from "react";
 import List from "@mui/material/List";
-import type {ChatEntry} from "../../services/base-types";
-import ChatEntryComponent from "./ChatEntryComponent";
-import {emptyArray} from "../../_base/utils";
-import {useChatEntriesForSubscriptions} from "./hooks/ChatEntryFromSubscriptionHook";
+import type {ChatEntry} from "../../../services/base-types";
+import ChatEntryRow from "./ChatEntryRow";
+import {emptyArray} from "../../../_base/utils";
+import {useChatEntriesForSubscriptions} from "../hooks/ChatEntryFromSubscriptionHook";
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {add, compareAsc} from "date-fns";
-import { parseUTC } from "../../_base/date-utils";
-import type {GenericReactComponent} from "../../_base/types";
+import { parseUTC } from "../../../_base/date-utils";
+import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
     entries: ?Array<ChatEntry>;
@@ -88,11 +88,11 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
             return ets?.map((e, index) => {
                 if (e != null) {
                     return (
-                        <ChatEntryComponent entry={e}
-                                            key={e.id}
-                                            isLast={index === ets.length - 1}
-                                            showCharacterDescription={showCharacterDescription}
-                                            sx={{
+                        <ChatEntryRow entry={e}
+                                      key={e.id}
+                                      isLast={index === ets.length - 1}
+                                      showCharacterDescription={showCharacterDescription}
+                                      sx={{
                                                 fontSize
                                             }} />
                     );

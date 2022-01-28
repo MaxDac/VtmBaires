@@ -23,7 +23,7 @@ import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
 import ChatStatusModal from "./modals/ChatStatusModal";
 import {useChatEntries} from "./hooks/ChatEntriesHook";
-import ChatScreen from "./ChatScreen";
+import ChatScreen from "./screen/ChatScreen";
 import type { ChatEntry } from "../../services/base-types";
 import DefaultFallback from "../../_base/components/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";

@@ -25,6 +25,25 @@ const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): Gene
         useCustomLazyLoadQuery(getCharacterDescriptionQuery, {id: characterId})
             ?.getCharacterDescription;
 
+    const chatAvatar = () => {
+        if (characterInfo?.avatar != null) {
+            return (
+                <img src={characterInfo.avatar}
+                     align="left"
+                     alt="avatar"
+                     hspace="10px"
+                     vspace="10px"
+                     style={{
+                         maxWidth: "200px",
+                         maxHeight: "300px",
+                         height: "auto"
+                     }} />
+            );
+        }
+
+        return (<></>);
+    }
+
     return (
         <>
             <DialogTitle>
@@ -32,12 +51,13 @@ const ChatDescriptionModalInternal = ({characterId, close}: PropsInternal): Gene
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
+                    {chatAvatar()}
                     {characterInfo?.description}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={_ => close()} color="primary">
-                    Close
+                    Chiudi
                 </Button>
             </DialogActions>
         </>

@@ -12,6 +12,7 @@ export const getCharacterDescriptionQuery: Query<GetCharacterDescriptionQueryVar
         getCharacterDescription(characterId: $id) {
             id
             name
+            avatar
             description
         }
     }

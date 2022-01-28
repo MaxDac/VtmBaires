@@ -142,10 +142,10 @@ const GuidesNpcs = (): GenericReactComponent => {
 
                 <Box sx={sheetBoxStyle}>
                     <img src="/IsabelaRuizDiaz.webp"
-                            align="left"
-                            alt="IsabelaRuizDiaz"
-                            hspace="10px"
-                            vspace="10px" />
+                         align="left"
+                         alt="IsabelaRuizDiaz"
+                         hspace="10px"
+                         vspace="10px" />
                     <Box>
                         <Typography paragraph sx={guideStyle}>
                             Isabela Ruiz Dias &egrave; il Primogenito Ventrue nel Dominio di Buenos Aires.

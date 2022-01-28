@@ -317,7 +317,7 @@ defmodule Vtm.Characters do
     from(c in Character, where: c.id == ^character_id, select: %Character{
       id: c.id,
       name: c.name,
-      chat_avatar: c.chat_avatar,
+      avatar: c.avatar,
       description: c.description
     })
     |> Repo.one()

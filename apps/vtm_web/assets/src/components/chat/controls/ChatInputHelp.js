@@ -32,11 +32,16 @@ const ChatInputHelpText = () => (
         </Typography>
         <Typography paragraph sx={textStyle}>
             Per inserire il parlato, circondate la frase tra asterischi, ad esempio *"Frase"*, facendo attenzione a non
-            lasciare uno spazio tra l'asterisco e il carattere successivo o precedente (*" ... "* ok, * " ... "* o *" ..." * no).
+            lasciare uno spazio tra l'asterisco e il carattere successivo o precedente (*" ... "* ok, * " ... "*
+            o *" ..." * no).
         </Typography>
         <Typography paragraph sx={textStyle}>
             Per dare enfasi ad una parola o ad una frase in particolare, circondala con due asterischi (esempio:
             **enfasi** o **frase a cui dare enfasi**). L'enfasi funziona anche all'interno del parlato.
+        </Typography>
+        <Typography paragraph sx={textStyle}>
+            Cliccando col tasto destro del mouse su una frase, poi, si potr&agrave; accedere al menu contestuale,
+            potendo poi copiare la frase o visualizzare la descrizione del personaggio.
         </Typography>
     </>
 );
