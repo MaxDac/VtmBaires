@@ -271,6 +271,11 @@ type CharacterStats {
   predatorType: PredatorType
 }
 
+enum ChatCommand {
+  DELETE
+  INSERT
+}
+
 input ChatDiceEntryRequest {
   abilityId: ID
   attributeId: ID
@@ -366,6 +371,14 @@ input DefineNpcStatsInput {
 
 type DefineNpcStatsPayload {
   response: Character
+}
+
+input DeleteChatEntryInput {
+  chatEntryId: ID!
+}
+
+type DeleteChatEntryPayload {
+  result: MapChatEntry
 }
 
 input DeleteForumPostInput {
@@ -558,6 +571,8 @@ type LoginResponse {
 type MapChatEntry implements Node {
   character: Character
   chatMap: ChatLocation
+  command: ChatCommand
+  hide: Boolean
 
   """The ID of an object"""
   id: ID!
@@ -719,6 +734,7 @@ type RootMutationType {
   deleteAllReceivedMessage: Boolean
   deleteAllSentMessage: Boolean
   deleteCharacter(characterId: ID): Boolean
+  deleteChatEntry(input: DeleteChatEntryInput!): DeleteChatEntryPayload
   deleteForumPost(input: DeleteForumPostInput!): DeleteForumPostPayload
   deleteForumThread(input: DeleteForumThreadInput!): DeleteForumThreadPayload
   deleteHavenCharacter(input: DeleteHavenCharacterInput!): DeleteHavenCharacterPayload

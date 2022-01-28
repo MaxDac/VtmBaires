@@ -20,10 +20,12 @@ type ChatEntryComponentProps = {
     entry: ChatEntry;
     isLast?: ?boolean;
     showCharacterDescription: (string, string) => void;
+    canDelete: boolean;
+    deletePhrase: string => void;
     sx?: any;
 }
 
-const ChatEntryRow = ({entry, isLast, showCharacterDescription, sx}: ChatEntryComponentProps): GenericReactComponent => {
+const ChatEntryRow = ({entry, isLast, showCharacterDescription, canDelete, deletePhrase, sx}: ChatEntryComponentProps): GenericReactComponent => {
     const {showUserNotification} = useContext(UtilityContext);
     const [contextMenu, setContextMenu] = React.useState(null);
 
@@ -31,25 +33,38 @@ const ChatEntryRow = ({entry, isLast, showCharacterDescription, sx}: ChatEntryCo
         const phrase = entry?.text ?? entry?.result;
 
         if (phrase != null) {
-            navigator.clipboard.writeText(phrase);
+            navigator.clipboard.writeText(phrase)
+                .then(_ => {
+                    showUserNotification({
+                        type: "success",
+                        message: "Il testo dell'intervento è stato correttamente copiato"
+                    });
+                })
+                .catch(e => {
+                    console.error("An error occurred while trying to copy the phrase to the input", e);
 
-            showUserNotification({
-                type: "success",
-                message: "Il testo dell'intervento è stato correttamente copiato"
-            })
+                    showUserNotification({
+                        type: "error",
+                        message: "Impossibile copiare la frase nella clipboard"
+                    })
+                });
         }
         else {
             showUserNotification({
                 type: "warning",
                 message: "Nessun testo da copiare"
-            })
+            });
         }
     }
 
     const showDescription = () => {
-        // if (!isMaster()) {
-            showCharacterDescription(entry?.character?.id, entry?.character?.name);
-        // }
+        showCharacterDescription(entry?.character?.id, entry?.character?.name);
+    };
+
+    const deletePhraseInternal = () => {
+        if (entry?.id != null && canDelete) {
+            deletePhrase(entry.id);
+        }
     };
 
     const handleContextMenu = (event) => {
@@ -229,7 +244,9 @@ const ChatEntryRow = ({entry, isLast, showCharacterDescription, sx}: ChatEntryCo
                                       handleClose={handleContextMenuClose}
                                       onCopyRequested={copyPhrase}
                                       phraseHasDescription={entry?.character?.id != null}
-                                      onDescriptionRequested={showDescription} />
+                                      onDescriptionRequested={showDescription}
+                                      canDelete={canDelete}
+                                      onDelete={deletePhraseInternal} />
             </ListItem>
             {isLast ? <></> : divider()}
         </>

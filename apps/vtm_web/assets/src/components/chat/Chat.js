@@ -33,6 +33,9 @@ import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
 import type {GenericReactComponent} from "../../_base/types";
+import {isUserMaster} from "../../services/base-types";
+import {handleMutation} from "../../_base/utils";
+import deleteChatEntryMutation from "../../services/mutations/chat/DeleteChatEntryMutation";
 
 type ChatProps = {
     map: Map
@@ -85,9 +88,9 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const [user,character] = useSession();
 
-    const isMaster = () => user?.role === "MASTER";
+    const isMaster = () => isUserMaster(user);
 
-    const {showUserNotification} = useContext(UtilityContext);
+    const {showUserNotification, openDialog} = useContext(UtilityContext);
 
     const [mapModalOpen, setMapModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState(map?.name);
@@ -99,9 +102,9 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     const [characterStatusOpen, setCharacterStatusOpen] = useState(false);
 
     const initialEntries = useChatEntries(map.id);
-    const [additionalEntries, setAdditionalEntries] = useState<Array<ChatEntry>>([]);
+    const [entries, setEntries] = useState<Array<ChatEntry>>(initialEntries);
 
-    useChatSubscription(map.id, setAdditionalEntries);
+    useChatSubscription(map.id, setEntries);
     useUpdateSessionMap(map.id);
 
     useEffect(() => {
@@ -123,6 +126,22 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
         setSelectedCharacterId(_ => id);
         setSelectedCharacterName(_ => name);
         setCharacterModalOpen(_ => true);
+    };
+
+    const deletePhrase = entryId => {
+        if (isMaster()) {
+            openDialog(
+                "Cancellazione frase",
+                "Sei sicuro di voler cancellare la frase dallo schermo? La frase sarà sempre fruibile nella schermata di storico delle chat",
+                () => {
+                    handleMutation(
+                        () => deleteChatEntryMutation(environment, entryId),
+                        showUserNotification,
+                        {
+                            successMessage: "Frase correttamente cancellata"
+                        })
+                });
+        }
     };
 
     const createEntry = (action: (string, string) => Promise<any>) => {
@@ -201,7 +220,7 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     };
 
     const downloadChat = () => {
-        const fileText = getFileTextFromChatEntries(initialEntries.concat(additionalEntries));
+        const fileText = getFileTextFromChatEntries(entries);
         downloadFile("chat.txt", fileText);
     };
 
@@ -266,9 +285,10 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
                               mapId={map.id}
                               onChatLogRequested={downloadChat} />
                 <Suspense fallback={<DefaultFallback />}>
-                    <ChatScreen entries={initialEntries}
-                                additionalEntries={additionalEntries}
-                                showCharacterDescription={showCharacterDescription} />
+                    <ChatScreen entries={entries}
+                                showCharacterDescription={showCharacterDescription}
+                                canDelete={isMaster()}
+                                deletePhrase={deletePhrase} />
                 </Suspense>
                 <Box component="div" sx={{
                     flex: "0 1 100px",

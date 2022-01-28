@@ -27,11 +27,19 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
         window.addEventListener("unhandledrejection", handleUnhandledExceptionAtChat);
 
         const showNewChatEntry = (entry: ChatEntry) => {
-            if (entry?.character?.id !== character?.id) {
-                showDesktopNotification("Chat", "Hai ricevuto un nuovo messaggio");
+            if (entry?.command === "DELETE") {
+                setAdditionalEntriesRef.current(es =>
+                    es.filter(e =>
+                        e?.id != null &&
+                        e.id !== entry?.id));
             }
+            else {
+                if (entry?.character?.id !== character?.id) {
+                    showDesktopNotification("Chat", "Hai ricevuto un nuovo messaggio");
+                }
 
-            setAdditionalEntriesRef.current(es => [...es, entry]);
+                setAdditionalEntriesRef.current(es => [...es, entry]);
+            }
         }
 
         const performSubscription = token =>

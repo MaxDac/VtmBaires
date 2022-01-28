@@ -21,6 +21,8 @@ export const useChatEntriesQuery = (mapId: string): Array<ChatEntry> => {
             },
             result: e?.result ?? "",
             text: e?.text ?? "",
+            hide: e?.hide ?? false,
+            command: e?.command ?? "INSERT",
             offGame: e?.offGame ?? false,
             insertedAt: e?.insertedAt ?? "",
             master: e?.master ?? false

@@ -117,6 +117,14 @@ defmodule VtmWeb.Resolvers.ChatResolvers do
     end
   end
 
+  def delete_chat_entry(%{chat_entry_id: id}, _) do
+    with {:ok, id}  <- parsed_id_to_integer?(id),
+         {:ok, ce}  <- Chats.delete_chat_from_screen(id) do
+      entry = ce |> Map.put(:command, "delete")
+      {:ok, %{result: entry}}
+    end
+  end
+
   def config_chat_subscription(%{map_id: map_id, token: token}, _context) do
     with {:ok, _}     <- VtmWeb.Authentication.verify_subscription_key_token(token),
          {:ok, m_id}  <- from_global_id?(map_id) do

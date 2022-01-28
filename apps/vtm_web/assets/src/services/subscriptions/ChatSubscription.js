@@ -13,6 +13,8 @@ const subscription = graphql`
             offGame
             result
             master
+            hide
+            command @required(action: LOG)
             character {
                 id
                 name

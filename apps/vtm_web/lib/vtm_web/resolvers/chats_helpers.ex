@@ -18,6 +18,7 @@ defmodule VtmWeb.Resolvers.ChatHelpers do
     |> Map.put(:chat_map, %{
       id: map_id
     })
+    |> Map.put(:command, "insert")
   end
 
   def map_entry_slim(entry = %{
