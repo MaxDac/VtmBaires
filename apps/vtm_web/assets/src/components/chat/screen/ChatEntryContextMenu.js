@@ -10,31 +10,55 @@ type Props = {
     onCopyRequested: () => void;
     phraseHasDescription?: boolean;
     onDescriptionRequested?: () => void;
+    canDelete?: boolean;
+    onDelete?: () => void;
 }
 
-const ChatEntryContextMenu = ({contextMenu, handleClose, onCopyRequested, phraseHasDescription, onDescriptionRequested}: Props): any => {
+const ChatEntryContextMenu = ({
+                                  contextMenu,
+                                  handleClose,
+                                  onCopyRequested,
+                                  phraseHasDescription,
+                                  onDescriptionRequested,
+                                  canDelete,
+                                  onDelete
+}: Props): any => {
     const onCopyRequestedInternal = () => {
         onCopyRequested();
         handleClose();
     };
 
     const onDescriptionRequestedInternal = () => {
-        if (onDescriptionRequested != null) {
+        if (phraseHasDescription === true && onDescriptionRequested != null) {
             onDescriptionRequested();
         }
 
         handleClose();
     };
 
-    const showRequestDescription = () => {
-        if (phraseHasDescription === true) {
-            return (
-                <MenuItem onClick={onDescriptionRequestedInternal}>Descrizione</MenuItem>
-            );
-        };
+    const onDeleteInternal = () => {
+        if (canDelete === true && onDelete != null) {
+            onDelete();
+        }
 
-        return (<></>);
-    }
+        handleClose();
+    };
+
+    const showOptions = () => {
+        const options = [
+            <MenuItem key="copy" onClick={onCopyRequestedInternal}>Copia frase</MenuItem>
+        ];
+
+        if (phraseHasDescription === true) {
+            options.push(<MenuItem key="desc" onClick={onDescriptionRequestedInternal}>Descrizione Personaggio</MenuItem>);
+        }
+
+        if (canDelete === true) {
+            options.push(<MenuItem key="delete" onClick={onDeleteInternal}>Cancella Frase</MenuItem>);
+        }
+
+        return options;
+    };
 
     return (
         <Menu
@@ -47,8 +71,7 @@ const ChatEntryContextMenu = ({contextMenu, handleClose, onCopyRequested, phrase
                     : undefined
             }
         >
-            <MenuItem onClick={onCopyRequestedInternal}>Copia frase</MenuItem>
-            {showRequestDescription()}
+            {showOptions()}
         </Menu>
     );
 }

@@ -15,6 +15,11 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :children, list_of(:chat_location)
   end
 
+  enum :chat_command do
+    value :insert, as: "insert"
+    value :delete, as: "delete"
+  end
+
   # if left chat_entry, Relay got mad
   node object :map_chat_entry do
     field :result, :string
@@ -23,7 +28,9 @@ defmodule VtmWeb.Schema.ChatTypes do
     field :master, :boolean
     field :character, :character
     field :chat_map, :chat_location
+    field :hide, :boolean
     field :inserted_at, :date_time
+    field :command, :chat_command
   end
 
   input_object :chat_entry_request do
@@ -162,6 +169,21 @@ defmodule VtmWeb.Schema.ChatTypes do
       resolve &ChatResolvers.create_chat_dice_entry/3
       middleware VtmWeb.Schema.Middlewares.ChangesetErrors
     end
+
+    payload field :delete_chat_entry do
+      input do
+        field :chat_entry_id, non_null(:id)
+      end
+
+      output do
+        field :result, :map_chat_entry
+      end
+
+      middleware VtmWeb.Schema.Middlewares.Authorize, :master
+      middleware VtmWeb.Schema.Middlewares.RefreshUserSession
+      resolve parsing_node_ids(&ChatResolvers.delete_chat_entry/2, chat_entry_id: :map_chat_entry)
+      middleware VtmWeb.Schema.Middlewares.ChangesetErrors
+    end
   end
 
   object :chat_subscriptions do
@@ -176,6 +198,7 @@ defmodule VtmWeb.Schema.ChatTypes do
       trigger :rouse_check, topic: &ChatResolvers.handle_chat_trigger/1
       trigger :use_willpower, topic: &ChatResolvers.handle_chat_trigger/1
       trigger :heal, topic: &ChatResolvers.handle_chat_trigger/1
+      trigger :delete_chat_entry, topic: &ChatResolvers.handle_chat_trigger/1
 
       resolve fn root, _args, _res ->
         root |> ChatResolvers.handle_chat_subscription_resolution()

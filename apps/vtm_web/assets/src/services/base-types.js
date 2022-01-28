@@ -1,5 +1,6 @@
 // @flow
 
+export type ChatCommand = "DELETE" | "INSERT" | "%future added value";
 export type Roles = "MASTER" | "PLAYER";
 
 export type User = {|
@@ -26,6 +27,8 @@ export type ChatEntry = {
     result: string;
     offGame: boolean;
     master: boolean;
+    hide: boolean,
+    command: ChatCommand,
     character: {
         id: string;
         name: string;

@@ -79,6 +79,7 @@ defmodule Vtm.Chats do
     query = from c in chat_and_character_joined_query(),
       where: c.chat_map_id == ^map_id,
       where: c.off_game == false,
+      where: c.hide == false,
       where: c.inserted_at > ^two_hours_ago
 
     Repo.all(query)
@@ -92,6 +93,7 @@ defmodule Vtm.Chats do
     query = from c in chat_and_character_joined_query(),
       where: c.chat_map_id == ^map_id,
       where: c.off_game == true,
+      where: c.hide == false,
       where: c.inserted_at > ^ten_minutes_ago
 
     Repo.all(query)
@@ -446,6 +448,18 @@ defmodule Vtm.Chats do
       {:total_failure, o, _, _} when o > 0                          -> :bestial_failure
       {:failure, o, _, _} when o > 0                                -> :bestial_failure
       {res, _, _, _}                                                -> res
+    end
+  end
+
+  @spec delete_chat_from_screen(non_neg_integer()) :: {:ok, ChatEntry.t()} | {:error, Changeset.t()} | {:error, :not_found}
+  def delete_chat_from_screen(chat_entry_id) do
+    case ChatEntry |> Repo.get(chat_entry_id) do
+      nil ->
+        {:error, :not_found}
+      c   ->
+        c
+        |> ChatEntry.update_changeset(%{hide: true})
+        |> Repo.update()
     end
   end
 end

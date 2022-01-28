@@ -17,6 +17,7 @@ defmodule Vtm.Chats.ChatEntry do
     character: Character.t(),
     chat_map_id: non_neg_integer(),
     chat_map: ChatMap.t(),
+    hide: boolean(),
 
     inserted_at: NaiveDateTime.t(),
     updated_at: NaiveDateTime.t()
@@ -28,6 +29,7 @@ defmodule Vtm.Chats.ChatEntry do
     field :text, :string
     field :master, :boolean
     field :off_game, :boolean
+    field :hide, :boolean
 
     belongs_to :character, Character
     belongs_to :chat_map, ChatMap
@@ -36,9 +38,15 @@ defmodule Vtm.Chats.ChatEntry do
   end
 
   @doc false
+  def update_changeset(chat_entry, attrs) do
+    chat_entry
+    |> cast(attrs, [:text, :result, :master, :off_game, :hide])
+  end
+
+  @doc false
   def changeset(chat_entry, attrs) do
     chat_entry
-    |> cast(attrs, [:text, :result, :character_name, :master, :off_game, :character_id, :chat_map_id])
+    |> cast(attrs, [:text, :result, :character_name, :master, :off_game, :character_id, :chat_map_id, :hide])
     |> validate_required([:character_id, :chat_map_id])
   end
 end

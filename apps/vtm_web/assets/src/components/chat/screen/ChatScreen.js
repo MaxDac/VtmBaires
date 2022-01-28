@@ -17,9 +17,11 @@ type Props = {
     entries: ?Array<ChatEntry>;
     additionalEntries: ?Array<ChatEntry>;
     showCharacterDescription: (string, string) => void;
+    canDelete: boolean;
+    deletePhrase: string => void;
 }
 
-const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Props): GenericReactComponent => {
+const ChatScreen = ({entries, additionalEntries, showCharacterDescription, canDelete, deletePhrase}: Props): GenericReactComponent => {
     const theme = useTheme();
     const chatContainer = useRef();
 
@@ -92,6 +94,8 @@ const ChatScreen = ({entries, additionalEntries, showCharacterDescription}: Prop
                                       key={e.id}
                                       isLast={index === ets.length - 1}
                                       showCharacterDescription={showCharacterDescription}
+                                      canDelete={canDelete}
+                                      deletePhrase={deletePhrase}
                                       sx={{
                                                 fontSize
                                             }} />

@@ -22,6 +22,8 @@ export const chatEntriesQuery: Query<GetChatEntriesQueryVariables, GetChatEntrie
             result
             text
             offGame
+            command
+            hide
             insertedAt
         }
     }
