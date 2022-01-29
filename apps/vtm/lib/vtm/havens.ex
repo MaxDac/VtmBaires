@@ -215,10 +215,12 @@ defmodule Vtm.Havens do
       end
 
     location_danger = round(danger * distance_coefficient)
-
     average_danger = round((location_danger + previous_danger) / 2)
 
-    {h, average_danger}
+    case {location_danger, average_danger} do
+      {l, a} when l >= a  -> {h, l}
+      {_, a}              -> {h, a}
+    end
   end
 
   @spec update_cell_danger({Haven.t(), non_neg_integer()}) :: {:ok, Haven.t()} | {:error, Changeset.t()}
@@ -234,4 +236,13 @@ defmodule Vtm.Havens do
   defp compute_update_errors({:ok, _}, {:ok, n}), do: {:ok, n + 1}
   defp compute_update_errors(e = {:error, _}, _), do: e
   defp compute_update_errors(_, e), do: e
+
+  @doc """
+  Resets the danger in all the havens.
+  """
+  @spec reset_danger() :: {integer(), nil | [term()]}
+  def reset_danger() do
+    Haven
+    |> Repo.update_all(set: [danger: 0])
+  end
 end

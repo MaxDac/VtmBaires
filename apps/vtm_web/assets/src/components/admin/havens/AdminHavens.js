@@ -16,6 +16,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ResetResonancesMutation from "../../../services/mutations/havens/ResetResonancesMutation";
 import SetDangerZoneMutation from "../../../services/mutations/havens/SetDangerZoneMutation";
+import Grid from "@mui/material/Grid";
+import ResetDangerMutation from "../../../services/mutations/havens/ResetDangerMutation";
 
 const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
@@ -103,6 +105,19 @@ const AdminHavens = (): GenericReactComponent => {
             });
     };
 
+    const onResetDanger = _ => {
+        openDialog("Resetta Pericolosità", `Sei sicuro di voler resettare tutte le pericolosità nel Dominio? Questo cancellerà completamente lo stato attuale.`,
+            () => {
+                handleMutation(
+                    () => ResetDangerMutation(environment)
+                        .finally(_ => setFetchKey(p => p + 1)),
+                    showUserNotification,
+                    {
+                        successMessage: "La modifica è stata effettuata con successo."
+                    });
+            });
+    };
+
     const onSetDanger = (h, {danger, range}) => {
         if (h?.id != null) {
             const hId = h.id;
@@ -124,33 +139,51 @@ const AdminHavens = (): GenericReactComponent => {
     };
 
     return (
-        <>
-            <h1 style={{
-                fontFamily: 'Disturbed',
-                marginRight: "20px"
-            }}>
-                Gestione rifugio
-            </h1>
-            <Box sx={{
-                width: "100%",
-                padding: "1rem",
-                display: "flex",
-                justifyContent: "center"
-            }}>
-                <Button variant="outlined" onClick={onResetResonances}>
-                    Resetta Risonanze
-                </Button>
-            </Box>
-            <AdminHavensModal haven={haven}
-                              open={open}
-                              handleClose={_ => setOpen(_ => false)}
-                              onSelected={onCharacterSubmitted}
-                              onMarkResonance={onMarkResonance}
-                              onSetDanger={onSetDanger}
-                              havenCharacterId={haven?.character?.id} />
-            <HavenMap onSectionSelected={onHavenSelected}
-                      fetchKey={fetchKey} />
-        </>
+        <Grid container>
+            <Grid item xs={12}>
+                <h1 style={{
+                    fontFamily: 'Disturbed',
+                    marginRight: "20px"
+                }}>
+                    Gestione rifugio
+                </h1>
+            </Grid>
+            <Grid item xs={6}>
+                <Box sx={{
+                    width: "100%",
+                    padding: "1rem",
+                    display: "flex",
+                    justifyContent: "center"
+                }}>
+                    <Button variant="outlined" onClick={onResetResonances}>
+                        Resetta Risonanze
+                    </Button>
+                </Box>
+            </Grid>
+            <Grid item xs={6}>
+                <Box sx={{
+                    width: "100%",
+                    padding: "1rem",
+                    display: "flex",
+                    justifyContent: "center"
+                }}>
+                    <Button variant="outlined" onClick={onResetDanger}>
+                        Resetta Pericolosit&agrave;
+                    </Button>
+                </Box>
+            </Grid>
+            <Grid item xs={12}>
+                <AdminHavensModal haven={haven}
+                                  open={open}
+                                  handleClose={_ => setOpen(_ => false)}
+                                  onSelected={onCharacterSubmitted}
+                                  onMarkResonance={onMarkResonance}
+                                  onSetDanger={onSetDanger}
+                                  havenCharacterId={haven?.character?.id} />
+                <HavenMap onSectionSelected={onHavenSelected}
+                          fetchKey={fetchKey} />
+            </Grid>
+        </Grid>
     );
 };
 

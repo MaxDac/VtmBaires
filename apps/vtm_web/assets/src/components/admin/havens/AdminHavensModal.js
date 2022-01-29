@@ -10,9 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import type {GenericReactComponent} from "../../../_base/types";
 import type {SetHavenInfoRequest} from "../../../services/mutations/havens/__generated__/SetHavenInfoMutation.graphql";
-import type {
-    SetResonanceZoneRequest
-} from "../../../services/mutations/havens/__generated__/SetResonanceZoneMutation.graphql";
+import type {SetResonanceZoneRequest} from "../../../services/mutations/havens/__generated__/SetResonanceZoneMutation.graphql";
+import type {SetDangerZoneRequest} from "../../../services/mutations/havens/__generated__/SetDangerZoneMutation.graphql";
 import AdminHavensFormSelector from "./forms/AdminHavensFormSelector";
 
 type Props = {
@@ -21,13 +20,12 @@ type Props = {
     handleClose: () => void;
     onSelected: (?Haven, string, SetHavenInfoRequest) => void;
     onMarkResonance: (?Haven, SetResonanceZoneRequest) => void;
+    onSetDanger: (?Haven, SetDangerZoneRequest) => void;
     havenCharacterId?: string;
 };
 
-const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance, havenCharacterId}: Props): GenericReactComponent => {
+const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance, onSetDanger, havenCharacterId}: Props): GenericReactComponent => {
     const triggerButton = useRef();
-
-    console.debug("trigger button", triggerButton);
 
     const triggerSubmit = _ => triggerButton.current?.click();
 
@@ -54,7 +52,12 @@ const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance
     };
 
     const onDangerUpdateSubmitted = formInfo => {
+        onSetDanger(haven, {
+            danger: Number(formInfo.danger),
+            range: Number(formInfo.range)
+        });
 
+        handleClose();
     };
 
     return (
@@ -68,7 +71,8 @@ const AdminHavensModal = ({haven, open, handleClose, onSelected, onMarkResonance
                                          havenCharacterId={havenCharacterId}
                                          onSetHavenSubmitted={onSetHavenSubmitted}
                                          onMarkResonanceSubmitted={onMarkResonanceSubmitted}
-                                         onDangerUpdateSubmitted={onDangerUpdateSubmitted} />
+                                         onDangerUpdateSubmitted={onDangerUpdateSubmitted}
+                                         ref={triggerButton} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Annulla</Button>

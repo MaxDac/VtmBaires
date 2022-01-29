@@ -99,4 +99,10 @@ defmodule VtmWeb.Resolvers.HavenResolvers do
       {:ok, %{result: n}}
     end
   end
+
+  def reset_danger(_, _, _) do
+    with {n, _}         <- Havens.reset_danger() do
+      {:ok, %{result: n}}
+    end
+  end
 end

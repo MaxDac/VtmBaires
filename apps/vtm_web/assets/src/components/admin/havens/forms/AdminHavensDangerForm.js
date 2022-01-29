@@ -12,10 +12,12 @@ import Button from "@mui/material/Button";
 
 const AdminHavensDangerFormSchema = object().shape({
     danger: number().required(),
+    range: number().required()
 });
 
 export type DangerFormSubmitProps = {
     danger: number;
+    range: number;
 };
 
 type AdminHavensDangerFormInternalProps = {
@@ -25,11 +27,13 @@ type AdminHavensDangerFormInternalProps = {
 
 const AdminHavensDangerForm: GenericReactComponent =
     React.forwardRef(({haven, onSubmit}: AdminHavensDangerFormInternalProps, ref): GenericReactComponent => {
-        const generateValues = rangeArray(0, 10).map(x => [String(x), String(x)]);
+        const dangerValues = rangeArray(0, 10).map(x => [String(x), String(x)]);
+        const rangeValues = rangeArray(1, 5).map(x => [String(x), String(x)]);
 
         const formik = useFormik({
             initialValues: {
-                danger: 1
+                danger: 1,
+                range: 1
             },
             validationSchema: AdminHavensDangerFormSchema,
             onSubmit
@@ -42,11 +46,17 @@ const AdminHavensDangerForm: GenericReactComponent =
                     width: "100%",
                     textAlign: "center"
                 }}>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                         <FormSelectField formik={formik}
                                          fieldName="danger"
                                          label="Livello di Pericolo"
-                                         values={generateValues} />
+                                         values={dangerValues} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <FormSelectField formik={formik}
+                                         fieldName="range"
+                                         label="Estensione"
+                                         values={rangeValues} />
                     </Grid>
                     <Button ref={ref}
                             type="submit"

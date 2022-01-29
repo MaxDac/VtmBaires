@@ -186,5 +186,15 @@ defmodule VtmWeb.Schema.HavenTypes do
       resolve parsing_node_ids(&HavenResolvers.set_danger_zone/2, haven_id: :haven)
       middleware Middlewares.ChangesetErrors
     end
+
+    payload field :reset_danger do
+      output do
+        field :result, :integer
+      end
+
+      middleware Middlewares.Authorize, :master
+      resolve &HavenResolvers.reset_danger/3
+      middleware Middlewares.ChangesetErrors
+    end
   end
 end

@@ -690,6 +690,10 @@ type ResetCharacterHuntPayload {
   result: Character
 }
 
+type ResetDangerPayload {
+  result: Int
+}
+
 type ResetResonancesPayload {
   result: Int
 }
@@ -752,6 +756,7 @@ type RootMutationType {
   rejectCharacter(characterId: ID!, reason: String!): Boolean
   requestNewPassword(userEmail: String!): Boolean
   resetCharacterHunt(input: ResetCharacterHuntInput!): ResetCharacterHuntPayload
+  resetDanger: ResetDangerPayload
   resetResonances: ResetResonancesPayload
   resetSession: Boolean
   resetSessionMap: Boolean
