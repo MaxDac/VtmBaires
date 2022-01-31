@@ -57,6 +57,6 @@ defmodule Vtm.Havens.Haven do
     haven
     |> cast(attrs, [:x, :y, :resonance, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
     |> unique_constraint([:x, :y], name: :haven_locations_unique_key)
-    |> validate_required([:x, :y, :resonance, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
+    |> validate_required([:x, :y, :difficulty, :owner_difficulty, :danger, :ground_control, :resources_level])
   end
 end

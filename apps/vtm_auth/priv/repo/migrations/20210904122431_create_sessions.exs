@@ -4,7 +4,7 @@ defmodule Vtm.Repo.Migrations.CreateSessions do
   def change do
     create table(:sessions) do
       add :last_checked, :naive_datetime
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
     end

@@ -2,11 +2,13 @@ defmodule Vtm.Chats do
   @moduledoc false
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
 
   alias Vtm.Repo
   alias Vtm.Helpers
   alias Vtm.Chats.ChatMap
   alias Vtm.Chats.ChatEntry
+  alias Vtm.Chats.ArchivedChat
   alias Vtm.ChatBookings
   alias Vtm.Characters.Character
   alias Vtm.Characters
@@ -14,6 +16,8 @@ defmodule Vtm.Chats do
 
   @two_hours_in_second 3_600 * 2
   @ten_minutes_in_seconds 60 * 10
+
+  @older_chats_threshold_in_weeks 4
 
   def get_main_chat_maps() do
     query = from m in ChatMap,
@@ -461,5 +465,101 @@ defmodule Vtm.Chats do
         |> ChatEntry.update_changeset(%{hide: true})
         |> Repo.update()
     end
+  end
+
+  @spec create_chat_backups() :: {integer(), nil | [term()]}
+  def create_chat_backups() do
+    entries =
+      get_non_backed_up_chat_entries()
+
+    ArchivedChat
+    |> Repo.insert_all(entries)
+  end
+
+  @spec get_non_backed_up_chat_entries() :: list(map())
+  def get_non_backed_up_chat_entries() do
+    query =
+      case get_latest_chat_backup_insertion() do
+        last_date when not is_nil(last_date)  ->
+          from e in ChatEntry,
+            where: e.inserted_at > ^last_date
+        nil ->
+          from e in ChatEntry
+      end
+
+    query =
+      from e in query,
+        join: c in Character,
+        on: e.character_id == c.id,
+        join: l in ChatMap,
+        on: e.chat_map_id == l.id,
+        select: %{
+          character_name: c.name,
+          location_name: l.name,
+          text: e.text,
+          result: e.result,
+          master: e.master
+        }
+
+    now =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.truncate(:second)
+
+    query
+    |> Repo.all()
+    |> Stream.map(&map_chat_entry_to_backup/1)
+    |> Enum.map(&map_to_archive_chat(&1, now))
+  end
+
+  @spec get_latest_chat_backup_insertion() :: NaiveDateTime.t() | nil
+  def get_latest_chat_backup_insertion() do
+    ArchivedChat
+    |> from()
+    |> select([c], max(c.inserted_at))
+    |> Repo.one()
+  end
+
+  @spec map_chat_entry_to_backup(map()) :: map()
+  defp map_chat_entry_to_backup(e = %{
+    text: e_text,
+    master: true
+  }) when not is_nil(e_text), do: e |> Map.put(:text, e_text) |> Map.put(:character_name, "master")
+
+  defp map_chat_entry_to_backup(e = %{
+    result: e_text,
+    master: true
+  }), do: e |> Map.put(:text, e_text) |> Map.put(:character_name, "master")
+
+  defp map_chat_entry_to_backup(e = %{
+    text: e_text
+  }) when not is_nil(e_text), do: e |> Map.put(:text, e_text)
+
+  defp map_chat_entry_to_backup(e = %{
+    result: e_text
+  }), do: e |> Map.put(:text, e_text)
+
+  @spec map_to_archive_chat(map(), NaiveDateTime.t()) :: map()
+  defp map_to_archive_chat(%{
+    character_name: c_name,
+    location_name: l_name,
+    text: e_text,
+  }, now), do: %{
+    character_name: c_name,
+    location_name: l_name,
+    text: e_text,
+    inserted_at: now,
+    updated_at: now
+  }
+
+  @spec delete_older_chats() :: {integer(), any()}
+  def delete_older_chats() do
+    threshold =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.add(@older_chats_threshold_in_weeks * 7 * 24 * 60 * 60 * -1)
+
+    ChatEntry
+    |> from()
+    |> where([c], c.inserted_at < ^threshold)
+    |> Repo.delete_all()
   end
 end

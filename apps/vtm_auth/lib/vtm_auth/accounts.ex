@@ -243,8 +243,8 @@ defmodule VtmAuth.Accounts do
   @spec authenticate(binary(), binary(), boolean()) :: {:ok, User.t()} | {:error, any()}
   def authenticate(email, password, remember) do
     with {:ok, user}  <- get_not_banned_user_by_email(email),
-          {:ok, user}  <- verify_user_password(user, password),
-          {:ok, user}  <- update_last_login_date(user) do
+          {:ok, user} <- verify_user_password(user, password),
+          {:ok, user} <- update_last_login_date(user) do
       update_session(user, %{remember: remember})
       {:ok, user}
     end

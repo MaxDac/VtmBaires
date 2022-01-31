@@ -2,6 +2,7 @@ defmodule Vtm.Forum do
   @moduledoc false
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
 
   alias Vtm.Repo
   alias Vtm.Pagination
@@ -183,7 +184,7 @@ defmodule Vtm.Forum do
     end
   end
 
-  @spec get_forum_thread_list(Section.t(), non_neg_integer(), non_neg_integer()) :: list(ForumThread.t())
+  @spec get_forum_thread_list(ForumSection.t(), non_neg_integer(), non_neg_integer()) :: list(ForumThread.t())
   defp get_forum_thread_list(%{id: section_id}, page_size, page) do
     query =
       ForumThreadInfo

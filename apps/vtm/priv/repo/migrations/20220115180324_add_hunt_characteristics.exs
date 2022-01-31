@@ -7,8 +7,8 @@ defmodule Vtm.Repo.Migrations.AddHuntCharacteristics do
     end
 
     alter table(:predator_types) do
-      add :attribute_id, references(:attributes, on_delete: :nothing)
-      add :skill_id, references(:attributes, on_delete: :nothing)
+      add :attribute_id, references(:attributes, on_delete: :nilify_all)
+      add :skill_id, references(:attributes, on_delete: :nilify_all)
     end
   end
 end

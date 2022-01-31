@@ -7,7 +7,7 @@ defmodule Vtm.Repo.Migrations.CreateCharacters do
       add :avatar, :text
       add :description, :string
       add :biography, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
       add :clan_id, references(:clans, on_delete: :nothing)
 
       timestamps()

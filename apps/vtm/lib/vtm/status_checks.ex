@@ -309,21 +309,21 @@ defmodule Vtm.StatusChecks do
   end
 
   @spec determine_resonance_power(binary() | nil) :: non_neg_integer()
-  defp determine_resonance_power(nil) do
-    case {Helpers.throw_dice(), Helpers.throw_dice()} do
-      {x, r} when x >= 9 and r >= 9 -> 4
-      {x, _} when x >= 9            -> 3
-      {x, _} when x >= 6            -> 2
-      _                             -> 1
-    end
-  end
-
-  defp determine_resonance_power(_) do
+  defp determine_resonance_power(resonance) when not is_nil(resonance) do
     case Helpers.throw_dice() do
       x when x >= 10  -> 4
       x when x >= 9   -> 3
       x when x >= 6   -> 2
       _               -> 1
+    end
+  end
+
+  defp determine_resonance_power(_) do
+    case {Helpers.throw_dice(), Helpers.throw_dice()} do
+      {x, r} when x >= 9 and r >= 9 -> 4
+      {x, _} when x >= 9            -> 3
+      {x, _} when x >= 6            -> 2
+      _                             -> 1
     end
   end
 
@@ -346,18 +346,7 @@ defmodule Vtm.StatusChecks do
   end
 
   @spec determine_resonance_type(Character.t(), binary() | nil) :: binary()
-  defp determine_resonance_type(%{id: character_id}, nil) do
-    case {Characters.is_character_vegan_hunter?(character_id), Helpers.throw_dice()} do
-      {true, _}           -> "Animale"
-      {_, x} when x == 9  -> "Flemmatica"
-      {_, x} when x >= 7  -> "Collerica"
-      {_, x} when x >= 5  -> "Malinconica"
-      {_, x} when x >= 2  -> "Sanguigna"
-      _                   -> "Animale"
-    end
-  end
-
-  defp determine_resonance_type(%{id: character_id}, resonance) do
+  defp determine_resonance_type(%{id: character_id}, resonance) when not is_nil(resonance) do
     [
       first,
       second,
@@ -374,6 +363,17 @@ defmodule Vtm.StatusChecks do
       {_, x} when x == 8  -> third
       {_, x} when x == 7  -> fourth
       _                   -> resonance
+    end
+  end
+
+  defp determine_resonance_type(%{id: character_id}, _) do
+    case {Characters.is_character_vegan_hunter?(character_id), Helpers.throw_dice()} do
+      {true, _}           -> "Animale"
+      {_, x} when x == 9  -> "Flemmatica"
+      {_, x} when x >= 7  -> "Collerica"
+      {_, x} when x >= 5  -> "Malinconica"
+      {_, x} when x >= 2  -> "Sanguigna"
+      _                   -> "Animale"
     end
   end
 

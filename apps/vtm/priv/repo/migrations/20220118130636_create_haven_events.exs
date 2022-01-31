@@ -5,8 +5,8 @@ defmodule Vtm.Repo.Migrations.CreateHavenEvents do
     create table(:haven_events) do
       add :danger_triggered, :boolean, default: true, null: false
       add :resolved, :boolean, default: false, null: false
-      add :character_id, references(:characters, on_delete: :nothing)
-      add :haven_id, references(:haven_locations, on_delete: :nothing)
+      add :character_id, references(:characters, on_delete: :delete_all)
+      add :haven_id, references(:haven_locations, on_delete: :delete_all)
 
       timestamps()
     end
