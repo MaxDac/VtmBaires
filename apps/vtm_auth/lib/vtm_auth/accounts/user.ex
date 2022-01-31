@@ -12,6 +12,7 @@ defmodule VtmAuth.Accounts.User do
     needs_new_password: boolean(),
     banned: boolean(),
     last_login: NaiveDateTime.t(),
+    last_notified: NaiveDateTime.t(),
     relogin_token: binary(),
     original_id: non_neg_integer(),
 
@@ -27,6 +28,7 @@ defmodule VtmAuth.Accounts.User do
     field :needs_new_password, :boolean
     field :banned, :boolean
     field :last_login, :naive_datetime
+    field :last_notified, :naive_datetime
     field :relogin_token, :string
     field :original_id, :string, virtual: true
 
@@ -44,6 +46,6 @@ defmodule VtmAuth.Accounts.User do
 
   def update_changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password, :role, :needs_new_password, :banned, :last_login, :relogin_token])
+    |> cast(attrs, [:email, :password, :role, :needs_new_password, :banned, :last_login, :last_notified, :relogin_token])
   end
 end

@@ -13,7 +13,10 @@ defmodule VtmWeb.Application do
       VtmWeb.Endpoint,
       # Start a worker by calling: VtmWeb.Worker.start_link(arg)
       # {VtmWeb.Worker, arg}
-      {Absinthe.Subscription, VtmWeb.Endpoint}
+      {Absinthe.Subscription, VtmWeb.Endpoint},
+      # Starting the tasks to check older characters and delete them
+      # %{id: "send_check_login_email", start: {SchedEx, :run_every, [VtmWeb.Jobs, :send_notifications, [], "1 1 * * *"]}},
+      # %{id: "delete_older_characters", start: {SchedEx, :run_every, [VtmWeb.Jobs, :delete_unused_users, [], "1 1 * * *"]}},
     ]
 
     # Performs the needed migrations

@@ -44,9 +44,24 @@ defmodule VtmWeb.UserEmail do
     <p><b>Non sei stato tu?</b> Chiama immediatamente un master del sito.</p>
     """)
     |> text_body("""
-    <Abbiamo ricevuto una richiesta di aggiornamento password per l'utente #{username}.\r\n\r\n
+    Abbiamo ricevuto una richiesta di aggiornamento password per l'utente #{username}.\r\n\r\n
     Per accedere al tuo utente, puoi usare la seguente password: #{new_password}.\r\n\r\n
     Non sei stato tu? Chiama immediatamente un master del sito.
+    """)
+  end
+
+  def cancellation_warning(username, email) do
+    new()
+    |> to({username, email})
+    |> from({@postmaster_name, @postmaster_email})
+    |> subject("VTM Baires: avviso cancellazione utente")
+    |> html_body("""
+    <p>Ti scriviamo per comunicarti che l'utente #{username} verrà cancellato tra una settimana per inattività.</p>
+    <p>Per impedire la cancellazione, basterà effettuare un login nel sito.</p>
+    """)
+    |> text_body("""
+    Ti scriviamo per comunicarti che l'utente #{username} verrà cancellato tra una settimana per inattività.\r\n\r\n
+    Per impedire la cancellazione, basterà effettuare un login nel sito.
     """)
   end
 end

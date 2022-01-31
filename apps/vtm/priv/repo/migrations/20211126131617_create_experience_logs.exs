@@ -4,8 +4,8 @@ defmodule Vtm.Repo.Migrations.CreateExperienceLogs do
   def change do
     create table(:experience_logs) do
       add :change, :integer
-      add :character_id, references(:characters, on_delete: :nothing)
-      add :attribute_id, references(:attributes, on_delete: :nothing)
+      add :character_id, references(:characters, on_delete: :delete_all)
+      add :attribute_id, references(:attributes, on_delete: :delete_all)
       add :master_id, references(:users, on_delete: :nothing)
 
       timestamps()

@@ -3,8 +3,8 @@ defmodule Vtm.Repo.Migrations.CreateChatRules do
 
   def change do
     create table(:chat_rules) do
-      add :chat_map_id, references(:chat_maps, on_delete: :nothing)
-      add :guest_user_id, references(:users, on_delete: :nothing)
+      add :chat_map_id, references(:chat_maps, on_delete: :delete_all)
+      add :guest_user_id, references(:users, on_delete: :delete_all)
       add :is_owner, :boolean, default: false
 
       timestamps()

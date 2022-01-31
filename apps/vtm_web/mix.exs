@@ -55,7 +55,8 @@ defmodule VtmWeb.MixProject do
       {:absinthe_relay, "~> 1.5"},
       {:dataloader, "~> 1.0"},
       {:swoosh, "~> 1.5"},
-      {:gen_smtp, "~> 1.0"}
+      {:gen_smtp, "~> 1.0"},
+      {:sched_ex, "~> 1.1"}
     ]
   end
 

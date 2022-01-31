@@ -9,6 +9,7 @@ defmodule Vtm.Characters.Character do
   alias Vtm.Characters.PredatorType
 
   @type t :: %__MODULE__{
+    id: non_neg_integer(),
     name: binary(),
     avatar: binary(),
     chat_avatar: binary(),

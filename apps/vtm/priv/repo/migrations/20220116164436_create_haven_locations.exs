@@ -9,7 +9,7 @@ defmodule Vtm.Repo.Migrations.CreateHavenLocations do
       add :owner_difficulty, :integer
       add :danger, :integer
       add :resources_level, :integer
-      add :character_id, references(:characters, on_delete: :nothing)
+      add :character_id, references(:characters, on_delete: :nilify_all)
 
       timestamps()
     end
