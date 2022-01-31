@@ -33,6 +33,18 @@ defmodule VtmAuth.Notifications do
     |> Repo.all()
   end
 
+  @spec cleanup_users_not_logged_since(non_neg_integer()) :: {integer(), nil | [term()]}
+  def cleanup_users_not_logged_since(weeks) do
+    notify_limit =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.add(@weeks_between_notify_and_deletion * 7 * 24 * 60 * 60 * -1)
+
+    User
+    |> from()
+    |> where([u], u.last_login < ^notify_limit or is_nil(u.last_login))
+    |> Repo.delete_all()
+  end
+
   @spec update_user_last_notified(list(non_neg_integer())) :: {integer(), nil | [term()]}
   def update_user_last_notified(ids) do
     now = NaiveDateTime.utc_now()

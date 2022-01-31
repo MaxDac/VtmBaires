@@ -15,8 +15,11 @@ defmodule VtmWeb.Application do
       # {VtmWeb.Worker, arg}
       {Absinthe.Subscription, VtmWeb.Endpoint},
       # Starting the tasks to check older characters and delete them
-      # %{id: "send_check_login_email", start: {SchedEx, :run_every, [VtmWeb.Jobs, :send_notifications, [], "1 1 * * *"]}},
-      # %{id: "delete_older_characters", start: {SchedEx, :run_every, [VtmWeb.Jobs, :delete_unused_users, [], "1 1 * * *"]}},
+      # %{id: "send_check_login_email", start: {SchedEx, :run_every, [VtmWeb.Jobs.CheckUserLastLogin, :send_notifications, [], "1 1 * * *"]}},
+      # %{id: "delete_older_characters", start: {SchedEx, :run_every, [VtmWeb.Jobs.CheckUserLastLogin, :delete_unused_users, [], "1 1 * * *"]}},
+      %{id: "backup_chats", start: {SchedEx, :run_every, [VtmWeb.Jobs.BackupChats, :create_chat_backups, [], "1 1 * * *"]}},
+      #delete_older_chats
+      %{id: "delete_older_chats", start: {SchedEx, :run_every, [VtmWeb.Jobs.BackupChats, :delete_older_chats, [], "1 1 * * *"]}},
     ]
 
     # Performs the needed migrations

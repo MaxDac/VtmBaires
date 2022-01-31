@@ -17,6 +17,8 @@ defmodule Vtm.Chats do
   @two_hours_in_second 3_600 * 2
   @ten_minutes_in_seconds 60 * 10
 
+  @older_chats_threshold_in_weeks 4
+
   def get_main_chat_maps() do
     query = from m in ChatMap,
       where: is_nil(m.chat_map_id)
@@ -548,4 +550,16 @@ defmodule Vtm.Chats do
     inserted_at: now,
     updated_at: now
   }
+
+  @spec delete_older_chats() :: {integer(), any()}
+  def delete_older_chats() do
+    threshold =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.add(@older_chats_threshold_in_weeks * 7 * 24 * 60 * 60 * -1)
+
+    ChatEntry
+    |> from()
+    |> where([c], c.inserted_at < ^threshold)
+    |> Repo.delete_all()
+  end
 end

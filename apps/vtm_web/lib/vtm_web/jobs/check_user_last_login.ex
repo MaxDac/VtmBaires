@@ -1,4 +1,4 @@
-defmodule VtmWeb.Jobs do
+defmodule VtmWeb.Jobs.CheckUserLastLogin do
   @moduledoc false
 
   require Logger

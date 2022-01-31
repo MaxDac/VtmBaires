@@ -3,10 +3,9 @@
 import React, {useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {DefaultPageSize} from "./ForumThread";
-import ForumPostLayout from "./layout/ForumPostLayout";
-import ForumPostWithAvatar from "./layout/ForumPostWithAvatar";
 import {getForumThreadPostsQuery} from "../../services/queries/forum/GetForumThreadPostsQuery";
 import type {GenericReactComponent} from "../../_base/types";
+import ForumPost from "./layout/posts/ForumPost";
 
 type Props = {
     threadId: string;
@@ -30,9 +29,11 @@ const ForumThreadPage = ({threadId, page}: Props): GenericReactComponent => {
     })?.getForumThreadPosts;
 
     const showThreadPost = post => (
-        <ForumPostLayout key={post?.id} post={post} threadId={threadId} onReload={onReloadCustom}>
-            <ForumPostWithAvatar post={post} onGame={post?.onGame === true} />
-        </ForumPostLayout>
+        <ForumPost key={post?.id}
+                   post={post}
+                   threadId={threadId}
+                   onGame={post?.onGame === true}
+                   onReload={onReloadCustom} />
     );
 
     const showThreadPosts = () =>

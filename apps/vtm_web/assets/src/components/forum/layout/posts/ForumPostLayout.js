@@ -3,22 +3,22 @@
 import React, {useContext} from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import type { Post } from "../../../services/queries/forum/GetForumThreadPostsQuery";
+import type { Post } from "../../../../services/queries/forum/GetForumThreadPostsQuery";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useSession} from "../../../services/session-service";
+import {useSession} from "../../../../services/session-service";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import {MainRoutes} from "../../MainRouter";
+import {MainRoutes} from "../../../MainRouter";
 import {useHistory} from "react-router-dom";
-import {UtilityContext} from "../../../contexts";
-import DeletePostMutation from "../../../services/mutations/forum/DeletePostMutation";
+import {UtilityContext} from "../../../../contexts";
+import DeletePostMutation from "../../../../services/mutations/forum/DeletePostMutation";
 import {useRelayEnvironment} from "react-relay";
-import {handleMutation} from "../../../_base/utils";
-import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
-import type {GenericReactComponent} from "../../../_base/types";
+import {handleMutation} from "../../../../_base/utils";
+import {menuIconStyle} from "../../../_layout/menu/menu-base-utils";
+import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
     threadId: string;
