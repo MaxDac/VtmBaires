@@ -1,4 +1,6 @@
 defmodule Vtm.Chats.ArchivedChat do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

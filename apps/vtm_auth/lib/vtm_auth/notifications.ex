@@ -37,7 +37,7 @@ defmodule VtmAuth.Notifications do
   def cleanup_users_not_logged_since(weeks) do
     notify_limit =
       NaiveDateTime.utc_now()
-      |> NaiveDateTime.add(@weeks_between_notify_and_deletion * 7 * 24 * 60 * 60 * -1)
+      |> NaiveDateTime.add(weeks * 7 * 24 * 60 * 60 * -1)
 
     User
     |> from()
