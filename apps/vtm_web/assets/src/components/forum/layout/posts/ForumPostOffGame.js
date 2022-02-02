@@ -26,7 +26,7 @@ const ForumPostOffGame = ({post, onGame}: Props): GenericReactComponent => {
                 <Grid container sx={{padding: "3px"}}>
                     <Grid item xs={6}>
                         <Typography component="h1" sx={{
-                            ...style,
+                            ...style(),
                             fontSize: "1.5rem",
                             fontVariant: "small-caps"
                         }}>

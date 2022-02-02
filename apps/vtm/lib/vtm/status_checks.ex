@@ -23,13 +23,18 @@ defmodule Vtm.StatusChecks do
         where: c.id == ^character_id,
         select: %Character{
           id: c.id,
-          blood_potency: c.blood_potency,
+          humanity: c.humanity,
+          last_hunt: c.last_hunt,
+          last_resonance: c.last_resonance,
+          last_resonance_intensity: c.last_resonance_intensity,
           hunger: c.hunger,
+          stains: c.stains,
+          blood_potency: c.blood_potency,
+          willpower: c.willpower,
+          willpower_damage: c.willpower_damage,
           health: c.health,
           damage: c.damage,
           aggravated_damage: c.aggravated_damage,
-          willpower: c.willpower,
-          willpower_damage: c.willpower_damage
         }
 
     Repo.one(query)

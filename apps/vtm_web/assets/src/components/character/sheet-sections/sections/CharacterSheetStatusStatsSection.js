@@ -5,21 +5,40 @@ import Grid from "@mui/material/Grid";
 import AttributeStat from "../../controls/AttributeStat";
 import AttributeWithDamageStat from "../../controls/AttributeWithDamageStat";
 import AttributeCumulativeStat from "../../controls/AttributeCumulativeStat";
-import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {characterIsVampire} from "../../../../_base/utils";
 import { defaultFormatDateAndTime } from "../../../../_base/date-utils";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
+import {getCharacterStatusQuery} from "../../../../services/queries/character/GetCharacterStatusQuery";
+import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 
 type Props = {
     sheet: Character;
-}
+};
 
 const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent => {
+    if (sheet?.id != null) {
+        return (
+            <CharacterSheetStatusStatsSectionInternal sheet={sheet}
+                                                      characterId={sheet.id} />
+        );
+    }
+
+    return (<></>);
+};
+
+const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): GenericReactComponent => {
+    const characterStatus = useCustomLazyLoadQuery(getCharacterStatusQuery, {characterId}, {
+        fetchPolicy: "network-only"
+    })?.getCharacterStatus;
+
+    const isCharacterVampire = () => characterIsVampire(sheet);
+
     const bottomLinesStyle = {
         name: "Umanità",
-        value: sheet?.humanity,
+        value: characterStatus?.humanity,
         maxValue: 10
     };
 
@@ -33,8 +52,8 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent
     };
 
     const showHuntResult = () => {
-        if (characterIsVampire(sheet)) {
-            const lastHuntDate = defaultFormatDateAndTime(sheet?.lastHunt ?? "");
+        if (isCharacterVampire) {
+            const lastHuntDate = defaultFormatDateAndTime(characterStatus?.lastHunt ?? "");
             if (lastHuntDate != null && lastHuntDate !== "") {
                 return (
                     <Grid item xs={12} sx={{
@@ -45,9 +64,9 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent
                             <Typography sx={{
                                 fontFamily: "DefaultTypewriter"
                             }}>
-                                L'ultima caccia risale al {defaultFormatDateAndTime(sheet?.lastHunt ?? "")},
+                                L'ultima caccia risale al {defaultFormatDateAndTime(characterStatus?.lastHunt ?? "")},
                                 ha avuto una
-                                risonanza <b>{sheet.lastResonance} {resonanceIntensityLabel(sheet?.lastResonanceIntensity ?? 1)}</b>.
+                                risonanza <b>{characterStatus?.lastResonance} {resonanceIntensityLabel(characterStatus?.lastResonanceIntensity ?? 1)}</b>.
                             </Typography>
                         </Paper>
                     </Grid>
@@ -61,14 +80,14 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent
     };
 
     const showHunger = () => {
-        if (characterIsVampire(sheet)) {
+        if (isCharacterVampire) {
             return (
                 <Grid item xs={12} sx={bottomLinesStyle}>
                     <AttributeStat stat={{
                         name: "Fame",
-                        value: sheet?.hunger,
+                        value: characterStatus?.hunger,
                         maxValue: 5
-                    }} damage={sheet?.stains} />
+                    }} damage={characterStatus?.stains} />
                 </Grid>
             );
         }
@@ -77,12 +96,12 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent
     };
 
     const showBloodPotency = () => {
-        if (characterIsVampire(sheet)) {
+        if (isCharacterVampire) {
             return (
                 <Grid item xs={12} sx={bottomLinesStyle}>
                     <AttributeStat stat={{
                         name: "Potenza del Sangue",
-                        value: sheet?.bloodPotency,
+                        value: characterStatus?.bloodPotency,
                         maxValue: 5
                     }} damage={0} />
                 </Grid>
@@ -98,23 +117,23 @@ const CharacterSheetStatusStatsSection = ({sheet}: Props): GenericReactComponent
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeWithDamageStat stat={{
                     name: "Forza di Volontà",
-                    value: sheet?.willpower,
+                    value: characterStatus?.willpower,
                     maxValue: 10
-                }} damage={sheet?.willpowerDamage ?? 0} />
+                }} damage={characterStatus?.willpowerDamage ?? 0} />
             </Grid>
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeWithDamageStat stat={{
                     name: "Salute",
-                    value: sheet?.health,
+                    value: characterStatus?.health,
                     maxValue: 10
-                }} damage={sheet?.aggravatedDamage ?? 0} secondDamage={sheet?.damage ?? 0} />
+                }} damage={characterStatus?.aggravatedDamage ?? 0} secondDamage={characterStatus?.damage ?? 0} />
             </Grid>
             <Grid item xs={12} sx={bottomLinesStyle}>
                 <AttributeCumulativeStat stat={{
                     name: "Umanità",
-                    value: sheet?.humanity,
+                    value: characterStatus?.humanity,
                     maxValue: 10
-                }} damage={sheet?.stains ?? 0} />
+                }} damage={characterStatus?.stains ?? 0} />
             </Grid>
             {showBloodPotency()}
             {showHunger()}
