@@ -65,6 +65,8 @@ defmodule VtmWeb.Schema.AccountTypes do
 
   object :user_queries do
     field :all_users, list_of(:user) do
+      description "Get all the users"
+
       middleware Middlewares.Authorize, :player
       resolve &AccountsResolvers.all/3
       middleware Middlewares.ChangesetErrors

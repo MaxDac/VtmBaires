@@ -14,6 +14,8 @@ defmodule VtmWeb.Application do
       # Start a worker by calling: VtmWeb.Worker.start_link(arg)
       # {VtmWeb.Worker, arg}
       {Absinthe.Subscription, VtmWeb.Endpoint},
+      # Starting cluster
+      {Cluster.Supervisor, [get_topologies(), [name: VtmWeb.ClusterSupervisor]]},
       # Starting the tasks to check older characters and delete them
       # %{id: "send_check_login_email", start: {SchedEx, :run_every, [VtmWeb.Jobs.CheckUserLastLogin, :send_notifications, [], "1 1 * * *"]}},
       # %{id: "delete_older_characters", start: {SchedEx, :run_every, [VtmWeb.Jobs.CheckUserLastLogin, :delete_unused_users, [], "1 1 * * *"]}},
@@ -47,4 +49,10 @@ defmodule VtmWeb.Application do
 
     :ok
   end
+
+  defp get_topologies(), do: [
+    vtm: [
+      strategy: Cluster.Strategy.Gossip
+    ]
+  ]
 end

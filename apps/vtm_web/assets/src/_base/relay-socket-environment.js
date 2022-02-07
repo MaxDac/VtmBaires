@@ -20,9 +20,18 @@ import type {
     CacheConfig
 } from "relay-runtime";
 
+const getDocumentLocationHost = (): string =>
+    window.document.location.host;
+
 const buildWebSocketUrl = () => {
     if (process.env.NODE_ENV === "development") {
         return `ws://localhost:4000/socket`;
+    }
+
+    const host = getDocumentLocationHost();
+
+    if (host.indexOf("localhost") !== -1) {
+        return `ws://${window.document.location.host}/socket`;
     }
 
     return `wss://${window.document.location.host}/socket`;
