@@ -18,7 +18,11 @@ import ForumNoAvatar from "./ForumNoAvatar";
 type Props = {
     post: ?Post;
     onGame: boolean;
-}
+};
+
+export type ForumAvatarProps = {
+    containerStyle: any;
+};
 
 const ForumPostOnGame = ({post, onGame}: Props): GenericReactComponent => {
     const theme = useTheme();
@@ -28,12 +32,22 @@ const ForumPostOnGame = ({post, onGame}: Props): GenericReactComponent => {
 
     const showChatAvatar = useMediaQuery(theme.breakpoints.down('md'));
 
+    const avatarStyle = {
+        width: "120px",
+        verticalAlign: "top",
+        paddingTop: "3rem"
+    };
+
     const avatarControl = () =>
         post?.character?.id != null
             ? (showChatAvatar
-                ? (<ForumChatAvatar characterId={post.character.id} characterName={post?.character?.name} />)
-                : (<ForumAvatar characterId={post.character.id} characterName={post?.character?.name} />))
-            : (<ForumNoAvatar />);
+                ? (<ForumChatAvatar characterId={post.character.id}
+                                    characterName={post?.character?.name}
+                                    containerStyle={avatarStyle} />)
+                : (<ForumAvatar characterId={post.character.id}
+                                characterName={post?.character?.name}
+                                containerStyle={avatarStyle} />))
+            : (<ForumNoAvatar containerStyle={avatarStyle} />);
 
     return (
         <Box>

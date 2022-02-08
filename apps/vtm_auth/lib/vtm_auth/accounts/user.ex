@@ -8,7 +8,7 @@ defmodule VtmAuth.Accounts.User do
     email: binary(),
     name: binary(),
     password: binary(),
-    role: binary(),
+    role: binary() | atom(),
     needs_new_password: boolean(),
     banned: boolean(),
     last_login: NaiveDateTime.t(),

@@ -27,14 +27,15 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
 
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
-    const onSubmit = ({title, description, highlighted}) => {
+    const onSubmit = ({title, description, highlighted, characterIds}) => {
         CreateNewThreadMutation(environment, {
             sectionId,
             creatorUserId: user?.id ?? "",
             creatorCharacterId: section?.section?.onGame === true ? character?.id : null,
             title,
             description,
-            highlighted
+            highlighted,
+            allowedCharacters: characterIds
         }).then(id => {
             showUserNotification({
                 type: "success",
@@ -62,7 +63,9 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
     const formik = useFormik({
         initialValues: {
             title: "",
-            description: ""
+            description: "",
+            characterIds: [],
+            highlighted: false
         },
         validationSchema: CreateNewThreadValidationSchema(isUserMaster(user)),
         onSubmit
@@ -78,6 +81,7 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
     return (
         <ThreadForm title={getTitle()}
                     description={getDescription()}
+                    onGame={section?.section?.onGame}
                     goBack={goBack}
                     formik={formik}
                     buttonText="Crea Thread" />

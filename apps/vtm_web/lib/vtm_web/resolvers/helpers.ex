@@ -46,7 +46,7 @@ defmodule VtmWeb.Resolvers.Helpers do
   This function gets a table id from the global id for Relay.
   It returns {:ok, id} if it finds it, {:error, error} otherwise.
   """
-  @spec from_global_id?(binary) :: {:ok, integer} | {:error, binary}
+  @spec from_global_id?(binary()) :: {:ok, non_neg_integer()} | {:error, binary()}
   def from_global_id?(global_id) do
     with {:ok, %{id: new_id}} <- global_id |> from_global_id(VtmWeb.Schema) do
       {:ok, new_id |> String.to_integer()}
@@ -93,7 +93,7 @@ defmodule VtmWeb.Resolvers.Helpers do
   Processes the ids passed in input, trying to process all of them.
   If one of them fails, it returns a list of errors.
   """
-  @spec from_global_ids_or_error(list(binary)) :: {:ok, list(integer)} | {:error, list(binary)}
+  @spec from_global_ids_or_error(list(binary())) :: {:ok, list(non_neg_integer())} | {:error, list(binary())}
   def from_global_ids_or_error(global_ids) do
     global_ids
     |> Enum.map(&from_global_id?/1)

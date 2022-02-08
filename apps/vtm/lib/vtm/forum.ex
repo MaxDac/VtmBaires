@@ -172,29 +172,22 @@ defmodule Vtm.Forum do
     zip_with_nulls(threads, notifications, fn %{id: id} -> id end, fn %{forum_thread_id: id} -> id end)
   end
 
-  @spec get_forum_threads(User.t(), non_neg_integer(), non_neg_integer(), non_neg_integer()) ::
+  @spec get_forum_threads(User.t(), non_neg_integer(), non_neg_integer() | nil, non_neg_integer(), non_neg_integer()) ::
     {:ok, list({ForumThread.t(), UserForumNotification.t()})} |
     {:error, :illegal_access}
-  def get_forum_threads(user = %{id: user_id}, section_id, page_size, page) do
+  def get_forum_threads(user = %{id: user_id}, section_id, character_id, page_size, page) do
     with {:ok, section} <- check_section(user, section_id) do
-      items = get_forum_thread_list(section, page_size, page)
+      items = get_forum_thread_list(user, section, character_id, page_size, page)
       notifications = get_thread_notification_list(user_id, items)
       merged = zip_threads_with_user_notifications(items, notifications)
       {:ok, merged}
     end
   end
 
-  @spec get_forum_thread_list(ForumSection.t(), non_neg_integer(), non_neg_integer()) :: list(ForumThread.t())
-  defp get_forum_thread_list(%{id: section_id}, page_size, page) do
+  @spec get_forum_thread_list(User.t(), ForumSection.t(), non_neg_integer() | nil, non_neg_integer(), non_neg_integer()) :: list(ForumThread.t())
+  defp get_forum_thread_list(user, section, character_id, page_size, page) do
     query =
-      ForumThreadInfo
-      |> from()
-      |> where([t], t.forum_section_id == ^section_id)
-      |> order_by([t], [desc: t.highlighted, desc: t.last_post_updated_at])
-      |> Pagination.as_paged_query(page_size, page)
-
-    query =
-      from t in query,
+      from t in get_forum_thread_info_list(user, section, character_id, page_size, page),
         as: :items,
         left_lateral_join: c in subquery(include_character_subquery()),
         left_lateral_join: u in subquery(include_user_subquery()),
@@ -207,6 +200,27 @@ defmodule Vtm.Forum do
         |> Map.put(:creator_user, user)
         |> Map.put(:creator_character, character |> include_character_when_null())
     end)
+  end
+
+  @spec get_forum_thread_info_list(map(), ForumSection.t(), non_neg_integer() | nil, non_neg_integer(), non_neg_integer()) :: Ecto.Query.t()
+  defp get_forum_thread_info_list(%{role: :master}, %{id: section_id}, _, page_size, page) do
+    get_base_forum_thread_info_list(section_id, page_size, page)
+    |> distinct([t], t.id)
+  end
+
+  defp get_forum_thread_info_list(_, %{id: section_id}, character_id, page_size, page) do
+    get_base_forum_thread_info_list(section_id, page_size, page)
+    |> where([t], not(t.on_game) or is_nil(t.allowed_character_id) or t.allowed_character_id == ^character_id)
+    |> distinct([t], t.id)
+  end
+
+  @spec get_base_forum_thread_info_list(non_neg_integer(), non_neg_integer(), non_neg_integer()) :: Ecto.Query.t()
+  defp get_base_forum_thread_info_list(section_id, page_size, page) do
+    ForumThreadInfo
+    |> from()
+    |> where([t], t.forum_section_id == ^section_id)
+    |> order_by([t], [desc: t.highlighted, desc: t.last_post_updated_at])
+    |> Pagination.as_paged_query(page_size, page)
   end
 
   @spec get_thread_notification_list(non_neg_integer(), list(ForumThread.t())) :: list(UserForumNotification.t())
@@ -260,6 +274,7 @@ defmodule Vtm.Forum do
          {:ok, _} <- check_section(conn_user, section_id) do
       item =
         item
+        |> Repo.preload(:allowed_characters)
         |> Map.put(:creator_character, character |> include_character_when_null())
         |> Map.put(:creator_user, user)
 
@@ -452,6 +467,19 @@ defmodule Vtm.Forum do
       |> ForumThread.update_changeset(attrs)
       |> Repo.update()
     end
+  end
+
+  @spec modify_thread_allowed_characters(ForumThread.t(), list(non_neg_integer())) :: {:ok, ForumThread.t()} | {:error, Changeset.t()}
+  def modify_thread_allowed_characters(thread, character_ids) do
+    characters =
+      Character
+      |> from()
+      |> where([c], c.id in ^character_ids)
+      |> Repo.all()
+
+    thread
+    |> ForumThread.update_allowed_characters_changeset(characters)
+    |> Repo.update()
   end
 
   def modify_post(user, id, attrs) do

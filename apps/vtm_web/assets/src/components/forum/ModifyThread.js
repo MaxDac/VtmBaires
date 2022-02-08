@@ -31,13 +31,14 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
 
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
 
-    const onSubmit = ({title, description, highlighted}) => {
+    const onSubmit = ({title, description, highlighted, characterIds}) => {
         handleMutation(() => 
             ModifyThreadMutation(environment, {
                 threadId,
                 title,
                 description,
-                highlighted
+                highlighted,
+                allowedCharacters: characterIds
             }), showUserNotification, {
                 successMessage: "Thread modificato.",
                 onCompleted: () => {
@@ -56,7 +57,9 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
     const formik = useFormik({
         initialValues: {
             title: thread?.title,
-            description: thread?.description
+            description: thread?.description,
+            characterIds: thread?.allowedCharacters?.map(x => x?.id) ?? [],
+            highlighted: thread?.highlighted
         },
         validationSchema: CreateNewThreadValidationSchema(isUserMaster(user)),
         onSubmit
@@ -71,6 +74,7 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
     return (
         <ThreadForm title={getTitle()}
                     description={getDescription()}
+                    onGame={thread?.onGame}
                     goBack={goBack}
                     formik={formik}
                     buttonText="Modifica Thread" />

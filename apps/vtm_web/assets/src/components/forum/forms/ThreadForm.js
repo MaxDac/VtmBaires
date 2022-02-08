@@ -9,11 +9,14 @@ import type {GenericReactComponent} from "../../../_base/types";
 import {useSession} from "../../../services/session-service";
 import {isUserMaster} from "../../../services/base-types";
 import FormCheckboxField from "../../../_base/components/FormCheckboxField";
-import {boolean, object, string} from "yup";
+import {boolean, object, string, array} from "yup";
+import CharactersSelectControl from "../../_base/CharactersSelectControl";
+import Box from "@mui/material/Box";
 
 type Props = {
     title: string;
     description: string;
+    onGame: ?boolean;
     goBack: () => void;
     formik: any;
     buttonText: string;
@@ -29,14 +32,15 @@ export const CreateNewThreadValidationSchema = (isMaster: boolean): any => {
         isMaster
             ? {
                 ...defaultShape,
-                highlighted: boolean().required()
+                highlighted: boolean().required(),
+                characterIds: array("I personaggi autorizzati").of(string())
             }
             : defaultShape;
 
     return object().shape(shape);
 };
 
-const ThreadForm = ({title, description, goBack, formik, buttonText}: Props): GenericReactComponent => {
+const ThreadForm = ({title, description, onGame, goBack, formik, buttonText}: Props): GenericReactComponent => {
     const theme = useTheme();
     const [user,] = useSession();
 
@@ -47,6 +51,21 @@ const ThreadForm = ({title, description, goBack, formik, buttonText}: Props): Ge
             ? (<FormCheckboxField formik={formik}
                                   fieldName="highlighted"
                                   label="Importante" />)
+            : (<></>);
+
+    const selectCharacterControl = () =>
+        isMaster && onGame === true
+            ? (
+                <Box sx={{textAlign: "center"}}>
+                    <CharactersSelectControl formik={formik}
+                                             multiple
+                                             fieldName="characterIds"
+                                             label="Personaggi autorizzati"
+                                             containerSx={{
+                                                 width: "70%"
+                                             }} />
+                </Box>
+            )
             : (<></>);
 
     return (
@@ -60,6 +79,7 @@ const ThreadForm = ({title, description, goBack, formik, buttonText}: Props): Ge
                 <FormTextField formik={formik} fieldName="title" label="Titolo" fullWidth />
                 <FormTextField formik={formik} fieldName="description" label="Descrizione" fullWidth />
                 {highlightedControl()}
+                {selectCharacterControl()}
                 <Button
                     type="submit"
                     fullWidth

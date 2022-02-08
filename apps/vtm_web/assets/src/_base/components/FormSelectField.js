@@ -14,6 +14,9 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 export type SelectInputProps = SelectProps & {
     formik: Formik;
+    renderValue?: ?string[] => GenericReactComponent;
+    multiple?: boolean;
+    containerSx?: any;
 };
 
 const emptyMenuItem = () => (
@@ -27,6 +30,7 @@ const FormSelectField = (props: SelectInputProps): GenericReactComponent => {
 
     return (
         <FormControl sx={{
+            ...props.containerSx,
             margin: theme.spacing(1),
             minWidth: 150,
         }}>
@@ -39,9 +43,11 @@ const FormSelectField = (props: SelectInputProps): GenericReactComponent => {
                         ...props.sx,
                         minWidth: theme.spacing(10)
                     }}
+                    multiple={props.multiple}
                     label={props.label}
                     value={props.formik.values[props.fieldName]}
                     onChange={props.formik.handleChange}
+                    renderValue={props.renderValue}
                     error={props.formik.touched[props.fieldName] && Boolean(props.formik.errors[props.fieldName])}>
                 {items()}
             </Select>

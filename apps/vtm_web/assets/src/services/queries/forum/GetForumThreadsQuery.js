@@ -8,8 +8,8 @@ import type {
 } from "./__generated__/GetForumThreadsQuery.graphql";
 
 export const getForumThreadsQuery: Query<GetForumThreadsQueryVariables, GetForumThreadsQueryResponse> = graphql`
-    query GetForumThreadsQuery($forumSectionId: ID!, $pageSize: Int!, $page: Int!) {
-        getForumThreads(forumSectionId: $forumSectionId, pageSize: $pageSize, page: $page) {
+    query GetForumThreadsQuery($forumSectionId: ID!, $pageSize: Int!, $page: Int!, $characterId: ID) {
+        getForumThreads(forumSectionId: $forumSectionId, pageSize: $pageSize, page: $page, characterId: $characterId) {
             threadCount
             threads {
                 thread {

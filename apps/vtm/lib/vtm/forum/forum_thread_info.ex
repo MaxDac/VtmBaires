@@ -20,6 +20,8 @@ defmodule Vtm.Forum.ForumThreadInfo do
     forum_section: Vtm.Forum.ForumSection.t(),
     last_post_id: non_neg_integer(),
     last_post: Vtm.Forum.ForumPost.t(),
+    allowed_character_id: non_neg_integer(),
+    allowed_character: Vtm.Characters.Character.t(),
 
     inserted_at: NaiveDateTime.t(),
     updated_at: NaiveDateTime.t()
@@ -39,6 +41,7 @@ defmodule Vtm.Forum.ForumThreadInfo do
     belongs_to :creator_character, Vtm.Characters.Character
     belongs_to :forum_section, Vtm.Forum.ForumSection
     belongs_to :last_post, Vtm.Forum.ForumPost
+    belongs_to :allowed_character, Vtm.Characters.Character
 
     timestamps()
   end

@@ -40,7 +40,8 @@ const ForumSection = ({sectionId}: Props): GenericReactComponent => {
         {
             forumSectionId: sectionId,
             pageSize: DefaultPageSize,
-            page: currentPage
+            page: currentPage,
+            characterId: character?.id
         },
         {
             fetchPolicy: "store-and-network",

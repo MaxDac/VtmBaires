@@ -40,6 +40,7 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :creator_user, :user
     field :creator_character, :character
     field :post_count, :integer
+    field :allowed_characters, list_of(:character)
     field :inserted_at, :date_time
     field :updated_at, :date_time
   end
@@ -75,6 +76,7 @@ defmodule VtmWeb.Schema.ForumTypes do
 
     field :get_forum_threads, :get_threads_response do
       arg :forum_section_id, non_null(:id)
+      arg :character_id, :id
       arg :page_size, non_null(:integer)
       arg :page, non_null(:integer)
 
@@ -117,6 +119,7 @@ defmodule VtmWeb.Schema.ForumTypes do
     field :title, non_null(:string)
     field :description, :string
     field :highlighted, :boolean
+    field :allowed_characters, list_of(:id)
   end
 
   input_object :create_new_post_request do
@@ -178,6 +181,7 @@ defmodule VtmWeb.Schema.ForumTypes do
         field :title, non_null(:string)
         field :description, non_null(:string)
         field :highlighted, :boolean
+        field :allowed_characters, list_of(:id)
       end
 
       output do

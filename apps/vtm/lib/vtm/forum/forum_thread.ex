@@ -18,6 +18,7 @@ defmodule Vtm.Forum.ForumThread do
     creator_user: User.t(),
     creator_character_id: non_neg_integer(),
     creator_character: Character.t(),
+    allowed_characters: list(Character.t()),
 
     inserted_at: NaiveDateTime.t(),
     updated_at: NaiveDateTime.t()
@@ -32,6 +33,8 @@ defmodule Vtm.Forum.ForumThread do
     belongs_to :creator_user, User
     belongs_to :creator_character, Character
 
+    many_to_many :allowed_characters, Character, join_through: "forum_threads_allowed_characters", on_replace: :delete
+
     timestamps()
   end
 
@@ -39,6 +42,14 @@ defmodule Vtm.Forum.ForumThread do
     forum_thread
     |> cast(attrs, [:title, :description, :highlighted])
     |> validate_required([:title, :description])
+  end
+
+  def update_allowed_characters_changeset(forum_thread, characters) do
+    forum_thread
+    |> Vtm.Repo.preload(:allowed_characters)
+    |> cast(%{}, [])
+    |> cast_assoc(:allowed_characters)
+    |> put_assoc(:allowed_characters, characters)
   end
 
   @doc false

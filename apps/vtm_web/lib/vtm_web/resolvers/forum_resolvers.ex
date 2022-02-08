@@ -105,11 +105,14 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
 
   def get_forum_threads(%{
     forum_section_id: section_id,
+    character_id: character_id,
     page_size: page_size,
     page: page
   }, %{context: %{current_user: user}}) do
-    with thread_count   <- Forum.get_section_thread_count(section_id),
-         {:ok, threads} <- Forum.get_forum_threads(user, section_id, page_size, page) do
+    with {:ok, s_id}    <- parsed_id_to_integer?(section_id),
+         {:ok, c_id}    <- from_global_id_if_not_null?(character_id),
+         thread_count   <- Forum.get_section_thread_count(s_id),
+         {:ok, threads} <- Forum.get_forum_threads(user, section_id, c_id, page_size, page) do
       # Remapping to preserve the Relay ID transformation
       threads =
         threads
@@ -203,6 +206,16 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
     end
   end
 
+  defp modify_thread_allowed_characters(%{role: :master}, thread, %{allowed_characters: cs}) do
+    with {:ok, c_ids} <- from_global_ids_or_error(cs) do
+      Forum.modify_thread_allowed_characters(thread, c_ids)
+    end
+  end
+
+  defp modify_thread_allowed_characters(_, thread, _) do
+    {:ok, thread}
+  end
+
   def new_forum_thread(_, %{request: %{section_id: section_id} = attrs}, %{context: %{current_user: user}}) do
     with {:ok, s_id}  <- from_global_id?(section_id),
          {:ok, cu_id} <- from_global_id?(attrs.creator_user_id) do
@@ -218,12 +231,14 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
               attrs
               |> Map.put(:creator_character_id, cc_id)
 
-            with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs) do
+            with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs),
+                 {:ok, thread}  <- modify_thread_allowed_characters(user, thread, attrs) do
               {:ok, %{result: thread}}
             end
           end
         _ ->
-          with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs) do
+          with {:ok, thread}  <- Forum.new_thread(user, s_id, attrs),
+               {:ok, thread}  <- modify_thread_allowed_characters(user, thread, attrs) do
             {:ok, %{result: thread}}
           end
       end
@@ -254,7 +269,8 @@ defmodule VtmWeb.Resolvers.ForumResolvers do
   end
 
   def modify_forum_thread(attrs = %{thread_id: thread_id}, %{context: %{current_user: user}}) do
-    with {:ok, thread}  <- Forum.modify_thread(user, thread_id |> String.to_integer(), attrs) do
+    with {:ok, thread}  <- Forum.modify_thread(user, thread_id |> String.to_integer(), attrs),
+         {:ok, thread}  <- modify_thread_allowed_characters(user, thread, attrs) do
       {:ok, %{result: thread}}
     end
   end
