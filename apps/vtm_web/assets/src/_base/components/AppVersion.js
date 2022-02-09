@@ -12,6 +12,6 @@ const AppVersion = (): GenericReactComponent => {
             App Version: 1.2.4.22020801
         </Typography>
     );
-}
+};
 
 export default AppVersion;
