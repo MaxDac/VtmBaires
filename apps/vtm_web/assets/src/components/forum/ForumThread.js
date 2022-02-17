@@ -122,6 +122,7 @@ const ForumThread = ({threadId}: Props): GenericReactComponent => {
                      description={thread?.description}
                      controls={forumControls()}>
             <Grid container>
+                {paginationControl()}
                 {showThreadPosts()}
                 {paginationControl()}
             </Grid>
