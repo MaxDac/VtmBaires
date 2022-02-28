@@ -64,6 +64,7 @@ const MessageTemplate = ({
     }
 
     const onSubmit = (values: SubmitProperties) => {
+        console.debug("values", values);
         const cleanedInput = cleanInput(values);
         submitted(cleanedInput);
     };
@@ -133,6 +134,7 @@ const MessageTemplate = ({
                     <Button fullWidth
                             variant="outlined"
                             color="primary"
+                            type="submit"
                             sx={{
                                 margin: theme.spacing(3, 0, 2),
                             }}>

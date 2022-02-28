@@ -18,7 +18,11 @@ const mutation = graphql`
 `;
 
 const mutationPromise = (environment: IEnvironment, characterId: string, damage: number, type: DamageType): Promise<string> => {
-    return wrapMutation<string>(environment, mutation, );
+    return wrapMutation<string>(environment, mutation, {
+        characterId,
+        damage,
+        type
+    });
 }
 
 export default mutationPromise;

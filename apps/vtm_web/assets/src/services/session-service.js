@@ -155,11 +155,11 @@ export const clearRelaySession = () => {
     cache.clear();
 }
 
-export const destroySession = (): Promise<boolean> => {
+export const destroySession = (environment: IEnvironment): Promise<boolean> => {
     getStorage().clear();
     clearRelaySession();
-    return ClearSessionMutation();
-}
+    return ClearSessionMutation(environment);
+};
 
 export type SessionInfo = {
     getUser: () => Promise<?User>;

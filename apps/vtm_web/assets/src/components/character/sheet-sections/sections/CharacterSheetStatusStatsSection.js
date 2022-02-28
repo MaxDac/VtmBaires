@@ -36,12 +36,6 @@ const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): Generic
 
     const isCharacterVampire = () => characterIsVampire(sheet);
 
-    const bottomLinesStyle = {
-        name: "Umanità",
-        value: characterStatus?.humanity,
-        maxValue: 10
-    };
-
     const resonanceIntensityLabel = (resonancePower: number) => {
         switch (resonancePower) {
             case 2: return "fugace";
@@ -57,7 +51,6 @@ const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): Generic
             if (lastHuntDate != null && lastHuntDate !== "") {
                 return (
                     <Grid item xs={12} sx={{
-                        ...bottomLinesStyle,
                         margin: "10px"
                     }}>
                         <Paper variant="outlined" sx={{padding: "10px", margin: "10px"}}>
@@ -82,7 +75,7 @@ const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): Generic
     const showHunger = () => {
         if (isCharacterVampire) {
             return (
-                <Grid item xs={12} sx={bottomLinesStyle}>
+                <Grid item xs={12}>
                     <AttributeStat stat={{
                         name: "Fame",
                         value: characterStatus?.hunger,
@@ -98,7 +91,7 @@ const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): Generic
     const showBloodPotency = () => {
         if (isCharacterVampire) {
             return (
-                <Grid item xs={12} sx={bottomLinesStyle}>
+                <Grid item xs={12}>
                     <AttributeStat stat={{
                         name: "Potenza del Sangue",
                         value: characterStatus?.bloodPotency,
@@ -114,21 +107,21 @@ const CharacterSheetStatusStatsSectionInternal = ({sheet, characterId}): Generic
     return (
         <>
             {showHuntResult()}
-            <Grid item xs={12} sx={bottomLinesStyle}>
+            <Grid item xs={12}>
                 <AttributeWithDamageStat stat={{
                     name: "Forza di Volontà",
                     value: characterStatus?.willpower,
                     maxValue: 10
                 }} damage={characterStatus?.willpowerDamage ?? 0} />
             </Grid>
-            <Grid item xs={12} sx={bottomLinesStyle}>
+            <Grid item xs={12}>
                 <AttributeWithDamageStat stat={{
                     name: "Salute",
                     value: characterStatus?.health,
                     maxValue: 10
                 }} damage={characterStatus?.aggravatedDamage ?? 0} secondDamage={characterStatus?.damage ?? 0} />
             </Grid>
-            <Grid item xs={12} sx={bottomLinesStyle}>
+            <Grid item xs={12}>
                 <AttributeCumulativeStat stat={{
                     name: "Umanità",
                     value: characterStatus?.humanity,
