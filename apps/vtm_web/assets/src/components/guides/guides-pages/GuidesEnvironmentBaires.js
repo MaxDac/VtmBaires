@@ -199,7 +199,7 @@ const GuidesEnvironmentBaires = (): GenericReactComponent => {
 
             <Typography paragraph>
                 <h2 style={titleStyle}>
-                    Ultime Notti
+                    Il Dominio di Buenos Aires
                 </h2>
             </Typography>
 
@@ -282,6 +282,73 @@ const GuidesEnvironmentBaires = (): GenericReactComponent => {
                 dell'embrione Anarchico che si stava creando, aiutandolo
                 a svilupparsi nelle regioni periferiche della Provincia, 
                 una volta occupata dal Sabbat.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    Ultime Notti
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                L'equilibrio creatosi nel Dominio di Buenos Aires tra Camarilla e Anarchici &egrave; stato recentemente
+                turbato irrimediabilmente per la spregiudicata azione di Santiago Rinaldi, un Sangue Debole di origine
+                ignota, in grado di camminare alla luce del Sole e proprietario della pi&ugrade; grande impresa di 
+                Intelligenza Artificiale dell'America Latina. A fronte della sua richiesta di divenire Primogenito dei 
+                Sangue Debole, l'establishment della Camarilla ha deciso di attirarlo in una assemblea per discuterne,
+                per poi imporgli un accordo: rimanere imprigionato per un anno e un giorno, per costringerlo a
+                rinunciare a tutte le sue influenze in favore della Camarilla.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Invece di rispondere, Rinaldi ha organizzato una serie di brecce alla Masquerade mirate per colpire
+                alcune delle personalit&agrave; della Camarilla, riuscendo probabilmente a dare la Morte Ultima 
+                all'Arpia Duval. L'organizzazione capillare foraggiata da immensi capitali in valuta straniera &egrave; 
+                stata coperta dalla stampa, praticamente quasi tutta sotto il controllo del Sangue Debole. La serie di 
+                brecce ha costretto Manoukian, principale esponente dell'Anarchia nel Dominio, a fuggire da Buenos 
+                Aires. Rinaldi, dopo il secondo grande attentato alla citt&agrave;, ha inviato una richiesta precisa, 
+                chiara e arrogante alla Camarilla: si &egrave; proposto come Principe del Dominio, in cambio della 
+                copertura di tutte le brecce e il mantenimento dello status quo nel governo mortale, l'unico in grado di 
+                impedire l'ingresso della Seconda Inquisizione.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il rifiuto dei Primogeniti &egrave; stato tradotto in una sprezzante risposta da parte del Principe, e 
+                in una azione immediata intrapresa dallo Sceriffo. Quello che lo Sceriffo non ha potuto immaginare, 
+                cos&igrave; come tutti i componenti della Camarilla, &egrave; stato il tradimento del Principe e del 
+                Siniscalco: la risposta sprezzante di fatto anticipava al Sangue Debole Rinaldi l'imminente azione
+                dello Sceriffo, esponendo quest'ultimo ad una difesa tecnologicamente troppo efficiente per essere
+                contrastata: lo Sceriffo &egrave; stato dato per morto dalla maggior parte dei Cainiti del Dominio.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Il piano del Siniscalco, chiamato <b>Enroque</b> in codice, ha funzionato: Rinaldi, in preda ad un 
+                parossismo di rabbia a seguito della risposta e del tentativo di omicidio, ha rovesciato il governo 
+                argentino esponendo prove di numerose condotte oscene e corrotte da parte dei pi&ugrave; importanti 
+                ministri del governo, costringendo il presidente al rimpasto di governo, all'inclusione di altre forze 
+                politiche che hanno imposto un atteggiamento pi&ugrave; misurato nei confronti degli Stati Uniti, di 
+                fatto aprendo la strada all'ingresso dei servizi di sicurezza di quel paese. Primo fra tutti, 
+                la <b>Seconda Inquisizione</b>. Nel frattempo, Principe e Siniscalco sono riuscite a riorganizzare il 
+                Dominio della Camarilla in una Montevideo considerata ormai completamente bonificata dalla Seconda
+                Inquisizione, ora concentrata sulla ormai accessibile Citt&agrave; di Buenos Aires.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Quello che la Camarilla si &egrave; lasciata dietro con le sue azioni &egrave; una catastrofe per i 
+                Cainiti: gli unici punti di riferimento rimasti nella citt&agrave; sono <i>los porteños</i> irriducibili:
+                nel suo locale, <b>Manoukian</b> offre protezione dalla Seconda Inquisizione ai pochi Cainiti che 
+                riconoscono la sua autorit&agrave; di Barone Anarchico. Nella citt&agrave;, nascosta da rituali e 
+                espedienti tecnologici, rimane la Chantry Tremere, che ha stretto un accordo con l'Anarchia per una
+                pacifica convivenza. <b>Javier D'Arienzo</b> &egrave; rimasto in citt&agrave;, un punto di 
+                riferimento per i Nosferatu del Dominio e per chiunque sia interessato al mercato delle informazioni.
+                Anche l'ex Vescovo <b>H&uaml;nger</b> sembra essere rimasto a Buenos Aires, ma nessuno saprebbe dire
+                come, o dove.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Anche Rinaldi &egrave; rimasto a Buenos Aires, dove conserva gran parte delle sue influenze sulla 
+                societ&agrave; mortale. Si considera come un riferimento per i Sangue Debole, e vanta anche un
+                accordo di non belligeranza con la Seconda Inquisizione.
             </Typography>
 
             <Typography paragraph>

@@ -13,8 +13,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {menuIconStyle} from "./_layout/menu/menu-base-utils";
-import {isUserMaster} from "../services/base-types";
-import {useSession} from "../services/session-service";
 import {useMediaQuery} from "@mui/material";
 import MessageControl from "./_layout/app-bar-controls/MessageControl";
 import OnlineControl from "./_layout/app-bar-controls/OnlineControl";
@@ -27,6 +25,8 @@ import SecondaryListItems from "./_layout/menu/SecondaryListItems";
 import MainListItems from "./_layout/menu/MainListItems";
 import CommonListItems from "./_layout/menu/CommonListItems";
 import type {GenericReactComponent} from "../_base/types";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../session/selectors";
 
 const drawerWidth = 300;
 
@@ -72,11 +72,11 @@ const PageDrawer = ({open, setOpen, children}) => {
     );
 };
 
-const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [user,] = useSession();
-    const numberOfMessages = useMessageSubscription();
+const MainLayout = ({children}: {children: any}): GenericReactComponent => {
+    const theme = useTheme()
+    const [open, setOpen] = React.useState(false)
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const numberOfMessages = useMessageSubscription()
 
     const [characterFetchKey, setCharacterFetchKey] = useState(Math.round(Math.random() * 100));
 
@@ -103,7 +103,7 @@ const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
     }
 
     const masterMenu = () => {
-        if (isUserMaster(user)) {
+        if (isUserMaster) {
             return (
                 <>
                     <Divider/>
@@ -219,4 +219,4 @@ const MiniDrawer = ({children}: {children: any}): GenericReactComponent => {
     );
 };
 
-export default MiniDrawer;
+export default MainLayout;

@@ -1,14 +1,13 @@
 // @flow
 
-import type { Character } from "../../../../services/queries/character/GetCharacterCompleteQuery";
-
+import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import React from "react";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../../../MainRouter";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { useCustomLazyLoadQuery } from "../../../../_base/relay-utils";
-import { getCharacterUserQuery } from "../../../../services/queries/character/GetCharacterUserQuery";
+import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
+import {getCharacterUserQuery} from "../../../../services/queries/character/GetCharacterUserQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {

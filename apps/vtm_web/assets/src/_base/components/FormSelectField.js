@@ -5,7 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import type { Formik } from "./FormTypes";
+import type {Formik} from "./FormTypes";
 import {useTheme} from "@mui/material/styles";
 import type {GenericReactComponent} from "../types";
 import type {SelectProps} from "../component-helpers";

@@ -1,16 +1,15 @@
 // @flow
 
-import React, {useContext, useRef} from "react";
+import type {Node} from "react";
+import React, {useRef} from "react";
 import Button from "@mui/material/Button";
 import createUser from "../../services/mutations/sessions/CreateUserMutation";
 import {object, string} from 'yup';
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import {Link, useHistory} from "react-router-dom";
-import type {Node} from "react";
 import {Routes} from "../../AppRouter";
 import {useTheme} from "@mui/material/styles";
-import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import {userNameExists} from "../../services/queries/accounts/UserNameExistsQuery";
 import {userEmailExists} from "../../services/queries/accounts/UserEmailExistsQuery";
@@ -23,6 +22,8 @@ import LoginFrameLayout from "./LoginFrameLayout";
 import {LoginRoutes} from "./LoginRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useWait} from "../../_base/providers/BackdropProvider";
 
 type CheckerFunction = string => Promise<boolean>;
 
@@ -38,10 +39,11 @@ const SignUpSchema = (nameChecker: CheckerFunction, emailChecker: CheckerFunctio
     });
 
 const CreateUserComponent = (): Node => {
-    const history = useHistory();
-    const theme = useTheme();
-    const environment = useRelayEnvironment();
-    const {showUserNotification, setWait} = useContext(UtilityContext);
+    const history = useHistory()
+    const theme = useTheme()
+    const environment = useRelayEnvironment()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const {startWait, stopWait} = useWait()
 
     const checkBoxRef = useRef();
 
@@ -86,34 +88,34 @@ const CreateUserComponent = (): Node => {
         name
     }) => {
         if (!checkBoxRef.current?.firstChild?.checked === true) {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "warning",
                 message: "Devi dichiarare di aver letto il Disclaimer prima di accedere al sito."
             });
             return;
         }
 
-        setWait(true);
+        startWait()
 
         createUser(environment, {
             email,
             name
         })
             .then(_ => {
-                showUserNotification({
+                enqueueSnackbar({
                     type: "success",
                     message: "L'utente è stato creato correttamente, controlla la mail (spam incluso) per avere la tua prima password."
                 });
                 setTimeout(() => history.push(LoginRoutes.login), 2000);
             })
             .catch(errors => {
-                showUserNotification({
+                enqueueSnackbar({
                     type: 'error',
                     graphqlError: errors,
                     message: "C'è stato un errore durante la creazione del personaggio, contatta un master per informazioni."
                 });
             })
-            .finally(() => setWait(false));
+            .finally(() => stopWait());
     }
 
     return (

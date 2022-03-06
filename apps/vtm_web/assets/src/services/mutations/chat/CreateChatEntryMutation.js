@@ -2,10 +2,7 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {wrapMutation} from "../../../_base/relay-utils";
-import type {
-    ChatEntryRequest,
-    CreateChatEntryMutationResponse
-} from "./__generated__/CreateChatEntryMutation.graphql";
+import type {ChatEntryRequest, CreateChatEntryMutationResponse} from "./__generated__/CreateChatEntryMutation.graphql";
 import type {IEnvironment} from "relay-runtime";
 
 const mutation = graphql`

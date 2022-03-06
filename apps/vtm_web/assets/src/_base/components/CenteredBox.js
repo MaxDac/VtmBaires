@@ -1,6 +1,6 @@
 // @flow
 
-import { Box } from "@mui/system";
+import Box from "@mui/material/Box";
 import React from "react";
 
 type CenteredBoxProps = {

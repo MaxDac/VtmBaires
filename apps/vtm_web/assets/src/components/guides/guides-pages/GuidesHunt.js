@@ -14,9 +14,9 @@ import StyledTableCell from "../components/StyledTableCell";
 import type {GenericReactComponent} from "../../../_base/types";
 import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import {
-  freeHavenFillColorWithoutOpacity,
-  occupiedHavenFillColorWithoutOpacity,
-  personalHavenFillColorWithoutOpacity,
+    freeHavenFillColorWithoutOpacity,
+    occupiedHavenFillColorWithoutOpacity,
+    personalHavenFillColorWithoutOpacity,
 } from "../../_base/haven-map-areas-helpers";
 
 const GuidesHunt = (): GenericReactComponent => {
@@ -256,12 +256,12 @@ const GuidesHunt = (): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph style={guideStyle}>
-                Si ricordi che una delle Tradizioni della Camarilla &egrave; la Tradizione del Dominio, e che
-                all'interno di un Dominio il personaggio fa le veci del Principe, e pu&ograve; esigere giustizia dalla
-                burocrazia della Camarilla... che solitamente vuol dire che il personaggio pu&ograve; denunciare 
-                l'infrazione allo Sceriffo. Alternativamente, il personaggio pu&ograve; chiedere di essere ripagato
-                con un Favore; insomma, eventi di questo tipo possono e devono essere un incentivo al gioco politico
-                in chat.
+                Buenos Aires non &egrave; pi&ugrave; un Dominio della Camarilla, quindi nessuno Sceriffo 
+                interpreter&agrave; le Tradizioni, punendo vampiri che cacciano nel territorio di altri, n&eacute; 
+                sar&agrave; disponibile per i personaggi una struttura gerarchica su cui rivalersi per la concessione
+                di Favori. Un Cainita dovr&agrave; adottare i provvedimenti che riterr&agrave; opportuni per 
+                difendere il proprio Dominio da altri Cainiti, oppure venire costantemente minacciato da altri 
+                vampiri.
             </Typography>
 
             <Typography paragraph>

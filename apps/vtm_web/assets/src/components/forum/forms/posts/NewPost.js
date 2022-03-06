@@ -1,16 +1,18 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {useHistory} from "react-router-dom";
 import {useFormik} from "formik";
 import {useRelayEnvironment} from "react-relay";
-import {useSession} from "../../../../services/session-service";
-import {UtilityContext} from "../../../../contexts";
 import {MainRoutes} from "../../../MainRouter";
 import ForumPostForm from "../ForumPostForm";
 import type {GenericReactComponent} from "../../../../_base/types";
-import { CreateNewPostValidationSchema } from "../ManagePost";
+import {CreateNewPostValidationSchema} from "../ManagePost";
 import CreateNewPostMutation from "../../../../services/mutations/forum/CreateNewPostMutation";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../../../session/atoms";
+import {useCharacterRecoilState} from "../../../../session/hooks";
 
 type NewPostProps = {
     threadId: string;
@@ -19,9 +21,10 @@ type NewPostProps = {
 
 const NewPost = ({threadId, title}: NewPostProps): GenericReactComponent => {
     const history = useHistory();
-    const [user, character] = useSession();
+    const user = useRecoilValue(sessionStateAtom)
+    const [character,] = useCharacterRecoilState()
     const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const onSubmit = ({text}) => {
         CreateNewPostMutation(environment, {
@@ -30,10 +33,10 @@ const NewPost = ({threadId, title}: NewPostProps): GenericReactComponent => {
             creatorCharacterId: character?.id,
             text: text
         }).then(_ => {
-            showUserNotification({type: "success", message: "Post creato!"})
+            enqueueSnackbar({type: "success", message: "Post creato!"})
         }).catch(e => {
             console.error("Error while saving the post!", e);
-            showUserNotification({
+            enqueueSnackbar({
                 type: "error",
                 graphqlError: e,
                 message: "Il post non è stato salvato correttamente."

@@ -1,16 +1,18 @@
 // @flow
 
 import React from "react";
-import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import {styled} from '@mui/material/styles';
+import Tooltip, {tooltipClasses} from '@mui/material/Tooltip';
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import Typography from "@mui/material/Typography";
 import type {GenericReactComponent} from "../../../_base/types";
 
-const HtmlTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
+const HtmlTooltip = styled(({ className, children, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }}>
+        {children}
+    </Tooltip>
+))(() => ({
     [`& .${tooltipClasses.tooltip}`]: {
         // backgroundColor: '#191919',
         // color: 'rgba(0, 0, 0, 0.87)',

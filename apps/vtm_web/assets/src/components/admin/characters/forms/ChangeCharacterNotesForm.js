@@ -1,8 +1,7 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
-import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -10,6 +9,8 @@ import Button from "@mui/material/Button";
 import {handleMutation} from "../../../../_base/utils";
 import ChangeCharacterNotesMutation from "../../../../services/mutations/admin/ChangeCharacterNotesMutation";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -17,7 +18,8 @@ type Props = {
 };
 
 const ChangeCharacterNotesForm = ({character, onUpdate}: Props): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
 
     const [advantages, setAdvantages] = useState(character?.advantages ?? "");
@@ -47,7 +49,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): GenericReactCom
     };
 
     const changeCharacterNotes = _ => {
-        openDialog(
+        showDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare le note del personaggio?`,
             () => {
@@ -58,7 +60,7 @@ const ChangeCharacterNotesForm = ({character, onUpdate}: Props): GenericReactCom
                     disciplinePowers,
                     specialties,
                     convictions
-                }), showUserNotification, {
+                }), enqueueSnackbar, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: onUpdate

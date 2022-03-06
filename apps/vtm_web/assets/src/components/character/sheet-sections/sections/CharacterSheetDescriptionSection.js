@@ -2,13 +2,14 @@
 
 import React from "react";
 import {useFragment} from "react-relay";
-import {
-    characterInfoFragment,
-    characterSheetFragment
-} from "../../../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterSheet$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
+import {characterInfoFragment, characterSheetFragment} from "../../../../services/queries/character/CharacterFragments";
+import type {
+    CharacterFragments_characterSheet$key
+} from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import Typography from "@mui/material/Typography";
-import type {CharacterFragments_characterInfo$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
+import type {
+    CharacterFragments_characterInfo$key
+} from "../../../../services/queries/character/__generated__/CharacterFragments_characterInfo.graphql";
 import {mainFontFamily} from "../../../Main.Layout.Style";
 import ParsedText from "../../../../_base/components/ParsedText";
 import Box from "@mui/material/Box";

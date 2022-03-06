@@ -1,12 +1,15 @@
 // @flow
 
-import type {History} from "./types";
-import type {AlertInfo, GenericReactComponent} from "./types";
+import type {AlertInfo, GenericReactComponent, History} from "./types";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
-import type { Character } from "../services/queries/character/GetCharacterCompleteQuery";
-import type { CharacterFragments_characterStats } from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
-import type { CharacterFragments_characterConcealedInfo } from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import type {Character} from "../services/queries/character/GetCharacterCompleteQuery";
+import type {
+    CharacterFragments_characterStats
+} from "../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import type {
+    CharacterFragments_characterConcealedInfo
+} from "../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import {Routes} from "../AppRouter";
 import type {SessionCharacter} from "../services/base-types";
 
@@ -23,8 +26,8 @@ export const log = (message: string, obj?: any, type?: LogType): void => {
 
 export const handleAuthorizedRejection = ({ push }: History): (any => void) =>
     (rejection: any) => {
-        console.error("unauthorized by the back end", rejection);
-        push(Routes.sessionExpired);
+        console.error("unauthorized by the back end", rejection)
+        push(Routes.sessionExpired)
     };
 
 // export const emptyReadOnlyArray = <T>(): $ReadOnlyArray<T> => [];
@@ -187,7 +190,7 @@ export const getInitials = (name: string): string => {
     }
 };
 
-export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: AlertInfo => void, args?: ?{
+export const handleMutation = <T>(mutation: () => Promise<T>, showNotification: AlertInfo => string | number, args?: ?{
     successMessage?: string,
     errorMessage?: string,
     onCompleted?: () => void

@@ -6,11 +6,11 @@ import subscriptionObservable from "../../services/subscriptions/ChatSubscriptio
 import type {ChatEntry} from "../../services/base-types";
 import useSubscriptionTokenQuery from "../../services/queries/accounts/SubscriptionTokenQuery";
 import {showDesktopNotification} from "../../_base/notification-utils";
-import {useSession} from "../../services/session-service";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry> => Array<ChatEntry>) => void): GenericReactComponent => {
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const chatToken = useSubscriptionTokenQuery();
 
     const setAdditionalEntriesRef = useRef(setAdditionalEntries);
@@ -45,7 +45,7 @@ const useChatSubscription = (id: string, setAdditionalEntries: (Array<ChatEntry>
         const performSubscription = token =>
             subscribe(subscriptionObservable(id, token), showNewChatEntry, (e, _) => {
                 console.error("Error while performing chat subscription.", e);
-                // showUserNotification({
+                // enqueueSnackbar({
                 //     type: "error",
                 //     message: "C'è stato un problema nella connessione della chat, ricarica la pagina per ritentare."
                 // });

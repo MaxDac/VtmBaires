@@ -7,12 +7,12 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import {menuIconStyle} from "../menu/menu-base-utils";
-import {useSession} from "../../../services/session-service";
-import {isUserMaster} from "../../../services/base-types";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../../../session/selectors";
 
 type Props = {
     characterId: ?string;
@@ -21,7 +21,7 @@ type Props = {
 }
 
 const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): GenericReactComponent => {
-    const [user,] = useSession();
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
     const history = useHistory();
 
     const tryVisualizeCharacterDashboard = characterId =>
@@ -33,7 +33,7 @@ const ShowCharacterDashboard = ({characterId, onSelected, asMenuItem}: Props): G
             }
         }
 
-    if (isUserMaster(user) && characterId != null) {
+    if (isUserMaster && characterId != null) {
         if (asMenuItem === true) {
             return (
                 <MenuItem onClick={tryVisualizeCharacterDashboard(characterId)}>

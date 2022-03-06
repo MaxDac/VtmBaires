@@ -6,7 +6,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import {useFragment} from "react-relay";
-import type {CharacterFragments_characterStats$key} from "../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
+import type {
+    CharacterFragments_characterStats$key
+} from "../../../services/queries/character/__generated__/CharacterFragments_characterStats.graphql";
 import {characterStatsFragment} from "../../../services/queries/character/CharacterFragments";
 import CharacterSheetStatusStatsSection from "../../character/sheet-sections/sections/CharacterSheetStatusStatsSection";
 import CharacterFragmentProvider from "../../_data/CharacterFragmentProvider";

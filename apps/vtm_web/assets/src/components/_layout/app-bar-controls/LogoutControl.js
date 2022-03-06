@@ -1,22 +1,22 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import {UtilityContext} from "../../../contexts";
 import {useHistory} from "react-router-dom";
 import {performLogout} from "../../../services/logout-service";
 import Tooltip from '@mui/material/Tooltip';
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {Routes} from "../../../AppRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useDialog} from "../../../_base/providers/DialogProvider";
 
 const LogoutControl = (): GenericReactComponent => {
     const history = useHistory();
-    const {openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
 
     const logoutClick = _ => {
-        openDialog("Logout", "Vuoi uscire dal gioco?", () =>
+        showDialog("Logout", "Vuoi uscire dal gioco?", () =>
             performLogout(() => history.push(Routes.logout)));
     }
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState, Suspense} from "react";
+import React, {Suspense, useState} from "react";
 import {useHistory} from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import {Routes} from "../../../AppRouter";
@@ -16,8 +16,8 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CameraIndoorTwoToneIcon from '@mui/icons-material/CameraIndoorTwoTone';
-import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import type {MenuProps} from "./menu-base-utils";
+import {menuIconStyle, MenuSecondaryText} from "./menu-base-utils";
 import useIsChatRoute from "../../_hooks/useIsChatRoute";
 import MenuForumSection from "./sections/MenuForumSection";
 import type {GenericReactComponent} from "../../../_base/types";

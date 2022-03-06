@@ -3,11 +3,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  ForumHasNewPostQueryResponse,
-  ForumHasNewPostQueryVariables,
+    ForumHasNewPostQueryResponse,
+    ForumHasNewPostQueryVariables,
 } from "./__generated__/ForumHasNewPostQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import { emptyExactObject } from "../../../_base/utils";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import {emptyExactObject} from "../../../_base/utils";
 
 export const ForumHasNewPostQuery: Query<ForumHasNewPostQueryVariables, ForumHasNewPostQueryResponse> = graphql`
     query ForumHasNewPostQuery {

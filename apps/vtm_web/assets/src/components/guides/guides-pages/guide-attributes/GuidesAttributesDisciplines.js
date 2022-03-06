@@ -7,11 +7,7 @@ import {guideStyle, liStyle, titleStyle} from "../../GuidesStyles";
 import {GuideRoutes} from "../../GuidesMain";
 import type {GenericReactComponent} from "../../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesAttributesDisciplines = (props: Props): GenericReactComponent => {
+const GuidesAttributesDisciplines = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>

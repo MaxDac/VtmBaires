@@ -1,9 +1,9 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
-import type { RejectCharacterMutationResponse } from "./__generated__/RejectCharacterMutation.graphql";
+import type {RejectCharacterMutationResponse} from "./__generated__/RejectCharacterMutation.graphql";
 
 const mutation = graphql`
     mutation RejectCharacterMutation($characterId: ID!, $reason: String!) {

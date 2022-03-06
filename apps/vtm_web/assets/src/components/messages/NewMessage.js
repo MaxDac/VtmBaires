@@ -1,16 +1,16 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import ReturnToMessagesControl from "./components/ReturnToMessagesControl";
 import SendMessageMutation from "../../services/mutations/messages/SendMessageMutation";
-import {useSession} from "../../services/session-service";
-import {UtilityContext} from "../../contexts";
 import {useHistory} from "react-router-dom";
 import {useRelayEnvironment} from "react-relay";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import ReplyToMessage from "./components/ReplyToMessage";
 import MessageTemplate from "./components/MessageTemplate";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 export type SubmitProperties = {
     subject: string;
@@ -27,10 +27,10 @@ type Props = {
 }
 
 const NewMessage = (props: Props): GenericReactComponent => {
-    const environment = useRelayEnvironment();
-    const history = useHistory();
-    const {showUserNotification} = useContext(UtilityContext);
-    const [,character] = useSession();
+    const environment = useRelayEnvironment()
+    const history = useHistory()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const [character,] = useCharacterRecoilState()
 
     const onSubmit = (e: SubmitProperties) => {
         SendMessageMutation(environment, {
@@ -42,11 +42,11 @@ const NewMessage = (props: Props): GenericReactComponent => {
             subject: e.subject,
             text: e.text
         })
-            .then(_ => showUserNotification({
+            .then(_ => enqueueSnackbar({
                 type: "success",
                 message: "Messaggio inviato correttamente"
             }))
-            .catch(e => showUserNotification({
+            .catch(e => enqueueSnackbar({
                 type: "error",
                 graphqlError: e,
                 message: "Errore inviando il messaggio!"

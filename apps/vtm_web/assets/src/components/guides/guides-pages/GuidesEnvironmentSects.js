@@ -2,16 +2,10 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import { GuideRoutes } from "../GuidesMain";
-import { guideStyle, liStyle, storyStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, liStyle, storyStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesEnvironmentSects = (props: Props): GenericReactComponent => {
+const GuidesEnvironmentSects = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>
@@ -162,8 +156,8 @@ const GuidesEnvironmentSects = (props: Props): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                In seguito, saranno esposte le situazioni attuali di Sette e Congreghe alternative, se non antagoniste,
-                alla <Link to={GuideRoutes.camarilla}>Camarilla</Link>.
+                In seguito, verranno descritte le Sette attualmente presenti a Buenos Aires. I personaggi giocanti 
+                verranno considerati Anarchici.
             </Typography>
 
             <Typography paragraph>
@@ -191,6 +185,36 @@ const GuidesEnvironmentSects = (props: Props): GenericReactComponent => {
                 la pretesa di assumere la carica di Barone, anche se il Ravnos sta
                 svolgendo, grazie anche al suo locale / rifugio e allo status che gli
                 garantisce, un ruolo di guida molto simile.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Questo ruolo ha assunto una enorme importanza strategica in seguito agli ultimi avvenimenti nel 
+                Dominio, in seguito al tradimento del Principe della Camarilla e l'avvento della <b>Seconda 
+                Inquisizione</b>. Manoukian &egrave; allo stato attuale l'unico punto di riferimento chiaro
+                per i Cainiti del Dominio, l'unico che pu&ograve; attualmente aspirare al titolo di Barone.
+            </Typography>
+
+            <Typography paragraph>
+                <h2 style={titleStyle}>
+                    Seconda Inqusizione
+                </h2>
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                La Seconda Inquisizione &egrave;, da almeno una decina di anni, la vera spina
+                nel fianco della Camarilla, e in generale dei Cainiti, in quasi tutto il 
+                mondo occidentale. Incalcolabili sono le perdite di potere, possedimento, 
+                ma prestigio ed in termini di non-vite che la società dei Fratelli ha
+                dovuto pagare prima di raggiungere una sorta di equilibrio.
+            </Typography>
+
+            <Typography paragraph sx={guideStyle}>
+                Fino a poco tempo fa, la loro azione a Buenos Aires era attivamente osteggiata dal governo in carica.
+                In seguito ad un numero di scandali scatenati dai mezzi di informazione di Santiago Rinaldi, e al 
+                successivo rimpasto di Governo, la Seconda Inquisizione ha potuto riprendere le sue operazioni anche
+                nella capitale Argentina. Gran parte dei Cainti della Camarilla rimasti a Buenos Aires sono stati 
+                eliminati, il resto si &egrave; unito all'Anarchia di Manoukian, giurandogli fedelt&agrave; e 
+                riconoscendolo come leader.
             </Typography>
 
             <Typography paragraph>
@@ -231,38 +255,11 @@ const GuidesEnvironmentSects = (props: Props): GenericReactComponent => {
                 nacque il clan <b>Hecata</b>.
             </Typography>
 
-            <Typography paragraph>
-                <h2 style={titleStyle}>
-                    Seconda Inqusizione
-                </h2>
-            </Typography>
-
             <Typography paragraph sx={guideStyle}>
-                La Seconda Inquisizione &egrave;, da almeno una decina di anni, la vera spina
-                nel fianco della Camarilla, e in generale dei Cainiti, in quasi tutto il 
-                mondo occidentale. Incalcolabili sono le perdite di potere, possedimento, 
-                ma prestigio ed in termini di non-vite che la società dei Fratelli ha
-                dovuto pagare prima di raggiungere una sorta di equilibrio.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Le organizzazioni segrete che la compongono per&ograve; non sembrano 
-                aver dato problemi nel Dominio di Buenos Aires ai <i>Blank Bodies</i>,
-                come vengono chiamati da queste organizzazioni di cacciatori i Cainiti.
-                Il motivo &egrave; del tutto fortuito: il governo filo-<i>peronista</i> attualmente
-                in carica, come molti altri governi di sinistra del continente 
-                sudamericano, osteggia attivamente la presenza di agenzie segrete 
-                straniere in territorio nazionale, inclusa l'<b>Entit&agrave;</b> e
-                la <b>Societ&agrave; di San Leopoldo</b>.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                I Cainiti del Dominio sono coscienti del fatto che non conviene 
-                comunque rilassare troppo l'attenzione sul rispetto delle Tradizioni,
-                perch&egrave; le cose potrebbero radicalmente cambiare nel giro di
-                mesi, ma le pesanti restrizioni sulla tecnologia imposte dai pochi 
-                Anziani che hanno resistito al <i>Beckoning</i> non sono osservate
-                alla lettera a Buenos Aires.
+                I Giovanni sono rimasti a Buenos Aires anche in seguito al tradimento del Principe. Hanno approfittato
+                del vuoto di potere nella Capital Federal per continuare una azione discreta ed estremamente cauta
+                di acquisizione di influenze nel mondo mortale, sostituendosi di fatto ai maestri della Camarilla 
+                nella gestione delle influenze.
             </Typography>
         </>
     );

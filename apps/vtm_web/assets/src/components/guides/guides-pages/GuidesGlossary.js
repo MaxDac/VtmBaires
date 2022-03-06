@@ -7,11 +7,7 @@ import {Link} from "react-router-dom";
 import {GuideRoutes} from "../GuidesMain";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesGlossary = (props: Props): GenericReactComponent => {
+const GuidesGlossary = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>

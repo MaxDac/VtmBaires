@@ -1,14 +1,15 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../../contexts";
 import {handleMutation} from "../../../../_base/utils";
 import ResetHuntMutation from "../../../../services/mutations/admin/ResetHuntMutation";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -17,16 +18,17 @@ type Props = {
 
 const ResetHuntForm = ({character, onUpdate}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
 
     const resetCharacterHunt = () =>
-        openDialog(
+        showDialog(
             "Resetta esito caccia",
             `Sei sicuro di voler resettare l'esito della caccia di ${character?.name ?? ""}?`,
             () => {
                 handleMutation(
                     () => ResetHuntMutation(environment, character?.id),
-                    showUserNotification, {
+                    enqueueSnackbar, {
                         successMessage: "L'esito della caccia è stato correttamente resettato.",
                         onCompleted: onUpdate
                     });

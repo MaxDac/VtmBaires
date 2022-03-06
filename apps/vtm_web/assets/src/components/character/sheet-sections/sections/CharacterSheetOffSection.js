@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import {useFragment} from "react-relay";
 import {characterOffFragment} from "../../../../services/queries/character/CharacterFragments";
-import type {CharacterFragments_characterOff$key} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
+import type {
+    CharacterFragments_characterOff$key
+} from "../../../../services/queries/character/__generated__/CharacterFragments_characterOff.graphql";
 import ParsedText from "../../../../_base/components/ParsedText";
 import {mainFontFamily} from "../../../Main.Layout.Style";
 import SoundWrapperComponent from "../../../../_base/components/SoundWrapperComponent";

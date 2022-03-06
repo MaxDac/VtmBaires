@@ -1,11 +1,8 @@
 // @flow
 
-import type {
-  AllUsersQueryResponse,
-  AllUsersQueryVariables,
-} from "./__generated__/AllUsersQuery.graphql";
+import type {AllUsersQueryResponse, AllUsersQueryVariables,} from "./__generated__/AllUsersQuery.graphql";
 
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 import graphql from 'babel-plugin-relay/macro';
 

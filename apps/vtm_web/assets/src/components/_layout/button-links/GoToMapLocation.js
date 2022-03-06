@@ -1,17 +1,18 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import RoomIcon from "@mui/icons-material/Room";
 import {menuIconStyle} from "../menu/menu-base-utils";
 import {useHistory} from "react-router-dom";
 import {goToChatAndUpdateSession} from "../../chat/chat-helpers";
-import {SessionContext} from "../../../contexts";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import {iconButtonSize} from "./constants";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useSetRecoilState} from "recoil";
+import {sessionMapStateAtom} from "../../../session/atoms";
 
 type Props = {
     location: ?{
@@ -23,13 +24,13 @@ type Props = {
 }
 
 const GoToMapLocation = ({location, onSelected, asMenuItem}: Props): GenericReactComponent => {
-    const sessionUtils = useContext(SessionContext);
-    const history = useHistory();
+    const history = useHistory()
+    const setLocation = useSetRecoilState(sessionMapStateAtom)
 
     const tryGoToLocation = location =>
         _ => {
             if (location?.id != null) {
-                goToChatAndUpdateSession(sessionUtils, history, location.id, location?.name);
+                goToChatAndUpdateSession(setLocation, history, location.id, location?.name);
             }
 
             if (onSelected != null) {

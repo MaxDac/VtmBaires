@@ -8,17 +8,14 @@ export type History = {
     push: string => void;
 };
 
+export type AlertType = 'success' | 'warning' | 'error' | 'info';
+
 export type AlertInfo = {
-    type: 'success' | 'warning' | 'error' | 'info';
+    type: AlertType;
     duration?: number;
-    graphqlError?: ?GraphqlErrorMessage;
+    graphqlErrors?: ?GraphqlErrorMessage | any;
     message?: ?string;
+    key?: string | number;
 };
 
 export type OpenDialogProps = (string, string, ?() => void, ?() => void) => void;
-
-export type AlertContext = {
-    openDialog: OpenDialogProps,
-    showUserNotification: AlertInfo => void,
-    setWait: boolean => void;
-};

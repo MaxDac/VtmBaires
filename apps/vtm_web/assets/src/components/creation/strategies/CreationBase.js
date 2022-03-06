@@ -1,22 +1,24 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import AttributeSelectionField from "../controls/AttributeSelectionField";
 import Button from "@mui/material/Button";
 import appendAttributesMutation from "../../../services/mutations/characters/AppendAttributesMutation";
-import type { AttributeTypeNames } from "../../../services/queries/info/AttributesQuery";
-import type {CharacterAttributeRequest} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
-import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
+import type {AttributeTypeNames} from "../../../services/queries/info/AttributesQuery";
 import useAttributesQuery from "../../../services/queries/info/AttributesQuery";
+import type {
+    CharacterAttributeRequest
+} from "../../../services/mutations/characters/__generated__/AppendAttributesMutation.graphql";
+import {getCharacterStageQuery} from "../../../services/queries/character/GetCharacterStageQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
-import { MainRoutes } from "../../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import {sortAttributes} from "../../../_base/info-helpers";
 import {translateAttributeSection} from "../../../_base/dictionary-utils";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 export type CreationBaseProps<TFormAttributes> = {|
     classes: any;
@@ -29,9 +31,9 @@ export type CreationBaseProps<TFormAttributes> = {|
 |}
 
 const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const { showUserNotification } = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const character = useCustomLazyLoadQuery(getCharacterStageQuery, {
         id: props.characterId
@@ -113,7 +115,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         appendAttributesMutation(environment, request, props.currentStage)
             .then(_ => history.push(`${MainRoutes.creationBase}${props.currentStage + 1}`))
-            .catch(e => showUserNotification({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
+            .catch(e => enqueueSnackbar({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
     }
 
     return (

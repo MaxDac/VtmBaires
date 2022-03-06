@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {object, string} from "yup";
 import Typography from "@mui/material/Typography";
 import {useFormik} from "formik";
@@ -12,10 +12,8 @@ import {useCustomLazyLoadQueryNoVar} from "../../_base/relay-utils";
 import {useHasUserAlreadyBooked} from "../../services/queries/chat/HasUserAlreadyBookedQuery";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
-import {useSession} from "../../services/session-service";
 import AddUserToChatMutation from "../../services/mutations/chat/AddUserToChatMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
 import {firstOrDefault, isNotNullNorEmpty} from "../../_base/utils";
 import {useHistory} from "react-router-dom";
 import BookChatMapMutation from "../../services/mutations/chat/BookChatMapMutation";
@@ -23,6 +21,11 @@ import {MainRoutes} from "../MainRouter";
 import {allPlayersQuery} from "../../services/queries/character/AllPlayersQuery";
 import {getAvailableCharactersQuery} from "../../services/queries/chat/GetAvailableCharactersQuery";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useWait} from "../../_base/providers/BackdropProvider";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
 
 const numberOfPossibleUsers = 5;
 
@@ -69,11 +72,13 @@ const BookChats = (): GenericReactComponent => {
 };
 
 const BookChatsInternal = (): GenericReactComponent => {
-    const environment = useRelayEnvironment();
-    const history = useHistory();
-    const {openDialog, showUserNotification, setWait} = useContext(UtilityContext);
-    const theme = useTheme();
-    const [user,] = useSession();
+    const environment = useRelayEnvironment()
+    const history = useHistory()
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const {startWait, stopWait} = useWait()
+    const theme = useTheme()
+    const user = useRecoilValue(sessionStateAtom)
 
     const divider = " - ";
 
@@ -97,7 +102,7 @@ const BookChatsInternal = (): GenericReactComponent => {
     const manageError = characterName =>
         e => {
             console.error("There was an error while trying to add user to chat", e);
-            showUserNotification({
+            enqueueSnackbar({
                 type: "error",
                 message: `Non è stato possibile invitare il personaggio ${characterName}.`
             });
@@ -125,22 +130,22 @@ const BookChatsInternal = (): GenericReactComponent => {
 
         const [firstUserId, firstCharacterName] = guests[0];
 
-        openDialog("Prenotazione stanza privata", "Sei sicuro di voler prenotare una stanza privata?",
+        showDialog("Prenotazione stanza privata", "Sei sicuro di voler prenotare una stanza privata?",
             () => {
-                setWait(true);
+                startWait()
 
                 BookChatMapMutation(environment, chatMapId)
                     .then(_ => AddUserToChatMutation(environment, chatMapId, firstUserId).catch(manageError(firstCharacterName)))
                     .then(_ => getGuestsTask(chatMapId, guests.slice(1)))
                     .then(_ => {
-                        showUserNotification({
+                        enqueueSnackbar({
                             type: "success",
                             message: "La chat è stata prenotata con successo"
                         });
                         setTimeout(() => history.push(MainRoutes.chat(chatMapId)), 1000);
                     })
                     .catch(manageError)
-                    .finally(() => setWait(false));
+                    .finally(() => stopWait());
             }
         );
     };

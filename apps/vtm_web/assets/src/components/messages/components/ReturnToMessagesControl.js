@@ -4,7 +4,7 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { MainRoutes } from "../../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {

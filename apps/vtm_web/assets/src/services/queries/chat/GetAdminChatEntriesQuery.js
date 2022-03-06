@@ -1,10 +1,10 @@
 // @flow
 
 import type {
-  GetAdminChatEntriesQueryResponse,
-  GetAdminChatEntriesQueryVariables,
+    GetAdminChatEntriesQueryResponse,
+    GetAdminChatEntriesQueryVariables,
 } from "./__generated__/GetAdminChatEntriesQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 import graphql from 'babel-plugin-relay/macro';
 

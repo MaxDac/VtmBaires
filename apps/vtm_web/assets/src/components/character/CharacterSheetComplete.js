@@ -7,11 +7,12 @@ import Paper from "@mui/material/Paper";
 import {CharacterSheetSuspenseFallback} from "./CharacterSheet";
 import {useHistory} from "react-router-dom";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
-import {useSession} from "../../services/session-service";
 import Button from "@mui/material/Button";
 import {MainRoutes} from "../MainRouter";
 import CharacterSheetTabs from "./sheet-sections/tabs/CharacterSheetTabs";
 import type {GenericReactComponent} from "../../_base/types";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
 
 type Props = {
     id?: string;
@@ -23,7 +24,7 @@ type Props = {
 const CharacterSheetComplete = (props: Props): GenericReactComponent => {
     const history = useHistory();
     const userCharacters = useUserCharactersQuery();
-    const [user,] = useSession();
+    const user = useRecoilValue(sessionStateAtom)
 
     const canModify = character => user?.role === "MASTER" || userCharacters.some(c => c.id === character?.id);
 

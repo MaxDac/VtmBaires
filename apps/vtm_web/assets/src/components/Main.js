@@ -1,6 +1,6 @@
 // @flow
 
-import Box from '@mui/system/Box';
+import Box from '@mui/material/Box';
 import React, {useEffect, useState} from 'react';
 import CenteredBox from "../_base/components/CenteredBox";
 import Typography from '@mui/material/Typography';

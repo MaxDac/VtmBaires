@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@absinthe/socket": "^0.2.1",
     "@absinthe/socket-relay": "^0.2.1",
     "@date-io/date-fns": "^2.11.0",
     "@emotion/react": "^11.7.1",
@@ -27,6 +28,7 @@
     "react-markdown": "^8.0.0",
     "react-relay": "^13.0.1",
     "react-router-dom": "^5.3.0",
+    "recoil": "^0.6.1",
     "relay-runtime": "^13.0.1",
     "web-vitals": "^1.0.1",
     "workbox-background-sync": "^6.4.2",

@@ -3,10 +3,10 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  HasUserAccessToMapQueryResponse,
-  HasUserAccessToMapQueryVariables,
+    HasUserAccessToMapQueryResponse,
+    HasUserAccessToMapQueryVariables,
 } from "./__generated__/HasUserAccessToMapQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export const hasUserAccessToMapQuery: Query<HasUserAccessToMapQueryVariables, HasUserAccessToMapQueryResponse> = graphql`
     query HasUserAccessToMapQuery($chatId: ID!) {

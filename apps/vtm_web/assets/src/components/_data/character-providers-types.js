@@ -1,13 +1,13 @@
 // @flow
 
-import {useSession} from "../../services/session-service";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 export type CharacterProviderBaseProps = {
     characterId?: ?string;
 }
 
 export const useCharacterProviderId = (characterId: ?string): ?string => {
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
 
     if (characterId != null) {
         return characterId;

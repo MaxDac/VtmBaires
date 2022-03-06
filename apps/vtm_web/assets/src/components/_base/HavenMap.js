@@ -4,16 +4,16 @@ import React from "react";
 import MainMapImageMapper from "../map/MainMapImageMapper";
 import {drawLine, groupHavens} from "./haven-map-areas-helpers";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
-import {getHavensQuery} from "../../services/queries/haven/GetHavensQuery";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
-import { emptyExactObject, getMapKeys } from "../../_base/utils";
-import {useSession} from "../../services/session-service";
+import {getHavensQuery} from "../../services/queries/haven/GetHavensQuery";
+import {emptyExactObject, getMapKeys} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
 import Stack from "@mui/material/Stack";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Box from "@mui/material/Box";
 import HavenMapLegend from "./HavenMapLegend";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 type Props = {
     onSectionSelected: (Haven | string) => void;
@@ -104,7 +104,7 @@ const sendPersonalHaven = (characterId, havens, setPersonalHaven) => {
 };
 
 const HavenMap = ({onSectionSelected, fetchKey, setPersonalHaven}: Props): GenericReactComponent => {
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const havens = useCustomLazyLoadQuery(getHavensQuery, emptyExactObject(), {
         fetchPolicy: "network-only",
         fetchKey: fetchKey

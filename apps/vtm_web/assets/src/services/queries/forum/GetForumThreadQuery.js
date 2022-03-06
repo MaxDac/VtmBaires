@@ -1,7 +1,7 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
     GetForumThreadQueryResponse,
     GetForumThreadQueryVariables,

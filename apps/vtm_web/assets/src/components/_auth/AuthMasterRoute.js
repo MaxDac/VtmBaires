@@ -3,8 +3,9 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
 import {Routes} from "../../AppRouter";
-import {getSessionSync} from "../../services/session-service";
 import type {GenericReactComponent} from "../../_base/types";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
 
 type Props = {
     component?: (...any) => any;
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const AuthMasterRoute = ({ children, component, ...rest }: Props): GenericReactComponent => {
-    const user = getSessionSync()?.user;
+    const user = useRecoilValue(sessionStateAtom);
 
     const loginRedirection = location => ({
         pathname: Routes.main,

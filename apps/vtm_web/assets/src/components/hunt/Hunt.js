@@ -1,13 +1,11 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import HavenMap from "../_base/HavenMap";
 import HuntMutation from "../../services/mutations/characters/HuntMutation";
 import type {HuntMutationResponse} from "../../services/mutations/characters/__generated__/HuntMutation.graphql";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
-import {useSession} from "../../services/session-service";
-import { characterIsVampire, tryCastToOneType } from "../../_base/utils";
+import {characterIsVampire, tryCastToOneType} from "../../_base/utils";
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import Box from "@mui/material/Box";
@@ -17,11 +15,15 @@ import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterA
 import {GuideRoutes} from "../guides/GuidesMain";
 import type {Haven} from "../../services/queries/haven/GetHavensQuery";
 import type {GenericReactComponent} from "../../_base/types";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 const HuntInternal = ({characterId}) => {
     const environment = useRelayEnvironment();
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
-    const [,character] = useSession();
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
+    const [character,] = useCharacterRecoilState()
 
     const isCharacterVampire = characterIsVampire(character);
     const [awakeFetchKey, setAwakeFetchKey] = useState(1);
@@ -50,7 +52,7 @@ const HuntInternal = ({characterId}) => {
     //         huntRequest(personalHavenId);
     //     }
     //     else {
-    //         showUserNotification({
+    //         enqueueSnackbar({
     //             type: "warning",
     //             message: "Il tuo personaggio non ha attualmente un rifugio"
     //         });
@@ -85,7 +87,7 @@ const HuntInternal = ({characterId}) => {
 
     const huntRequest = havenId => {
         if (character?.id != null) {
-            openDialog(
+            showDialog(
                 "Caccia",
                 "Sei sicuro di voler mandare il tuo personaggio a caccia? Potrai giocare subito dopo, ma non potrai far cacciare di nuovo il personaggio per un altro giorno",
                 () => {
@@ -99,7 +101,7 @@ const HuntInternal = ({characterId}) => {
                                 if (result?.hunt?.result != null) {
                                     const huntResult = result.hunt.result;
 
-                                    showUserNotification({
+                                    enqueueSnackbar({
                                         type: "info",
                                         duration: 7000,
                                         message: huntResult
@@ -107,7 +109,7 @@ const HuntInternal = ({characterId}) => {
                                 }
                                 else {
                                     console.error("No back end message", result);
-                                    showUserNotification({
+                                    enqueueSnackbar({
                                         type: "error",
                                         message: "Qualcosa non è andato come previsto, contatta un master per maggiori informazioni."
                                     });
@@ -116,14 +118,14 @@ const HuntInternal = ({characterId}) => {
                             .catch(e => {
                                 setAwakeFetchKey(p => p + 1);
                                 console.error("Error while hunting!", e);
-                                showUserNotification({
+                                enqueueSnackbar({
                                     type: "error",
                                     message: "Qualcosa non è andato come previsto, contatta un master per maggiori informazioni."
                                 })
                             });
                     }
                     else {
-                        showUserNotification({
+                        enqueueSnackbar({
                             type: "error",
                             message: "Devi prima selezionare il personaggio."
                         });
@@ -131,7 +133,7 @@ const HuntInternal = ({characterId}) => {
                 });
         }
         else {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "warning",
                 message: "Devi selezionare un personaggio prima di cacciare."
             });
@@ -171,7 +173,7 @@ const HuntInternal = ({characterId}) => {
 };
 
 const Hunt = (): GenericReactComponent => {
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
 
     if (character?.id != null) {
         return (

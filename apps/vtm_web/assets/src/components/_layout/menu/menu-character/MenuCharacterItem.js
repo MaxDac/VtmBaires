@@ -9,12 +9,12 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import type {UserCharacter} from "../../../../services/queries/accounts/UserCharactersQuery";
 import {useTheme} from "@mui/material/styles";
-import {useSession} from "../../../../services/session-service";
 import IconButton from "@mui/material/IconButton";
 import {menuIconStyle, menuTextStyle, menuTextStyleHover} from "../menu-base-utils";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useCharacterRecoilState} from "../../../../session/hooks";
 
 type Props = {
     character: UserCharacter;
@@ -24,7 +24,7 @@ type Props = {
 
 const MenuCharacterItem = ({character, handleSheetSelection, handleCharacterSelection}: Props): GenericReactComponent => {
     const theme = useTheme();
-    const [,currentCharacter] = useSession();
+    const [currentCharacter,] = useCharacterRecoilState()
 
     const MenuCharacterItemMenuSecondaryText = ({hover}: any): any => (
         <Typography component="span" sx={{

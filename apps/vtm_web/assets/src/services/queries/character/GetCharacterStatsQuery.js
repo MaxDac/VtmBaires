@@ -3,12 +3,12 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  GetCharacterStatsQueryResponse,
-  GetCharacterStatsQueryVariables,
+    GetCharacterStatsQueryResponse,
+    GetCharacterStatsQueryVariables,
 } from "./__generated__/GetCharacterStatsQuery.graphql";
-import type { AttributeTypeNames } from "../info/AttributesQuery";
-import { sortStrings } from "../../../_base/info-helpers";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {AttributeTypeNames} from "../info/AttributesQuery";
+import {sortStrings} from "../../../_base/info-helpers";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export const getCharacterStatsQuery: Query<GetCharacterStatsQueryVariables, GetCharacterStatsQueryResponse> = graphql`
     query GetCharacterStatsQuery($id: ID!) {

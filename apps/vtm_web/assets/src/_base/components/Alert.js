@@ -1,9 +1,8 @@
 // @flow
 
+import type {Node} from "react";
 import React from "react";
 import MuiAlert from "@mui/lab/Alert";
-
-import type { Node } from "react";
 
 export type AlertProps = {
     type: 'success' | 'info' | 'warning' | 'error';

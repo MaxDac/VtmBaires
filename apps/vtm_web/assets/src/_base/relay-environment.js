@@ -1,18 +1,9 @@
 // @flow
 
-import {
-    Environment,
-    Network,
-    RecordSource,
-    Store
-} from "relay-runtime";
+import type {RequestParameters, Variables} from "relay-runtime";
+import {Environment, Network, RecordSource, Store} from "relay-runtime";
 
 import RelayQueryResponseCache from 'relay-runtime/lib/network/RelayQueryResponseCache';
-
-import type { 
-    RequestParameters,
-    Variables
-} from "relay-runtime";
 import {post} from "axios";
 import {useHistory} from "react-router-dom";
 import {log} from "./utils";

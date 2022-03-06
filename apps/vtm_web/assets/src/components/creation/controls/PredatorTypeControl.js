@@ -9,11 +9,13 @@ import Grid from "@mui/material/Grid";
 import {predatorTypesQuery} from "../../../services/queries/info/PredatorTypesQuery";
 import type {PredatorTypesQueryResponse} from "../../../services/queries/info/__generated__/PredatorTypesQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import { characterIsVampire } from "../../../_base/utils";
+import {characterIsVampire} from "../../../_base/utils";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
-import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import type {
+    CharacterFragments_characterConcealedInfo
+} from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {

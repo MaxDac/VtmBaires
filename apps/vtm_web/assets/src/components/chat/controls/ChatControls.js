@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -12,17 +12,16 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import {useTheme} from "@mui/material/styles";
 import {useRelayEnvironment} from "react-relay";
 import RouseCheckMutation from "../../../services/mutations/chat/RouseCheckMutation";
-import {useSession} from "../../../services/session-service";
-import {UtilityContext} from "../../../contexts";
-import {
-  castNotNull,
-  handleMutation,
-} from "../../../_base/utils";
+import {castNotNull, handleMutation,} from "../../../_base/utils";
 import UseWillpowerChatMutation from "../../../services/mutations/chat/UseWillpowerChatMutation";
 import HealMutation from "../../../services/mutations/chat/HealMutation";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import DownloadIcon from '@mui/icons-material/Download';
 import type {GenericReactComponent} from "../../../_base/types";
+import {useDialog} from "../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
+import {useRecoilValue} from "recoil";
+import {sessionCharacterStateAtom} from "../../../session/atoms";
 
 type Props = {
     openMapModal: () => void;
@@ -34,8 +33,9 @@ type Props = {
 const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogRequested}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
     const theme = useTheme();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
-    const [,character] = useSession();
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const character = useRecoilValue(sessionCharacterStateAtom)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -51,7 +51,7 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogR
     };
 
     const showSelectCharacterNotification = () => 
-        showUserNotification({
+        enqueueSnackbar({
             type: "warning",
             message: "Devi prima selezionare un personaggio"
         });
@@ -79,13 +79,13 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogR
 
     const requestRouseCheck = _ => {
         if (character?.id != null) {
-            openDialog("Vitae", "Sei sicuro di voler spendere vitae?",
+            showDialog("Vitae", "Sei sicuro di voler spendere vitae?",
                 () => {
                     handleMutation(() =>
                         RouseCheckMutation(environment, {
                             characterId: castNotNull(character?.id),
                             chatMapId: mapId
-                        }), showUserNotification);
+                        }), enqueueSnackbar);
                 });
         }
         else {
@@ -96,14 +96,14 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogR
     }
 
     const requestWillpowerUse = _ => {
-        openDialog("Forza di Volontà", "Sei sicuro di voler spendere Forza di Volontà?",
+        showDialog("Forza di Volontà", "Sei sicuro di voler spendere Forza di Volontà?",
             () => {
                 if (character?.id != null) {
                     handleMutation(() =>
                         UseWillpowerChatMutation(environment, {
                             characterId: castNotNull(character?.id),
                             chatMapId: mapId
-                        }), showUserNotification);
+                        }), enqueueSnackbar);
                 }
                 else {
                     showSelectCharacterNotification();
@@ -114,14 +114,14 @@ const ChatControls = ({openMapModal, openCharacterStatusPopup, mapId, onChatLogR
     }
 
     const requestHeal = _ => {
-        openDialog(
+        showDialog(
             "Guarire",
             "Sei sicuro di voler spendere vitae per guarire il personaggio?\nRicorda che puoi farlo solo una volta per turno, e il tentativo apparirà in chat.",
             () => {
                 if (character?.id != null) {
                     handleMutation(
                         () => HealMutation(environment, castNotNull(character?.id), mapId),
-                        showUserNotification
+                        enqueueSnackbar
                     );
                 }
                 else {

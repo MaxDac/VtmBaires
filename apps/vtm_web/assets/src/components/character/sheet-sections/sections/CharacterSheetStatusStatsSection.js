@@ -8,7 +8,7 @@ import AttributeCumulativeStat from "../../controls/AttributeCumulativeStat";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import {characterIsVampire} from "../../../../_base/utils";
-import { defaultFormatDateAndTime } from "../../../../_base/date-utils";
+import {defaultFormatDateAndTime} from "../../../../_base/date-utils";
 import type {GenericReactComponent} from "../../../../_base/types";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import {getCharacterStatusQuery} from "../../../../services/queries/character/GetCharacterStatusQuery";

@@ -1,21 +1,21 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
 import {mainFontFamily} from "../../Main.Layout.Style";
 import {useTheme} from "@mui/material/styles";
+import type {Attribute} from "../../../services/queries/character/GetCharacterStatsQuery";
 import {
-  characterAttributeSorter,
-  useCharacterStatsQuery,
+    characterAttributeSorter,
+    useCharacterStatsQuery,
 } from "../../../services/queries/character/GetCharacterStatsQuery";
 import AttributeFormControl from "./AttributeFormControl";
 import Button from "@mui/material/Button";
-import { emptyArray, handleMutation } from "../../../_base/utils";
+import {emptyArray, handleMutation} from "../../../_base/utils";
 import AssignNpcAttributesMutation from "../../../services/mutations/npcs/AssignNpcAttributesMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
-import type { Attribute } from "../../../services/queries/character/GetCharacterStatsQuery";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 type Props = {
     characterId: string;
@@ -23,7 +23,7 @@ type Props = {
 
 const AssignNpcAttributes = ({characterId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
     const theme = useTheme();
     const stats = useCharacterStatsQuery(characterId, {
         fetchPolicy: "network-only"
@@ -55,7 +55,7 @@ const AssignNpcAttributes = ({characterId}: Props): GenericReactComponent => {
 
         handleMutation(() => AssignNpcAttributesMutation(environment, characterId, {
             attributes: attributes
-        }), showUserNotification, {});
+        }), enqueueSnackbar, {});
     };
 
     const filterAttributes = (type: "Attribute" | "Ability", section: "Physical" | "Social" | "Mental") => stats

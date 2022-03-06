@@ -7,8 +7,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import {useHistory} from "react-router-dom";
-import { MainRoutes } from "../../MainRouter";
-import { defaultFormatDateAndTime } from "../../../_base/date-utils";
+import {MainRoutes} from "../../MainRouter";
+import {defaultFormatDateAndTime} from "../../../_base/date-utils";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../../_base/types";
 

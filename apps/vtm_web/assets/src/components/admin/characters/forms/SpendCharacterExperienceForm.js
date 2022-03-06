@@ -1,8 +1,7 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
-import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import {handleMutation, range} from "../../../../_base/utils";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,6 +13,8 @@ import Button from "@mui/material/Button";
 import {UseAttributeSelectOptions} from "./hooks";
 import SpendCharacterExperienceMutation from "../../../../services/mutations/admin/SpendCharacterExperienceMutation";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -21,7 +22,8 @@ type Props = {
 }
 
 const SpendCharacterExperienceForm = ({character, onUpdate}: Props): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
     const [attributes, attributeSelectOptions] = UseAttributeSelectOptions(true);
 
@@ -44,7 +46,7 @@ const SpendCharacterExperienceForm = ({character, onUpdate}: Props): GenericReac
 
     const changeCharacterAttribute = _ => {
         if (attributeId == null && customCost === 0) {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "warning",
                 message: "Devi selezionare l'attributo da aumentare o il numero di punti esperienza da spendere."
             });
@@ -63,7 +65,7 @@ const SpendCharacterExperienceForm = ({character, onUpdate}: Props): GenericReac
                 ? ` per acquistare un punto di ${attributeLabel}`
                 : "";
 
-        openDialog(
+        showDialog(
             `Spesa di punti esperienza per ${character.name ?? ""}`,
             `Sei sicuro di voler spendere ${customCostLabel} di ${character.name ?? ""}${attributeDialogLabel}?`,
             () => {
@@ -73,7 +75,7 @@ const SpendCharacterExperienceForm = ({character, onUpdate}: Props): GenericReac
                     customExperienceExpenditure: customCost
                 });
 
-                handleMutation(() => promise, showUserNotification, {
+                handleMutation(() => promise, enqueueSnackbar, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: onUpdate

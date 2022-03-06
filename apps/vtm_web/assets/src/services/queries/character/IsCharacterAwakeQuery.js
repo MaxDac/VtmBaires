@@ -3,10 +3,10 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  IsCharacterAwakeQueryResponse,
-  IsCharacterAwakeQueryVariables,
+    IsCharacterAwakeQueryResponse,
+    IsCharacterAwakeQueryVariables,
 } from "./__generated__/IsCharacterAwakeQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export const isCharacterAwakeQuery: Query<IsCharacterAwakeQueryVariables, IsCharacterAwakeQueryResponse> = graphql`
     query IsCharacterAwakeQuery($characterId: ID!) {

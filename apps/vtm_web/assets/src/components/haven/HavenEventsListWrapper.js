@@ -1,14 +1,15 @@
 // @flow
 
-import React, {useContext} from "react";
-import {UtilityContext} from "../../contexts";
+import React from "react";
 import {useRelayEnvironment} from "react-relay";
-import {useSession} from "../../services/session-service";
 import {handleMutation} from "../../_base/utils";
 import resolveEventMutation from "../../services/mutations/havens/ResolveEventMutation";
 import type {HavenEvent} from "../../services/queries/haven/HavenEventFragment";
 import type {GenericReactComponent} from "../../_base/types";
 import HavenEventsList from "./HavenEventsList";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 export type HavenEventsInternalComponent = ?$ReadOnlyArray<?HavenEvent> => GenericReactComponent;
 
@@ -33,19 +34,20 @@ export type HavenEventsListWrapperProps = {
  * @constructor
  */
 export const HavenEventsListWrapper = ({isMaster, component}: HavenEventsListWrapperProps): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const [fetchKey, setFetchKey] = React.useState<number>(0);
 
     const resolveEvent = (id: string) => {
-        openDialog(
+        showDialog(
             "Risolvi evento",
             "Sei sicuro di voler risolvere o ignorare questo evento? Se confermi, l'evento non sarà più visibile.",
             () => {
                 handleMutation(() => resolveEventMutation(environment, {
                     eventId: id
-                }).finally(_ => setFetchKey(p => p + 1)), showUserNotification, {
+                }).finally(_ => setFetchKey(p => p + 1)), enqueueSnackbar, {
                     successMessage: "L'evento è stato correttamente risolto"
                 });
             });

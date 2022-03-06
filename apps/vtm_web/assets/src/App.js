@@ -1,38 +1,40 @@
 // @flow
 
-import React, {useState, Suspense, useContext, createRef} from "react";
-import { RelayEnvironmentProvider } from 'react-relay';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import AlertLayout from './_base/components/AlertLayout';
+import type {Node} from 'react';
+import React, {createRef, Suspense, useState} from "react";
+import {RelayEnvironmentProvider} from 'react-relay';
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AppRouter, {Routes} from "./AppRouter";
 import {SnackbarProvider} from "notistack";
-import type { Node } from 'react';
 import {ErrorBoundaryWithRetry} from "./_base/components/ErrorBoundaryWithRetry";
 import FallbackComponent from "./components/FallbackComponent";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
 import {useEnv} from "./_base/relay-environment";
 import type {IEnvironment} from "relay-runtime";
-import {SessionContext, UtilityContext} from "./contexts";
-import {getSessionHookValue} from "./services/session-service";
 import MainSuspenseFallback from "./MainSuspenseFallback";
-import { performLogout } from "./services/logout-service";
+import {performLogout} from "./services/logout-service";
 import type {GenericReactComponent} from "./_base/types";
+import {RecoilRoot} from "recoil";
+import BackdropProvider from "./_base/providers/BackdropProvider";
+import DialogProvider from "./_base/providers/DialogProvider";
+import {useCustomSnackbar} from "./_base/notification-utils";
 
 const Internal = ({env}: { env: IEnvironment}) => {
-    const { showUserNotification } = useContext(UtilityContext);
-    const history = useHistory();
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const history = useHistory()
 
     const fallback = (error, _retry): GenericReactComponent => {
         console.error("An unhandled error happened in the app", error)
-        showUserNotification({
+
+        enqueueSnackbar({
             type: "error",
             message: "There was an error in the application"
-        });
+        })
 
         return (
             <FallbackComponent error={error} retry={_retry} />
-        );
+        )
     };
 
     return (
@@ -97,27 +99,25 @@ const App = (): Node => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Suspense fallback={<MainSuspenseFallback />}>
-                <SnackbarProvider maxSnack={3}
-                                  ref={snackbarsRef}
-                                  preventDuplicate
-                                  variant="outlined"
-                                  action={key =>
-                                      <Button onClick={onSnackbarDismissClick(key)} sx={{
-                                          color: "black"
-                                      }}>
-                                          OK
-                                      </Button>
-                                  }>
-                    <AlertLayout>
-                        { props =>
-                            <UtilityContext.Provider value={props}>
-                                <SessionContext.Provider value={getSessionHookValue(environment)}>
-                                    <Internal env={environment} />
-                                </SessionContext.Provider>
-                            </UtilityContext.Provider>
-                        }
-                    </AlertLayout>
-                </SnackbarProvider>
+                <BackdropProvider>
+                    <SnackbarProvider maxSnack={3}
+                                      ref={snackbarsRef}
+                                      preventDuplicate
+                                      variant="outlined"
+                                      action={key =>
+                                          <Button onClick={onSnackbarDismissClick(key)} sx={{
+                                              color: "black"
+                                          }}>
+                                              OK
+                                          </Button>
+                                      }>
+                        <DialogProvider>
+                            <RecoilRoot>
+                                <Internal env={environment} />
+                            </RecoilRoot>
+                        </DialogProvider>
+                    </SnackbarProvider>
+                </BackdropProvider>
             </Suspense>
         </ThemeProvider>
     );

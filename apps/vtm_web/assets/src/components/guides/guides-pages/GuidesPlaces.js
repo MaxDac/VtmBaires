@@ -6,11 +6,7 @@ import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesPlaces = (props: Props): GenericReactComponent => {
+const GuidesPlaces = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>
@@ -33,9 +29,9 @@ const GuidesPlaces = (props: Props): GenericReactComponent => {
 
                 <Typography paragraph sx={guideStyle}>
                     Buenos Aires non &egrave; solo Capital Federal (all'interno del perimetro rosso nella cartina).
-                    La Provincia &egrave; parte integrante dell'area metropolitana, anche se &egrave; stata subito
-                    snobbata dalla Camarilla. Gli Anarchici conoscevano troppo bene la citt&agrave; per compiere 
-                    tale errore di valutazione.
+                    La Provincia &egrave; parte integrante dell'area metropolitana. Gli Anarchici sfruttano la loro 
+                    conoscenza di questa periferia per sfuggire alla Seconda Inquisizione, saldamente in controllo 
+                    delle attivit&agrave; nella Capital Federal.
                 </Typography>
 
                 <Typography paragraph sx={guideStyle}>
@@ -65,83 +61,11 @@ const GuidesPlaces = (props: Props): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                La Camarilla vanta infatti influenza nella Policia Federal e negli Ospedali di Capital Federal grazie
-                all'influenza Ventrue ed all'opera Malkavian. Tra gli edifici che per&ograve; pi&ugrave; 
-                contraddistinguono la presenza della Setta nella citt&agrave; &egrave; il suo <b>Elysium</b>.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Installato in un palazzo da lungo tempo abbandonato a due passi dal Parlamento, gli asserviti 
-                della Primogenita <b>Isabela Ruiz Diaz</b> hanno coordinato la costituzione di una societ&agrave; di 
-                investimenti in grado di muovere grandi quantit&agrave; di denaro, e di dollari, valuta estremamente
-                richiesta negli ambienti pi&ugrave; altolocati della politica argentina. Questo ha garantito 
-                non solo discrezione, ma anche la protezione del luogo da parte dei servizi speciali della 
-                Polizia di Stato. <b>Il luogo &egrave; praticamente inespugnabile</b>.
-            </Typography>
-
-            <img src="elysium.webp"
-                 alt="Elysium"
-                 align="right"
-                 vspace="10px"
-                 hspace="10px"
-                 style={{
-                     height: "250px",
-                     width: "auto"
-                 }} />
-
-            <Typography paragraph sx={guideStyle}>
-                Altri edifici degni di nota sono il vecchio <b>Sanatorio</b> abbandonato occupato dal <b>Primogenito
-                Malkavian</b>, riadibito nella sua ala pi&ugrave; moderna a centro per analisi del sangue ed
-                epidemiologico, per garantire un flusso costante di sangue in caso di emergenza, ed il&nbsp;
-                <b>Palazzo Pompadour</b>, sede del secondo Elysium della citt&agrave;.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                <h4 style={titleStyle}>
-                    Elysium
-                </h4>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                L'Elysium della Camarilla è situato agli ultimi piani del rinnovato palazzo della <b>Conf&iacute;teria 
-                El Molino</b>. Lontano dagli sguardi indiscreti dei mortali che possono accedere solamente ai piani 
-                inferiori dello stabile, gli ultimi piani sono protetti e dedicati, almeno ufficialmente, alla
-                dirigenza della societ&agrave;.
-            </Typography>
-
-            <img src="/palacio-pompadour.webp"
-                 alt="Palacio Pompadour"
-                 align="left"
-                 vspace="10px"
-                 hspace="10px"
-                 style={{
-                     width: "200px",
-                     height: "auto"
-                 }} />
-
-            <Typography paragraph sx={guideStyle}>
-                Le sue sale non sono sfarzose e nemmeno imponenti come quelli dei Domini europei, ma attualmente
-                quei Domini stanno venendo implacabilmente scovati e purgati della presenza Cainita.<br />
-                La nuova filosofia della Camarilla &egrave; improntata ancora di pi&ugrave; verso la Masquerade,
-                ed alla divisione dei luoghi di ritrovo in piccoli punti differenti.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                <h4 style={titleStyle}>
-                    Palacio Pompadour
-                </h4>
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Il palazzo Pompadour &egrave; ufficialmente la sede della famosa rivista d'arte Duval, dedicata
-                alla memoria della vivissima Toreador, che infatti ne veste i panni della CEO in qualit&agrave;
-                di erede... di s&eacute; stessa.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Universalmente considerato come un secondo Elysium, &egrave; sicuramente un luogo di incontro
-                pi&ugrave; informale. Il che potrebbe sembrare un paradosso, dato che la propriet&agrave; e la
-                responsabilit&agrave; della gestione ricadono proprio sull'<b>unica Arpia</b> finora presente nel Dominio.
+                La Capital Federal, dopo la fuga della Camarilla dal Dominio, &egrave; controllata capillarmente dalla
+                Seconda Inquisizione. &Egrave; veramente difficile per i Cainiti transitare, men che meno cacciare
+                indisturbati in centro senza correre il rischio di venire individuati, schedati e cacciati dai mortali.
+                I luoghi di ritrovo come l'Elysium, o il Palacio Pompadour, giacciono disabitati o divelti dagli 
+                attentati alla Masquerade perpetrati da Rinaldi.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
@@ -188,9 +112,7 @@ const GuidesPlaces = (props: Props): GenericReactComponent => {
                 ex Sabbat, ora Anarchici, ha il polso della situazione nelle strade della capitale sa che 
                 la Camarilla &egrave; stretta tra i palazzi di Puerto Madero, di Recoleta, Palermo, ma sar&agrave;
                 solo questione di tempo prima che gli Anarchici possano riprendere il controllo e sfondare
-                i confini di Capital Federal.<br />
-                Per ora, comunque, la comune Anarchica sembra voler radunare e contare le forze, riogranizzare
-                i vecchi traffici e trovare l'equilibrio con la nuova alleanza coi <b>Ministri di Set</b> a <b>Quilmes</b>.
+                i confini di Capital Federal.
             </Typography>
 
             <img src="/night-club.webp"
@@ -206,7 +128,10 @@ const GuidesPlaces = (props: Props): GenericReactComponent => {
             <Typography paragraph sx={guideStyle}>
                 Tra gli edifici degni di nota di questa zona c'&egrave; sicuramente il <b>Zona Este</b>, il 
                 locale gestito dal branco di Manoukian, e centro nevralgico della maggior parte dei traffici 
-                di droga da e per la capitale. La Policia della Provincia &egrave; molto differente da quella
+                di droga da e per la capitale. 
+                A conti fatti, il locale &egrave; l'unico punto di ritrovo pi&ugrave; o meno ufficiale per i Cainiti 
+                della citt&agrave;, dove tutti gli altri punti di ritrovo, come l'Elysium, sono stati requisiti o
+                abbandonati. La Policia della Provincia &egrave; molto differente da quella
                 di Capital Federal, e l'esperienza di molti decenni di dominio Sabbat li ha messi a conoscenza
                 del fatto che alcune zone &egrave; sempre meglio non controllarle.
             </Typography>
@@ -287,20 +212,11 @@ const GuidesPlaces = (props: Props): GenericReactComponent => {
                  }} />
 
             <Typography paragraph sx={guideStyle}>
-                I Ministri di Set avrebbero potuto vincere la loro guerra di influenze contro gli Hecata, se
-                la Camarilla non si fosse intromessa, assieme agli Anarchici. Questo &egrave; quello che pensano
-                gli ex Seguaci di Set, che ora controllano il quartiere industriale a sud della capitale.<br />
-                Nel conflitto per il controllo del territorio, sanno di essere arrivati ultimi e di aver perso...
-                per ora. La piccola rappresentanza rimasta a Buenos Aires &egrave; ancora indecisa sull'esito
-                e sul futuro dell'alleanza con gli Anarchici, paradigma che sembra star diventando globalmente 
-                accettato e perpetrato, ed uno dei fronti del difficile equilibrio sar&agrave; sicuramente 
-                il controllo del traffico di narcotici e di... altro.
-            </Typography>
-
-            <Typography paragraph sx={guideStyle}>
-                Pochi sono i luoghi di interesse in questa parte della citt&agrave; accessibili a chi non abbraccia
-                il culto del clan: il Tempio &egrave; ubicato in uno stabile interrato e protetto, virutalmente 
-                inaccessibile per chiunque non sappia cosa sta cercando.
+                Quilmes, per poco tempo, &egrave; stata la sede dei Ministri di Set, che hanno tentato di stringere
+                un'alleanza con gli Anarchici. L'organizzazione in quanto tale si &egrave; definitivamente sciolta
+                in seguito all'arrivo della Seconda Inquisizione, di fatto unendosi alla Fazione Anarchica di 
+                Manoukian, perdendo ogni organizzazione di clan interna, al contrario del clan Hecata, che continua ad
+                operare. Quilmes, quindi, rimane per lo pi&ugrave; disabitata.
             </Typography>
         </>
     );

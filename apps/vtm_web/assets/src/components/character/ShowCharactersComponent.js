@@ -15,7 +15,7 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import MenuLayout from "../../_base/components/MenuLayout";
-import { matchNames } from "../../_base/utils";
+import {matchNames} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
 
 const CharacterActions = ({characterId}) => {

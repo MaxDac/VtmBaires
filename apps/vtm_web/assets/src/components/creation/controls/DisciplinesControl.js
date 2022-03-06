@@ -7,13 +7,17 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import type {ClanDisciplinesQueryResponse} from "../../../services/queries/info/__generated__/ClanDisciplinesQuery.graphql";
+import type {
+    ClanDisciplinesQueryResponse
+} from "../../../services/queries/info/__generated__/ClanDisciplinesQuery.graphql";
 import {clanDisciplinesQuery} from "../../../services/queries/info/ClanDisciplinesQuery";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import { characterHasDisciplines } from "../../../_base/utils";
+import {characterHasDisciplines} from "../../../_base/utils";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";
-import type { CharacterFragments_characterConcealedInfo } from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
+import type {
+    CharacterFragments_characterConcealedInfo
+} from "../../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import TextField from "@mui/material/TextField";
 import type {GenericReactComponent} from "../../../_base/types";
 

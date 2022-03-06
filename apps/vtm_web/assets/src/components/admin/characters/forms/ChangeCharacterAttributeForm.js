@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import Grid from "@mui/material/Grid";
 import InputLabel from '@mui/material/InputLabel';
@@ -10,10 +10,11 @@ import Select from '@mui/material/Select';
 import Button from "@mui/material/Button";
 import {handleMutation, range} from "../../../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../../contexts";
 import ChangeCharacterAttributeMutation from "../../../../services/mutations/admin/ChangeCharacterAttributeMutation";
 import {UseAttributeSelectOptions} from "./hooks";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -21,7 +22,8 @@ type Props = {
 }
 
 const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
     const [attributes, attributeSelectOptions] = UseAttributeSelectOptions();
 
@@ -30,7 +32,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): GenericReac
 
     const changeCharacterAttribute = _ => {
         if (attributeId == null) {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "error",
                 message: "Devi selezionare un attributo"
             });
@@ -39,7 +41,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): GenericReac
 
         const attributeName = attributes?.filter(x => x?.id === attributeId)[0]?.name;
 
-        openDialog(
+        showDialog(
             `Cambio di attributo per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare il valore di ${attributeName ?? ""} a ${newValue}?`,
             () => {
@@ -47,7 +49,7 @@ const ChangeCharacterAttributeForm = ({character, onUpdate}: Props): GenericReac
                     characterId: character.id,
                     attributeId: attributeId,
                     newValue: newValue
-                }), showUserNotification, {
+                }), enqueueSnackbar, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: onUpdate

@@ -9,11 +9,7 @@ import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import type {GenericReactComponent} from "./_base/types";
 
-type Props = {
-
-}
-
-const MainSuspenseFallback = (props: Props): GenericReactComponent => {
+const MainSuspenseFallback = (): GenericReactComponent => {
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("md"));
 

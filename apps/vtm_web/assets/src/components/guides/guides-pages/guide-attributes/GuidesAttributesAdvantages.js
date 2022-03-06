@@ -2,9 +2,9 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import { guideStyle, liStyle, titleStyle } from "../../GuidesStyles";
-import { GuideRoutes } from "../../GuidesMain";
+import {Link} from "react-router-dom";
+import {guideStyle, liStyle, titleStyle} from "../../GuidesStyles";
+import {GuideRoutes} from "../../GuidesMain";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {
@@ -34,7 +34,7 @@ const GuidesAttributesAdvantages = ({showAttributes}: Props): GenericReactCompon
                 correttamente il personaggio nell'ambientazione. Come regola generale, comunque, <b>non sar&agrave;
                 consentito in fase di creazione indicare un alleato / una influenza / un seguace con un punteggio
                 maggiore di 2</b>. Questa regola vale anche per le diverse aree di influenza dei background, in fase di
-                creazione il personaggio non potr&agrave; possedere pi&grave; di 3 pallini in una singola area di
+                creazione il personaggio non potr&agrave; possedere pi&ugrave; di 3 pallini in una singola area di
                 influenza (esempio: Politica, Criminalit&agrave;, ...).
             </Typography>
 

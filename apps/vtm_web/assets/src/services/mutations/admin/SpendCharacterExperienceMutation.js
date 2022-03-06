@@ -1,10 +1,10 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
 import type {SpendCharacterExperienceInput} from "./__generated__/SpendCharacterExperienceMutation.graphql";
-import type { Character } from "../../queries/character/GetCharacterCompleteQuery";
+import type {Character} from "../../queries/character/GetCharacterCompleteQuery";
 
 const mutation = graphql`
     mutation SpendCharacterExperienceMutation($input: SpendCharacterExperienceInput!) {

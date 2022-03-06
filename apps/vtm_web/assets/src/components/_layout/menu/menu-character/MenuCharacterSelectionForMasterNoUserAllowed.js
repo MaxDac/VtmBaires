@@ -1,7 +1,6 @@
 // @flow
 
 import React from "react";
-import {useSession} from "../../../../services/session-service";
 import {MainRoutes} from "../../../MainRouter";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -12,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import {useTheme} from "@mui/material/styles";
 import {useMenuCharactersAvatar} from "./MenuCharactersAvatarHook";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useCharacterRecoilState} from "../../../../session/hooks";
 
 type Props = {
     pushHistory: string => void;
@@ -55,7 +55,7 @@ const Internal = ({pushHistory, character: {id: characterId, name: characterName
 }
 
 const MenuCharacterSelectionForMasterNoUserAllowed = ({pushHistory}: Props): GenericReactComponent => {
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
 
     if (character?.id != null) {
         return (<Internal pushHistory={pushHistory} character={{

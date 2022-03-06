@@ -1,7 +1,6 @@
 // @flow
 
 import type {GenericReactComponent} from "../../_base/types";
-
 import {useLocation} from "react-router-dom";
 
 const useIsChatRoute = (): GenericReactComponent => {

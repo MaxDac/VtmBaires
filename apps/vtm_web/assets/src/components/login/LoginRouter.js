@@ -1,9 +1,9 @@
 // @flow
 
 import React from "react";
+import type {HomeLayoutProps} from "./LoginLayout";
 import LoginLayout from "./LoginLayout";
 import {Route} from "react-router-dom";
-import type {HomeLayoutProps} from "./LoginLayout";
 import type {GenericReactComponent} from "../../_base/types";
 
 export const LoginRoutes = {

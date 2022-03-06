@@ -3,10 +3,10 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  GetCharacterCompleteQuery$variables,
-  GetCharacterCompleteQueryResponse,
+    GetCharacterCompleteQuery$variables,
+    GetCharacterCompleteQueryResponse,
 } from "./__generated__/GetCharacterCompleteQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export const getCharacterCompleteQuery: Query<GetCharacterCompleteQuery$variables, GetCharacterCompleteQueryResponse> = graphql`
     query GetCharacterCompleteQuery($id: ID!) {

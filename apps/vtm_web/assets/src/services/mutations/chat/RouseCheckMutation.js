@@ -1,7 +1,7 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
 import type {RouseCheckInput, RouseCheckMutationResponse} from "./__generated__/RouseCheckMutation.graphql";
 

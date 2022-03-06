@@ -5,11 +5,8 @@ import {convertToJavascriptArray, useCustomLazyLoadQuery} from "../../../_base/r
 import type {Map} from "../../base-types";
 import {convertToMap} from "../../base-types";
 import {emptyArray} from "../../../_base/utils";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import type {
-  SectionMapsQueryResponse,
-  SectionMapsQueryVariables,
-} from "./__generated__/SectionMapsQuery.graphql";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import type {SectionMapsQueryResponse, SectionMapsQueryVariables,} from "./__generated__/SectionMapsQuery.graphql";
 
 export const mapsQuery: Query<SectionMapsQueryVariables, SectionMapsQueryResponse> = graphql`
     query SectionMapsQuery($parentId: ID!) {

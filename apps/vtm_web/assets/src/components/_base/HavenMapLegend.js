@@ -6,8 +6,11 @@ import Chip from "@mui/material/Chip";
 import Avatar from "@mui/material/Avatar";
 import {
     animalResonanceFillColor,
-    cholericResonanceFillColor, melancholyResonanceFillColor, noResonanceFillColor,
-    phlegmaticResonanceFillColor, sanguineResonanceFillColor
+    cholericResonanceFillColor,
+    melancholyResonanceFillColor,
+    noResonanceFillColor,
+    phlegmaticResonanceFillColor,
+    sanguineResonanceFillColor
 } from "./haven-map-areas-helpers";
 
 const HavenMapLegend = (): any => {

@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from 'react';
+import React from 'react';
 import Container from '@mui/material/Container';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -18,9 +18,10 @@ import {MainRoutes} from "../MainRouter";
 import {useMediaQuery, useTheme} from '@mui/material';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {goToChatAndUpdateSession} from "../chat/chat-helpers";
-import {SessionContext} from "../../contexts";
 import {orderAlphabetically} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
+import {useSetRecoilState} from "recoil";
+import {sessionMapStateAtom} from "../../session/atoms";
 
 type SubMapProps = {
     maps: Array<Map>,
@@ -73,11 +74,11 @@ const SubMapWide = ({classes, imageUrl, subHeader, mapLinks}) => (
 );
 
 const SubMap = ({maps, imageUrl}: SubMapProps): GenericReactComponent => {
-    const history = useHistory();
-    const sessionUtils = useContext(SessionContext);
-    const classes = useStyles();
-    const theme = useTheme();
-    const showAsResponsive = useMediaQuery(theme.breakpoints.down("md"));
+    const history = useHistory()
+    const classes = useStyles()
+    const theme = useTheme()
+    const showAsResponsive = useMediaQuery(theme.breakpoints.down("md"))
+    const setLocation = useSetRecoilState(sessionMapStateAtom)
 
     const subHeader = () =>
         <ListSubheader component="div" id="nested-list-subheader">
@@ -86,7 +87,7 @@ const SubMap = ({maps, imageUrl}: SubMapProps): GenericReactComponent => {
 
     const openMap = (id: string, name: string, isChat: boolean) => _ => {
         if (isChat) {
-            goToChatAndUpdateSession(sessionUtils, history, id, name);
+            goToChatAndUpdateSession(setLocation, history, id, name);
         }
         else {
             history.push(MainRoutes.subMap(id));

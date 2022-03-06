@@ -1,18 +1,20 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import useForumSections from "../../services/queries/forum/GetForumSectionsQuery";
 import {firstOrDefault} from "../../_base/utils";
 import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
 import CreateNewThreadMutation from "../../services/mutations/forum/CreateNewThreadMutation";
-import {useSession} from "../../services/session-service";
-import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import ThreadForm, {CreateNewThreadValidationSchema} from "./forms/ThreadForm";
 import type {GenericReactComponent} from "../../_base/types";
-import {isUserMaster} from "../../services/base-types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
+import {useCharacterRecoilState} from "../../session/hooks";
+import {isUserMasterSelector} from "../../session/selectors";
 
 type Props = {
     sectionId: string;
@@ -21,8 +23,10 @@ type Props = {
 const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
     const history = useHistory();
     const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
-    const [user, character] = useSession();
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const user = useRecoilValue(sessionStateAtom)
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const [character,] = useCharacterRecoilState()
     const section = firstOrDefault(useForumSections()?.getForumSections?.filter(s => s?.section?.id === sectionId));
 
     const goBack = () => history.push(MainRoutes.forumSection(sectionId));
@@ -37,7 +41,7 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
             highlighted,
             allowedCharacters: characterIds
         }).then(id => {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "success",
                 message: "Nuovo thread creato."
             });
@@ -52,7 +56,7 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
             }, 500);
         }).catch(e => {
             console.error("Remote error", e);
-            showUserNotification({
+            enqueueSnackbar({
                 type: "error",
                 graphqlMessage: e,
                 message: "Impossibile creare il nuovo thread."
@@ -67,7 +71,7 @@ const CreateNewThread = ({sectionId}: Props): GenericReactComponent => {
             characterIds: [],
             highlighted: false
         },
-        validationSchema: CreateNewThreadValidationSchema(isUserMaster(user)),
+        validationSchema: CreateNewThreadValidationSchema(isUserMaster),
         onSubmit
     });
 

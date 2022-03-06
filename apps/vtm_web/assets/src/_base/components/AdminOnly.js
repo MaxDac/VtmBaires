@@ -1,19 +1,19 @@
 // @flow
 
 import React from "react";
-import {isUserMaster} from "../../services/base-types";
-import {useSession} from "../../services/session-service";
 import type {GenericReactComponent} from "../types";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../../session/selectors";
 
 export type AdminOnlyProps = {
     children: any;
 }
 
 const AdminOnly = ({children}: AdminOnlyProps): GenericReactComponent => {
-    const [user,] = useSession();
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
 
     const body = (): GenericReactComponent => {
-        if (isUserMaster(user)) {
+        if (isUserMaster) {
             return (<>{children}</>);
         }
         else {

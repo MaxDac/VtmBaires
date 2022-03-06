@@ -10,7 +10,9 @@ import Typography from "@mui/material/Typography";
 import FormTextField from "../../../_base/components/FormTextField";
 import FormFileDropField from "../../../_base/components/FormFileDropField";
 import Button from "@mui/material/Button";
-import type {CharacterCreationRequest} from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import type {
+    CharacterCreationRequest
+} from "../../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
 import {creationClansQuery} from "../../../services/queries/info/CreationClansQuery";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../../guides/GuidesMain";

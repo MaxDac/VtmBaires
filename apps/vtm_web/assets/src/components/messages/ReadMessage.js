@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getMessageQuery} from "../../services/queries/messages/GetMessageQuery";
 import Card from "@mui/material/Card";
@@ -15,22 +15,24 @@ import Button from "@mui/material/Button";
 import ReturnToMessagesControl from "./components/ReturnToMessagesControl";
 import {useHistory} from "react-router-dom";
 import DeleteMessageMutation from "../../services/mutations/messages/DeleteMessageMutation";
-import {UtilityContext} from "../../contexts";
 import SetMessageReadMutation from "../../services/mutations/messages/SetMessageReadMutation";
 import ParsedText from "../../_base/components/ParsedText";
 import {useRelayEnvironment} from "react-relay";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import ReadMessageAvatar from "./components/ReadMessageAvatar";
 import type {GenericReactComponent} from "../../_base/types";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
 
 type Props = {
     messageId: string;
 }
 
 const ReadMessage = ({messageId}: Props): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const message = useCustomLazyLoadQuery(getMessageQuery, {messageId})?.getMessage;
 
@@ -64,9 +66,9 @@ const ReadMessage = ({messageId}: Props): GenericReactComponent => {
     };
 
     const deleteMessage = _ =>
-        openDialog("Cancella messaggio", "Sei sicuro di voler cancellare il messaggio?", () => {
+        showDialog("Cancella messaggio", "Sei sicuro di voler cancellare il messaggio?", () => {
             DeleteMessageMutation(environment, messageId)
-                .catch(e => showUserNotification({
+                .catch(e => enqueueSnackbar({
                     type: "error",
                     graphqlError: e,
                     message: "Si è verificato un errore cancellando il messaggio."

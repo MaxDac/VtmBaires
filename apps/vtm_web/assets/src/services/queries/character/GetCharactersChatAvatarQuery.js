@@ -3,11 +3,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  GetCharactersChatAvatarQueryResponse,
-  GetCharactersChatAvatarQueryVariables,
+    GetCharactersChatAvatarQueryResponse,
+    GetCharactersChatAvatarQueryVariables,
 } from "./__generated__/GetCharactersChatAvatarQuery.graphql";
 import {toMap} from "../../../_base/utils";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export const getCharactersChatAvatarQuery: Query<GetCharactersChatAvatarQueryVariables, GetCharactersChatAvatarQueryResponse> = graphql`
     query GetCharactersChatAvatarQuery($characterIds: [ID!]) {

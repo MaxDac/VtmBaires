@@ -2,10 +2,10 @@
 
 import React from "react";
 import type {Character} from "../../services/queries/character/GetCharacterCompleteQuery";
+import {useCharacterCompleteQuery} from "../../services/queries/character/GetCharacterCompleteQuery";
 import type {CharacterProviderBaseProps} from "./character-providers-types";
 import {useCharacterProviderId} from "./character-providers-types";
 import RemoteCharacterProvider from "./RemoteCharacterProvider";
-import {useCharacterCompleteQuery} from "../../services/queries/character/GetCharacterCompleteQuery";
 import type {GenericReactComponent} from "../../_base/types";
 
 type Props = CharacterProviderBaseProps & {

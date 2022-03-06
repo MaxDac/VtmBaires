@@ -1,19 +1,19 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
-import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import ThreadForm, {CreateNewThreadValidationSchema} from "./forms/ThreadForm";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
 import ModifyThreadMutation from "../../services/mutations/forum/ModifyThreadMutation";
-import { handleMutation } from "../../_base/utils";
+import {handleMutation} from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
-import {useSession} from "../../services/session-service";
-import {isUserMaster} from "../../services/base-types";
+import {useRecoilValue} from "recoil";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {isUserMasterSelector} from "../../session/selectors";
 
 type Props = {
     sectionId: string;
@@ -21,15 +21,15 @@ type Props = {
 };
 
 const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const [user,] = useSession();
-    const {showUserNotification} = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const {enqueueSnackbar} = useCustomSnackbar()
     const thread = useCustomLazyLoadQuery(getForumThreadQuery, {
         forumThreadId: threadId
-    })?.getForumThread;
+    })?.getForumThread
 
-    const goBack = () => history.push(MainRoutes.forumSection(sectionId));
+    const goBack = () => history.push(MainRoutes.forumSection(sectionId))
 
     const onSubmit = ({title, description, highlighted, characterIds}) => {
         handleMutation(() => 
@@ -39,7 +39,7 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
                 description,
                 highlighted,
                 allowedCharacters: characterIds
-            }), showUserNotification, {
+            }), enqueueSnackbar, {
                 successMessage: "Thread modificato.",
                 onCompleted: () => {
                     setTimeout(() => {
@@ -61,7 +61,7 @@ const ModifyThread = ({sectionId, threadId}: Props): GenericReactComponent => {
             characterIds: thread?.allowedCharacters?.map(x => x?.id) ?? [],
             highlighted: thread?.highlighted
         },
-        validationSchema: CreateNewThreadValidationSchema(isUserMaster(user)),
+        validationSchema: CreateNewThreadValidationSchema(isUserMaster),
         onSubmit
     });
 

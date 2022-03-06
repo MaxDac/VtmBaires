@@ -1,7 +1,6 @@
 // @flow
 
-import React from "react";
-import {useState} from "react";
+import React, {useState} from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -25,8 +24,9 @@ import {useHistory} from "react-router-dom";
 import {GuideRoutes} from "./GuidesMain";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {Routes} from "../../AppRouter";
-import {useSession} from "../../services/session-service";
 import type {GenericReactComponent} from "../../_base/types";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
 
 type GuidesMenuProps = {
     onSelected?: () => void;
@@ -34,7 +34,7 @@ type GuidesMenuProps = {
 
 const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
     const history = useHistory();
-    const [user,] = useSession();
+    const user = useRecoilValue(sessionStateAtom)
     const [environmentOpen, setEnvironmentOpen] = useState(true);
     const [rulesOpen, setRulesOpen] = useState(false);
 
@@ -105,17 +105,17 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentBaires)}>
                             <ListItemText primary="Buenos Aires" />
                         </ListItem>
-                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.camarilla)}>
-                            <ListItemText primary="Camarilla" />
-                        </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.environmentSects)}>
-                            <ListItemText primary="Antagonisti e altre Sette" />
+                            <ListItemText primary="Anarchici, Antagonisti e altre Sette" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.npcs)}>
                             <ListItemText primary="Cainiti di Buenos Aires" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.currentSituation)}>
                             <ListItemText primary="Situazione Attuale" />
+                        </ListItem>
+                        <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.camarilla)}>
+                            <ListItemText primary="Camarilla" />
                         </ListItem>
                     </List>
                 </Collapse>

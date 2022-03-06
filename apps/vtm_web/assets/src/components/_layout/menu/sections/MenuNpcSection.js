@@ -1,11 +1,10 @@
 // @flow
 
-import React, {useContext, useState, Suspense} from "react";
+import React, {Suspense, useState} from "react";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GroupsIcon from '@mui/icons-material/Groups';
-import {SessionContext} from "../../../../contexts";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
@@ -16,6 +15,7 @@ import type {UserCharacter} from "../../../../services/queries/accounts/UserChar
 import MenuNpcSectionItems from "./MenuNpcSectionItems";
 import MenuItemSuspenseFallback from "../MenuItemSuspenseFallback";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useCharacterRecoilState} from "../../../../session/hooks";
 
 type Props = {
     pushHistory: string => void;
@@ -26,7 +26,7 @@ type Props = {
 const MenuNpcSection = ({pushHistory, reloadCount, onUpdate}: Props): GenericReactComponent => {
     const [expand, setExpand] = useState(false);
     const [hasBeenExpanded, setHasBeenExpanded] = useState(false);
-    const {setCurrentCharacter} = useContext(SessionContext);
+    const [,setCurrentCharacter] = useCharacterRecoilState()
 
     const toggleNpcsSelectionMenuExpansion = _ => {
         setHasBeenExpanded(_ => true);

@@ -2,12 +2,12 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import type {
-  GetForumSectionsQueryResponse,
-  GetForumSectionsQueryVariables,
+    GetForumSectionsQueryResponse,
+    GetForumSectionsQueryVariables,
 } from "./__generated__/GetForumSectionsQuery.graphql";
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import { emptyExactObject } from "../../../_base/utils";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import {emptyExactObject} from "../../../_base/utils";
 
 export const getForumSectionsQuery: Query<GetForumSectionsQueryVariables, GetForumSectionsQueryResponse> = graphql`
     query GetForumSectionsQuery {

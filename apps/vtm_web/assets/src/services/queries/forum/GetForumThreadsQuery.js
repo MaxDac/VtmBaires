@@ -1,10 +1,10 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  GetForumThreadsQueryResponse,
-  GetForumThreadsQueryVariables,
+    GetForumThreadsQueryResponse,
+    GetForumThreadsQueryVariables,
 } from "./__generated__/GetForumThreadsQuery.graphql";
 
 export const getForumThreadsQuery: Query<GetForumThreadsQueryVariables, GetForumThreadsQueryResponse> = graphql`

@@ -1,9 +1,9 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
-import type {SetHavenInfoRequest, SetHavenInfoMutationResponse} from "./__generated__/SetHavenInfoMutation.graphql";
+import type {SetHavenInfoMutationResponse, SetHavenInfoRequest} from "./__generated__/SetHavenInfoMutation.graphql";
 
 const mutation = graphql`
     mutation SetHavenInfoMutation($havenId: ID!, $request: SetHavenInfoRequest!) {

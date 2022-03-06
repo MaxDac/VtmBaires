@@ -7,11 +7,7 @@ import {Link} from "react-router-dom";
 import {GuideRoutes} from "../GuidesMain";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesGlossary = (props: Props): GenericReactComponent => {
+const GuidesGlossary = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph>
@@ -38,7 +34,7 @@ const GuidesGlossary = (props: Props): GenericReactComponent => {
 
             <Typography paragraph sx={guideStyle}>
                 Nella sezione Ambientazione di questa guida potrete avere un'idea di come la loro societ&agrave; &egrave;
-                organizzata, e quali sono le personalit&grave; di riferimento e i loro nemici.
+                organizzata, e quali sono le personalit&agrave; di riferimento e i loro nemici.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>

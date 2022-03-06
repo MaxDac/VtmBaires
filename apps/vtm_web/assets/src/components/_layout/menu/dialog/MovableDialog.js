@@ -11,8 +11,8 @@ import {menuIconStyle} from "../menu-base-utils";
 import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
-import {useSession} from "../../../../services/session-service";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useCharacterRecoilState} from "../../../../session/hooks";
 
 type Props = {
     open: boolean;
@@ -22,7 +22,7 @@ type Props = {
 
 const MovableDialog = ({open, handleClose, children}: Props): GenericReactComponent => {
     const theme = useTheme();
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     return (

@@ -9,7 +9,6 @@ import {getForumThreadsQuery} from "../../services/queries/forum/GetForumThreads
 import ForumThreadListItem from "./layout/ForumThreadListItem";
 import Grid from "@mui/material/Grid";
 import {useHistory} from "react-router-dom";
-import {useSession} from "../../services/session-service";
 import {MainRoutes} from "../MainRouter";
 import Pagination from "@mui/material/Pagination";
 import Tooltip from "@mui/material/Tooltip";
@@ -18,6 +17,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from '@mui/icons-material/Home';
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 type Props = {
     sectionId: string;
@@ -27,7 +27,7 @@ export const DefaultPageSize = 10;
 
 const ForumSection = ({sectionId}: Props): GenericReactComponent => {
     const history = useHistory();
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const [currentPage, setCurrentPage] = useState(1);
     const [threadFetchKey, setThreadFetchKey] = useState(0);
 

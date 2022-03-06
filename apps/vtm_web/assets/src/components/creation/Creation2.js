@@ -6,11 +6,11 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "./strategies/CreationBase";
 import useStyles from "../Main.Layout.Style";
-import {useSession} from "../../services/session-service";
 import TemplateSelectionControl from "./controls/TemplateSelectionControl";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../guides/GuidesMain";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 const Creation2Explanation = () => (
     <Grid item xs={12}>
@@ -40,7 +40,7 @@ const Creation2Explanation = () => (
 
 const Creation2 = (): GenericReactComponent => {
     const classes = useStyles();
-    const [, character] = useSession();
+    const [character,] = useCharacterRecoilState()
 
     const emptyAttributes = {
         attribute4: "",

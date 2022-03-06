@@ -6,15 +6,15 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import type {FormSubmitProps} from "./AdminHavensForm";
 import AdminHavensForm from "./AdminHavensForm";
+import type {ResonancesFormSubmitProps} from "./AdminHavensResonanceForm";
 import AdminHavensResonanceForm from "./AdminHavensResonanceForm";
 import type {Haven} from "../../../../services/queries/haven/GetHavensQuery";
 import {useResonanceTypes} from "../../../../services/queries/info/GetResonanceTypesQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
-import type {FormSubmitProps} from "./AdminHavensForm";
-import type {ResonancesFormSubmitProps} from "./AdminHavensResonanceForm";
-import AdminHavensDangerForm from "./AdminHavensDangerForm";
 import type {DangerFormSubmitProps} from "./AdminHavensDangerForm";
+import AdminHavensDangerForm from "./AdminHavensDangerForm";
 
 type Props = {
     haven: Haven;

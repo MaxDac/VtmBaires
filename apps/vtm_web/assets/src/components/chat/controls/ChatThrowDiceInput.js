@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -18,10 +18,10 @@ import {materialize, range} from "../../../_base/utils";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {isUserMaster} from "../../../services/base-types";
-import {useSession} from "../../../services/session-service";
 import {sortAttributes} from "../../../_base/info-helpers";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../../../session/selectors";
 
 export type ChatDiceRequest = {
     attributeId: string;
@@ -40,16 +40,16 @@ type ChatThrowDiceInputProps = {
 };
 
 const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): GenericReactComponent => {
-    const attributes = useAttributesSlimQuery() ?? [];
-    const [user,] = useSession();
-    const [open, setOpen] = useState(props.isOpen);
-    const [masterThrow, setMasterThrow] = useState(false);
-    const [forDiscipline, setForDiscipline] = useState(false);
-    const [augmentAttribute, setAugmentAttribute] = useState(false);
-    const [attribute, setAttribute] = useState("");
-    const [skill, setSkill] = useState("");
-    const [freeThrow, setFreeThrow] = useState(0);
-    const [difficulty, setDifficulty] = useState(2);
+    const attributes = useAttributesSlimQuery() ?? []
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const [open, setOpen] = useState(props.isOpen)
+    const [masterThrow, setMasterThrow] = useState(false)
+    const [forDiscipline, setForDiscipline] = useState(false)
+    const [augmentAttribute, setAugmentAttribute] = useState(false)
+    const [attribute, setAttribute] = useState("")
+    const [skill, setSkill] = useState("")
+    const [freeThrow, setFreeThrow] = useState(0)
+    const [difficulty, setDifficulty] = useState(2)
 
     const attributeOrSkillSelected = (): boolean => 
         attribute !== "" || skill !== "";
@@ -154,7 +154,7 @@ const ChatThrowDiceInput = (props: ChatThrowDiceInputProps): GenericReactCompone
     };
 
     const masterChecker = () => {
-        if (isUserMaster(user)) {
+        if (isUserMaster) {
             return (
                 <Grid item xs={12}>
                     <FormGroup>

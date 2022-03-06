@@ -1,11 +1,8 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import type {
-  GetHavensQueryResponse,
-  GetHavensQueryVariables,
-} from "./__generated__/GetHavensQuery.graphql";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import type {GetHavensQueryResponse, GetHavensQueryVariables,} from "./__generated__/GetHavensQuery.graphql";
 
 export type Haven = {|
     +id: string,

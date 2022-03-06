@@ -1,10 +1,10 @@
 // @flow
 
 import type {
-  GetCharacterAvatarQueryResponse,
-  GetCharacterAvatarQueryVariables,
+    GetCharacterAvatarQueryResponse,
+    GetCharacterAvatarQueryVariables,
 } from "./__generated__/GetCharacterAvatarQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 import graphql from 'babel-plugin-relay/macro';
 

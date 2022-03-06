@@ -1,7 +1,6 @@
 // @flow
 
-import React from "react";
-import {useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import List from "@mui/material/List";
 import type {ChatEntry} from "../../../services/base-types";
 import ChatEntryRow from "./ChatEntryRow";
@@ -10,7 +9,7 @@ import {useChatEntriesForSubscriptions} from "../hooks/ChatEntryFromSubscription
 import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {add, compareAsc} from "date-fns";
-import { parseUTC } from "../../../_base/date-utils";
+import {parseUTC} from "../../../_base/date-utils";
 import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
@@ -87,8 +86,8 @@ const ChatScreen = ({entries, showCharacterDescription, canDelete, deletePhrase}
                                       canDelete={canDelete}
                                       deletePhrase={deletePhrase}
                                       sx={{
-                                                fontSize
-                                            }} />
+                                          fontSize
+                                      }} />
                     );
                 }
 

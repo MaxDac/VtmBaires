@@ -2,12 +2,9 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import type {
-  AttributesQueryResponse,
-  AttributesQueryVariables,
-} from "./__generated__/AttributesQuery.graphql";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import { emptyExactObject } from "../../../_base/utils";
+import type {AttributesQueryResponse, AttributesQueryVariables,} from "./__generated__/AttributesQuery.graphql";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
+import {emptyExactObject} from "../../../_base/utils";
 
 export const attributesQuery: Query<AttributesQueryVariables, AttributesQueryResponse> = graphql`
     query AttributesQuery {

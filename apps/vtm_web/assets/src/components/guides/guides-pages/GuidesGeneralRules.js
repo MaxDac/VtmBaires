@@ -2,14 +2,10 @@
 
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import type {GenericReactComponent} from "../../../_base/types";
 
-type Props = {
-
-}
-
-const GuidesGeneralRules = (props: Props): GenericReactComponent => {
+const GuidesGeneralRules = (): GenericReactComponent => {
     return (
         <>
             <Typography paragraph sx={guideStyle}>
@@ -54,7 +50,7 @@ const GuidesGeneralRules = (props: Props): GenericReactComponent => {
             <Typography paragraph sx={guideStyle}>
                 All'interno del sito &egrave; possibile comunicare fuori dal contesto del gioco sia attraverso il forum,
                 sia attraverso il sistema di messaggistica, che distingue rigorosamente il contesto fuori e dentro il gioco.
-                Fuori dal contesto del sito, esiste anche una comunit&grave; su Discord chiamata VTM Baires, alla quale
+                Fuori dal contesto del sito, esiste anche una comunit&agrave; su Discord chiamata VTM Baires, alla quale
                 vi invitiamo ed incoraggiamo a partecipare, iscrivendovi.<br />
                 Per interazioni fuori dal gioco, invitiamo gli utenti ad utilizzare il Discord, o in casi eccezioniali il forum, 
                 lasciando ai messaggi la loro funzione in gioco di scambio di missive tra personaggi.<br />

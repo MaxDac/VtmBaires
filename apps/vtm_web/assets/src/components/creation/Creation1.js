@@ -1,32 +1,33 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {useHistory} from "react-router-dom";
 import createCharacter from "../../services/mutations/characters/CreateCharacterMutation";
-import {updateCurrentCharacter} from "../../services/session-service";
-import {UtilityContext} from "../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import CharacterInfoForm from "./controls/CharacterInfoForm";
-import type { CharacterCreationRequest } from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
-import { MainRoutes } from "../MainRouter";
+import type {CharacterCreationRequest} from "../../services/mutations/npcs/__generated__/CreateNewNpcMutation.graphql";
+import {MainRoutes} from "../MainRouter";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 const Creation1 = (): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const [,updateCurrentCharacter] = useCharacterRecoilState()
 
     const onSubmit = (values: CharacterCreationRequest) => {
         createCharacter(environment, values)
             .then(response => {
                 if (response?.createCharacter != null) {
-                    updateCurrentCharacter(environment)({
+                    updateCurrentCharacter({
                         id: response.createCharacter?.id,
                         name: response.createCharacter?.name ?? "No name available",
                         clan: {
                             ...response.createCharacter?.clan?.name
                         } 
-                    }).catch(e => console.error("Error while updating session character", e));
+                    })
 
                     history.push(MainRoutes.creation2);
 
@@ -35,7 +36,7 @@ const Creation1 = (): GenericReactComponent => {
                 }
             })
             .catch(e => {
-                showUserNotification({
+                enqueueSnackbar({
                     type: 'error',
                     graphqlError: e,
                     message: "An error happened while creating the user."

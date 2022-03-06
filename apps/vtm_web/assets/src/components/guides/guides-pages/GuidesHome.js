@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import {Link} from "react-router-dom";
-import { GuideRoutes } from "../GuidesMain";
+import {GuideRoutes} from "../GuidesMain";
 import type {GenericReactComponent} from "../../../_base/types";
 
 const GuidesHome = (): GenericReactComponent => {
@@ -28,15 +28,14 @@ const GuidesHome = (): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Nel sito, sar&agrave; possibile giocare solamente personaggi vampiri affiliati alla <b>Camarilla</b> - 
-                per chi non ha mai giocato a Vampiri: la Masquerade&trade;, non vi preoccupate, verr&agrave; spiegato
-                tutto nell'apposita sezione di questa <Link to={GuideRoutes.environment}>guida</Link>.
-                Questo vuol dire che non si accetteranno personaggi umani, e nemmeno personaggi di linee di sangue
-                esotiche, o di clan non ufficialmente affiliati alla Camarilla. Se non siete esperti nell'ambientazione,
-                o non avete mai letto un manuale, questa guida comprende quasi tutto quello che c'&egrave; da sapere
-                per poter interpretare un vampiro appena Abbracciato (trasformato in vampiro). All'interno del sito,
-                poi, le guide e i narratori saranno a vostra disposizione per chiarire qualsiasi dubbio. C'&egrave;
-                anche una comunit&agrave;
+                Nel sito, sar&agrave; possibile giocare solamente personaggi vampiri affiliati alla <b>Fazione
+                Anarchica</b> - per chi non ha mai giocato a Vampiri: la Masquerade&trade;, non vi preoccupate, 
+                verr&agrave; spiegato tutto nell'apposita sezione di questa <Link to={GuideRoutes.environment}>guida</Link>.
+                Non si accetteranno personaggi umani, e nemmeno personaggi di linee di sangue esotiche. Se non siete 
+                esperti nell'ambientazione, o non avete mai letto un manuale, questa guida comprende quasi tutto quello 
+                che c'&egrave; da sapere per poter interpretare un vampiro appena Abbracciato (trasformato in vampiro). 
+                All'interno del sito, poi, le guide e i narratori saranno a vostra disposizione per chiarire qualsiasi 
+                dubbio. C'&egrave; anche una comunit&agrave; 
                 su <a href="https://discord.gg/3wHD3er8Du" target="_blank" rel="noreferrer">Discord</a> su cui potrete
                 chiarire i vostri dubbi.
             </Typography>

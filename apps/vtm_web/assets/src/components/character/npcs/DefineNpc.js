@@ -5,30 +5,32 @@ import Grid from "@mui/material/Grid";
 import AssignNpcAttributes from "./AssignNpcAttributes";
 import AssignNpcGenericStats from "./AssignNpcGenericStats";
 import Button from "@mui/material/Button";
-import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
 import ConfirmPngMutation from "../../../services/mutations/characters/ConfirmPngMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { MainRoutes } from "../../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useDialog} from "../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 type Props = {
     characterId: string;
 }
 
 const DefineNpc = ({characterId}: Props): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const confirmPng = () => {
-        openDialog(
+        showDialog(
             "Conferma personaggio",
             "Sei sicuro di voler confermare il personaggio? Potrai comunque continuare ad editarlo successivamente.",
             () => {
-                handleMutation(() => ConfirmPngMutation(environment, characterId), showUserNotification, {
+                handleMutation(() => ConfirmPngMutation(environment, characterId), enqueueSnackbar, {
                     onCompleted: () => history.push(MainRoutes.characterDashboard(characterId))
                 });
             });

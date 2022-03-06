@@ -10,13 +10,12 @@ import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../../_base/types";
 
 type Props = {
-    characterId: string;
     attribute: Attribute;
     maxValue: number;
     onChange: Attribute => void;
 }
 
-const AttributeFormControl = ({characterId, attribute, maxValue, onChange}: Props): GenericReactComponent => {
+const AttributeFormControl = ({attribute, maxValue, onChange}: Props): GenericReactComponent => {
     const onChangeInternal = ({target: {value}}) =>
         // $FlowFixMe
         onChange({

@@ -1,7 +1,7 @@
 // @flow
 
-import type { HavenEventFragment_fragment$fragmentType } from "./__generated__/HavenEventFragment_fragment.graphql";
-import type { Fragment } from "relay-runtime/util/RelayRuntimeTypes";
+import type {HavenEventFragment_fragment$fragmentType} from "./__generated__/HavenEventFragment_fragment.graphql";
+import type {Fragment} from "relay-runtime/util/RelayRuntimeTypes";
 
 import graphql from "babel-plugin-relay/macro";
 

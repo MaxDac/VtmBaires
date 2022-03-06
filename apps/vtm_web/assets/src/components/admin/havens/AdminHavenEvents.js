@@ -5,7 +5,7 @@ import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import {getHavenUnresolvedEventsQuery} from "../../../services/queries/haven/GetHavenUnresolvedEventsQuery";
 import {HavenEventsListWrapper} from "../../haven/HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
-import { emptyExactObject } from "../../../_base/utils";
+import {emptyExactObject} from "../../../_base/utils";
 
 const AdminHavenEventsInternal = ({fetchKey, component}) => {
     const events = useCustomLazyLoadQuery(getHavenUnresolvedEventsQuery, emptyExactObject(), {

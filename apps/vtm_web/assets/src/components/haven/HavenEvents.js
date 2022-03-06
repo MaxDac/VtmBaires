@@ -3,8 +3,8 @@
 import React from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterHavenEventsQuery} from "../../services/queries/haven/GetCharacterHavenEventsQuery";
-import HavenEventsListWrapper from "./HavenEventsListWrapper";
 import type {HavenEventsInternalProps} from "./HavenEventsListWrapper";
+import HavenEventsListWrapper from "./HavenEventsListWrapper";
 import Stack from "@mui/material/Stack";
 
 const HavenEventsInternal = ({characterId, fetchKey, component}: HavenEventsInternalProps) => {

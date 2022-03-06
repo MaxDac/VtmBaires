@@ -1,17 +1,15 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import {handleMutation} from "../../../_base/utils";
-import {useSession} from "../../../services/session-service";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
-import {UtilityContext} from "../../../contexts";
 import DeleteThreadMutation from "../../../services/mutations/forum/DeleteThreadMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useHistory} from "react-router-dom";
@@ -19,6 +17,11 @@ import {MainRoutes} from "../../MainRouter";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import ForumListItemText from "./ForumListItemText";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useRecoilValue} from "recoil";
+import {useDialog} from "../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
+import {isUserMasterSelector} from "../../../session/selectors";
+import {sessionStateAtom} from "../../../session/atoms";
 
 export type ForumItemProps = {
     item: ?{|
@@ -52,10 +55,12 @@ export type ForumItemProps = {
 }
 
 const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemProps): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const [user,] = useSession();
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const user = useRecoilValue(sessionStateAtom)
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     // Hack
     // This variable controls the navigation flow.
@@ -67,8 +72,6 @@ const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemPr
     // The state was not used because the new value didn't get refreshed between the two different events, and because
     // when the component will be re-rendered, it will have to be equal to false.
     let holdAction = false;
-
-    const isUserMaster = () => user?.role === "MASTER";
 
     const isUserThreadCreator = () => user?.id != null && item?.creatorUser?.id != null && user.id === item.creatorUser.id;
 
@@ -90,11 +93,11 @@ const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemPr
         if (item?.id != null) {
             const threadId = item.id;
 
-            openDialog(
+            showDialog(
                 "Rimuovi Thread",
                 "Sei sicuro di voler rimuovere questo Thread? Tutti i messaggi dentro il Thread saranno anche essi cancellati.",
                 () => {
-                    handleMutation(() => DeleteThreadMutation(environment, threadId), showUserNotification, {
+                    handleMutation(() => DeleteThreadMutation(environment, threadId), enqueueSnackbar, {
                         successMessage: "Il Thread è stato cancellato con successo.",
                         onCompleted: onUpdate
                     })
@@ -104,7 +107,7 @@ const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemPr
 
     const actions = () => {
         const modifyAction = () => {
-            if (isUserMaster() || isUserThreadCreator()) {
+            if (isUserMaster || isUserThreadCreator()) {
                 return (
                     <Box>
                         <Tooltip title="Modifica post">
@@ -121,7 +124,7 @@ const ForumThreadListItem = ({item, hasNewPosts, onClick, onUpdate}: ForumItemPr
         }
 
         const deleteAction = () => {
-            if (isUserMaster()) {
+            if (isUserMaster) {
                 return (
                     <Box>
                         <Tooltip title="Rimuovi post">

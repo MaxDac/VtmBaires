@@ -18,7 +18,7 @@ const MainMapResponsive = ({maps}: Props): GenericReactComponent => {
     }
     
     return (
-        <img src="main-map-responsive.webp" alt="Map Temp" />
+        <img src="/main-map-responsive.webp" alt="Map Temp" />
     )
 }
 

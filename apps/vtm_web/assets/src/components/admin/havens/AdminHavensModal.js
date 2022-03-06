@@ -10,8 +10,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
 import type {GenericReactComponent} from "../../../_base/types";
 import type {SetHavenInfoRequest} from "../../../services/mutations/havens/__generated__/SetHavenInfoMutation.graphql";
-import type {SetResonanceZoneRequest} from "../../../services/mutations/havens/__generated__/SetResonanceZoneMutation.graphql";
-import type {SetDangerZoneRequest} from "../../../services/mutations/havens/__generated__/SetDangerZoneMutation.graphql";
+import type {
+    SetResonanceZoneRequest
+} from "../../../services/mutations/havens/__generated__/SetResonanceZoneMutation.graphql";
+import type {
+    SetDangerZoneRequest
+} from "../../../services/mutations/havens/__generated__/SetDangerZoneMutation.graphql";
 import AdminHavensFormSelector from "./forms/AdminHavensFormSelector";
 
 type Props = {

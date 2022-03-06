@@ -6,12 +6,12 @@ import FormTextField from "../../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
 import type {GenericReactComponent} from "../../../_base/types";
-import {useSession} from "../../../services/session-service";
-import {isUserMaster} from "../../../services/base-types";
 import FormCheckboxField from "../../../_base/components/FormCheckboxField";
-import {boolean, object, string, array} from "yup";
+import {array, boolean, object, string} from "yup";
 import CharactersSelectControl from "../../_base/CharactersSelectControl";
 import Box from "@mui/material/Box";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../../../session/selectors";
 
 type Props = {
     title: string;
@@ -41,20 +41,18 @@ export const CreateNewThreadValidationSchema = (isMaster: boolean): any => {
 };
 
 const ThreadForm = ({title, description, onGame, goBack, formik, buttonText}: Props): GenericReactComponent => {
-    const theme = useTheme();
-    const [user,] = useSession();
-
-    const isMaster = isUserMaster(user);
+    const theme = useTheme()
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
 
     const highlightedControl = () =>
-        isMaster
+        isUserMaster
             ? (<FormCheckboxField formik={formik}
                                   fieldName="highlighted"
                                   label="Importante" />)
             : (<></>);
 
     const selectCharacterControl = () =>
-        isMaster && onGame === true
+        isUserMaster && onGame === true
             ? (
                 <Box sx={{textAlign: "center"}}>
                     <CharactersSelectControl formik={formik}

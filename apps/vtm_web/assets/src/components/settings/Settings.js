@@ -6,11 +6,7 @@ import Grid from "@mui/material/Grid";
 import SetNewPassword from "./SetNewPassword";
 import type {GenericReactComponent} from "../../_base/types";
 
-type Props = {
-
-}
-
-const Settings = (props: Props): GenericReactComponent => {
+const Settings = (): GenericReactComponent => {
     return (
         <Container>
             <Grid container>

@@ -1,8 +1,7 @@
 // @flow
 
-import React, {useContext} from "react";
-import {useHistory} from "react-router-dom";
-import {UtilityContext} from "../../contexts";
+import React from "react";
+import {Link, useHistory} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import DisciplinesControl from "./controls/DisciplinesControl";
@@ -16,18 +15,15 @@ import {object, string} from "yup";
 import {useFormik} from "formik";
 import useStyles from "../Main.Layout.Style";
 import AddAdvantagesMutation from "../../services/mutations/characters/AddAdvantagesMutation";
-import {
-  characterHasDisciplines,
-  characterIsVampire,
-} from "../../_base/utils";
+import {characterHasDisciplines, characterIsVampire,} from "../../_base/utils";
 import {MainRoutes} from "../MainRouter";
-import {Link} from "react-router-dom";
-import { GuideRoutes } from "../guides/GuidesMain";
+import {GuideRoutes} from "../guides/GuidesMain";
 import type {
-  CharacterFragments_characterConcealedInfo,
-  CharacterFragments_characterConcealedInfo$key,
+    CharacterFragments_characterConcealedInfo,
+    CharacterFragments_characterConcealedInfo$key,
 } from "../../services/queries/character/__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
 
 type InternalElementProps = {
     character: CharacterFragments_characterConcealedInfo$key;
@@ -112,7 +108,7 @@ const buildConvictions = (first: string, second: string, third: string): string 
     `- ${capitalizeFirst(first)}\n- ${capitalizeFirst(second)}\n- ${capitalizeFirst(third)}`;
 
 const Creation4 = (): GenericReactComponent => {
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
     const classes = useStyles();
     const history = useHistory();
     const environment = useRelayEnvironment();
@@ -188,7 +184,7 @@ const Creation4 = (): GenericReactComponent => {
                     .then(_ => history.push(MainRoutes.creation5))
                     .catch(e => {
                         console.error("error!", e);
-                        showUserNotification({
+                        enqueueSnackbar({
                             type: "error",
                             graphqlError: e,
                             message: "There was an error while saving the character"

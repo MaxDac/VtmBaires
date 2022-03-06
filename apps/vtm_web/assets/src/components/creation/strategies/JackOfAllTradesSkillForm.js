@@ -5,15 +5,15 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import CreationBase from "./CreationBase";
 import {propNotNullRendering} from "../../../_base/render-utils";
-import { useSession } from "../../../services/session-service";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useCharacterRecoilState} from "../../../session/hooks";
 
 export type CreationBaseProps = {
     classes: any;
 }
 
 const JackOfAllTradesSkillForm = ({ classes }: CreationBaseProps): GenericReactComponent => {
-    const [, currentCharacter] = useSession();
+    const [currentCharacter,] = useCharacterRecoilState()
 
     const emptyAttributes = {
         skill3: "",

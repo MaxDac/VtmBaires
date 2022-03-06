@@ -1,7 +1,7 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
 import type {ResetHuntMutationResponse} from "./__generated__/ResetHuntMutation.graphql";
 

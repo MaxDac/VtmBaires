@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Suspense, useContext, useState} from "react";
+import React, {Suspense, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userSentMessagesQuery} from "../../services/queries/messages/UserSentMessagesQuery";
 import List from "@mui/material/List";
@@ -11,15 +11,17 @@ import {useHistory} from "react-router-dom";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import {handleMutation} from "../../_base/utils";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
 import DeleteAllSentMessagesMutation from "../../services/mutations/messages/DeleteAllSentMessagesMutation";
 import type {GenericReactComponent} from "../../_base/types";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
 
 const SentMessages = (): GenericReactComponent => {
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
-    const [fetchKey, setFetchKey] = useState(0);
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const [fetchKey, setFetchKey] = useState(0)
 
     const messages = useCustomLazyLoadQuery(userSentMessagesQuery, {}, {
         fetchPolicy: "store-and-network",
@@ -45,13 +47,13 @@ const SentMessages = (): GenericReactComponent => {
                     : <></>);
 
     const onDeleteAll = _ => {
-        openDialog(
+        showDialog(
             "Cancella tutti i messaggi",
             "Sei sicuro di voler cancellare tutti i tuoi messaggi ricevuti?",
             () => {
                 handleMutation(
                     () => DeleteAllSentMessagesMutation(environment),
-                    showUserNotification,
+                    enqueueSnackbar,
                     {
                         successMessage: "I messaggi sono stati cancellati correttamente",
                         onCompleted: () => {

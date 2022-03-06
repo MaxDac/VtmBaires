@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import ReactMarkdown from 'react-markdown';
 import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
@@ -14,7 +14,7 @@ import {markdownComponents} from "../../../_base/components/ParsedText";
 import {defaultFormatTime} from "../../../_base/date-utils";
 import type {GenericReactComponent} from "../../../_base/types";
 import ChatEntryContextMenu from "./ChatEntryContextMenu";
-import {UtilityContext} from "../../../contexts";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 type ChatEntryComponentProps = {
     entry: ChatEntry;
@@ -26,7 +26,7 @@ type ChatEntryComponentProps = {
 }
 
 const ChatEntryRow = ({entry, isLast, showCharacterDescription, canDelete, deletePhrase, sx}: ChatEntryComponentProps): GenericReactComponent => {
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
     const [contextMenu, setContextMenu] = React.useState(null);
 
     const copyPhrase = () => {
@@ -35,7 +35,7 @@ const ChatEntryRow = ({entry, isLast, showCharacterDescription, canDelete, delet
         if (phrase != null) {
             navigator.clipboard.writeText(phrase)
                 .then(_ => {
-                    showUserNotification({
+                    enqueueSnackbar({
                         type: "success",
                         message: "Il testo dell'intervento è stato correttamente copiato"
                     });
@@ -43,14 +43,14 @@ const ChatEntryRow = ({entry, isLast, showCharacterDescription, canDelete, delet
                 .catch(e => {
                     console.error("An error occurred while trying to copy the phrase to the input", e);
 
-                    showUserNotification({
+                    enqueueSnackbar({
                         type: "error",
                         message: "Impossibile copiare la frase nella clipboard"
                     })
                 });
         }
         else {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "warning",
                 message: "Nessun testo da copiare"
             });

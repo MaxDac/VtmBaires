@@ -1,10 +1,9 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {object, string} from "yup";
 import {useHistory} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
-import {UtilityContext} from "../../contexts";
 import {useFormik} from "formik";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
@@ -17,6 +16,8 @@ import {Routes} from "../../AppRouter";
 import Box from "@mui/material/Box";
 import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../_base/types";
+import {useWait} from "../../_base/providers/BackdropProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
 
 const RecoverPasswordSchema = object().shape({
     email: string("Enter your email")
@@ -27,7 +28,8 @@ const RecoverPasswordSchema = object().shape({
 const RecoverPassword = (): GenericReactComponent => {
     const history = useHistory();
     const theme = useTheme();
-    const {showUserNotification, setWait} = useContext(UtilityContext);
+    const {startWait, stopWait} = useWait()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const formik = useFormik({
         initialValues: {
@@ -38,11 +40,11 @@ const RecoverPassword = (): GenericReactComponent => {
     });
 
     const onSubmit = ({email}) => {
-        setWait(true);
+        startWait()
 
         requestNewPassword(email)
             .then(_r => {
-                showUserNotification({
+                enqueueSnackbar({
                     type: "success",
                     message: "Password ristabilita, controlla la tua mail!"
                 });
@@ -50,12 +52,12 @@ const RecoverPassword = (): GenericReactComponent => {
             })
             .catch(e => {
                 console.error("error while retrieving the password", e);
-                showUserNotification({
+                enqueueSnackbar({
                     type: "error",
                     message: "Non è stato possibile resettare la password, sei sicuro di aver usato questo indirizzo di posta?"
                 })
             })
-            .finally(() => setWait(false));
+            .finally(() => stopWait());
     }
 
     return (

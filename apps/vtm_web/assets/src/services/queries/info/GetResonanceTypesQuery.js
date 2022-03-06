@@ -3,15 +3,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {
-  GetResonanceTypesQueryResponse,
-  GetResonanceTypesQueryVariables,
+    GetResonanceTypesQueryResponse,
+    GetResonanceTypesQueryVariables,
 } from "./__generated__/GetResonanceTypesQuery.graphql";
-import {
-  castNotNull,
-  emptyExactObject,
-  isNotNullNorEmpty,
-} from "../../../_base/utils";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import {castNotNull, emptyExactObject, isNotNullNorEmpty,} from "../../../_base/utils";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 
 export type ResonanceType = string
 

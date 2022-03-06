@@ -1,10 +1,9 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import HavenMap from "../../_base/HavenMap";
 import AdminHavensModal from "./AdminHavensModal";
 import type {Haven} from "../../../services/queries/haven/GetHavensQuery";
-import {UtilityContext} from "../../../contexts";
 import SetHavenCharacterMutation from "../../../services/mutations/havens/SetHavenCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
 import {handleMutation, isNullOrEmpty, tryCastToOneType} from "../../../_base/utils";
@@ -18,10 +17,13 @@ import ResetResonancesMutation from "../../../services/mutations/havens/ResetRes
 import SetDangerZoneMutation from "../../../services/mutations/havens/SetDangerZoneMutation";
 import Grid from "@mui/material/Grid";
 import ResetDangerMutation from "../../../services/mutations/havens/ResetDangerMutation";
+import {useDialog} from "../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 const AdminHavens = (): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const [haven, setHaven] = React.useState<?Haven>(null);
     const [fetchKey, setFetchKey] = React.useState(0);
@@ -58,13 +60,13 @@ const AdminHavens = (): GenericReactComponent => {
                         })
                     ];
 
-            openDialog(title, message,
+            showDialog(title, message,
                 () => {
                     handleMutation(
                         () => action()
                             .then(_ => SetHavenInfoMutation(environment, hId, request))
                             .finally(_ => setFetchKey(p => p + 1)),
-                        showUserNotification,
+                        enqueueSnackbar,
                         {
                             successMessage: "La modifica è stata effettuata con successo."
                         });
@@ -76,7 +78,7 @@ const AdminHavens = (): GenericReactComponent => {
         if (h?.id != null && resonance != null) {
             const hId = h.id;
 
-            openDialog("Assegnazione Risonanza", `Sei sicuro di voler marcare questa zona con una risonanza ${resonance}?`,
+            showDialog("Assegnazione Risonanza", `Sei sicuro di voler marcare questa zona con una risonanza ${resonance}?`,
                 () => {
                     handleMutation(
                         () => SetResonanceZoneMutation(environment, hId, {
@@ -84,7 +86,7 @@ const AdminHavens = (): GenericReactComponent => {
                             power: power ?? 3
                         })
                             .finally(_ => setFetchKey(p => p + 1)),
-                        showUserNotification,
+                        enqueueSnackbar,
                         {
                             successMessage: "La modifica è stata effettuata con successo."
                         });
@@ -93,12 +95,12 @@ const AdminHavens = (): GenericReactComponent => {
     };
 
     const onResetResonances = _ => {
-        openDialog("Resetta Risonanze", `Sei sicuro di voler resettare tutte le risonanze nel Dominio? Questo cancellerà completamente lo stato attuale.`,
+        showDialog("Resetta Risonanze", `Sei sicuro di voler resettare tutte le risonanze nel Dominio? Questo cancellerà completamente lo stato attuale.`,
             () => {
                 handleMutation(
                     () => ResetResonancesMutation(environment)
                         .finally(_ => setFetchKey(p => p + 1)),
-                    showUserNotification,
+                    enqueueSnackbar,
                     {
                         successMessage: "La modifica è stata effettuata con successo."
                     });
@@ -106,12 +108,12 @@ const AdminHavens = (): GenericReactComponent => {
     };
 
     const onResetDanger = _ => {
-        openDialog("Resetta Pericolosità", `Sei sicuro di voler resettare tutte le pericolosità nel Dominio? Questo cancellerà completamente lo stato attuale.`,
+        showDialog("Resetta Pericolosità", `Sei sicuro di voler resettare tutte le pericolosità nel Dominio? Questo cancellerà completamente lo stato attuale.`,
             () => {
                 handleMutation(
                     () => ResetDangerMutation(environment)
                         .finally(_ => setFetchKey(p => p + 1)),
-                    showUserNotification,
+                    enqueueSnackbar,
                     {
                         successMessage: "La modifica è stata effettuata con successo."
                     });
@@ -122,7 +124,7 @@ const AdminHavens = (): GenericReactComponent => {
         if (h?.id != null) {
             const hId = h.id;
 
-            openDialog("Assegnazione Pericolo", `Sei sicuro di voler cambiare il pericolo di questa zona?`,
+            showDialog("Assegnazione Pericolo", `Sei sicuro di voler cambiare il pericolo di questa zona?`,
                 () => {
                     handleMutation(
                         () => SetDangerZoneMutation(environment, hId, {
@@ -130,7 +132,7 @@ const AdminHavens = (): GenericReactComponent => {
                             range
                         })
                             .finally(_ => setFetchKey(p => p + 1)),
-                        showUserNotification,
+                        enqueueSnackbar,
                         {
                             successMessage: "La modifica è stata effettuata con successo."
                         });

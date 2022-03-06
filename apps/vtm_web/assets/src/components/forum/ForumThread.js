@@ -5,7 +5,6 @@ import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getForumThreadQuery} from "../../services/queries/forum/GetForumThreadQuery";
 import ForumLayout from "./layout/ForumLayout";
 import Grid from "@mui/material/Grid";
-import {useSession} from "../../services/session-service";
 import {useHistory} from "react-router-dom";
 import {MainRoutes} from "../MainRouter";
 import ForumThreadPage from "./ForumThreadPage";
@@ -19,6 +18,7 @@ import {menuIconStyle} from "../_layout/menu/menu-base-utils";
 import {useRelayEnvironment} from "react-relay";
 import SetForumThreadReadMutation from "../../services/mutations/forum/SetForumThreadReadMutation";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCharacterRecoilState} from "../../session/hooks";
 
 type Props = {
     threadId: string;
@@ -43,7 +43,7 @@ const ForumThread = ({threadId}: Props): GenericReactComponent => {
             .catch(e => console.error(e));
     }, [environment, threadId]);
 
-    const [,character] = useSession();
+    const [character,] = useCharacterRecoilState()
     const [currentPage, setCurrentPage] = useState(1);
 
     const pageCount = Math.ceil((thread?.postCount ?? 0) / DefaultPageSize);

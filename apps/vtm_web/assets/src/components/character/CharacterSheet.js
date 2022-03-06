@@ -3,11 +3,12 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
-import {useSession} from "../../services/session-service";
-import {isUserMaster} from "../../services/base-types";
 import CharacterSheetPublic from "./CharacterSheetPublic";
 import CharacterSheetComplete from "./CharacterSheetComplete";
 import type {GenericReactComponent} from "../../_base/types";
+import {useRecoilValue} from "recoil";
+import {useCharacterRecoilState} from "../../session/hooks";
+import {isUserMasterSelector} from "../../session/selectors";
 
 type Props = {
     id?: string;
@@ -30,14 +31,15 @@ export const CharacterSheetSuspenseFallback = (): GenericReactComponent => {
 }
 
 const CharacterSheet = (props: Props): GenericReactComponent => {
-    const [user, character] = useSession();
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const [character,] = useCharacterRecoilState()
 
     const characterOfUser = () =>
         character?.id != null &&
         props.id != null &&
         character.id === props.id;
 
-    if (isUserMaster(user) || characterOfUser()) {
+    if (isUserMaster || characterOfUser()) {
         return (<CharacterSheetComplete {...props} />);
     }
     else if (props.id != null) {

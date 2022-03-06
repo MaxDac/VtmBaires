@@ -7,10 +7,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
-import {useSession} from "../../../services/session-service";
 import CharacterChatDashboard from "../../admin/characters/CharacterChatDashboard";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../../session/atoms";
 
 type InternalProps = {
     mapId: string;
@@ -26,8 +27,8 @@ type Props = {
     closeModal: () => void;
 }
 
-const ChatMasterModalInternal = ({mapId, characterId, characterName, closeModal}: InternalProps): GenericReactComponent => {
-    const [user,] = useSession();
+const ChatMasterModalInternal = ({characterId, characterName, closeModal}: InternalProps): GenericReactComponent => {
+    const user = useRecoilValue(sessionStateAtom)
 
     if (user?.role !== "MASTER") {
         return (<></>);

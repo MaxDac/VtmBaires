@@ -1,28 +1,30 @@
 // @flow
 
-import React, {Suspense, useContext, useState} from "react";
+import React, {Suspense, useState} from "react";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {userReceivedMessagesQuery} from "../../services/queries/messages/UserReceivedMessagesQuery";
 import List from "@mui/material/List";
 import MessageListItem from "./components/MessageListItem";
 import Button from "@mui/material/Button";
 import {useHistory} from "react-router-dom";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import {UtilityContext} from "../../contexts";
 import {handleMutation} from "../../_base/utils";
 import DeleteAllReceivedMessagesMutation from "../../services/mutations/messages/DeleteAllReceivedMessagesMutation";
 import {useRelayEnvironment} from "react-relay";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import type {GenericReactComponent} from "../../_base/types";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
 
 const ReceivedMessages = (): GenericReactComponent => {
-    const theme = useTheme();
-    const history = useHistory();
-    const environment = useRelayEnvironment();
-    const {openDialog, showUserNotification} = useContext(UtilityContext);
-    const [fetchKey, setFetchKey] = useState(0);
+    const theme = useTheme()
+    const history = useHistory()
+    const environment = useRelayEnvironment()
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const [fetchKey, setFetchKey] = useState(0)
 
     const messages = useCustomLazyLoadQuery(userReceivedMessagesQuery, {}, {
         fetchPolicy: "store-and-network",
@@ -50,13 +52,13 @@ const ReceivedMessages = (): GenericReactComponent => {
                     : <></>);
 
     const onDeleteAll = _ => {
-        openDialog(
+        showDialog(
             "Cancella tutti i messaggi",
             "Sei sicuro di voler cancellare tutti i tuoi messaggi ricevuti?",
             () => {
                 handleMutation(
                     () => DeleteAllReceivedMessagesMutation(environment),
-                    showUserNotification,
+                    enqueueSnackbar,
                     {
                         successMessage: "I messaggi sono stati cancellati correttamente",
                         onCompleted: () => {

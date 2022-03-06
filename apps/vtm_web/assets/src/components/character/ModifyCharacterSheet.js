@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import FormFileDropField from "../../_base/components/FormFileDropField";
@@ -18,14 +18,15 @@ import {mainFontFamily} from "../Main.Layout.Style";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {getCharacterQuery} from "../../services/queries/character/GetCharacterQuery";
 import {useUserCharactersQuery} from "../../services/queries/accounts/UserCharactersQuery";
-import {useSession} from "../../services/session-service";
 import {Redirect, useHistory} from "react-router-dom";
 import ChangeCharacterSheetInfoMutation from "../../services/mutations/characters/ChangeCharacterSheetInfoMutation";
-import {UtilityContext} from "../../contexts";
-import { MainRoutes } from "../MainRouter";
+import {MainRoutes} from "../MainRouter";
 import {getUrlValidationMatchString} from "../../_base/utils";
 import {avatarHeight, avatarWidth} from "./sheet-sections/sections/CharacterSheetAvatarSection";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {sessionStateAtom} from "../../session/atoms";
+import {useRecoilValue} from "recoil";
 
 type Props = {
     id: string;
@@ -44,12 +45,12 @@ const ModifyCharacterValidationSchema = object().shape({
 
 const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
     const history = useHistory();
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
     const environment = useRelayEnvironment();
 
     const [chatAvatar, setChatAvatar] = useState<?string>(null);
 
-    const [user,] = useSession();
+    const user = useRecoilValue(sessionStateAtom)
     const userCharacters = useUserCharactersQuery();
     const character = useCustomLazyLoadQuery(getCharacterQuery, {id})?.getCharacter;
 
@@ -78,12 +79,12 @@ const ModifyCharacterSheet = ({id}: Props): GenericReactComponent => {
         ChangeCharacterSheetInfoMutation(environment, id, completeValues)
             .then(c => {
                 if (c != null) {
-                    showUserNotification({type: "success", message: "Il personaggio è stato salvato correttamente"});
+                    enqueueSnackbar({type: "success", message: "Il personaggio è stato salvato correttamente"});
                 }
             })
             .catch(e => {
                 console.error("Error while saving character info", e);
-                showUserNotification({type: "error", message: "C'è stato un errore salvando il personaggio."});
+                enqueueSnackbar({type: "error", message: "C'è stato un errore salvando il personaggio."});
             })
             .finally(() => {
                 history.push(MainRoutes.sheet(id, true));

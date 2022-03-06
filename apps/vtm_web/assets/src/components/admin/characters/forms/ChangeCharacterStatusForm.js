@@ -1,8 +1,7 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
-import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import {baseMenuItems, handleMutation} from "../../../../_base/utils";
 import Grid from "@mui/material/Grid";
@@ -12,6 +11,8 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import SetCharacterStatusMutation from "../../../../services/mutations/admin/SetCharacterStatusMutation";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -19,7 +20,8 @@ type Props = {
 }
 
 const ChangeCharacterStatusForm = ({character, onUpdate}: Props): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
 
     const [hunger, setHunger] = useState(character?.hunger);
@@ -29,7 +31,7 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): GenericReactCo
     const [stains, setStains] = useState(character?.stains);
 
     const changeCharacterOtherStats = _ => {
-        openDialog(
+        showDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare i valori di status del personaggio?`,
             () => {
@@ -39,7 +41,7 @@ const ChangeCharacterStatusForm = ({character, onUpdate}: Props): GenericReactCo
                     aggravatedDamage: aggravatedDamage,
                     willpowerDamage: willpowerDamage,
                     stains: stains
-                }), showUserNotification, {
+                }), enqueueSnackbar, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: onUpdate

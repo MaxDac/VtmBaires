@@ -41,18 +41,14 @@ const GuidesCurrentSituation = (): GenericReactComponent => {
             <Typography paragraph sx={guideStyle}>
                 La zona metropolitana di Buenos Aires, divisa tra <b>Capital Federal</b>, il centro 
                 (locations: <b>Palermo</b>, <b>Centro</b> e <b>La Boca</b>), e la <b>Provincia</b>, la periferia. La
-                Camarilla vanta un controllo capillare del territorio nella Capital Federal, e sta invitando i propri
-                aderenti ad ampliare la rete di influenza tra gli umani della citt&agrave;. Nella zona periferica, 
-                invece, dove l'influenza e il controllo del territorio non &egrave; cos&igrave; forte, il <b>Movimento
-                    Anarchico</b>, composto almeno per ora principalmente di reduci del Sabbat che deteneva il potere in
-                citt&agrave;, ha una forte presenza, in aperta sfida alla Camarilla.
+                Seconda Inquisizione, arrivata a Buenos Aires in seguito al Tradimento del Principe di Buenos Aires
+                e il cambio di governo istigato da Santiago Rinaldi, domina gran parte della Capital Federal, lasciando
+                ai Cainiti dell'Anarchia i territori della Provincia pi&ugrave; poveri. I personaggi che potranno
+                essere creati dovranno appartenere alla <b>Fazione Anarchica</b>.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Nella zona Sud, si sono ritagliati un Dominio i Cainiti del clan <b>Hecata</b>, col beneplacito della 
-                Camarilla, nei quartieri residenziali di Avellaneda, e qualche elemento dei <b>Ministri di Set</b> nella 
-                zona industriale di Quilmes. Entrambe le fazioni sono sopportate dalla Camarilla, che non ha attualmente
-                i mezzi per poter dettare legge al di fuori della Capital Federal.
+                
             </Typography>
 
             <Typography component="div">
@@ -62,12 +58,13 @@ const GuidesCurrentSituation = (): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Il Dominio di Buenos Aires ha acquisito una certa importanza, e la sua fama &egrave; giunta anche nei 
-                Domini Europei e Statunitensi: il Dominio &egrave; sguarnito, un'occasione perfetta per Neonati 
-                desiderosi di mettersi in mostra sul campo, anche in una situazione di parziale pericolosit&agrave;, 
-                proprio per la scarsa presenza della Setta, e per le difficolt&agrave; logistiche dei trasferimenti
-                col Vecchio Continente. Di seguito, potrete consultare gli esempi di personaggi vampiri attivi nel 
-                Dominio, per poter meglio calibrare la biografia del vostro.
+                L'ex Dominio di Buenos Aires &egrave; diventato un Dominio Anarchico non per scelta, ma per il 
+                Tradimento della Camarilla, che ha abbandonato i Fratelli che ne facevano parte alla caccia senza
+                quartiere della Seconda Inquisizione: l'insieme dei servizi segreti e di sicurezza che la compongono
+                stanno cercando attivamente di bonificare la capitale argentina dalla presenza dei Cainiti, cos&igrave;
+                come &egrave; accaduto a Londra in Europa. L'unico punto di riferimento anarchico rimane Rodrigo
+                Manoukian, che gestisce il suo locale nella Provincia. Per i Cainiti del clan Tremere, esiste anche
+                una Chantry, la cui ubicazione rimane nota solamente ai componenti del clan.
             </Typography>
 
             <Typography component="div">

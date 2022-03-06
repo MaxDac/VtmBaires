@@ -1,8 +1,8 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from '../../../_base/relay-utils';
-import type { IEnvironment } from "relay-runtime/store/RelayStoreTypes";
+import {wrapMutation} from '../../../_base/relay-utils';
+import type {IEnvironment} from "relay-runtime/store/RelayStoreTypes";
 
 const updateSessionCharacterMutation = graphql`
     mutation UpdateSessionCharacterMutation($characterId: ID!) {

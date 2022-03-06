@@ -2,7 +2,7 @@
 
 import React, {useMemo} from "react";
 import FormSelectField from "../../_base/components/FormSelectField";
-import { emptyExactObject, orderAlphabetically } from "../../_base/utils";
+import {emptyExactObject, orderAlphabetically} from "../../_base/utils";
 import {useCustomLazyLoadQuery} from "../../_base/relay-utils";
 import {allCharactersQuery} from "../../services/queries/character/AllCharactersQuery";
 import PlainSelectField from "../../_base/components/PlainSelectField";

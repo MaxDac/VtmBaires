@@ -1,7 +1,8 @@
 // @flow
 
-import React, {useCallback, useContext, useState, Suspense} from "react";
+import React, {Suspense, useCallback, useState} from "react";
 import CharacterProvider from "../_data/CharacterProvider";
+import type {RefreshedQueryOption} from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import CharacterSheetStatsSection from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -9,17 +10,18 @@ import AttributeSwitchControl from "../character/controls/AttributeSwitchControl
 import useAttributesSlimQuery from "../../services/queries/info/AttributesSlimQuery";
 import switchCharacterAttributeMutation from "../../services/mutations/characters/SwitchCharacterAttributeMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
 import {useTheme} from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import type {RefreshedQueryOption} from "../character/sheet-sections/sections/CharacterSheetStatsSection";
 import FinalizeCharacterMutation from "../../services/mutations/characters/FinalizeCharacterMutation";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../AppRouter";
 import DeleteCharacterMutation from "../../services/mutations/characters/DeleteCharacterMutation";
 import CharacterFragmentProvider from "../_data/CharacterFragmentProvider";
 import {sortAttributes} from "../../_base/info-helpers";
-import type { AttributeTypeNames } from "../../services/queries/info/AttributesQuery";
+import type {AttributeTypeNames} from "../../services/queries/info/AttributesQuery";
+import {useWait} from "../../_base/providers/BackdropProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useDialog} from "../../_base/providers/DialogProvider";
 
 type Props = {
 
@@ -27,7 +29,9 @@ type Props = {
 
 const Internal = ({character}) => {
     const theme = useTheme();
-    const {setWait, showUserNotification, openDialog} = useContext(UtilityContext);
+    const {startWait, stopWait} = useWait()
+    const {enqueueSnackbar} = useCustomSnackbar()
+    const {showDialog} = useDialog()
     const environment = useRelayEnvironment();
     const attributes = useAttributesSlimQuery();
     const history = useHistory();
@@ -55,7 +59,7 @@ const Internal = ({character}) => {
         firstAttribute: first,
         secondAttribute: second
                                        }) => {
-        setWait(true);
+        startWait()
 
         switchCharacterAttributeMutation(environment, {
             characterId: id,
@@ -64,30 +68,30 @@ const Internal = ({character}) => {
         })
             .then(r => {})
             .catch(e => {
-                showUserNotification({
+                enqueueSnackbar({
                     type: "error",
                     graphqlError: e,
                     message: "C'e' stato un errore nella gestione della richiesta."
                 });
             })
             .finally(() => {
-                setWait(false);
+                stopWait()
                 refresh();
             });
     }
 
     const completeCharacter = (characterId: string) => {
-        openDialog("Conferma personaggio", "Sei sicuro di voler confermare il personaggio?", () => {
+        showDialog("Conferma personaggio", "Sei sicuro di voler confermare il personaggio?", () => {
             FinalizeCharacterMutation(environment, characterId)
                 .then(r => {
-                    showUserNotification({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
+                    enqueueSnackbar({type: "success", message: "Il tuo personaggio è stato creato con successo!"})
                     setTimeout(() => {
                         history.push(Routes.main);
                         setTimeout(() => document.location.reload(false), 200);
                     }, 1000);
                 })
                 .catch(e => {
-                    showUserNotification({
+                    enqueueSnackbar({
                         type: "error",
                         graphqlError: e,
                         message: "C'è stato un errore durante la finalizzazione del personaggio."
@@ -97,15 +101,15 @@ const Internal = ({character}) => {
     }
 
     const deleteCharacter = (characterId: string) => {
-        openDialog("Conferma cancellazione", "Sei sicuro di voler cancellare il personaggio?", () => {
+        showDialog("Conferma cancellazione", "Sei sicuro di voler cancellare il personaggio?", () => {
             DeleteCharacterMutation(environment, characterId)
                 .then(r => {
-                    showUserNotification({type: "success", message: "Il tuo personaggio è stato cancellato!"});
+                    enqueueSnackbar({type: "success", message: "Il tuo personaggio è stato cancellato!"});
                     history.push(Routes.main);
                     document.location.reload(false);
                 })
                 .catch(e => {
-                    showUserNotification({
+                    enqueueSnackbar({
                         type: "error",
                         graphqlError: e,
                         message: "C'è stato un errore durante la finalizzazione del personaggio."

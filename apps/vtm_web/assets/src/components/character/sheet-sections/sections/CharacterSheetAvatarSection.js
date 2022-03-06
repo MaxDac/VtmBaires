@@ -4,7 +4,7 @@ import React from "react";
 import {useFragment} from "react-relay";
 import {characterSheetFragment} from "../../../../services/queries/character/CharacterFragments";
 import type {
-  CharacterFragments_characterSheet$key,
+    CharacterFragments_characterSheet$key,
 } from "../../../../services/queries/character/__generated__/CharacterFragments_characterSheet.graphql";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -15,10 +15,9 @@ export const avatarHeight: number = 470;
 
 type Props = {
     characterQuery: CharacterFragments_characterSheet$key;
-    sx?: any;
 }
 
-const CharacterSheetAvatarSection = ({characterQuery, sx}: Props): GenericReactComponent => {
+const CharacterSheetAvatarSection = ({characterQuery}: Props): GenericReactComponent => {
     const sheet = useFragment(
         characterSheetFragment,
         characterQuery);

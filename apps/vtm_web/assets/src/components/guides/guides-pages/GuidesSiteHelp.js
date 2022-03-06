@@ -1,7 +1,6 @@
 // @flow
 
 import type {GenericReactComponent} from "../../../_base/types";
-
 import {guideStyle, titleStyle} from "../GuidesStyles";
 import Typography from "@mui/material/Typography";
 import React from "react";

@@ -1,24 +1,21 @@
 // @flow
 
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import type {Character} from "../../../../services/queries/character/GetCharacterCompleteQuery";
 import Grid from "@mui/material/Grid";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {
-  baseMenuItems,
-  emptyExactObject,
-  handleMutation,
-} from "../../../../_base/utils";
+import {baseMenuItems, emptyExactObject, handleMutation,} from "../../../../_base/utils";
 import Button from "@mui/material/Button";
-import {UtilityContext} from "../../../../contexts";
 import {useRelayEnvironment} from "react-relay";
 import ChangeCharacterOtherStatsMutation from "../../../../services/mutations/admin/ChangeCharacterOtherStatsMutation";
 import {useCustomLazyLoadQuery} from "../../../../_base/relay-utils";
 import {predatorTypesQuery} from "../../../../services/queries/info/PredatorTypesQuery";
 import type {GenericReactComponent} from "../../../../_base/types";
+import {useDialog} from "../../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -26,7 +23,8 @@ type Props = {
 }
 
 const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericReactComponent => {
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
     const predatorTypes = useCustomLazyLoadQuery(predatorTypesQuery, emptyExactObject())
         ?.predatorTypes;
@@ -38,7 +36,7 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericRea
     const [predatorType, setPredatorType] = useState(character?.predatorType?.id ?? "");
 
     const changeCharacterOtherStats = _ => {
-        openDialog(
+        showDialog(
             `Cambio di status per ${character.name ?? ""}`,
             `Sei sicuro di voler cambiare le caratteristiche di questo personaggio?`,
             () => {
@@ -49,7 +47,7 @@ const ChangeCharacterOtherStatsForm = ({character, onUpdate}: Props): GenericRea
                     predatorTypeId: predatorType,
                     health: health,
                     bloodPotency: bloodPotency
-                }), showUserNotification, {
+                }), enqueueSnackbar, {
                     successMessage: "Il personaggio è stato modificato correttamente. Per visualizzare le nuove modifiche, è necessario aggiornare la pagina (F5)",
                     errorMessage: "C'è stato un errore durante la modifica del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: onUpdate

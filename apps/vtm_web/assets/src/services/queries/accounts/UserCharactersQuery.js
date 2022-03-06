@@ -4,8 +4,8 @@ import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
 import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  UserCharactersQuery$data,
-  UserCharactersQueryVariables,
+    UserCharactersQuery$data,
+    UserCharactersQueryVariables,
 } from "./__generated__/UserCharactersQuery.graphql";
 import {castNotNull, emptyExactObject, toArray} from "../../../_base/utils";
 

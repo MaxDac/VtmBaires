@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext, useEffect, useState, Suspense, useRef} from "react";
+import React, {Suspense, useEffect, useRef, useState} from "react";
 import ChatInput from "./controls/ChatInput";
 import chatEntryMutationPromise from "../../services/mutations/chat/CreateChatEntryMutation";
 import Dialog from "@mui/material/Dialog";
@@ -10,21 +10,18 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import useMap from "../../services/queries/map/MapQuery";
-import type {Map} from "../../services/base-types";
+import type {ChatEntry, Map} from "../../services/base-types";
 import Box from "@mui/material/Box";
 import {useRelayEnvironment} from "react-relay";
 import type {ChatDiceRequest} from "./controls/ChatThrowDiceInput";
 import chatDiceEntryMutationPromise from "../../services/mutations/chat/CreateChatDiceEntry";
 import ChatControls from "./controls/ChatControls";
-import {SessionContext, UtilityContext} from "../../contexts";
-import {getSessionSync, useSession} from "../../services/session-service";
 import {Typography} from "@mui/material";
 import ChatMasterModal from "./modals/ChatMasterModal";
 import ChatDescriptionModal from "./modals/ChatDescriptionModal";
 import ChatStatusModal from "./modals/ChatStatusModal";
 import {useChatEntries} from "./hooks/ChatEntriesHook";
 import ChatScreen from "./screen/ChatScreen";
-import type { ChatEntry } from "../../services/base-types";
 import DefaultFallback from "../../_base/components/DefaultFallback";
 import useChatSubscription from "../_hooks/useChatSubscription";
 import {getFileTextFromChatEntries} from "./chat-helpers";
@@ -33,9 +30,14 @@ import {useUpdateSessionMap} from "../_hooks/useUpdateSessionMap";
 import {useHasUserAccessToMap} from "../../services/queries/map/HasUserAccessToMapQuery";
 import {useIsCharacterAwake} from "../../services/queries/character/IsCharacterAwakeQuery";
 import type {GenericReactComponent} from "../../_base/types";
-import {isUserMaster} from "../../services/base-types";
 import {handleMutation} from "../../_base/utils";
 import deleteChatEntryMutation from "../../services/mutations/chat/DeleteChatEntryMutation";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {sessionMapStateAtom} from "../../session/atoms";
+import {useCharacterRecoilState} from "../../session/hooks";
+import {useDialog} from "../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {isUserMasterSelector} from "../../session/selectors";
 
 type ChatProps = {
     map: Map
@@ -83,14 +85,13 @@ const ShowChatInput = ({character, characterId, onNewEntry, onNewDiceEntry}) => 
 };
 
 const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
-    const session = useRef(useContext(SessionContext));
-
+    const setLocation = useRef(useSetRecoilState(sessionMapStateAtom));
     const environment = useRelayEnvironment();
-    const [user,character] = useSession();
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
+    const [character,] = useCharacterRecoilState()
 
-    const isMaster = () => isUserMaster(user);
-
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const [mapModalOpen, setMapModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState(map?.name);
@@ -108,8 +109,8 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     useUpdateSessionMap(map.id);
 
     useEffect(() => {
-        if (map?.id != null) {
-            session.current?.setCurrentLocation({
+        if (map?.id != null && setLocation.current) {
+            setLocation.current({
                 id: map.id,
                 name: map?.name
             });
@@ -129,14 +130,14 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
     };
 
     const deletePhrase = entryId => {
-        if (isMaster()) {
-            openDialog(
+        if (isUserMaster) {
+            showDialog(
                 "Cancellazione frase",
                 "Sei sicuro di voler cancellare la frase dallo schermo? La frase sarà sempre fruibile nella schermata di storico delle chat",
                 () => {
                     handleMutation(
                         () => deleteChatEntryMutation(environment, entryId),
-                        showUserNotification,
+                        enqueueSnackbar,
                         {
                             successMessage: "Frase correttamente cancellata"
                         })
@@ -148,19 +149,19 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
         // Bug
         // If the master changes the character in the left hand side menu, being in the chat doesn't update the
         // character in session directly, because here it's a closure.
-        const ch = getSessionSync()?.character;
+        const ch = character;
 
         if (ch?.id != null && map?.id != null) {
             action(ch.id, map.id)
-                .catch(error => showUserNotification({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
+                .catch(error => enqueueSnackbar({ type: 'error', graphqlError: error, message: "An error happened while sending the chat" }));
         }
 
         if (!ch?.id) {
-            showUserNotification({ type: 'error', message: "You must select a character to play."});
+            enqueueSnackbar({ type: 'error', message: "You must select a character to play."});
         }
 
         if (!map?.id) {
-            showUserNotification({ type: 'error', message: "You're not on a map."});
+            enqueueSnackbar({ type: 'error', message: "You're not on a map."});
         }
     };
 
@@ -237,13 +238,13 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
 
     return (
         <>
-            <Dialog open={characterModalOpen && isMaster()}
+            <Dialog open={characterModalOpen && isUserMaster}
                     onClose={_ => setCharacterModalOpen(_ => false)}
                     fullScreen
                     aria-labelledby="character-modal">
                 {showChatMasterModal()}
             </Dialog>
-            <Dialog open={characterModalOpen && !isMaster()}
+            <Dialog open={characterModalOpen && !isUserMaster}
                     onClose={_ => setMapModalOpen(false)}
                     aria-labelledby="character-description">
                 <ChatDescriptionModal characterId={selectedCharacterId}
@@ -287,7 +288,7 @@ const ChatInternal = ({map}: ChatProps): GenericReactComponent => {
                 <Suspense fallback={<DefaultFallback />}>
                     <ChatScreen entries={entries}
                                 showCharacterDescription={showCharacterDescription}
-                                canDelete={isMaster()}
+                                canDelete={isUserMaster}
                                 deletePhrase={deletePhrase} />
                 </Suspense>
                 <Box component="div" sx={{

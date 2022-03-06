@@ -1,24 +1,12 @@
 // @flow
 
-import {
-    Environment,
-    Network,
-    RecordSource,
-    Store,
-    Observable
-} from "relay-runtime";
-
+import type {CacheConfig, RequestParameters, Variables} from "relay-runtime";
+import {Environment, Network, Observable, RecordSource, Store} from "relay-runtime";
 import * as AbsintheSocket from "@absinthe/socket";
-import { createFetcher, createSubscriber } from "@absinthe/socket-relay";
+import {createFetcher, createSubscriber} from "@absinthe/socket-relay";
 
 // $FlowFixMe
-import { Socket as PhoenixSocket } from "phoenix";
-
-import type {
-    RequestParameters,
-    Variables,
-    CacheConfig
-} from "relay-runtime";
+import {Socket as PhoenixSocket} from "phoenix";
 
 const getDocumentLocationHost = (): string =>
     window.document.location.host;

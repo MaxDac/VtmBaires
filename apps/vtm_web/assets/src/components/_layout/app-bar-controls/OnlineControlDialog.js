@@ -18,7 +18,8 @@ import {useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import MenuLayout from "../../../_base/components/MenuLayout";
 import type {GenericReactComponent} from "../../../_base/types";
-import { emptyExactObject } from "../../../_base/utils";
+import {emptyExactObject} from "../../../_base/utils";
+import {isUserRoleMaster} from "../../../services/base-types";
 
 type Props = {
     closePopup: () => void;
@@ -76,12 +77,10 @@ const OnlineControlDialog = ({closePopup}: Props): GenericReactComponent => {
         fetchPolicy: "network-only"
     })?.sessionsList ?? [];
 
-    const isUserMaster = user => user?.role != null && user.role === "MASTER";
-
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const userMasterIcon = user =>
-        isUserMaster(user)
+        isUserRoleMaster(user?.role)
             ? (
                 <Tooltip title="Master">
                     <ListItemIcon>
@@ -108,7 +107,7 @@ const OnlineControlDialog = ({closePopup}: Props): GenericReactComponent => {
         <ListItem key={o?.user?.id}
                   secondaryAction={secondaryActions(o)}>
             {userMasterIcon(o?.user)}
-            <ListItemText inset={!isUserMaster(o?.user)}
+            <ListItemText inset={!isUserRoleMaster(o?.user?.role)}
                           primary={onlineUserAndCharacterName(o)}
                           secondary={o?.location?.name}
             />

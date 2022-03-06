@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import StyledTableRow from "../components/StyledTableRow";
 import StyledTableCell from "../components/StyledTableCell";
-import { guideStyle, liStyle, titleStyle } from "../GuidesStyles";
+import {guideStyle, liStyle, titleStyle} from "../GuidesStyles";
 import {Link} from "react-router-dom";
 import {GuideRoutes} from "../GuidesMain";
 import type {GenericReactComponent} from "../../../_base/types";

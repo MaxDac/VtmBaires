@@ -1,20 +1,21 @@
 // @flow
 
-import React, { useContext, useState } from "react";
+import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import ApproveCharacterMutation from "../../../services/mutations/characters/ApproveCharacterMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
 import {handleMutation} from "../../../_base/utils";
 import {useHistory} from "react-router-dom";
 import Box from "@mui/material/Box";
 import type {Character} from "../../../services/queries/character/GetCharacterCompleteQuery";
-import { MainRoutes } from "../../MainRouter";
+import {MainRoutes} from "../../MainRouter";
 import RejectCharacterMutation from "../../../services/mutations/characters/RejectCharacterMutation";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useDialog} from "../../../_base/providers/DialogProvider";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 type Props = {
     character: Character;
@@ -22,14 +23,15 @@ type Props = {
 
 const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
     const history = useHistory();
-    const {showUserNotification, openDialog} = useContext(UtilityContext);
+    const {showDialog} = useDialog()
+    const {enqueueSnackbar} = useCustomSnackbar();
     const environment = useRelayEnvironment();
     const [reason, setReason] = useState<?string>(null);
 
     const approveCharacter = _ => {
-        openDialog(`Accetta ${character.name ?? ""}`, "Sei sicuro di voler accettare questo personaggio?", () => {
+        showDialog(`Accetta ${character.name ?? ""}`, "Sei sicuro di voler accettare questo personaggio?", () => {
             const promise: Promise<boolean> = ApproveCharacterMutation(environment, character.id, reason ?? "");
-            handleMutation(() => promise, showUserNotification, {
+            handleMutation(() => promise, enqueueSnackbar, {
                 successMessage: "Il personaggio è stato accettato.",
                 errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
                 onCompleted: () => history.push(MainRoutes.unapprovedCharacters)
@@ -39,9 +41,9 @@ const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
 
     const rejectCharacter = _ => {
         if (reason != null && reason !== "") {
-            openDialog(`Rifiuta ${character.name ?? ""}`, "Sei sicuro di voler rifiutare questo personaggio?", () => {
+            showDialog(`Rifiuta ${character.name ?? ""}`, "Sei sicuro di voler rifiutare questo personaggio?", () => {
                 const promise: Promise<boolean> = RejectCharacterMutation(environment, character.id, reason);
-                handleMutation(() => promise, showUserNotification, {
+                handleMutation(() => promise, enqueueSnackbar, {
                     successMessage: "Il personaggio è stato correttamente rifiutato.",
                     errorMessage: "C'è stato un errore durante l'accettazione del personaggio, contatta l'admin per maggiori informazioni.",
                     onCompleted: () => history.push(MainRoutes.unapprovedCharacters)
@@ -49,7 +51,7 @@ const ApproveCharacterForm = ({character}: Props): GenericReactComponent => {
             });
         }
         else {
-            showUserNotification({
+            enqueueSnackbar({
                 type: "warning",
                 message: "Non puoi rifiutare un personaggio senza dare una motivazione"
             })

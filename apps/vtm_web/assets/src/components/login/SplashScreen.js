@@ -1,21 +1,21 @@
 // @flow
 
-import React from 'react';
-import { useEffect } from "react";
-import { Box } from '@mui/system';
+import React, {useEffect} from 'react';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { getSessionSync } from "../../services/session-service";
-import { useHistory } from 'react-router';
-import { Routes } from "../../AppRouter";
+import {Routes} from "../../AppRouter";
 import CenteredBox from "../../_base/components/CenteredBox";
 import {LoginRoutes} from "./LoginRouter";
 import type {GenericReactComponent} from "../../_base/types";
+import {useRecoilValue} from "recoil";
+import {sessionStateAtom} from "../../session/atoms";
+import {useHistory} from "react-router-dom";
 
 const SplashScreen = (): GenericReactComponent => {
     const history = useHistory();
+    const user = useRecoilValue(sessionStateAtom)
 
     useEffect(() => {
-        const user = getSessionSync()?.user;
         if (user?.id != null) {
             history.push(Routes.main);
         }

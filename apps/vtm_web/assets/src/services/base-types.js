@@ -10,7 +10,7 @@ export type User = {|
     role: Roles;
 |};
 
-export const isUserRoleMaster = (role: ?Roles): boolean =>
+export const isUserRoleMaster = (role: ?Roles | ?string): boolean =>
     role != null && role === "MASTER";
 
 export const isUserMaster = (user: ?User): boolean =>
@@ -80,8 +80,4 @@ export type SessionLocation = {|
     name?: ?string;
 |};
 
-export type Session = {|
-    user: User,
-    character?: ?SessionCharacter,
-    location?: ?SessionLocation
-|};
+export type Session = User;

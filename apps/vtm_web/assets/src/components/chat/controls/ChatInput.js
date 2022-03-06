@@ -2,8 +2,8 @@
 
 import React, {useState} from "react";
 import InputBase from "@mui/material/InputBase";
-import ChatThrowDiceInput from "./ChatThrowDiceInput";
 import type {ChatDiceRequest} from "./ChatThrowDiceInput";
+import ChatThrowDiceInput from "./ChatThrowDiceInput";
 import Box from "@mui/material/Box";
 import Zoom from "@mui/material/Zoom";
 import Fab from "@mui/material/Fab";
@@ -12,12 +12,12 @@ import SendIcon from "@mui/icons-material/Send";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import {menuIconStyle} from "../../_layout/menu/menu-base-utils";
-import {isUserMaster} from "../../../services/base-types";
-import {useSession} from "../../../services/session-service";
 import Typography from "@mui/material/Typography";
 import ChatInputHelp from "./ChatInputHelp";
 import {isNullOrEmpty} from "../../../_base/utils";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useRecoilValue} from "recoil";
+import {isUserMasterSelector} from "../../../session/selectors";
 
 type ChatInputProps = {
     newChatEntry: string => void;
@@ -31,7 +31,7 @@ const preferredCharacters = 700;
 
 const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): GenericReactComponent => {
     const theme = useTheme();
-    const [user,] = useSession();
+    const isUserMaster = useRecoilValue(isUserMasterSelector)
     const [value, setValue] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inDices, setInDices] = useState(true);
@@ -67,7 +67,7 @@ const ChatInput = ({newChatEntry, newDiceEntry}: ChatInputProps): GenericReactCo
         setIsModalOpen(_ => true);
     };
 
-    const isMasterPhrase = () => isUserMaster(user) && value.substring(0, 3) === "***";
+    const isMasterPhrase = () => isUserMaster && value.substring(0, 3) === "***";
 
     const isOffPhrase = () => value.substring(0, 1) === "+";
 

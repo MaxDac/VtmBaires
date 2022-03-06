@@ -1,10 +1,10 @@
 // @flow
 
+import type {Node} from "react";
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import type { Node } from "react";
 import NoCookieBar from "../../_base/components/NoCookieBar";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";

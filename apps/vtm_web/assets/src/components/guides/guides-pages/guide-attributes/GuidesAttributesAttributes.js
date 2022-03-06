@@ -4,8 +4,8 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {guideStyle, titleStyle} from "../../GuidesStyles";
-import { Link } from "react-router-dom";
-import { GuideRoutes } from "../../GuidesMain";
+import {Link} from "react-router-dom";
+import {GuideRoutes} from "../../GuidesMain";
 import type {GenericReactComponent} from "../../../../_base/types";
 
 type Props = {

@@ -2,18 +2,14 @@
 
 import graphql from 'babel-plugin-relay/macro';
 import {useCustomLazyLoadQuery} from "../../../_base/relay-utils";
-import { attributesDefaultSortFunction } from "./AttributesQuery";
+import type {Attribute, AttributeSections, AttributeTypeNames,} from "./AttributesQuery";
+import {attributesDefaultSortFunction} from "./AttributesQuery";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  Attribute,
-  AttributeSections,
-  AttributeTypeNames,
-} from "./AttributesQuery";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
-import type {
-  AttributesSlimQueryResponse,
-  AttributesSlimQueryVariables,
+    AttributesSlimQueryResponse,
+    AttributesSlimQueryVariables,
 } from "./__generated__/AttributesSlimQuery.graphql";
-import { emptyExactObject, toNotNullArray } from "../../../_base/utils";
+import {emptyExactObject, toNotNullArray} from "../../../_base/utils";
 
 export const attributesSlimQuery: Query<AttributesSlimQueryVariables, AttributesSlimQueryResponse> = graphql`
     query AttributesSlimQuery {

@@ -3,10 +3,10 @@
 import graphql from 'babel-plugin-relay/macro';
 import {wrapQuery} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  UserEmailExistsQueryResponse,
-  UserEmailExistsQueryVariables,
+    UserEmailExistsQueryResponse,
+    UserEmailExistsQueryVariables,
 } from "./__generated__/UserEmailExistsQuery.graphql";
 
 export const userEmailExistsQuery: Query<UserEmailExistsQueryVariables, UserEmailExistsQueryResponse> = graphql`

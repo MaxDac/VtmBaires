@@ -1,15 +1,16 @@
 // @flow
 
-import React, {useContext} from "react";
-import {object, string, ref} from 'yup';
+import React from "react";
+import {object, ref, string} from 'yup';
 import {useFormik} from "formik";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../contexts";
 import FormTextField from "../../_base/components/FormTextField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
 import ChangeUserPasswordMutation from "../../services/mutations/sessions/ChangeUserPasswordMutation";
 import type {GenericReactComponent} from "../../_base/types";
+import {useCustomSnackbar} from "../../_base/notification-utils";
+import {useWait} from "../../_base/providers/BackdropProvider";
 
 const SignUpSchema = object().shape({
     oldPassword: string("La tua vecchia passwod").required("Required"),
@@ -25,10 +26,10 @@ const SignUpSchema = object().shape({
 });
 
 const SetNewPassword = (): GenericReactComponent => {
-    const theme = useTheme();
-    const environment = useRelayEnvironment();
-
-    const {showUserNotification, setWait} = useContext(UtilityContext);
+    const theme = useTheme()
+    const environment = useRelayEnvironment()
+    const {startWait, stopWait} = useWait()
+    const {enqueueSnackbar} = useCustomSnackbar()
 
     const formik = useFormik({
         initialValues: {
@@ -45,7 +46,7 @@ const SetNewPassword = (): GenericReactComponent => {
                           newPassword,
                           repeatPassword
                       }) => {
-        setWait(true);
+        startWait()
 
         ChangeUserPasswordMutation(environment,
             oldPassword,
@@ -53,16 +54,16 @@ const SetNewPassword = (): GenericReactComponent => {
             repeatPassword)
             .then(response => {
                 if (response === true) {
-                    showUserNotification({type: "success", message: "La tua password è stata correttamente resettata."});
+                    enqueueSnackbar({type: "success", message: "La tua password è stata correttamente resettata."});
                 }
                 else {
-                    showUserNotification({type: "warning", message: "Il cambio di password non è andato a buon fine, contatta un master per aiuto."});
+                    enqueueSnackbar({type: "warning", message: "Il cambio di password non è andato a buon fine, contatta un master per aiuto."});
                 }
             })
             .catch(errors => {
-                showUserNotification({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
+                enqueueSnackbar({ type: 'error', graphqlError: errors, message: "Username or password invalid." });
             })
-            .finally(() => setWait(false));
+            .finally(() => stopWait());
     };
 
     return (

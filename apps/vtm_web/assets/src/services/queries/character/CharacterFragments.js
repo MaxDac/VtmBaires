@@ -3,28 +3,28 @@
 import graphql from "babel-plugin-relay/macro";
 import type {Fragment} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  CharacterFragments_characterInfo$data,
-  CharacterFragments_characterInfo$fragmentType,
+    CharacterFragments_characterInfo$data,
+    CharacterFragments_characterInfo$fragmentType,
 } from "./__generated__/CharacterFragments_characterInfo.graphql";
 import type {
-  CharacterFragments_characterConcealedInfo$data,
-  CharacterFragments_characterConcealedInfo$fragmentType,
+    CharacterFragments_characterConcealedInfo$data,
+    CharacterFragments_characterConcealedInfo$fragmentType,
 } from "./__generated__/CharacterFragments_characterConcealedInfo.graphql";
 import type {
-  CharacterFragments_characterStats$data,
-  CharacterFragments_characterStats$fragmentType,
+    CharacterFragments_characterStats$data,
+    CharacterFragments_characterStats$fragmentType,
 } from "./__generated__/CharacterFragments_characterStats.graphql";
 import type {
-  CharacterFragments_characterSheet$data,
-  CharacterFragments_characterSheet$fragmentType,
+    CharacterFragments_characterSheet$data,
+    CharacterFragments_characterSheet$fragmentType,
 } from "./__generated__/CharacterFragments_characterSheet.graphql";
 import type {
-  CharacterFragments_characterState$data,
-  CharacterFragments_characterState$fragmentType,
+    CharacterFragments_characterState$data,
+    CharacterFragments_characterState$fragmentType,
 } from "./__generated__/CharacterFragments_characterState.graphql";
 import type {
-  CharacterFragments_characterOff$data,
-  CharacterFragments_characterOff$fragmentType,
+    CharacterFragments_characterOff$data,
+    CharacterFragments_characterOff$fragmentType,
 } from "./__generated__/CharacterFragments_characterOff.graphql";
 
 export const characterInfoFragment: Fragment<CharacterFragments_characterInfo$fragmentType, CharacterFragments_characterInfo$data> = graphql`

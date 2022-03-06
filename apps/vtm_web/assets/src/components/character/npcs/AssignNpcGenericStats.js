@@ -1,6 +1,6 @@
 // @flow
 
-import React, {useContext} from "react";
+import React from "react";
 import {number, object, string} from "yup";
 import {usePredatorTypes} from "../../../services/queries/info/PredatorTypesQuery";
 import {useFormik} from "formik";
@@ -10,14 +10,12 @@ import FormTextField from "../../../_base/components/FormTextField";
 import FormSelectField from "../../../_base/components/FormSelectField";
 import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
-import {
-    useCharacterStatsQuery
-} from "../../../services/queries/character/GetCharacterStatsQuery";
+import {useCharacterStatsQuery} from "../../../services/queries/character/GetCharacterStatsQuery";
 import DefineNpcStatsMutation from "../../../services/mutations/npcs/DefineNpcStatsMutation";
 import {useRelayEnvironment} from "react-relay";
-import {UtilityContext} from "../../../contexts";
 import {useCharacterCompleteQuery} from "../../../services/queries/character/GetCharacterCompleteQuery";
 import type {GenericReactComponent} from "../../../_base/types";
+import {useCustomSnackbar} from "../../../_base/notification-utils";
 
 type Props = {
     characterId: string
@@ -35,7 +33,7 @@ const DefineNpcFormValidationSchema = object().shape({
 
 const AssignNpcGenericStats = ({characterId}: Props): GenericReactComponent => {
     const environment = useRelayEnvironment();
-    const {showUserNotification} = useContext(UtilityContext);
+    const {enqueueSnackbar} = useCustomSnackbar()
     const character = useCharacterCompleteQuery(characterId);
     const characterStats = useCharacterStatsQuery(characterId);
     const predatorTypes = usePredatorTypes()?.predatorTypes;
@@ -44,7 +42,7 @@ const AssignNpcGenericStats = ({characterId}: Props): GenericReactComponent => {
     const onSubmit = values =>
         handleMutation(
             () => DefineNpcStatsMutation(environment, characterId, values),
-            showUserNotification,
+            enqueueSnackbar,
             {});
 
     const formik = useFormik({

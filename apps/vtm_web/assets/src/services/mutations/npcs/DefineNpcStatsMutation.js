@@ -1,12 +1,9 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import { wrapMutation } from "../../../_base/relay-utils";
+import {wrapMutation} from "../../../_base/relay-utils";
 import type {IEnvironment} from "relay-runtime";
-import type {
-    DefineNpcStatsMutationResponse,
-    NpcStatsRequest
-} from "./__generated__/DefineNpcStatsMutation.graphql";
+import type {DefineNpcStatsMutationResponse, NpcStatsRequest} from "./__generated__/DefineNpcStatsMutation.graphql";
 
 const mutation = graphql`
     mutation DefineNpcStatsMutation($characterId: ID!, $request: NpcStatsRequest!) {

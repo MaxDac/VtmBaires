@@ -1,10 +1,10 @@
 // @flow
 
 import graphql from 'babel-plugin-relay/macro';
-import type { Query } from "relay-runtime/util/RelayRuntimeTypes";
+import type {Query} from "relay-runtime/util/RelayRuntimeTypes";
 import type {
-  GetForumThreadPostsQueryResponse,
-  GetForumThreadPostsQueryVariables,
+    GetForumThreadPostsQueryResponse,
+    GetForumThreadPostsQueryVariables,
 } from "./__generated__/GetForumThreadPostsQuery.graphql";
 
 // This redundant type definition is due to the fact that the auto-generated query doesn't extract the type of the post,
