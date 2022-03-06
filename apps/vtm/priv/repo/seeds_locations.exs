@@ -235,4 +235,4 @@ Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 4", 
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Chat Privata 5", description: """
 """, is_chat: true, chat_map_id: private_chats_id, is_private: true})
 
-Vtm.LocationsSeedsHelpers.update_chat_entries(confiteria_del_molino_id, anticamera_id)
+# Vtm.LocationsSeedsHelpers.update_chat_entries(confiteria_del_molino_id, anticamera_id)
