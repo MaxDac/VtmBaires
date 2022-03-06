@@ -23,9 +23,7 @@ const GuidesAttributes = (): GenericReactComponent => {
                 Il Sangue determina i poteri del Cainita, porta con s&eacute; le maledizioni del Sangue (debolezza 
                 al fuoco e ai raggi solari, e la Bestia), e una maledizione caratteristica del clan, che ha la 
                 doppia funzione di tormentare la non-vita del Cainita, e di riconoscerlo come appartenente 
-                ad una di queste grandi "famiglie" ancestrali.<br />
-                Siccome in Buenos Aires by Night sar&agrave; possibile solamente interpretare Fratelli appartenenti
-                alla Camarilla, anche la scelta dei clan sar&agrave; ridotta ai soli clan affiliati alla setta.
+                ad una di queste grandi "famiglie" ancestrali.
             </Typography>
 
             <Typography paragraph sx={guideStyle}>

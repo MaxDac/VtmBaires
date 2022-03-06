@@ -136,9 +136,8 @@ const GuidesCamarilla = (): GenericReactComponent => {
             </Typography>
 
             <Typography paragraph sx={guideStyle}>
-                Attulamente, tutti i personaggi giocanti dovranno essere affiliati alla Camarilla, con l'unica eccezione
-                dei Sangue Debole, che per&ograve; per forza di cose dovranno interfacciarvisi. Per questo motivo, 
-                &egrave; necessario chiarire cosa significa la Camarilla, e soprattutto cosa significa essere parte
+                Attualmente, la Camarilla non &egrave; una setta giocabile. Ci&ograve; nonostante, in questa sezione
+                verr&agrave; chiarito cosa significa la Camarilla, e soprattutto cosa significa essere parte
                 della Camarilla, come interfacciarsi con la Setta, quali sono i luoghi di ritrovo, cosa &egrave; 
                 consentito fare e cosa non fare.
             </Typography>

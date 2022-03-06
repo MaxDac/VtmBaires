@@ -52,10 +52,11 @@ Di notte, la zona è molto tranquilla, ed il vicino giardino botanico ha cominci
 ingressi fino a notte tarda.\n
 """, is_chat: true, chat_map_id: palermo_id})
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Palacio Pompadour", description: """
-Il palazzo di sei piani che sorge in Avenida Santa Fé ha un aspetto vintage. Bianco, circolare,
-con diversi balconi in ferro battuto ed ampie finestre ai piani inferiori, ospita gli uffici della
-famosa rivista d'arte che viene avidamente letta dalla popolazione della capitale. Gli uffici sono
-situati all'ultimo piano, e non è grave facile ottenerne l'accesso.
+Il palazzo di sei piani che sorge in Avenida Santa Fé aveva un aspetto vintage. Bianco, circolare,
+con diversi balconi in ferro battuto ed ampie finestre ai piani inferiori, un tempo ospitava una mostra
+d'arte e gli uffici della fondazione Duval. Tutto ciò è solo un ricordo: l'edificio ha ospitato uno
+degli attentati alla Masquerade di Palermo, rimanendo ferito in modo irreparabile da due esplosioni.
+L'edificio è ancora circondato da cordini della polizia che ne dovrebbero impedire l'accesso.
 """, is_chat: true, chat_map_id: palermo_id})
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Hollywood", description: """
 La zona chiamata di "Hollywood" è in realtà una zona molto attiva di notte, piena di locali e di
@@ -79,56 +80,56 @@ architettura vintage. Un labirinto di sentieri conduce attraverso cappelle famil
 moltitudine di lapidi e numerosi simboli più o meno imperscrutabili.
 """, is_chat: true, chat_map_id: centro_id})
 
-{:ok, %{id: confiteria_del_molino_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(
-  %Vtm.Chats.ChatMap{name: "Confitería del Molino", description: """
-    La Confitería del Molino è un vecchio edificio fino a poco tempo fa abbandonato, che ha
-    da poco riaperto i battenti. Ospita numerose aree di ristoro ed un piccolo teatro, ed ai
-    piani superiori dello stabile il comitato direttivo e gli uffici amministrativi di una
-    importante impresa di investimenti di valute.\n
-    I piani superiori sono gelosamente protetti e conservati dagli sguardi indiscreti,
-    poiché in realtà ospitano l'Elysium della Camarilla, che si sviluppa in una decina
-    di stanze diverse, ed ha un aspetto ed un arredamento minimalista, moderno. Oltre l'Atrio,
-    protetto da una decina di guardie, tre stanze sono adibite agli incontri ed al ristoro
-    degli ospiti, mentre le ultime cinque stanze sono riservate al Principe e al Consiglio dei
-    Primogeniti.
-    """, is_chat: false, chat_map_id: centro_id})
+# {:ok, %{id: confiteria_del_molino_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(
+#   %Vtm.Chats.ChatMap{name: "Confitería del Molino", description: """
+#     La Confitería del Molino è un vecchio edificio fino a poco tempo fa abbandonato, che ha
+#     da poco riaperto i battenti. Ospita numerose aree di ristoro ed un piccolo teatro, ed ai
+#     piani superiori dello stabile il comitato direttivo e gli uffici amministrativi di una
+#     importante impresa di investimenti di valute.\n
+#     I piani superiori sono gelosamente protetti e conservati dagli sguardi indiscreti,
+#     poiché in realtà ospitano l'Elysium della Camarilla, che si sviluppa in una decina
+#     di stanze diverse, ed ha un aspetto ed un arredamento minimalista, moderno. Oltre l'Atrio,
+#     protetto da una decina di guardie, tre stanze sono adibite agli incontri ed al ristoro
+#     degli ospiti, mentre le ultime cinque stanze sono riservate al Principe e al Consiglio dei
+#     Primogeniti.
+#     """, is_chat: false, chat_map_id: centro_id})
 
-{:ok, %{id: anticamera_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Anticamera", description: """
-L'anticamera dell'Elysium di Buenos Aires è un'ampia sala fiocamente illuminata da lampadari sapientemente
-disposti lungo tutta la sala. Le pareti in marmo verde per un metro, sono adornate da stucchi su tutta la parete,
-e da specchi ovali disposti a distanze uguali l'un dall'altro per tutta la lunghezza della sala. L'arredamento
-è composto da una serie di comodi divanetti posti tra una serie di tavolini in vetro ornati da metallo scuro.
-A grande distanza l'un dall'altro, sono posti dei quadri, alcuni acquarelli, molti surrealisti, qualche impressionista,
-tutti eseguiti da artisti argentini.
-""", is_chat: true, chat_map_id: confiteria_del_molino_id})
+# {:ok, %{id: anticamera_id}} = Vtm.LocationsSeedsHelpers.get_or_insert_map(%Vtm.Chats.ChatMap{name: "Anticamera", description: """
+# L'anticamera dell'Elysium di Buenos Aires è un'ampia sala fiocamente illuminata da lampadari sapientemente
+# disposti lungo tutta la sala. Le pareti in marmo verde per un metro, sono adornate da stucchi su tutta la parete,
+# e da specchi ovali disposti a distanze uguali l'un dall'altro per tutta la lunghezza della sala. L'arredamento
+# è composto da una serie di comodi divanetti posti tra una serie di tavolini in vetro ornati da metallo scuro.
+# A grande distanza l'un dall'altro, sono posti dei quadri, alcuni acquarelli, molti surrealisti, qualche impressionista,
+# tutti eseguiti da artisti argentini.
+# """, is_chat: true, chat_map_id: confiteria_del_molino_id})
 
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Salone Ovale", description: """
-Ad occupare un'ampia porzione del primo piano dell'Elysium alla Confíteria del Molino è la Sala Ovale, direttamente
-comunicamente con le stanze dello staff. Le pareti della stanza, ammobiliata con un imponente tavolo centrale in
-mogano, sul quale sono incisi motivi floreali, seguono lo standard imposto dall'anticamera, con pannelli di marmo
-verde alti circa un metro, sovrastati da bianche pareti ornate da stucchi, sulle quali rimagono appesi a distanza di
-due metri l'un dall'altro una serie di specchi ovali della stessa foggia dell'Anticamera.
-""", is_chat: true, chat_map_id: confiteria_del_molino_id})
+# Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Salone Ovale", description: """
+# Ad occupare un'ampia porzione del primo piano dell'Elysium alla Confíteria del Molino è la Sala Ovale, direttamente
+# comunicamente con le stanze dello staff. Le pareti della stanza, ammobiliata con un imponente tavolo centrale in
+# mogano, sul quale sono incisi motivi floreali, seguono lo standard imposto dall'anticamera, con pannelli di marmo
+# verde alti circa un metro, sovrastati da bianche pareti ornate da stucchi, sulle quali rimagono appesi a distanza di
+# due metri l'un dall'altro una serie di specchi ovali della stessa foggia dell'Anticamera.
+# """, is_chat: true, chat_map_id: confiteria_del_molino_id})
 
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Salette", description: """
-Lontano dal brusìo dell'Elysium, le salette poste al secondo piano offrono l'opportunità di poter discutere senza
-essere disturbati. Sistemate lungo tutta una deserta sala con pavimento in legno, sono ornate a foggia di palchetti di
-teatro, anche se la visuale che offrono è quella della piazza antistante la Confíteria del Molino, proprio dietro le
-iconiche "pale". All'interno di ogni saletta, protetta da un'apparentemente leggera porta di legno, l'arredamento è
-composto da un paio di sedie e i divanetti tipici delle sale da teatro, che vengono completati dalla presenza di un
-tavolinetto da caffé in vetro, ornato da metallo scuro.
-""", is_chat: true, chat_map_id: confiteria_del_molino_id})
+# Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Salette", description: """
+# Lontano dal brusìo dell'Elysium, le salette poste al secondo piano offrono l'opportunità di poter discutere senza
+# essere disturbati. Sistemate lungo tutta una deserta sala con pavimento in legno, sono ornate a foggia di palchetti di
+# teatro, anche se la visuale che offrono è quella della piazza antistante la Confíteria del Molino, proprio dietro le
+# iconiche "pale". All'interno di ogni saletta, protetta da un'apparentemente leggera porta di legno, l'arredamento è
+# composto da un paio di sedie e i divanetti tipici delle sale da teatro, che vengono completati dalla presenza di un
+# tavolinetto da caffé in vetro, ornato da metallo scuro.
+# """, is_chat: true, chat_map_id: confiteria_del_molino_id})
 
-Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Sala del Consiglio", description: """
-Metà del secondo piano dell'Elysium è dedicato agli uffici governativi, il primo dei quali, unico punto d'accesso,
-protetto da telecamere di sicurezza, sistemi d'allarme più evoluti rispetto a quelli utilizzati in tutto il resto
-dello stabile, e due dipendenti della sicurezza sempre di fronte alle sue porte, è la Sala del Consiglio dei
-Primogeniti. Al suo interno, un grande tavolo troneggia al centro della stanza, circondato da sedie di legno
-con sedili in velluto rosso. Le finestre danno direttamente al retro del Palazzo del Parlamento, ma si nota
-immediatamente dai dispositivi posti su ognuna di esse, e dalle grate metalliche fissate sopra ognuna di esse, che
-possono essere immediatamente protette contro ogni evenienza. Un altro paio di guardie è posto di fronte ad un ampio
-portone, che conduce alle sale del Principe e del Siniscalco, inaccessibili anche ai Primogeniti.
-""", is_chat: true, chat_map_id: confiteria_del_molino_id})
+# Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Sala del Consiglio", description: """
+# Metà del secondo piano dell'Elysium è dedicato agli uffici governativi, il primo dei quali, unico punto d'accesso,
+# protetto da telecamere di sicurezza, sistemi d'allarme più evoluti rispetto a quelli utilizzati in tutto il resto
+# dello stabile, e due dipendenti della sicurezza sempre di fronte alle sue porte, è la Sala del Consiglio dei
+# Primogeniti. Al suo interno, un grande tavolo troneggia al centro della stanza, circondato da sedie di legno
+# con sedili in velluto rosso. Le finestre danno direttamente al retro del Palazzo del Parlamento, ma si nota
+# immediatamente dai dispositivi posti su ognuna di esse, e dalle grate metalliche fissate sopra ognuna di esse, che
+# possono essere immediatamente protette contro ogni evenienza. Un altro paio di guardie è posto di fronte ad un ampio
+# portone, che conduce alle sale del Principe e del Siniscalco, inaccessibili anche ai Primogeniti.
+# """, is_chat: true, chat_map_id: confiteria_del_molino_id})
 
 Vtm.LocationsSeedsHelpers.insert_map(%Vtm.Chats.ChatMap{name: "Retiro", description: """
 L'intero quartiere è adibito ai trasporti da e per Buenos Aires, sia via terra che via mare.
