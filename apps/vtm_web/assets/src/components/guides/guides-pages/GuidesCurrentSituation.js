@@ -44,8 +44,10 @@ const GuidesCurrentSituation = (): GenericReactComponent => {
                 che include anche la zona di <b>Quilmes</b>. La Seconda Inquisizione, arrivata a Buenos Aires in seguito 
                 al <b>Tradimento del Principe</b>, e il cambio di governo istigato da Santiago Rinaldi, controlla gran 
                 parte della Capital Federal, lasciando ai Cainiti dell'auto proclamata Anarchia i territori pi&ugrave; 
-                poveri e disagiati della Provincia. I personaggi che potranno essere creati dovranno appartenere 
-                alla <b>Fazione Anarchica</b>.
+                poveri e disagiati della Provincia, stretti in una morsa che gli impedisce anche di fuggire: porti ed
+                aeroporti sono controllati da sistemi di sicurezza d'avanguardia fatti apposta per individuare <b>Blank
+                Bodies</b>, come vengono chiamati in codice i Cainiti. I personaggi che potranno essere creati dovranno
+                appartenere alla <b>Fazione Anarchica</b>.
             </Typography>
 
             <Typography component="div">

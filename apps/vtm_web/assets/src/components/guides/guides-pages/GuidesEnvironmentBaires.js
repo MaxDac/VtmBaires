@@ -341,7 +341,7 @@ const GuidesEnvironmentBaires = (): GenericReactComponent => {
                 espedienti tecnologici, rimane la Chantry Tremere, che ha stretto un accordo con l'Anarchia per una
                 pacifica convivenza. <b>Javier D'Arienzo</b> &egrave; rimasto in citt&agrave;, un punto di 
                 riferimento per i Nosferatu del Dominio e per chiunque sia interessato al mercato delle informazioni.
-                Anche l'ex Vescovo <b>H&uaml;nger</b> sembra essere rimasto a Buenos Aires, ma nessuno saprebbe dire
+                Anche l'ex Vescovo <b>H&uuml;nger</b> sembra essere rimasto a Buenos Aires, ma nessuno saprebbe dire
                 come, o dove.
             </Typography>
 

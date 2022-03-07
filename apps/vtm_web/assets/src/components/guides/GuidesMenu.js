@@ -139,7 +139,7 @@ const GuidesMenu = ({onSelected}: GuidesMenuProps): GenericReactComponent => {
                             <ListItemText primary="Clans" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.attributes)}>
-                            <ListItemText primary="Attributi" />
+                            <ListItemText primary="Attributi e Discipline" />
                         </ListItem>
                         <ListItem button sx={{ pl: 4 }} onClick={onMenuItemSelected(GuideRoutes.mechanics)}>
                             <ListItemText primary="Meccaniche" />
