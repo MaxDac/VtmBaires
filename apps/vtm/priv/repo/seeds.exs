@@ -410,7 +410,6 @@ Vtm.SeedsHelpers.insert_clan(%Vtm.Characters.Clan{name: "Ventrue", selectable: t
 
 Vtm.SeedsHelpers.set_selectable_clans(["Sangue Debole",
                                        "Vili",
-                                       "Banu Haqim",
                                        "Brujah",
                                        "Gangrel",
                                        "Lasombra",

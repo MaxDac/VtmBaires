@@ -12,6 +12,8 @@ export const allUnapprovedCharactersQuery: Query<AllUnapprovedCharactersQueryVar
         unapprovedCharactersList {
             id
             name
+            isComplete
+            approved
         }
     }
 `;

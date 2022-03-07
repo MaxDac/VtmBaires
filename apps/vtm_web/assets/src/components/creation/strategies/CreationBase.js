@@ -115,7 +115,7 @@ const CreationBase = <TFormAttributes>(props: CreationBaseProps<TFormAttributes>
 
         appendAttributesMutation(environment, request, props.currentStage)
             .then(_ => history.push(`${MainRoutes.creationBase}${props.currentStage + 1}`))
-            .catch(e => enqueueSnackbar({ type: 'error', graphqlError: e, message: "There was an error while updating the character." }));
+            .catch(e => enqueueSnackbar({ type: 'error', graphqlError: e, message: "C'è stato un errore nell'aggiornamento del personaggio, per favore contattare un master." }));
     }
 
     return (

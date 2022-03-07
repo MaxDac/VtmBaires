@@ -9,7 +9,7 @@ const AppVersion = (): GenericReactComponent => {
         <Typography sx={{
             fontSize: "13px"
         }}>
-            App Version: 1.3.0.22030602
+            App Version: 1.3.1.22030701
         </Typography>
     );
 };

@@ -57,7 +57,8 @@ defmodule VtmWeb.MixProject do
       {:swoosh, "~> 1.5"},
       {:gen_smtp, "~> 1.0"},
       {:sched_ex, "~> 1.1"},
-      {:libcluster, "~> 3.3"}
+      {:libcluster, "~> 3.3"},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 

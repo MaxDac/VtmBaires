@@ -15,8 +15,74 @@ import List from "@mui/material/List";
 import {useTheme} from "@mui/material/styles";
 import {useMediaQuery} from "@mui/material";
 import MenuLayout from "../../_base/components/MenuLayout";
-import {matchNames} from "../../_base/utils";
+import { matchNames, readonlyFilterNulls } from "../../_base/utils";
 import type {GenericReactComponent} from "../../_base/types";
+import type {AllCharactersQuery$data} from "../../services/queries/character/__generated__/AllCharactersQuery.graphql";
+import type {AllUnapprovedCharactersQuery$data} from "../../services/queries/character/__generated__/AllUnapprovedCharactersQuery.graphql";
+
+type Props = {
+    characters: AllCharactersQuery$data['charactersList'] | AllUnapprovedCharactersQuery$data['unapprovedCharactersList'];
+};
+
+const ShowCharactersComponent = ({characters}: Props): GenericReactComponent => {
+    const notNullCharacters = readonlyFilterNulls(characters)
+    const [filteredCharacter, setFilteredCharacter] = useState(notNullCharacters)
+
+    const primaryTextProps = (approved, isComplete) => {
+        if (isComplete !== true || approved !== true) {
+            return {
+                color: "secondary.light"
+            }
+        }
+
+        return {};
+    }
+
+    const characterLine = ({id, name, approved, isComplete}) => {
+        return (
+            <Box component="div" key={id}>
+                <Divider />
+                <ListItem key={id}
+                          secondaryAction={<CharacterActions characterId={id} />}>
+                    <ListItemText primary={name}
+                                  primaryTypographyProps={primaryTextProps(approved, isComplete)} />
+                </ListItem>
+            </Box>
+        );
+    }
+
+    const showCharacters = () =>
+        filteredCharacter.map(characterLine);
+
+    const filter = ({target: {value}}) => {
+        const filtered = notNullCharacters.filter(c => matchNames(c.name, value));
+        setFilteredCharacter(_ => filtered);
+    };
+
+    return (
+        <Box sx={{
+            margin: "0 auto",
+            maxWidth: "550px",
+            bgcolor: 'background.paper'
+        }}>
+            <Grid container>
+                <Grid item xs={12} sx={{
+                    textAlign: "center",
+                    padding: "20px"
+                }}>
+                    <TextField onKeyUp={filter}
+                               variant="outlined"
+                               label="Filtra" />
+                </Grid>
+                <Grid item xs={12}>
+                    <List sx={{width: "100%"}}>
+                        {showCharacters()}
+                    </List>
+                </Grid>
+            </Grid>
+        </Box>
+    );
+}
 
 const CharacterActions = ({characterId}) => {
     const theme = useTheme();
@@ -49,61 +115,6 @@ const CharacterActions = ({characterId}) => {
             <ShowCharacterSheet characterId={characterId} />
             <ShowCharacterDashboard characterId={characterId} />
         </Stack>
-    );
-}
-
-type Props = {
-    characters: Array<{
-        +id: string,
-        +name: ?string
-    }>;
-};
-
-const ShowCharactersComponent = ({characters}: Props): GenericReactComponent => {
-    const [filteredCharacter, setFilteredCharacter] = useState(characters);
-
-    const characterLine = ({id, name}) => {
-        return (
-            <Box component="div" key={id}>
-                <Divider />
-                <ListItem key={id}
-                          secondaryAction={<CharacterActions characterId={id} />}>
-                    <ListItemText primary={name} />
-                </ListItem>
-            </Box>
-        );
-    }
-
-    const showCharacters = () =>
-        filteredCharacter.map(characterLine);
-
-    const filter = ({target: {value}}) => {
-        const filtered = characters.filter(c => matchNames(c.name, value));
-        setFilteredCharacter(_ => filtered);
-    };
-
-    return (
-        <Box sx={{
-            margin: "0 auto",
-            maxWidth: "550px",
-            bgcolor: 'background.paper'
-        }}>
-            <Grid container>
-                <Grid item xs={12} sx={{
-                    textAlign: "center",
-                    padding: "20px"
-                }}>
-                    <TextField onKeyUp={filter}
-                               variant="outlined"
-                               label="Filtra" />
-                </Grid>
-                <Grid item xs={12}>
-                    <List sx={{width: "100%"}}>
-                        {showCharacters()}
-                    </List>
-                </Grid>
-            </Grid>
-        </Box>
     );
 }
 

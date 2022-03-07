@@ -120,8 +120,8 @@ const DisciplinesControlInternal = ({
                                         rel="noreferrer">Guida</Link>, e la spiegazione di come riempire questa sezione
                             nella <Link to={GuideRoutes.creation}
                                         target="_blank"
-                                        rel="noreferrer">Guida di creazione</Link>. Ricorda che hai diritto a <b>due</b>
-                            poteri della prima Disciplina che hai scelto, e <b>uno</b> per la seconda.
+                                        rel="noreferrer">Guida di creazione</Link>. Ricorda che hai diritto 
+                            a <b>due</b> poteri della prima Disciplina che hai scelto, e <b>uno</b> per la seconda.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>

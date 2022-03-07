@@ -18,9 +18,17 @@ defmodule VtmWeb.Resolvers.CharacterResolvers do
   defp map_character_user(c = %{user_id: user_id}), do: c |> Map.put(:user, %{id: user_id})
   defp map_character_user(c), do: c
 
+  def all(_, _, %{context: %{current_user: %{role: role}}}) do
+    IO.puts "Role is #{inspect role}"
+    {:ok,
+      Characters.all(role == :master)
+      |> Enum.map(&map_character_user/1)
+    }
+  end
+
   def all(_, _, _) do
     {:ok,
-      Characters.all()
+      Characters.all(false)
       |> Enum.map(&map_character_user/1)
     }
   end

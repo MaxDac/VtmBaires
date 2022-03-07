@@ -12,6 +12,8 @@ export const allCharactersQuery: Query<AllCharactersQueryVariables, AllCharacter
         charactersList {
             id
             name
+            approved
+            isComplete
             user {
                 id
             }

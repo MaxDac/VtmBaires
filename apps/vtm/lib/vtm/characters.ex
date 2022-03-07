@@ -32,14 +32,30 @@ defmodule Vtm.Characters do
     |> order_by([c], c.name)
   end
 
-  @spec all() :: list(Character.t())
-  def all() do
-    all_characters_query()
+  @spec select_character_for_all_query(Ecto.Query.t()) :: Ecto.Query.t()
+  defp select_character_for_all_query(query) do
+    query
     |> select([c], %Character{
       id: c.id,
       name: c.name,
+      is_complete: c.is_complete,
+      approved: c.approved,
       user_id: c.user_id
     })
+  end
+
+  @spec all(boolean()) :: list(Character.t())
+  def all(is_master) when is_master == true do
+    Character
+    |> from()
+    |> order_by([c], c.name)
+    |> select_character_for_all_query()
+    |> Repo.all()
+  end
+
+  def all(_) do
+    all_characters_query()
+    |> select_character_for_all_query()
     |> Repo.all()
   end
 

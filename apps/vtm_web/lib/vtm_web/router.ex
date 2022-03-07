@@ -11,6 +11,7 @@ defmodule VtmWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug
     plug VtmWeb.ContextPlug
     plug VtmWeb.HttpContextPlug
     plug VtmWeb.ErrorStatusPlug
