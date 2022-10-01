@@ -14,7 +14,7 @@ jobs:
           service_principal: ca1407b1-d2ec-4c61-aa97-2006ce099385
           service_principal_password: ${{ secrets.service_principal_password }}
           tenant: b4a3e2d3-2d99-4b3e-a15e-5a85d655c544
-          registry: /subscriptions/8d00305a-0cc3-4bc8-a8fc-320806a17895/resourceGroups/bostonbynight-gdr/providers/Microsoft.ContainerRegistry/registries/bostonbynightgdr
+          registry: bostonbynightgdr
           repository: bostonbynight-gdr
           image: bostonbynight-gdr
           git_access_token: ${{ secrets.GITHUB_TOKEN }}
