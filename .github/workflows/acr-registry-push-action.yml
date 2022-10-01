@@ -1,0 +1,29 @@
+name: build_image
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ACR build
+        id: acr
+        uses: azure/acr-build@v1
+        with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: ${{ secrets.registry }}
+          repository: ${{ secrets.repository }}
+          image: bostonbynight-gdr
+          git_access_token: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: DockerfileGithubAction
+          branch: master
+          build-args: |
+            db_url=${{ secrets.POSTGRES_CONN_STRING }}
+            secret_key=${{ secrets.SECRET_KEY_STRING }}
+            mail_smtps_server=smtps.aruba.it
+            mail_port=465
+            mail_user=postmaster@vtmbaires.eu
+            mail_pass=${{ secrets.MAIL_PWD }}
