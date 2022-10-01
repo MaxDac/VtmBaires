@@ -1,7 +1,7 @@
-name: build_image
+name: Build Image for ACR
 on:
   push:
-    branches: [master]
+    branches: [master, gh-actions]
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
           git_access_token: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: DockerfileGithubAction
           branch: master
-          build-args: |
+          build_args: |
             db_url=${{ secrets.POSTGRES_CONN_STRING }}
             secret_key=${{ secrets.SECRET_KEY_STRING }}
             mail_smtps_server=smtps.aruba.it
