@@ -15,6 +15,7 @@ jobs:
           service_principal_password: ${{ secrets.service_principal_password }}
           tenant: b4a3e2d3-2d99-4b3e-a15e-5a85d655c544
           registry: bostonbynightgdr
+          repository: bostonbynight-gdr
           image: bostonbynight-gdr
           git_access_token: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: DockerfileGithubAction
