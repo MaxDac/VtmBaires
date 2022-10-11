@@ -1,3 +1,3 @@
-[![Docker Image CI](https://github.com/MaxDac/VtmBaires/actions/workflows/docker-image.yml/badge.svg?branch=master)](https://github.com/MaxDac/VtmBaires/actions/workflows/docker-image.yml)
+[![Build Image for ACR](https://github.com/MaxDac/VtmBaires/actions/workflows/acr-registry-push-action.yml/badge.svg)](https://github.com/MaxDac/VtmBaires/actions/workflows/acr-registry-push-action.yml)
 
-# Vtm.Umbrella
+# Vtm
