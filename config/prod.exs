@@ -11,7 +11,11 @@ import Config
 # before starting your production server.
 config :vtm_web, VtmWeb.Endpoint,
   url: [host: "vtmbaires.eu", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  check_origin: [
+    "https://vtmbaires.eu",
+    "https://www.vtmbaires.eu"
+  ]
 
 config :vtm_web, :environment, :prod
 
