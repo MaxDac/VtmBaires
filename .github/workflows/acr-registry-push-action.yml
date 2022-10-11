@@ -11,7 +11,7 @@ jobs:
         id: acr
         uses: azure/acr-build@v1
         with:
-          service_principal: 7d3b8fe5-abd5-4312-8f74-18a7987d5130
+          service_principal: d19aa1b0-8894-4d0a-806f-117bd556e2ae
           service_principal_password: ${{ secrets.service_principal_password }}
           tenant: b4a3e2d3-2d99-4b3e-a15e-5a85d655c544
           registry: vtmbaires
